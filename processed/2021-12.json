@@ -1,0 +1,548 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2021-12",
+  "messages": [
+    {
+      "id": "msg-e3dcb6b7d658",
+      "message_id": "<CAJ=0CtCN4hsAd2=76Y-TfXsOWfKiqA08-Jw0fm6GXLXRQM9P7g@mail.gmail.com>",
+      "from_name": "Adrian Dușa",
+      "from_email_hash": "08f405507ac687741364700c3283681d6a9bc9b1d96b171d3bdccbc9cc7be1a2",
+      "date": "2021-12-02T13:22:32+02:00",
+      "subject": "[R-SIG-Mac] unable to install from source packages needing compiled C code",
+      "subject_clean": "unable to install from source packages needing compiled C code",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear All,\n\nI am not sure when this started, presumably after upgrading my OS to\nMonterey 12.0.1\nWith packages needing compilation, under a Terminal I get this error:\n\n/Library/Frameworks/R.framework/Resources/include/R.h:55:11: fatal error:\n'stdlib.h' file not found\n# include <stdlib.h> /* Not used by R itself, but widely assumed in\npackages */\n          ^~~~~~~~~~\n1 error generated.\n\nI've searched over the Internet, the most common problem is the absence of\nthe Command Line Tools, but I do have those installed.\n\nAn old topic mentioned installing:\n/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.\npkg\n\nHowever the /Library/Developer/CommandLineTools/ directory does not hold a\n\"Packages\" subdirectory.\n\nDoes anyone else have this problem?\n\nThanks very much in advance for any hint,\nAdrian\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear All,\n\nI am not sure when this started, presumably after upgrading my OS to\nMonterey 12.0.1\nWith packages needing compilation, under a Terminal I get this error:\n\n/Library/Frameworks/R.framework/R",
+      "thread_id": "thread-e3dcb6b7d658",
+      "thread_depth": 0,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-05a3ad349947",
+      "message_id": "<42B59E15-B902-4C4D-8C3A-18B47AD3D8CF@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-12-03T09:56:16+13:00",
+      "subject": "[R-SIG-Mac]  unable to install from source packages needing compiled C code",
+      "subject_clean": "unable to install from source packages needing compiled C code",
+      "in_reply_to": "<CAJ=0CtCN4hsAd2=76Y-TfXsOWfKiqA08-Jw0fm6GXLXRQM9P7g@mail.gmail.com>",
+      "references": [
+        "<CAJ=0CtCN4hsAd2=76Y-TfXsOWfKiqA08-Jw0fm6GXLXRQM9P7g@mail.gmail.com>"
+      ],
+      "body_plain": "Adrian,\n\nplease check your tools. The error looks like you may be mixing different compilers. So, first check that you are using Xcode tools (command line tools or Xcode itself doesn't matter) and not Homebrew or other non-Apple compilers as they need additional configuration. For example:\n\n$ xcode-select -p\n/Applications/Xcode.app/Contents/Developer\n\n$ xcrun --show-sdk-path\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk\n\n$ which clang\n/usr/bin/clang\n\n$ clang --version\nApple clang version 12.0.5 (clang-1205.0.22.11)\nTarget: arm64-apple-darwin20.6.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n\n\nIf in doubt, you can always use\nsudo xcode-select --install\nto make sure you have the tools.\n\nSecond, make sure you don't have old overrides in ~/.R such as Makeconf or similar. Remove ~/.R if needed.\n\nFinally, if you still have issues, please post the full output since you didn't give us any details whatsoever so we can only guess.\n\nCheers,\nSimon\n\n\n\n> On Dec 3, 2021, at 12:22 AM, Adrian Du?a <dusa.adrian at gmail.com> wrote:\n> \n> Dear All,\n> \n> I am not sure when this started, presumably after upgrading my OS to\n> Monterey 12.0.1\n> With packages needing compilation, under a Terminal I get this error:\n> \n> /Library/Frameworks/R.framework/Resources/include/R.h:55:11: fatal error:\n> 'stdlib.h' file not found\n> # include <stdlib.h> /* Not used by R itself, but widely assumed in\n> packages */\n>          ^~~~~~~~~~\n> 1 error generated.\n> \n> I've searched over the Internet, the most common problem is the absence of\n> the Command Line Tools, but I do have those installed.\n> \n> An old topic mentioned installing:\n> /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.\n> pkg\n> \n> However the /Library/Developer/CommandLineTools/ directory does not hold a\n> \"Packages\" subdirectory.\n> \n> Does anyone else have this problem?\n> \n> Thanks very much in advance for any hint,\n> Adrian\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Adrian,\n\nplease check your tools. The error looks like you may be mixing different compilers. So, first check that you are using Xcode tools (command line tools or Xcode itself doesn't matter) and not",
+      "thread_id": "thread-e3dcb6b7d658",
+      "thread_depth": 1,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-aae3ef3f9bcf",
+      "message_id": "<CAJ=0CtDhSw72Wu73ubPoi-TDsEXAsJvs9qCZX=-=ohTrFKgryA@mail.gmail.com>",
+      "from_name": "Adrian Dușa",
+      "from_email_hash": "08f405507ac687741364700c3283681d6a9bc9b1d96b171d3bdccbc9cc7be1a2",
+      "date": "2021-12-02T23:12:31+02:00",
+      "subject": "[R-SIG-Mac]  unable to install from source packages needing compiled C code",
+      "subject_clean": "unable to install from source packages needing compiled C code",
+      "in_reply_to": "<42B59E15-B902-4C4D-8C3A-18B47AD3D8CF@R-project.org>",
+      "references": [
+        "<CAJ=0CtCN4hsAd2=76Y-TfXsOWfKiqA08-Jw0fm6GXLXRQM9P7g@mail.gmail.com>",
+        "<42B59E15-B902-4C4D-8C3A-18B47AD3D8CF@R-project.org>"
+      ],
+      "body_plain": "Thank you Simon,\n\nI have the official Apple CLT, but not the full Xcode. If needed I can\ninstall that as well, with a difference of about 10GB more space\ngetting used.\nThis is what I get:\n\n$ xcode-select -p\n/Library/Developer/CommandLineTools\n\n$ xcrun --show-sdk-path\n/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n\n$ which clang\n/usr/local/opt/llvm/bin/clang\n\n$ clang --version\nclang version 11.1.0\nTarget: x86_64-apple-darwin21.1.0\nThread model: posix\nInstalledDir: /usr/local/opt/llvm/bin\n\nThere is a difference in clang, which I remember to have installed to test\nvarious settings for the compiled code in the package QCA.\nThis error is about package admisc, which gave the following output:\n\n $ R CMD INSTALL admisc_0.20-5.tar.gz\n* installing to library ?/Users/dusadrian/Library/R/x86_64/4.1/library?\n* installing *source* package ?admisc? ...\n** using staged installation\n** libs\nclang -mmacosx-version-min=10.13\n-I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG\n-I/usr/local/include   -fPIC  -g -O1 -c admisc.c -o admisc.o\nIn file included from admisc.c:1:\n/Library/Frameworks/R.framework/Resources/include/R.h:55:11: fatal error:\n'stdlib.h' file not found\n# include <stdlib.h> /* Not used by R itself, but widely assumed in\npackages */\n          ^~~~~~~~~~\n1 error generated.\nmake: *** [admisc.o] Error 1\nERROR: compilation failed for package ?admisc?\n* removing ?/Users/dusadrian/Library/R/x86_64/4.1/library/admisc?\n* restoring previous ?/Users/dusadrian/Library/R/x86_64/4.1/library/admisc?\n\n\nIn the meantime I've tried various things (like copying stdlib.h from\nsomewhere else in /usr/local/include/, but to no avail since it now\ncomplains about\n\n* installing to library ?/Users/dusadrian/Library/R/x86_64/4.1/library?\n* installing *source* package ?admisc? ...\n** using staged installation\n** libs\nclang -mmacosx-version-min=10.13\n-I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG\n-I/usr/local/include   -fPIC  -g -O1 -c admisc.c -o admisc.o\nIn file included from admisc.c:1:\nIn file included from\n/Library/Frameworks/R.framework/Resources/include/R.h:55:\nIn file included from /usr/local/include/stdlib.h:64:\nIn file included from /usr/local/include/_types.h:27:\n/usr/local/include/sys/_types.h:33:10: fatal error: 'machine/_types.h' file\nnot found\n#include <machine/_types.h>\n         ^~~~~~~~~~~~~~~~~~\n1 error generated.\nmake: *** [admisc.o] Error 1\nERROR: compilation failed for package ?admisc?\n* removing ?/Users/dusadrian/Library/R/x86_64/4.1/library/admisc?\n* restoring previous ?/Users/dusadrian/Library/R/x86_64/4.1/library/admisc?\n\n\nI have tried both:\nsudo rm -rf /Library/Developer/CommandLineTools\nxcode-select --install\n\nas well as downloading the CLT from developer.apple.com and installing from\nthe corresponding .dmg file, same issue.\n\nIt looks like it misses the headers, for some reason.\nBest,\nAdrian\n\n\nOn Thu, 2 Dec 2021 at 22:57, Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n\n>\n> Adrian,\n>\n> please check your tools. The error looks like you may be mixing different\n> compilers. So, first check that you are using Xcode tools (command line\n> tools or Xcode itself doesn't matter) and not Homebrew or other non-Apple\n> compilers as they need additional configuration. For example:\n>\n> $ xcode-select -p\n> /Applications/Xcode.app/Contents/Developer\n>\n> $ xcrun --show-sdk-path\n>\n> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk\n>\n> $ which clang\n> /usr/bin/clang\n>\n> $ clang --version\n> Apple clang version 12.0.5 (clang-1205.0.22.11)\n> Target: arm64-apple-darwin20.6.0\n> Thread model: posix\n> InstalledDir:\n> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n>\n>\n> If in doubt, you can always use\n> sudo xcode-select --install\n> to make sure you have the tools.\n>\n> Second, make sure you don't have old overrides in ~/.R such as Makeconf or\n> similar. Remove ~/.R if needed.\n>\n> Finally, if you still have issues, please post the full output since you\n> didn't give us any details whatsoever so we can only guess.\n>\n> Cheers,\n> Simon\n>\n>\n>\n> > On Dec 3, 2021, at 12:22 AM, Adrian Du?a <dusa.adrian at gmail.com> wrote:\n> >\n> > Dear All,\n> >\n> > I am not sure when this started, presumably after upgrading my OS to\n> > Monterey 12.0.1\n> > With packages needing compilation, under a Terminal I get this error:\n> >\n> > /Library/Frameworks/R.framework/Resources/include/R.h:55:11: fatal error:\n> > 'stdlib.h' file not found\n> > # include <stdlib.h> /* Not used by R itself, but widely assumed in\n> > packages */\n> >          ^~~~~~~~~~\n> > 1 error generated.\n> >\n> > I've searched over the Internet, the most common problem is the absence\n> of\n> > the Command Line Tools, but I do have those installed.\n> >\n> > An old topic mentioned installing:\n> >\n> /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.\n> > pkg\n> >\n> > However the /Library/Developer/CommandLineTools/ directory does not hold\n> a\n> > \"Packages\" subdirectory.\n> >\n> > Does anyone else have this problem?\n> >\n> > Thanks very much in advance for any hint,\n> > Adrian\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thank you Simon,\n\nI have the official Apple CLT, but not the full Xcode. If needed I can\ninstall that as well, with a difference of about 10GB more space\ngetting used.\nThis is what I get:\n\n$ xcode-sel",
+      "thread_id": "thread-e3dcb6b7d658",
+      "thread_depth": 2,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-31032ab356d4",
+      "message_id": "<2DE9C5C0-3BC2-4115-AF60-5E106F0FA70C@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-12-03T10:28:35+13:00",
+      "subject": "[R-SIG-Mac]  unable to install from source packages needing compiled C code",
+      "subject_clean": "unable to install from source packages needing compiled C code",
+      "in_reply_to": "<CAJ=0CtDhSw72Wu73ubPoi-TDsEXAsJvs9qCZX=-=ohTrFKgryA@mail.gmail.com>",
+      "references": [
+        "<CAJ=0CtCN4hsAd2=76Y-TfXsOWfKiqA08-Jw0fm6GXLXRQM9P7g@mail.gmail.com>",
+        "<42B59E15-B902-4C4D-8C3A-18B47AD3D8CF@R-project.org>",
+        "<CAJ=0CtDhSw72Wu73ubPoi-TDsEXAsJvs9qCZX=-=ohTrFKgryA@mail.gmail.com>"
+      ],
+      "body_plain": "Adrian,\n\n\n> On Dec 3, 2021, at 10:12 AM, Adrian Du?a <dusa.adrian at gmail.com> wrote:\n> \n> Thank you Simon,\n> \n> I have the official Apple CLT, but not the full Xcode. If needed I can install that as well, with a difference of about 10GB more space getting used.\n> This is what I get:\n> \n> $ xcode-select -p\n> /Library/Developer/CommandLineTools\n> \n> $ xcrun --show-sdk-path\n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n> \n> $ which clang\n> /usr/local/opt/llvm/bin/clang\n> \n\n\n^^^-- this is your problem. You're not using Xcode so that's exactly what I said, you have a broken compiler. Remove /usr/local/opt and it should work.\n\nCheers,\nSimon",
+      "body_snippet": "Adrian,\n\n\n> On Dec 3, 2021, at 10:12 AM, Adrian Du?a <dusa.adrian at gmail.com> wrote:\n> \n> Thank you Simon,\n> \n> I have the official Apple CLT, but not the full Xcode. If needed I can install that as",
+      "thread_id": "thread-e3dcb6b7d658",
+      "thread_depth": 3,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-93ef42aa229d",
+      "message_id": "<CAJXgQP3W+BxATugBe-=NcgU9QXHnwuQSJXR4pap72CP_CMqj-w@mail.gmail.com>",
+      "from_name": "Kevin Ushey",
+      "from_email_hash": "c0bffc799bd95bf26caa6b1c9abdc3f8fdc556eac7399824869756688d2f0689",
+      "date": "2021-12-02T15:32:06-08:00",
+      "subject": "[R-SIG-Mac]  unable to install from source packages needing compiled C code",
+      "subject_clean": "unable to install from source packages needing compiled C code",
+      "in_reply_to": "<2DE9C5C0-3BC2-4115-AF60-5E106F0FA70C@R-project.org>",
+      "references": [
+        "<CAJ=0CtCN4hsAd2=76Y-TfXsOWfKiqA08-Jw0fm6GXLXRQM9P7g@mail.gmail.com>",
+        "<42B59E15-B902-4C4D-8C3A-18B47AD3D8CF@R-project.org>",
+        "<CAJ=0CtDhSw72Wu73ubPoi-TDsEXAsJvs9qCZX=-=ohTrFKgryA@mail.gmail.com>",
+        "<2DE9C5C0-3BC2-4115-AF60-5E106F0FA70C@R-project.org>"
+      ],
+      "body_plain": "This may also make your life challenging:\n\n/usr/local/include/sys/_types.h:33:10: fatal error: 'machine/_types.h' file\nnot found\n#include <machine/_types.h>\n         ^~~~~~~~~~~~~~~~~~\n1 error generated.\n\nYou have some headers installed in /usr/local/include that are\nshadowing the default macOS toolchain's headers, and those appear to\nbe incompatible with the system toolchain. You'll likely need to\nremove those as well.\n\nTo be complete, x86_64 builds of R usually have something like:\n\nCPPFLAGS = -I/usr/local/include\n\nwithin their Makeconf; if you've placed headers there that shadow the\ndefault system headers, they'll be used instead.\n\ntl;dr: you probably need to do a couple things.\n\n(1) Remove /usr/local/opt/llvm/bin from your PATH so llvm clang stops\nshadowing the system clang;\n(2) Remove the system headers in /usr/local/include that are masking\nyour system header includes.\n\nYou could also probably force the use of system clang in R by setting\nCC = /usr/bin/clang and CXX = /usr/bin/clang++ in (say) ~/.R/Makevars,\nbut I haven't tried that.\n\nBest,\nKevin\n\nOn Thu, Dec 2, 2021 at 1:29 PM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n>\n> Adrian,\n>\n>\n> > On Dec 3, 2021, at 10:12 AM, Adrian Du?a <dusa.adrian at gmail.com> wrote:\n> >\n> > Thank you Simon,\n> >\n> > I have the official Apple CLT, but not the full Xcode. If needed I can install that as well, with a difference of about 10GB more space getting used.\n> > This is what I get:\n> >\n> > $ xcode-select -p\n> > /Library/Developer/CommandLineTools\n> >\n> > $ xcrun --show-sdk-path\n> > /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n> >\n> > $ which clang\n> > /usr/local/opt/llvm/bin/clang\n> >\n>\n>\n> ^^^-- this is your problem. You're not using Xcode so that's exactly what I said, you have a broken compiler. Remove /usr/local/opt and it should work.\n>\n> Cheers,\n> Simon\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "This may also make your life challenging:\n\n/usr/local/include/sys/_types.h:33:10: fatal error: 'machine/_types.h' file\nnot found\n#include <machine/_types.h>\n         ^~~~~~~~~~~~~~~~~~\n1 error generat",
+      "thread_id": "thread-e3dcb6b7d658",
+      "thread_depth": 4,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-e5d646c397cb",
+      "message_id": "<56B13382-D498-4DA2-912B-3293C6F923EF@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-12-03T12:59:40+13:00",
+      "subject": "[R-SIG-Mac]  unable to install from source packages needing compiled C code",
+      "subject_clean": "unable to install from source packages needing compiled C code",
+      "in_reply_to": "<CAJXgQP3W+BxATugBe-=NcgU9QXHnwuQSJXR4pap72CP_CMqj-w@mail.gmail.com>",
+      "references": [
+        "<CAJ=0CtCN4hsAd2=76Y-TfXsOWfKiqA08-Jw0fm6GXLXRQM9P7g@mail.gmail.com>",
+        "<42B59E15-B902-4C4D-8C3A-18B47AD3D8CF@R-project.org>",
+        "<CAJ=0CtDhSw72Wu73ubPoi-TDsEXAsJvs9qCZX=-=ohTrFKgryA@mail.gmail.com>",
+        "<2DE9C5C0-3BC2-4115-AF60-5E106F0FA70C@R-project.org>",
+        "<CAJXgQP3W+BxATugBe-=NcgU9QXHnwuQSJXR4pap72CP_CMqj-w@mail.gmail.com>"
+      ],
+      "body_plain": "Kevin has a good point, there is likely a lot more messed up in your system. A good way to restore normality is something like:\n\nsudo -i\ncd /usr/local\nmkdir .disable\nmv * .disable/\n\nThings should work then. You can undo the above with something like\n\nsudo -i\ncd /usr/local\nmv .disable/* .\nrmdir .disable\n\nOn older macOS versions it was so much easier since you could simple rename /usr/local but Apple doesn't want us to do such simple things anymore ...\n\nCheers,\nSimon\n\n\n\n> On Dec 3, 2021, at 12:32 PM, Kevin Ushey <kevinushey at gmail.com> wrote:\n> \n> This may also make your life challenging:\n> \n> /usr/local/include/sys/_types.h:33:10: fatal error: 'machine/_types.h' file\n> not found\n> #include <machine/_types.h>\n>         ^~~~~~~~~~~~~~~~~~\n> 1 error generated.\n> \n> You have some headers installed in /usr/local/include that are\n> shadowing the default macOS toolchain's headers, and those appear to\n> be incompatible with the system toolchain. You'll likely need to\n> remove those as well.\n> \n> To be complete, x86_64 builds of R usually have something like:\n> \n> CPPFLAGS = -I/usr/local/include\n> \n> within their Makeconf; if you've placed headers there that shadow the\n> default system headers, they'll be used instead.\n> \n> tl;dr: you probably need to do a couple things.\n> \n> (1) Remove /usr/local/opt/llvm/bin from your PATH so llvm clang stops\n> shadowing the system clang;\n> (2) Remove the system headers in /usr/local/include that are masking\n> your system header includes.\n> \n> You could also probably force the use of system clang in R by setting\n> CC = /usr/bin/clang and CXX = /usr/bin/clang++ in (say) ~/.R/Makevars,\n> but I haven't tried that.\n> \n> Best,\n> Kevin\n> \n> On Thu, Dec 2, 2021 at 1:29 PM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n>> \n>> \n>> Adrian,\n>> \n>> \n>>> On Dec 3, 2021, at 10:12 AM, Adrian Du?a <dusa.adrian at gmail.com> wrote:\n>>> \n>>> Thank you Simon,\n>>> \n>>> I have the official Apple CLT, but not the full Xcode. If needed I can install that as well, with a difference of about 10GB more space getting used.\n>>> This is what I get:\n>>> \n>>> $ xcode-select -p\n>>> /Library/Developer/CommandLineTools\n>>> \n>>> $ xcrun --show-sdk-path\n>>> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n>>> \n>>> $ which clang\n>>> /usr/local/opt/llvm/bin/clang\n>>> \n>> \n>> \n>> ^^^-- this is your problem. You're not using Xcode so that's exactly what I said, you have a broken compiler. Remove /usr/local/opt and it should work.\n>> \n>> Cheers,\n>> Simon\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Kevin has a good point, there is likely a lot more messed up in your system. A good way to restore normality is something like:\n\nsudo -i\ncd /usr/local\nmkdir .disable\nmv * .disable/\n\nThings should work",
+      "thread_id": "thread-e3dcb6b7d658",
+      "thread_depth": 5,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-2837d992d246",
+      "message_id": "<CAJ=0CtDKi+w+pyFaYPBBohV5-scEFo_2ND5X1FWRt-QRr8P+nQ@mail.gmail.com>",
+      "from_name": "Adrian Dușa",
+      "from_email_hash": "08f405507ac687741364700c3283681d6a9bc9b1d96b171d3bdccbc9cc7be1a2",
+      "date": "2021-12-03T02:05:40+02:00",
+      "subject": "[R-SIG-Mac]  unable to install from source packages needing compiled C code",
+      "subject_clean": "unable to install from source packages needing compiled C code",
+      "in_reply_to": "<CAJXgQP3W+BxATugBe-=NcgU9QXHnwuQSJXR4pap72CP_CMqj-w@mail.gmail.com>",
+      "references": [
+        "<CAJ=0CtCN4hsAd2=76Y-TfXsOWfKiqA08-Jw0fm6GXLXRQM9P7g@mail.gmail.com>",
+        "<42B59E15-B902-4C4D-8C3A-18B47AD3D8CF@R-project.org>",
+        "<CAJ=0CtDhSw72Wu73ubPoi-TDsEXAsJvs9qCZX=-=ohTrFKgryA@mail.gmail.com>",
+        "<2DE9C5C0-3BC2-4115-AF60-5E106F0FA70C@R-project.org>",
+        "<CAJXgQP3W+BxATugBe-=NcgU9QXHnwuQSJXR4pap72CP_CMqj-w@mail.gmail.com>"
+      ],
+      "body_plain": "Thanks again, problem solved.\nRemoving llvm from /usr/local/opt does the trick.\n\nKevin's suggestion to have a Makevars file pointing to the system clang\nalso worked, although I have no idea which headers from /usr/local/include\nare masking and which are not. I've removed all and get no more errors or\nwarnings.\n\nBest wishes,\nAdrian\n\n\n\nOn Fri, 3 Dec 2021 at 01:32, Kevin Ushey <kevinushey at gmail.com> wrote:\n\n> This may also make your life challenging:\n>\n> /usr/local/include/sys/_types.h:33:10: fatal error: 'machine/_types.h' file\n> not found\n> #include <machine/_types.h>\n>          ^~~~~~~~~~~~~~~~~~\n> 1 error generated.\n>\n> You have some headers installed in /usr/local/include that are\n> shadowing the default macOS toolchain's headers, and those appear to\n> be incompatible with the system toolchain. You'll likely need to\n> remove those as well.\n>\n> To be complete, x86_64 builds of R usually have something like:\n>\n> CPPFLAGS = -I/usr/local/include\n>\n> within their Makeconf; if you've placed headers there that shadow the\n> default system headers, they'll be used instead.\n>\n> tl;dr: you probably need to do a couple things.\n>\n> (1) Remove /usr/local/opt/llvm/bin from your PATH so llvm clang stops\n> shadowing the system clang;\n> (2) Remove the system headers in /usr/local/include that are masking\n> your system header includes.\n>\n> You could also probably force the use of system clang in R by setting\n> CC = /usr/bin/clang and CXX = /usr/bin/clang++ in (say) ~/.R/Makevars,\n> but I haven't tried that.\n>\n> Best,\n> Kevin\n>\n> On Thu, Dec 2, 2021 at 1:29 PM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n> >\n> >\n> > Adrian,\n> >\n> >\n> > > On Dec 3, 2021, at 10:12 AM, Adrian Du?a <dusa.adrian at gmail.com>\n> wrote:\n> > >\n> > > Thank you Simon,\n> > >\n> > > I have the official Apple CLT, but not the full Xcode. If needed I can\n> install that as well, with a difference of about 10GB more space getting\n> used.\n> > > This is what I get:\n> > >\n> > > $ xcode-select -p\n> > > /Library/Developer/CommandLineTools\n> > >\n> > > $ xcrun --show-sdk-path\n> > > /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n> > >\n> > > $ which clang\n> > > /usr/local/opt/llvm/bin/clang\n> > >\n> >\n> >\n> > ^^^-- this is your problem. You're not using Xcode so that's exactly\n> what I said, you have a broken compiler. Remove /usr/local/opt and it\n> should work.\n> >\n> > Cheers,\n> > Simon\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks again, problem solved.\nRemoving llvm from /usr/local/opt does the trick.\n\nKevin's suggestion to have a Makevars file pointing to the system clang\nalso worked, although I have no idea which head",
+      "thread_id": "thread-e3dcb6b7d658",
+      "thread_depth": 5,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-25b7db6a73f2",
+      "message_id": "<6E99B5FD-9122-474F-9D20-ED3FF3AEBBE5@gmail.com>",
+      "from_name": "Ziv Wolkowicki",
+      "from_email_hash": "47ae3d9d842be4be2b0981d6c5ad6ae1c6d9f53d7b45d750a18949fe8e2fadd0",
+      "date": "2021-12-09T09:13:41-08:00",
+      "subject": "[R-SIG-Mac] Reverse search not working in ARM binary of R-4.1.2 (or 4.1.0) from CRAN",
+      "subject_clean": "Reverse search not working in ARM binary of R-4.1.2 (or 4.1.0) from CRAN",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Team,\n\nI have an unusual issue I am only observing on specific binaries of R. I used to have ARM build of R-4.1.0 from https://cran.r-project.org/bin/macosx/ <https://cran.r-project.org/bin/macosx/>, and updated to R-4.1.2 running on my M1 Mac. Hitting ?Ctrl+R? (reverse search of previously run commands) did nothing on either version. It does not react in any way. Though it reacts to Ctrl+C for example, so it is respond to some signals.\n\nThe unusual thing is, installing the ARM version for R-4.1.2 from homebrew, and also the x86 Mac build of R-4.1.2 from https://cran.r-project.org/bin/macosx/ <https://cran.r-project.org/bin/macosx/>, Ctrl+R works just fine.\n\nI still have both homebrew and pre-packaged versions installed on my system if you need some additional information or experiments run.\n\nThanks,\nZiv\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Team,\n\nI have an unusual issue I am only observing on specific binaries of R. I used to have ARM build of R-4.1.0 from https://cran.r-project.org/bin/macosx/ <https://cran.r-project.org/bin/macosx/>, ",
+      "thread_id": "thread-25b7db6a73f2",
+      "thread_depth": 0,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-13a0dae966b6",
+      "message_id": "<3b84230e-7add-8b4d-0658-3e59606f6498@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-12-09T21:17:47Z",
+      "subject": "[R-SIG-Mac]  Reverse search not working in ARM binary of R-4.1.2 (or 4.1.0) from CRAN",
+      "subject_clean": "Reverse search not working in ARM binary of R-4.1.2 (or 4.1.0) from CRAN",
+      "in_reply_to": "<6E99B5FD-9122-474F-9D20-ED3FF3AEBBE5@gmail.com>",
+      "references": [
+        "<6E99B5FD-9122-474F-9D20-ED3FF3AEBBE5@gmail.com>"
+      ],
+      "body_plain": "On 09/12/2021 17:13, Ziv Wolkowicki wrote:\n> Team,\n> \n> I have an unusual issue I am only observing on specific binaries of R. I used to have ARM build of R-4.1.0 from https://cran.r-project.org/bin/macosx/ <https://cran.r-project.org/bin/macosx/>, and updated to R-4.1.2 running on my M1 Mac. Hitting ?Ctrl+R? (reverse search of previously run commands) did nothing on either version. It does not react in any way. Though it reacts to Ctrl+C for example, so it is respond to some signals.\n\nHmm, what does extSoftversion() say? I see\n \n     readline\n  \"4.2 (EditLine wrapper)\"\n\nSo it is not using readline, and it is that which supports Ctrl-R (which \nis not a signal).  This is all in the R-admin manual for you to read ....\n\n> The unusual thing is, installing the ARM version for R-4.1.2 from homebrew, and also the x86 Mac build of R-4.1.2 from https://cran.r-project.org/bin/macosx/ <https://cran.r-project.org/bin/macosx/>, Ctrl+R works just fine.\n\nWhereas the Intel (x86_64, sic) build is built with readline.  My guess \nis that Homebrew's R was too, but extSoftversion() would tell you -- \nOTOH last time I looked it was built without cairo support.  (But \nHomebrew is not supported here.)\n\n> I still have both homebrew and pre-packaged versions installed on my system if you need some additional information or experiments run.\n> \n> Thanks,\n> Ziv\n> \n> \n> \t[[alternative HTML version deleted]]\n\nPlease do as the posting guide asked and not send HTNL (so we don't have \nto decipher doubled URLs).\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 09/12/2021 17:13, Ziv Wolkowicki wrote:\n> Team,\n> \n> I have an unusual issue I am only observing on specific binaries of R. I used to have ARM build of R-4.1.0 from https://cran.r-project.org/bin/m",
+      "thread_id": "thread-25b7db6a73f2",
+      "thread_depth": 1,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-f67d58b4b1d4",
+      "message_id": "<06E70D54-42A1-409C-A2A7-245744A50564@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-12-10T10:30:06+13:00",
+      "subject": "[R-SIG-Mac]  Reverse search not working in ARM binary of R-4.1.2 (or 4.1.0) from CRAN",
+      "subject_clean": "Reverse search not working in ARM binary of R-4.1.2 (or 4.1.0) from CRAN",
+      "in_reply_to": "<6E99B5FD-9122-474F-9D20-ED3FF3AEBBE5@gmail.com>",
+      "references": [
+        "<6E99B5FD-9122-474F-9D20-ED3FF3AEBBE5@gmail.com>"
+      ],
+      "body_plain": "Ziv,\n\nthe released arm binaries use libedit from the system (supplied by Apple) which doesn't support reverse-search. The latest nightly binaries now include readline instead - see https://mac.R-project.org\n\nCheers,\nSimon\n\n\n\n> On Dec 10, 2021, at 6:13 AM, Ziv Wolkowicki <zivwolkowicki at gmail.com> wrote:\n> \n> Team,\n> \n> I have an unusual issue I am only observing on specific binaries of R. I used to have ARM build of R-4.1.0 from https://cran.r-project.org/bin/macosx/ <https://cran.r-project.org/bin/macosx/>, and updated to R-4.1.2 running on my M1 Mac. Hitting ?Ctrl+R? (reverse search of previously run commands) did nothing on either version. It does not react in any way. Though it reacts to Ctrl+C for example, so it is respond to some signals.\n> \n> The unusual thing is, installing the ARM version for R-4.1.2 from homebrew, and also the x86 Mac build of R-4.1.2 from https://cran.r-project.org/bin/macosx/ <https://cran.r-project.org/bin/macosx/>, Ctrl+R works just fine.\n> \n> I still have both homebrew and pre-packaged versions installed on my system if you need some additional information or experiments run.\n> \n> Thanks,\n> Ziv\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Ziv,\n\nthe released arm binaries use libedit from the system (supplied by Apple) which doesn't support reverse-search. The latest nightly binaries now include readline instead - see https://mac.R-proje",
+      "thread_id": "thread-25b7db6a73f2",
+      "thread_depth": 1,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-2cc773590015",
+      "message_id": "<BLAPR09MB7010DA12E3986E9299B28E0083759@BLAPR09MB7010.namprd09.prod.outlook.com>",
+      "from_name": "Wheeler, Matt (NIH/NIEHS) [E]",
+      "from_email_hash": "26690ab4834f1aefbb66fe73a739b618e0799478f6c9fb193b891b3d614c5544",
+      "date": "2021-12-14T13:06:06Z",
+      "subject": "[R-SIG-Mac] Strange C/C++ Compile Errors",
+      "subject_clean": "Strange C/C++ Compile Errors",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I hope someone can help me with my C++/Rcpp compile issue. I am building a package, which will eventually be on CRAN, but I am currently looking to have it available to collaborators who use macOS. I have successfully compiled it for Linux and Windows (it passes the CRAN checks), but I have had no such luck for macOS. Here, I get strange compile errors based upon namespaces. For example, the first two errors are below:\n\n\n\nIn file included from RcppExports.cpp:4:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSL.h:25:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSLForward.h:24:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/RcppCommon.h:30:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/r/headers.h:66:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/platform/compiler.h:100:\n\nIn file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath:308:\n\nIn file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h:308:\n\nIn file included from ./include/stdlib.h:36:\n\n/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdlib:99:9: error: no member named 'size_t' in the global namespace\n\nusing ::size_t;\n\n\n\nIn file included from RcppExports.cpp:4:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSL.h:25:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSLForward.h:24:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/RcppCommon.h:30:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/r/headers.h:66:\n\nIn file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/platform/compiler.h:153:\n\nIn file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map:435:\n\nIn file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__hash_table:15:\n\nIn file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:673:\n\n/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:319:5: error: no member named 'posix_memalign' in the global namespace\n\n ::posix_memalign(&__result, __alignment, __size);\n\n ~~^\n\n/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:330:5: error: reference to unresolved using declaration\n\n ::free(__ptr);\n\n\n\nEssentially, all of the errors are based upon namespace issues.\n\nI have seen that having a ~/.R/Makevars file messes things up, so I emptied that directory. I further have no h files in '/usr/local/include,'\n\nwhich will cause other build errors (i.e. I use NLOPT and GSL), but I want to get through this right now. Based upon other threads, I have the following for Xcode:\n\n\n\n%xcode-select -p\n\n/Library/Developer/CommandLineTools\n\n%xcrun --show-sdk-path\n\n/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n\n%which clang\n\n/usr/bin/clang\n\n\n\nNow, this is happening on two Macs. The first is an M1 with macOS Monterey 12.01, and I got it with a clean IT build. The second is the one I use for work. It is an Intel using Catalina 10.15.7 (19H1519). I can understand why the second one may be messed up. When the issue occurred almost a year ago, I was in a research phase, couldn't figure out the solution, installed brew gcc and had R compile with this 'nonstandard' compiler with many no-no hacks. It was a hack, but it worked. Now, I need to distribute this to the masses, and it is still not working on a fresh machine and a newer version of macOS. Before I go further, I want to see if there is some setup issue on my machine(s), possibly something I need to talk about to IT.\n\n\n\nFurther, the file RcppExports.cpp is automatically generated in Rcpp, so I don't think it is a code issue, but it is a dependency issue with clang, but here I am not knowledgeable enough to fix. Quite honestly, Apple?s compiler setup is baffling, but I am used to /usr/include/ etc.   I can also compile Rcpp from source code, and I have compiled other packages on these machines.\n\n\n\nThanks in advance,\n\n\n\nMatt\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I hope someone can help me with my C++/Rcpp compile issue. I am building a package, which will eventually be on CRAN, but I am currently looking to have it available to collaborators who use macOS. I ",
+      "thread_id": "thread-2cc773590015",
+      "thread_depth": 0,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-749c25039632",
+      "message_id": "<1e16b45e-ef80-d915-d6a1-5194b5cce19e@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-12-14T14:40:41Z",
+      "subject": "[R-SIG-Mac] Strange C/C++ Compile Errors",
+      "subject_clean": "Strange C/C++ Compile Errors",
+      "in_reply_to": "<BLAPR09MB7010DA12E3986E9299B28E0083759@BLAPR09MB7010.namprd09.prod.outlook.com>",
+      "references": [
+        "<BLAPR09MB7010DA12E3986E9299B28E0083759@BLAPR09MB7010.namprd09.prod.outlook.com>"
+      ],
+      "body_plain": "You have not shown us the compiler command line used, nor made a \nreproducible example available (and we might need both).\n\nThe suspicious line is\n\n > In file included from ./include/stdlib.h:36:\n\nIt looks like you may have a file in the package which is masking a \nsystem header, but we don't have any information to go on.\n\n\nOn 14/12/2021 13:06, Wheeler, Matt (NIH/NIEHS) [E] via R-SIG-Mac wrote:\n> I hope someone can help me with my C++/Rcpp compile issue. I am building a package, which will eventually be on CRAN, but I am currently looking to have it available to collaborators who use macOS. I have successfully compiled it for Linux and Windows (it passes the CRAN checks), but I have had no such luck for macOS. Here, I get strange compile errors based upon namespaces. For example, the first two errors are below:\n> \n> \n> \n> In file included from RcppExports.cpp:4:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSL.h:25:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSLForward.h:24:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/RcppCommon.h:30:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/r/headers.h:66:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/platform/compiler.h:100:\n> \n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath:308:\n> \n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h:308:\n> \n> In file included from ./include/stdlib.h:36:\n> \n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdlib:99:9: error: no member named 'size_t' in the global namespace\n> \n> using ::size_t;\n> \n> \n> \n> In file included from RcppExports.cpp:4:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSL.h:25:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSLForward.h:24:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/RcppCommon.h:30:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/r/headers.h:66:\n> \n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/platform/compiler.h:153:\n> \n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map:435:\n> \n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__hash_table:15:\n> \n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:673:\n> \n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:319:5: error: no member named 'posix_memalign' in the global namespace\n> \n>   ::posix_memalign(&__result, __alignment, __size);\n> \n>   ~~^\n> \n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:330:5: error: reference to unresolved using declaration\n> \n>   ::free(__ptr);\n> \n> \n> \n> Essentially, all of the errors are based upon namespace issues.\n> \n> I have seen that having a ~/.R/Makevars file messes things up, so I emptied that directory. I further have no h files in '/usr/local/include,'\n> \n> which will cause other build errors (i.e. I use NLOPT and GSL), but I want to get through this right now. Based upon other threads, I have the following for Xcode:\n> \n> \n> \n> %xcode-select -p\n> \n> /Library/Developer/CommandLineTools\n> \n> %xcrun --show-sdk-path\n> \n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n> \n> %which clang\n> \n> /usr/bin/clang\n> \n> \n> \n> Now, this is happening on two Macs. The first is an M1 with macOS Monterey 12.01, and I got it with a clean IT build. The second is the one I use for work. It is an Intel using Catalina 10.15.7 (19H1519). I can understand why the second one may be messed up. When the issue occurred almost a year ago, I was in a research phase, couldn't figure out the solution, installed brew gcc and had R compile with this 'nonstandard' compiler with many no-no hacks. It was a hack, but it worked. Now, I need to distribute this to the masses, and it is still not working on a fresh machine and a newer version of macOS. Before I go further, I want to see if there is some setup issue on my machine(s), possibly something I need to talk about to IT.\n> \n> \n> \n> Further, the file RcppExports.cpp is automatically generated in Rcpp, so I don't think it is a code issue, but it is a dependency issue with clang, but here I am not knowledgeable enough to fix. Quite honestly, Apple?s compiler setup is baffling, but I am used to /usr/include/ etc.   I can also compile Rcpp from source code, and I have compiled other packages on these machines.\n> \n> \n> \n> Thanks in advance,\n> \n> \n> \n> Matt\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "You have not shown us the compiler command line used, nor made a \nreproducible example available (and we might need both).\n\nThe suspicious line is\n\n > In file included from ./include/stdlib.h:36:\n\nIt ",
+      "thread_id": "thread-2cc773590015",
+      "thread_depth": 1,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-51f8ba350c81",
+      "message_id": "<BLAPR09MB70100CAE2C895FB4FB8A82C483759@BLAPR09MB7010.namprd09.prod.outlook.com>",
+      "from_name": "Wheeler, Matt (NIH/NIEHS) [E]",
+      "from_email_hash": "26690ab4834f1aefbb66fe73a739b618e0799478f6c9fb193b891b3d614c5544",
+      "date": "2021-12-14T20:20:11Z",
+      "subject": "[R-SIG-Mac] [EXTERNAL] Re:  Strange C/C++ Compile Errors",
+      "subject_clean": "[EXTERNAL] Re:  Strange C/C++ Compile Errors",
+      "in_reply_to": "<1e16b45e-ef80-d915-d6a1-5194b5cce19e@stats.ox.ac.uk>",
+      "references": [
+        "<BLAPR09MB7010DA12E3986E9299B28E0083759@BLAPR09MB7010.namprd09.prod.outlook.com>",
+        "<1e16b45e-ef80-d915-d6a1-5194b5cce19e@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Apologies for not giving all of the information, but for such little information, you were able to find the problem.  In my haste to ?fix? the problem 11 months ago, I introduced a dumb dependency ?gnu:stlib.h? that I forgot about. Thank you for your gracious reply.\n\nCheers,\n\nMatt\n\n\nFrom: Prof Brian Ripley <ripley at stats.ox.ac.uk>\nDate: Tuesday, December 14, 2021 at 9:44 AM\nTo: Wheeler, Matt (NIH/NIEHS) [E] <matt.wheeler at nih.gov>, r-sig-mac at r-project.org <r-sig-mac at r-project.org>\nSubject: [EXTERNAL] Re: [R-SIG-Mac] Strange C/C++ Compile Errors\nCAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and are confident the content is safe.\n\n\nYou have not shown us the compiler command line used, nor made a\nreproducible example available (and we might need both).\n\nThe suspicious line is\n\n > In file included from ./include/stdlib.h:36:\n\nIt looks like you may have a file in the package which is masking a\nsystem header, but we don't have any information to go on.\n\n\nOn 14/12/2021 13:06, Wheeler, Matt (NIH/NIEHS) [E] via R-SIG-Mac wrote:\n> I hope someone can help me with my C++/Rcpp compile issue. I am building a package, which will eventually be on CRAN, but I am currently looking to have it available to collaborators who use macOS. I have successfully compiled it for Linux and Windows (it passes the CRAN checks), but I have had no such luck for macOS. Here, I get strange compile errors based upon namespaces. For example, the first two errors are below:\n>\n>\n>\n> In file included from RcppExports.cpp:4:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSL.h:25:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSLForward.h:24:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/RcppCommon.h:30:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/r/headers.h:66:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/platform/compiler.h:100:\n>\n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath:308:\n>\n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h:308:\n>\n> In file included from ./include/stdlib.h:36:\n>\n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdlib:99:9: error: no member named 'size_t' in the global namespace\n>\n> using ::size_t;\n>\n>\n>\n> In file included from RcppExports.cpp:4:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSL.h:25:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/RcppGSL/include/RcppGSLForward.h:24:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/RcppCommon.h:30:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/r/headers.h:66:\n>\n> In file included from /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/Rcpp/include/Rcpp/platform/compiler.h:153:\n>\n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map:435:\n>\n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__hash_table:15:\n>\n> In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:673:\n>\n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:319:5: error: no member named 'posix_memalign' in the global namespace\n>\n>   ::posix_memalign(&__result, __alignment, __size);\n>\n>   ~~^\n>\n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new:330:5: error: reference to unresolved using declaration\n>\n>   ::free(__ptr);\n>\n>\n>\n> Essentially, all of the errors are based upon namespace issues.\n>\n> I have seen that having a ~/.R/Makevars file messes things up, so I emptied that directory. I further have no h files in '/usr/local/include,'\n>\n> which will cause other build errors (i.e. I use NLOPT and GSL), but I want to get through this right now. Based upon other threads, I have the following for Xcode:\n>\n>\n>\n> %xcode-select -p\n>\n> /Library/Developer/CommandLineTools\n>\n> %xcrun --show-sdk-path\n>\n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n>\n> %which clang\n>\n> /usr/bin/clang\n>\n>\n>\n> Now, this is happening on two Macs. The first is an M1 with macOS Monterey 12.01, and I got it with a clean IT build. The second is the one I use for work. It is an Intel using Catalina 10.15.7 (19H1519). I can understand why the second one may be messed up. When the issue occurred almost a year ago, I was in a research phase, couldn't figure out the solution, installed brew gcc and had R compile with this 'nonstandard' compiler with many no-no hacks. It was a hack, but it worked. Now, I need to distribute this to the masses, and it is still not working on a fresh machine and a newer version of macOS. Before I go further, I want to see if there is some setup issue on my machine(s), possibly something I need to talk about to IT.\n>\n>\n>\n> Further, the file RcppExports.cpp is automatically generated in Rcpp, so I don't think it is a code issue, but it is a dependency issue with clang, but here I am not knowledgeable enough to fix. Quite honestly, Apple?s compiler setup is baffling, but I am used to /usr/include/ etc.   I can also compile Rcpp from source code, and I have compiled other packages on these machines.\n>\n>\n>\n> Thanks in advance,\n>\n>\n>\n> Matt\n>\n>\n>       [[alternative HTML version deleted]]\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n--\nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Apologies for not giving all of the information, but for such little information, you were able to find the problem.  In my haste to ?fix? the problem 11 months ago, I introduced a dumb dependency ?gn",
+      "thread_id": "thread-2cc773590015",
+      "thread_depth": 2,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-c9575853a347",
+      "message_id": "<C81D7EFD-97AD-4765-979C-40B165A2739C@me.com>",
+      "from_name": "Matthew Heun",
+      "from_email_hash": "9334b96c9efd9b3e98ed846a803ebfff65f299814db23a115058b23eeb5157ce",
+      "date": "2021-12-19T21:16:13-05:00",
+      "subject": "[R-SIG-Mac] Missing qpdf",
+      "subject_clean": "Missing qpdf",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "All:\n\nI'm hoping this list is the right place to post this question.  If not, feel free to direct me elsewhere.  I also looked for a search option for this list but couldn't find one.  Sorry!\n\nI'm on a new M1 Pro MacBook Pro.  (Yay!)  I installed the arm64 version of R and the latest version of RStudio.  I'm now setting up for package development with RStudio.  When checking any of my packages in RStudio (Build|Check Package), I see:\n\n\nchecking data for ASCII and uncompressed saves ... OK\n   WARNING\n  ?qpdf? is needed for checks on size reduction of PDFs\n\n\nThis warning does not appear on my Intel Mac.\n\n\nI attempted the following to try to eliminate this warning:\n\n* Installed qpdf (from https://mac.r-project.org/libs-arm64/) into /opt/R/arm64/bin. \n\n* As suggested at https://mac.r-project.org/libs-arm64/, I added /opt/R/arm64/bin to PATH such that I see the following in the macOS Terminal app:\n\nmkh2 at Mac91836 ~ % echo $PATH\n/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/opt/X11/bin:/Library/Apple/usr/bin:/opt/R/arm64/bin\n\nand\n\nmkh2 at Mac91836 ~ % which qpdf\n/opt/R/arm64/bin/qpdf\n\n\nHowever, the problem persists.\n\n\nIs there something else I should be doing to eliminate this warning?\n\n\nAny suggestions will be welcome.\n\nThanks,\n\nMatt\n\n\nP.S.  Many, many thanks to everyone who keeps R for Mac viable!  Your contributions are incredibly valuable.",
+      "body_snippet": "All:\n\nI'm hoping this list is the right place to post this question.  If not, feel free to direct me elsewhere.  I also looked for a search option for this list but couldn't find one.  Sorry!\n\nI'm on ",
+      "thread_id": "thread-c9575853a347",
+      "thread_depth": 0,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-961f1c1fc7c6",
+      "message_id": "<3362E326-20E5-4581-84F1-2AE39E8E22A5@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-12-20T16:02:26+13:00",
+      "subject": "[R-SIG-Mac] Missing qpdf",
+      "subject_clean": "Missing qpdf",
+      "in_reply_to": "<C81D7EFD-97AD-4765-979C-40B165A2739C@me.com>",
+      "references": [
+        "<C81D7EFD-97AD-4765-979C-40B165A2739C@me.com>"
+      ],
+      "body_plain": "Matt,\n\nFirst option: try using the latest R from https://mac.R-project.org since the latest releases include qpdf in the distribution so there is no need to install it externally.\n\nSecond option: use R instead of RStudio since the latter is just a complicated way to call \"R CMD check\" so calling it directly should work.\n\nThird option: ask RStudio support how to get it to work since that requires manipulation of (exported) PATH inside RStudio.\n\nCheers,\nSimon\n\n\n> On Dec 20, 2021, at 3:16 PM, Matthew Heun via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> All:\n> \n> I'm hoping this list is the right place to post this question.  If not, feel free to direct me elsewhere.  I also looked for a search option for this list but couldn't find one.  Sorry!\n> \n> I'm on a new M1 Pro MacBook Pro.  (Yay!)  I installed the arm64 version of R and the latest version of RStudio.  I'm now setting up for package development with RStudio.  When checking any of my packages in RStudio (Build|Check Package), I see:\n> \n> \n> checking data for ASCII and uncompressed saves ... OK\n>   WARNING\n>  ?qpdf? is needed for checks on size reduction of PDFs\n> \n> \n> This warning does not appear on my Intel Mac.\n> \n> \n> I attempted the following to try to eliminate this warning:\n> \n> * Installed qpdf (from https://mac.r-project.org/libs-arm64/) into /opt/R/arm64/bin. \n> \n> * As suggested at https://mac.r-project.org/libs-arm64/, I added /opt/R/arm64/bin to PATH such that I see the following in the macOS Terminal app:\n> \n> mkh2 at Mac91836 ~ % echo $PATH\n> /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/opt/X11/bin:/Library/Apple/usr/bin:/opt/R/arm64/bin\n> \n> and\n> \n> mkh2 at Mac91836 ~ % which qpdf\n> /opt/R/arm64/bin/qpdf\n> \n> \n> However, the problem persists.\n> \n> \n> Is there something else I should be doing to eliminate this warning?\n> \n> \n> Any suggestions will be welcome.\n> \n> Thanks,\n> \n> Matt\n> \n> \n> P.S.  Many, many thanks to everyone who keeps R for Mac viable!  Your contributions are incredibly valuable.\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Matt,\n\nFirst option: try using the latest R from https://mac.R-project.org since the latest releases include qpdf in the distribution so there is no need to install it externally.\n\nSecond option: use ",
+      "thread_id": "thread-c9575853a347",
+      "thread_depth": 1,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-634140dd3529",
+      "message_id": "<6A893420-9DDD-4028-BD26-DF157D57CEBF@me.com>",
+      "from_name": "Matthew Heun",
+      "from_email_hash": "9334b96c9efd9b3e98ed846a803ebfff65f299814db23a115058b23eeb5157ce",
+      "date": "2021-12-20T15:09:40-05:00",
+      "subject": "[R-SIG-Mac] Missing qpdf",
+      "subject_clean": "Missing qpdf",
+      "in_reply_to": "<3362E326-20E5-4581-84F1-2AE39E8E22A5@R-project.org>",
+      "references": [
+        "<C81D7EFD-97AD-4765-979C-40B165A2739C@me.com>",
+        "<3362E326-20E5-4581-84F1-2AE39E8E22A5@R-project.org>"
+      ],
+      "body_plain": "Thanks! \n\nThe \"First option\" worked for me.  Specifically, I installed the \"R-4.1-branch 4.1.2 patched\" version from https://mac.r-project.org, and everything works (without the external installation of qpdf).\n\nHappy Holidays!\n\nCheers,\n\nMatt\n\n\n\n\n\n\n> On Dec 19, 2021, at 10:02 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Matt,\n> \n> First option: try using the latest R from https://mac.R-project.org since the latest releases include qpdf in the distribution so there is no need to install it externally.\n> \n> Second option: use R instead of RStudio since the latter is just a complicated way to call \"R CMD check\" so calling it directly should work.\n> \n> Third option: ask RStudio support how to get it to work since that requires manipulation of (exported) PATH inside RStudio.\n> \n> Cheers,\n> Simon\n> \n> \n>> On Dec 20, 2021, at 3:16 PM, Matthew Heun via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>> \n>> All:\n>> \n>> I'm hoping this list is the right place to post this question.  If not, feel free to direct me elsewhere.  I also looked for a search option for this list but couldn't find one.  Sorry!\n>> \n>> I'm on a new M1 Pro MacBook Pro.  (Yay!)  I installed the arm64 version of R and the latest version of RStudio.  I'm now setting up for package development with RStudio.  When checking any of my packages in RStudio (Build|Check Package), I see:\n>> \n>> \n>> checking data for ASCII and uncompressed saves ... OK\n>>  WARNING\n>> ?qpdf? is needed for checks on size reduction of PDFs\n>> \n>> \n>> This warning does not appear on my Intel Mac.\n>> \n>> \n>> I attempted the following to try to eliminate this warning:\n>> \n>> * Installed qpdf (from https://mac.r-project.org/libs-arm64/) into /opt/R/arm64/bin. \n>> \n>> * As suggested at https://mac.r-project.org/libs-arm64/, I added /opt/R/arm64/bin to PATH such that I see the following in the macOS Terminal app:\n>> \n>> mkh2 at Mac91836 ~ % echo $PATH\n>> /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/opt/X11/bin:/Library/Apple/usr/bin:/opt/R/arm64/bin\n>> \n>> and\n>> \n>> mkh2 at Mac91836 ~ % which qpdf\n>> /opt/R/arm64/bin/qpdf\n>> \n>> \n>> However, the problem persists.\n>> \n>> \n>> Is there something else I should be doing to eliminate this warning?\n>> \n>> \n>> Any suggestions will be welcome.\n>> \n>> Thanks,\n>> \n>> Matt\n>> \n>> \n>> P.S.  Many, many thanks to everyone who keeps R for Mac viable!  Your contributions are incredibly valuable.\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>",
+      "body_snippet": "Thanks! \n\nThe \"First option\" worked for me.  Specifically, I installed the \"R-4.1-branch 4.1.2 patched\" version from https://mac.r-project.org, and everything works (without the external installation ",
+      "thread_id": "thread-c9575853a347",
+      "thread_depth": 2,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-13405d4bb2d2",
+      "message_id": "<5A1BFBFD-3D30-46A8-A146-F6AFE5BE3497@me.com>",
+      "from_name": "Matthew Heun",
+      "from_email_hash": "9334b96c9efd9b3e98ed846a803ebfff65f299814db23a115058b23eeb5157ce",
+      "date": "2021-12-21T15:21:30-05:00",
+      "subject": "[R-SIG-Mac] .Machine differences between Intel and M1",
+      "subject_clean": ".Machine differences between Intel and M1",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "All:\n\nI'm seeing some test failures on a new M1 Pro machine that I do not see on my Intel machine.  I'm investigating whether the test failures are caused by machine precision differences.  On my M1 Pro machine, differences of large numbers are greater than a specified tolerance.  (On my Intel machine, differences between the supposed same numbers are within tolerance.)\n\nThe output of .Machine shows some differences.  I have 2 questions below, each identified by \"****\".\n\n(1) For sizeof.longdouble, I see the following:\n\nIntel machine:\n\n> $sizeof.longdouble\n> [1] 16\n\nM1 Pro machine:\n\n> $sizeof.longdouble\n> [1] 8\n\n\n\n?.Machine says:\n\nsizeof.longdouble\t\nthe number of bytes in a C long double type. Will be zero if there is no such type (or its use was disabled when R was built), otherwise possibly12 (most 32-bit builds) or 16 (most 64-bit builds).\n\nThe M1 Pro uses a 64-bit architecture.  So this result is surprising to me.\n\nFurthermore, \n\n> > capabilities(\"long.double\")\n> long.double \n>        TRUE \n\nSo somebody thinks that long doubles are supported.\n\n**** Is the difference in sizeof.longdouble between the Intel and M1 architectures expected?\n\n\n(2) Also, my M1 Pro machine is missing additional fields (that the Intel machine reports):\n\n> $longdouble.eps\n> [1] 1.084202e-19\n> \n> $longdouble.neg.eps\n> [1] 5.421011e-20\n> \n> $longdouble.digits\n> [1] 64\n> \n> $longdouble.rounding\n> [1] 5\n> \n> $longdouble.guard\n> [1] 0\n> \n> $longdouble.ulp.digits\n> [1] -63\n> \n> $longdouble.neg.ulp.digits\n> [1] -64\n> \n> $longdouble.exponent\n> [1] 15\n> \n> $longdouble.min.exp\n> [1] -16382\n> \n> $longdouble.max.exp\n> [1] 16384\n\n**** Is there a reason why the above entries are missing from the output of .Machine on the M1 Pro machine?\n\n\n\nMy R installation is:  4.1.2 Patched (2021/12/16, r81394)\n\n\n\nAny help will be appreciated.\n\n\n\nCheers,\n\nMatt",
+      "body_snippet": "All:\n\nI'm seeing some test failures on a new M1 Pro machine that I do not see on my Intel machine.  I'm investigating whether the test failures are caused by machine precision differences.  On my M1 P",
+      "thread_id": "thread-13405d4bb2d2",
+      "thread_depth": 0,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-ea520113d69a",
+      "message_id": "<57A3D2B6-8C63-4F74-A599-EA8C47C51AEF@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-12-22T09:46:39+13:00",
+      "subject": "[R-SIG-Mac] .Machine differences between Intel and M1",
+      "subject_clean": ".Machine differences between Intel and M1",
+      "in_reply_to": "<5A1BFBFD-3D30-46A8-A146-F6AFE5BE3497@me.com>",
+      "references": [
+        "<5A1BFBFD-3D30-46A8-A146-F6AFE5BE3497@me.com>"
+      ],
+      "body_plain": "Matt,\n\nyes, arm64 does not support long doubles. In C the long double type is 64-bit there so has the same precision as doubles (this is allowed by the standard).\n\nCheers,\nSimon\n\n\n> On Dec 22, 2021, at 9:21 AM, Matthew Heun via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> All:\n> \n> I'm seeing some test failures on a new M1 Pro machine that I do not see on my Intel machine.  I'm investigating whether the test failures are caused by machine precision differences.  On my M1 Pro machine, differences of large numbers are greater than a specified tolerance.  (On my Intel machine, differences between the supposed same numbers are within tolerance.)\n> \n> The output of .Machine shows some differences.  I have 2 questions below, each identified by \"****\".\n> \n> (1) For sizeof.longdouble, I see the following:\n> \n> Intel machine:\n> \n>> $sizeof.longdouble\n>> [1] 16\n> \n> M1 Pro machine:\n> \n>> $sizeof.longdouble\n>> [1] 8\n> \n> \n> \n> ?.Machine says:\n> \n> sizeof.longdouble\t\n> the number of bytes in a C long double type. Will be zero if there is no such type (or its use was disabled when R was built), otherwise possibly12 (most 32-bit builds) or 16 (most 64-bit builds).\n> \n> The M1 Pro uses a 64-bit architecture.  So this result is surprising to me.\n> \n> Furthermore, \n> \n>>> capabilities(\"long.double\")\n>> long.double \n>>       TRUE \n> \n> So somebody thinks that long doubles are supported.\n> \n> **** Is the difference in sizeof.longdouble between the Intel and M1 architectures expected?\n> \n> \n> (2) Also, my M1 Pro machine is missing additional fields (that the Intel machine reports):\n> \n>> $longdouble.eps\n>> [1] 1.084202e-19\n>> \n>> $longdouble.neg.eps\n>> [1] 5.421011e-20\n>> \n>> $longdouble.digits\n>> [1] 64\n>> \n>> $longdouble.rounding\n>> [1] 5\n>> \n>> $longdouble.guard\n>> [1] 0\n>> \n>> $longdouble.ulp.digits\n>> [1] -63\n>> \n>> $longdouble.neg.ulp.digits\n>> [1] -64\n>> \n>> $longdouble.exponent\n>> [1] 15\n>> \n>> $longdouble.min.exp\n>> [1] -16382\n>> \n>> $longdouble.max.exp\n>> [1] 16384\n> \n> **** Is there a reason why the above entries are missing from the output of .Machine on the M1 Pro machine?\n> \n> \n> \n> My R installation is:  4.1.2 Patched (2021/12/16, r81394)\n> \n> \n> \n> Any help will be appreciated.\n> \n> \n> \n> Cheers,\n> \n> Matt\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Matt,\n\nyes, arm64 does not support long doubles. In C the long double type is 64-bit there so has the same precision as doubles (this is allowed by the standard).\n\nCheers,\nSimon\n\n\n> On Dec 22, 2021, a",
+      "thread_id": "thread-13405d4bb2d2",
+      "thread_depth": 1,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-243204aa7621",
+      "message_id": "<ad3fca57-bb98-e0d9-e36f-ff732a47bade@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-12-21T21:10:03Z",
+      "subject": "[R-SIG-Mac] .Machine differences between Intel and M1",
+      "subject_clean": ".Machine differences between Intel and M1",
+      "in_reply_to": "<57A3D2B6-8C63-4F74-A599-EA8C47C51AEF@R-project.org>",
+      "references": [
+        "<5A1BFBFD-3D30-46A8-A146-F6AFE5BE3497@me.com>",
+        "<57A3D2B6-8C63-4F74-A599-EA8C47C51AEF@R-project.org>"
+      ],
+      "body_plain": "On 21/12/2021 20:46, Simon Urbanek wrote:\n> Matt,\n> \n> yes, arm64 does not support long doubles. In C the long double type is 64-bit there so has the same precision as doubles (this is allowed by the standard).\n\nAnd documented in ?.Machine.\n\nHowever, I see on my M1 Pro\n\n> capabilities(\"long.double\")\nlong.double\n       FALSE\n\non all the arm64 builds I have installed, including the current CRAN \ndistribution (of 4.1.2) and that at mac.r-project.org (see below).  So I \nhave no idea why TRUE is reported below (if this really was an arm64 \nbuild run on the M1 Pro).\n\nR version 4.1.2 Patched (2021-12-16 r81394) -- \"Bird Hippie\"\n...\n > capabilities('long.double')\nlong.double\n       FALSE\n\n\n> Cheers,\n> Simon\n> \n> \n>> On Dec 22, 2021, at 9:21 AM, Matthew Heun via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>>\n>> All:\n>>\n>> I'm seeing some test failures on a new M1 Pro machine that I do not see on my Intel machine.  I'm investigating whether the test failures are caused by machine precision differences.  On my M1 Pro machine, differences of large numbers are greater than a specified tolerance.  (On my Intel machine, differences between the supposed same numbers are within tolerance.)\n\nA small number of packages (and R itself) have needed tolerances \nincreased for checks on arm64.\n\n>>\n>> The output of .Machine shows some differences.  I have 2 questions below, each identified by \"****\".\n>>\n>> (1) For sizeof.longdouble, I see the following:\n>>\n>> Intel machine:\n>>\n>>> $sizeof.longdouble\n>>> [1] 16\n>>\n>> M1 Pro machine:\n>>\n>>> $sizeof.longdouble\n>>> [1] 8\n>>\n>>\n>>\n>> ?.Machine says:\n>>\n>> sizeof.longdouble\t\n>> the number of bytes in a C long double type. Will be zero if there is no such type (or its use was disabled when R was built), otherwise possibly12 (most 32-bit builds) or 16 (most 64-bit builds).\n>>\n>> The M1 Pro uses a 64-bit architecture.  So this result is surprising to me.\n>>\n>> Furthermore,\n>>\n>>>> capabilities(\"long.double\")\n>>> long.double\n>>>        TRUE\n>>\n>> So somebody thinks that long doubles are supported.\n>>\n>> **** Is the difference in sizeof.longdouble between the Intel and M1 architectures expected?\n>>\n>>\n>> (2) Also, my M1 Pro machine is missing additional fields (that the Intel machine reports):\n>>\n>>> $longdouble.eps\n>>> [1] 1.084202e-19\n>>>\n>>> $longdouble.neg.eps\n>>> [1] 5.421011e-20\n>>>\n>>> $longdouble.digits\n>>> [1] 64\n>>>\n>>> $longdouble.rounding\n>>> [1] 5\n>>>\n>>> $longdouble.guard\n>>> [1] 0\n>>>\n>>> $longdouble.ulp.digits\n>>> [1] -63\n>>>\n>>> $longdouble.neg.ulp.digits\n>>> [1] -64\n>>>\n>>> $longdouble.exponent\n>>> [1] 15\n>>>\n>>> $longdouble.min.exp\n>>> [1] -16382\n>>>\n>>> $longdouble.max.exp\n>>> [1] 16384\n>>\n>> **** Is there a reason why the above entries are missing from the output of .Machine on the M1 Pro machine?\n>>\n>>\n>>\n>> My R installation is:  4.1.2 Patched (2021/12/16, r81394)\n>>\n>>\n>>\n>> Any help will be appreciated.\n>>\n>>\n>>\n>> Cheers,\n>>\n>> Matt\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 21/12/2021 20:46, Simon Urbanek wrote:\n> Matt,\n> \n> yes, arm64 does not support long doubles. In C the long double type is 64-bit there so has the same precision as doubles (this is allowed by the ",
+      "thread_id": "thread-13405d4bb2d2",
+      "thread_depth": 2,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-20a573712102",
+      "message_id": "<C2EFFCB3-3F49-4104-880A-B07375B8C31A@me.com>",
+      "from_name": "Matthew Heun",
+      "from_email_hash": "9334b96c9efd9b3e98ed846a803ebfff65f299814db23a115058b23eeb5157ce",
+      "date": "2021-12-21T20:55:19-05:00",
+      "subject": "[R-SIG-Mac] .Machine differences between Intel and M1",
+      "subject_clean": ".Machine differences between Intel and M1",
+      "in_reply_to": "<ad3fca57-bb98-e0d9-e36f-ff732a47bade@stats.ox.ac.uk>",
+      "references": [
+        "<5A1BFBFD-3D30-46A8-A146-F6AFE5BE3497@me.com>",
+        "<57A3D2B6-8C63-4F74-A599-EA8C47C51AEF@R-project.org>",
+        "<ad3fca57-bb98-e0d9-e36f-ff732a47bade@stats.ox.ac.uk>"
+      ],
+      "body_plain": "All:\n\nIn fact, I also have\n\n> > capabilities(\"long.double\")\n> long.double \n>       FALSE \n\non my M1 machine.  I made a mistake earlier (was \"on\" the Intel machine, accidentally).  I'm sorry for misleading anyone.\n\nI will need to adjust the tolerance on my tests for the M1.  I think that's somewhat unfortunate, but what can we do?\n\nI really appreciate the insights from Simon and Brian.  Thank you so much for the quick answers!\n\nHappy Holidays, everyone.\n\nCheers,\n\nMatt\n\n\n\n\n\n\n> On Dec 21, 2021, at 4:10 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> On 21/12/2021 20:46, Simon Urbanek wrote:\n>> Matt,\n>> yes, arm64 does not support long doubles. In C the long double type is 64-bit there so has the same precision as doubles (this is allowed by the standard).\n> \n> And documented in ?.Machine.\n> \n> However, I see on my M1 Pro\n> \n>> capabilities(\"long.double\")\n> long.double\n>      FALSE\n> \n> on all the arm64 builds I have installed, including the current CRAN distribution (of 4.1.2) and that at mac.r-project.org (see below).  So I have no idea why TRUE is reported below (if this really was an arm64 build run on the M1 Pro).\n> \n> R version 4.1.2 Patched (2021-12-16 r81394) -- \"Bird Hippie\"\n> ...\n> > capabilities('long.double')\n> long.double\n>      FALSE\n> \n> \n>> Cheers,\n>> Simon\n>>> On Dec 22, 2021, at 9:21 AM, Matthew Heun via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>>> \n>>> All:\n>>> \n>>> I'm seeing some test failures on a new M1 Pro machine that I do not see on my Intel machine.  I'm investigating whether the test failures are caused by machine precision differences.  On my M1 Pro machine, differences of large numbers are greater than a specified tolerance.  (On my Intel machine, differences between the supposed same numbers are within tolerance.)\n> \n> A small number of packages (and R itself) have needed tolerances increased for checks on arm64.\n> \n>>> \n>>> The output of .Machine shows some differences.  I have 2 questions below, each identified by \"****\".\n>>> \n>>> (1) For sizeof.longdouble, I see the following:\n>>> \n>>> Intel machine:\n>>> \n>>>> $sizeof.longdouble\n>>>> [1] 16\n>>> \n>>> M1 Pro machine:\n>>> \n>>>> $sizeof.longdouble\n>>>> [1] 8\n>>> \n>>> \n>>> \n>>> ?.Machine says:\n>>> \n>>> sizeof.longdouble\t\n>>> the number of bytes in a C long double type. Will be zero if there is no such type (or its use was disabled when R was built), otherwise possibly12 (most 32-bit builds) or 16 (most 64-bit builds).\n>>> \n>>> The M1 Pro uses a 64-bit architecture.  So this result is surprising to me.\n>>> \n>>> Furthermore,\n>>> \n>>>>> capabilities(\"long.double\")\n>>>> long.double\n>>>>       TRUE\n>>> \n>>> So somebody thinks that long doubles are supported.\n>>> \n>>> **** Is the difference in sizeof.longdouble between the Intel and M1 architectures expected?\n>>> \n>>> \n>>> (2) Also, my M1 Pro machine is missing additional fields (that the Intel machine reports):\n>>> \n>>>> $longdouble.eps\n>>>> [1] 1.084202e-19\n>>>> \n>>>> $longdouble.neg.eps\n>>>> [1] 5.421011e-20\n>>>> \n>>>> $longdouble.digits\n>>>> [1] 64\n>>>> \n>>>> $longdouble.rounding\n>>>> [1] 5\n>>>> \n>>>> $longdouble.guard\n>>>> [1] 0\n>>>> \n>>>> $longdouble.ulp.digits\n>>>> [1] -63\n>>>> \n>>>> $longdouble.neg.ulp.digits\n>>>> [1] -64\n>>>> \n>>>> $longdouble.exponent\n>>>> [1] 15\n>>>> \n>>>> $longdouble.min.exp\n>>>> [1] -16382\n>>>> \n>>>> $longdouble.max.exp\n>>>> [1] 16384\n>>> \n>>> **** Is there a reason why the above entries are missing from the output of .Machine on the M1 Pro machine?\n>>> \n>>> \n>>> \n>>> My R installation is:  4.1.2 Patched (2021/12/16, r81394)\n>>> \n>>> \n>>> \n>>> Any help will be appreciated.\n>>> \n>>> \n>>> \n>>> Cheers,\n>>> \n>>> Matt\n> \n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "All:\n\nIn fact, I also have\n\n> > capabilities(\"long.double\")\n> long.double \n>       FALSE \n\non my M1 machine.  I made a mistake earlier (was \"on\" the Intel machine, accidentally).  I'm sorry for mislea",
+      "thread_id": "thread-13405d4bb2d2",
+      "thread_depth": 3,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-64dc652d39a9",
+      "message_id": "<EB35B7DD-28D7-4C13-B06B-4DB7E379AE0A@univie.ac.at>",
+      "from_name": "Erich Neuwirth",
+      "from_email_hash": "ef96734c6f17739dc5cf388bc1490ec88b13c8620411641af8579c773adb5b1b",
+      "date": "2021-12-26T12:04:51+01:00",
+      "subject": "[R-SIG-Mac] Compiling Cairo package",
+      "subject_clean": "Compiling Cairo package",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am trying to compile Cairo.\nI get the following error\n\nxlib-backend.c:34:10: fatal error: 'X11/Intrinsic.h' file not found\n#include <X11/Intrinsic.h>      /*->    Xlib.h  Xutil.h Xresource.h .. */\n\nI have X11/Intrinsic.h in /opt/X11/include\n\nI tried\n\nSys.setenv(LD_LIBRARY_PATH=\"/opt/X11:/opt/X11/lib\")\nSys.getenv(\"LD_LIBRARY_PATH\")\nsystem(\"export LD_LIBRARY_PATH?)\n\nand compiled again, but I get the same error.\n\nWhat do I need to do so Intrinsic.h is found by the compiler?\n\nErich\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 699 bytes\nDesc: Message signed with OpenPGP\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20211226/32ced4d9/attachment.sig>",
+      "body_snippet": "I am trying to compile Cairo.\nI get the following error\n\nxlib-backend.c:34:10: fatal error: 'X11/Intrinsic.h' file not found\n#include <X11/Intrinsic.h>      /*->    Xlib.h  Xutil.h Xresource.h .. */\n\n",
+      "thread_id": "thread-64dc652d39a9",
+      "thread_depth": 0,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-9fed6c1d01b9",
+      "message_id": "<c33b227b-fcd5-e62c-6e27-27feab368bd1@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2021-12-26T06:36:03-05:00",
+      "subject": "[R-SIG-Mac] Compiling Cairo package",
+      "subject_clean": "Compiling Cairo package",
+      "in_reply_to": "<EB35B7DD-28D7-4C13-B06B-4DB7E379AE0A@univie.ac.at>",
+      "references": [
+        "<EB35B7DD-28D7-4C13-B06B-4DB7E379AE0A@univie.ac.at>"
+      ],
+      "body_plain": "On 26/12/2021 6:04 a.m., Erich Neuwirth wrote:\n> I am trying to compile Cairo.\n> I get the following error\n> \n> xlib-backend.c:34:10: fatal error: 'X11/Intrinsic.h' file not found\n> #include <X11/Intrinsic.h>      /*->    Xlib.h  Xutil.h Xresource.h .. */\n> \n> I have X11/Intrinsic.h in /opt/X11/include\n> \n> I tried\n> \n> Sys.setenv(LD_LIBRARY_PATH=\"/opt/X11:/opt/X11/lib\")\n> Sys.getenv(\"LD_LIBRARY_PATH\")\n> system(\"export LD_LIBRARY_PATH?)\n> \n> and compiled again, but I get the same error.\n> \n> What do I need to do so Intrinsic.h is found by the compiler?\n\nUsually the location of include files is set at configure time.  For R, \nI use\n\n   ../R-devel-src/configure --with-x --x-includes=/opt/X11/include \n--x-libraries=/opt/X11/lib\n\nIt's not clear to me whether Cairo is the R package or an external \nlibrary, but if it's the R package, you might try\n\n   install.packages(\"Cairo\", type = \"source\", configure.args = \n\"--x-includes=/opt/X11/include --x-libraries=/opt/X11/lib\")\n\nDuncan Murdoch",
+      "body_snippet": "On 26/12/2021 6:04 a.m., Erich Neuwirth wrote:\n> I am trying to compile Cairo.\n> I get the following error\n> \n> xlib-backend.c:34:10: fatal error: 'X11/Intrinsic.h' file not found\n> #include <X11/Intr",
+      "thread_id": "thread-64dc652d39a9",
+      "thread_depth": 1,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-ba4d7aca282d",
+      "message_id": "<FD1C6F65-0430-4A98-8CD5-4C4B57574282@univie.ac.at>",
+      "from_name": "Erich Neuwirth",
+      "from_email_hash": "ef96734c6f17739dc5cf388bc1490ec88b13c8620411641af8579c773adb5b1b",
+      "date": "2021-12-26T16:00:05+01:00",
+      "subject": "[R-SIG-Mac] Compiling Cairo package",
+      "subject_clean": "Compiling Cairo package",
+      "in_reply_to": "<c33b227b-fcd5-e62c-6e27-27feab368bd1@gmail.com>",
+      "references": [
+        "<EB35B7DD-28D7-4C13-B06B-4DB7E379AE0A@univie.ac.at>",
+        "<c33b227b-fcd5-e62c-6e27-27feab368bd1@gmail.com>"
+      ],
+      "body_plain": "Duncan?s suggestion did not work\nSo I tried\n\nSys.setenv(LD_LIBRARY_PATH=\"/opt/X11:/opt/X11/lib\")\nsystem(\"export LD_LIBRARY_PATH\")\nSys.setenv(C_INCLUDE_PATH=\"/opt/X11/include\")\nsystem(\"export C_INCLUDE_PATH\")\nSys.getenv()\n\nand then simply doing\n\ninstall.packages(?Cairo?)\nworked.\n\n\n> On 26.12.2021, at 12:36, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> On 26/12/2021 6:04 a.m., Erich Neuwirth wrote:\n>> I am trying to compile Cairo.\n>> I get the following error\n>> xlib-backend.c:34:10: fatal error: 'X11/Intrinsic.h' file not found\n>> #include <X11/Intrinsic.h>      /*->    Xlib.h  Xutil.h Xresource.h .. */\n>> I have X11/Intrinsic.h in /opt/X11/include\n>> I tried\n>> Sys.setenv(LD_LIBRARY_PATH=\"/opt/X11:/opt/X11/lib\")\n>> Sys.getenv(\"LD_LIBRARY_PATH\")\n>> system(\"export LD_LIBRARY_PATH?)\n>> and compiled again, but I get the same error.\n>> What do I need to do so Intrinsic.h is found by the compiler?\n> \n> Usually the location of include files is set at configure time.  For R, I use\n> \n>  ../R-devel-src/configure --with-x --x-includes=/opt/X11/include --x-libraries=/opt/X11/lib\n> \n> It's not clear to me whether Cairo is the R package or an external library, but if it's the R package, you might try\n> \n>  install.packages(\"Cairo\", type = \"source\", configure.args = \"--x-includes=/opt/X11/include --x-libraries=/opt/X11/lib\")\n> \n> Duncan Murdoch\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 699 bytes\nDesc: Message signed with OpenPGP\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20211226/34cb5275/attachment.sig>",
+      "body_snippet": "Duncan?s suggestion did not work\nSo I tried\n\nSys.setenv(LD_LIBRARY_PATH=\"/opt/X11:/opt/X11/lib\")\nsystem(\"export LD_LIBRARY_PATH\")\nSys.setenv(C_INCLUDE_PATH=\"/opt/X11/include\")\nsystem(\"export C_INCLUDE",
+      "thread_id": "thread-64dc652d39a9",
+      "thread_depth": 2,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-03807a917161",
+      "message_id": "<F56269E5-F16E-43EA-B66A-2D4E6AE16FDE@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-12-29T12:17:51+13:00",
+      "subject": "[R-SIG-Mac] Compiling Cairo package",
+      "subject_clean": "Compiling Cairo package",
+      "in_reply_to": "<FD1C6F65-0430-4A98-8CD5-4C4B57574282@univie.ac.at>",
+      "references": [
+        "<EB35B7DD-28D7-4C13-B06B-4DB7E379AE0A@univie.ac.at>",
+        "<c33b227b-fcd5-e62c-6e27-27feab368bd1@gmail.com>",
+        "<FD1C6F65-0430-4A98-8CD5-4C4B57574282@univie.ac.at>"
+      ],
+      "body_plain": "Erich,\n\ncan you, please, send me the full output and the exact setup you used? I suspect you may be using XQuartz 2.8.0 or higher which has broken pkg-config files - latest XQuartz requires a patch to make any compilation against it work (see https://github.com/R-macos/recipes/blob/master/other/tcltk/pkgconfig.patch for what we do to compile Tk).",
+      "body_snippet": "Erich,\n\ncan you, please, send me the full output and the exact setup you used? I suspect you may be using XQuartz 2.8.0 or higher which has broken pkg-config files - latest XQuartz requires a patch to",
+      "thread_id": "thread-64dc652d39a9",
+      "thread_depth": 3,
+      "month": "2021-12"
+    },
+    {
+      "id": "msg-257f6829ffd6",
+      "message_id": "<A0BA0B43-D7AF-46B9-9065-4A2F99BFA6C2@univie.ac.at>",
+      "from_name": "Erich Neuwirth",
+      "from_email_hash": "ef96734c6f17739dc5cf388bc1490ec88b13c8620411641af8579c773adb5b1b",
+      "date": "2021-12-29T01:03:06+01:00",
+      "subject": "[R-SIG-Mac] Compiling Cairo package",
+      "subject_clean": "Compiling Cairo package",
+      "in_reply_to": "<F56269E5-F16E-43EA-B66A-2D4E6AE16FDE@R-project.org>",
+      "references": [
+        "<EB35B7DD-28D7-4C13-B06B-4DB7E379AE0A@univie.ac.at>",
+        "<c33b227b-fcd5-e62c-6e27-27feab368bd1@gmail.com>",
+        "<FD1C6F65-0430-4A98-8CD5-4C4B57574282@univie.ac.at>",
+        "<F56269E5-F16E-43EA-B66A-2D4E6AE16FDE@R-project.org>"
+      ],
+      "body_plain": "MacOS 11.6.2 (iMac Late 2014, Intel)\nXQuartz 2.8.1 (xorg-server 1.20.11)\nR 4.1.2\n\ncd /opt/X11\n? ls\nbin     etc     include lib     libexec share   var\n\nJust setting\nSys.setenv(C_INCLUDE_PATH=\"/opt/X11/include\")\n\nis sufficient, then package Cairo compiles\n\n\nAlso just setting\nSys.setenv(PKG_CONFIG_PATH=\"/opt/X11/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig\")\nworks\n\nI got the same results on\nMacOS 12.1 (MacBookPro 2021, M1)\neverything else as on the Intel machine\n\n\n> On 29.12.2021, at 00:17, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Erich,\n> \n> can you, please, send me the full output and the exact setup you used? I suspect you may be using XQuartz 2.8.0 or higher which has broken pkg-config files - latest XQuartz requires a patch to make any compilation against it work (see https://github.com/R-macos/recipes/blob/master/other/tcltk/pkgconfig.patch for what we do to compile Tk).\n> \n> From what I can see the only line that has actually any effect at all is\n> \n> Sys.setenv(C_INCLUDE_PATH=\"/opt/X11/include\")\n> \n> so all the others are likely not needed, but I'm not sure of your setup so can't test.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On Dec 27, 2021, at 4:00 AM, Erich Neuwirth <erich.neuwirth at univie.ac.at> wrote:\n>> \n>> Duncan?s suggestion did not work\n>> So I tried\n>> \n>> Sys.setenv(LD_LIBRARY_PATH=\"/opt/X11:/opt/X11/lib\")\n>> system(\"export LD_LIBRARY_PATH\")\n>> Sys.setenv(C_INCLUDE_PATH=\"/opt/X11/include\")\n>> system(\"export C_INCLUDE_PATH\")\n>> Sys.getenv()\n>> \n>> and then simply doing\n>> \n>> install.packages(?Cairo?)\n>> worked.\n>> \n>> \n>>> On 26.12.2021, at 12:36, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>> \n>>> On 26/12/2021 6:04 a.m., Erich Neuwirth wrote:\n>>>> I am trying to compile Cairo.\n>>>> I get the following error\n>>>> xlib-backend.c:34:10: fatal error: 'X11/Intrinsic.h' file not found\n>>>> #include <X11/Intrinsic.h>      /*->    Xlib.h  Xutil.h Xresource.h .. */\n>>>> I have X11/Intrinsic.h in /opt/X11/include\n>>>> I tried\n>>>> Sys.setenv(LD_LIBRARY_PATH=\"/opt/X11:/opt/X11/lib\")\n>>>> Sys.getenv(\"LD_LIBRARY_PATH\")\n>>>> system(\"export LD_LIBRARY_PATH?)\n>>>> and compiled again, but I get the same error.\n>>>> What do I need to do so Intrinsic.h is found by the compiler?\n>>> \n>>> Usually the location of include files is set at configure time.  For R, I use\n>>> \n>>> ../R-devel-src/configure --with-x --x-includes=/opt/X11/include --x-libraries=/opt/X11/lib\n>>> \n>>> It's not clear to me whether Cairo is the R package or an external library, but if it's the R package, you might try\n>>> \n>>> install.packages(\"Cairo\", type = \"source\", configure.args = \"--x-includes=/opt/X11/include --x-libraries=/opt/X11/lib\")\n>>> \n>>> Duncan Murdoch\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 699 bytes\nDesc: Message signed with OpenPGP\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20211229/849ee932/attachment.sig>",
+      "body_snippet": "MacOS 11.6.2 (iMac Late 2014, Intel)\nXQuartz 2.8.1 (xorg-server 1.20.11)\nR 4.1.2\n\ncd /opt/X11\n? ls\nbin     etc     include lib     libexec share   var\n\nJust setting\nSys.setenv(C_INCLUDE_PATH=\"/opt/X11",
+      "thread_id": "thread-64dc652d39a9",
+      "thread_depth": 4,
+      "month": "2021-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-e3dcb6b7d658",
+      "subject": "unable to install from source packages needing compiled C code",
+      "message_count": 7,
+      "participants": [
+        "Adrian Dușa",
+        "Kevin Ushey",
+        "Simon Urbanek"
+      ],
+      "started": "2021-12-02T13:22:32+02:00",
+      "last_reply": "2021-12-03T02:05:40+02:00",
+      "root_message_id": "msg-e3dcb6b7d658"
+    },
+    {
+      "id": "thread-25b7db6a73f2",
+      "subject": "Reverse search not working in ARM binary of R-4.1.2 (or 4.1.0) from CRAN",
+      "message_count": 3,
+      "participants": [
+        "Prof Brian Ripley",
+        "Simon Urbanek",
+        "Ziv Wolkowicki"
+      ],
+      "started": "2021-12-09T09:13:41-08:00",
+      "last_reply": "2021-12-10T10:30:06+13:00",
+      "root_message_id": "msg-25b7db6a73f2"
+    },
+    {
+      "id": "thread-2cc773590015",
+      "subject": "Strange C/C++ Compile Errors",
+      "message_count": 3,
+      "participants": [
+        "Prof Brian Ripley",
+        "Wheeler, Matt (NIH/NIEHS) [E]"
+      ],
+      "started": "2021-12-14T13:06:06+00:00",
+      "last_reply": "2021-12-14T20:20:11+00:00",
+      "root_message_id": "msg-2cc773590015"
+    },
+    {
+      "id": "thread-c9575853a347",
+      "subject": "Missing qpdf",
+      "message_count": 3,
+      "participants": [
+        "Matthew Heun",
+        "Simon Urbanek"
+      ],
+      "started": "2021-12-19T21:16:13-05:00",
+      "last_reply": "2021-12-20T15:09:40-05:00",
+      "root_message_id": "msg-c9575853a347"
+    },
+    {
+      "id": "thread-13405d4bb2d2",
+      "subject": ".Machine differences between Intel and M1",
+      "message_count": 4,
+      "participants": [
+        "Matthew Heun",
+        "Prof Brian Ripley",
+        "Simon Urbanek"
+      ],
+      "started": "2021-12-21T15:21:30-05:00",
+      "last_reply": "2021-12-21T20:55:19-05:00",
+      "root_message_id": "msg-13405d4bb2d2"
+    },
+    {
+      "id": "thread-64dc652d39a9",
+      "subject": "Compiling Cairo package",
+      "message_count": 5,
+      "participants": [
+        "Duncan Murdoch",
+        "Erich Neuwirth",
+        "Simon Urbanek"
+      ],
+      "started": "2021-12-26T12:04:51+01:00",
+      "last_reply": "2021-12-29T01:03:06+01:00",
+      "root_message_id": "msg-64dc652d39a9"
+    }
+  ]
+}

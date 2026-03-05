@@ -1,0 +1,2897 @@
+From c@@rd|@g@bor @end|ng |rom gm@||@com  Sun Mar  9 17:51:04 2025
+From: c@@rd|@g@bor @end|ng |rom gm@||@com (=?UTF-8?B?R8OhYm9yIENzw6FyZGk=?=)
+Date: Sun, 9 Mar 2025 17:51:04 +0100
+Subject: [R-SIG-Mac] R 4.4.3 build has -ldeflate in LIBS
+Message-ID: <CABtg=KmTkkAcdLXSE_0geN+VD-k0Ayt4cMzcOV165je4Or1cmQ@mail.gmail.com>
+
+I wonder if it is necessary or beneficial to have -ldeflate in LIBS
+for the new R 4.4.3 build. This makes source package installations
+fail if the package links to R, and libdeflate is not installed. E.g.
+for
+
+install.packages("asciicast", type = "source")
+
+...
+clang -arch arm64  -L/opt/R/arm64/lib -o rem r.o common.o
+-F/Library/Frameworks/R.framework/Versions/4.4-arm64 -framework R
+-L/opt/R/arm64/lib -lpcre2-8 -ldeflate -llzma -lbz2 -lz -licucore -ldl
+-lm -liconv
+ld: library 'deflate' not found
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+...
+
+As far as I can tell libdeflate is not actually needed when compiling
+the package.
+
+The R-devel builds have the same, and also have -lzstd. The latter
+seems ok, at least on Sequoia, I don't know about earlier macOS
+versions.
+
+Gabor
+
+
+From c@@rd|@g@bor @end|ng |rom gm@||@com  Tue Mar 11 09:27:57 2025
+From: c@@rd|@g@bor @end|ng |rom gm@||@com (=?UTF-8?B?R8OhYm9yIENzw6FyZGk=?=)
+Date: Tue, 11 Mar 2025 09:27:57 +0100
+Subject: [R-SIG-Mac] Package compilation fails with recent R-devel build
+Message-ID: <CABtg=Km4JV0G8QxXA=so4njFFN5sY-SX1UDi5em6GEGfwJZGDw@mail.gmail.com>
+
+I wonder if this is on purpose. The workaround is to install gettext
+from the macOS binary system packages.
+
+? R-4.5-arm64
+
+R Under development (unstable) (2025-03-10 r87922) -- "Unsuffered Consequences"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+[...]
+
+? install.packages("filelock", type = "source")
+Installing package into ?/Users/gaborcsardi/Library/R/arm64/4.5/library?
+(as ?lib? is unspecified)
+trying URL 'https://cloud.r-project.org/src/contrib/filelock_1.0.3.tar.gz'
+Content type 'application/x-gzip' length 15443 bytes (15 KB)
+==================================================
+downloaded 15 KB
+
+* installing *source* package ?filelock? ...
+
+[...]
+
+clang -arch arm64 -dynamiclib -Wl,-headerpad_max_install_names
+-undefined dynamic_lookup
+-L/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib
+-L/opt/R/arm64/lib -o filelock.so init.o filelock-unix.o locklist.o
+-F/Library/Frameworks/R.framework/Versions/4.5-arm64 -framework R
+/opt/R/arm64/lib/libintl.a -Wl,-framework -Wl,CoreFoundation
+clang: error: no such file or directory: '/opt/R/arm64/lib/libintl.a'
+make: *** [filelock.so] Error 1
+ERROR: compilation failed for package ?filelock?
+
+[...]
+
+
+From r|p|eybd @end|ng |rom |c|oud@com  Tue Mar 11 09:56:01 2025
+From: r|p|eybd @end|ng |rom |c|oud@com (Prof Brian Ripley)
+Date: Tue, 11 Mar 2025 08:56:01 +0000
+Subject: [R-SIG-Mac] Package compilation fails with recent R-devel build
+In-Reply-To: <CABtg=Km4JV0G8QxXA=so4njFFN5sY-SX1UDi5em6GEGfwJZGDw@mail.gmail.com>
+References: <CABtg=Km4JV0G8QxXA=so4njFFN5sY-SX1UDi5em6GEGfwJZGDw@mail.gmail.com>
+Message-ID: <6ad4a32c-783d-4c17-afd0-fc9e9be19fa9@icloud.com>
+
+On 11/03/2025 08:27, G?bor Cs?rdi wrote:
+> I wonder if this is on purpose. The workaround is to install gettext
+> from the macOS binary system packages.
+
+Yes, it is intentional, and also work in progress.
+
+> 
+> ? R-4.5-arm64
+> 
+> R Under development (unstable) (2025-03-10 r87922) -- "Unsuffered Consequences"
+> Copyright (C) 2025 The R Foundation for Statistical Computing
+> Platform: aarch64-apple-darwin20
+> 
+> [...]
+> 
+> ? install.packages("filelock", type = "source")
+> Installing package into ?/Users/gaborcsardi/Library/R/arm64/4.5/library?
+> (as ?lib? is unspecified)
+> trying URL 'https://cloud.r-project.org/src/contrib/filelock_1.0.3.tar.gz'
+> Content type 'application/x-gzip' length 15443 bytes (15 KB)
+> ==================================================
+> downloaded 15 KB
+> 
+> * installing *source* package ?filelock? ...
+> 
+> [...]
+> 
+> clang -arch arm64 -dynamiclib -Wl,-headerpad_max_install_names
+> -undefined dynamic_lookup
+> -L/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib
+> -L/opt/R/arm64/lib -o filelock.so init.o filelock-unix.o locklist.o
+> -F/Library/Frameworks/R.framework/Versions/4.5-arm64 -framework R
+> /opt/R/arm64/lib/libintl.a -Wl,-framework -Wl,CoreFoundation
+> clang: error: no such file or directory: '/opt/R/arm64/lib/libintl.a'
+> make: *** [filelock.so] Error 1
+> ERROR: compilation failed for package ?filelock?
+> 
+> [...]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+-- 
+Brian D. Ripley,                  ripley at stats.ox.ac.uk
+Emeritus Professor of Applied Statistics, University of Oxford
+
+
+From n@re@h_gurbux@n| @end|ng |rom hotm@||@com  Tue Mar 18 11:55:53 2025
+From: n@re@h_gurbux@n| @end|ng |rom hotm@||@com (Naresh Gurbuxani)
+Date: Tue, 18 Mar 2025 10:55:53 +0000
+Subject: [R-SIG-Mac] Fw: [R] MacPorts install of data.table lacks openmp
+ support
+In-Reply-To: <20250317123753.02b1b282@arachnoid>
+References: <99D4F0C8-BF67-4B2E-B9F3-903149CB4151@hotmail.com>
+ <20250317123753.02b1b282@arachnoid>
+Message-ID: <IA1P223MB049983B4186FF01E29712D3DFADE2@IA1P223MB0499.NAMP223.PROD.OUTLOOK.COM>
+
+I have been unable to install data.table with openmp support.? Following Ivan's suggestion, I checked this:
+
+~ $ R CMD config CC
+/opt/local/bin/clang-mp-18
+
+Has anyone installed data.table with openmp support for this compiler?
+
+On my Intel mac mini with 15.3.2 Sequoia, I followed the instructions given at https://mac.r-project.org.? It seems that enabling openmp support via MacPorts install needs a different method.? Here is what I have done:
+
+
+Installed gfortran 14.2 using package available at https://mac.r-project.org.??
+Installed openmp support (17.0.6) using
+package available at https://mac.r-project.org/openmp/.??
+liblzma, pcre2,
+and bzip2 were installed by MacPorts.?
+
+I do not have a Makevars file.
+Without Makevars file, in the past I had successfully installed
+
+data.table with openmp support.??
+
+
+
+Thanks,
+
+Naresh
+
+
+
+~ $ which gfortran
+
+/usr/local/bin/gfortran
+
+~ $ gfortran --version
+
+GNU Fortran (GCC) 14.2.0
+
+~ $ clang --version
+
+Apple clang version 16.0.0 (clang-1600.0.26.6)
+
+Target: x86_64-apple-darwin24.3.0
+
+Thread model: posix
+
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+~ $ which clang
+
+/usr/bin/clang
+
+~ $ ls /usr/local/lib/libomp.dylib
+
+/usr/local/lib/libomp.dylib
+
+~ $ ls /usr/local/include/omp-tools.h
+
+/usr/local/include/omp-tools.h
+
+~ $ ls /usr/local/include/omp.h
+
+/usr/local/include/omp.h
+
+~ $ ls /usr/local/include/ompt.h
+
+/usr/local/include/ompt.h
+
+~ $ port installed xz*
+
+The following ports are currently installed:
+
+? xz @5.6.4_0 (active)
+
+? xz-bootstrap @5.6.4_0 (active)
+
+~ $ port installed pcre2 bzip2
+
+The following ports are currently installed:
+
+? bzip2 @1.0.8_0 (active)
+
+? pcre2 @10.45_0 (active)
+
+~ $ export $LDFLAGS
+
+declare -x CLICOLOR="1"
+
+declare -x COLUMNS="92"
+
+declare -x DISPLAY="Macmini.fios-router.home"
+
+declare -x EDITOR="/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs"
+
+declare -x EMAIL="naresh_gurbuxani at hotmail.com"
+
+declare -x HOME="/Users/nareshgurbuxani"
+
+declare -x INFOPATH=":/usr/local/texlive/2024/texmf-dist/doc/info"
+
+declare -x INSIDE_EMACS="29.4,comint"
+
+declare -x LANG="en_US.UTF-8"
+
+declare -x LOGNAME="nareshgurbuxani"
+
+declare -x LSCOLORS="GxFxCxDxBxegedabagaced"
+
+declare -x MANPATH=":/usr/local/texlive/2024/texmf-dist/doc/man"
+
+declare -x NAME="Naresh Gurbuxani"
+
+declare -x OLDPWD
+
+declare -x 
+PATH="/usr/local/texlive/2024/bin/universal-darwin:/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/usr/local/texlive/2024/bin/universal-darwin"
+
+declare -x PS1="\\W \$ "
+
+declare -x PWD="/Users/nareshgurbuxani"
+
+declare -x SHELL="/bin/bash"
+
+declare -x SHLVL="2"
+
+declare -x SSH_AUTH_SOCK="/private/tmp/com.apple.launchd.Wok8stg6Ex/Listeners"
+
+declare -x TERM="dumb"
+
+declare -x TERMCAP=""
+
+declare -x TERM_PROGRAM="Apple_Terminal"
+
+declare -x TERM_PROGRAM_VERSION="455"
+
+declare -x TERM_SESSION_ID="32510F68-CEC8-48D1-9C02-4A8B7B6F18D2"
+
+declare -x TMPDIR="/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/"
+
+declare -x USER="nareshgurbuxani"
+
+declare -x XPC_FLAGS="0x0"
+
+declare -x XPC_SERVICE_NAME="0"
+
+declare -x __CFBundleIdentifier="com.apple.Terminal"
+
+declare -x __CF_USER_TEXT_ENCODING="0x1F5:0x0:0x0"
+
+~ $ xcode-select --version
+
+xcode-select version 2409.
+
+~ $ port installed R
+
+The following ports are currently installed:
+
+? R @4.4.3_0+aqua+builtin_lapack+cairo+gcc14+openmp+tcltk+x11 (active)
+
+~ $ Rscript -e 'sessionInfo()'
+
+R version 4.4.3 (2025-02-28)
+
+Platform: x86_64-apple-darwin24.3.0
+
+Running under: macOS Sequoia 15.3.2
+
+
+
+Matrix products: default
+
+BLAS:?? /opt/local/Library/Frameworks/R.framework/Versions/4.4/Resources/lib/libRblas.dylib
+
+LAPACK: /opt/local/Library/Frameworks/R.framework/Versions/4.4/Resources/lib/libRlapack.dylib;? LAPACK version 3.12.0
+
+
+
+locale:
+
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+
+
+time zone: America/New_York
+
+tzcode source: internal
+
+
+
+attached base packages:
+
+[1] stats???? graphics? grDevices utils???? datasets? methods?? base????
+
+
+
+loaded via a namespace (and not attached):
+
+[1] compiler_4.4.3
+
+~ $
+
+
+________________________________________
+From:?Ivan Krylov <ikrylov at disroot.org>
+Sent:?Monday, March 17, 2025 5:37 AM
+To:?Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+Cc:?r-help at r-project.org <r-help at r-project.org>
+Subject:?Re: [R] MacPorts install of data.table lacks openmp support
+?
+Hello Naresh,
+
+If you don't get a good answer here, consider asking later at
+R-SIG-Mac at R-project.org.
+
+? Sun, 16 Mar 2025 20:28:49 +0000
+Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> ?????:
+
+> I installed gfortran 14.2 using package available at
+> https://mac.r-project.org.? Then I installed openmp support (17.0.6)
+> using package available at https://mac.r-project.org/openmp/.
+
+These are needed to build source packages for the CRAN build of R using
+the Apple toolchain. Although if you install the CRAN build of R, it
+should be possible to install the pre-built packages, including
+data.table, with OpenMP support. (CRAN builds of R for macOS include
+their own copy of OpenMP runtime starting with R-4.3.)
+
+> ~ $ which gfortran
+> /usr/local/bin/gfortran
+> ~ $ gfortran --version
+> GNU Fortran (GCC) 14.2.0
+> ~ $ clang --version
+> Apple clang version 16.0.0 (clang-1600.0.26.6)
+> Target: x86_64-apple-darwin24.3.0
+> Thread model: posix
+> InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+Doesn't the MacPorts build of R use its own toolchain?
+https://github.com/macports/macports-ports/blob/bc07a46df685778bc33530c2dd09050be07a6a41/math/R/Portfile#L40-L41
+
+Check the output of R CMD config CC (is it /opt/local/bin/clang-mp-18?)
+and try to find out how to enable OpenMP support for that compiler.
+Does it need a separate installation of the libomp port?
+
+--
+Best regards,
+Ivan
+
+From jeroenoom@ @end|ng |rom gm@||@com  Thu Mar 20 15:15:37 2025
+From: jeroenoom@ @end|ng |rom gm@||@com (Jeroen Ooms)
+Date: Thu, 20 Mar 2025 15:15:37 +0100
+Subject: [R-SIG-Mac] error: 'noreturn' attribute does not appear on the
+ first declaration
+Message-ID: <CABFfbXu13jacq-te8mxhFJkuxnDgHGSAHBXsrMNZwZbbErBpkg@mail.gmail.com>
+
+Testing 4.5.0 alpha (2025-03-18 r87991) on On MacOS 15.3.2 (xcode 16),
+I get an error when building e.g. 'stringi'
+
+    /Library/Frameworks/R.framework/Resources/include/R_ext/Error.h:58:3:
+error: 'noreturn' attribute does not appear on the first declaration
+       [[noreturn]] void Rf_error(const char *, ...) R_PRINTF_FORMAT(1, 2);
+
+
+From n@re@h_gurbux@n| @end|ng |rom hotm@||@com  Sat Mar 22 14:01:38 2025
+From: n@re@h_gurbux@n| @end|ng |rom hotm@||@com (Naresh Gurbuxani)
+Date: Sat, 22 Mar 2025 13:01:38 +0000
+Subject: [R-SIG-Mac] install.libs error
+Message-ID: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+
+
+On my Intel mac Sequoia, I installed R from package manager at https://cran.r-project.org
+
+How can below problem be fixed?
+
+> source("https://mac.R-project.org/bin/install.R")
+
+Usage: install.libs(names)
+
+Example: install.libs('cairo')
+
+names can be a vector or a special value 'all'.
+See args(install.libs) for defaults.
+> install.libs("QuantLib", action = "list")
+Downloading https://mac.R-project.org/bin/REPOS ...
+Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+[1] "https://mac.R-project.org/bin/darwin20/x86_64/QuantLib-1.35-darwin.20-x86_64.tar.xz"
+[2] "https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz" 
+> install.libs("boost")
+Downloading https://mac.R-project.org/bin/REPOS ...
+Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+bzip2: (stdin) is not a bzip2 file.
+tar: Child died with signal 13
+tar: Error is not recoverable: exiting now
+curl: (23) Failure writing output to destination, passed 8192 returned 0
+> sessionInfo()
+R version 4.4.3 (2025-02-28)
+Platform: x86_64-apple-darwin20
+Running under: macOS Sequoia 15.3.2
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/New_York
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] hexbin_1.28.5  lattice_0.22-6 zoo_1.8-13    
+
+loaded via a namespace (and not attached):
+[1] compiler_4.4.3 tools_4.4.3    grid_4.4.3     tcltk_4.4.3   
+> system("which bzip2")
+/opt/local/bin/bzip2
+> system("which curl")
+/opt/local/bin/curl
+>
+
+
+From r@p@r@p@ @end|ng |rom mcw@edu  Sat Mar 22 15:53:50 2025
+From: r@p@r@p@ @end|ng |rom mcw@edu (Sparapani, Rodney)
+Date: Sat, 22 Mar 2025 14:53:50 +0000
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+Message-ID: <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+
+Hi Naresh:
+
+I?m seeing the same error message.  And it makes sense
+because the boost tar-ball is compressed with xz and
+not bzip2.  On line 87 of install.R, we have the following?
+if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+Little j means bzip2 while big J is xz.  So try substituting?
+if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+
+--
+Rodney Sparapani, Associate Professor of Biostatistics
+President, Wisconsin Chapter of the American Statistical Association
+Division of Biostatistics, Data Science Institute
+Medical College of Wisconsin, Milwaukee Campus
+
+
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+Date: Saturday, March 22, 2025 at 8:02?AM
+To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+Subject: [R-SIG-Mac] install.libs error
+Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz $<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+bzip2: (stdin) is not a bzip2 file.
+tar: Child died with signal 13
+tar: Error is not recoverable: exiting now
+curl: (23) Failure writing output to destination, passed 8192 returned 0
+
+	[[alternative HTML version deleted]]
+
+
+From pd@|gd @end|ng |rom gm@||@com  Sun Mar 23 11:21:21 2025
+From: pd@|gd @end|ng |rom gm@||@com (peter dalgaard)
+Date: Sun, 23 Mar 2025 11:21:21 +0100
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+Message-ID: <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+
+Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+
+Any chance you two could be picking up a different tar? I am seeing
+
+PeterDaardsiMac:ISwR pd$ which tar
+/usr/bin/tar
+PeterDaardsiMac:ISwR pd$ tar --version
+bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+
+and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+
+-pd
+
+> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+> 
+> Hi Naresh:
+> 
+> I?m seeing the same error message.  And it makes sense
+> because the boost tar-ball is compressed with xz and
+> not bzip2.  On line 87 of install.R, we have the following?
+> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+> Little j means bzip2 while big J is xz.  So try substituting?
+> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+> 
+> --
+> Rodney Sparapani, Associate Professor of Biostatistics
+> President, Wisconsin Chapter of the American Statistical Association
+> Division of Biostatistics, Data Science Institute
+> Medical College of Wisconsin, Milwaukee Campus
+> 
+> 
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+> Date: Saturday, March 22, 2025 at 8:02?AM
+> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+> Subject: [R-SIG-Mac] install.libs error
+> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz $<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+> bzip2: (stdin) is not a bzip2 file.
+> tar: Child died with signal 13
+> tar: Error is not recoverable: exiting now
+> curl: (23) Failure writing output to destination, passed 8192 returned 0
+> 
+> [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From n@re@h_gurbux@n| @end|ng |rom hotm@||@com  Sun Mar 23 12:55:28 2025
+From: n@re@h_gurbux@n| @end|ng |rom hotm@||@com (Naresh Gurbuxani)
+Date: Sun, 23 Mar 2025 11:55:28 +0000
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+Message-ID: <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+
+
+notes $ which tar
+/opt/local/libexec/gnubin/tar
+notes $ tar --version
+tar (GNU tar) 1.35
+Copyright (C) 2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by John Gilmore and Jay Fenlason.
+notes $ 
+
+I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+
+Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+
+> install.libs("boost")
+Downloading https://mac.R-project.org/bin/REPOS ...
+Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+tar: opt/R/x86_64/include: Cannot utime: Permission denied
+tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+(Many more lines with Permission denied message)
+
+I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+
+> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+Content type 'application/x-gzip' length 195836 bytes (191 KB)
+==================================================
+downloaded 191 KB
+
+* installing *source* package ?RQuantLib? ...
+** package ?RQuantLib? successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+checking whether the compiler supports GNU C++... (cached) yes
+checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+checking for R... yes
+checking for quantlib-config... yes
+checking for suitable QuantLib version... yes (1.36)
+checking for Boost development files... no
+configure: error: Boost development files not found
+ERROR: configuration failed for package ?RQuantLib?
+* removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+
+The downloaded source packages are in
+?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+Warning message:
+In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+  installation of package ?RQuantLib? had non-zero exit status
+   In terminal
+notes $ ls /opt/local/libexec/boost/1.76/include/
+boost
+
+> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+> 
+> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+> 
+> Any chance you two could be picking up a different tar? I am seeing
+> 
+> PeterDaardsiMac:ISwR pd$ which tar
+> /usr/bin/tar
+> PeterDaardsiMac:ISwR pd$ tar --version
+> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+> 
+> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+> 
+> -pd
+> 
+>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>> 
+>> Hi Naresh:
+>> 
+>> I?m seeing the same error message.  And it makes sense
+>> because the boost tar-ball is compressed with xz and
+>> not bzip2.  On line 87 of install.R, we have the following?
+>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>> Little j means bzip2 while big J is xz.  So try substituting?
+>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>> 
+>> --
+>> Rodney Sparapani, Associate Professor of Biostatistics
+>> President, Wisconsin Chapter of the American Statistical Association
+>> Division of Biostatistics, Data Science Institute
+>> Medical College of Wisconsin, Milwaukee Campus
+>> 
+>> 
+>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>> Date: Saturday, March 22, 2025 at 8:02?AM
+>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>> Subject: [R-SIG-Mac] install.libs error
+>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>> bzip2: (stdin) is not a bzip2 file.
+>> tar: Child died with signal 13
+>> tar: Error is not recoverable: exiting now
+>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>> 
+>> [[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> -- 
+> Peter Dalgaard, Professor,
+> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+> Phone: (+45)38153501
+> Office: A 4.23
+> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+
+From pd@|gd @end|ng |rom gm@||@com  Sun Mar 23 14:18:08 2025
+From: pd@|gd @end|ng |rom gm@||@com (Peter Dalgaard)
+Date: Sun, 23 Mar 2025 14:18:08 +0100
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+Message-ID: <FBDDD7D1-984E-4308-A3BA-B0323957011F@gmail.com>
+
+
+OK, so not the system tar; that settles that. Simon (cc'ed) might still want to fix J vs  j, though.
+
+Re. permissions, I suspect you want to either
+
+- run R as root for the installation
+- change permissions on /opt/R & subdirectories
+or
+- install to a different directory
+
+Re. MacPorts vs Simon's tools I really have no clue, except that it very often doesn't work to mix and match different toolchains. 
+
+-pd
+
+
+> On 23 Mar 2025, at 12.55, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+> 
+> 
+> notes $ which tar
+> /opt/local/libexec/gnubin/tar
+> notes $ tar --version
+> tar (GNU tar) 1.35
+> Copyright (C) 2023 Free Software Foundation, Inc.
+> License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+> This is free software: you are free to change and redistribute it.
+> There is NO WARRANTY, to the extent permitted by law.
+> 
+> Written by John Gilmore and Jay Fenlason.
+> notes $ 
+> 
+> I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+> 
+> Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+> 
+>> install.libs("boost")
+> Downloading https://mac.R-project.org/bin/REPOS ...
+> Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+> Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+> tar: opt/R/x86_64/include: Cannot utime: Permission denied
+> tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+> tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+> (Many more lines with Permission denied message)
+> 
+> I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+> 
+>> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+> ==================================================
+> downloaded 191 KB
+> 
+> * installing *source* package ?RQuantLib? ...
+> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+> ** using staged installation
+> checking whether the C++ compiler works... yes
+> checking for C++ compiler default output file name... a.out
+> checking for suffix of executables... 
+> checking whether we are cross compiling... no
+> checking for suffix of object files... o
+> checking whether the compiler supports GNU C++... yes
+> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+> checking whether the compiler supports GNU C++... (cached) yes
+> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+> checking for R... yes
+> checking for quantlib-config... yes
+> checking for suitable QuantLib version... yes (1.36)
+> checking for Boost development files... no
+> configure: error: Boost development files not found
+> ERROR: configuration failed for package ?RQuantLib?
+> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+> 
+> The downloaded source packages are in
+> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+> Warning message:
+> In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+>  installation of package ?RQuantLib? had non-zero exit status
+>   In terminal
+> notes $ ls /opt/local/libexec/boost/1.76/include/
+> boost
+> 
+>> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+>> 
+>> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+>> 
+>> Any chance you two could be picking up a different tar? I am seeing
+>> 
+>> PeterDaardsiMac:ISwR pd$ which tar
+>> /usr/bin/tar
+>> PeterDaardsiMac:ISwR pd$ tar --version
+>> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+>> 
+>> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+>> 
+>> -pd
+>> 
+>>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>> 
+>>> Hi Naresh:
+>>> 
+>>> I?m seeing the same error message.  And it makes sense
+>>> because the boost tar-ball is compressed with xz and
+>>> not bzip2.  On line 87 of install.R, we have the following?
+>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>>> Little j means bzip2 while big J is xz.  So try substituting?
+>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>>> 
+>>> --
+>>> Rodney Sparapani, Associate Professor of Biostatistics
+>>> President, Wisconsin Chapter of the American Statistical Association
+>>> Division of Biostatistics, Data Science Institute
+>>> Medical College of Wisconsin, Milwaukee Campus
+>>> 
+>>> 
+>>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>>> Date: Saturday, March 22, 2025 at 8:02?AM
+>>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>>> Subject: [R-SIG-Mac] install.libs error
+>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>>> bzip2: (stdin) is not a bzip2 file.
+>>> tar: Child died with signal 13
+>>> tar: Error is not recoverable: exiting now
+>>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>>> 
+>>> [[alternative HTML version deleted]]
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+>> -- 
+>> Peter Dalgaard, Professor,
+>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>> Phone: (+45)38153501
+>> Office: A 4.23
+>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+> 
+> 
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From n@re@h_gurbux@n| @end|ng |rom hotm@||@com  Sun Mar 23 14:37:03 2025
+From: n@re@h_gurbux@n| @end|ng |rom hotm@||@com (Naresh Gurbuxani)
+Date: Sun, 23 Mar 2025 13:37:03 +0000
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+Message-ID: <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+
+Peter,
+
+In install.libs(), there is no argument for setting location where boost or other packages are installed.  How can I select a different directory to install boost using install.libs()?
+
+Thanks,
+Naresh
+
+> On Mar 23, 2025, at 7:55?AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+> 
+> 
+> notes $ which tar
+> /opt/local/libexec/gnubin/tar
+> notes $ tar --version
+> tar (GNU tar) 1.35
+> Copyright (C) 2023 Free Software Foundation, Inc.
+> License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+> This is free software: you are free to change and redistribute it.
+> There is NO WARRANTY, to the extent permitted by law.
+> 
+> Written by John Gilmore and Jay Fenlason.
+> notes $ 
+> 
+> I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+> 
+> Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+> 
+>> install.libs("boost")
+> Downloading https://mac.R-project.org/bin/REPOS ...
+> Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+> Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+> tar: opt/R/x86_64/include: Cannot utime: Permission denied
+> tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+> tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+> (Many more lines with Permission denied message)
+> 
+> I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+> 
+>> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+> ==================================================
+> downloaded 191 KB
+> 
+> * installing *source* package ?RQuantLib? ...
+> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+> ** using staged installation
+> checking whether the C++ compiler works... yes
+> checking for C++ compiler default output file name... a.out
+> checking for suffix of executables... 
+> checking whether we are cross compiling... no
+> checking for suffix of object files... o
+> checking whether the compiler supports GNU C++... yes
+> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+> checking whether the compiler supports GNU C++... (cached) yes
+> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+> checking for R... yes
+> checking for quantlib-config... yes
+> checking for suitable QuantLib version... yes (1.36)
+> checking for Boost development files... no
+> configure: error: Boost development files not found
+> ERROR: configuration failed for package ?RQuantLib?
+> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+> 
+> The downloaded source packages are in
+> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+> Warning message:
+> In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+>  installation of package ?RQuantLib? had non-zero exit status
+>   In terminal
+> notes $ ls /opt/local/libexec/boost/1.76/include/
+> boost
+> 
+>> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+>> 
+>> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+>> 
+>> Any chance you two could be picking up a different tar? I am seeing
+>> 
+>> PeterDaardsiMac:ISwR pd$ which tar
+>> /usr/bin/tar
+>> PeterDaardsiMac:ISwR pd$ tar --version
+>> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+>> 
+>> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+>> 
+>> -pd
+>> 
+>>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>> 
+>>> Hi Naresh:
+>>> 
+>>> I?m seeing the same error message.  And it makes sense
+>>> because the boost tar-ball is compressed with xz and
+>>> not bzip2.  On line 87 of install.R, we have the following?
+>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>>> Little j means bzip2 while big J is xz.  So try substituting?
+>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>>> 
+>>> --
+>>> Rodney Sparapani, Associate Professor of Biostatistics
+>>> President, Wisconsin Chapter of the American Statistical Association
+>>> Division of Biostatistics, Data Science Institute
+>>> Medical College of Wisconsin, Milwaukee Campus
+>>> 
+>>> 
+>>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>>> Date: Saturday, March 22, 2025 at 8:02?AM
+>>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>>> Subject: [R-SIG-Mac] install.libs error
+>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>>> bzip2: (stdin) is not a bzip2 file.
+>>> tar: Child died with signal 13
+>>> tar: Error is not recoverable: exiting now
+>>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>>> 
+>>> [[alternative HTML version deleted]]
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+>> -- 
+>> Peter Dalgaard, Professor,
+>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>> Phone: (+45)38153501
+>> Office: A 4.23
+>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+> 
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From pd@|gd @end|ng |rom gm@||@com  Sun Mar 23 15:44:06 2025
+From: pd@|gd @end|ng |rom gm@||@com (Peter Dalgaard)
+Date: Sun, 23 Mar 2025 15:44:06 +0100
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+ <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+Message-ID: <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+
+You'd need to change the "-C /" in the tar command. I trust Simon enough to just run the script as root, though... 
+
+-pd
+
+> On 23 Mar 2025, at 14.37, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+> 
+> Peter,
+> 
+> In install.libs(), there is no argument for setting location where boost or other packages are installed.  How can I select a different directory to install boost using install.libs()?
+> 
+> Thanks,
+> Naresh
+> 
+>> On Mar 23, 2025, at 7:55?AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>> 
+>> 
+>> notes $ which tar
+>> /opt/local/libexec/gnubin/tar
+>> notes $ tar --version
+>> tar (GNU tar) 1.35
+>> Copyright (C) 2023 Free Software Foundation, Inc.
+>> License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+>> This is free software: you are free to change and redistribute it.
+>> There is NO WARRANTY, to the extent permitted by law.
+>> 
+>> Written by John Gilmore and Jay Fenlason.
+>> notes $ 
+>> 
+>> I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+>> 
+>> Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+>> 
+>>> install.libs("boost")
+>> Downloading https://mac.R-project.org/bin/REPOS ...
+>> Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+>> Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+>> tar: opt/R/x86_64/include: Cannot utime: Permission denied
+>> tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+>> tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+>> (Many more lines with Permission denied message)
+>> 
+>> I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+>> 
+>>> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>> ==================================================
+>> downloaded 191 KB
+>> 
+>> * installing *source* package ?RQuantLib? ...
+>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>> ** using staged installation
+>> checking whether the C++ compiler works... yes
+>> checking for C++ compiler default output file name... a.out
+>> checking for suffix of executables... 
+>> checking whether we are cross compiling... no
+>> checking for suffix of object files... o
+>> checking whether the compiler supports GNU C++... yes
+>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>> checking whether the compiler supports GNU C++... (cached) yes
+>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>> checking for R... yes
+>> checking for quantlib-config... yes
+>> checking for suitable QuantLib version... yes (1.36)
+>> checking for Boost development files... no
+>> configure: error: Boost development files not found
+>> ERROR: configuration failed for package ?RQuantLib?
+>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>> 
+>> The downloaded source packages are in
+>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+>> Warning message:
+>> In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+>> installation of package ?RQuantLib? had non-zero exit status
+>>  In terminal
+>> notes $ ls /opt/local/libexec/boost/1.76/include/
+>> boost
+>> 
+>>> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+>>> 
+>>> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+>>> 
+>>> Any chance you two could be picking up a different tar? I am seeing
+>>> 
+>>> PeterDaardsiMac:ISwR pd$ which tar
+>>> /usr/bin/tar
+>>> PeterDaardsiMac:ISwR pd$ tar --version
+>>> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+>>> 
+>>> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+>>> 
+>>> -pd
+>>> 
+>>>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>>> 
+>>>> Hi Naresh:
+>>>> 
+>>>> I?m seeing the same error message.  And it makes sense
+>>>> because the boost tar-ball is compressed with xz and
+>>>> not bzip2.  On line 87 of install.R, we have the following?
+>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>>>> Little j means bzip2 while big J is xz.  So try substituting?
+>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>>>> 
+>>>> --
+>>>> Rodney Sparapani, Associate Professor of Biostatistics
+>>>> President, Wisconsin Chapter of the American Statistical Association
+>>>> Division of Biostatistics, Data Science Institute
+>>>> Medical College of Wisconsin, Milwaukee Campus
+>>>> 
+>>>> 
+>>>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>>>> Date: Saturday, March 22, 2025 at 8:02?AM
+>>>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>>>> Subject: [R-SIG-Mac] install.libs error
+>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>>>> bzip2: (stdin) is not a bzip2 file.
+>>>> tar: Child died with signal 13
+>>>> tar: Error is not recoverable: exiting now
+>>>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>>>> 
+>>>> [[alternative HTML version deleted]]
+>>>> 
+>>>> _______________________________________________
+>>>> R-SIG-Mac mailing list
+>>>> R-SIG-Mac at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>> 
+>>> -- 
+>>> Peter Dalgaard, Professor,
+>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>> Phone: (+45)38153501
+>>> Office: A 4.23
+>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>> 
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From n@re@h_gurbux@n| @end|ng |rom hotm@||@com  Sun Mar 23 17:36:39 2025
+From: n@re@h_gurbux@n| @end|ng |rom hotm@||@com (Naresh Gurbuxani)
+Date: Sun, 23 Mar 2025 16:36:39 +0000
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+ <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+ <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+Message-ID: <06E6F6EE-C462-4699-B94F-2A6E53DA81DE@hotmail.com>
+
+To give credit to Simon, at https://mac.r-project.org/bin instructions include a note that ?If you do not have write permission, you may need to make it writeable or run sudo R.?
+
+I ran sudo R and was able to install and download boost.  
+
+~ $ ls /opt/R/x86_64/include/
+boost      itclInt.h     tcl.h     tclTomMathDecls.h
+fakemysql.h   itclIntDecls.h     tclDecls.h      tdbc.h
+fakepq.h      itclMigrate2TclCore.h  tclOO.h     tdbcDecls.h
+fakesql.h     itclTclIntStubsFcn.h   tclOODecls.h    tdbcInt.h
+itcl.h      mysqlStubs.h     tclPlatDecls.h  tk.h
+itcl2TclOO.h  odbcStubs.h     tclThread.h     tkDecls.h
+itclDecls.h   pqStubs.h     tclTomMath.h    tkPlatDecls.h
+~ $ 
+
+However, I am still not able to install RQuantLib.  It does not find boost.
+> install.packages("RQuantLib", type = "source", lib = .libPaths()[2], configure.args = c("--with-boost-include=/opt/R/x86_64/include/boost"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+Content type 'application/x-gzip' length 195836 bytes (191 KB)
+==================================================
+downloaded 191 KB
+
+* installing *source* package ?RQuantLib? ...
+** package ?RQuantLib? successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+checking whether the compiler supports GNU C++... (cached) yes
+checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+checking for R... yes
+checking for quantlib-config... yes
+checking for suitable QuantLib version... yes (1.36)
+checking for Boost development files... no
+configure: error: Boost development files not found
+ERROR: configuration failed for package ?RQuantLib?
+* removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+
+The downloaded source packages are in
+?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/Rtmp7YHJMO/downloaded_packages?
+Warning message:
+In install.packages("RQuantLib", type = "source", lib = .libPaths()[2],  :
+  installation of package ?RQuantLib? had non-zero exit status
+> 
+
+> On Mar 23, 2025, at 10:44?AM, Peter Dalgaard <pdalgd at gmail.com> wrote:
+> 
+> You'd need to change the "-C /" in the tar command. I trust Simon enough to just run the script as root, though... 
+> 
+> -pd
+> 
+>> On 23 Mar 2025, at 14.37, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>> 
+>> Peter,
+>> 
+>> In install.libs(), there is no argument for setting location where boost or other packages are installed.  How can I select a different directory to install boost using install.libs()?
+>> 
+>> Thanks,
+>> Naresh
+>> 
+>>> On Mar 23, 2025, at 7:55?AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>> 
+>>> 
+>>> notes $ which tar
+>>> /opt/local/libexec/gnubin/tar
+>>> notes $ tar --version
+>>> tar (GNU tar) 1.35
+>>> Copyright (C) 2023 Free Software Foundation, Inc.
+>>> License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+>>> This is free software: you are free to change and redistribute it.
+>>> There is NO WARRANTY, to the extent permitted by law.
+>>> 
+>>> Written by John Gilmore and Jay Fenlason.
+>>> notes $ 
+>>> 
+>>> I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+>>> 
+>>> Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+>>> 
+>>>> install.libs("boost")
+>>> Downloading https://mac.R-project.org/bin/REPOS ...
+>>> Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+>>> Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+>>> tar: opt/R/x86_64/include: Cannot utime: Permission denied
+>>> tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+>>> tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+>>> (Many more lines with Permission denied message)
+>>> 
+>>> I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+>>> 
+>>>> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>>> ==================================================
+>>> downloaded 191 KB
+>>> 
+>>> * installing *source* package ?RQuantLib? ...
+>>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>>> ** using staged installation
+>>> checking whether the C++ compiler works... yes
+>>> checking for C++ compiler default output file name... a.out
+>>> checking for suffix of executables... 
+>>> checking whether we are cross compiling... no
+>>> checking for suffix of object files... o
+>>> checking whether the compiler supports GNU C++... yes
+>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>>> checking whether the compiler supports GNU C++... (cached) yes
+>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>>> checking for R... yes
+>>> checking for quantlib-config... yes
+>>> checking for suitable QuantLib version... yes (1.36)
+>>> checking for Boost development files... no
+>>> configure: error: Boost development files not found
+>>> ERROR: configuration failed for package ?RQuantLib?
+>>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>>> 
+>>> The downloaded source packages are in
+>>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+>>> Warning message:
+>>> In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+>>> installation of package ?RQuantLib? had non-zero exit status
+>>> In terminal
+>>> notes $ ls /opt/local/libexec/boost/1.76/include/
+>>> boost
+>>> 
+>>>> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+>>>> 
+>>>> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+>>>> 
+>>>> Any chance you two could be picking up a different tar? I am seeing
+>>>> 
+>>>> PeterDaardsiMac:ISwR pd$ which tar
+>>>> /usr/bin/tar
+>>>> PeterDaardsiMac:ISwR pd$ tar --version
+>>>> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+>>>> 
+>>>> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+>>>> 
+>>>> -pd
+>>>> 
+>>>>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>>>> 
+>>>>> Hi Naresh:
+>>>>> 
+>>>>> I?m seeing the same error message.  And it makes sense
+>>>>> because the boost tar-ball is compressed with xz and
+>>>>> not bzip2.  On line 87 of install.R, we have the following?
+>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>>>>> Little j means bzip2 while big J is xz.  So try substituting?
+>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>>>>> 
+>>>>> --
+>>>>> Rodney Sparapani, Associate Professor of Biostatistics
+>>>>> President, Wisconsin Chapter of the American Statistical Association
+>>>>> Division of Biostatistics, Data Science Institute
+>>>>> Medical College of Wisconsin, Milwaukee Campus
+>>>>> 
+>>>>> 
+>>>>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>>>>> Date: Saturday, March 22, 2025 at 8:02?AM
+>>>>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>>>>> Subject: [R-SIG-Mac] install.libs error
+>>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>>>>> bzip2: (stdin) is not a bzip2 file.
+>>>>> tar: Child died with signal 13
+>>>>> tar: Error is not recoverable: exiting now
+>>>>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>>>>> 
+>>>>> [[alternative HTML version deleted]]
+>>>>> 
+>>>>> _______________________________________________
+>>>>> R-SIG-Mac mailing list
+>>>>> R-SIG-Mac at r-project.org
+>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>> 
+>>>> -- 
+>>>> Peter Dalgaard, Professor,
+>>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>>> Phone: (+45)38153501
+>>>> Office: A 4.23
+>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>>> 
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+> 
+> -- 
+> Peter Dalgaard, Professor,
+> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+> Phone: (+45)38153501
+> Office: A 4.23
+> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+> 
+
+
+From m|k3h@|| @end|ng |rom gm@||@com  Sun Mar 23 20:25:06 2025
+From: m|k3h@|| @end|ng |rom gm@||@com (Michael Hall)
+Date: Sun, 23 Mar 2025 14:25:06 -0500
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 264, Issue 10
+In-Reply-To: <mailman.15346.4516.1742747868.1699.r-sig-mac@r-project.org>
+References: <mailman.15346.4516.1742747868.1699.r-sig-mac@r-project.org>
+Message-ID: <EAA54710-DEA2-4659-AEAA-F62D912975BE@gmail.com>
+
+
+> However, I am still not able to install RQuantLib.  It does not find boost.
+>> install.packages("RQuantLib", type = "source", lib = .libPaths()[2], configure.args = c("--with-boost-include=/opt/R/x86_64/include/boost"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+> ==================================================
+
+It worked for me ARM using homebrew boost
+
+brew install boost
+
+And installing with?
+
+install.packages(
+  "RQuantLib", 
+  type = "source",
+  configure.args = 
+    c("--with-boost-include=/opt/homebrew/opt/boost/include/"),
+  configure.vars = 
+    c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'") # for intraday calculations
+)
+
+As per?
+
+https://github.com/eddelbuettel/rquantlib/wiki/RQuantLib
+
+The downloaded source packages are in
+	?/private/var/folders/mp/64527rf1501726r7t53qpx0w0000gn/T/Rtmpa1ob11/downloaded_packages?
+> library(RQuantLib)
+> 
+	[[alternative HTML version deleted]]
+
+
+From m|k3h@|| @end|ng |rom gm@||@com  Sun Mar 23 20:54:50 2025
+From: m|k3h@|| @end|ng |rom gm@||@com (Michael Hall)
+Date: Sun, 23 Mar 2025 14:54:50 -0500
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 264, Issue 10
+In-Reply-To: <mailman.15346.4516.1742747868.1699.r-sig-mac@r-project.org>
+References: <mailman.15346.4516.1742747868.1699.r-sig-mac@r-project.org>
+Message-ID: <7C366457-96B3-4505-82EB-5E11F74A5A69@gmail.com>
+
+You might make sure the 
+lib = .libPaths()[2]
+Isn?t messing you up somehow
+
+> On Mar 23, 2025, at 11:37?AM, r-sig-mac-request at r-project.org wrote:
+> 
+> However, I am still not able to install RQuantLib.  It does not find boost.
+>> install.packages("RQuantLib", type = "source", lib = .libPaths()[2], configure.args = c("--with-boost-include=/opt/R/x86_64/include/boost"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+
+
+	[[alternative HTML version deleted]]
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Sun Mar 23 21:25:26 2025
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Mon, 24 Mar 2025 09:25:26 +1300
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <06E6F6EE-C462-4699-B94F-2A6E53DA81DE@hotmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+ <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+ <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+ <06E6F6EE-C462-4699-B94F-2A6E53DA81DE@hotmail.com>
+Message-ID: <F0CE23B6-74C8-4403-A49F-FDAAAD3FA1B0@R-project.org>
+
+Naresh,
+
+please ignore all "advice" you go so far - most of it was wrong. From your earlier reports it looks like your system is messed up which the the core of the problem - please remove 3rd party libraries from your path (like homebrew, macports, /opt/local etc.) as that will interfere with the builds. You can tell that you have a serious mess by the fact that it's showing a *different* QuantLib version in the configure step than the one you downloaded so you have unrelated scripts on your PATH so everything will break.
+
+So to start from scratch:
+
+1) move aside everything from /usr/local, e.g.
+sudo mkdir /usr/local/.away
+sudo mv /usr/local/* /usr/local/.away/
+
+2) create /opt/R/$(uname -m) and make you the owner
+sudo mkdir -p /opt/R/$(uname -m)
+sudo chown $USER /opt/R
+
+3) remove all non-system paths from PATH and prepend /opt/R/$(uname -m). Since we nuked /usr/local you may want to add R itself:
+
+export PATH=/opt/R/$(uname -m)/bin:/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/R.framework/Resources/bin
+
+Now run install.libs("QuantLib") as before (as you, not root).
+
+Install the package you care about (I presume RQuantLib). The best way to know what's going on is to install locally as it allows you to inspect config.log if something goes wrong, i.e.
+
+# in R:
+download.packages("RQuantLib",".",type='source')
+# in the shell
+tar fxz RQuantLib_*
+R CMD INSTALL RQuantLib
+
+if something goes wrong you'll have RQuantLib/config.log to look at. Note that you should not need any extra flags like --with-boost-include since they are already in the location they are supposed to be.
+
+Once you're happy, you can move back /usr/local/ if you still need it, e.g.
+
+sudo mv /usr/local/.away/* /usr/local/
+
+Cheers,
+Simon
+
+
+
+> On Mar 24, 2025, at 5:36 AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+> 
+> To give credit to Simon, at https://mac.r-project.org/bin instructions include a note that ?If you do not have write permission, you may need to make it writeable or run sudo R.?
+> 
+> I ran sudo R and was able to install and download boost.  
+> 
+> ~ $ ls /opt/R/x86_64/include/
+> boost      itclInt.h     tcl.h     tclTomMathDecls.h
+> fakemysql.h   itclIntDecls.h     tclDecls.h      tdbc.h
+> fakepq.h      itclMigrate2TclCore.h  tclOO.h     tdbcDecls.h
+> fakesql.h     itclTclIntStubsFcn.h   tclOODecls.h    tdbcInt.h
+> itcl.h      mysqlStubs.h     tclPlatDecls.h  tk.h
+> itcl2TclOO.h  odbcStubs.h     tclThread.h     tkDecls.h
+> itclDecls.h   pqStubs.h     tclTomMath.h    tkPlatDecls.h
+> ~ $ 
+> 
+> However, I am still not able to install RQuantLib.  It does not find boost.
+>> install.packages("RQuantLib", type = "source", lib = .libPaths()[2], configure.args = c("--with-boost-include=/opt/R/x86_64/include/boost"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+> ==================================================
+> downloaded 191 KB
+> 
+> * installing *source* package ?RQuantLib? ...
+> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+> ** using staged installation
+> checking whether the C++ compiler works... yes
+> checking for C++ compiler default output file name... a.out
+> checking for suffix of executables... 
+> checking whether we are cross compiling... no
+> checking for suffix of object files... o
+> checking whether the compiler supports GNU C++... yes
+> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+> checking whether the compiler supports GNU C++... (cached) yes
+> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+> checking for R... yes
+> checking for quantlib-config... yes
+> checking for suitable QuantLib version... yes (1.36)
+> checking for Boost development files... no
+> configure: error: Boost development files not found
+> ERROR: configuration failed for package ?RQuantLib?
+> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+> 
+> The downloaded source packages are in
+> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/Rtmp7YHJMO/downloaded_packages?
+> Warning message:
+> In install.packages("RQuantLib", type = "source", lib = .libPaths()[2],  :
+>  installation of package ?RQuantLib? had non-zero exit status
+>> 
+> 
+>> On Mar 23, 2025, at 10:44?AM, Peter Dalgaard <pdalgd at gmail.com> wrote:
+>> 
+>> You'd need to change the "-C /" in the tar command. I trust Simon enough to just run the script as root, though... 
+>> 
+>> -pd
+>> 
+>>> On 23 Mar 2025, at 14.37, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>> 
+>>> Peter,
+>>> 
+>>> In install.libs(), there is no argument for setting location where boost or other packages are installed.  How can I select a different directory to install boost using install.libs()?
+>>> 
+>>> Thanks,
+>>> Naresh
+>>> 
+>>>> On Mar 23, 2025, at 7:55?AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>>> 
+>>>> 
+>>>> notes $ which tar
+>>>> /opt/local/libexec/gnubin/tar
+>>>> notes $ tar --version
+>>>> tar (GNU tar) 1.35
+>>>> Copyright (C) 2023 Free Software Foundation, Inc.
+>>>> License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+>>>> This is free software: you are free to change and redistribute it.
+>>>> There is NO WARRANTY, to the extent permitted by law.
+>>>> 
+>>>> Written by John Gilmore and Jay Fenlason.
+>>>> notes $ 
+>>>> 
+>>>> I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+>>>> 
+>>>> Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+>>>> 
+>>>>> install.libs("boost")
+>>>> Downloading https://mac.R-project.org/bin/REPOS ...
+>>>> Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+>>>> Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+>>>> tar: opt/R/x86_64/include: Cannot utime: Permission denied
+>>>> tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+>>>> tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+>>>> (Many more lines with Permission denied message)
+>>>> 
+>>>> I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+>>>> 
+>>>>> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>>>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>>>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>>>> ==================================================
+>>>> downloaded 191 KB
+>>>> 
+>>>> * installing *source* package ?RQuantLib? ...
+>>>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>>>> ** using staged installation
+>>>> checking whether the C++ compiler works... yes
+>>>> checking for C++ compiler default output file name... a.out
+>>>> checking for suffix of executables... 
+>>>> checking whether we are cross compiling... no
+>>>> checking for suffix of object files... o
+>>>> checking whether the compiler supports GNU C++... yes
+>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>>>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>>>> checking whether the compiler supports GNU C++... (cached) yes
+>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>>>> checking for R... yes
+>>>> checking for quantlib-config... yes
+>>>> checking for suitable QuantLib version... yes (1.36)
+>>>> checking for Boost development files... no
+>>>> configure: error: Boost development files not found
+>>>> ERROR: configuration failed for package ?RQuantLib?
+>>>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>>>> 
+>>>> The downloaded source packages are in
+>>>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+>>>> Warning message:
+>>>> In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+>>>> installation of package ?RQuantLib? had non-zero exit status
+>>>> In terminal
+>>>> notes $ ls /opt/local/libexec/boost/1.76/include/
+>>>> boost
+>>>> 
+>>>>> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+>>>>> 
+>>>>> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+>>>>> 
+>>>>> Any chance you two could be picking up a different tar? I am seeing
+>>>>> 
+>>>>> PeterDaardsiMac:ISwR pd$ which tar
+>>>>> /usr/bin/tar
+>>>>> PeterDaardsiMac:ISwR pd$ tar --version
+>>>>> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+>>>>> 
+>>>>> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+>>>>> 
+>>>>> -pd
+>>>>> 
+>>>>>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>>>>> 
+>>>>>> Hi Naresh:
+>>>>>> 
+>>>>>> I?m seeing the same error message.  And it makes sense
+>>>>>> because the boost tar-ball is compressed with xz and
+>>>>>> not bzip2.  On line 87 of install.R, we have the following?
+>>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>>>>>> Little j means bzip2 while big J is xz.  So try substituting?
+>>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>>>>>> 
+>>>>>> --
+>>>>>> Rodney Sparapani, Associate Professor of Biostatistics
+>>>>>> President, Wisconsin Chapter of the American Statistical Association
+>>>>>> Division of Biostatistics, Data Science Institute
+>>>>>> Medical College of Wisconsin, Milwaukee Campus
+>>>>>> 
+>>>>>> 
+>>>>>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>>>>>> Date: Saturday, March 22, 2025 at 8:02?AM
+>>>>>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>>>>>> Subject: [R-SIG-Mac] install.libs error
+>>>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>>>>>> bzip2: (stdin) is not a bzip2 file.
+>>>>>> tar: Child died with signal 13
+>>>>>> tar: Error is not recoverable: exiting now
+>>>>>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>>>>>> 
+>>>>>> [[alternative HTML version deleted]]
+>>>>>> 
+>>>>>> _______________________________________________
+>>>>>> R-SIG-Mac mailing list
+>>>>>> R-SIG-Mac at r-project.org
+>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>>> 
+>>>>> -- 
+>>>>> Peter Dalgaard, Professor,
+>>>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>>>> Phone: (+45)38153501
+>>>>> Office: A 4.23
+>>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>>>> 
+>>>> 
+>>>> _______________________________________________
+>>>> R-SIG-Mac mailing list
+>>>> R-SIG-Mac at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>> 
+>> 
+>> -- 
+>> Peter Dalgaard, Professor,
+>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>> Phone: (+45)38153501
+>> Office: A 4.23
+>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>> 
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Sun Mar 23 21:37:00 2025
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Mon, 24 Mar 2025 09:37:00 +1300
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 264, Issue 10
+In-Reply-To: <EAA54710-DEA2-4659-AEAA-F62D912975BE@gmail.com>
+References: <mailman.15346.4516.1742747868.1699.r-sig-mac@r-project.org>
+ <EAA54710-DEA2-4659-AEAA-F62D912975BE@gmail.com>
+Message-ID: <89C2ABA3-73C3-40EB-81BD-73E631C234AD@R-project.org>
+
+Please ignore this "advice" - it makes the mess even worse. As you can tell if you look closer at the output it's about 3rd party tools like homebrew messing up the build which causes the problem in the first place.
+
+BTW: the page you quote is complete nonsense: CRAN does provide binaries - that's the whole point of the recipes so that users don't have to re-compile it and can just install it from CRAN.
+
+Cheers,
+Simon
+
+
+> On Mar 24, 2025, at 8:25 AM, Michael Hall <mik3hall at gmail.com> wrote:
+> 
+> 
+>> However, I am still not able to install RQuantLib.  It does not find boost.
+>>> install.packages("RQuantLib", type = "source", lib = .libPaths()[2], configure.args = c("--with-boost-include=/opt/R/x86_64/include/boost"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>> ==================================================
+> 
+> It worked for me ARM using homebrew boost
+> 
+> brew install boost
+> 
+> And installing with?
+> 
+> install.packages(
+>  "RQuantLib", 
+>  type = "source",
+>  configure.args = 
+>    c("--with-boost-include=/opt/homebrew/opt/boost/include/"),
+>  configure.vars = 
+>    c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'") # for intraday calculations
+> )
+> 
+> As per?
+> 
+> https://github.com/eddelbuettel/rquantlib/wiki/RQuantLib
+> 
+> The downloaded source packages are in
+> 	?/private/var/folders/mp/64527rf1501726r7t53qpx0w0000gn/T/Rtmpa1ob11/downloaded_packages?
+>> library(RQuantLib)
+>> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From m|k3h@|| @end|ng |rom gm@||@com  Sun Mar 23 22:45:56 2025
+From: m|k3h@|| @end|ng |rom gm@||@com (Michael Hall)
+Date: Sun, 23 Mar 2025 16:45:56 -0500
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 264, Issue 10
+In-Reply-To: <89C2ABA3-73C3-40EB-81BD-73E631C234AD@R-project.org>
+References: <mailman.15346.4516.1742747868.1699.r-sig-mac@r-project.org>
+ <EAA54710-DEA2-4659-AEAA-F62D912975BE@gmail.com>
+ <89C2ABA3-73C3-40EB-81BD-73E631C234AD@R-project.org>
+Message-ID: <E7DE7FCB-EB0B-410E-AE72-B19F872137BE@gmail.com>
+
+
+
+> On Mar 23, 2025, at 3:37?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+> 
+> Please ignore this "advice" - it makes the mess even worse. As you can tell if you look closer at the output it's about 3rd party tools like homebrew messing up the build which causes the problem in the first place.
+> 
+> BTW: the page you quote is complete nonsense: CRAN does provide binaries - that's the whole point of the recipes so that users don't have to re-compile it and can just install it from CRAN.
+> 
+> Cheers,
+> Simon
+
+I saw no errors in the output. 
+I did see this.
+
+checking for Boost development files... yes
+checking for minimal Boost version? yes
+
+Which seemed to be the original point of failure. I think he used MacPorts for boost. How is that better than homebrew in this instance? 
+
+From m|k3h@|| @end|ng |rom gm@||@com  Mon Mar 24 00:11:59 2025
+From: m|k3h@|| @end|ng |rom gm@||@com (Michael Hall)
+Date: Sun, 23 Mar 2025 18:11:59 -0500
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 264, Issue 10
+In-Reply-To: <E7DE7FCB-EB0B-410E-AE72-B19F872137BE@gmail.com>
+References: <mailman.15346.4516.1742747868.1699.r-sig-mac@r-project.org>
+ <EAA54710-DEA2-4659-AEAA-F62D912975BE@gmail.com>
+ <89C2ABA3-73C3-40EB-81BD-73E631C234AD@R-project.org>
+ <E7DE7FCB-EB0B-410E-AE72-B19F872137BE@gmail.com>
+Message-ID: <7E240FE7-B3D2-4688-989B-77C53E9E8052@gmail.com>
+
+For the list, to be clear, installing using homebrew did work for me. As per the package author?s directions in the link provided. 
+Whatever other issues with homebrew there might be. 
+
+> On Mar 23, 2025, at 4:45?PM, Michael Hall <mik3hall at gmail.com> wrote:
+> 
+> 
+> 
+>> On Mar 23, 2025, at 3:37?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+>> 
+>> Please ignore this "advice" - it makes the mess even worse. As you can tell if you look closer at the output it's about 3rd party tools like homebrew messing up the build which causes the problem in the first place.
+>> 
+>> BTW: the page you quote is complete nonsense: CRAN does provide binaries - that's the whole point of the recipes so that users don't have to re-compile it and can just install it from CRAN.
+>> 
+>> Cheers,
+>> Simon
+> 
+> I saw no errors in the output. 
+> I did see this.
+> 
+> checking for Boost development files... yes
+> checking for minimal Boost version? yes
+> 
+> Which seemed to be the original point of failure. I think he used MacPorts for boost. How is that better than homebrew in this instance? 
+> 
+> 
+
+
+From n@re@h_gurbux@n| @end|ng |rom hotm@||@com  Mon Mar 31 01:25:16 2025
+From: n@re@h_gurbux@n| @end|ng |rom hotm@||@com (Naresh Gurbuxani)
+Date: Sun, 30 Mar 2025 23:25:16 +0000
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <F0CE23B6-74C8-4403-A49F-FDAAAD3FA1B0@R-project.org>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+ <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+ <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+ <06E6F6EE-C462-4699-B94F-2A6E53DA81DE@hotmail.com>
+ <F0CE23B6-74C8-4403-A49F-FDAAAD3FA1B0@R-project.org>
+Message-ID: <35C5412F-9739-44B3-952F-666D6A78993D@hotmail.com>
+
+Reporting back after a clean reinstall of R using directions and resources at https://mac.r-project.org, both data.table and RQuantLib are working as expected.  data.table has openmp enabled.  RQuantLib has intraday enabled.  There was no need to use Makevars file.
+
+One observation about liblzma and PCRE2 libraries.  These libraries are required before R installation.  While these can be installed using install.libs() function,  that is only possible after R installation.  Therefore, these need to be downloaded, unpacked, then installed using ./configure, make, and make install.  While experienced users are comfortable with this procedure, new users may be tempted to avoid this by using a package manager like HomeBrew or MacPorts.  As pointed out on this website, and confirmed by my experience, libraries installed using package managers do not always work well with directly installed libraries.  R core group should consider either (i) including these libraries within R package installer, or (ii) providing some more instructions on installing these libraries (similar to OpenMP page).  
+
+A similar problem will arise when a new version of R uses updated versions of liblzma and PCRE2. 
+
+Thanks everyone for their help and patience,
+Naresh  
+
+> On Mar 23, 2025, at 4:25?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+> 
+> Naresh,
+> 
+> please ignore all "advice" you go so far - most of it was wrong. From your earlier reports it looks like your system is messed up which the the core of the problem - please remove 3rd party libraries from your path (like homebrew, macports, /opt/local etc.) as that will interfere with the builds. You can tell that you have a serious mess by the fact that it's showing a *different* QuantLib version in the configure step than the one you downloaded so you have unrelated scripts on your PATH so everything will break.
+> 
+> So to start from scratch:
+> 
+> 1) move aside everything from /usr/local, e.g.
+> sudo mkdir /usr/local/.away
+> sudo mv /usr/local/* /usr/local/.away/
+> 
+> 2) create /opt/R/$(uname -m) and make you the owner
+> sudo mkdir -p /opt/R/$(uname -m)
+> sudo chown $USER /opt/R
+> 
+> 3) remove all non-system paths from PATH and prepend /opt/R/$(uname -m). Since we nuked /usr/local you may want to add R itself:
+> 
+> export PATH=/opt/R/$(uname -m)/bin:/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/R.framework/Resources/bin
+> 
+> Now run install.libs("QuantLib") as before (as you, not root).
+> 
+> Install the package you care about (I presume RQuantLib). The best way to know what's going on is to install locally as it allows you to inspect config.log if something goes wrong, i.e.
+> 
+> # in R:
+> download.packages("RQuantLib",".",type='source')
+> # in the shell
+> tar fxz RQuantLib_*
+> R CMD INSTALL RQuantLib
+> 
+> if something goes wrong you'll have RQuantLib/config.log to look at. Note that you should not need any extra flags like --with-boost-include since they are already in the location they are supposed to be.
+> 
+> Once you're happy, you can move back /usr/local/ if you still need it, e.g.
+> 
+> sudo mv /usr/local/.away/* /usr/local/
+> 
+> Cheers,
+> Simon
+> 
+> 
+> 
+>> On Mar 24, 2025, at 5:36 AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>> 
+>> To give credit to Simon, at https://mac.r-project.org/bin instructions include a note that ?If you do not have write permission, you may need to make it writeable or run sudo R.?
+>> 
+>> I ran sudo R and was able to install and download boost.  
+>> 
+>> ~ $ ls /opt/R/x86_64/include/
+>> boost      itclInt.h     tcl.h     tclTomMathDecls.h
+>> fakemysql.h   itclIntDecls.h     tclDecls.h      tdbc.h
+>> fakepq.h      itclMigrate2TclCore.h  tclOO.h     tdbcDecls.h
+>> fakesql.h     itclTclIntStubsFcn.h   tclOODecls.h    tdbcInt.h
+>> itcl.h      mysqlStubs.h     tclPlatDecls.h  tk.h
+>> itcl2TclOO.h  odbcStubs.h     tclThread.h     tkDecls.h
+>> itclDecls.h   pqStubs.h     tclTomMath.h    tkPlatDecls.h
+>> ~ $ 
+>> 
+>> However, I am still not able to install RQuantLib.  It does not find boost.
+>>> install.packages("RQuantLib", type = "source", lib = .libPaths()[2], configure.args = c("--with-boost-include=/opt/R/x86_64/include/boost"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>> ==================================================
+>> downloaded 191 KB
+>> 
+>> * installing *source* package ?RQuantLib? ...
+>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>> ** using staged installation
+>> checking whether the C++ compiler works... yes
+>> checking for C++ compiler default output file name... a.out
+>> checking for suffix of executables... 
+>> checking whether we are cross compiling... no
+>> checking for suffix of object files... o
+>> checking whether the compiler supports GNU C++... yes
+>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>> checking whether the compiler supports GNU C++... (cached) yes
+>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>> checking for R... yes
+>> checking for quantlib-config... yes
+>> checking for suitable QuantLib version... yes (1.36)
+>> checking for Boost development files... no
+>> configure: error: Boost development files not found
+>> ERROR: configuration failed for package ?RQuantLib?
+>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>> 
+>> The downloaded source packages are in
+>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/Rtmp7YHJMO/downloaded_packages?
+>> Warning message:
+>> In install.packages("RQuantLib", type = "source", lib = .libPaths()[2],  :
+>> installation of package ?RQuantLib? had non-zero exit status
+>>> 
+>> 
+>>> On Mar 23, 2025, at 10:44?AM, Peter Dalgaard <pdalgd at gmail.com> wrote:
+>>> 
+>>> You'd need to change the "-C /" in the tar command. I trust Simon enough to just run the script as root, though... 
+>>> 
+>>> -pd
+>>> 
+>>>> On 23 Mar 2025, at 14.37, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>>> 
+>>>> Peter,
+>>>> 
+>>>> In install.libs(), there is no argument for setting location where boost or other packages are installed.  How can I select a different directory to install boost using install.libs()?
+>>>> 
+>>>> Thanks,
+>>>> Naresh
+>>>> 
+>>>>> On Mar 23, 2025, at 7:55?AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>>>> 
+>>>>> 
+>>>>> notes $ which tar
+>>>>> /opt/local/libexec/gnubin/tar
+>>>>> notes $ tar --version
+>>>>> tar (GNU tar) 1.35
+>>>>> Copyright (C) 2023 Free Software Foundation, Inc.
+>>>>> License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+>>>>> This is free software: you are free to change and redistribute it.
+>>>>> There is NO WARRANTY, to the extent permitted by law.
+>>>>> 
+>>>>> Written by John Gilmore and Jay Fenlason.
+>>>>> notes $ 
+>>>>> 
+>>>>> I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+>>>>> 
+>>>>> Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+>>>>> 
+>>>>>> install.libs("boost")
+>>>>> Downloading https://mac.R-project.org/bin/REPOS ...
+>>>>> Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+>>>>> Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+>>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+>>>>> tar: opt/R/x86_64/include: Cannot utime: Permission denied
+>>>>> tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+>>>>> tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+>>>>> (Many more lines with Permission denied message)
+>>>>> 
+>>>>> I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+>>>>> 
+>>>>>> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>>>>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>>>>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>>>>> ==================================================
+>>>>> downloaded 191 KB
+>>>>> 
+>>>>> * installing *source* package ?RQuantLib? ...
+>>>>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>>>>> ** using staged installation
+>>>>> checking whether the C++ compiler works... yes
+>>>>> checking for C++ compiler default output file name... a.out
+>>>>> checking for suffix of executables... 
+>>>>> checking whether we are cross compiling... no
+>>>>> checking for suffix of object files... o
+>>>>> checking whether the compiler supports GNU C++... yes
+>>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>>>>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>>>>> checking whether the compiler supports GNU C++... (cached) yes
+>>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>>>>> checking for R... yes
+>>>>> checking for quantlib-config... yes
+>>>>> checking for suitable QuantLib version... yes (1.36)
+>>>>> checking for Boost development files... no
+>>>>> configure: error: Boost development files not found
+>>>>> ERROR: configuration failed for package ?RQuantLib?
+>>>>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>>>>> 
+>>>>> The downloaded source packages are in
+>>>>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+>>>>> Warning message:
+>>>>> In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+>>>>> installation of package ?RQuantLib? had non-zero exit status
+>>>>> In terminal
+>>>>> notes $ ls /opt/local/libexec/boost/1.76/include/
+>>>>> boost
+>>>>> 
+>>>>>> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+>>>>>> 
+>>>>>> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+>>>>>> 
+>>>>>> Any chance you two could be picking up a different tar? I am seeing
+>>>>>> 
+>>>>>> PeterDaardsiMac:ISwR pd$ which tar
+>>>>>> /usr/bin/tar
+>>>>>> PeterDaardsiMac:ISwR pd$ tar --version
+>>>>>> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+>>>>>> 
+>>>>>> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+>>>>>> 
+>>>>>> -pd
+>>>>>> 
+>>>>>>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>>>>>> 
+>>>>>>> Hi Naresh:
+>>>>>>> 
+>>>>>>> I?m seeing the same error message.  And it makes sense
+>>>>>>> because the boost tar-ball is compressed with xz and
+>>>>>>> not bzip2.  On line 87 of install.R, we have the following?
+>>>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>>>>>>> Little j means bzip2 while big J is xz.  So try substituting?
+>>>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>>>>>>> 
+>>>>>>> --
+>>>>>>> Rodney Sparapani, Associate Professor of Biostatistics
+>>>>>>> President, Wisconsin Chapter of the American Statistical Association
+>>>>>>> Division of Biostatistics, Data Science Institute
+>>>>>>> Medical College of Wisconsin, Milwaukee Campus
+>>>>>>> 
+>>>>>>> 
+>>>>>>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>>>>>>> Date: Saturday, March 22, 2025 at 8:02?AM
+>>>>>>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>>>>>>> Subject: [R-SIG-Mac] install.libs error
+>>>>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>>>>>>> bzip2: (stdin) is not a bzip2 file.
+>>>>>>> tar: Child died with signal 13
+>>>>>>> tar: Error is not recoverable: exiting now
+>>>>>>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>>>>>>> 
+>>>>>>> [[alternative HTML version deleted]]
+>>>>>>> 
+>>>>>>> _______________________________________________
+>>>>>>> R-SIG-Mac mailing list
+>>>>>>> R-SIG-Mac at r-project.org
+>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>>>> 
+>>>>>> -- 
+>>>>>> Peter Dalgaard, Professor,
+>>>>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>>>>> Phone: (+45)38153501
+>>>>>> Office: A 4.23
+>>>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>>>>> 
+>>>>> 
+>>>>> _______________________________________________
+>>>>> R-SIG-Mac mailing list
+>>>>> R-SIG-Mac at r-project.org
+>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>> 
+>>> 
+>>> -- 
+>>> Peter Dalgaard, Professor,
+>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>> Phone: (+45)38153501
+>>> Office: A 4.23
+>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>>> 
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From m|k3h@|| @end|ng |rom gm@||@com  Mon Mar 31 01:37:07 2025
+From: m|k3h@|| @end|ng |rom gm@||@com (Michael Hall)
+Date: Sun, 30 Mar 2025 18:37:07 -0500
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 264, Issue 13
+In-Reply-To: <mailman.15353.5134.1743377154.1699.r-sig-mac@r-project.org>
+References: <mailman.15353.5134.1743377154.1699.r-sig-mac@r-project.org>
+Message-ID: <D2281B50-2F2E-4E1F-811E-CFB45C78B39D@gmail.com>
+
+My guess was that the problematic Boost dependency ended up being statically linked so it didn?t matter too much where you did this from. 
+I didn?t verify this though.
+If you have something that works better for you. All the better.
+
+> On Mar 30, 2025, at 6:25?PM, r-sig-mac-request at r-project.org wrote:
+> 
+> Reporting back after a clean reinstall of R using directions and resources at https://mac.r-project.org <https://mac.r-project.org/>, both data.table and RQuantLib are working as expected. 
+
+
+	[[alternative HTML version deleted]]
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Mon Mar 31 03:24:53 2025
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Mon, 31 Mar 2025 14:24:53 +1300
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <35C5412F-9739-44B3-952F-666D6A78993D@hotmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+ <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+ <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+ <06E6F6EE-C462-4699-B94F-2A6E53DA81DE@hotmail.com>
+ <F0CE23B6-74C8-4403-A49F-FDAAAD3FA1B0@R-project.org>
+ <35C5412F-9739-44B3-952F-666D6A78993D@hotmail.com>
+Message-ID: <9BA57B6D-CCD3-4F09-9591-09ECC9DD3E0D@R-project.org>
+
+Naresh,
+
+
+> On 31 Mar 2025, at 12:25, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+> 
+> Reporting back after a clean reinstall of R using directions and resources at https://mac.r-project.org, both data.table and RQuantLib are working as expected.  data.table has openmp enabled.  RQuantLib has intraday enabled.  There was no need to use Makevars file.
+> 
+
+Great. Is the intraday feature something that is of interest to users?  I wonder why it is not enabled by default. If it is useful and not harmful we could build CRAN binaries with that flag so you wouldn?t need to do any of what you did ...
+
+
+> One observation about liblzma and PCRE2 libraries.  These libraries are required before R installation.  While these can be installed using install.libs() function,  that is only possible after R installation.  Therefore, these need to be downloaded, unpacked, then installed using ./configure, make, and make install.  While experienced users are comfortable with this procedure, new users may be tempted to avoid this by using a package manager like HomeBrew or MacPorts.  As pointed out on this website, and confirmed by my experience, libraries installed using package managers do not always work well with directly installed libraries.  R core group should consider either (i) including these libraries within R package installer, or (ii) providing some more instructions on installing these libraries (similar to OpenMP page).  
+> 
+
+
+Sorry, I don?t see why you would need to do any of that - the binaries are all ready-to-use, so you simply unpack them - there is no need to use configure, ./make etc. since you don't have to compile them from sources - that?s the whole point of binaries.
+
+
+> A similar problem will arise when a new version of R uses updated versions of liblzma and PCRE2. 
+> 
+
+
+The versions are quite irrelevant since they are used statically so R doesn't care which version you use in packages and vice-versa.
+
+Cheers,
+Simon
+
+
+
+> Thanks everyone for their help and patience,
+> Naresh  
+> 
+>> On Mar 23, 2025, at 4:25?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+>> 
+>> Naresh,
+>> 
+>> please ignore all "advice" you go so far - most of it was wrong. From your earlier reports it looks like your system is messed up which the the core of the problem - please remove 3rd party libraries from your path (like homebrew, macports, /opt/local etc.) as that will interfere with the builds. You can tell that you have a serious mess by the fact that it's showing a *different* QuantLib version in the configure step than the one you downloaded so you have unrelated scripts on your PATH so everything will break.
+>> 
+>> So to start from scratch:
+>> 
+>> 1) move aside everything from /usr/local, e.g.
+>> sudo mkdir /usr/local/.away
+>> sudo mv /usr/local/* /usr/local/.away/
+>> 
+>> 2) create /opt/R/$(uname -m) and make you the owner
+>> sudo mkdir -p /opt/R/$(uname -m)
+>> sudo chown $USER /opt/R
+>> 
+>> 3) remove all non-system paths from PATH and prepend /opt/R/$(uname -m). Since we nuked /usr/local you may want to add R itself:
+>> 
+>> export PATH=/opt/R/$(uname -m)/bin:/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/R.framework/Resources/bin
+>> 
+>> Now run install.libs("QuantLib") as before (as you, not root).
+>> 
+>> Install the package you care about (I presume RQuantLib). The best way to know what's going on is to install locally as it allows you to inspect config.log if something goes wrong, i.e.
+>> 
+>> # in R:
+>> download.packages("RQuantLib",".",type='source')
+>> # in the shell
+>> tar fxz RQuantLib_*
+>> R CMD INSTALL RQuantLib
+>> 
+>> if something goes wrong you'll have RQuantLib/config.log to look at. Note that you should not need any extra flags like --with-boost-include since they are already in the location they are supposed to be.
+>> 
+>> Once you're happy, you can move back /usr/local/ if you still need it, e.g.
+>> 
+>> sudo mv /usr/local/.away/* /usr/local/
+>> 
+>> Cheers,
+>> Simon
+>> 
+>> 
+>> 
+>>> On Mar 24, 2025, at 5:36 AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>> 
+>>> To give credit to Simon, at https://mac.r-project.org/bin instructions include a note that ?If you do not have write permission, you may need to make it writeable or run sudo R.?
+>>> 
+>>> I ran sudo R and was able to install and download boost.  
+>>> 
+>>> ~ $ ls /opt/R/x86_64/include/
+>>> boost      itclInt.h     tcl.h     tclTomMathDecls.h
+>>> fakemysql.h   itclIntDecls.h     tclDecls.h      tdbc.h
+>>> fakepq.h      itclMigrate2TclCore.h  tclOO.h     tdbcDecls.h
+>>> fakesql.h     itclTclIntStubsFcn.h   tclOODecls.h    tdbcInt.h
+>>> itcl.h      mysqlStubs.h     tclPlatDecls.h  tk.h
+>>> itcl2TclOO.h  odbcStubs.h     tclThread.h     tkDecls.h
+>>> itclDecls.h   pqStubs.h     tclTomMath.h    tkPlatDecls.h
+>>> ~ $ 
+>>> 
+>>> However, I am still not able to install RQuantLib.  It does not find boost.
+>>>> install.packages("RQuantLib", type = "source", lib = .libPaths()[2], configure.args = c("--with-boost-include=/opt/R/x86_64/include/boost"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>>> ==================================================
+>>> downloaded 191 KB
+>>> 
+>>> * installing *source* package ?RQuantLib? ...
+>>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>>> ** using staged installation
+>>> checking whether the C++ compiler works... yes
+>>> checking for C++ compiler default output file name... a.out
+>>> checking for suffix of executables... 
+>>> checking whether we are cross compiling... no
+>>> checking for suffix of object files... o
+>>> checking whether the compiler supports GNU C++... yes
+>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>>> checking whether the compiler supports GNU C++... (cached) yes
+>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>>> checking for R... yes
+>>> checking for quantlib-config... yes
+>>> checking for suitable QuantLib version... yes (1.36)
+>>> checking for Boost development files... no
+>>> configure: error: Boost development files not found
+>>> ERROR: configuration failed for package ?RQuantLib?
+>>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>>> 
+>>> The downloaded source packages are in
+>>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/Rtmp7YHJMO/downloaded_packages?
+>>> Warning message:
+>>> In install.packages("RQuantLib", type = "source", lib = .libPaths()[2],  :
+>>> installation of package ?RQuantLib? had non-zero exit status
+>>>> 
+>>> 
+>>>> On Mar 23, 2025, at 10:44?AM, Peter Dalgaard <pdalgd at gmail.com> wrote:
+>>>> 
+>>>> You'd need to change the "-C /" in the tar command. I trust Simon enough to just run the script as root, though... 
+>>>> 
+>>>> -pd
+>>>> 
+>>>>> On 23 Mar 2025, at 14.37, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>>>> 
+>>>>> Peter,
+>>>>> 
+>>>>> In install.libs(), there is no argument for setting location where boost or other packages are installed.  How can I select a different directory to install boost using install.libs()?
+>>>>> 
+>>>>> Thanks,
+>>>>> Naresh
+>>>>> 
+>>>>>> On Mar 23, 2025, at 7:55?AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>>>>> 
+>>>>>> 
+>>>>>> notes $ which tar
+>>>>>> /opt/local/libexec/gnubin/tar
+>>>>>> notes $ tar --version
+>>>>>> tar (GNU tar) 1.35
+>>>>>> Copyright (C) 2023 Free Software Foundation, Inc.
+>>>>>> License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+>>>>>> This is free software: you are free to change and redistribute it.
+>>>>>> There is NO WARRANTY, to the extent permitted by law.
+>>>>>> 
+>>>>>> Written by John Gilmore and Jay Fenlason.
+>>>>>> notes $ 
+>>>>>> 
+>>>>>> I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+>>>>>> 
+>>>>>> Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+>>>>>> 
+>>>>>>> install.libs("boost")
+>>>>>> Downloading https://mac.R-project.org/bin/REPOS ...
+>>>>>> Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+>>>>>> Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+>>>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+>>>>>> tar: opt/R/x86_64/include: Cannot utime: Permission denied
+>>>>>> tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+>>>>>> tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+>>>>>> (Many more lines with Permission denied message)
+>>>>>> 
+>>>>>> I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+>>>>>> 
+>>>>>>> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>>>>>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>>>>>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>>>>>> ==================================================
+>>>>>> downloaded 191 KB
+>>>>>> 
+>>>>>> * installing *source* package ?RQuantLib? ...
+>>>>>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>>>>>> ** using staged installation
+>>>>>> checking whether the C++ compiler works... yes
+>>>>>> checking for C++ compiler default output file name... a.out
+>>>>>> checking for suffix of executables... 
+>>>>>> checking whether we are cross compiling... no
+>>>>>> checking for suffix of object files... o
+>>>>>> checking whether the compiler supports GNU C++... yes
+>>>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>>>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>>>>>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>>>>>> checking whether the compiler supports GNU C++... (cached) yes
+>>>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>>>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>>>>>> checking for R... yes
+>>>>>> checking for quantlib-config... yes
+>>>>>> checking for suitable QuantLib version... yes (1.36)
+>>>>>> checking for Boost development files... no
+>>>>>> configure: error: Boost development files not found
+>>>>>> ERROR: configuration failed for package ?RQuantLib?
+>>>>>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>>>>>> 
+>>>>>> The downloaded source packages are in
+>>>>>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+>>>>>> Warning message:
+>>>>>> In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+>>>>>> installation of package ?RQuantLib? had non-zero exit status
+>>>>>> In terminal
+>>>>>> notes $ ls /opt/local/libexec/boost/1.76/include/
+>>>>>> boost
+>>>>>> 
+>>>>>>> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+>>>>>>> 
+>>>>>>> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+>>>>>>> 
+>>>>>>> Any chance you two could be picking up a different tar? I am seeing
+>>>>>>> 
+>>>>>>> PeterDaardsiMac:ISwR pd$ which tar
+>>>>>>> /usr/bin/tar
+>>>>>>> PeterDaardsiMac:ISwR pd$ tar --version
+>>>>>>> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+>>>>>>> 
+>>>>>>> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+>>>>>>> 
+>>>>>>> -pd
+>>>>>>> 
+>>>>>>>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>>>>>>> 
+>>>>>>>> Hi Naresh:
+>>>>>>>> 
+>>>>>>>> I?m seeing the same error message.  And it makes sense
+>>>>>>>> because the boost tar-ball is compressed with xz and
+>>>>>>>> not bzip2.  On line 87 of install.R, we have the following?
+>>>>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>>>>>>>> Little j means bzip2 while big J is xz.  So try substituting?
+>>>>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>>>>>>>> 
+>>>>>>>> --
+>>>>>>>> Rodney Sparapani, Associate Professor of Biostatistics
+>>>>>>>> President, Wisconsin Chapter of the American Statistical Association
+>>>>>>>> Division of Biostatistics, Data Science Institute
+>>>>>>>> Medical College of Wisconsin, Milwaukee Campus
+>>>>>>>> 
+>>>>>>>> 
+>>>>>>>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>>>>>>>> Date: Saturday, March 22, 2025 at 8:02?AM
+>>>>>>>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>>>>>>>> Subject: [R-SIG-Mac] install.libs error
+>>>>>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>>>>>>>> bzip2: (stdin) is not a bzip2 file.
+>>>>>>>> tar: Child died with signal 13
+>>>>>>>> tar: Error is not recoverable: exiting now
+>>>>>>>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>>>>>>>> 
+>>>>>>>> [[alternative HTML version deleted]]
+>>>>>>>> 
+>>>>>>>> _______________________________________________
+>>>>>>>> R-SIG-Mac mailing list
+>>>>>>>> R-SIG-Mac at r-project.org
+>>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>>>>> 
+>>>>>>> -- 
+>>>>>>> Peter Dalgaard, Professor,
+>>>>>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>>>>>> Phone: (+45)38153501
+>>>>>>> Office: A 4.23
+>>>>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>>>>>> 
+>>>>>> 
+>>>>>> _______________________________________________
+>>>>>> R-SIG-Mac mailing list
+>>>>>> R-SIG-Mac at r-project.org
+>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>>> 
+>>>> 
+>>>> -- 
+>>>> Peter Dalgaard, Professor,
+>>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>>> Phone: (+45)38153501
+>>>> Office: A 4.23
+>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>>>> 
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+> 
+
+
+From n@re@h_gurbux@n| @end|ng |rom hotm@||@com  Mon Mar 31 11:04:20 2025
+From: n@re@h_gurbux@n| @end|ng |rom hotm@||@com (Naresh Gurbuxani)
+Date: Mon, 31 Mar 2025 09:04:20 +0000
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <9BA57B6D-CCD3-4F09-9591-09ECC9DD3E0D@R-project.org>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+ <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+ <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+ <06E6F6EE-C462-4699-B94F-2A6E53DA81DE@hotmail.com>
+ <F0CE23B6-74C8-4403-A49F-FDAAAD3FA1B0@R-project.org>
+ <35C5412F-9739-44B3-952F-666D6A78993D@hotmail.com>
+ <9BA57B6D-CCD3-4F09-9591-09ECC9DD3E0D@R-project.org>
+Message-ID: <9C18E5C0-2067-4A63-A236-5112B2EC7A4C@hotmail.com>
+
+Simon,
+
+Website mac.r-project.org/tools/ lists mandatory libraries.  In the next paragraph, it has a link to ?binaries of libraries and tools for Mac OS page?.  Clicking on the link takes user to mac.r-project.org/bin.  Here the only method of install described is via install.libs().  By using install.libs(), I found out that binaries (for my Intel Mac) are located at mac.r-project.org/bin/darwin20/x86_64/.  But if I did not already have R installed, I would not be able to go to this location.  
+
+On the page mac.r-project.org/bin, perhaps you can provide links to the binaries location.  Currently the only links provided are to liblzma and PCRE2 homepages.  When downloading from those locations, user may need to run ./configure, make, and make install.  
+
+I am only starting out with QuantLib, so not sure if intraday feature is widely used.  
+
+Thanks again,
+Naresh
+
+> On Mar 30, 2025, at 9:24?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+> 
+> Naresh,
+> 
+> 
+>> On 31 Mar 2025, at 12:25, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>> 
+>> Reporting back after a clean reinstall of R using directions and resources at https://mac.r-project.org, both data.table and RQuantLib are working as expected.  data.table has openmp enabled.  RQuantLib has intraday enabled.  There was no need to use Makevars file.
+>> 
+> 
+> Great. Is the intraday feature something that is of interest to users?  I wonder why it is not enabled by default. If it is useful and not harmful we could build CRAN binaries with that flag so you wouldn?t need to do any of what you did ...
+> 
+> 
+>> One observation about liblzma and PCRE2 libraries.  These libraries are required before R installation.  While these can be installed using install.libs() function,  that is only possible after R installation.  Therefore, these need to be downloaded, unpacked, then installed using ./configure, make, and make install.  While experienced users are comfortable with this procedure, new users may be tempted to avoid this by using a package manager like HomeBrew or MacPorts.  As pointed out on this website, and confirmed by my experience, libraries installed using package managers do not always work well with directly installed libraries.  R core group should consider either (i) including these libraries within R package installer, or (ii) providing some more instructions on installing these libraries (similar to OpenMP page).  
+>> 
+> 
+> 
+> Sorry, I don?t see why you would need to do any of that - the binaries are all ready-to-use, so you simply unpack them - there is no need to use configure, ./make etc. since you don't have to compile them from sources - that?s the whole point of binaries.
+> 
+> 
+>> A similar problem will arise when a new version of R uses updated versions of liblzma and PCRE2. 
+>> 
+> 
+> 
+> The versions are quite irrelevant since they are used statically so R doesn't care which version you use in packages and vice-versa.
+> 
+> Cheers,
+> Simon
+> 
+> 
+> 
+>> Thanks everyone for their help and patience,
+>> Naresh  
+>> 
+>>> On Mar 23, 2025, at 4:25?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+>>> 
+>>> Naresh,
+>>> 
+>>> please ignore all "advice" you go so far - most of it was wrong. From your earlier reports it looks like your system is messed up which the the core of the problem - please remove 3rd party libraries from your path (like homebrew, macports, /opt/local etc.) as that will interfere with the builds. You can tell that you have a serious mess by the fact that it's showing a *different* QuantLib version in the configure step than the one you downloaded so you have unrelated scripts on your PATH so everything will break.
+>>> 
+>>> So to start from scratch:
+>>> 
+>>> 1) move aside everything from /usr/local, e.g.
+>>> sudo mkdir /usr/local/.away
+>>> sudo mv /usr/local/* /usr/local/.away/
+>>> 
+>>> 2) create /opt/R/$(uname -m) and make you the owner
+>>> sudo mkdir -p /opt/R/$(uname -m)
+>>> sudo chown $USER /opt/R
+>>> 
+>>> 3) remove all non-system paths from PATH and prepend /opt/R/$(uname -m). Since we nuked /usr/local you may want to add R itself:
+>>> 
+>>> export PATH=/opt/R/$(uname -m)/bin:/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/R.framework/Resources/bin
+>>> 
+>>> Now run install.libs("QuantLib") as before (as you, not root).
+>>> 
+>>> Install the package you care about (I presume RQuantLib). The best way to know what's going on is to install locally as it allows you to inspect config.log if something goes wrong, i.e.
+>>> 
+>>> # in R:
+>>> download.packages("RQuantLib",".",type='source')
+>>> # in the shell
+>>> tar fxz RQuantLib_*
+>>> R CMD INSTALL RQuantLib
+>>> 
+>>> if something goes wrong you'll have RQuantLib/config.log to look at. Note that you should not need any extra flags like --with-boost-include since they are already in the location they are supposed to be.
+>>> 
+>>> Once you're happy, you can move back /usr/local/ if you still need it, e.g.
+>>> 
+>>> sudo mv /usr/local/.away/* /usr/local/
+>>> 
+>>> Cheers,
+>>> Simon
+>>> 
+>>> 
+>>> 
+>>>> On Mar 24, 2025, at 5:36 AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>>> 
+>>>> To give credit to Simon, at https://mac.r-project.org/bin instructions include a note that ?If you do not have write permission, you may need to make it writeable or run sudo R.?
+>>>> 
+>>>> I ran sudo R and was able to install and download boost.  
+>>>> 
+>>>> ~ $ ls /opt/R/x86_64/include/
+>>>> boost      itclInt.h     tcl.h     tclTomMathDecls.h
+>>>> fakemysql.h   itclIntDecls.h     tclDecls.h      tdbc.h
+>>>> fakepq.h      itclMigrate2TclCore.h  tclOO.h     tdbcDecls.h
+>>>> fakesql.h     itclTclIntStubsFcn.h   tclOODecls.h    tdbcInt.h
+>>>> itcl.h      mysqlStubs.h     tclPlatDecls.h  tk.h
+>>>> itcl2TclOO.h  odbcStubs.h     tclThread.h     tkDecls.h
+>>>> itclDecls.h   pqStubs.h     tclTomMath.h    tkPlatDecls.h
+>>>> ~ $ 
+>>>> 
+>>>> However, I am still not able to install RQuantLib.  It does not find boost.
+>>>>> install.packages("RQuantLib", type = "source", lib = .libPaths()[2], configure.args = c("--with-boost-include=/opt/R/x86_64/include/boost"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>>>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>>>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>>>> ==================================================
+>>>> downloaded 191 KB
+>>>> 
+>>>> * installing *source* package ?RQuantLib? ...
+>>>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>>>> ** using staged installation
+>>>> checking whether the C++ compiler works... yes
+>>>> checking for C++ compiler default output file name... a.out
+>>>> checking for suffix of executables... 
+>>>> checking whether we are cross compiling... no
+>>>> checking for suffix of object files... o
+>>>> checking whether the compiler supports GNU C++... yes
+>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>>>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>>>> checking whether the compiler supports GNU C++... (cached) yes
+>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>>>> checking for R... yes
+>>>> checking for quantlib-config... yes
+>>>> checking for suitable QuantLib version... yes (1.36)
+>>>> checking for Boost development files... no
+>>>> configure: error: Boost development files not found
+>>>> ERROR: configuration failed for package ?RQuantLib?
+>>>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>>>> 
+>>>> The downloaded source packages are in
+>>>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/Rtmp7YHJMO/downloaded_packages?
+>>>> Warning message:
+>>>> In install.packages("RQuantLib", type = "source", lib = .libPaths()[2],  :
+>>>> installation of package ?RQuantLib? had non-zero exit status
+>>>>> 
+>>>> 
+>>>>> On Mar 23, 2025, at 10:44?AM, Peter Dalgaard <pdalgd at gmail.com> wrote:
+>>>>> 
+>>>>> You'd need to change the "-C /" in the tar command. I trust Simon enough to just run the script as root, though... 
+>>>>> 
+>>>>> -pd
+>>>>> 
+>>>>>> On 23 Mar 2025, at 14.37, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>>>>> 
+>>>>>> Peter,
+>>>>>> 
+>>>>>> In install.libs(), there is no argument for setting location where boost or other packages are installed.  How can I select a different directory to install boost using install.libs()?
+>>>>>> 
+>>>>>> Thanks,
+>>>>>> Naresh
+>>>>>> 
+>>>>>>> On Mar 23, 2025, at 7:55?AM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>>>>>>> 
+>>>>>>> 
+>>>>>>> notes $ which tar
+>>>>>>> /opt/local/libexec/gnubin/tar
+>>>>>>> notes $ tar --version
+>>>>>>> tar (GNU tar) 1.35
+>>>>>>> Copyright (C) 2023 Free Software Foundation, Inc.
+>>>>>>> License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+>>>>>>> This is free software: you are free to change and redistribute it.
+>>>>>>> There is NO WARRANTY, to the extent permitted by law.
+>>>>>>> 
+>>>>>>> Written by John Gilmore and Jay Fenlason.
+>>>>>>> notes $ 
+>>>>>>> 
+>>>>>>> I use MacPorts package manager to install most software.  For R, I switched to manual install because, with MacPorts data.table could not pick up openmp support.  
+>>>>>>> 
+>>>>>>> Using uppercase J as suggested by Rodney successfully downloaded boost on my computer.  But it cannot install.  Below are first few lines of messages:
+>>>>>>> 
+>>>>>>>> install.libs("boost")
+>>>>>>> Downloading https://mac.R-project.org/bin/REPOS ...
+>>>>>>> Using repository  https://mac.R-project.org/bin/darwin20/x86_64 ...
+>>>>>>> Downloading index  https://mac.R-project.org/bin/darwin20/x86_64/PACKAGES ...
+>>>>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz ...
+>>>>>>> tar: opt/R/x86_64/include: Cannot utime: Permission denied
+>>>>>>> tar: opt/R/x86_64/lib: Cannot utime: Permission denied
+>>>>>>> tar: opt/R/x86_64/pkg/boost-1.86.0-darwin.20-x86_64.list: Cannot open: Permission denied
+>>>>>>> (Many more lines with Permission denied message)
+>>>>>>> 
+>>>>>>> I have another question.  I need boost to install RQuantLib.  My computer already has MacPorts-installed boost and MacPorts installed QuantLib.  But RQuantLib installation is not picking up boost.  Is there a way to get that working?
+>>>>>>> 
+>>>>>>>> install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org", type = "source", configure.args = c("--with-boost-include=/opt/local/libexec/boost/1.76/include/"), configure.vars = c("CPPFLAGS='-DQL_HIGH_RESOLUTION_DATE'"))
+>>>>>>> trying URL 'https://cran.r-project.org/src/contrib/RQuantLib_0.4.24.tar.gz'
+>>>>>>> Content type 'application/x-gzip' length 195836 bytes (191 KB)
+>>>>>>> ==================================================
+>>>>>>> downloaded 191 KB
+>>>>>>> 
+>>>>>>> * installing *source* package ?RQuantLib? ...
+>>>>>>> ** package ?RQuantLib? successfully unpacked and MD5 sums checked
+>>>>>>> ** using staged installation
+>>>>>>> checking whether the C++ compiler works... yes
+>>>>>>> checking for C++ compiler default output file name... a.out
+>>>>>>> checking for suffix of executables... 
+>>>>>>> checking whether we are cross compiling... no
+>>>>>>> checking for suffix of object files... o
+>>>>>>> checking whether the compiler supports GNU C++... yes
+>>>>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... yes
+>>>>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... none needed
+>>>>>>> checking how to run the C++ preprocessor... clang++ -arch x86_64 -std=gnu++17 -E
+>>>>>>> checking whether the compiler supports GNU C++... (cached) yes
+>>>>>>> checking whether clang++ -arch x86_64 -std=gnu++17 accepts -g... (cached) yes
+>>>>>>> checking for clang++ -arch x86_64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+>>>>>>> checking for R... yes
+>>>>>>> checking for quantlib-config... yes
+>>>>>>> checking for suitable QuantLib version... yes (1.36)
+>>>>>>> checking for Boost development files... no
+>>>>>>> configure: error: Boost development files not found
+>>>>>>> ERROR: configuration failed for package ?RQuantLib?
+>>>>>>> * removing ?/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/RQuantLib?
+>>>>>>> 
+>>>>>>> The downloaded source packages are in
+>>>>>>> ?/private/var/folders/nb/2vppcjgd19l_h9brvzgdjcm40000gn/T/RtmpKL66sI/downloaded_packages?
+>>>>>>> Warning message:
+>>>>>>> In install.packages("RQuantLib", lib = .libPaths()[2], repos = "https://cran.r-project.org",  :
+>>>>>>> installation of package ?RQuantLib? had non-zero exit status
+>>>>>>> In terminal
+>>>>>>> notes $ ls /opt/local/libexec/boost/1.76/include/
+>>>>>>> boost
+>>>>>>> 
+>>>>>>>> On Mar 23, 2025, at 6:21?AM, peter dalgaard <pdalgd at gmail.com> wrote:
+>>>>>>>> 
+>>>>>>>> Oddly, this doesn't happen here, even though I also tar xj instead of xJ ot the .xz file.
+>>>>>>>> 
+>>>>>>>> Any chance you two could be picking up a different tar? I am seeing
+>>>>>>>> 
+>>>>>>>> PeterDaardsiMac:ISwR pd$ which tar
+>>>>>>>> /usr/bin/tar
+>>>>>>>> PeterDaardsiMac:ISwR pd$ tar --version
+>>>>>>>> bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 
+>>>>>>>> 
+>>>>>>>> and "man tar" claims that j and J options are "c mode only" so presumably ignored and tar gets the compression type from the input itself.
+>>>>>>>> 
+>>>>>>>> -pd
+>>>>>>>> 
+>>>>>>>>> On 22 Mar 2025, at 15.53, Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>>>>>>>> 
+>>>>>>>>> Hi Naresh:
+>>>>>>>>> 
+>>>>>>>>> I?m seeing the same error message.  And it makes sense
+>>>>>>>>> because the boost tar-ball is compressed with xz and
+>>>>>>>>> not bzip2.  On line 87 of install.R, we have the following?
+>>>>>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxj - -C /")) < 0)
+>>>>>>>>> Little j means bzip2 while big J is xz.  So try substituting?
+>>>>>>>>> if (system(paste("curl", "-sSL", shQuote(u), "|", "tar fxJ - -C /")) < 0)
+>>>>>>>>> 
+>>>>>>>>> --
+>>>>>>>>> Rodney Sparapani, Associate Professor of Biostatistics
+>>>>>>>>> President, Wisconsin Chapter of the American Statistical Association
+>>>>>>>>> Division of Biostatistics, Data Science Institute
+>>>>>>>>> Medical College of Wisconsin, Milwaukee Campus
+>>>>>>>>> 
+>>>>>>>>> 
+>>>>>>>>> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>
+>>>>>>>>> Date: Saturday, March 22, 2025 at 8:02?AM
+>>>>>>>>> To: r-sig-mac at r-project.org <r-sig-mac at r-project.org>
+>>>>>>>>> Subject: [R-SIG-Mac] install.libs error
+>>>>>>>>> Downloading + installing  https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz$<https://mac.R-project.org/bin/darwin20/x86_64/boost-1.86.0-darwin.20-x86_64.tar.xz%20$>  ...
+>>>>>>>>> bzip2: (stdin) is not a bzip2 file.
+>>>>>>>>> tar: Child died with signal 13
+>>>>>>>>> tar: Error is not recoverable: exiting now
+>>>>>>>>> curl: (23) Failure writing output to destination, passed 8192 returned 0
+>>>>>>>>> 
+>>>>>>>>> [[alternative HTML version deleted]]
+>>>>>>>>> 
+>>>>>>>>> _______________________________________________
+>>>>>>>>> R-SIG-Mac mailing list
+>>>>>>>>> R-SIG-Mac at r-project.org
+>>>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>>>>>> 
+>>>>>>>> -- 
+>>>>>>>> Peter Dalgaard, Professor,
+>>>>>>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>>>>>>> Phone: (+45)38153501
+>>>>>>>> Office: A 4.23
+>>>>>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>>>>>>> 
+>>>>>>> 
+>>>>>>> _______________________________________________
+>>>>>>> R-SIG-Mac mailing list
+>>>>>>> R-SIG-Mac at r-project.org
+>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>>>> 
+>>>>> 
+>>>>> -- 
+>>>>> Peter Dalgaard, Professor,
+>>>>> Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+>>>>> Phone: (+45)38153501
+>>>>> Office: A 4.23
+>>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+>>>>> 
+>>>> 
+>>>> _______________________________________________
+>>>> R-SIG-Mac mailing list
+>>>> R-SIG-Mac at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Mon Mar 31 11:13:37 2025
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Mon, 31 Mar 2025 22:13:37 +1300
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <9C18E5C0-2067-4A63-A236-5112B2EC7A4C@hotmail.com>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+ <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+ <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+ <06E6F6EE-C462-4699-B94F-2A6E53DA81DE@hotmail.com>
+ <F0CE23B6-74C8-4403-A49F-FDAAAD3FA1B0@R-project.org>
+ <35C5412F-9739-44B3-952F-666D6A78993D@hotmail.com>
+ <9BA57B6D-CCD3-4F09-9591-09ECC9DD3E0D@R-project.org>
+ <9C18E5C0-2067-4A63-A236-5112B2EC7A4C@hotmail.com>
+Message-ID: <560B3B3E-04D2-4DA3-99E7-67D74C7B892B@R-project.org>
+
+
+
+> On Mar 31, 2025, at 10:04 PM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+> 
+> Simon,
+> 
+> Website mac.r-project.org/tools/ lists mandatory libraries.  In the next paragraph, it has a link to ?binaries of libraries and tools for Mac OS page?.  Clicking on the link takes user to mac.r-project.org/bin.  Here the only method of install described is via install.libs().  By using install.libs(), I found out that binaries (for my Intel Mac) are located at mac.r-project.org/bin/darwin20/x86_64/.  But if I did not already have R installed, I would not be able to go to this location.  
+> 
+
+
+You can always go directly to the binaries - the links are right on the front page. The R script is just a convenience method to resolve dependencies if you have complex requirements so you don't have to do it yourself. Besides, you can always grab R from CRAN to bootstrap it if that's what you are going for.
+
+If there is a way to improve the documentation to make it clearer, I'm open to suggestions.
+
+
+> On the page mac.r-project.org/bin, perhaps you can provide links to the binaries location.  Currently the only links provided are to liblzma and PCRE2 homepages.  When downloading from those locations, user may need to run ./configure, make, and make install.  
+> 
+> I am only starting out with QuantLib, so not sure if intraday feature is widely used.  
+> 
+
+
+Well, in that case I don't understand why you did all the work of recompiling it as that is then entirely unnecessary - all you needed to do was to simply install it from CRAN with
+
+install.packages("RQuantLib")
+
+I'm sure I must be missing something here ...
+
+Cheers,
+Simon
+
+
+From n@re@h_gurbux@n| @end|ng |rom hotm@||@com  Mon Mar 31 14:58:57 2025
+From: n@re@h_gurbux@n| @end|ng |rom hotm@||@com (Naresh Gurbuxani)
+Date: Mon, 31 Mar 2025 12:58:57 +0000
+Subject: [R-SIG-Mac] install.libs error
+In-Reply-To: <560B3B3E-04D2-4DA3-99E7-67D74C7B892B@R-project.org>
+References: <1593A00D-A090-4F9E-8915-DF33889FDA08@hotmail.com>
+ <CO6PR01MB74525CF395934A383F5A2184CBDA2@CO6PR01MB7452.prod.exchangelabs.com>
+ <FD7BC2BA-D13B-488E-8979-D90B560086B2@gmail.com>
+ <AE824F6F-19A5-4162-A2B3-0575B8825390@hotmail.com>
+ <7EA778BD-4B65-43FD-905D-B48D72B4623B@hotmail.com>
+ <DCF6EEA7-5307-4392-98B8-CD253205E260@gmail.com>
+ <06E6F6EE-C462-4699-B94F-2A6E53DA81DE@hotmail.com>
+ <F0CE23B6-74C8-4403-A49F-FDAAAD3FA1B0@R-project.org>
+ <35C5412F-9739-44B3-952F-666D6A78993D@hotmail.com>
+ <9BA57B6D-CCD3-4F09-9591-09ECC9DD3E0D@R-project.org>
+ <9C18E5C0-2067-4A63-A236-5112B2EC7A4C@hotmail.com>
+ <560B3B3E-04D2-4DA3-99E7-67D74C7B892B@R-project.org>
+Message-ID: <IA1P223MB04998D87CDE8FDD66592C0CEFAAD2@IA1P223MB0499.NAMP223.PROD.OUTLOOK.COM>
+
+
+Sent from my iPhone
+
+> On Mar 31, 2025, at 5:13?AM, Simon Urbanek <simon.urbanek at r-project.org> wrote:
+> 
+> ?
+> 
+>> On Mar 31, 2025, at 10:04 PM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:
+>> 
+>> Simon,
+>> 
+>> Website mac.r-project.org/tools/ lists mandatory libraries.  In the next paragraph, it has a link to ?binaries of libraries and tools for Mac OS page?.  Clicking on the link takes user to mac.r-project.org/bin.  Here the only method of install described is via install.libs().  By using install.libs(), I found out that binaries (for my Intel Mac) are located at mac.r-project.org/bin/darwin20/x86_64/.  But if I did not already have R installed, I would not be able to go to this location.  
+>> 
+> 
+> 
+> You can always go directly to the binaries - the links are right on the front page. The R script is just a convenience method to resolve dependencies if you have complex requirements so you don't have to do it yourself. Besides, you can always grab R from CRAN to bootstrap it if that's what you are going for.
+> 
+> If there is a way to improve the documentation to make it clearer, I'm open to suggestions.
+> 
+In the Index section, there is a link to ?Sources for tools and binaries?.  But on the tools page, there are only links to liblzma and PCRE2 websites.  Here you can also provide links to binaries above.
+
+> 
+>> On the page mac.r-project.org/bin, perhaps you can provide links to the binaries location.  Currently the only links provided are to liblzma and PCRE2 homepages.  When downloading from those locations, user may need to run ./configure, make, and make install.  
+>> 
+>> I am only starting out with QuantLib, so not sure if intraday feature is widely used.  
+>> 
+> 
+> 
+> Well, in that case I don't understand why you did all the work of recompiling it as that is then entirely unnecessary - all you needed to do was to simply install it from CRAN with
+> 
+> install.packages("RQuantLib")
+> 
+> I'm sure I must be missing something here ...
+> 
+I just wanted a ?clean? or ?complete? package install, not knowing how much trouble that would create.  A new user can be unsettled by warnings coming from loading a package.
+
+> Cheers,
+> Simon
+> 
+> 
+

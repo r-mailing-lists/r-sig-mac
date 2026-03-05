@@ -1,0 +1,528 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2019-03",
+  "messages": [
+    {
+      "id": "msg-461a957dc650",
+      "message_id": "<13BA65D6-71DE-4857-8B7E-42CA9129A4E6@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-03-03T08:08:16-05:00",
+      "subject": "[R-SIG-Mac] violations of CRAN policy [was: libcurl]",
+      "subject_clean": "violations of CRAN policy [was: libcurl]",
+      "in_reply_to": "<FA735278-FFDB-4DD9-886D-D1F1854CDF72@noaa.gov>",
+      "references": [
+        "<CAHHjBM7Vm6bNE8ns4tLWxD=x_SZMg-A0JJ7js_hCEHLQLQZH-g@mail.gmail.com>",
+        "<CF9E792E-367A-4DD4-9A77-0A16952E817C@gmail.com>",
+        "<CAHHjBM7jOmN7T-U_ZBk_7_5GgFHW81mgNzH+R7N7ih7YK0=LKw@mail.gmail.com>",
+        "<555F7DE6-35FB-446A-B695-26CFACB99CDD@gmail.com>",
+        "<4D846A77-65A1-4C38-9731-E44BA6F3004F@R-project.org>",
+        "<3C512057-4EAF-4F20-9499-8D9CDE1693D2@noaa.gov>",
+        "<CAHHjBM4=9Wu6tb32o2-+sDmY59n4Dt7BD-+FowCayi_3SaU9Pg@mail.gmail.com>",
+        "<EA29111A-6872-4230-B864-D2E2872545F9@noaa.gov>",
+        "<FA735278-FFDB-4DD9-886D-D1F1854CDF72@noaa.gov>"
+      ],
+      "body_plain": "Roy,\n\nthanks for the info, it is definitely against CRAN policies to install homebrew or anaconda (and so is to modify user's settings), so if you see that, please report it. Unfortunately, it's hard to detect automatically.\n\nThanks,\nSimon\n\n\n> On Feb 28, 2019, at 00:43, Roy Mendelssohn - NOAA Federal via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> BTW - I should add that my memory is that there is at least one package for having R interact with Python that does an Anaconda install without you really knowing it.  Personally  I consider that bad practice.  It may be more convenient but can lead to unexpected trouble down the line just because of issues like this.  I have also seen R and Julia packages install things under the covers using Homebrew. I also consider this bad practice, again because it can lead to conflicts that leave the user bewildered . (Homebrew installs is its own directory, but you must be careful about setting Paths, and path priority).   This was particularly true when building from source.\n> \n> I have submitted to CRAN and while it can be an utter pain in the butt,  I also appreciate what CRAN does for users of the package - they can install with reasonable assurance that the needed pieces will work together and there won't be any hidden gotchas, and that is worth a lot to users, at least in my experience.  I recently spent a week in hell with conda-forge where different packages used the same library (by name) but the recipes installed different versions,  and they kept on crashing each other.\n> \n> So the tl;dr version is you likely installed a package for interop between R and Python,  say from source or Github,  and undercover it installed Anaconda.  And as people have mentioned,  Anaconda has its own R environment,  which may or may not interfere with the standard R install. I check my .profile or .bash_profile after installs just in case.  If there is a setting I will need to use some software,  I move that to a separate file to be sourced when needed.  Since I have started doing that,  a lot of conflicts have disappeared.\n> \n> HTH,\n> \n> -Roy\n> \n> \n> \n>> On Feb 27, 2019, at 6:09 PM, Roy Mendelssohn - NOAA Federal <roy.mendelssohn at noaa.gov> wrote:\n>> \n>> You are welcome  (my one good deed for the day - I guess I can go to bed now!!!)  Anaconda is a great product, I use it  for my Python work,  they actually ask you if you want them to modify the .profile, but people say yes without realizing the implications.  First time I installed it, I said yes but then looked at what was added to the file,  and realized that could cause conflicts.  But since it is so easy to copy that part to another file and then source it as needed,  you can keep things separate.  One of the main things is anything in /usr/bin and /usr/local/bin that had similar things in Anaconda were finding the Anaconda version.\n>> \n>> -Roy\n>> \n>>> On Feb 27, 2019, at 5:57 PM, robin hankin <hankin.robin at gmail.com> wrote:\n>>> \n>>> Roy, thanks for this!  Your insight explains a great deal of my\n>>> problems.  And indeed I see a whole bunch of PATH additions which were\n>>> created by anaconda (these are in  .bash_profile, certainly not put\n>>> there by me!).\n>>> \n>>> Just to clarify, I'm not using anaconda by choice, it seems to have\n>>> been installed inadvertently.\n>>> \n>>> stop press:  configure works!  Thanks!\n>>> \n>>> \n>>> Best wishes\n>>> \n>>> Robin\n>>> \n>>> \n>>> \n>>> hankin.robin at gmail.com\n>>> \n>>> \n>>> \n>>> hankin.robin at gmail.com\n>>> \n>>> \n>>> \n>>> \n>>> On Thu, Feb 28, 2019 at 2:47 PM Roy Mendelssohn - NOAA Federal via\n>>> R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>>>> \n>>>> Anaconda adds code to the end of your ,.profile that can really play havoc with paths in other programs/settings - and off I remember correctly it puts the changes at the front of your $PATH..  I moved that code in .profile to a separate file.  When I want anaconda,  I just source the file.  Makes problems such as that described  much less likely.  If you are using iTerm2 or the like,  then you can easily have a tab with the Anaconda paths and the rest of the tabs the more \"usual\" paths.\n>>>> \n>>>> HTH,\n>>>> \n>>>> -Roy\n>>>> \n>>>> \n>>>>> On Feb 27, 2019, at 5:32 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n>>>>> \n>>>>> That's anaconda - they don't include paths which is why it breaks everything until you insert a manual override via DYLD_LIBRARY_PATH. See Robin's e-mail he is NOT using the system curl, but rather a custom version from anaconda (\"/Users/rhankin/anaconda3/lib\").\n>>>>> \n>>>>> Cheers,\n>>>>> Simon\n>>>>> \n>>>>> \n>>>>> \n>>>>>> On Feb 25, 2019, at 04:28, peter dalgaard <pdalgd at gmail.com> wrote:\n>>>>>> \n>>>>>> Hmm, how did \"@rpath\" get in there? I don't see it anywhere in my build and source dirs. Looks like something that should have been substituted (by perl?) with the appropriate path.\n>>>>>> \n>>>>>> Is your library (...anaconda3/lib) correctly installed? I have, for the system libcurl:\n>>>>>> \n>>>>>> pd$ ls -l /usr/lib/*curl*\n>>>>>> lrwxr-xr-x  1 root  wheel      15 Nov 14 14:36 /usr/lib/libcurl.3.dylib -> libcurl.4.dylib\n>>>>>> -rwxr-xr-x  1 root  wheel  854208 Nov 30 08:37 /usr/lib/libcurl.4.dylib\n>>>>>> lrwxr-xr-x  1 root  wheel      15 Nov 14 14:36 /usr/lib/libcurl.dylib -> libcurl.4.dylib\n>>>>>> \n>>>>>> -pd\n>>>>>> \n>>>>>> \n>>>>>>> On 25 Feb 2019, at 01:28 , robin hankin <hankin.robin at gmail.com> wrote:\n>>>>>>> \n>>>>>>> thanks for this Peter, my config.log file looks like this:\n>>>>>>> \n>>>>>>> configure:42615: result: yes\n>>>>>>> configure:42629: checking if libcurl is version 7 and >= 7.22.0\n>>>>>>> configure:42658: gcc -o conftest  -g -O2\n>>>>>>> -I/Users/rhankin/anaconda3/include -I/usr/local/include\n>>>>>>> -I/usr/local/include  -L/usr/local/lib conftest.c\n>>>>>>> -L/Users/rhankin/anaconda3/lib -lcurl -lssh2 -lssh2 -lssl -lcrypto\n>>>>>>> -lssl -lcrypto -lgssapi_krb5 -lresolv -lz -L/usr\\\n>>>>>>> /local/lib -lpcre2-8 -lpcre -llzma -lbz2 -lz -licucore -ldl -lm  -liconv >&5\n>>>>>>> configure:42658: $? = 0\n>>>>>>> configure:42658: ./conftest\n>>>>>>> dyld: Library not loaded: @rpath/libcurl.4.dylib\n>>>>>>> Referenced from: /Users/rhankin/Downloads/R-devel/./conftest\n>>>>>>> Reason: image not found\n>>>>>>> ./configure: line 2254: 73408 Abort trap: 6           ./conftest$ac_exeext\n>>>>>>> configure:42658: $? = 134\n>>>>>>> configure: program exited with status 134\n>>>>>>> configure: failed program was:\n>>>>>>> | /* confdefs.h */\n>>>>>>> | #define PACKAGE_NAME \"R\"\n>>>>>>> | #define PACKAGE_TARNAME \"R\"\n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> Best wishes\n>>>>>>> \n>>>>>>> \n>>>>>>> Robin\n>>>>>>> \n>>>>>>> \n>>>>>>> hankin.robin at gmail.com\n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> hankin.robin at gmail.com\n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> On Mon, Feb 25, 2019 at 11:41 AM peter dalgaard <pdalgd at gmail.com> wrote:\n>>>>>>>> \n>>>>>>>> It doesn't usually happen on 10.13.6... Best guess is that somehow you are picking up an older library (e.g. in /usr/local/lib) even if you are using curl-config from a newer version.\n>>>>>>>> \n>>>>>>>> The detective work needed could take off from config.log, region around this:\n>>>>>>>> \n>>>>>>>> configure:39937: checking if libcurl is version 7 and >= 7.22.0\n>>>>>>>> configure:39966: gcc -arch x86_64 -o conftest -g -O2   -I/usr/local/include  -L/usr/local/lib conftest.c -lcurl -lpcre -llzma -lbz2 -lz -licucore -lm  -liconv >&5\n>>>>>>>> configure:39966: $? = 0\n>>>>>>>> configure:39966: ./conftest\n>>>>>>>> configure:39966: $? = 0\n>>>>>>>> configure:39976: result: yes\n>>>>>>>> \n>>>>>>>> That's for a succesful build, a failed one will usually give more info including the failing program code.\n>>>>>>>> \n>>>>>>>> -pd\n>>>>>>>> \n>>>>>>>>> On 24 Feb 2019, at 22:45 , robin hankin <hankin.robin at gmail.com> wrote:\n>>>>>>>>> \n>>>>>>>>> Hi,  macos 10.13.6, trying to compile 3.6.0, revision 76152.\n>>>>>>>>> \n>>>>>>>>> ./configure\n>>>>>>>>> [snip]\n>>>>>>>>> \n>>>>>>>>> checking for curl-config... /Users/rhankin/anaconda3/bin/curl-config\n>>>>>>>>> checking libcurl version ... 7.63.0\n>>>>>>>>> checking curl/curl.h usability... yes\n>>>>>>>>> checking curl/curl.h presence... yes\n>>>>>>>>> checking for curl/curl.h... yes\n>>>>>>>>> checking if libcurl is version 7 and >= 7.22.0... no\n>>>>>>>>> configure: error: libcurl >= 7.22.0 library and headers are required\n>>>>>>>>> with support for https\n>>>>>>>>> \n>>>>>>>>> if we have libcurl 7.63, as it says in the output, why the error?  How\n>>>>>>>>> to proceed?\n>>>>>>>>> \n>>>>>>>>> hankin.robin at gmail.com\n>>>>>>>>> \n>>>>>>>>> _______________________________________________\n>>>>>>>>> R-SIG-Mac mailing list\n>>>>>>>>> R-SIG-Mac at r-project.org\n>>>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>>>> \n>>>>>>>> --\n>>>>>>>> Peter Dalgaard, Professor,\n>>>>>>>> Center for Statistics, Copenhagen Business School\n>>>>>>>> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n>>>>>>>> Phone: (+45)38153501\n>>>>>>>> Office: A 4.23\n>>>>>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n>>>>>>>> \n>>>>>>>> \n>>>>>>>> \n>>>>>>>> \n>>>>>>>> \n>>>>>>>> \n>>>>>>>> \n>>>>>>>> \n>>>>>>>> \n>>>>>> \n>>>>>> --\n>>>>>> Peter Dalgaard, Professor,\n>>>>>> Center for Statistics, Copenhagen Business School\n>>>>>> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n>>>>>> Phone: (+45)38153501\n>>>>>> Office: A 4.23\n>>>>>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n>>>>>> \n>>>>>> _______________________________________________\n>>>>>> R-SIG-Mac mailing list\n>>>>>> R-SIG-Mac at r-project.org\n>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>> \n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>>> **********************\n>>>> \"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n>>>> **********************\n>>>> Roy Mendelssohn\n>>>> Supervisory Operations Research Analyst\n>>>> NOAA/NMFS\n>>>> Environmental Research Division\n>>>> Southwest Fisheries Science Center\n>>>> ***Note new street address***\n>>>> 110 McAllister Way\n>>>> Santa Cruz, CA 95060\n>>>> Phone: (831)-420-3666\n>>>> Fax: (831) 420-3980\n>>>> e-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n>>>> \n>>>> \"Old age and treachery will overcome youth and skill.\"\n>>>> \"From those who have been given much, much will be expected\"\n>>>> \"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> **********************\n>> \"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n>> **********************\n>> Roy Mendelssohn\n>> Supervisory Operations Research Analyst\n>> NOAA/NMFS\n>> Environmental Research Division\n>> Southwest Fisheries Science Center\n>> ***Note new street address***\n>> 110 McAllister Way\n>> Santa Cruz, CA 95060\n>> Phone: (831)-420-3666\n>> Fax: (831) 420-3980\n>> e-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n>> \n>> \"Old age and treachery will overcome youth and skill.\"\n>> \"From those who have been given much, much will be expected\" \n>> \"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.\n>> \n> \n> **********************\n> \"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n> **********************\n> Roy Mendelssohn\n> Supervisory Operations Research Analyst\n> NOAA/NMFS\n> Environmental Research Division\n> Southwest Fisheries Science Center\n> ***Note new street address***\n> 110 McAllister Way\n> Santa Cruz, CA 95060\n> Phone: (831)-420-3666\n> Fax: (831) 420-3980\n> e-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n> \n> \"Old age and treachery will overcome youth and skill.\"\n> \"From those who have been given much, much will be expected\" \n> \"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Roy,\n\nthanks for the info, it is definitely against CRAN policies to install homebrew or anaconda (and so is to modify user's settings), so if you see that, please report it. Unfortunately, it's hard ",
+      "thread_id": "thread-461a957dc650",
+      "thread_depth": 0,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-003500ece075",
+      "message_id": "<615EA1CE-A0BE-4202-978A-6FB4254BDB08@rit.edu>",
+      "from_name": "Christopher Helming",
+      "from_email_hash": "e08944da64a3ad183a9cc9e96302ac83ab6d4281a7ab7aa82cdc9ed1af5b4543",
+      "date": "2019-03-14T12:12:24Z",
+      "subject": "[R-SIG-Mac] R 3.5.3 pkg not signed",
+      "subject_clean": "R 3.5.3 pkg not signed",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The 3.5.2 pkg was signed properly:\n$ pkgutil --check-signature ~/Downloads/R-3.5.2.pkg\nPackage \"R-3.5.2.pkg\":\n   Status: signed by a certificate trusted by Mac OS X\n   Certificate Chain:\n    1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n       SHA1 fingerprint: 7B 6B 81 12 E6 26 8C 16 F8 D4 0F 94 E4 3E 62 69 2E 92 22 81\n       -----------------------------------------------------------------------------\n    2. Developer ID Certification Authority\n       SHA1 fingerprint: 3B 16 6C 3B 7D C4 B7 51 C9 FE 2A FA B9 13 56 41 E3 88 E1 86\n       -----------------------------------------------------------------------------\n    3. Apple Root CA\n       SHA1 fingerprint: 61 1E 5B 66 2C 59 3A 08 FF 58 D1 4A E2 24 52 D1 98 DF 6C 60\n\nBut the 3.5.3 pkg has no signature:\n$ pkgutil --check-signature ~/Downloads/R-3.5.3.pkg\nPackage \"R-3.5.3.pkg\":\n   Status: no signature\n\nIs it possible to get 3.5.3 signed and replace the file on the download page?\n\nChris Helming\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "The 3.5.2 pkg was signed properly:\n$ pkgutil --check-signature ~/Downloads/R-3.5.2.pkg\nPackage \"R-3.5.2.pkg\":\n   Status: signed by a certificate trusted by Mac OS X\n   Certificate Chain:\n    1. Develo",
+      "thread_id": "thread-003500ece075",
+      "thread_depth": 0,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-38423642c198",
+      "message_id": "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2019-03-14T08:18:07-04:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI just tried to install the R 3.5.3 macOS binary from CRAN.\n\nThe SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n\nI get:\n\npkgutil --check-signature R-3.5.3.pkg\nPackage \"R-3.5.3.pkg\":\n   Status: no signature\n\n\nI rechecked the 3.5.2 binary and do not have the issue there.\n\nThanks,\n\nMarc Schwartz",
+      "body_snippet": "Hi,\n\nI just tried to install the R 3.5.3 macOS binary from CRAN.\n\nThe SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n\nI get:\n\npkgutil --check-signature",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 0,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-14058a244d5a",
+      "message_id": "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>",
+      "from_name": "Dr Eberhard W Lisse",
+      "from_email_hash": "9f64ab141ef1d3b3b6c06a6e6a937a9c06fe5eef1cc88df2789131ef0d490f47",
+      "date": "2019-03-14T21:43:14+09:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>"
+      ],
+      "body_plain": "Try from the commandline\n\nsudo spctl --master-disable\n\nand then install the package\n\nel\n\nSent from Dr Lisse's iPad mini 4\nOn 14 Mar 2019, 21:18 +0900, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org>, wrote:\n> Hi,\n>\n> I just tried to install the R 3.5.3 macOS binary from CRAN.\n>\n> The SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n>\n> I get:\n>\n> pkgutil --check-signature R-3.5.3.pkg\n> Package \"R-3.5.3.pkg\":\n> Status: no signature\n>\n>\n> I rechecked the 3.5.2 binary and do not have the issue there.\n>\n> Thanks,\n>\n> Marc Schwartz\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Try from the commandline\n\nsudo spctl --master-disable\n\nand then install the package\n\nel\n\nSent from Dr Lisse's iPad mini 4\nOn 14 Mar 2019, 21:18 +0900, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-proje",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 1,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-4dbb0c065156",
+      "message_id": "<B29567BA-C822-44BC-AC63-932EAF4F8F3C@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2019-03-14T08:49:34-04:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>"
+      ],
+      "body_plain": "Hi,\n\nI am aware of the workaround, both from the CLI and via System Preferences.\n\nThe question is more about confirming that the binary is valid and from a source that is trusted, which is the point of digitally signing binaries as a trusted Apple developer.\n\nThanks,\n\nMarc\n\n\n> On Mar 14, 2019, at 8:43 AM, Dr Eberhard W Lisse <el at lisse.na> wrote:\n> \n> Try from the commandline\n> \n> sudo spctl --master-disable\n> \n> and then install the package\n> \n> el\n> \n> Sent from Dr Lisse's iPad mini 4\n> On 14 Mar 2019, 21:18 +0900, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org>, wrote:\n>> Hi,\n>> \n>> I just tried to install the R 3.5.3 macOS binary from CRAN.\n>> \n>> The SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n>> \n>> I get:\n>> \n>> pkgutil --check-signature R-3.5.3.pkg\n>> Package \"R-3.5.3.pkg\":\n>> Status: no signature\n>> \n>> \n>> I rechecked the 3.5.2 binary and do not have the issue there.\n>> \n>> Thanks,\n>> \n>> Marc Schwartz\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Hi,\n\nI am aware of the workaround, both from the CLI and via System Preferences.\n\nThe question is more about confirming that the binary is valid and from a source that is trusted, which is the point o",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 2,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-37e3c57f8e3f",
+      "message_id": "<0244370A-4E21-436E-8789-DDF7C97DDFCB@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-03-14T09:36:25-04:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>"
+      ],
+      "body_plain": "Marc,\n\nthanks, I'm glad that at least someone pays attention and checks the signature ;). I'm surprised my machine didn't raise a flag - I did test the image locally from the master URL before releasing.\n\nI have now updated the package to be signed, it is identical content, just signed. You can get is from the Mac master server https://mac.R-project.org/bin/macosx now and other CRAN servers will sync in due time.\n\nThanks,\nSimon\n\n\n\n> On Mar 14, 2019, at 8:18 AM, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hi,\n> \n> I just tried to install the R 3.5.3 macOS binary from CRAN.\n> \n> The SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n> \n> I get:\n> \n> pkgutil --check-signature R-3.5.3.pkg\n> Package \"R-3.5.3.pkg\":\n>   Status: no signature\n> \n> \n> I rechecked the 3.5.2 binary and do not have the issue there.\n> \n> Thanks,\n> \n> Marc Schwartz\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Marc,\n\nthanks, I'm glad that at least someone pays attention and checks the signature ;). I'm surprised my machine didn't raise a flag - I did test the image locally from the master URL before releasi",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 1,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-f31f56184312",
+      "message_id": "<57862842-A64B-484D-B57B-445184AC85EE@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-03-14T09:37:10-04:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>"
+      ],
+      "body_plain": "Very, very, very bad idea - never ever do that unless you're really happy to infest your machine with nice viruses and ransomware.\n\nCheers,\nSimon\n\n\n> On Mar 14, 2019, at 8:43 AM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n> \n> Try from the commandline\n> \n> sudo spctl --master-disable\n> \n> and then install the package\n> \n> el\n> \n> Sent from Dr Lisse's iPad mini 4\n> On 14 Mar 2019, 21:18 +0900, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org>, wrote:\n>> Hi,\n>> \n>> I just tried to install the R 3.5.3 macOS binary from CRAN.\n>> \n>> The SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n>> \n>> I get:\n>> \n>> pkgutil --check-signature R-3.5.3.pkg\n>> Package \"R-3.5.3.pkg\":\n>> Status: no signature\n>> \n>> \n>> I rechecked the 3.5.2 binary and do not have the issue there.\n>> \n>> Thanks,\n>> \n>> Marc Schwartz\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Very, very, very bad idea - never ever do that unless you're really happy to infest your machine with nice viruses and ransomware.\n\nCheers,\nSimon\n\n\n> On Mar 14, 2019, at 8:43 AM, Dr Eberhard W Lisse <",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 2,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-a2538bdddbb1",
+      "message_id": "<4D80B490-479B-487B-96F4-E4ADBC73661B@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2019-03-14T15:06:23+01:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<0244370A-4E21-436E-8789-DDF7C97DDFCB@R-project.org>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<0244370A-4E21-436E-8789-DDF7C97DDFCB@R-project.org>"
+      ],
+      "body_plain": "[Resending - screenshot was too big]\n\nActually, the OS does that even if we don't pay attention, so apparently people just haven't gotten around to upgrade and we haven't had new Mac users installing 3.5.3 yet. (To a first approximation, that is - some will of course know how to bypass the signature check). \n\n-pd\n\n> On 14 Mar 2019, at 14:36 , Simon Urbanek <simon.urbanek at R-project.org <mailto:simon.urbanek at R-project.org>> wrote:\n> \n> Marc,\n> \n> thanks, I'm glad that at least someone pays attention and checks the signature ;). I'm surprised my machine didn't raise a flag - I did test the image locally from the master URL before releasing.\n> \n> I have now updated the package to be signed, it is identical content, just signed. You can get is from the Mac master server https://mac.R-project.org/bin/macosx <https://mac.r-project.org/bin/macosx> now and other CRAN servers will sync in due time.\n> \n> Thanks,\n> Simon\n> \n> \n> \n>> On Mar 14, 2019, at 8:18 AM, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>> wrote:\n>> \n>> Hi,\n>> \n>> I just tried to install the R 3.5.3 macOS binary from CRAN.\n>> \n>> The SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n>> \n>> I get:\n>> \n>> pkgutil --check-signature R-3.5.3.pkg\n>> Package \"R-3.5.3.pkg\":\n>>  Status: no signature\n>> \n>> \n>> I rechecked the 3.5.2 binary and do not have the issue there.\n>> \n>> Thanks,\n>> \n>> Marc Schwartz\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk <mailto:pd.mes at cbs.dk>  Priv: PDalgd at gmail.com\n\n\n\n\n\n\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20190314/b6674a98/attachment-0001.html>\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: PastedGraphic-2.jpg\nType: image/jpeg\nSize: 36987 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20190314/b6674a98/attachment-0001.jpg>",
+      "body_snippet": "[Resending - screenshot was too big]\n\nActually, the OS does that even if we don't pay attention, so apparently people just haven't gotten around to upgrade and we haven't had new Mac users installing ",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 2,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-c7585394ecf5",
+      "message_id": "<F5B4FE48-679A-41C3-BACE-A9D5034D2FED@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2019-03-14T15:11:02+01:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<0244370A-4E21-436E-8789-DDF7C97DDFCB@R-project.org>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<0244370A-4E21-436E-8789-DDF7C97DDFCB@R-project.org>"
+      ],
+      "body_plain": "The version from mac.R-project.org installs fine. CRAN master still has the unsigned version (recognizable by an MD5 hash starting with fff) at this point.\n\n-pd\n\n> On 14 Mar 2019, at 14:36 , Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Marc,\n> \n> thanks, I'm glad that at least someone pays attention and checks the signature ;). I'm surprised my machine didn't raise a flag - I did test the image locally from the master URL before releasing.\n> \n> I have now updated the package to be signed, it is identical content, just signed. You can get is from the Mac master server https://mac.R-project.org/bin/macosx now and other CRAN servers will sync in due time.\n> \n> Thanks,\n> Simon\n> \n> \n> \n>> On Mar 14, 2019, at 8:18 AM, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>> \n>> Hi,\n>> \n>> I just tried to install the R 3.5.3 macOS binary from CRAN.\n>> \n>> The SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n>> \n>> I get:\n>> \n>> pkgutil --check-signature R-3.5.3.pkg\n>> Package \"R-3.5.3.pkg\":\n>>  Status: no signature\n>> \n>> \n>> I rechecked the 3.5.2 binary and do not have the issue there.\n>> \n>> Thanks,\n>> \n>> Marc Schwartz\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "The version from mac.R-project.org installs fine. CRAN master still has the unsigned version (recognizable by an MD5 hash starting with fff) at this point.\n\n-pd\n\n> On 14 Mar 2019, at 14:36 , Simon Urb",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 2,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-af63d6635b63",
+      "message_id": "<4daf4988-62ee-63b2-dcdf-687cc4b540e3@lisse.NA>",
+      "from_name": "Dr Eberhard W Lisse",
+      "from_email_hash": "93198b7406f8147b29c8ec4070bb3410039299dc0f6f9e78bb5d24f319fbeeb4",
+      "date": "2019-03-14T23:19:35+09:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<57862842-A64B-484D-B57B-445184AC85EE@R-project.org>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>",
+        "<57862842-A64B-484D-B57B-445184AC85EE@R-project.org>"
+      ],
+      "body_plain": "Not Really.\n\nI have been loading R binaries for almost 10 years from CRAN, if not\nlonger.  If the SHA is ok, I don't care about Apple's Nanny mechanism.\n\nAnd, it still warns on the first run, whether you really want to run a\nprogram downloaded from the Internet.\n\nThe correct statement wouldhave been, something like: \"Be careful when\nyou do that and only load binaries from reputable sources such as CRAN\"\n\nI really, really, really do not understand, after almost 40 years of\ndoing this (sendmail anyone?), why Apple wants to make an automated\nstart of Postfix requiring the SIP to be disabled off of the Recovery\nBoot for a simple change of the launch control files.\n\nel\n\nOn 2019-03-14 22:37 , Simon Urbanek wrote:\n> Very, very, very bad idea - never ever do that unless you're really\n> happy to infest your machine with nice viruses and ransomware.\n>\n> Cheers,\n> Simon\n>\n>\n>> On Mar 14, 2019, at 8:43 AM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n>>\n>> Try from the commandline\n>>\n>> sudo spctl --master-disable\n>>\n>> and then install the package\n>>\n>> el",
+      "body_snippet": "Not Really.\n\nI have been loading R binaries for almost 10 years from CRAN, if not\nlonger.  If the SHA is ok, I don't care about Apple's Nanny mechanism.\n\nAnd, it still warns on the first run, whether ",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 3,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-8cb6a68d8763",
+      "message_id": "<6cf267af-dd91-e412-44b1-8632c288e61b@lisse.NA>",
+      "from_name": "Dr Eberhard W Lisse",
+      "from_email_hash": "93198b7406f8147b29c8ec4070bb3410039299dc0f6f9e78bb5d24f319fbeeb4",
+      "date": "2019-03-14T23:25:16+09:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<B29567BA-C822-44BC-AC63-932EAF4F8F3C@me.com>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>",
+        "<B29567BA-C822-44BC-AC63-932EAF4F8F3C@me.com>"
+      ],
+      "body_plain": "Marc,\n\nthe same is achieved by the hash published by CRAN.\n\nThough, of course, if the developers have a developer account, there is\nnothing wrong with using it and even less with reporting the lack of use\nof it :-)-O\n\n\nel\n\nOn 2019-03-14 21:49 , Marc Schwartz via R-SIG-Mac wrote:\n> Hi,\n> \n> I am aware of the workaround, both from the CLI and via System\n> Preferences.\n> \n> The question is more about confirming that the binary is valid and\n> from a source that is trusted, which is the point of digitally signing\n> binaries as a trusted Apple developer.\n> \n> Thanks,\n> \n> Marc\n[...]\n-- \nDr. Eberhard W. Lisse          / Obstetrician & Gynaecologist (Saar)\nel at lisse.NA            / *     |   Telephone: +264 81 124 6733 (cell)\nPO Box 8421                  /\nBachbrecht, Namibia     ;____/",
+      "body_snippet": "Marc,\n\nthe same is achieved by the hash published by CRAN.\n\nThough, of course, if the developers have a developer account, there is\nnothing wrong with using it and even less with reporting the lack of",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 3,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-6d5428b00fc1",
+      "message_id": "<4AE74A2D-0733-407F-B14B-13848C946D9D@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-03-14T11:45:33-04:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<4daf4988-62ee-63b2-dcdf-687cc4b540e3@lisse.NA>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>",
+        "<57862842-A64B-484D-B57B-445184AC85EE@R-project.org>",
+        "<4daf4988-62ee-63b2-dcdf-687cc4b540e3@lisse.NA>"
+      ],
+      "body_plain": "My point of objection was the disabling all checks in a blanket manner. Since this forum is read by many people, not everyone may realize the very harmful implications of that single command.\nIf you know what you're doing, that's fine, but then you also know that you can simply use Open and acknowledge that you want to install anyway which is much safer way that to disable all checks systemwide.\n\nSame goes with SIP - for 99.99% of users it protects them and for a very good reason. If you need to modify system files, you better know what you're doing and take all the responsibility. There is also a very good reason why you need to go to Recovery to do that - it wouldn't make any sense otherwise ;).\n\nCheers,\nSimon\n\n\n> On Mar 14, 2019, at 10:19 AM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n> \n> \n> Not Really.\n> \n> I have been loading R binaries for almost 10 years from CRAN, if not\n> longer.  If the SHA is ok, I don't care about Apple's Nanny mechanism.\n> \n> And, it still warns on the first run, whether you really want to run a\n> program downloaded from the Internet.\n> \n> The correct statement wouldhave been, something like: \"Be careful when\n> you do that and only load binaries from reputable sources such as CRAN\"\n> \n> I really, really, really do not understand, after almost 40 years of\n> doing this (sendmail anyone?), why Apple wants to make an automated\n> start of Postfix requiring the SIP to be disabled off of the Recovery\n> Boot for a simple change of the launch control files.\n> \n> el\n> \n> On 2019-03-14 22:37 , Simon Urbanek wrote:\n>> Very, very, very bad idea - never ever do that unless you're really\n>> happy to infest your machine with nice viruses and ransomware.\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>>> On Mar 14, 2019, at 8:43 AM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n>>> \n>>> Try from the commandline\n>>> \n>>> sudo spctl --master-disable\n>>> \n>>> and then install the package\n>>> \n>>> el\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "My point of objection was the disabling all checks in a blanket manner. Since this forum is read by many people, not everyone may realize the very harmful implications of that single command.\nIf you k",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 4,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-895330333f96",
+      "message_id": "<AB411B9E-D391-48CD-8B91-0F8B551E4F50@gmail.com>",
+      "from_name": "Luis Puerto",
+      "from_email_hash": "2c606eb6f9972cf835b68db211c71b2ce9cdd203d9a074e038ffe88f0ae40963",
+      "date": "2019-03-14T17:14:41+01:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<4AE74A2D-0733-407F-B14B-13848C946D9D@R-project.org>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<1ab08ae8-8fc1-48c0-82ea-afce5861ba92@Spark>",
+        "<57862842-A64B-484D-B57B-445184AC85EE@R-project.org>",
+        "<4daf4988-62ee-63b2-dcdf-687cc4b540e3@lisse.NA>",
+        "<4AE74A2D-0733-407F-B14B-13848C946D9D@R-project.org>"
+      ],
+      "body_plain": "I agree more or less with both of you in this take! \n\nI really appreciate Apple effort for keep users safe and this is one the reasons I'm choosing Apple. \n\nHowever, one not always can install signed software and that doesn't mean you are directly at risk. You just have to know what are you doing. \n\nLuckily even if you disabling Gatekeeper <https://en.wikipedia.org/wiki/Gatekeeper_(macOS)> you still get a warning every time you install something out of App Store of some place that isn't in the safe list. \n\nWarnings are great, but prohibitions can go south quickly. I think we can all remember the problems some Windows system got in the past by warning and asking for the password too much. Users finally logged as root to avoid the nuance, thus making the system insecure. \n\n\n> On 14 Mar 2019, at 16:45, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> My point of objection was the disabling all checks in a blanket manner. Since this forum is read by many people, not everyone may realize the very harmful implications of that single command.\n> If you know what you're doing, that's fine, but then you also know that you can simply use Open and acknowledge that you want to install anyway which is much safer way that to disable all checks systemwide.\n> \n> Same goes with SIP - for 99.99% of users it protects them and for a very good reason. If you need to modify system files, you better know what you're doing and take all the responsibility. There is also a very good reason why you need to go to Recovery to do that - it wouldn't make any sense otherwise ;).\n> \n> Cheers,\n> Simon\n> \n> \n>> On Mar 14, 2019, at 10:19 AM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n>> \n>> \n>> Not Really.\n>> \n>> I have been loading R binaries for almost 10 years from CRAN, if not\n>> longer.  If the SHA is ok, I don't care about Apple's Nanny mechanism.\n>> \n>> And, it still warns on the first run, whether you really want to run a\n>> program downloaded from the Internet.\n>> \n>> The correct statement wouldhave been, something like: \"Be careful when\n>> you do that and only load binaries from reputable sources such as CRAN\"\n>> \n>> I really, really, really do not understand, after almost 40 years of\n>> doing this (sendmail anyone?), why Apple wants to make an automated\n>> start of Postfix requiring the SIP to be disabled off of the Recovery\n>> Boot for a simple change of the launch control files.\n>> \n>> el\n>> \n>> On 2019-03-14 22:37 , Simon Urbanek wrote:\n>>> Very, very, very bad idea - never ever do that unless you're really\n>>> happy to infest your machine with nice viruses and ransomware.\n>>> \n>>> Cheers,\n>>> Simon\n>>> \n>>> \n>>>> On Mar 14, 2019, at 8:43 AM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n>>>> \n>>>> Try from the commandline\n>>>> \n>>>> sudo spctl --master-disable\n>>>> \n>>>> and then install the package\n>>>> \n>>>> el\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I agree more or less with both of you in this take! \n\nI really appreciate Apple effort for keep users safe and this is one the reasons I'm choosing Apple. \n\nHowever, one not always can install signed ",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 5,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-555095925ad4",
+      "message_id": "<37CD99AC-7271-4428-B648-45CD9F0369DD@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2019-03-14T12:35:20-04:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 macOS binary not signed?",
+      "subject_clean": "R 3.5.3 macOS binary not signed?",
+      "in_reply_to": "<0244370A-4E21-436E-8789-DDF7C97DDFCB@R-project.org>",
+      "references": [
+        "<C8A3232E-C59A-4488-8907-4D22624DC1A8@me.com>",
+        "<0244370A-4E21-436E-8789-DDF7C97DDFCB@R-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\nThanks for following up. \n\nI presumed that this was a production issue of some nature, as you had established the pattern of digitally signing the binaries some time ago.\n\nThanks again!\n\nMarc\n\n\n> On Mar 14, 2019, at 9:36 AM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Marc,\n> \n> thanks, I'm glad that at least someone pays attention and checks the signature ;). I'm surprised my machine didn't raise a flag - I did test the image locally from the master URL before releasing.\n> \n> I have now updated the package to be signed, it is identical content, just signed. You can get is from the Mac master server https://mac.R-project.org/bin/macosx now and other CRAN servers will sync in due time.\n> \n> Thanks,\n> Simon\n> \n> \n> \n>> On Mar 14, 2019, at 8:18 AM, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>> \n>> Hi,\n>> \n>> I just tried to install the R 3.5.3 macOS binary from CRAN.\n>> \n>> The SHA hash matches what is on CRAN, but I get an unknown developer message when I try to install.\n>> \n>> I get:\n>> \n>> pkgutil --check-signature R-3.5.3.pkg\n>> Package \"R-3.5.3.pkg\":\n>>  Status: no signature\n>> \n>> \n>> I rechecked the 3.5.2 binary and do not have the issue there.\n>> \n>> Thanks,\n>> \n>> Marc Schwartz\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Hi Simon,\n\nThanks for following up. \n\nI presumed that this was a production issue of some nature, as you had established the pattern of digitally signing the binaries some time ago.\n\nThanks again!\n\nMa",
+      "thread_id": "thread-38423642c198",
+      "thread_depth": 2,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-f6bda5caa551",
+      "message_id": "<BN8PR12MB31880E2BFC53DE830D83280BF9440@BN8PR12MB3188.namprd12.prod.outlook.com>",
+      "from_name": "Shepherd, Lori",
+      "from_email_hash": "ea9e9340d257178aa1b928bc69ed4277ea8643508ee1da9006b9114b56b9ff51",
+      "date": "2019-03-15T16:36:28Z",
+      "subject": "[R-SIG-Mac] R-devel MAC binary not available?",
+      "subject_clean": "R-devel MAC binary not available?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\n\nWe have often found the R-devel binary on the following page:\n\nhttps://r.research.att.com/\n\n\nAnd we point our Bioconductor users to this page to download R-devel.  The report for 3-15 says R-devel is OK but there is no available download.  The download link has been missing since at least Monday.  Is it possible for this link to be available?\n\n\n\n\nLori Shepherd\n\nBioconductor Core Team\n\nRoswell Park Cancer Institute\n\nDepartment of Biostatistics & Bioinformatics\n\nElm & Carlton Streets\n\nBuffalo, New York 14263\n\n\nThis email message may contain legally privileged and/or confidential information.  If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited.  If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello,\n\n\nWe have often found the R-devel binary on the following page:\n\nhttps://r.research.att.com/\n\n\nAnd we point our Bioconductor users to this page to download R-devel.  The report for 3-15 says R-",
+      "thread_id": "thread-f6bda5caa551",
+      "thread_depth": 0,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-6a3d304a3c86",
+      "message_id": "<0646386E-4C77-40C1-9C70-2E1F58C53E2D@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-03-15T13:17:22-04:00",
+      "subject": "[R-SIG-Mac] R-devel MAC binary not available?",
+      "subject_clean": "R-devel MAC binary not available?",
+      "in_reply_to": "<BN8PR12MB31880E2BFC53DE830D83280BF9440@BN8PR12MB3188.namprd12.prod.outlook.com>",
+      "references": [
+        "<BN8PR12MB31880E2BFC53DE830D83280BF9440@BN8PR12MB3188.namprd12.prod.outlook.com>"
+      ],
+      "body_plain": "Lori,\n\nthanks, there was a problem related to merging binaries from the various build machines. It should be fixed now. Please let me know if you see issues tomorrow after the next nightly build.\n\nThanks,\nSimon\n\n\n> On Mar 15, 2019, at 12:36 PM, Shepherd, Lori <Lori.Shepherd at RoswellPark.org> wrote:\n> \n> Hello,\n> \n> \n> We have often found the R-devel binary on the following page:\n> \n> https://r.research.att.com/\n> \n> \n> And we point our Bioconductor users to this page to download R-devel.  The report for 3-15 says R-devel is OK but there is no available download.  The download link has been missing since at least Monday.  Is it possible for this link to be available?\n> \n> \n> \n> \n> Lori Shepherd\n> \n> Bioconductor Core Team\n> \n> Roswell Park Cancer Institute\n> \n> Department of Biostatistics & Bioinformatics\n> \n> Elm & Carlton Streets\n> \n> Buffalo, New York 14263\n> \n> \n> This email message may contain legally privileged and/or confidential information.  If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited.  If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Lori,\n\nthanks, there was a problem related to merging binaries from the various build machines. It should be fixed now. Please let me know if you see issues tomorrow after the next nightly build.\n\nTha",
+      "thread_id": "thread-f6bda5caa551",
+      "thread_depth": 1,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-78f5f61d5ce6",
+      "message_id": "<DE4E0467-61BF-4415-9BB1-F317D3F71E9C@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2019-03-19T11:03:34+01:00",
+      "subject": "[R-SIG-Mac] R 3.5.3 pkg not signed",
+      "subject_clean": "R 3.5.3 pkg not signed",
+      "in_reply_to": "<615EA1CE-A0BE-4202-978A-6FB4254BDB08@rit.edu>",
+      "references": [
+        "<615EA1CE-A0BE-4202-978A-6FB4254BDB08@rit.edu>"
+      ],
+      "body_plain": "Your note seems to have stalled somewhere. It arrived here today (the 19th).\n\nAnyways, this was a temporary situation, the signed package should have reached all of CRAN by now:\n\npd$ pkgutil --check-signature ~/.Trash/R-3.5.3-2.pkg\nPackage \"R-3.5.3-2.pkg\":\n   Status: signed by a certificate trusted by Mac OS X\n   Certificate Chain:\n    1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n       SHA1 fingerprint: 7B 6B 81 12 E6 26 8C 16 F8 D4 0F 94 E4 3E 62 69 2E 92 22 81\n       -----------------------------------------------------------------------------\n    2. Developer ID Certification Authority\n       SHA1 fingerprint: 3B 16 6C 3B 7D C4 B7 51 C9 FE 2A FA B9 13 56 41 E3 88 E1 86\n       -----------------------------------------------------------------------------\n    3. Apple Root CA\n       SHA1 fingerprint: 61 1E 5B 66 2C 59 3A 08 FF 58 D1 4A E2 24 52 D1 98 DF 6C 60\n\n-pd\n\n\n> On 14 Mar 2019, at 13:12 , Christopher Helming <cwhits at rit.edu> wrote:\n> \n> The 3.5.2 pkg was signed properly:\n> $ pkgutil --check-signature ~/Downloads/R-3.5.2.pkg\n> Package \"R-3.5.2.pkg\":\n>   Status: signed by a certificate trusted by Mac OS X\n>   Certificate Chain:\n>    1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>       SHA1 fingerprint: 7B 6B 81 12 E6 26 8C 16 F8 D4 0F 94 E4 3E 62 69 2E 92 22 81\n>       -----------------------------------------------------------------------------\n>    2. Developer ID Certification Authority\n>       SHA1 fingerprint: 3B 16 6C 3B 7D C4 B7 51 C9 FE 2A FA B9 13 56 41 E3 88 E1 86\n>       -----------------------------------------------------------------------------\n>    3. Apple Root CA\n>       SHA1 fingerprint: 61 1E 5B 66 2C 59 3A 08 FF 58 D1 4A E2 24 52 D1 98 DF 6C 60\n> \n> But the 3.5.3 pkg has no signature:\n> $ pkgutil --check-signature ~/Downloads/R-3.5.3.pkg\n> Package \"R-3.5.3.pkg\":\n>   Status: no signature\n> \n> Is it possible to get 3.5.3 signed and replace the file on the download page?\n> \n> Chris Helming\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Your note seems to have stalled somewhere. It arrived here today (the 19th).\n\nAnyways, this was a temporary situation, the signed package should have reached all of CRAN by now:\n\npd$ pkgutil --check-s",
+      "thread_id": "thread-003500ece075",
+      "thread_depth": 1,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-30419f4b753c",
+      "message_id": "<BN8PR18MB26904F9B122DF5617BEF87A8FA410@BN8PR18MB2690.namprd18.prod.outlook.com>",
+      "from_name": "Naresh Gurbuxani",
+      "from_email_hash": "df5d90539e2666ddc66f8b815f804e76e9cbe0b9fbf72e62a714b1e3536d5dae",
+      "date": "2019-03-20T16:47:22Z",
+      "subject": "[R-SIG-Mac] Installing littler package on MacOS",
+      "subject_clean": "Installing littler package on MacOS",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "When installing littler using install.packages('littler'), I got below message:\n\n * new binary r installed in bin/ subdirectory                                        \n * consider adding a symbolic link from, e.g., /usr/local/bin                         \n * on OS X, you may have to name this 'lr' instead \n\nHow can I create this symbolic link?  \n\nThanks,\nNaresh",
+      "body_snippet": "When installing littler using install.packages('littler'), I got below message:\n\n * new binary r installed in bin/ subdirectory                                        \n * consider adding a symbolic li",
+      "thread_id": "thread-30419f4b753c",
+      "thread_depth": 0,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-9dcfeaedc0e6",
+      "message_id": "<1429E35B-BB49-4A4A-838A-96CC64EFFAC8@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-03-20T13:14:00-04:00",
+      "subject": "[R-SIG-Mac] Installing littler package on MacOS",
+      "subject_clean": "Installing littler package on MacOS",
+      "in_reply_to": "<BN8PR18MB26904F9B122DF5617BEF87A8FA410@BN8PR18MB2690.namprd18.prod.outlook.com>",
+      "references": [
+        "<BN8PR18MB26904F9B122DF5617BEF87A8FA410@BN8PR18MB2690.namprd18.prod.outlook.com>"
+      ],
+      "body_plain": "Please contact the package author.\nMy guess would be something like\n\nsystem(paste(\"sudo ln -s\",shQuote(system.file(\"bin\",\"r\",package=\"littler\")),\"/usr/local/bin/lr\"))\n\nCheers,\nSimon\n\n\n> On Mar 20, 2019, at 12:47 PM, Naresh Gurbuxani <naresh_gurbuxani at hotmail.com> wrote:\n> \n> When installing littler using install.packages('littler'), I got below message:\n> \n> * new binary r installed in bin/ subdirectory                                        \n> * consider adding a symbolic link from, e.g., /usr/local/bin                         \n> * on OS X, you may have to name this 'lr' instead \n> \n> How can I create this symbolic link?  \n> \n> Thanks,\n> Naresh\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Please contact the package author.\nMy guess would be something like\n\nsystem(paste(\"sudo ln -s\",shQuote(system.file(\"bin\",\"r\",package=\"littler\")),\"/usr/local/bin/lr\"))\n\nCheers,\nSimon\n\n\n> On Mar 20, 201",
+      "thread_id": "thread-30419f4b753c",
+      "thread_depth": 1,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-8ed06d0c8c99",
+      "message_id": "<BN8PR18MB2690F8596287C96ABD462CB8FA5D0@BN8PR18MB2690.namprd18.prod.outlook.com>",
+      "from_name": "Naresh Gurbuxani",
+      "from_email_hash": "df5d90539e2666ddc66f8b815f804e76e9cbe0b9fbf72e62a714b1e3536d5dae",
+      "date": "2019-03-24T00:19:15Z",
+      "subject": "[R-SIG-Mac] Installing littler package on MacOS",
+      "subject_clean": "Installing littler package on MacOS",
+      "in_reply_to": "<BN8PR18MB26904F9B122DF5617BEF87A8FA410@BN8PR18MB2690.namprd18.prod.outlook.com>",
+      "references": [
+        "<BN8PR18MB26904F9B122DF5617BEF87A8FA410@BN8PR18MB2690.namprd18.prod.outlook.com>"
+      ],
+      "body_plain": "I had separate correspondence with the author of this package, Dirk Eddelbuettel.  Dirk kindly updated the documentation of littler to include additional instructions on creating a symbolic link.\n\nNow my installation of littler works.\n\nThanks Dirk,\nNaresh\n\n________________________________\nFrom: Naresh Gurbuxani\nSent: Wednesday, March 20, 2019 12:47 PM\nTo: r-sig-mac at r-project.org\nSubject: Installing littler package on MacOS\n\nWhen installing littler using install.packages('littler'), I got below message:\n\n * new binary r installed in bin/ subdirectory\n * consider adding a symbolic link from, e.g., /usr/local/bin\n * on OS X, you may have to name this 'lr' instead\n\nHow can I create this symbolic link?\n\nThanks,\nNaresh\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I had separate correspondence with the author of this package, Dirk Eddelbuettel.  Dirk kindly updated the documentation of littler to include additional instructions on creating a symbolic link.\n\nNow",
+      "thread_id": "thread-30419f4b753c",
+      "thread_depth": 1,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-1ed5e0d1030e",
+      "message_id": "<6B69ACF3-0133-4B58-A830-8FE0D54CD38D@kuleuven.be>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "6c6f809c52ff7001b40168e18e141856224bbeffa17a3ac2b3f1bc27cf77f5ba",
+      "date": "2019-03-27T16:13:41Z",
+      "subject": "[R-SIG-Mac] odd message opening R.app",
+      "subject_clean": "odd message opening R.app",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nwhen I open R.app I get:\n\nR[8280:59117] Failed to connect (separatorView) outlet from (NSView) to (NSTitlebarSeparatorView): missing setter or instance variable\n\nI am on Mojave, 10.14.4, R version 3.5.3 (2019-03-11), R.app GUI 1.70 (7632) x86_64-apple-darwin15.6.0.\n\nI would not even know what it might mean, and whether I need to be concerned, but I felt I should report it.\n\nCheers\n\nF\n\n--\nFederico Calboli\nLBEG - Laboratory of Biodiversity and Evolutionary Genomics\nCharles Deberiotstraat 32 box 2439\n3000 Leuven\n+32 16 32 87 67",
+      "body_snippet": "Hi,\n\nwhen I open R.app I get:\n\nR[8280:59117] Failed to connect (separatorView) outlet from (NSView) to (NSTitlebarSeparatorView): missing setter or instance variable\n\nI am on Mojave, 10.14.4, R versio",
+      "thread_id": "thread-1ed5e0d1030e",
+      "thread_depth": 0,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-caeede961bed",
+      "message_id": "<3AA4494C-4C6A-42C1-8158-47649B424607@kuleuven.be>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "6c6f809c52ff7001b40168e18e141856224bbeffa17a3ac2b3f1bc27cf77f5ba",
+      "date": "2019-03-27T19:30:21Z",
+      "subject": "[R-SIG-Mac] odd message opening R.app",
+      "subject_clean": "odd message opening R.app",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nwhen I open R.app I get:\n\nR[8280:59117] Failed to connect (separatorView) outlet from (NSView) to (NSTitlebarSeparatorView): missing setter or instance variable\n\nI am on Mojave, 10.14.4, R version 3.5.3 (2019-03-11), R.app GUI 1.70 (7632) x86_64-apple-darwin15.6.0.\n\nI would not even know what it might mean, and whether I need to be concerned, but I felt I should report it.\n\nCheers\n\nF\n\n--\nFederico Calboli\nLBEG - Laboratory of Biodiversity and Evolutionary Genomics\nCharles Deberiotstraat 32 box 2439\n3000 Leuven\n+32 16 32 87 67",
+      "body_snippet": "Hi,\n\nwhen I open R.app I get:\n\nR[8280:59117] Failed to connect (separatorView) outlet from (NSView) to (NSTitlebarSeparatorView): missing setter or instance variable\n\nI am on Mojave, 10.14.4, R versio",
+      "thread_id": "thread-caeede961bed",
+      "thread_depth": 0,
+      "month": "2019-03"
+    },
+    {
+      "id": "msg-f9c95b28a185",
+      "message_id": "<552D2AA6-A741-4230-9A15-6C26E770906E@noaa.gov>",
+      "from_name": "Roy Mendelssohn - NOAA Federal",
+      "from_email_hash": "85b144d8f821c255c37ab81c3161d7be181befc9b6dd8f140f0346a2dce36d36",
+      "date": "2019-03-30T11:21:47-07:00",
+      "subject": "[R-SIG-Mac] Compiling packages from source under Mojave (10.14.x)",
+      "subject_clean": "Compiling packages from source under Mojave (10.14.x)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I recently updated to Mojave and all of a sudden I was getting header not found errors when trying to compile packages.  I was pretty certain my Makevars files was correct,  as I had been compiling before the upgrade successfully,  and the compilers hadn't changed.\n\nThe following is in some of the docs,  but just in case it helps,  cause it took me awhile to find it,  after installing the Command Line Tools for Xcode,  you should run:\n\nsudo installer -pkg \\\n/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg \\\n -target /\n\nand voila packages that had failed to compile just a few minutes ago compiled successfully.\n\nHope this helps someone.\n\n-Roy\n\n\n**********************\n\"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n**********************\nRoy Mendelssohn\nSupervisory Operations Research Analyst\nNOAA/NMFS\nEnvironmental Research Division\nSouthwest Fisheries Science Center\n***Note new street address***\n110 McAllister Way\nSanta Cruz, CA 95060\nPhone: (831)-420-3666\nFax: (831) 420-3980\ne-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n\n\"Old age and treachery will overcome youth and skill.\"\n\"From those who have been given much, much will be expected\" \n\"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.",
+      "body_snippet": "I recently updated to Mojave and all of a sudden I was getting header not found errors when trying to compile packages.  I was pretty certain my Makevars files was correct,  as I had been compiling be",
+      "thread_id": "thread-f9c95b28a185",
+      "thread_depth": 0,
+      "month": "2019-03"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-461a957dc650",
+      "subject": "violations of CRAN policy [was: libcurl]",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2019-03-03T08:08:16-05:00",
+      "last_reply": "2019-03-03T08:08:16-05:00",
+      "root_message_id": "msg-461a957dc650"
+    },
+    {
+      "id": "thread-38423642c198",
+      "subject": "R 3.5.3 macOS binary not signed?",
+      "message_count": 12,
+      "participants": [
+        "Dr Eberhard W Lisse",
+        "Luis Puerto",
+        "Marc Schwartz",
+        "Simon Urbanek",
+        "peter dalgaard"
+      ],
+      "started": "2019-03-14T08:18:07-04:00",
+      "last_reply": "2019-03-14T12:35:20-04:00",
+      "root_message_id": "msg-38423642c198"
+    },
+    {
+      "id": "thread-003500ece075",
+      "subject": "R 3.5.3 pkg not signed",
+      "message_count": 2,
+      "participants": [
+        "Christopher Helming",
+        "peter dalgaard"
+      ],
+      "started": "2019-03-14T12:12:24+00:00",
+      "last_reply": "2019-03-19T11:03:34+01:00",
+      "root_message_id": "msg-003500ece075"
+    },
+    {
+      "id": "thread-f6bda5caa551",
+      "subject": "R-devel MAC binary not available?",
+      "message_count": 2,
+      "participants": [
+        "Shepherd, Lori",
+        "Simon Urbanek"
+      ],
+      "started": "2019-03-15T16:36:28+00:00",
+      "last_reply": "2019-03-15T13:17:22-04:00",
+      "root_message_id": "msg-f6bda5caa551"
+    },
+    {
+      "id": "thread-30419f4b753c",
+      "subject": "Installing littler package on MacOS",
+      "message_count": 3,
+      "participants": [
+        "Naresh Gurbuxani",
+        "Simon Urbanek"
+      ],
+      "started": "2019-03-20T16:47:22+00:00",
+      "last_reply": "2019-03-24T00:19:15+00:00",
+      "root_message_id": "msg-30419f4b753c"
+    },
+    {
+      "id": "thread-1ed5e0d1030e",
+      "subject": "odd message opening R.app",
+      "message_count": 1,
+      "participants": [
+        "Federico Calboli"
+      ],
+      "started": "2019-03-27T16:13:41+00:00",
+      "last_reply": "2019-03-27T16:13:41+00:00",
+      "root_message_id": "msg-1ed5e0d1030e"
+    },
+    {
+      "id": "thread-caeede961bed",
+      "subject": "odd message opening R.app",
+      "message_count": 1,
+      "participants": [
+        "Federico Calboli"
+      ],
+      "started": "2019-03-27T19:30:21+00:00",
+      "last_reply": "2019-03-27T19:30:21+00:00",
+      "root_message_id": "msg-caeede961bed"
+    },
+    {
+      "id": "thread-f9c95b28a185",
+      "subject": "Compiling packages from source under Mojave (10.14.x)",
+      "message_count": 1,
+      "participants": [
+        "Roy Mendelssohn - NOAA Federal"
+      ],
+      "started": "2019-03-30T11:21:47-07:00",
+      "last_reply": "2019-03-30T11:21:47-07:00",
+      "root_message_id": "msg-f9c95b28a185"
+    }
+  ]
+}

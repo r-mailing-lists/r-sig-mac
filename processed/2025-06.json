@@ -1,0 +1,226 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2025-06",
+  "messages": [
+    {
+      "id": "msg-d2a4904a34e0",
+      "message_id": "<AEEDD1EE-3E7B-4C21-880A-0C113CFC4A4F@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2025-06-01T13:24:14+02:00",
+      "subject": "[R-SIG-Mac] xquartz hanging",
+      "subject_clean": "xquartz hanging",
+      "in_reply_to": "<af65d626-6d05-415a-b025-59f6eca79489@8pawexpress.com>",
+      "references": [
+        "<6b1ef050-46f2-4036-b062-4c3f28bcf034@8pawexpress.com>",
+        "<6391E0DB-A675-4BC8-B54E-D679656A4DBC@me.com>",
+        "<af65d626-6d05-415a-b025-59f6eca79489@8pawexpress.com>"
+      ],
+      "body_plain": "I'm puzzled why you need XQuartz in the first place. R in a terminal usually fires up the quartz() graphics device and that has nothing to do with XQuartz (which is X on top of Quartz, not the other way around).\n\nWe do have an annoyance with XQuartz though: When install.packages() goes looking for a CRAN mirror (*), it fires up a Tk selector and that will require XQuartz to fire up. Every now and again that hangs for me too, but as it is usually the first thing I do in an R session, I can ctr-Z and kill the process and start over. But it really could do with a looking into. (I do miss strace/truss from days of yore, where you could just probe into a running process and see what it is up to.)\n\n-pd\n\n(*) Yeah, I know, it should be in a configuration  file ... somewhere.\n\n> On 1 Jun 2025, at 00.08, bill+rsigmac at 8pawexpress.com wrote:\n> \n> Thanks for the feedback, Marc! Very interesting.\n> \n> On 5/31/25 13:04, Marc Schwartz wrote:\n> \n>> Hi,\n>> \n>> I am currently running R 4.5.0 on macOS 15.5 (Sequoia), and I also use emacs (30.1) and ess (25.1.0), the latter from elpa, along with other emacs packages.\n> \n> It seems we (emacs/ess users) are a diminishing crowd :-(\n>> I do not have the issue that you are referring to below, and did not under prior versions to the best of my recollection.\n> \n> Then there?s hope :-)\n>> I do tend to stay up to date on the versions of all of the above and do clean installs of R and packages with each new version, fully removing the older version file tree first (/Library/Frameworks/R.framework).\n>> \n>> Thus, you might consider updating both macOS and R to current versions.\n> \n> I had already planned to upgrade to macos-15.5. I?m not able to\n> upgrade (fully) to R-4.5 in the immediate future ? worse, I need\n> to have multiple R versions on-hand for some backwards-compatibility\n> testing (work apps/apis).\n> \n> I do subscribe occasionally to the ?three-finger salute? way of\n> fixing some OS or program issues, but I really dislike the fact that\n> it works much more frequently than I think it should.\n> \n>> I don't use ggplot*, so cannot comment if there may be something specific to that package causing any issues,\n> \n> |ggplot2| does tend to be more complex and test the graphics device\n> more than typical base graphics; I recall an issue with ggplot on\n> windows several years ago that caused the window to dump,\n> occasionally causing R to dump and crash as well, triggered by a\n> mouse-wheel action on a ggplot graphics pane. This is not the same\n> issue, certainly, but speaks to the difference with base graphics.\n> \n> For the record, while I use it much much less frequently, I have yet\n> to see the issue appear when a base-graphics plot is displayed. This\n> is not conclusive.\n> \n>> One thing that you should do, if you have not, is to be sure to re-install XQuartz after upgrading R versions, and this is referenced on the R macOS CRAN page.\n> \n> The only mentions I can find of XQuartz on the R-Mac pages are:\n> \n>  * Big Sur and newer require XQuartz 2.8.5 (I?m good, installed 2.8.5\n>    from the start)\n>  * ?Always re-install XQuartz when upgrading your macOS to a new\n>    major version?: not applicable, I?ve been on 15.3 or newer on this\n>    laptop (unless ? is 15.4 a ?major version? over 15.3?)\n> \n> Regardless of that, I don?t understand how an xorg-server would be\n> at all tied to (needing to be reinstalled/relinked after) changes in\n> a client library (R plotting services). Can you provide more\n> information (a link) where they say XQuartz needs to be reinstalled\n> with each R upgrade? I apologize if I?m missing it on mac.r-project.org.\n> \n>> See if re-installing XQuartz has any impact on the issues that you are observing.\n> \n> Regardless of ?why? it may work, I think I?m going to uninstall and\n> reinstall XQuartz when I do the macos upgrade. ?It can?t hurt?,\n> famous last words.\n>> You might also want to fully uninstall XQuartz first, before re-installing it, and the instructions for that are available on their FAQ page:\n>> \n>>   https://www.xquartz.org/FAQs.html\n> \n> Sage advice, I appreciate it.\n>> One additional thing to consider is to try to replicate the behavior that you are observing by running R in Terminal and/or via R.app, to try to exclude the possibility that there is something going on with your emacs/ess installation.\n> \n> That?s been on my list, but since I still don?t know exactly what\n> causes it to hang, I have not spent the time trying to repeat it\n> from outside of my normal R use.\n> \n> Once thing I find interesting is that it is particular to one R\n> process, but not to XQuartz. That is, when one R process? graphics\n> device is hung, I can open a new R process and plotting works\n> without issue. I can close the first process, eventually its hung\n> window closes, and other processes continue to plot without issue. I\n> don?t know if this narrows it down at all, since a bug in either R\n> or XQuartz could show that specificity. (The major pain is that\n> often I?m working with many GBs of data, and reloading and\n> reprocessing is a not-free chore. Usually not impossible, just many\n> many minutes and reacquiring my mental focus.)\n> \n> Thanks again for your experience, Marc!\n> \n>> If you can replicate the issues in Terminal and/or R.app, that would help to exclude emacs/ess from involvement at least. If you cannot, then you might be sure that you are running the latest versions of emacs and ess to see if that helps, in case they are adding a source of conflict.\n>> \n>> Regards,\n>> \n>> Marc Schwartz\n>> \n>> \n>>> On May 31, 2025, at 10:35?AM,bill+rsigmac at 8pawexpress.com wrote:\n>>> \n>>> Are there easy fixes or alternatives to using XQuartz for R plots?\n>>> \n>>> I?m running R-4.4.3 (emacs/ess) on macos 15.4.1 and have xquartz-2.8.5\n>>> installed. Most of the time plotting in R works well enough (I tend to\n>>> use ggplot2, I don?t know if it happens as often with base plots).\n>>> Occasionally (several times a week), ?something? happens with the plot\n>>> window, and from then on that R process can no longer plot anything\n>>> more. The ?something? is not well defined for me yet, I think it?s a\n>>> mouse-wheel or mouse-click or similar; the snark in me says ?well don?t\n>>> do that?, but I cannot nail down exactly how/when it breaks, it just does.\n>>> \n>>> When it happens, the current device window is still open, but it has a\n>>> mac spinning-colorwheel, no new plotting commands work, and I cannot\n>>> close the window myself. I cannot dev.off() it, nor does dev.new() give\n>>> me a new plotting window. When this happens for a particular R process,\n>>> my only options for plotting are either (a) close the R process and\n>>> start over, or (b) manually plot to a PDF or similar one-shot graphics\n>>> device, viewing in a different app.\n>>> \n>>> There are several related issues I can find:\n>>> \n>>> https://github.com/XQuartz/XQuartz/issues/431, specific to macos 15.4 or\n>>> newer I think; some mention of ?minimizing windows? but I don?t minimize\n>>> my plot windows, so perhaps not that\n>>> https://github.com/XQuartz/XQuartz/issues/168, closed as ?not planned?,\n>>> though this one is much older than the first (431) issue\n>>> \n>>> I?ve tried using something like |httpgd|\n>>> <https://github.com/nx10/httpgd/> since it can (mostly) provide an\n>>> ?always updating graphics device? for example without xquartz.\n>>> Unfortunately, with some other packages (namely plumber that I use\n>>> frequently-enough) it can put the R?s REPL into an unbreakable state\n>>> (#215<https://github.com/nx10/httpgd/issues/215>). If that were fixed\n>>> I?d be a lot more comfortable using that as my workaround.\n>>> \n>>> My research has not shown any other options for fixing or replacing\n>>> xquartz with a more stable solution. Are there good ways to troubleshoot\n>>> and try to fix the xquartz issue? Does anybody else have a workaround or\n>>> alternative that is less unwieldy than pdf(..); plot(..); dev.off()?\n>>> \n>>> Thanks,\n>>> Bill\n>>> \n>>> &#8203;\n>>> &#8203;\n>>> [[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> &#8203;\n> [[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "I'm puzzled why you need XQuartz in the first place. R in a terminal usually fires up the quartz() graphics device and that has nothing to do with XQuartz (which is X on top of Quartz, not the other w",
+      "thread_id": "thread-d2a4904a34e0",
+      "thread_depth": 0,
+      "month": "2025-06"
+    },
+    {
+      "id": "msg-a3023e3cab9d",
+      "message_id": "<a09657ad-c746-490b-9866-50c2625fde83@8pawexpress.com>",
+      "from_name": "biii+rsigm@c m@iii@g oii 8p@wexpress@com",
+      "from_email_hash": "86819bc915b23691430d141a106f12cd223730b21126a70865591db019279439",
+      "date": "2025-06-01T08:25:58-04:00",
+      "subject": "[R-SIG-Mac] quartz hanging",
+      "subject_clean": "quartz hanging",
+      "in_reply_to": "<AEEDD1EE-3E7B-4C21-880A-0C113CFC4A4F@gmail.com>",
+      "references": [
+        "<6b1ef050-46f2-4036-b062-4c3f28bcf034@8pawexpress.com>",
+        "<6391E0DB-A675-4BC8-B54E-D679656A4DBC@me.com>",
+        "<af65d626-6d05-415a-b025-59f6eca79489@8pawexpress.com>",
+        "<AEEDD1EE-3E7B-4C21-880A-0C113CFC4A4F@gmail.com>"
+      ],
+      "body_plain": "Thank you, Peter. I think that?s a misunderstanding of mine based on \nmis-reading mac.r-project.org and incomplete research. I have since \nuninstalled XQuartz and indeed |quartz()| still works, so my bug-report \nhas been a misdirection. With this, I?ve changed the here from ?xquartz \nhanging? to ?quartz hanging?.\n\nI?m still working on a reprex, haven?t found the culprit yet. (I haven?t \nhad a repeat since I uninstalled and reinstalled then uninstalled XQuartz.)\n\nThank you again,\nBill\n\nOn 6/1/25 07:24, peter dalgaard wrote:\n\n> I'm puzzled why you need XQuartz in the first place. R in a terminal usually fires up the quartz() graphics device and that has nothing to do with XQuartz (which is X on top of Quartz, not the other way around).\n>\n> We do have an annoyance with XQuartz though: When install.packages() goes looking for a CRAN mirror (*), it fires up a Tk selector and that will require XQuartz to fire up. Every now and again that hangs for me too, but as it is usually the first thing I do in an R session, I can ctr-Z and kill the process and start over. But it really could do with a looking into. (I do miss strace/truss from days of yore, where you could just probe into a running process and see what it is up to.)\n>\n> -pd\n>\n> (*) Yeah, I know, it should be in a configuration  file ... somewhere.\n>\n>> On 1 Jun 2025, at 00.08,bill+rsigmac at 8pawexpress.com wrote:\n>>\n>> Thanks for the feedback, Marc! Very interesting.\n>>\n>> On 5/31/25 13:04, Marc Schwartz wrote:\n>>\n>>> Hi,\n>>>\n>>> I am currently running R 4.5.0 on macOS 15.5 (Sequoia), and I also use emacs (30.1) and ess (25.1.0), the latter from elpa, along with other emacs packages.\n>> It seems we (emacs/ess users) are a diminishing crowd :-(\n>>> I do not have the issue that you are referring to below, and did not under prior versions to the best of my recollection.\n>> Then there?s hope :-)\n>>> I do tend to stay up to date on the versions of all of the above and do clean installs of R and packages with each new version, fully removing the older version file tree first (/Library/Frameworks/R.framework).\n>>>\n>>> Thus, you might consider updating both macOS and R to current versions.\n>> I had already planned to upgrade to macos-15.5. I?m not able to\n>> upgrade (fully) to R-4.5 in the immediate future ? worse, I need\n>> to have multiple R versions on-hand for some backwards-compatibility\n>> testing (work apps/apis).\n>>\n>> I do subscribe occasionally to the ?three-finger salute? way of\n>> fixing some OS or program issues, but I really dislike the fact that\n>> it works much more frequently than I think it should.\n>>\n>>> I don't use ggplot*, so cannot comment if there may be something specific to that package causing any issues,\n>> |ggplot2| does tend to be more complex and test the graphics device\n>> more than typical base graphics; I recall an issue with ggplot on\n>> windows several years ago that caused the window to dump,\n>> occasionally causing R to dump and crash as well, triggered by a\n>> mouse-wheel action on a ggplot graphics pane. This is not the same\n>> issue, certainly, but speaks to the difference with base graphics.\n>>\n>> For the record, while I use it much much less frequently, I have yet\n>> to see the issue appear when a base-graphics plot is displayed. This\n>> is not conclusive.\n>>\n>>> One thing that you should do, if you have not, is to be sure to re-install XQuartz after upgrading R versions, and this is referenced on the R macOS CRAN page.\n>> The only mentions I can find of XQuartz on the R-Mac pages are:\n>>\n>>   * Big Sur and newer require XQuartz 2.8.5 (I?m good, installed 2.8.5\n>>     from the start)\n>>   * ?Always re-install XQuartz when upgrading your macOS to a new\n>>     major version?: not applicable, I?ve been on 15.3 or newer on this\n>>     laptop (unless ? is 15.4 a ?major version? over 15.3?)\n>>\n>> Regardless of that, I don?t understand how an xorg-server would be\n>> at all tied to (needing to be reinstalled/relinked after) changes in\n>> a client library (R plotting services). Can you provide more\n>> information (a link) where they say XQuartz needs to be reinstalled\n>> with each R upgrade? I apologize if I?m missing it on mac.r-project.org.\n>>\n>>> See if re-installing XQuartz has any impact on the issues that you are observing.\n>> Regardless of ?why? it may work, I think I?m going to uninstall and\n>> reinstall XQuartz when I do the macos upgrade. ?It can?t hurt?,\n>> famous last words.\n>>> You might also want to fully uninstall XQuartz first, before re-installing it, and the instructions for that are available on their FAQ page:\n>>>\n>>>    https://www.xquartz.org/FAQs.html\n>> Sage advice, I appreciate it.\n>>> One additional thing to consider is to try to replicate the behavior that you are observing by running R in Terminal and/or via R.app, to try to exclude the possibility that there is something going on with your emacs/ess installation.\n>> That?s been on my list, but since I still don?t know exactly what\n>> causes it to hang, I have not spent the time trying to repeat it\n>> from outside of my normal R use.\n>>\n>> Once thing I find interesting is that it is particular to one R\n>> process, but not to XQuartz. That is, when one R process? graphics\n>> device is hung, I can open a new R process and plotting works\n>> without issue. I can close the first process, eventually its hung\n>> window closes, and other processes continue to plot without issue. I\n>> don?t know if this narrows it down at all, since a bug in either R\n>> or XQuartz could show that specificity. (The major pain is that\n>> often I?m working with many GBs of data, and reloading and\n>> reprocessing is a not-free chore. Usually not impossible, just many\n>> many minutes and reacquiring my mental focus.)\n>>\n>> Thanks again for your experience, Marc!\n>>\n>>> If you can replicate the issues in Terminal and/or R.app, that would help to exclude emacs/ess from involvement at least. If you cannot, then you might be sure that you are running the latest versions of emacs and ess to see if that helps, in case they are adding a source of conflict.\n>>>\n>>> Regards,\n>>>\n>>> Marc Schwartz\n>>>\n>>>\n>>>> On May 31, 2025, at 10:35?AM,bill+rsigmac at 8pawexpress.com wrote:\n>>>>\n>>>> Are there easy fixes or alternatives to using XQuartz for R plots?\n>>>>\n>>>> I?m running R-4.4.3 (emacs/ess) on macos 15.4.1 and have xquartz-2.8.5\n>>>> installed. Most of the time plotting in R works well enough (I tend to\n>>>> use ggplot2, I don?t know if it happens as often with base plots).\n>>>> Occasionally (several times a week), ?something? happens with the plot\n>>>> window, and from then on that R process can no longer plot anything\n>>>> more. The ?something? is not well defined for me yet, I think it?s a\n>>>> mouse-wheel or mouse-click or similar; the snark in me says ?well don?t\n>>>> do that?, but I cannot nail down exactly how/when it breaks, it just does.\n>>>>\n>>>> When it happens, the current device window is still open, but it has a\n>>>> mac spinning-colorwheel, no new plotting commands work, and I cannot\n>>>> close the window myself. I cannot dev.off() it, nor does dev.new() give\n>>>> me a new plotting window. When this happens for a particular R process,\n>>>> my only options for plotting are either (a) close the R process and\n>>>> start over, or (b) manually plot to a PDF or similar one-shot graphics\n>>>> device, viewing in a different app.\n>>>>\n>>>> There are several related issues I can find:\n>>>>\n>>>> https://github.com/XQuartz/XQuartz/issues/431, specific to macos 15.4 or\n>>>> newer I think; some mention of ?minimizing windows? but I don?t minimize\n>>>> my plot windows, so perhaps not that\n>>>> https://github.com/XQuartz/XQuartz/issues/168, closed as ?not planned?,\n>>>> though this one is much older than the first (431) issue\n>>>>\n>>>> I?ve tried using something like |httpgd|\n>>>> <https://github.com/nx10/httpgd/> since it can (mostly) provide an\n>>>> ?always updating graphics device? for example without xquartz.\n>>>> Unfortunately, with some other packages (namely plumber that I use\n>>>> frequently-enough) it can put the R?s REPL into an unbreakable state\n>>>> (#215<https://github.com/nx10/httpgd/issues/215>). If that were fixed\n>>>> I?d be a lot more comfortable using that as my workaround.\n>>>>\n>>>> My research has not shown any other options for fixing or replacing\n>>>> xquartz with a more stable solution. Are there good ways to troubleshoot\n>>>> and try to fix the xquartz issue? Does anybody else have a workaround or\n>>>> alternative that is less unwieldy than pdf(..); plot(..); dev.off()?\n>>>>\n>>>> Thanks,\n>>>> Bill\n>>>>\n>>>> &#8203;\n>>>> &#8203;\n>>>> [[alternative HTML version deleted]]\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> &#8203;\n>> [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n&#8203;\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thank you, Peter. I think that?s a misunderstanding of mine based on \nmis-reading mac.r-project.org and incomplete research. I have since \nuninstalled XQuartz and indeed |quartz()| still works, so my ",
+      "thread_id": "thread-d2a4904a34e0",
+      "thread_depth": 1,
+      "month": "2025-06"
+    },
+    {
+      "id": "msg-7e5741730467",
+      "message_id": "<CAC2h7uvMP4NZpgzZbO1BkCgkZZgLyXLk4Scb8FDjxZfkq2yiqA@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "d93d2b6e7e026786d1329cc362094fa8cf7678c5556ec56db24b97db9e327685",
+      "date": "2025-06-02T17:28:23-04:00",
+      "subject": "[R-SIG-Mac] quartz hanging",
+      "subject_clean": "quartz hanging",
+      "in_reply_to": "<a09657ad-c746-490b-9866-50c2625fde83@8pawexpress.com>",
+      "references": [
+        "<6b1ef050-46f2-4036-b062-4c3f28bcf034@8pawexpress.com>",
+        "<6391E0DB-A675-4BC8-B54E-D679656A4DBC@me.com>",
+        "<af65d626-6d05-415a-b025-59f6eca79489@8pawexpress.com>",
+        "<AEEDD1EE-3E7B-4C21-880A-0C113CFC4A4F@gmail.com>",
+        "<a09657ad-c746-490b-9866-50c2625fde83@8pawexpress.com>"
+      ],
+      "body_plain": "I have been using quartz from inside Emacs for a long time and I basically\nnever (or at least very rarely) have any issues. I rarely use XQuartz and\nnever with R installed on my local machine (mostly to start X windows from\na remote server). There is a way to configure the default device in R, so I\nwould try to start the quartz device manually with\n  R> quartz()\n  R> plot(1:10)\nand check that is the same as\n  R> plot(1:10)\nto rule out any configuration issues and make sure we're talking about the\nsame device.\n\nAre you compiling R from source or are you using the CRAN binaries? That\nmight have an impact.\n\nBest,\nKasper\n\n\n\nOn Sun, Jun 1, 2025 at 8:26?AM <bill+rsigmac at 8pawexpress.com> wrote:\n\n> Thank you, Peter. I think that?s a misunderstanding of mine based on\n> mis-reading mac.r-project.org and incomplete research. I have since\n> uninstalled XQuartz and indeed |quartz()| still works, so my bug-report\n> has been a misdirection. With this, I?ve changed the here from ?xquartz\n> hanging? to ?quartz hanging?.\n>\n> I?m still working on a reprex, haven?t found the culprit yet. (I haven?t\n> had a repeat since I uninstalled and reinstalled then uninstalled XQuartz.)\n>\n> Thank you again,\n> Bill\n>\n> On 6/1/25 07:24, peter dalgaard wrote:\n>\n> > I'm puzzled why you need XQuartz in the first place. R in a terminal\n> usually fires up the quartz() graphics device and that has nothing to do\n> with XQuartz (which is X on top of Quartz, not the other way around).\n> >\n> > We do have an annoyance with XQuartz though: When install.packages()\n> goes looking for a CRAN mirror (*), it fires up a Tk selector and that will\n> require XQuartz to fire up. Every now and again that hangs for me too, but\n> as it is usually the first thing I do in an R session, I can ctr-Z and kill\n> the process and start over. But it really could do with a looking into. (I\n> do miss strace/truss from days of yore, where you could just probe into a\n> running process and see what it is up to.)\n> >\n> > -pd\n> >\n> > (*) Yeah, I know, it should be in a configuration  file ... somewhere.\n> >\n> >> On 1 Jun 2025, at 00.08,bill+rsigmac at 8pawexpress.com wrote:\n> >>\n> >> Thanks for the feedback, Marc! Very interesting.\n> >>\n> >> On 5/31/25 13:04, Marc Schwartz wrote:\n> >>\n> >>> Hi,\n> >>>\n> >>> I am currently running R 4.5.0 on macOS 15.5 (Sequoia), and I also use\n> emacs (30.1) and ess (25.1.0), the latter from elpa, along with other emacs\n> packages.\n> >> It seems we (emacs/ess users) are a diminishing crowd :-(\n> >>> I do not have the issue that you are referring to below, and did not\n> under prior versions to the best of my recollection.\n> >> Then there?s hope :-)\n> >>> I do tend to stay up to date on the versions of all of the above and\n> do clean installs of R and packages with each new version, fully removing\n> the older version file tree first (/Library/Frameworks/R.framework).\n> >>>\n> >>> Thus, you might consider updating both macOS and R to current versions.\n> >> I had already planned to upgrade to macos-15.5. I?m not able to\n> >> upgrade (fully) to R-4.5 in the immediate future ? worse, I need\n> >> to have multiple R versions on-hand for some backwards-compatibility\n> >> testing (work apps/apis).\n> >>\n> >> I do subscribe occasionally to the ?three-finger salute? way of\n> >> fixing some OS or program issues, but I really dislike the fact that\n> >> it works much more frequently than I think it should.\n> >>\n> >>> I don't use ggplot*, so cannot comment if there may be something\n> specific to that package causing any issues,\n> >> |ggplot2| does tend to be more complex and test the graphics device\n> >> more than typical base graphics; I recall an issue with ggplot on\n> >> windows several years ago that caused the window to dump,\n> >> occasionally causing R to dump and crash as well, triggered by a\n> >> mouse-wheel action on a ggplot graphics pane. This is not the same\n> >> issue, certainly, but speaks to the difference with base graphics.\n> >>\n> >> For the record, while I use it much much less frequently, I have yet\n> >> to see the issue appear when a base-graphics plot is displayed. This\n> >> is not conclusive.\n> >>\n> >>> One thing that you should do, if you have not, is to be sure to\n> re-install XQuartz after upgrading R versions, and this is referenced on\n> the R macOS CRAN page.\n> >> The only mentions I can find of XQuartz on the R-Mac pages are:\n> >>\n> >>   * Big Sur and newer require XQuartz 2.8.5 (I?m good, installed 2.8.5\n> >>     from the start)\n> >>   * ?Always re-install XQuartz when upgrading your macOS to a new\n> >>     major version?: not applicable, I?ve been on 15.3 or newer on this\n> >>     laptop (unless ? is 15.4 a ?major version? over 15.3?)\n> >>\n> >> Regardless of that, I don?t understand how an xorg-server would be\n> >> at all tied to (needing to be reinstalled/relinked after) changes in\n> >> a client library (R plotting services). Can you provide more\n> >> information (a link) where they say XQuartz needs to be reinstalled\n> >> with each R upgrade? I apologize if I?m missing it on mac.r-project.org\n> .\n> >>\n> >>> See if re-installing XQuartz has any impact on the issues that you are\n> observing.\n> >> Regardless of ?why? it may work, I think I?m going to uninstall and\n> >> reinstall XQuartz when I do the macos upgrade. ?It can?t hurt?,\n> >> famous last words.\n> >>> You might also want to fully uninstall XQuartz first, before\n> re-installing it, and the instructions for that are available on their FAQ\n> page:\n> >>>\n> >>>    https://www.xquartz.org/FAQs.html\n> >> Sage advice, I appreciate it.\n> >>> One additional thing to consider is to try to replicate the behavior\n> that you are observing by running R in Terminal and/or via R.app, to try to\n> exclude the possibility that there is something going on with your\n> emacs/ess installation.\n> >> That?s been on my list, but since I still don?t know exactly what\n> >> causes it to hang, I have not spent the time trying to repeat it\n> >> from outside of my normal R use.\n> >>\n> >> Once thing I find interesting is that it is particular to one R\n> >> process, but not to XQuartz. That is, when one R process? graphics\n> >> device is hung, I can open a new R process and plotting works\n> >> without issue. I can close the first process, eventually its hung\n> >> window closes, and other processes continue to plot without issue. I\n> >> don?t know if this narrows it down at all, since a bug in either R\n> >> or XQuartz could show that specificity. (The major pain is that\n> >> often I?m working with many GBs of data, and reloading and\n> >> reprocessing is a not-free chore. Usually not impossible, just many\n> >> many minutes and reacquiring my mental focus.)\n> >>\n> >> Thanks again for your experience, Marc!\n> >>\n> >>> If you can replicate the issues in Terminal and/or R.app, that would\n> help to exclude emacs/ess from involvement at least. If you cannot, then\n> you might be sure that you are running the latest versions of emacs and ess\n> to see if that helps, in case they are adding a source of conflict.\n> >>>\n> >>> Regards,\n> >>>\n> >>> Marc Schwartz\n> >>>\n> >>>\n> >>>> On May 31, 2025, at 10:35?AM,bill+rsigmac at 8pawexpress.com wrote:\n> >>>>\n> >>>> Are there easy fixes or alternatives to using XQuartz for R plots?\n> >>>>\n> >>>> I?m running R-4.4.3 (emacs/ess) on macos 15.4.1 and have xquartz-2.8.5\n> >>>> installed. Most of the time plotting in R works well enough (I tend to\n> >>>> use ggplot2, I don?t know if it happens as often with base plots).\n> >>>> Occasionally (several times a week), ?something? happens with the plot\n> >>>> window, and from then on that R process can no longer plot anything\n> >>>> more. The ?something? is not well defined for me yet, I think it?s a\n> >>>> mouse-wheel or mouse-click or similar; the snark in me says ?well\n> don?t\n> >>>> do that?, but I cannot nail down exactly how/when it breaks, it just\n> does.\n> >>>>\n> >>>> When it happens, the current device window is still open, but it has a\n> >>>> mac spinning-colorwheel, no new plotting commands work, and I cannot\n> >>>> close the window myself. I cannot dev.off() it, nor does dev.new()\n> give\n> >>>> me a new plotting window. When this happens for a particular R\n> process,\n> >>>> my only options for plotting are either (a) close the R process and\n> >>>> start over, or (b) manually plot to a PDF or similar one-shot graphics\n> >>>> device, viewing in a different app.\n> >>>>\n> >>>> There are several related issues I can find:\n> >>>>\n> >>>> https://github.com/XQuartz/XQuartz/issues/431, specific to macos\n> 15.4 or\n> >>>> newer I think; some mention of ?minimizing windows? but I don?t\n> minimize\n> >>>> my plot windows, so perhaps not that\n> >>>> https://github.com/XQuartz/XQuartz/issues/168, closed as ?not\n> planned?,\n> >>>> though this one is much older than the first (431) issue\n> >>>>\n> >>>> I?ve tried using something like |httpgd|\n> >>>> <https://github.com/nx10/httpgd/> since it can (mostly) provide an\n> >>>> ?always updating graphics device? for example without xquartz.\n> >>>> Unfortunately, with some other packages (namely plumber that I use\n> >>>> frequently-enough) it can put the R?s REPL into an unbreakable state\n> >>>> (#215<https://github.com/nx10/httpgd/issues/215>). If that were fixed\n> >>>> I?d be a lot more comfortable using that as my workaround.\n> >>>>\n> >>>> My research has not shown any other options for fixing or replacing\n> >>>> xquartz with a more stable solution. Are there good ways to\n> troubleshoot\n> >>>> and try to fix the xquartz issue? Does anybody else have a workaround\n> or\n> >>>> alternative that is less unwieldy than pdf(..); plot(..); dev.off()?\n> >>>>\n> >>>> Thanks,\n> >>>> Bill\n> >>>>\n> >>>> &#8203;\n> >>>> &#8203;\n> >>>> [[alternative HTML version deleted]]\n> >>>>\n> >>>> _______________________________________________\n> >>>> R-SIG-Mac mailing list\n> >>>> R-SIG-Mac at r-project.org\n> >>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >> &#8203;\n> >> [[alternative HTML version deleted]]\n> >>\n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> &#8203;\n>         [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBest,\nKasper\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I have been using quartz from inside Emacs for a long time and I basically\nnever (or at least very rarely) have any issues. I rarely use XQuartz and\nnever with R installed on my local machine (mostly ",
+      "thread_id": "thread-d2a4904a34e0",
+      "thread_depth": 2,
+      "month": "2025-06"
+    },
+    {
+      "id": "msg-6e71d023b894",
+      "message_id": "<a27b11e8-673b-4f81-a19f-209161f7bc25@stanford.edu>",
+      "from_name": "Balasubramanian Narasimhan",
+      "from_email_hash": "8ac399d76c818e61c909b0156cca82cebf32dadd634d34e61e47628c6ff29cd0",
+      "date": "2025-06-11T14:17:54-07:00",
+      "subject": "[R-SIG-Mac] R MacOSX FAQ Question 10.5 on BLAS changing needs update",
+      "subject_clean": "R MacOSX FAQ Question 10.5 on BLAS changing needs update",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "R 4.5.0's addition of two new routines to BLAS \n(https://cran.r-project.org/doc/manuals/r-release/NEWS.html) the \nsym-linking to veclib will not work as Apple doesn't provide the new \nroutines.\n\n-Naras",
+      "body_snippet": "R 4.5.0's addition of two new routines to BLAS \n(https://cran.r-project.org/doc/manuals/r-release/NEWS.html) the \nsym-linking to veclib will not work as Apple doesn't provide the new \nroutines.\n\n-Nara",
+      "thread_id": "thread-6e71d023b894",
+      "thread_depth": 0,
+      "month": "2025-06"
+    },
+    {
+      "id": "msg-81a2ddabb29e",
+      "message_id": "<CE40B61B-37AB-4EB0-84CC-523DC4BCF9F5@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-06-13T08:15:53+12:00",
+      "subject": "[R-SIG-Mac] R MacOSX FAQ Question 10.5 on BLAS changing needs update",
+      "subject_clean": "R MacOSX FAQ Question 10.5 on BLAS changing needs update",
+      "in_reply_to": "<a27b11e8-673b-4f81-a19f-209161f7bc25@stanford.edu>",
+      "references": [
+        "<a27b11e8-673b-4f81-a19f-209161f7bc25@stanford.edu>"
+      ],
+      "body_plain": "Naras,\n\nit does if you use latest version please see \n\nhttps://stat.ethz.ch/pipermail/r-sig-mac/2025-April/015155.html\n\nCheers,\nSimon\n\n\n\n> On Jun 12, 2025, at 9:17 AM, Balasubramanian Narasimhan <naras at stanford.edu> wrote:\n> \n> R 4.5.0's addition of two new routines to BLAS (https://cran.r-project.org/doc/manuals/r-release/NEWS.html) the sym-linking to veclib will not work as Apple doesn't provide the new routines.\n> \n> -Naras\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Naras,\n\nit does if you use latest version please see \n\nhttps://stat.ethz.ch/pipermail/r-sig-mac/2025-April/015155.html\n\nCheers,\nSimon\n\n\n\n> On Jun 12, 2025, at 9:17 AM, Balasubramanian Narasimhan <nara",
+      "thread_id": "thread-6e71d023b894",
+      "thread_depth": 1,
+      "month": "2025-06"
+    },
+    {
+      "id": "msg-13a772e7af28",
+      "message_id": "<18c628e5-6cb2-42fc-a0ef-428cd8581502@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "2be4ae119dc8d00cbb434d945ab7d3e6cf50f9e3eab48788eb0eea5c7aa6e588",
+      "date": "2025-06-22T14:37:15-04:00",
+      "subject": "[R-SIG-Mac] XQuartz launches during R CMD check?",
+      "subject_clean": "XQuartz launches during R CMD check?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\nI'm running into some MacOS - Sequoia problems with XQuartz, and it \noccurred to me to ask whether it's actually needed for successful \ncompletion of the command\n\n >> R CMD check --as-cran [packagename]\n\nThat command at some point causes XQuartz to launch -- at least on my \nsystem -- so now I'm wondering if that is normal?\n\n-- \nCarl Witthoft\npersonal: carl at witthoft.com\nThe Witthoft Group, Consulting\nhttps://witthoftgroup.weebly.com/",
+      "body_snippet": "Hi,\nI'm running into some MacOS - Sequoia problems with XQuartz, and it \noccurred to me to ask whether it's actually needed for successful \ncompletion of the command\n\n >> R CMD check --as-cran [packag",
+      "thread_id": "thread-13a772e7af28",
+      "thread_depth": 0,
+      "month": "2025-06"
+    },
+    {
+      "id": "msg-caedd8d171da",
+      "message_id": "<9a3ec1d9-de65-464d-a728-179008878b90@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2025-06-22T14:59:22-04:00",
+      "subject": "[R-SIG-Mac] XQuartz launches during R CMD check?",
+      "subject_clean": "XQuartz launches during R CMD check?",
+      "in_reply_to": "<18c628e5-6cb2-42fc-a0ef-428cd8581502@witthoft.com>",
+      "references": [
+        "<18c628e5-6cb2-42fc-a0ef-428cd8581502@witthoft.com>"
+      ],
+      "body_plain": "On 2025-06-22 2:37 p.m., Carl Witthoft wrote:\n> Hi,\n> I'm running into some MacOS - Sequoia problems with XQuartz, and it\n> occurred to me to ask whether it's actually needed for successful\n> completion of the command\n> \n>   >> R CMD check --as-cran [packagename]\n> \n> That command at some point causes XQuartz to launch -- at least on my\n> system -- so now I'm wondering if that is normal?\n> \n\nIt depends on the package.  Most packages won't need XQuartz.  You could \nconfigure R to use it as a default graphics device by setting \n`options(device=X11)` but normally most packages don't use it.  Your \nstartup script might do that though.\n\nSome packages do use it.  If the package calls X11(), that will open \nXQuartz.  If it uses the rgl package, it will default to opening \nXQuartz, but can be told not to.\n\nI don't know of other examples, but I wouldn't be surprised if there are \nsome.\n\nDuncan Murdoch",
+      "body_snippet": "On 2025-06-22 2:37 p.m., Carl Witthoft wrote:\n> Hi,\n> I'm running into some MacOS - Sequoia problems with XQuartz, and it\n> occurred to me to ask whether it's actually needed for successful\n> completi",
+      "thread_id": "thread-13a772e7af28",
+      "thread_depth": 1,
+      "month": "2025-06"
+    },
+    {
+      "id": "msg-9776644d98e5",
+      "message_id": "<7f37c212-74f1-4c83-ae89-4091978979f1@icloud.com>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "c5d0d8f09bc545ede8356a1fd199c0f278d5b7361e67127bf6c141458274153c",
+      "date": "2025-06-22T21:15:53+01:00",
+      "subject": "[R-SIG-Mac] XQuartz launches during R CMD check?",
+      "subject_clean": "XQuartz launches during R CMD check?",
+      "in_reply_to": "<9a3ec1d9-de65-464d-a728-179008878b90@gmail.com>",
+      "references": [
+        "<18c628e5-6cb2-42fc-a0ef-428cd8581502@witthoft.com>",
+        "<9a3ec1d9-de65-464d-a728-179008878b90@gmail.com>"
+      ],
+      "body_plain": "On 22/06/2025 19:59, Duncan Murdoch wrote:\n> On 2025-06-22 2:37 p.m., Carl Witthoft wrote:\n>> Hi,\n>> I'm running into some MacOS - Sequoia problems with XQuartz, and it\n>> occurred to me to ask whether it's actually needed for successful\n>> completion of the command\n>>\n>> ? >> R CMD check --as-cran [packagename]\n>>\n>> That command at some point causes XQuartz to launch -- at least on my\n>> system -- so now I'm wondering if that is normal?\n>>\n> \n> It depends on the package.? Most packages won't need XQuartz.? You could \n> configure R to use it as a default graphics device by setting \n> `options(device=X11)` but normally most packages don't use it.? Your \n> startup script might do that though.\n> \n> Some packages do use it.? If the package calls X11(), that will open \n> XQuartz.? If it uses the rgl package, it will default to opening \n> XQuartz, but can be told not to.\n\nI use RGL_USE_NULL=true in the environment.\n> \n> I don't know of other examples, but I wouldn't be surprised if there are \n> some.\n\nThe most common user of X11 is package tcltk (with the Tcl/TK \ndistribution which is part of the binary R distribution).\n\nI don't see why launching XQuartz is of itself a problem: it will sit in \nthe doc and only Tk widgets and X11 windows will be visible as part of \n'check'.  If that is annoying (and it can be when they grab focus), you \ncould use a virtual X11 server: I normally use something like\n\nXvfb -screen 0 1280x1024x24 -ac :5 &\n\nand the set DISPLAY=:5 when running 'check'.\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 22/06/2025 19:59, Duncan Murdoch wrote:\n> On 2025-06-22 2:37 p.m., Carl Witthoft wrote:\n>> Hi,\n>> I'm running into some MacOS - Sequoia problems with XQuartz, and it\n>> occurred to me to ask whethe",
+      "thread_id": "thread-13a772e7af28",
+      "thread_depth": 2,
+      "month": "2025-06"
+    },
+    {
+      "id": "msg-20bae418dc9b",
+      "message_id": "<e0ac0b99-4619-4657-affd-89d9c5413e7e@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "2be4ae119dc8d00cbb434d945ab7d3e6cf50f9e3eab48788eb0eea5c7aa6e588",
+      "date": "2025-06-23T09:13:06-04:00",
+      "subject": "[R-SIG-Mac] XQuartz launches during R CMD check? (Prof Brian Ripley)",
+      "subject_clean": "XQuartz launches during R CMD check? (Prof Brian Ripley)",
+      "in_reply_to": "<mailman.15433.1445.1750623365.1747.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.15433.1445.1750623365.1747.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "Thanks for the multiple suggestions.  Annoyingly, despite my originally \nbeing able to reproduce the sequence 1)quit XQuartz 2)observe Finder \nwindow problems,  the issue now no longer occurs.  That makes my concern \nabout XQuartz launching moot.\nCarl\n\n\nOn 6/22/25 4:16 PM, r-sig-mac-request at r-project.org wrote:\n\n>     1.  XQuartz launches during R CMD check? (Carl Witthoft)\n>     2. Re:  XQuartz launches during R CMD check? (Duncan Murdoch)\n>     3. Re:  XQuartz launches during R CMD check? (Prof Brian Ripley)\n> \n> ----------------------------------------------------------------------\n> \n\n> \n> Hi,\n> I'm running into some MacOS - Sequoia problems with XQuartz, and it\n> occurred to me to ask whether it's actually needed for successful\n> completion of the command\n> \n>   >> R CMD check --as-cran [packagename]\n> \n> That command at some point causes XQuartz to launch -- at least on my\n> system -- so now I'm wondering if that is normal?\n> \n\n[Ripley reply, condensed]\n\nI use RGL_USE_NULL=true in the environment.\n >\n > I don't know of other examples, but I wouldn't be surprised if there are\n > some.\n\nThe most common user of X11 is package tcltk (with the Tcl/TK\ndistribution which is part of the binary R distribution).\n\nI don't see why launching XQuartz is of itself a problem: it will sit in\nthe doc and only Tk widgets and X11 windows will be visible as part of\n'check'.  If that is annoying (and it can be when they grab focus), you\ncould use a virtual X11 server: I normally use something like\n\nXvfb -screen 0 1280x1024x24 -ac :5 &\n\nand the set DISPLAY=:5 when running 'check'.\n\n-- \nCarl Witthoft\npersonal: carl at witthoft.com\nThe Witthoft Group, Consulting\nhttps://witthoftgroup.weebly.com/",
+      "body_snippet": "Thanks for the multiple suggestions.  Annoyingly, despite my originally \nbeing able to reproduce the sequence 1)quit XQuartz 2)observe Finder \nwindow problems,  the issue now no longer occurs.  That m",
+      "thread_id": "thread-20bae418dc9b",
+      "thread_depth": 0,
+      "month": "2025-06"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-d2a4904a34e0",
+      "subject": "xquartz hanging",
+      "message_count": 3,
+      "participants": [
+        "Kasper Daniel Hansen",
+        "biii+rsigm@c m@iii@g oii 8p@wexpress@com",
+        "peter dalgaard"
+      ],
+      "started": "2025-06-01T13:24:14+02:00",
+      "last_reply": "2025-06-02T17:28:23-04:00",
+      "root_message_id": "msg-d2a4904a34e0"
+    },
+    {
+      "id": "thread-6e71d023b894",
+      "subject": "R MacOSX FAQ Question 10.5 on BLAS changing needs update",
+      "message_count": 2,
+      "participants": [
+        "Balasubramanian Narasimhan",
+        "Simon Urbanek"
+      ],
+      "started": "2025-06-11T14:17:54-07:00",
+      "last_reply": "2025-06-13T08:15:53+12:00",
+      "root_message_id": "msg-6e71d023b894"
+    },
+    {
+      "id": "thread-13a772e7af28",
+      "subject": "XQuartz launches during R CMD check?",
+      "message_count": 3,
+      "participants": [
+        "Carl Witthoft",
+        "Duncan Murdoch",
+        "Prof Brian Ripley"
+      ],
+      "started": "2025-06-22T14:37:15-04:00",
+      "last_reply": "2025-06-22T21:15:53+01:00",
+      "root_message_id": "msg-13a772e7af28"
+    },
+    {
+      "id": "thread-20bae418dc9b",
+      "subject": "XQuartz launches during R CMD check? (Prof Brian Ripley)",
+      "message_count": 1,
+      "participants": [
+        "Carl Witthoft"
+      ],
+      "started": "2025-06-23T09:13:06-04:00",
+      "last_reply": "2025-06-23T09:13:06-04:00",
+      "root_message_id": "msg-20bae418dc9b"
+    }
+  ]
+}

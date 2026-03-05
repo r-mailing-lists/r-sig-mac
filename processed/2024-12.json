@@ -1,0 +1,40 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2024-12",
+  "messages": [
+    {
+      "id": "msg-b1f4a8d1b586",
+      "message_id": "<1BDC778B-EA1C-4D23-84C5-0B063E285C37@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2024-12-01T11:23:02+13:00",
+      "subject": "[R-SIG-Mac] Compiling BLAS with Accelerate",
+      "subject_clean": "Compiling BLAS with Accelerate",
+      "in_reply_to": "<CAFGdzporNtn2DY5aMo0cCx304dhFqFchhF6R71grzbycZ0u0TA@mail.gmail.com>",
+      "references": [
+        "<CAFGdzppODD=9OwOBB3zhqqe_2wpdB8GX1SiQAT1YJzXCszauUA@mail.gmail.com>",
+        "<CA41B0D2-555E-4F72-9559-BAEEB7B1749C@R-project.org>",
+        "<CAFGdzporNtn2DY5aMo0cCx304dhFqFchhF6R71grzbycZ0u0TA@mail.gmail.com>"
+      ],
+      "body_plain": "Tomek,\n\nFortran symbols are not included C headers (even though they are part of the library) so probably the easiest is to add -Wno-error=implicit-function-declaration.\n\nHowever, if you just want to test Accelerate BLAS, use libRblas.vecLib.dylib, because that is a simple re-export of the Accelerate framework - it doesn't include any actual code:\n\n$ otool -l /Library/Frameworks/R.framework/Resources/lib/libRblas.vecLib.dylib | grep -A2 REEXPORT\n          cmd LC_REEXPORT_DYLIB\n      cmdsize 96\n         name /System/Library/Frameworks/Accelerate.framework/Versions/A/Accelerate (offset 24)\n\nThe blas00.c is just a dummy file to test the symbols R is using (without their prototypes), but on macOS that doesn't even matter as we don't bind them at compile time anyway so all symbols are re-exported instead.\n\nCheers,\nSimon\n\n\n\n> On Dec 1, 2024, at 10:29 AM, Tomek Gieorgijewski <cybergeorge2020 at gmail.com> wrote:\n> \n> Thank you Simon!\n> configure with this option seems to work fine and produce:\n> \"External libraries:          pcre2, readline, BLAS(Accelerate), curl\n>  Additional capabilities:     PNG, JPEG, TIFF, NLS, cairo, ICU\n>  Options enabled:             framework, shared BLAS, R profiling\"\n> \n> However after starting compilation I get a lot of errors mainly in the gist:\n> sources/src/extra/blas/blas00.c:6:5: error: implicit declaration of function 'dasum_' is invalid in C99 [-Werror,-Wimplicit-function-declaration]\n>     F77_CALL(dasum)();\n>     ^\n> /[...]/sources/src/include/R_ext/RS.h:104:22: note: expanded from macro 'F77_CALL'\n> # define F77_CALL(x)    x ## _\n> <scratch space>:69:1: note: expanded from here\n> dasum_\n> ^\n> my arch is x86-64.\n> I tried to find something on the Internet or R admin but with no luck.\n> I guess some includes or other configuration is missing but I have no experience with such huge build system.\n> \n> I am generally aiming at testing different BLASes or own implementations of matrix operations (matmul mainly),\n> perf and correctness wise.\n> \n> T.\n> \n> sob., 30 lis 2024 o 09:14 Simon Urbanek <simon.urbanek at r-project.org> napisa?(a):\n> Tomek,\n> \n> see R-admin C.3.5.1: https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Accelerate\n> so essentially just add the following to the regular flags:\n> --enable-BLAS-shlib --with-blas='-framework Accelerate'\n> \n> Cheers,\n> Simon\n> \n> \n> \n> \n> > On Nov 30, 2024, at 2:10 AM, Tomek Gieorgijewski <cybergeorge2020 at gmail.com> wrote:\n> > \n> > Hi!\n> > \n> > I can compile R on macOS with standard BLAS but how can I compile R myself to get this vecLib BLAS which is added in binary distribution for Mac on CRAN?\n> > \n> > regards,\n> > Tomek.\n> > \n> >       [[alternative HTML version deleted]]\n> > \n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > \n>",
+      "body_snippet": "Tomek,\n\nFortran symbols are not included C headers (even though they are part of the library) so probably the easiest is to add -Wno-error=implicit-function-declaration.\n\nHowever, if you just want to ",
+      "thread_id": "thread-b1f4a8d1b586",
+      "thread_depth": 0,
+      "month": "2024-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-b1f4a8d1b586",
+      "subject": "Compiling BLAS with Accelerate",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2024-12-01T11:23:02+13:00",
+      "last_reply": "2024-12-01T11:23:02+13:00",
+      "root_message_id": "msg-b1f4a8d1b586"
+    }
+  ]
+}

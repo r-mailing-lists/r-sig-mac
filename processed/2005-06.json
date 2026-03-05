@@ -1,0 +1,1472 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2005-06",
+  "messages": [
+    {
+      "id": "msg-9d0ec44589d6",
+      "message_id": "<8647C117-237D-4F3B-BB05-B6F5F1DD2FAA@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-10T10:43:30-04:00",
+      "subject": "[R-SIG-Mac] R Package compilation problem with Fortran",
+      "subject_clean": "R Package compilation problem with Fortran",
+      "in_reply_to": "<p06210200becec1737a4b@[10.0.1.3]>",
+      "references": [
+        "<p06210200becec1737a4b@[10.0.1.3]>"
+      ],
+      "body_plain": "Brian,\n\nOn Jun 10, 2005, at 12:11 AM, Brian Beckage wrote:\n\n> g77   -fno-common  -g -O2 -c cidxcn.f -o cidxcn.o\n> make: g77: Command not found\n> make: *** [cidxcn.o] Error 127\n> ERROR: compilation failed for package 'Hmisc'\n>\n> But I appear to have a Fortran compiler installed:\n>\n> 'which g77' yields '/sw/bin/g77'\n\nHow did attempt to compile the package? This is clearly an issue with  \nsetting your PATH correctly. Running R CMD INSTALL (or R itself) in  \nthe same shell that has the PATH you describe should work. But I  \nsuspect that's not what you're doing ... therefore it's important to  \nknow how exactly you try to install it ...\n\nCheers,\nSimon",
+      "body_snippet": "Brian,\n\nOn Jun 10, 2005, at 12:11 AM, Brian Beckage wrote:\n\n> g77   -fno-common  -g -O2 -c cidxcn.f -o cidxcn.o\n> make: g77: Command not found\n> make: *** [cidxcn.o] Error 127\n> ERROR: compilation fai",
+      "thread_id": "thread-9d0ec44589d6",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-48ecf1f3c63e",
+      "message_id": "<p06210200becf58be9d30@[10.0.1.2]>",
+      "from_name": "Brian Beckage",
+      "from_email_hash": "db0f0dc2bfbfc93685315290365743394aa67c3b0202c912cbb8dd5a8b1b607e",
+      "date": "2005-06-10T11:38:03-04:00",
+      "subject": "[R-SIG-Mac] R Package compilation problem with Fortran",
+      "subject_clean": "R Package compilation problem with Fortran",
+      "in_reply_to": "<8647C117-237D-4F3B-BB05-B6F5F1DD2FAA@r-project.org>",
+      "references": [
+        "<p06210200becec1737a4b@[10.0.1.3]>",
+        "<8647C117-237D-4F3B-BB05-B6F5F1DD2FAA@r-project.org>"
+      ],
+      "body_plain": "I typically use R from within X11 but when installing packages I \ntypically used the Aqua GUI...\n\nSo from within the GUI...I select 'Packages & Data' --> 'Package \nInstaller'  and after selecting the Hmisc package, I then click on \n'Install Selected'.  Then I received the error that g77 is not found.\n\nIn addition, from within the R console, typing system('which g77') \nyields '/sw/bin/g77'\n>\n>How did attempt to compile the package? This is clearly an issue \n>with setting your PATH correctly. Running R CMD INSTALL (or R \n>itself) in the same shell that has the PATH you describe should \n>work. But I suspect that's not what you're doing ... therefore it's \n>important to know how exactly you try to install it ...\n>\n\nI have not used R CMD INSTALL before.  So I downloaded the package \nsource onto my Desktop, unzipped it, and then typed:  R CMD INSTALL \n/Users/brianbeckage/Desktop/Hmisc\n\n* Installing *source* package 'Hmisc' ...\n** libs\ng77   -fno-common  -g -O2 -c cidxcn.f -o cidxcn.o\ng77   -fno-common  -g -O2 -c cidxcp.f -o cidxcp.o\ng77   -fno-common  -g -O2 -c hoeffd.f -o hoeffd.o\ng77   -fno-common  -g -O2 -c jacklins.f -o jacklins.o\ng77   -fno-common  -g -O2 -c largrec.f -o largrec.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c ranksort.c -o ranksort.o\ng77   -fno-common  -g -O2 -c rcorr.f -o rcorr.o\ng77   -fno-common  -g -O2 -c wclosest.f -o wclosest.o\ngcc-3.3 -bundle -flat_namespace -undefined suppress -L/usr/local/lib \n-o Hmisc.so cidxcn.o cidxcp.o hoeffd.o jacklins.o largrec.o \nranksort.o rcorr.o wclosest.o \n-L/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2 -lg2c -lSystem \n-lcc_dynamic -framework R\nld: warning -L: directory name \n(/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2) does not exist\nld: can't locate file for: -lg2c\nmake: *** [Hmisc.so] Error 1\nERROR: compilation failed for package 'Hmisc'\n** Removing \n'/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library/Hmisc'\n** Restoring previous \n'/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library/Hmisc'\n\nAny ideas?\n\nThanks again for your help.\nBrian\n\n\n\n\n-- \n*********************************************************************\nBrian Beckage\nDepartment of Botany\nUniversity of Vermont\nMarsh Life Science Building\nBurlington, VT 05405\n\nPhone:  802 656-0197\nFax  :  802 656-0440\nemail:  Brian.Beckage at uvm.edu\nweb  :  www.uvm.edu/~bbeckage",
+      "body_snippet": "I typically use R from within X11 but when installing packages I \ntypically used the Aqua GUI...\n\nSo from within the GUI...I select 'Packages & Data' --> 'Package \nInstaller'  and after selecting the ",
+      "thread_id": "thread-9d0ec44589d6",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-e1d6ce7b99fd",
+      "message_id": "<p06210204becf7fa3bad8@[10.0.1.2]>",
+      "from_name": "Brian Beckage",
+      "from_email_hash": "db0f0dc2bfbfc93685315290365743394aa67c3b0202c912cbb8dd5a8b1b607e",
+      "date": "2005-06-10T13:35:35-04:00",
+      "subject": "[R-SIG-Mac] Solved: R Package compilation problem with Fortran",
+      "subject_clean": "Solved: R Package compilation problem with Fortran",
+      "in_reply_to": "<8647C117-237D-4F3B-BB05-B6F5F1DD2FAA@r-project.org>",
+      "references": [
+        "<p06210200becec1737a4b@[10.0.1.3]>",
+        "<8647C117-237D-4F3B-BB05-B6F5F1DD2FAA@r-project.org>"
+      ],
+      "body_plain": "I solved this problem by installing a newer version of the fortran \n(g77 3.4) compiler from hpc.sourceforge.net into usr/local.\n\nBest,\nBrian\n\n\n>Brian,\n>\n>On Jun 10, 2005, at 12:11 AM, Brian Beckage wrote:\n>\n>>g77   -fno-common  -g -O2 -c cidxcn.f -o cidxcn.o\n>>make: g77: Command not found\n>>make: *** [cidxcn.o] Error 127\n>>ERROR: compilation failed for package 'Hmisc'\n>>\n>>But I appear to have a Fortran compiler installed:\n>>\n>>'which g77' yields '/sw/bin/g77'\n>\n>How did attempt to compile the package? This is clearly an issue \n>with setting your PATH correctly. Running R CMD INSTALL (or R \n>itself) in the same shell that has the PATH you describe should \n>work. But I suspect that's not what you're doing ... therefore it's \n>important to know how exactly you try to install it ...\n>\n>Cheers,\n>Simon\n\n\n-- \n*********************************************************************\nBrian Beckage\nDepartment of Botany\nUniversity of Vermont\nMarsh Life Science Building\nBurlington, VT 05405\n\nPhone:  802 656-0197\nFax  :  802 656-0440\nemail:  Brian.Beckage at uvm.edu\nweb  :  www.uvm.edu/~bbeckage",
+      "body_snippet": "I solved this problem by installing a newer version of the fortran \n(g77 3.4) compiler from hpc.sourceforge.net into usr/local.\n\nBest,\nBrian\n\n\n>Brian,\n>\n>On Jun 10, 2005, at 12:11 AM, Brian Beckage wr",
+      "thread_id": "thread-9d0ec44589d6",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-08002f07e851",
+      "message_id": "<p06210215becf85322494@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "175f4fa90b8d6445baa141105bd5754ace34836009cb94ddb056a9ce4ea7ff75",
+      "date": "2005-06-10T11:11:05-07:00",
+      "subject": "[R-SIG-Mac] R Package compilation problem with Fortran",
+      "subject_clean": "R Package compilation problem with Fortran",
+      "in_reply_to": "<p06210200becec1737a4b@[10.0.1.3]>",
+      "references": [
+        "<p06210200becec1737a4b@[10.0.1.3]>"
+      ],
+      "body_plain": "My perspective is...\n\n(1) If you build R from sources, and /sw (fink) is present on your \nsystem at the time you configure R, then R knows (internally, so to \nspeak) about /sw, and will later on include it among the places it \nlooks for things when you install packages.\n\n(2) The binary version of R for OS X that you downloaded from CRAN \nwas built without any dependencies on fink, so it does not \n(internally, so to speak) know about /sw, and does not look there for \nthings. This is a good thing, because many, if not most, users of R \nwho install the binary will not want to deal with add-on systems like \nfink. The developers/maintainers of R for OS X do not want to impose \na requirement for fink on R uses, and this is appropriate.\n\nMy suggestion is to go to the help pages for the OS X version of R \n(the links are at the bottom of the download page, where it says \"You \nmay also want to read the R FAQ and R for Mac OS X FAQ or consult the \ndeveloper page of R for Mac OS X.\"). Follow the instructions there to \nobtain a fortran that installs in /usr/local/bin. For example, on my \nsystem:\n\n[153]% which g77\n/usr/local/bin/g77\n\nIf you have g77 there, I am reasonably confident your version of R \nwill find it when installing packages.\n\n-Don\n\nAt 12:11 AM -0400 6/10/05, Brian Beckage wrote:\n>Hello,\n>\n>I've tried to load a number of packages that require a Fortran\n>compiler such as BMA and Hmisc, but I get the following error:\n>\n>* Installing *source* package 'Hmisc' ...\n>** libs\n>g77   -fno-common  -g -O2 -c cidxcn.f -o cidxcn.o\n>make: g77: Command not found\n>make: *** [cidxcn.o] Error 127\n>ERROR: compilation failed for package 'Hmisc'\n>\n>\n>But I appear to have a Fortran compiler installed:\n>\n>'which g77' yields '/sw/bin/g77'\n>\n>>'g77 -v' yields\n>\n>Reading specs from /sw/lib/gcc/powerpc-apple-darwin7.5.0/3.4.1/specs\n>Configured with: ../gcc-3.4.1/configure --prefix=/sw\n>--enable-languages=f77 --infodir=/share/info --libexecdir=/lib\n>--disable-shared\n>Thread model: posix\n>gcc version 3.4.1\n>\n>'echo $PATH' yields:\n>/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/brianbeckage:/usr/X11R6/bin:.:/Users/brianbeckage/bin:/usr/local/bin\n>\n>So g77 should be in the search path.\n>\n>Any suggestions would be greatly appreciated.  I'm running R 2.1.0\n>Patched under OSX 10.3.9.\n>\n>Thanks,\n>Brian\n>\n>--\n>*********************************************************************\n>Brian Beckage\n>Department of Botany\n>University of Vermont\n>Marsh Life Science Building\n>Burlington, VT 05405\n>\n>Phone:  802 656-0197\n>Fax  :  802 656-0440\n>email:  Brian.Beckage at uvm.edu\n>web  :  www.uvm.edu/~bbeckage\n>*********************************************************************\n>\t[[alternative HTML version deleted]]\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA",
+      "body_snippet": "My perspective is...\n\n(1) If you build R from sources, and /sw (fink) is present on your \nsystem at the time you configure R, then R knows (internally, so to \nspeak) about /sw, and will later on inclu",
+      "thread_id": "thread-08002f07e851",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-005fb0bd709d",
+      "message_id": "<65504864-BAA4-42E1-BEAC-D95A047AA3AF@imperial.ac.uk>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2005-06-13T19:19:37+01:00",
+      "subject": "[R-SIG-Mac] emacs/ess problems",
+      "subject_clean": "emacs/ess problems",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi everybody,\n\nI am having problems getting ess running with emacs... I got the  \nlatest ess, untarred it, read the readmes... edited my .emacs file  \nend nothing works... Mind you, I _never_ got the blasted thing to  \nwork in any Unix I worked on, with the sole exception of Debian (but  \napt get emacs and ess talk to each other there).\n\nTo be honest if I can drop emacs from my life altogether I won't shed  \na tear, but in any case I'd like to ask the list:\n\n1) can anyone give me detailed and OSX specific instructions on how  \nto get ess work please?\n2) if anyone knows an OSX native editor that is sintax aware for R/C/ \nPython, let me know. As I said, always stuck with emacs, but I'd love  \nto drop it forever.\n\nBTW, I am not sending any of my config files because they are  \nobviously wrong, or things would work...\n\nCheers,\n\nFederico\n\n--\nFederico C. F. Calboli\nDepartment of Epidemiology and Public Health\nImperial College, St. Mary's Campus\nNorfolk Place, London W2 1PG\n\nTel +44 (0)20 75941602   Fax +44 (0)20 75943193\n\nf.calboli [.a.t] imperial.ac.uk\nf.calboli [.a.t] gmail.com",
+      "body_snippet": "Hi everybody,\n\nI am having problems getting ess running with emacs... I got the  \nlatest ess, untarred it, read the readmes... edited my .emacs file  \nend nothing works... Mind you, I _never_ got the ",
+      "thread_id": "thread-005fb0bd709d",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-eff48b226efd",
+      "message_id": "<p06210207bed38050036f@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "175f4fa90b8d6445baa141105bd5754ace34836009cb94ddb056a9ce4ea7ff75",
+      "date": "2005-06-13T11:44:13-07:00",
+      "subject": "[R-SIG-Mac] emacs/ess problems",
+      "subject_clean": "emacs/ess problems",
+      "in_reply_to": "<65504864-BAA4-42E1-BEAC-D95A047AA3AF@imperial.ac.uk>",
+      "references": [
+        "<65504864-BAA4-42E1-BEAC-D95A047AA3AF@imperial.ac.uk>"
+      ],
+      "body_plain": "I'm sorry you are having trouble. I have had very little trouble -- \nbut I admit to using ESS only for syntax assistance.\n\nIn my home directory, I have a .emacs file. In it is this line:\n\n(load \"/erd/statistic/apps/R/ESS/ess-5.2.4/lisp/ess-site\")\n\nThe first part of the path, /erd/statistic/apps/R/ESS, is a directory \nI created. It could be anything you want.\nIn that directory I put the ESS distribution file, i.e., \ness-5.2.4.tar.gz, and unpacked it. This created the directory \ness-5.2.4 and all of its subdirectories.\n\nI believe that is *all* I have done.\n\nI can use Emacs within an X Windows context (I've chosen to install \nthis version of emacs using fink), or a Aqua-GUI version of Emacs \nthat I downloaded from somewhere. Both of them recognize my ~/.emacs \nfile and load ESS when I open a file with an appropriate suffix.\n\nThis same method works for me on both Solaris and OS X. In fact, the \ndirectory actually resides on a Solaris box and is automounted on my \nOS X box. Emacs loads ESS from the exact same set of ESS files, \nregardless of which host I login to. I don't do anything different on \nOS X than on Solaris, to make ESS available.\n\n-Don\n\nAt 7:19 PM +0100 6/13/05, Federico Calboli wrote:\n>Hi everybody,\n>\n>I am having problems getting ess running with emacs... I got the \n>latest ess, untarred it, read the readmes... edited my .emacs file \n>end nothing works... Mind you, I _never_ got the blasted thing to \n>work in any Unix I worked on, with the sole exception of Debian (but \n>apt get emacs and ess talk to each other there).\n>\n>To be honest if I can drop emacs from my life altogether I won't shed \n>a tear, but in any case I'd like to ask the list:\n>\n>1) can anyone give me detailed and OSX specific instructions on how \n>to get ess work please?\n>2) if anyone knows an OSX native editor that is sintax aware for R/C/\n>Python, let me know. As I said, always stuck with emacs, but I'd love \n>to drop it forever.\n>\n>BTW, I am not sending any of my config files because they are \n>obviously wrong, or things would work...\n>\n>Cheers,\n>\n>Federico\n>\n>--\n>Federico C. F. Calboli\n>Department of Epidemiology and Public Health\n>Imperial College, St. Mary's Campus\n>Norfolk Place, London W2 1PG\n>\n>Tel +44 (0)20 75941602   Fax +44 (0)20 75943193\n>\n>f.calboli [.a.t] imperial.ac.uk\n>f.calboli [.a.t] gmail.com\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA",
+      "body_snippet": "I'm sorry you are having trouble. I have had very little trouble -- \nbut I admit to using ESS only for syntax assistance.\n\nIn my home directory, I have a .emacs file. In it is this line:\n\n(load \"/erd/",
+      "thread_id": "thread-005fb0bd709d",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-513b49b68950",
+      "message_id": "<FF2174BC-99A1-4CD0-8300-D3386ABD3BA9@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-13T15:02:54-04:00",
+      "subject": "[R-SIG-Mac] emacs/ess problems",
+      "subject_clean": "emacs/ess problems",
+      "in_reply_to": "<65504864-BAA4-42E1-BEAC-D95A047AA3AF@imperial.ac.uk>",
+      "references": [
+        "<65504864-BAA4-42E1-BEAC-D95A047AA3AF@imperial.ac.uk>"
+      ],
+      "body_plain": "Hi Federico,\n\nOn Jun 13, 2005, at 2:19 PM, Federico Calboli wrote:\n\n> 1) can anyone give me detailed and OSX specific instructions on how  \n> to get ess work please?\n\nOk, I assume you have working emacs - if you don't, well, that's  \nanother story, much longer one ;). I also assume that your have Xcode  \nTools installed.\n\nNow copy/paste the following in Terminal:\n\ncd\ncurl -O http://stat.ethz.ch/ESS/downloads/ess/ess-5.2.8.tar.gz\ntar fvxz ess-5.2.8.tar.gz\nrm -f ess\nln -s ess-5.2.8 ess\ncd ess\nmake\ncd\nrm ess-5.2.8.tar.gz\n\nNow, if you don't have an emacs config file or don't care to kill it  \nyou can copy/paste this:\n\ncd\necho '(load \"~/ess/lisp/ess-site\")' > .emacs\n\nIf you do have one, just replace the > above with >>, but make sure  \nyou don't have other conflicting stuff there.\n\nThat should do the magic and you have ESS at your fingertips.\n\nIf you want to work with emacs, I personally recommend using the  \nCarbon version and adding some more lines to .emacs that make your  \nlife much easier by making it behave as a Mac application (e.g.  \nrespecting <cmd><w>, <cmd><l> etc.). This is what I have in my .emacs:\n\n(global-font-lock-mode 1)\n\n(set-face-font 'default \"-apple-monaco-medium-r-normal--10-100-75-75- \nm-100-mac-roman\")\n;; remap backspace on keyboard to be sane\n;;\n(keyboard-translate ?\\C-h ?\\C-?)\n\n;;; MacOS X specific stuff\n(setq mac-command-key-is-meta nil)\n\n;; Define the return key to avoid problems on MacOS X\n(define-key function-key-map [return] [13])\n\n(global-set-key [(alt a)] 'mark-whole-buffer)\n(global-set-key [(alt v)] 'yank)\n(global-set-key [(alt c)] 'kill-ring-save)\n(global-set-key [(alt x)] 'kill-region)\n(global-set-key [(alt s)] 'save-buffer)\n(global-set-key [(alt l)] 'goto-line)\n(global-set-key [(alt o)] 'find-file)\n(global-set-key [(alt f)] 'isearch-forward)\n(global-set-key [(alt g)] 'isearch-repeat-forward)\n(global-set-key [(alt w)]\n                 (lambda () (interactive) (kill-buffer (current- \nbuffer))))\n(global-set-key [(alt .)] 'keyboard-quit)\n\n(global-set-key [(alt q)] 'save-buffers-kill-emacs)\n\n\n> 2) if anyone knows an OSX native editor that is sintax aware for R/ \n> C/Python, let me know. As I said, always stuck with emacs, but I'd  \n> love to drop it forever.\n\nPersonally I use Xcode for everything (it has C[.*]/Java/Python  \nsupport) except for R files (well, that's why I wrote that R editor  \nfor the R-GUI ;)) and emacs for .Rd files. However, I'm told that  \nSubEthaEdit is a quite good and has a plenty of syntax-aware modules,  \nbut I never used it myself.\n\nCheers,\nSimon",
+      "body_snippet": "Hi Federico,\n\nOn Jun 13, 2005, at 2:19 PM, Federico Calboli wrote:\n\n> 1) can anyone give me detailed and OSX specific instructions on how  \n> to get ess work please?\n\nOk, I assume you have working ema",
+      "thread_id": "thread-005fb0bd709d",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-28d3dc690c87",
+      "message_id": "<9421A96B-B6FD-4F7E-AD52-8534D2C745E2@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-15T09:37:52-04:00",
+      "subject": "[R-SIG-Mac] gfortran binary for Xcode 2.1",
+      "subject_clean": "gfortran binary for Xcode 2.1",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Recently Apple released Xcode 2.1 for Mac OS X 10.4 (Tiger). Beside  \ni686 support it also features new version of the gcc4 compiler  \ncollection. The good news is that finally it's possible to add most  \nrecent gfortran without touching the other system files. I have  \ncreated a small package doing exactly that - see http:// \nwiki.urbanek.info/index.cgi?TigerGCC It contains gfortran apple build  \n5202 with both 32-bit and 64-bit support and a small uninstall script  \nso you can remove it at any time.\n\nI highly recommend upgrading to Xcode 2.1 for all Tiger users that  \nwant to compile their own R using gcc4 (such R passes make check, but  \ndon't forget to add F77=gfortran FLIBS=/usr/lib/libgfortran.a to  \nconfigure). If you use CRAN release of R, you can safely ignore this  \nas the CRAN build uses gcc-3.3 and g77 which is still safer for 32- \nbit version of R and compatible with both Tiger and Panther.\n\nSimon",
+      "body_snippet": "Recently Apple released Xcode 2.1 for Mac OS X 10.4 (Tiger). Beside  \ni686 support it also features new version of the gcc4 compiler  \ncollection. The good news is that finally it's possible to add mo",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-0480e47a881b",
+      "message_id": "<BED625AE.4670%nassar@noos.fr>",
+      "from_name": "Naji",
+      "from_email_hash": "6273d9e70963fac96d4d1a7a8dbf805c91312dc8887f39604897b6d9c2816bd1",
+      "date": "2005-06-15T18:36:30+02:00",
+      "subject": "[R-SIG-Mac] Snow package on bi-proc G5",
+      "subject_clean": "Snow package on bi-proc G5",
+      "in_reply_to": "<9421A96B-B6FD-4F7E-AD52-8534D2C745E2@r-project.org>",
+      "references": [],
+      "body_plain": "Hi all,\n\nI'm running complex simulations and I'd like to distribute half the\nsimulation on each processor (one G5 machine)\nThe R code looks like\n\nFor (rep in 1:replications) # 300 replications\n{\n# the simulations results are stored in an array\ndim=c(10,20,replications,100,3)\n}\n\n{\nAnalysis of simulations results\n}\n\nIs it possible to distribute the simulations on both proc..?\n(G5 2.5 bi-proc, 2GB mem, OS10.4.1, R2.1, Aqua Gui1.11\nIt's my first experience with calculus distribution, a starting example will\nbe of great help\n\n\nTIA\nNaji",
+      "body_snippet": "Hi all,\n\nI'm running complex simulations and I'd like to distribute half the\nsimulation on each processor (one G5 machine)\nThe R code looks like\n\nFor (rep in 1:replications) # 300 replications\n{\n# the",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-19117a481abc",
+      "message_id": "<8D14380F-579A-47DB-B172-B1049CBA8042@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-15T14:36:23-04:00",
+      "subject": "[R-SIG-Mac] Snow package on bi-proc G5",
+      "subject_clean": "Snow package on bi-proc G5",
+      "in_reply_to": "<BED625AE.4670%nassar@noos.fr>",
+      "references": [
+        "<BED625AE.4670%nassar@noos.fr>"
+      ],
+      "body_plain": "Naji,\n\nOn Jun 15, 2005, at 12:36 PM, Naji wrote:\n\n> I'm running complex simulations and I'd like to distribute half the  \n> simulation on each processor (one G5 machine)\n> The R code looks like\n>\n> For (rep in 1:replications) # 300 replications\n> {\n> # the simulations results are stored in an array\n> Is it possible to distribute the simulations on both proc..?\n\nYes.\n\nI use pvm as back-end for snow, but I guess others should work, too.  \nExample (very simple and stupid but should illustrate the idea):\n\n > library(snow)\nLoading required package: rpvm\n > cl<-makeCluster(2)  # use 2 CPUs\n > clusterApplyLB(cl,1:6,function(x) mean(x+rnorm(10)))\n[[1]]\n[1] 0.836866\n\n[[2]]\n[1] 1.755120\n\n[[3]]\n[1] 3.385007\n\n[[4]]\n[1] 3.751311\n\n[[5]]\n[1] 4.805047\n\n[[6]]\n[1] 5.89379\n\nWhen running simulations you may want to set the seed differently for  \neach process [something like clusterApply(cl, 1:2, set.seed)] or use  \none of the RNG libraries, otherwise both CPUs will give you the same  \nresults - probably not what you want ;).\n\nCheers,\nSimon",
+      "body_snippet": "Naji,\n\nOn Jun 15, 2005, at 12:36 PM, Naji wrote:\n\n> I'm running complex simulations and I'd like to distribute half the  \n> simulation on each processor (one G5 machine)\n> The R code looks like\n>\n> Fo",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-ce0266e4ece4",
+      "message_id": "<BED688DB.46B5%nassar@noos.fr>",
+      "from_name": "Naji",
+      "from_email_hash": "6273d9e70963fac96d4d1a7a8dbf805c91312dc8887f39604897b6d9c2816bd1",
+      "date": "2005-06-16T01:39:39+02:00",
+      "subject": "[R-SIG-Mac] Re :  Snow package on bi-proc G5",
+      "subject_clean": "Re :  Snow package on bi-proc G5",
+      "in_reply_to": "<8D14380F-579A-47DB-B172-B1049CBA8042@r-project.org>",
+      "references": [],
+      "body_plain": "Simon,\n\n\nThanks for your quick reply.\nIs the following efficient? Comments are welcome\n\nReplicate.vect=1:replications\nResults=assay(0,dim=c(replications,design.fact1,dsign.fact2..))\nFor (ifact1 in 1:design.fact1){\n    for (ifact2 in 1:design.fact2){\n        # Put the experiment conditions as global parameter\n        clusterApplyLB(cl,replicate.vect,SimulateIt)\n    }\n}\n\nSimulateIt=function(irepl){\nSet.seed(1000+irep,kind=\"Super-Duper\")\n# simulations given the global variables\nresults[irepl,ifact1,ifact2,..]=....\n}\n\nBy the way, thanks for your kiwi pages\n\nBest regards\nNaji\n\nLe 15/06/05 20:36, ??Simon Urbanek?? <simon.urbanek at r-project.org> a ?crit?:\n\n> Naji,\n> \n> On Jun 15, 2005, at 12:36 PM, Naji wrote:\n> \n>> I'm running complex simulations and I'd like to distribute half the\n>> simulation on each processor (one G5 machine)\n>> The R code looks like\n>> \n>> For (rep in 1:replications) # 300 replications\n>> {\n>> # the simulations results are stored in an array\n>> Is it possible to distribute the simulations on both proc..?\n> \n> Yes.\n> \n> I use pvm as back-end for snow, but I guess others should work, too.\n> Example (very simple and stupid but should illustrate the idea):\n> \n>> library(snow)\n> Loading required package: rpvm\n>> cl<-makeCluster(2)  # use 2 CPUs\n>> clusterApplyLB(cl,1:6,function(x) mean(x+rnorm(10)))\n> [[1]]\n> [1] 0.836866\n> \n> [[2]]\n> [1] 1.755120\n> \n> [[3]]\n> [1] 3.385007\n> \n> [[4]]\n> [1] 3.751311\n> \n> [[5]]\n> [1] 4.805047\n> \n> [[6]]\n> [1] 5.89379\n> \n> When running simulations you may want to set the seed differently for\n> each process [something like clusterApply(cl, 1:2, set.seed)] or use\n> one of the RNG libraries, otherwise both CPUs will give you the same\n> results - probably not what you want ;).\n> \n> Cheers,\n> Simon\n>",
+      "body_snippet": "Simon,\n\n\nThanks for your quick reply.\nIs the following efficient? Comments are welcome\n\nReplicate.vect=1:replications\nResults=assay(0,dim=c(replications,design.fact1,dsign.fact2..))\nFor (ifact1 in 1:d",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 3,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-eb10538fe5ec",
+      "message_id": "<1A4FB01B-483C-49D7-916F-44FAFE09F6C6@kagi.com>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "828012f8d91e7aec02576a685516a3192623cbd0772e74805d42b3a808a25e6c",
+      "date": "2005-06-16T15:09:06+10:00",
+      "subject": "[R-SIG-Mac] Differences x86/Mac",
+      "subject_clean": "Differences x86/Mac",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have an optimisation that gets a different result on an AMD based  \nPC to a G5 iMac. I suspect underflow (it involves small  \nprobabilitiies that need to be summed so can't be logged, next step  \nis to rescale), is this likely and if so which is likely to be correct ?\n\nKen",
+      "body_snippet": "I have an optimisation that gets a different result on an AMD based  \nPC to a G5 iMac. I suspect underflow (it involves small  \nprobabilitiies that need to be summed so can't be logged, next step  \nis",
+      "thread_id": "thread-eb10538fe5ec",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-75d7edab5be1",
+      "message_id": "<BED7276E.46DB%nassar@noos.fr>",
+      "from_name": "Naji",
+      "from_email_hash": "6273d9e70963fac96d4d1a7a8dbf805c91312dc8887f39604897b6d9c2816bd1",
+      "date": "2005-06-16T12:56:14+02:00",
+      "subject": "[R-SIG-Mac] Re :  Snow package on bi-proc G5",
+      "subject_clean": "Re :  Snow package on bi-proc G5",
+      "in_reply_to": "<8D14380F-579A-47DB-B172-B1049CBA8042@r-project.org>",
+      "references": [],
+      "body_plain": "I launched my simulations and found the both processors occupied at 100%\nSystem 80%\nUser 20%\nR 97.9% of one processor\n\"kerneltask\" 50% of 2nd processor\n\"Open\" task 50% of 2nd processor\n-> R is the only user active application\nI don't think system application can occupy fully one processor (for more\nthan 5 hours)..\n\nIs TIGER dispatching the calculus? If yes, is it still worse using the\ncluster approach? \n\n\nBest regards\nNaji\n\nLe 15/06/05 20:36, ??Simon Urbanek?? <simon.urbanek at r-project.org> a ?crit?:\n\n> Naji,\n> \n> On Jun 15, 2005, at 12:36 PM, Naji wrote:\n> \n>> I'm running complex simulations and I'd like to distribute half the\n>> simulation on each processor (one G5 machine)\n>> The R code looks like\n>> \n>> For (rep in 1:replications) # 300 replications\n>> {\n>> # the simulations results are stored in an array\n>> Is it possible to distribute the simulations on both proc..?\n> \n> Yes.\n> \n> I use pvm as back-end for snow, but I guess others should work, too.\n> Example (very simple and stupid but should illustrate the idea):\n> \n>> library(snow)\n> Loading required package: rpvm\n>> cl<-makeCluster(2)  # use 2 CPUs\n>> clusterApplyLB(cl,1:6,function(x) mean(x+rnorm(10)))\n> [[1]]\n> [1] 0.836866\n> \n> [[2]]\n> [1] 1.755120\n> \n> [[3]]\n> [1] 3.385007\n> \n> [[4]]\n> [1] 3.751311\n> \n> [[5]]\n> [1] 4.805047\n> \n> [[6]]\n> [1] 5.89379\n> \n> When running simulations you may want to set the seed differently for\n> each process [something like clusterApply(cl, 1:2, set.seed)] or use\n> one of the RNG libraries, otherwise both CPUs will give you the same\n> results - probably not what you want ;).\n> \n> Cheers,\n> Simon\n>",
+      "body_snippet": "I launched my simulations and found the both processors occupied at 100%\nSystem 80%\nUser 20%\nR 97.9% of one processor\n\"kerneltask\" 50% of 2nd processor\n\"Open\" task 50% of 2nd processor\n-> R is the onl",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 3,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-95953ef44c69",
+      "message_id": "<8C6599A1-8ECE-406B-B0D1-A76B05B0D849@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-06-16T15:03:41-07:00",
+      "subject": "[R-SIG-Mac] [Rd] 2.1.0a for Macs (PR#7952)",
+      "subject_clean": "2.1.0a for Macs (PR#7952)",
+      "in_reply_to": "<20050616213019.26B8FA1E7@slim.kubism.ku.dk>",
+      "references": [
+        "<20050616213019.26B8FA1E7@slim.kubism.ku.dk>"
+      ],
+      "body_plain": "Hi Jennifer,\n\nCould you let us know which version of OS X you are running?\n\nAlso, Simon responded to that email and indicated that the\nnightly build newer than 1564 do not show this behavior (on\nslower machines). Can you check on 1 of the machines using the\nlatest nightly build (1596)?\n\nIts at: http://www.rosuda.org/R/nightly/ at the bottom of the page.\nPlease use the debug version initially.\n\nRob\n\nOn Jun 16, 2005, at 2:30 PM, jbaltzer at oeb.harvard.edu wrote:\n\n> I am writing regarding serious problems that a number of\n> researchers at a workshop held by the Smithsonian Tropical\n> Research Institute are encountering with the most recent R\n> version for Macs (the patched version of 2.1.0 (2.1.0a) that\n> you indicate should be used over 2.1.0).\n>\n> The following problems are not specific to my computer but are\n> being experienced by ALL Mac users at this workshop running\n> 2.1.0a to varying degrees. I installed the program about a week\n> ago and immediately I started getting a warning messages\n> particularly when browsing my files using ls(), search(), gc(),\n> etc.  2.1.0a automatically adds an open parentheses at the end\n> of any command requiring () (only intermittently, however) and\n> then generates a warning in red.  I am afraid that I do not\n> have the warning because R no longer will open on my computer\n> without reinstallation so I am forced to use a PC.  The same\n> warning message has been posted by one other on the help email\n> list.  More recently, R has begun to crash for no particular\n> reason (no large program running).  Often when I then try to\n> restart R 2.1.0a crashes during start up and in order to get it\n> functioning again I have to reinstall!  The first time this\n> happened I decided to go back to an earlier version of R that I\n> knew would be stable but following binary compilation no gui is\n> installed on my computer and I can't run the program.  The only\n> version my computer can now install properly is 2.1.0a but as\n> described above the problems with the program prohibit me from\n> using it.\n>\n> If you could please advise on how to deal with these problems\n> (particularly the corruption of my system by 2.1.0a) all the\n> Mac users at this conference would be appreciative.\n>\n> Jennifer Baltzer\n>\n> ______________________________________________\n> R-devel at r-project.org mailing list\n> https://stat.ethz.ch/mailman/listinfo/r-devel\n>",
+      "body_snippet": "Hi Jennifer,\n\nCould you let us know which version of OS X you are running?\n\nAlso, Simon responded to that email and indicated that the\nnightly build newer than 1564 do not show this behavior (on\nslowe",
+      "thread_id": "thread-95953ef44c69",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-647dc72d2a9b",
+      "message_id": "<1E992CFBFAA4424189FA42EA641BFD0D0336DC0A@MSGBOSCLA2WIN.DMN1.FMR.COM>",
+      "from_name": "Shea, Ed",
+      "from_email_hash": "0f4dde417fd3a389a5b339f59ed037d3a6bcc5c471b16cd5adb9c43e3cc768dc",
+      "date": "2005-06-17T15:16:35-04:00",
+      "subject": "[R-SIG-Mac] 64bit Tiger performance vs 32 bit Wintel vs 32 bit Linux",
+      "subject_clean": "64bit Tiger performance vs 32 bit Wintel vs 32 bit Linux",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050617/f68d27db/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050617/f68d27db/attachment.pl",
+      "thread_id": "thread-647dc72d2a9b",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-688bc9c0798d",
+      "message_id": "<DD0D8F88-E9AB-4F16-9DC8-059BE39B7752@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-18T15:31:28-04:00",
+      "subject": "[R-SIG-Mac] 64bit Tiger performance vs 32 bit Wintel vs 32 bit Linux",
+      "subject_clean": "64bit Tiger performance vs 32 bit Wintel vs 32 bit Linux",
+      "in_reply_to": "<1E992CFBFAA4424189FA42EA641BFD0D0336DC0A@MSGBOSCLA2WIN.DMN1.FMR.COM>",
+      "references": [
+        "<1E992CFBFAA4424189FA42EA641BFD0D0336DC0A@MSGBOSCLA2WIN.DMN1.FMR.COM>"
+      ],
+      "body_plain": "On Jun 17, 2005, at 3:16 PM, Shea, Ed wrote:\n\n> Has anyone experienced any performance improvements running with a  \n> 64bit tiger compiled R.2.* vs the windows and/or Linux versions (on  \n> comparable hardware)?\n\nBy definition using 64-bit addressing instead of 32-bit is slower,  \nsimply because all pointers are twice the size and hence twice the  \nmemory is moved/accessed when dealing with pointers. There is no  \npenalty for running 32-bit programs on ppc64 therefore 64-bit  \nprograms are usually slightly slower than the same 32-bit programs  \nand my tests with R confirm this.\n\nIt's hard to make any cross-platform claims, because \"comparable  \nhardware\" is a very vague term. If you tell me what you're interested  \nin I could run some tests on G5 and amd64 ...\n\n>   Aside from access to more memory, are there any other benefits?\n\nAFAIK, no.\n\nCheers,\nSimon",
+      "body_snippet": "On Jun 17, 2005, at 3:16 PM, Shea, Ed wrote:\n\n> Has anyone experienced any performance improvements running with a  \n> 64bit tiger compiled R.2.* vs the windows and/or Linux versions (on  \n> comparabl",
+      "thread_id": "thread-647dc72d2a9b",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-6b5d3473117f",
+      "message_id": "<704CC096-E84E-496F-A215-EF1DDD4E9F97@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-18T15:39:18-04:00",
+      "subject": "[R-SIG-Mac] 64bit Tiger performance vs 32 bit Wintel vs 32 bit Linux",
+      "subject_clean": "64bit Tiger performance vs 32 bit Wintel vs 32 bit Linux",
+      "in_reply_to": "<DD0D8F88-E9AB-4F16-9DC8-059BE39B7752@r-project.org>",
+      "references": [
+        "<1E992CFBFAA4424189FA42EA641BFD0D0336DC0A@MSGBOSCLA2WIN.DMN1.FMR.COM>",
+        "<DD0D8F88-E9AB-4F16-9DC8-059BE39B7752@r-project.org>"
+      ],
+      "body_plain": "On Jun 18, 2005, at 3:31 PM, Simon Urbanek wrote:\n\n>>   Aside from access to more memory, are there any other benefits?\n>\n> AFAIK, no.\n\nI should add that I meant that there are no other benefits comparing  \n32-bit R and 64-bit R on Tiger. Of course comparing 32-bit R on ppc  \nTiger with x86 Windows or Linux is a different story with many  \ndifferences ranging from the CPU architecture, memory management to  \nthe optimization and available BLAS libraries ... (of course you  \ncould expand this and compare Linux on a G5 etc.).\n\nCheers,\nSimon",
+      "body_snippet": "On Jun 18, 2005, at 3:31 PM, Simon Urbanek wrote:\n\n>>   Aside from access to more memory, are there any other benefits?\n>\n> AFAIK, no.\n\nI should add that I meant that there are no other benefits compa",
+      "thread_id": "thread-647dc72d2a9b",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-cda5ca9d6c4f",
+      "message_id": "<BEDBEB7F.4824%nassar@noos.fr>",
+      "from_name": "Naji",
+      "from_email_hash": "6273d9e70963fac96d4d1a7a8dbf805c91312dc8887f39604897b6d9c2816bd1",
+      "date": "2005-06-20T03:41:48+02:00",
+      "subject": "[R-SIG-Mac] Re :  Re :  Snow package on bi-proc G5",
+      "subject_clean": "Re :  Re :  Snow package on bi-proc G5",
+      "in_reply_to": "<BED7276E.46DB%nassar@noos.fr>",
+      "references": [],
+      "body_plain": "Hi all,\n\nI finally succeeded installing PVM softwae, RPVM & Snow packages.\nSimon example worked perfectly well\n\nI'm encountering 2 problems\n- a silly one (how to fix env. var on my machine OS Tiger)\n    in order to run PVM (and snow) I need to declare the following\n        export PVM_ARCH=darwin\n        export PVM_ROOT=$HOME/pvm3\n        export PVM_DPATH=$PVM_ROOT/lib/pvmd\n        export PATH=$PATH:$PVM_ROOT/lib:$PVM_ROOT/lib/$PVM_ARCH\n        export MANPATH=$PVM_ROOT/man\n    In which file should I save these commands so the env. var are declared\nautomatically at login\n\n- the second is adapting a loop for a Cluster (a replication eiher a loop or\na job for one proc)\n    The loop code (working fine) & the cluster code giving the following\nerrors\n> z # z is the results of the ClusterApply\n[[1]]\n[1] \"Error in any(shape <= 0) : Object \\\"pdmabrd\\\" not found\\n\"\nattr(,\"class\")\n[1] \"try-error\"\n\nThe title array has been initialized\n\n\nThanks in advance for your help\nAny comments regarding code optimization is highly welcome..\n\nBest regards\nNaji\n\n\nLe 16/06/05 12:56, ??Naji?? <nassar at noos.fr> a ?crit?:\n\n> \n> I launched my simulations and found the both processors occupied at 100%\n> System 80%\n> User 20%\n> R 97.9% of one processor\n> \"kerneltask\" 50% of 2nd processor\n> \"Open\" task 50% of 2nd processor\n> -> R is the only user active application\n> I don't think system application can occupy fully one processor (for more\n> than 5 hours)..\n> \n> Is TIGER dispatching the calculus? If yes, is it still worse using the\n> cluster approach?\n> \n> \n> Best regards\n> Naji\n> \n> Le 15/06/05 20:36, ??Simon Urbanek?? <simon.urbanek at r-project.org> a ?crit?:\n> \n>> Naji,\n>> \n>> On Jun 15, 2005, at 12:36 PM, Naji wrote:\n>> \n>>> I'm running complex simulations and I'd like to distribute half the\n>>> simulation on each processor (one G5 machine)\n>>> The R code looks like\n>>> \n>>> For (rep in 1:replications) # 300 replications\n>>> {\n>>> # the simulations results are stored in an array\n>>> Is it possible to distribute the simulations on both proc..?\n>> \n>> Yes.\n>> \n>> I use pvm as back-end for snow, but I guess others should work, too.\n>> Example (very simple and stupid but should illustrate the idea):\n>> \n>>> library(snow)\n>> Loading required package: rpvm\n>>> cl<-makeCluster(2)  # use 2 CPUs\n>>> clusterApplyLB(cl,1:6,function(x) mean(x+rnorm(10)))\n>> [[1]]\n>> [1] 0.836866\n>> \n>> [[2]]\n>> [1] 1.755120\n>> \n>> [[3]]\n>> [1] 3.385007\n>> \n>> [[4]]\n>> [1] 3.751311\n>> \n>> [[5]]\n>> [1] 4.805047\n>> \n>> [[6]]\n>> [1] 5.89379\n>> \n>> When running simulations you may want to set the seed differently for\n>> each process [something like clusterApply(cl, 1:2, set.seed)] or use\n>> one of the RNG libraries, otherwise both CPUs will give you the same\n>> results - probably not what you want ;).\n>> \n>> Cheers,\n>> Simon\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: loop.pdf\nType: application/octet-stream\nSize: 21621 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050620/3c6ce0c2/loop-0001.obj\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: Clustercode.pdf\nType: application/octet-stream\nSize: 23932 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050620/3c6ce0c2/Clustercode-0001.obj",
+      "body_snippet": "Hi all,\n\nI finally succeeded installing PVM softwae, RPVM & Snow packages.\nSimon example worked perfectly well\n\nI'm encountering 2 problems\n- a silly one (how to fix env. var on my machine OS Tiger)\n ",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 4,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-3dd90019e84d",
+      "message_id": "<0A11038C-5A00-44D0-AB98-B6B84956ACA6@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-20T02:07:35-04:00",
+      "subject": "[R-SIG-Mac] Re :  Re :  Snow package on bi-proc G5",
+      "subject_clean": "Re :  Re :  Snow package on bi-proc G5",
+      "in_reply_to": "<BEDBEB7F.4824%nassar@noos.fr>",
+      "references": [
+        "<BEDBEB7F.4824%nassar@noos.fr>"
+      ],
+      "body_plain": "Hi Naji,\n\nOn Jun 19, 2005, at 9:41 PM, Naji wrote:\n\n> I'm encountering 2 problems\n> - a silly one (how to fix env. var on my machine OS Tiger)\n>     in order to run PVM (and snow) I need to declare the following\n\nYou don't need all those - pvm sets them up automatically. The only  \none you really need is PVM_ROOT. You can set it in many places -  \ndepending how you start R and pvm.  For the shell you can use  \n~/.profile - that's sourced by bash and friends (the site version is  \nin /etc/profile btw). For R you can use .Renviron (see ?Startup). I'm  \nnot sure how exactly you setup your PVM, but for a cluster I use  \n~/.ssh/environment (see sshd docs for details) - that works on any  \nplatform and allows inhomogenous clusters.\n\n> - the second is adapting a loop for a Cluster (a replication eiher  \n> a loop or a job for one proc)\n>     The loop code (working fine) & the cluster code giving the  \n> following\n> errors\n\nYou have to keep in mind that the master node (the one you're running  \ninteractively) is separate from the working nodes. If you want  \nvariables to be assigned in other nodes as well, you have to use  \nclusterExport (or use assignments in clusterCall and friends). In  \nyour case all the variables you define on top have to be exported (as  \nwell as any data you need) - if you don't have too much junk in your  \nworkspace you could even use something like clusterExport(cl, ls())\n\nCheers,\nSimon",
+      "body_snippet": "Hi Naji,\n\nOn Jun 19, 2005, at 9:41 PM, Naji wrote:\n\n> I'm encountering 2 problems\n> - a silly one (how to fix env. var on my machine OS Tiger)\n>     in order to run PVM (and snow) I need to declare th",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 5,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-c814425fd786",
+      "message_id": "<BEDC95A3.485E%nassar@noos.fr>",
+      "from_name": "Naji",
+      "from_email_hash": "6273d9e70963fac96d4d1a7a8dbf805c91312dc8887f39604897b6d9c2816bd1",
+      "date": "2005-06-20T15:47:47+02:00",
+      "subject": "[R-SIG-Mac] Re : Re :  Re :  Snow package on bi-proc G5",
+      "subject_clean": "Re : Re :  Re :  Snow package on bi-proc G5",
+      "in_reply_to": "<0A11038C-5A00-44D0-AB98-B6B84956ACA6@r-project.org>",
+      "references": [],
+      "body_plain": "Simon, dear all\n\nThanks for your quick reply.\n\nThe first point is fixed, I had put the .profile at /usr directory. I moved\nit at $HOME, restarted and it worked perfectly.\n\nI adopted the clusterExport solution.. And it's running quite fine..\n\nClusterapplylb is sending back a list where each element contains the\nresults of on replication. I'm only interested with the mean of of those\nreplications (+ memory limitations)\nOne solution to circumvent that is a loop (say 10) over cl (say 1:2)\nRather than a cl(1:200).. The first is taking 1min, the 2nd 2min20\nfor (j in 1:(each/2)){\n    sim=clusterApplyLB(cl,1:2,iterate)\n    titles=titles+sim[[1]]+sim[[2]]\n    }\nRather than\nsim=clusterApplyLB(cl,1:each,iterate)\n\nA more elegant solution is highly welcome (for the first solution, I guess\nthe node occupation won't be optimized in case of lot of nodes. All the\nnodes have to finish their job, actualize the list before getting to the\nnext loop)\n\nCan I define an array that stores the sum of the simulations\n ie in the ClustrApplyLB function:\nIterate=function(iter){\n..\nClusterexport(cl,SumSimul)\nSumSimul=SumSimul+simul\n}\nI don't think it would work as clusterapply is at the node level and\nclusterexport at the master level, and performance will suffer from\ncommunicating the SumSimul...\n\nBest regards\nNaji\n\nLe 20/06/05 8:07, ??Simon Urbanek?? <simon.urbanek at r-project.org> a ?crit?:\n\n> Hi Naji,\n> \n> On Jun 19, 2005, at 9:41 PM, Naji wrote:\n> \n>> I'm encountering 2 problems\n>> - a silly one (how to fix env. var on my machine OS Tiger)\n>>     in order to run PVM (and snow) I need to declare the following\n> \n> You don't need all those - pvm sets them up automatically. The only\n> one you really need is PVM_ROOT. You can set it in many places -\n> depending how you start R and pvm.  For the shell you can use\n> ~/.profile - that's sourced by bash and friends (the site version is\n> in /etc/profile btw). For R you can use .Renviron (see ?Startup). I'm\n> not sure how exactly you setup your PVM, but for a cluster I use\n> ~/.ssh/environment (see sshd docs for details) - that works on any\n> platform and allows inhomogenous clusters.\n> \n>> - the second is adapting a loop for a Cluster (a replication eiher\n>> a loop or a job for one proc)\n>>     The loop code (working fine) & the cluster code giving the\n>> following\n>> errors\n> \n> You have to keep in mind that the master node (the one you're running\n> interactively) is separate from the working nodes. If you want\n> variables to be assigned in other nodes as well, you have to use\n> clusterExport (or use assignments in clusterCall and friends). In\n> your case all the variables you define on top have to be exported (as\n> well as any data you need) - if you don't have too much junk in your\n> workspace you could even use something like clusterExport(cl, ls())\n> \n> Cheers,\n> Simon\n>",
+      "body_snippet": "Simon, dear all\n\nThanks for your quick reply.\n\nThe first point is fixed, I had put the .profile at /usr directory. I moved\nit at $HOME, restarted and it worked perfectly.\n\nI adopted the clusterExport ",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 6,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-31107435c54b",
+      "message_id": "<BEDF3050.4963%nassar@noos.fr>",
+      "from_name": "Naji",
+      "from_email_hash": "6273d9e70963fac96d4d1a7a8dbf805c91312dc8887f39604897b6d9c2816bd1",
+      "date": "2005-06-22T15:12:16+02:00",
+      "subject": "[R-SIG-Mac] Snow package  --> Results",
+      "subject_clean": "Snow package  --> Results",
+      "in_reply_to": "<0A11038C-5A00-44D0-AB98-B6B84956ACA6@r-project.org>",
+      "references": [],
+      "body_plain": "First, many thanks to Simon Urbanek for his help.\n\nA simulation case (50x34x5x3 & 250 replications) each based on behavior of\n2500 consumers takes\n- 2h20mins on a laptop (2 MHz, 1Go, WinXp)\n- 1h on a G5 bi-proc (2.5 Mhz, 2Go)\nA loop was used for the laptop, the same loop was transposed as function for\nthe Mac\n\nBest regards\nNaji",
+      "body_snippet": "First, many thanks to Simon Urbanek for his help.\n\nA simulation case (50x34x5x3 & 250 replications) each based on behavior of\n2500 consumers takes\n- 2h20mins on a laptop (2 MHz, 1Go, WinXp)\n- 1h on a ",
+      "thread_id": "thread-28d3dc690c87",
+      "thread_depth": 6,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-c715933c8f09",
+      "message_id": "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-22T14:08:40-04:00",
+      "subject": "[R-SIG-Mac] R 2.1.1 for optimized for G5+Tiger",
+      "subject_clean": "R 2.1.1 for optimized for G5+Tiger",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Since several users asked for it, I have compiled R 2.1.1  \naggressively optimized for G5 and Tiger. It comes bundled with the  \nlatest R.app (build 1608) and gfortran compiler (optional). You can  \ndownload it from\nhttp://wiki.urbanek.info/files/R-2.1.1-G5.dmg\n\nNote that you should install Xcode 2.1 and the supplied gfortran  \ncompiler (it's optional in the above package, select \"custom  \ninstall\") in order to be able to compile packages from sources. Since  \nthere is no optimized G5 packages on CRAN, it's likely that you want  \nto compile them from sources.\n\nThis is not an official release. We plan to have a Tiger release at  \nsome point, but we want to offer it with package bundles and we're  \nworking on that.\n\nAny feedback on this build is highly welcome.\n\nCheers,\nSimon",
+      "body_snippet": "Since several users asked for it, I have compiled R 2.1.1  \naggressively optimized for G5 and Tiger. It comes bundled with the  \nlatest R.app (build 1608) and gfortran compiler (optional). You can  \nd",
+      "thread_id": "thread-c715933c8f09",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-8cf1a34fa28a",
+      "message_id": "<64860ED0-9C3F-4C53-9EA4-7F1AC6D62E61@life.uiuc.edu>",
+      "from_name": "Steven T. Stoddard",
+      "from_email_hash": "26bae0f638dbe3a1fcbfb1545a5831e5524d7e76a1240e24f92d99a58e8af251",
+      "date": "2005-06-22T16:14:07-05:00",
+      "subject": "[R-SIG-Mac] load history does not work on OS X",
+      "subject_clean": "load history does not work on OS X",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050622/a74c8020/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050622/a74c8020/attachment.pl",
+      "thread_id": "thread-8cf1a34fa28a",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-7b59a1103ea5",
+      "message_id": "<4268.144.133.91.34.1119504579.squirrel@homebase.wehi.edu.au>",
+      "from_name": "James Wettenhall",
+      "from_email_hash": "6c9048b7065d6feb8346424527c6f8ea23d265f948d2f9d540f6f233db6b4025",
+      "date": "2005-06-23T15:29:39+10:00",
+      "subject": "[R-SIG-Mac] Just checking - X11 Tcl/Tk is still the default (not Aqua), right?",
+      "subject_clean": "Just checking - X11 Tcl/Tk is still the default (not Aqua), right?",
+      "in_reply_to": "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>",
+      "references": [
+        "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>"
+      ],
+      "body_plain": "Hi,\n\nHopefully this is a simple question.  I'm running a Bioconductor workshop\nin which people will bring their own laptops.  I expect most will be using\nWindows, but there may be a few using MacOS X.  I need to provide\ninstructions for how to install the software beforehand, including\nR-Tcl/Tk stuff.  So I just wanted to check that the R 2.1.1 for MacOS X\nbinary from CRAN is still configured by default to use X11 Tcl/Tk, right?\n\nSo you would install Tcl/Tk from source in /usr/local/ after having\ninstalled the developer tools and X11SDK from the Xcode CD, then\nlibrary(tcltk) should work. Right?\n\nWhereas if you want to use Aqua Tcl/Tk, you would have to build R from\nsource :-(, or get a binary from somewhere other than the default CRAN\nlocation.  Right?  But then on the upside, at least getting binaries for\nTcl/Tk extensions would be easier than for X11 :-).\n\nHopefully this won't take up too much of anyone's time.  I think it should\njust be a Yes/No answer to this question: X11 Tcl/Tk is still the default\n(not Aqua), right?\n\nBest wishes,\nJames",
+      "body_snippet": "Hi,\n\nHopefully this is a simple question.  I'm running a Bioconductor workshop\nin which people will bring their own laptops.  I expect most will be using\nWindows, but there may be a few using MacOS X.",
+      "thread_id": "thread-c715933c8f09",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-340c5492005f",
+      "message_id": "<6C3B0696-6976-41B7-94BE-449002E36EE9@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-23T01:57:53-04:00",
+      "subject": "[R-SIG-Mac] Just checking - X11 Tcl/Tk is still the default (not Aqua), right?",
+      "subject_clean": "Just checking - X11 Tcl/Tk is still the default (not Aqua), right?",
+      "in_reply_to": "<4268.144.133.91.34.1119504579.squirrel@homebase.wehi.edu.au>",
+      "references": [
+        "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>",
+        "<4268.144.133.91.34.1119504579.squirrel@homebase.wehi.edu.au>"
+      ],
+      "body_plain": "Hi James,\n\nOn Jun 23, 2005, at 1:29 AM, James Wettenhall wrote:\n\n> So I just wanted to check that the R 2.1.1 for MacOS X binary from  \n> CRAN is still configured by default to use X11 Tcl/Tk, right?\n\nThere is currently only R 2.1.0a binary on CRAN which in fact comes  \nwith X11 Tcl/Tk support. The Tcl/Tk libraries are not installed by  \ndefault, you have to click on 'custom setup' and enable them during  \nthe installation.\n\nI do have a release candidate binary for R 2.1.1 with the latest  \ntcltk 8.4.10 for X11 and the most recent GUI. I can give you the link  \nif you want. (It's not yet on CRAN, because we changed the way we  \nbuild the binaries (to make it even more compatible) and persons key  \nto the testing and/or release are traveling right now).\n\n> So you would install Tcl/Tk from source in /usr/local/\n\nYou don't need that - they come already in the R CRAN binary.\n\n> after having installed the developer tools and X11SDK from the  \n> Xcode CD, then library(tcltk) should work. Right?\n\nStrictly speaking you don't need the Xcode/dev tools unless you want  \nto compile packages from sources. As long as all packages you need  \nare on CRAN as mac binaries, you don't need Xcode. If you want to  \ncompile packages, then in addition to Xcode you will need a Fortran  \ncompiler (in fact the 2.1. RC come with one).\n\n> Whereas if you want to use Aqua Tcl/Tk, you would have to build R  \n> from source\n\nIn fact Aqua Tcl/Tk is shipped with Tiger, so on 10.4 you have it  \nalready. For older systems there are binaries around. The catch is  \nthat it doesn't work with the tcltk R package and the GUI (however,  \nJan may have instructions to get it running under some circumstances  \n- you may want to look in the SIG-Mac archives).\n\n> Right?  But then on the upside, at least getting binaries for Tcl/ \n> Tk extensions would be easier than for X11 :-).\n\nI suspect that it's the other way round - extensions are more likely  \nto work with X11 as this is more widely used, but this is just a  \nspeculation based on my experience with other toolkits.\n\n> Hopefully this won't take up too much of anyone's time.  I think it  \n> should just be a Yes/No answer to this question: X11 Tcl/Tk is  \n> still the default (not Aqua), right?\n\nYes for the reasons above.\n\nCheers,\nSimon",
+      "body_snippet": "Hi James,\n\nOn Jun 23, 2005, at 1:29 AM, James Wettenhall wrote:\n\n> So I just wanted to check that the R 2.1.1 for MacOS X binary from  \n> CRAN is still configured by default to use X11 Tcl/Tk, right?\n",
+      "thread_id": "thread-c715933c8f09",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-70902ce531ae",
+      "message_id": "<92214510-C14C-47FF-B94B-57F3F6349081@cinci.rr.com>",
+      "from_name": "Thomas Adams",
+      "from_email_hash": "99980154521e7855cbfe39e47b0e0297130838182cdd152d13d9b794fca314b8",
+      "date": "2005-06-23T09:19:37-04:00",
+      "subject": "[R-SIG-Mac] R 2.1.1 for optimized for G5+Tiger",
+      "subject_clean": "R 2.1.1 for optimized for G5+Tiger",
+      "in_reply_to": "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>",
+      "references": [
+        "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>"
+      ],
+      "body_plain": "Simon,\n\nIs there any advantage for G4 Mac R users to use this release, or  \nshould it be avoided?\n\nRegards,\nTom\n\n\nOn Jun 22, 2005, at 2:08 PM, Simon Urbanek wrote:\n\n> Since several users asked for it, I have compiled R 2.1.1\n> aggressively optimized for G5 and Tiger. It comes bundled with the\n> latest R.app (build 1608) and gfortran compiler (optional). You can\n> download it from\n> http://wiki.urbanek.info/files/R-2.1.1-G5.dmg\n>\n> Note that you should install Xcode 2.1 and the supplied gfortran\n> compiler (it's optional in the above package, select \"custom\n> install\") in order to be able to compile packages from sources. Since\n> there is no optimized G5 packages on CRAN, it's likely that you want\n> to compile them from sources.\n>\n> This is not an official release. We plan to have a Tiger release at\n> some point, but we want to offer it with package bundles and we're\n> working on that.\n>\n> Any feedback on this build is highly welcome.\n>\n> Cheers,\n> Simon\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Simon,\n\nIs there any advantage for G4 Mac R users to use this release, or  \nshould it be avoided?\n\nRegards,\nTom\n\n\nOn Jun 22, 2005, at 2:08 PM, Simon Urbanek wrote:\n\n> Since several users asked for it,",
+      "thread_id": "thread-c715933c8f09",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-bf6a5075e86f",
+      "message_id": "<47F90514-492D-4B0D-9313-DE3D64485F35@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-23T10:02:34-04:00",
+      "subject": "[R-SIG-Mac] R 2.1.1 for optimized for G5+Tiger",
+      "subject_clean": "R 2.1.1 for optimized for G5+Tiger",
+      "in_reply_to": "<92214510-C14C-47FF-B94B-57F3F6349081@cinci.rr.com>",
+      "references": [
+        "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>",
+        "<92214510-C14C-47FF-B94B-57F3F6349081@cinci.rr.com>"
+      ],
+      "body_plain": "Thomas,\n\nOn Jun 23, 2005, at 9:19 AM, Thomas Adams wrote:\n\n> Is there any advantage for G4 Mac R users to use this release, or  \n> should it be avoided?\n\nIn theory it should not work on a G4 at all, because it may be using  \ninstructions that are supported only by the G5 CPUs. This optimized  \nrelease is meant for G5 only.\nIn practice I didn't check it on a G4, so I don't know, but at any  \nrate G4 users are better off using a G4 optimized version. I didn't  \nbother compiling such a beast, because whoever needs high performance  \nprobably has (or should get) G5 anyway ;). The difference between G4  \nand G5 is huge (more than twice as fast on similar clock speed - I  \nremember posting some rough timings here). At this point I should  \nprobably mention that Tiger's vecLib is much more reliable and faster  \nthat Panther's so the upgrade is almost a must for heavy computing  \napplications (if you're reluctant to upgrade completely (i.e. you  \ninstall both on a machine), you can actually use Tiger's vecLib in  \nPanther with some minor tweaks ...).\n\nCheers,\nSimon",
+      "body_snippet": "Thomas,\n\nOn Jun 23, 2005, at 9:19 AM, Thomas Adams wrote:\n\n> Is there any advantage for G4 Mac R users to use this release, or  \n> should it be avoided?\n\nIn theory it should not work on a G4 at all, b",
+      "thread_id": "thread-c715933c8f09",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-e025ba6629e9",
+      "message_id": "<BEE0A572.4A07%nassar@noos.fr>",
+      "from_name": "Naji",
+      "from_email_hash": "6273d9e70963fac96d4d1a7a8dbf805c91312dc8887f39604897b6d9c2816bd1",
+      "date": "2005-06-23T17:44:18+02:00",
+      "subject": "[R-SIG-Mac] Re :  R 2.1.1 for optimized for G5+Tiger",
+      "subject_clean": "Re :  R 2.1.1 for optimized for G5+Tiger",
+      "in_reply_to": "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>",
+      "references": [],
+      "body_plain": "A simulation case (50x34x5x3 & 250 replications) each based on behavior of\n2500 consumers takes\n- 1h with the 'old' version 2.1.0\n- 35min using 2.1.1 for G5&Tiger\non a G5 bi-proc (2.5 Mhz, 2Go)\n(both after restarting the MAC)\n\n Well done Simon\n\nNaji\n\nLe 22/06/05 20:08, ??Simon Urbanek?? <simon.urbanek at r-project.org> a ?crit?:\n> Since several users asked for it, I have compiled R 2.1.1\n> aggressively optimized for G5 and Tiger. It comes bundled with the\n> latest R.app (build 1608) and gfortran compiler (optional). You can\n> download it from\n> http://wiki.urbanek.info/files/R-2.1.1-G5.dmg\n> \n> Note that you should install Xcode 2.1 and the supplied gfortran\n> compiler (it's optional in the above package, select \"custom\n> install\") in order to be able to compile packages from sources. Since\n> there is no optimized G5 packages on CRAN, it's likely that you want\n> to compile them from sources.\n> \n> This is not an official release. We plan to have a Tiger release at\n> some point, but we want to offer it with package bundles and we're\n> working on that.\n> \n> Any feedback on this build is highly welcome.\n> \n> Cheers,\n> Simon\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "A simulation case (50x34x5x3 & 250 replications) each based on behavior of\n2500 consumers takes\n- 1h with the 'old' version 2.1.0\n- 35min using 2.1.1 for G5&Tiger\non a G5 bi-proc (2.5 Mhz, 2Go)\n(both ",
+      "thread_id": "thread-c715933c8f09",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-e3c591aa87e2",
+      "message_id": "<42BADFE4.4000505@fz-rossendorf.de>",
+      "from_name": "joerg van den hoff",
+      "from_email_hash": "856132bf2cce4f826fe8e7eb19e3d1e3ea86cf76307bd11d2a98de80a77607bb",
+      "date": "2005-06-23T18:14:28+02:00",
+      "subject": "[R-SIG-Mac]  Re :  R 2.1.1 for optimized for G5+Tiger",
+      "subject_clean": "Re :  R 2.1.1 for optimized for G5+Tiger",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "> Since several users asked for it, I have compiled R 2.1.1\n> aggressively optimized for G5 and Tiger. It comes bundled with the\n> latest R.app (build 1608) and gfortran compiler (optional). You can\n> download it from\n> http://wiki.urbanek.info/files/R-2.1.1-G5.dmg\n> \n> Note that you should install Xcode 2.1 and the supplied gfortran\n> compiler (it's optional in the above package, select \"custom\n> install\") in order to be able to compile packages from sources. Since\n> there is no optimized G5 packages on CRAN, it's likely that you want\n> to compile them from sources.\n> \n> This is not an official release. We plan to have a Tiger release at\n> some point, but we want to offer it with package bundles and we're\n> working on that.\n> \n> Any feedback on this build is highly welcome.\n> \n> Cheers,\n> Simon\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\nI tried  a run of 1000 non-linear fits (i.e. all the time is spent in \n\"nls\" and friends).\nI found no significant difference in the system.time() output (2.1.1. \nseemed even a bit slower). both took about 22-24 sec. did a miss something?\n\n(I installed only the framework and used the terminal version).\n\na question on the side: would it be a bad idea to install the \nR.framework with a name including the release (i.e. R.2.1.1.framework) \nand than use a place holder symlink R.framework? in this way switching \nbetween releases would  be a bit easier.\n\n\none more observation: the readline functionality is not complete, i.e. \nctr-R does not work for accessing the command history.\n\n\nbest wishes\n\njoerg",
+      "body_snippet": "> Since several users asked for it, I have compiled R 2.1.1\n> aggressively optimized for G5 and Tiger. It comes bundled with the\n> latest R.app (build 1608) and gfortran compiler (optional). You can\n>",
+      "thread_id": "thread-e3c591aa87e2",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-277ea94167ec",
+      "message_id": "<E6EA3B3E-2731-4C71-B3CA-2918B6EA73A3@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-23T12:57:40-04:00",
+      "subject": "[R-SIG-Mac] Re :  R 2.1.1 for optimized for G5+Tiger",
+      "subject_clean": "Re :  R 2.1.1 for optimized for G5+Tiger",
+      "in_reply_to": "<42BADFE4.4000505@fz-rossendorf.de>",
+      "references": [
+        "<42BADFE4.4000505@fz-rossendorf.de>"
+      ],
+      "body_plain": "Hi J?rg,\n\nOn Jun 23, 2005, at 12:14 PM, joerg van den hoff wrote:\n\n> I tried  a run of 1000 non-linear fits (i.e. all the time is spent  \n> in \"nls\" and friends).\n> I found no significant difference in the system.time() output  \n> (2.1.1. seemed even a bit slower). both took about 22-24 sec. did a  \n> miss something?\n\nI didn't look at the implementation of nls, but If the time is spent  \nmostly in vecLib or R code, there should be no difference. The  \noptimization usually gains only a few percent. I suspect that Naji's  \nspeed up is due to the update of R.app, because it's running the  \nevent loop less frequently (there should be posts about that on the  \narchives) - it used to slow down R. Unfortunately most of the really  \nfast optimizations don't apply to R, because R uses doubles most of  \nthe time and they cannot be vectorized. Still, C/C++ code should  \nbenefit from the optimization (I wonder why it should run slower,  \nthat's really startling).\n\n> a question on the side: would it be a bad idea to install the  \n> R.framework with a name including the release (i.e. R. \n> 2.1.1.framework) and than use a place holder symlink R.framework?  \n> in this way switching between releases would  be a bit easier.\n\nThe idea of the framework is actually to have support for multiple  \nreleases - just look in R.framework/Versions. If you want to switch  \nversions, all you have to do is to change the \"Current\" symlink. This  \nis the way frameworks work and I think it's really convenient. [BTW:  \nif you set R_HOME to the full path including the version, you can  \nactually run multiple R versions even without changing the symlink,  \nbecause all packages and libraries are linked with the full path.]\n\n> one more observation: the readline functionality is not complete,  \n> i.e. ctr-R does not work for accessing the command history.\n\nIt's using libedit which comes with Tiger, not readline, so the  \ndifferences are simply in what each library provides. Apple cannot  \nship the system with readline due to licensing issues (readline is  \nnot LGPL).\n\nCheers,\nSimon",
+      "body_snippet": "Hi J?rg,\n\nOn Jun 23, 2005, at 12:14 PM, joerg van den hoff wrote:\n\n> I tried  a run of 1000 non-linear fits (i.e. all the time is spent  \n> in \"nls\" and friends).\n> I found no significant difference i",
+      "thread_id": "thread-e3c591aa87e2",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-92aedcdbc247",
+      "message_id": "<42BB0B3C.5020407@aecom.yu.edu>",
+      "from_name": "Kenny Ye",
+      "from_email_hash": "d46e2d940f8855f643ffbe12384c1f6a75dc14cf4eee0ab6cb97a30c73aee6df",
+      "date": "2005-06-23T15:19:24-04:00",
+      "subject": "[R-SIG-Mac] [R] compiling gap on mac os x",
+      "subject_clean": "compiling gap on mac os x",
+      "in_reply_to": "<Pine.LNX.4.61.0506231958140.13281@gannet.stats>",
+      "references": [
+        "<42BAFD46.9000601@aecom.yu.edu>",
+        "<Pine.LNX.4.61.0506231958140.13281@gannet.stats>"
+      ],
+      "body_plain": "Hi, any help is greatly appreciated.\n\nProf Brian Ripley wrote:\n\n> Isn't this the age-old story of the MacOS X Fortran compiler not fully \n> supporting compilation for dynamic libraries?  Looks like the same\n> sort of problem it has with LAPACK code.  You could try rewriting the \n> code to avoid DATA statements.\n>\n> Asking MacOS-specific questions on the r-sig-mac is a better idea than \n> using a general list.\n>\n> On Thu, 23 Jun 2005, Kenny Ye wrote:\n>\n>> Hi, I am having trouble compiling package gap\n>> http://www.hgmp.mrc.ac.uk/~jzhao/r-progs.htm on Tiger. I have installed\n>> XcodeTools 2.1. The binary version of gap currently available on CRAN\n>> has some bug and is fixed in the latest version.\n>>\n>> The message I get from R is below. Any help is greatly appreciated.\n>>\n>> best regards,\n>>\n>> Kenny Ye\n>>\n>> tar: Read 1536 bytes from -\n>> * Installing *source* package 'gap' ...\n>> ** libs\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c 2k.c -o 2k.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c 2ld.c -o 2ld.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c cline.c -o cline.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c gc.c -o gc.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c gcontrol.c -o gcontrol.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c gif.c -o gif.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c hap.c -o hap.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c hwe.hardy.c -o hwe.hardy.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c kin.morgan.c -o \n>> kin.morgan.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c makeped.c -o makeped.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c mia.c -o mia.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c muvar.c -o muvar.o\n>> g77   -fno-common  -g -O2 -c pfc.f -o pfc.o\n>> g77   -fno-common  -g -O2 -c pfc.sim.f -o pfc.sim.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c pgc.c -o pgc.o\n>> gcc-3.3 -no-cpp-precomp\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/usr/local/include   -fno-common  -g -O2 -c whscore.c -o whscore.o\n>> gcc-3.3 -bundle -flat_namespace -undefined suppress -L/usr/local/lib -o\n>> gap.so 2k.o 2ld.o cline.o gc.o gcontrol.o gif.o hap.o hwe.hardy.o\n>> kin.morgan.o makeped.o mia.o muvar.o pfc.o pfc.sim.o pgc.o whscore.o\n>> -L/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2 -lg2c -lSystem\n>> -framework R\n>> ** Removing\n>> '/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library/gap'\n>>    npackage installation failed\n>> ld: warning multiple definitions of symbol _i1mach_\n>> pfc.sim.o definition of _i1mach_ in section (__TEXT,__text)\n>> /Library/Frameworks/R.framework/R(i1mach.lo) definition of _i1mach_\n>> ld: 2ld.o has external relocation entries in non-writable section\n>> (__TEXT,__text) for symbols:\n>> restFP\n>> saveFP\n>> make: *** [gap.so] Error 1\n>> ERROR: compilation failed for package 'gap'\n>> ** Restoring previous\n>> '/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library/gap'\n>> ** Removing\n>> '/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library/pathmix' \n>>\n>> ** Removing\n>> '/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library/pointer' \n>>\n>>\n>> ______________________________________________\n>> R-help at stat.math.ethz.ch mailing list\n>> https://stat.ethz.ch/mailman/listinfo/r-help\n>> PLEASE do read the posting guide! \n>> http://www.R-project.org/posting-guide.html\n>>\n>",
+      "body_snippet": "Hi, any help is greatly appreciated.\n\nProf Brian Ripley wrote:\n\n> Isn't this the age-old story of the MacOS X Fortran compiler not fully \n> supporting compilation for dynamic libraries?  Looks like th",
+      "thread_id": "thread-92aedcdbc247",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-19dd28029ddf",
+      "message_id": "<1253d67a05062312392112e0c2@mail.gmail.com>",
+      "from_name": "Joel Bremson",
+      "from_email_hash": "4802145a3e2bf37ffad8ba4eeb5630d5113aaf0e51e5869ed246aedc2ed50605",
+      "date": "2005-06-23T12:39:44-07:00",
+      "subject": "[R-SIG-Mac] Fwd: os x / g95 package namespace load problem",
+      "subject_clean": "os x / g95 package namespace load problem",
+      "in_reply_to": "<1253d67a050623122066eb8662@mail.gmail.com>",
+      "references": [
+        "<1253d67a050623122066eb8662@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050623/a0bf80a1/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050623/a0bf80a1/attachment.pl",
+      "thread_id": "thread-19dd28029ddf",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-6258fc3847d2",
+      "message_id": "<9CA7ADDB-1825-4C8D-BCB2-71597D17B2F1@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-23T17:03:22-04:00",
+      "subject": "[R-SIG-Mac] Fwd: os x / g95 package namespace load problem",
+      "subject_clean": "os x / g95 package namespace load problem",
+      "in_reply_to": "<1253d67a05062312392112e0c2@mail.gmail.com>",
+      "references": [
+        "<1253d67a050623122066eb8662@mail.gmail.com>",
+        "<1253d67a05062312392112e0c2@mail.gmail.com>"
+      ],
+      "body_plain": "Joel,\n\nOn Jun 23, 2005, at 3:39 PM, Joel Bremson wrote:\n\n> I have a working package for linux, including fortran 95 code  \n> compiled with g95, that I need to port to OS X. The package works  \n> on Linux and seems to load on the Mac,but when I try to run a  \n> function that calls C or Fortran I'm told that the symbol is not  \n> loaded.\n\nA high-level question first: what are you trying to do here? (I'm  \nassuming you're the author of the package - if not, send all this to  \nthe author ;)). Using a fixed Makefile is a really bad idea, because  \nyou lose all the flags that R configuration conveniently detected for  \nyou, so that package is likely to run only on one specific system and  \nnowhere else. In most cases you don't need any Makefile at all,  \nbecause R supplies all that is needed. You can still specify any  \nadditional flags or dependencies using Makevars. Finally, even if you  \nhave a very complex setting, it's easier to use configure and  \nMakevars than building the entire Makefile (which involves using  \nautoconf anyway). Actually from the Makefile you provided it seems to  \nme that it's entirely superfluous, because you use no complex  \nsettings at all.\n\n> I was told to use the .dylib extension instead of .so\n\nWho told you that? If you used the regular process for compiling  \npackage code that R provides, you'd see that libraries in packages  \nstill use .so, because they are loaded using dlopen so the name  \ndoesn't have to conform to OS' conventions.\n\nPlease consult 'Writing R Extensions' ( http://cran.r-project.org/doc/ \nmanuals/R-exts.html ) - it provides guidance and examples. Is also  \nsays \"Note that this mechanism [using Makevars] should be general  \nenough to eliminate the need for a package-specific Makefile. If such  \na file is to be distributed, considerable care is needed to make it  \ngeneral enough to work on all R platforms\".\n\nCheers,\nSimon",
+      "body_snippet": "Joel,\n\nOn Jun 23, 2005, at 3:39 PM, Joel Bremson wrote:\n\n> I have a working package for linux, including fortran 95 code  \n> compiled with g95, that I need to port to OS X. The package works  \n> on Li",
+      "thread_id": "thread-19dd28029ddf",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-1f0d4fdf69a6",
+      "message_id": "<4ADCF2F3-6253-4B0E-BF94-4740C5A2ABC9@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-06-23T14:22:22-07:00",
+      "subject": "[R-SIG-Mac] Fwd: os x / g95 package namespace load problem",
+      "subject_clean": "os x / g95 package namespace load problem",
+      "in_reply_to": "<9CA7ADDB-1825-4C8D-BCB2-71597D17B2F1@r-project.org>",
+      "references": [
+        "<1253d67a050623122066eb8662@mail.gmail.com>",
+        "<1253d67a05062312392112e0c2@mail.gmail.com>",
+        "<9CA7ADDB-1825-4C8D-BCB2-71597D17B2F1@r-project.org>"
+      ],
+      "body_plain": "An exception to this rule: packages such as tkrplot must be\nloaded into the running tcltk process provided by tcltk.so. They\nneed to be linked as dylibs with flag -dynamic.  Even for X11\ntcltk.so. I seem to remember there was one other such package,\nbut they are very rare.\n\nOn Jun 23, 2005, at 14:03 , Simon Urbanek wrote:\n\n>> I was told to use the .dylib extension instead of .so\n>>\n>\n> Who told you that? If you used the regular process for compiling\n> package code that R provides, you'd see that libraries in packages\n> still use .so, because they are loaded using dlopen so the name\n> doesn't have to conform to OS' conventions.\n>\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "An exception to this rule: packages such as tkrplot must be\nloaded into the running tcltk process provided by tcltk.so. They\nneed to be linked as dylibs with flag -dynamic.  Even for X11\ntcltk.so. I s",
+      "thread_id": "thread-19dd28029ddf",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-b77e10d5e89e",
+      "message_id": "<1FB0D4E2-1E9C-42AE-9F6A-37A1DD49234E@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-06-23T14:42:58-07:00",
+      "subject": "[R-SIG-Mac] R with Aqua Tcl/Tk",
+      "subject_clean": "R with Aqua Tcl/Tk",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "If you compile R on Tiger with\n\nconfigure --with-aqua --with-blas='-framework vecLib' --with-lapack\n\nit uses the included Aqua Tcl/Tk. This has some good consequences\nand some bad ones.\n\n1. If you load tcltk.so at the beginning of your session you will see  \nthat R\nopens a window in the dock and a bunch of menus. If you look a bit  \ncloser\nyou will find R thinks it is a (Carbon) Tcl/Tk application.\n\n2. Because it thinks (mistakingly) that it is an application, it will  \nallow\nyou to start quartz() and interact with the graphics windows, even if\nyou start R from the terminal or from Emacs/ESS. This is the good\nthing. demo(tkdensity) shows only Aqua windows.\n\n3. The menus, however, are useless, because R is not really a Tcl/Tk\napplication, and in particular you cannot copy or save the quartz\ngraphics (you have to use pdf or command-shift 3 or 4). The \"source\"\nmenu. moreover,  expects you to run tcl scripts.\n\n4. You cannot use the Aqua GUI, because R gets very confused about the\nvarious event loops that are going on.\n\n5. You cannot really use X11, although I think that if you start an\nX11 device before loading tcltk and before starting quartz you can\nswitch devices and not get into trouble. But trying to open an X11\ndevice after loading tcltk and starting quartz produces a bomb\n(well, the modern equivalent of a bomb).\n\nSo the good thing is quartz graphics from Terminal.app and Emacs.app,\nbeing able to interact with quartz graphics windows (foreground and\nbackground). No X11 ugliness. The bad things are no GUI, no\nsaving of graphics  windows, and doing something non-standard\nand rather shaky.\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "If you compile R on Tiger with\n\nconfigure --with-aqua --with-blas='-framework vecLib' --with-lapack\n\nit uses the included Aqua Tcl/Tk. This has some good consequences\nand some bad ones.\n\n1. If you loa",
+      "thread_id": "thread-b77e10d5e89e",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-d799db8b5e6e",
+      "message_id": "<1253d67a05062316523ea2f10a@mail.gmail.com>",
+      "from_name": "Joel Bremson",
+      "from_email_hash": "4802145a3e2bf37ffad8ba4eeb5630d5113aaf0e51e5869ed246aedc2ed50605",
+      "date": "2005-06-23T16:52:11-07:00",
+      "subject": "[R-SIG-Mac] Fwd: os x / g95 package namespace load problem",
+      "subject_clean": "os x / g95 package namespace load problem",
+      "in_reply_to": "<9CA7ADDB-1825-4C8D-BCB2-71597D17B2F1@r-project.org>",
+      "references": [
+        "<1253d67a050623122066eb8662@mail.gmail.com>",
+        "<1253d67a05062312392112e0c2@mail.gmail.com>",
+        "<9CA7ADDB-1825-4C8D-BCB2-71597D17B2F1@r-project.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050623/45ade374/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050623/45ade374/attachment.pl",
+      "thread_id": "thread-19dd28029ddf",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-b931c870aa51",
+      "message_id": "<DDEA8D12-3E3D-4644-B1B6-108114A38EF7@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-23T20:28:30-04:00",
+      "subject": "[R-SIG-Mac] Fwd: os x / g95 package namespace load problem",
+      "subject_clean": "os x / g95 package namespace load problem",
+      "in_reply_to": "<1253d67a05062316523ea2f10a@mail.gmail.com>",
+      "references": [
+        "<1253d67a050623122066eb8662@mail.gmail.com>",
+        "<1253d67a05062312392112e0c2@mail.gmail.com>",
+        "<9CA7ADDB-1825-4C8D-BCB2-71597D17B2F1@r-project.org>",
+        "<1253d67a05062316523ea2f10a@mail.gmail.com>"
+      ],
+      "body_plain": "Joel,\n\nOn Jun 23, 2005, at 7:52 PM, Joel Bremson wrote:\n\n> The reason I'm using the Makefile is the code which needs to be  \n> compiled under g95. It appears to me that a build with Makevars  \n> will use gcc-3.3 for linking, and completely ignores my f90 files:\n\nR ignores .f90 files because it supports only generic fortran files  \nwith .f extension (which are assumed to be f77). From the output it  \nis evident that you're using the CRAN binary which was build with and  \nfor gcc3. There is no g90/95 compiler in gcc3 so R is not configured  \nto support it - you can use Fortran 77 code only.\n\nIf you need f90/95, you may want to use gcc4 instead, because it has  \na Fortran 95 compiler. Currently R doesn't support separate f77 and  \nf90/95 compilers directly, so the easiest way is to simply use  \ngfortran from gcc4 as if it was f77. As for Macs - you can either  \ncompile R yourself using gcc4 or use the Tiger G5 binary that I  \nposted on the this list recently (if you have a G5). Even if you  \ndon't have a G5, you can still install the compiler from that binary,  \nbecause it works on a G4 as well. If you configure R to use f90/95  \ncompiler as default, then all you need to do is to rename .f90 to .f  \nand R will compile the package for you.\n\nActually, which compiler did you try to use? Apple provides no  \nFortran compiler at all, so I wonder what you choose.\n\nYou may try your luck with some other g90/95 compiler, but then  \nyou're really on your own. The problem is that each Fortran compiler  \nhas a set of supporting libraries, specific flags and behavior. The  \nonly reliable way to use such separate f77 and f90/95 compilers is to  \nuse autoconf to determine all necessary flags - you could use  \nmodified parts of R's Fortran detection code to do that. If you  \ndecide to do the latter, I can try to help you there if you send me  \nthe necessary files.\n\nFWIW: What we are discussing here is pretty much platform- \nindependent. You could ignore all this if all you want to is have one- \nshot solution (then just configure R with gfortran and copy the flags  \nto your Makefile), but others wouldn't be able to use your package.\n\nCheers,\nSimon",
+      "body_snippet": "Joel,\n\nOn Jun 23, 2005, at 7:52 PM, Joel Bremson wrote:\n\n> The reason I'm using the Makefile is the code which needs to be  \n> compiled under g95. It appears to me that a build with Makevars  \n> will ",
+      "thread_id": "thread-19dd28029ddf",
+      "thread_depth": 3,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-29e4f00ec26d",
+      "message_id": "<42BB7813.6090000@aecom.yu.edu>",
+      "from_name": "Kenny Ye",
+      "from_email_hash": "d46e2d940f8855f643ffbe12384c1f6a75dc14cf4eee0ab6cb97a30c73aee6df",
+      "date": "2005-06-23T23:03:47-04:00",
+      "subject": "[R-SIG-Mac] compiling R 2.1.1",
+      "subject_clean": "compiling R 2.1.1",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I tried to compile 2.1.1 on Tiger with XcodeTool 2.1. The compiling \nfailed with the following message:\n\nld: Undefined symbols:\nrestFP\nsaveFP\n\nA google search showed that it is a common problem. Any solutions? many \nthanks.\n\nBest Regards,\n\nKenny Ye",
+      "body_snippet": "I tried to compile 2.1.1 on Tiger with XcodeTool 2.1. The compiling \nfailed with the following message:\n\nld: Undefined symbols:\nrestFP\nsaveFP\n\nA google search showed that it is a common problem. Any s",
+      "thread_id": "thread-29e4f00ec26d",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-b1ca0aeadd5f",
+      "message_id": "<55752.192.168.97.37.1119595954.squirrel@homebase.wehi.edu.au>",
+      "from_name": "James Wettenhall",
+      "from_email_hash": "6c9048b7065d6feb8346424527c6f8ea23d265f948d2f9d540f6f233db6b4025",
+      "date": "2005-06-24T16:52:34+10:00",
+      "subject": "[R-SIG-Mac] Just checking - X11 Tcl/Tk is still the default (not Aqua), right?",
+      "subject_clean": "Just checking - X11 Tcl/Tk is still the default (not Aqua), right?",
+      "in_reply_to": "<6C3B0696-6976-41B7-94BE-449002E36EE9@r-project.org>",
+      "references": [
+        "<C2DB76CA-3D4B-435C-9C77-D0C6AE05C65A@r-project.org>",
+        "<4268.144.133.91.34.1119504579.squirrel@homebase.wehi.edu.au>",
+        "<6C3B0696-6976-41B7-94BE-449002E36EE9@r-project.org>"
+      ],
+      "body_plain": "Hi,\n\nThanks Simon and Jan for very useful advice about R-Tcl/Tk in R 2.1.x for\nMacO S X.  I think I can give some pretty clear instructions to Mac users\nwanting to install software for our Bioconductor workshop now.\n\nRegards,\nJames",
+      "body_snippet": "Hi,\n\nThanks Simon and Jan for very useful advice about R-Tcl/Tk in R 2.1.x for\nMacO S X.  I think I can give some pretty clear instructions to Mac users\nwanting to install software for our Bioconducto",
+      "thread_id": "thread-c715933c8f09",
+      "thread_depth": 3,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-97b840f5b027",
+      "message_id": "<42BBC0E6.2090803@fz-rossendorf.de>",
+      "from_name": "joerg van den hoff",
+      "from_email_hash": "856132bf2cce4f826fe8e7eb19e3d1e3ea86cf76307bd11d2a98de80a77607bb",
+      "date": "2005-06-24T10:14:30+02:00",
+      "subject": "[R-SIG-Mac] Re :  R 2.1.1 for optimized for G5+Tiger",
+      "subject_clean": "Re :  R 2.1.1 for optimized for G5+Tiger",
+      "in_reply_to": "<E6EA3B3E-2731-4C71-B3CA-2918B6EA73A3@r-project.org>",
+      "references": [
+        "<42BADFE4.4000505@fz-rossendorf.de>",
+        "<E6EA3B3E-2731-4C71-B3CA-2918B6EA73A3@r-project.org>"
+      ],
+      "body_plain": "Simon Urbanek wrote:\n> Hi J?rg,\n> \n> On Jun 23, 2005, at 12:14 PM, joerg van den hoff wrote:\n> \n>> I tried  a run of 1000 non-linear fits (i.e. all the time is spent  in \n>> \"nls\" and friends).\n>> I found no significant difference in the system.time() output  (2.1.1. \n>> seemed even a bit slower). both took about 22-24 sec. did a  miss \n>> something?\n> \n> \n> I didn't look at the implementation of nls, but If the time is spent  \n> mostly in vecLib or R code, there should be no difference. The  \n> optimization usually gains only a few percent. I suspect that Naji's  \n> speed up is due to the update of R.app, because it's running the  event \n> loop less frequently (there should be posts about that on the  archives) \n> - it used to slow down R. Unfortunately most of the really  fast \n> optimizations don't apply to R, because R uses doubles most of  the time \n> and they cannot be vectorized. Still, C/C++ code should  benefit from \n> the optimization (I wonder why it should run slower,  that's really \n> startling).\n\nhi simon,\n\nif this is of interest: here's (part of) the summaryRprof() output:\n\n$by.self\n                           self.time self.pct total.time total.pct\n\"names\"                        0.80      6.5       0.94       7.6\n\"$\"                            0.60      4.9       0.60       4.9\n\"<Anonymous>\"                  0.38      3.1       5.42      44.0\n\"as.double\"                    0.38      3.1       0.64       5.2\n\"eval\"                         0.36      2.9       2.66      21.6\n\"lapply\"                       0.34      2.8       1.26      10.2\n\"assign\"                       0.30      2.4       1.58      12.8\n\"names<-\"                      0.30      2.4       0.38       3.1\n\"summary.nls\"                  0.28      2.3       1.94      15.7\n\"seq\"                          0.26      2.1       0.72       5.8\n\"seq.default\"                  0.26      2.1       0.46       3.7\n\"nlsModel\"                     0.24      1.9       1.52      12.3\n\"[<-.data.frame\"               0.24      1.9       1.08       8.8\n\"paste\"                        0.24      1.9       0.52       4.2\n\"as.integer\"                   0.24      1.9       0.38       3.1\n\"confidence\"                   0.22      1.8      12.32     100.0\n\".Call\"                        0.20      1.6       4.92      39.9\n\"qr.coef\"                      0.20      1.6       1.32      10.7\n\"qr\"                           0.20      1.6       0.70       5.7\n\"inherits\"                     0.20      1.6       0.30       2.4\n\"==\"                           0.20      1.6       0.20       1.6\n\"model.frame.default\"          0.18      1.5       1.12       9.1\n\"storage.mode<-\"               0.18      1.5       0.94       7.6\n\"array\"                        0.18      1.5       0.66       5.4\n\"as.double.default\"            0.18      1.5       0.18       1.5\n\"as.matrix\"                    0.16      1.3       0.42       3.4\n\"[.data.frame\"                 0.16      1.3       0.34       2.8\n\".Fortran\"                     0.14      1.1       0.14       1.1\n\"names.default\"                0.14      1.1       0.14       1.1\n\nwhich of these are compiled code I don't know in detail, but most of \nthem (except 'confidence', 'nlsModel', summary.nls) probably are \n('names', '$', '.Call', 'qr', '.Fortran' ...).\n\n\"slow down\": well, the difference was insignificant ( ~ 24 vs. 22.5 s, \nwhich lies more ore less within the natural fluctuation for repeated \nruns anyway). so, there seems to be no (positive or negative) effect of \nthe optimization as far as the above situation is  concerned.\n\nregards,\njoerg",
+      "body_snippet": "Simon Urbanek wrote:\n> Hi J?rg,\n> \n> On Jun 23, 2005, at 12:14 PM, joerg van den hoff wrote:\n> \n>> I tried  a run of 1000 non-linear fits (i.e. all the time is spent  in \n>> \"nls\" and friends).\n>> I f",
+      "thread_id": "thread-e3c591aa87e2",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-414fbc3f681e",
+      "message_id": "<6779830A-B5F2-444C-83DB-D67292D4644E@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2005-06-24T11:06:44+02:00",
+      "subject": "[R-SIG-Mac] compiling R 2.1.1",
+      "subject_clean": "compiling R 2.1.1",
+      "in_reply_to": "<42BB7813.6090000@aecom.yu.edu>",
+      "references": [
+        "<42BB7813.6090000@aecom.yu.edu>"
+      ],
+      "body_plain": "It seems to be a compiler mismatch version of gcc and g77.\nPlease read the Mac OS X FAQ as well A Simon Urbanek's TigeR wiki  \npage (just google for it).\nAlso, you should try to read the messages appeared during last month  \non r-sig-mac\n\nstefano\n\nOn 24/giu/05, at 05:03, Kenny Ye wrote:\n\n\n> I tried to compile 2.1.1 on Tiger with XcodeTool 2.1. The compiling\n> failed with the following message:\n>\n> ld: Undefined symbols:\n> restFP\n> saveFP\n>\n> A google search showed that it is a common problem. Any solutions?  \n> many\n> thanks.\n>\n> Best Regards,\n>\n> Kenny Ye\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n>",
+      "body_snippet": "It seems to be a compiler mismatch version of gcc and g77.\nPlease read the Mac OS X FAQ as well A Simon Urbanek's TigeR wiki  \npage (just google for it).\nAlso, you should try to read the messages appe",
+      "thread_id": "thread-29e4f00ec26d",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-eb3cdf6634ad",
+      "message_id": "<42BC1A40.2030103@aecom.yu.edu>",
+      "from_name": "Kenny Ye",
+      "from_email_hash": "d46e2d940f8855f643ffbe12384c1f6a75dc14cf4eee0ab6cb97a30c73aee6df",
+      "date": "2005-06-24T10:35:44-04:00",
+      "subject": "[R-SIG-Mac] compiling R 2.1.1",
+      "subject_clean": "compiling R 2.1.1",
+      "in_reply_to": "<6779830A-B5F2-444C-83DB-D67292D4644E@mclink.it>",
+      "references": [
+        "<42BB7813.6090000@aecom.yu.edu>",
+        "<6779830A-B5F2-444C-83DB-D67292D4644E@mclink.it>"
+      ],
+      "body_plain": "Stefano, thanks. I had success in compiling 2.1.1 following Simon's wiki \npage.\n\nHowever, tcltk refuse to load and gives the following message\n\n > library(tcltk)\nLoading Tcl/Tk interface ... Error in fun(...) : this isn't a Tk \napplicationcouldn't connect to display \":0\"\nError: .onLoad failed in 'loadNamespace' for 'tcltk'\nError: package/namespace load failed for 'tcltk'\n\nany thoughts?\n\nKenny\n\n\nstefano iacus wrote:\n\n> It seems to be a compiler mismatch version of gcc and g77.\n> Please read the Mac OS X FAQ as well A Simon Urbanek's TigeR wiki  \n> page (just google for it).\n> Also, you should try to read the messages appeared during last month  \n> on r-sig-mac\n>\n> stefano\n>\n> On 24/giu/05, at 05:03, Kenny Ye wrote:\n>\n>\n>> I tried to compile 2.1.1 on Tiger with XcodeTool 2.1. The compiling\n>> failed with the following message:\n>>\n>> ld: Undefined symbols:\n>> restFP\n>> saveFP\n>>\n>> A google search showed that it is a common problem. Any solutions?  many\n>> thanks.\n>>\n>> Best Regards,\n>>\n>> Kenny Ye\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>>\n>\n>",
+      "body_snippet": "Stefano, thanks. I had success in compiling 2.1.1 following Simon's wiki \npage.\n\nHowever, tcltk refuse to load and gives the following message\n\n > library(tcltk)\nLoading Tcl/Tk interface ... Error in ",
+      "thread_id": "thread-29e4f00ec26d",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-032436e1d665",
+      "message_id": "<D2A73AFE-AA7B-4C2F-AA18-E26A5B5362E0@imperial.ac.uk>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2005-06-24T16:39:15+01:00",
+      "subject": "[R-SIG-Mac] cannot read demo() window",
+      "subject_clean": "cannot read demo() window",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi All,\n\nI have changed the default colours to have a black background and  \nlight text, but when I type\n\ndemo()\n\nthe window displayed is completely black (black on black) and there  \nis no way I can ready anything. The same happens for\n\nlibrary()\n\nHow can I set the text colour to white for demo()/library()?\n\nCheers,\n\nFederico\n\n--\nFederico C. F. Calboli\nDepartment of Epidemiology and Public Health\nImperial College, St. Mary's Campus\nNorfolk Place, London W2 1PG\n\nTel +44 (0)20 75941602   Fax +44 (0)20 75943193\n\nf.calboli [.a.t] imperial.ac.uk\nf.calboli [.a.t] gmail.com",
+      "body_snippet": "Hi All,\n\nI have changed the default colours to have a black background and  \nlight text, but when I type\n\ndemo()\n\nthe window displayed is completely black (black on black) and there  \nis no way I can ",
+      "thread_id": "thread-032436e1d665",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-7ef0e6103950",
+      "message_id": "<ED1CE48D-5C71-456B-8E79-FE291286517C@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2005-06-25T09:48:25+02:00",
+      "subject": "[R-SIG-Mac] compiling R 2.1.1",
+      "subject_clean": "compiling R 2.1.1",
+      "in_reply_to": "<42BC1A40.2030103@aecom.yu.edu>",
+      "references": [
+        "<42BB7813.6090000@aecom.yu.edu>",
+        "<6779830A-B5F2-444C-83DB-D67292D4644E@mclink.it>",
+        "<42BC1A40.2030103@aecom.yu.edu>"
+      ],
+      "body_plain": "You should run the X11 window server (X11.app) application first.\nIf you've not installed it, you should find it as additional install  \nin Apple's installer of OS X distributions.\nstefano\n\nOn 24/giu/05, at 16:35, Kenny Ye wrote:\n\n>\n> Stefano, thanks. I had success in compiling 2.1.1 following Simon's  \n> wiki page.\n>\n> However, tcltk refuse to load and gives the following message\n>\n> > library(tcltk)\n> Loading Tcl/Tk interface ... Error in fun(...) : this isn't a Tk  \n> applicationcouldn't connect to display \":0\"\n> Error: .onLoad failed in 'loadNamespace' for 'tcltk'\n> Error: package/namespace load failed for 'tcltk'\n>\n> any thoughts?\n>\n> Kenny\n>\n>\n> stefano iacus wrote:\n>\n>\n>> It seems to be a compiler mismatch version of gcc and g77.\n>> Please read the Mac OS X FAQ as well A Simon Urbanek's TigeR wiki   \n>> page (just google for it).\n>> Also, you should try to read the messages appeared during last  \n>> month  on r-sig-mac\n>>\n>> stefano\n>>\n>> On 24/giu/05, at 05:03, Kenny Ye wrote:\n>>\n>>\n>>\n>>> I tried to compile 2.1.1 on Tiger with XcodeTool 2.1. The compiling\n>>> failed with the following message:\n>>>\n>>> ld: Undefined symbols:\n>>> restFP\n>>> saveFP\n>>>\n>>> A google search showed that it is a common problem. Any  \n>>> solutions?  many\n>>> thanks.\n>>>\n>>> Best Regards,\n>>>\n>>> Kenny Ye\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>>\n>>>\n>>>\n>>\n>>\n>>\n>\n>",
+      "body_snippet": "You should run the X11 window server (X11.app) application first.\nIf you've not installed it, you should find it as additional install  \nin Apple's installer of OS X distributions.\nstefano\n\nOn 24/giu/",
+      "thread_id": "thread-29e4f00ec26d",
+      "thread_depth": 3,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-13920acb7ad2",
+      "message_id": "<3161A628-06B8-458A-8324-EE6D33C07B33@kagi.com>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "828012f8d91e7aec02576a685516a3192623cbd0772e74805d42b3a808a25e6c",
+      "date": "2005-06-26T19:32:01+10:00",
+      "subject": "[R-SIG-Mac] R Stop Icon Bug",
+      "subject_clean": "R Stop Icon Bug",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Congratulations on an excellent program. A minor bug, if while  \nexecuting a R source file, I start up the HTML help system and then  \nclose it, the STOP icon in the console window remains dimmed. The  \nonly way of stopping the current execution is to quit R.\n\nI'm running the G5 2.1.1 version under MacOS X 10.4.1 but I'm certain  \nit occurred with previous versions.\n\nKen",
+      "body_snippet": "Congratulations on an excellent program. A minor bug, if while  \nexecuting a R source file, I start up the HTML help system and then  \nclose it, the STOP icon in the console window remains dimmed. The",
+      "thread_id": "thread-13920acb7ad2",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-88a0b657df17",
+      "message_id": "<14D9AC22-DD22-4312-A410-CA10055D4718@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-26T13:36:32-04:00",
+      "subject": "[R-SIG-Mac] R Stop Icon Bug",
+      "subject_clean": "R Stop Icon Bug",
+      "in_reply_to": "<3161A628-06B8-458A-8324-EE6D33C07B33@kagi.com>",
+      "references": [
+        "<3161A628-06B8-458A-8324-EE6D33C07B33@kagi.com>"
+      ],
+      "body_plain": "Ken,\n\nOn Jun 26, 2005, at 5:32 AM, Ken Beath wrote:\n\n> Congratulations on an excellent program. A minor bug, if while\n> executing a R source file, I start up the HTML help system and then\n> close it, the STOP icon in the console window remains dimmed.\n\nThanks for the report.\n\n> The only way of stopping the current execution is to quit R.\n\n From the GUI, yes (in fact, I'm surprised <Esc> doesn't work - I'll  \nlook into that). Instead of quitting R you can still send the INT  \nsignal to R which is equal to pressing \"Stop\", in Terminal type:\nkillall -INT R\n\nCheers,\nSimon",
+      "body_snippet": "Ken,\n\nOn Jun 26, 2005, at 5:32 AM, Ken Beath wrote:\n\n> Congratulations on an excellent program. A minor bug, if while\n> executing a R source file, I start up the HTML help system and then\n> close it, ",
+      "thread_id": "thread-13920acb7ad2",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-68a5452d8c19",
+      "message_id": "<42BFC92E.1030109@fz-rossendorf.de>",
+      "from_name": "joerg van den hoff",
+      "from_email_hash": "856132bf2cce4f826fe8e7eb19e3d1e3ea86cf76307bd11d2a98de80a77607bb",
+      "date": "2005-06-27T11:38:54+02:00",
+      "subject": "[R-SIG-Mac] tcl/tk",
+      "subject_clean": "tcl/tk",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "a probably trivial problem:\n\nR (from the binary distribution) expects tcl8.4 in /usr/lib or \n/usr/local/lib, but it resides in /sw/lib.\n\nadding a corresponding link to /usr/local/lib does not solve the problem \n(further things are again expected in /usr/...).\n\nquestion: have I to compile from source or can this be configured otherwise?\n\nthanks\njoerg",
+      "body_snippet": "a probably trivial problem:\n\nR (from the binary distribution) expects tcl8.4 in /usr/lib or \n/usr/local/lib, but it resides in /sw/lib.\n\nadding a corresponding link to /usr/local/lib does not solve th",
+      "thread_id": "thread-68a5452d8c19",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-454b6d71b3dc",
+      "message_id": "<761B0648-A1E5-44F1-8883-4CB404C71366@mac.com>",
+      "from_name": "Demitri Muna",
+      "from_email_hash": "8fe07689db02ed380aac0cf23ce2a464538daa23b7efb375d11e55a021b11301",
+      "date": "2005-06-27T17:32:34+01:00",
+      "subject": "[R-SIG-Mac] Call R framework from my own Cocoa app?",
+      "subject_clean": "Call R framework from my own Cocoa app?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI recently started using R and have found it quite interesting. One  \nthing that I would like to do is be able to work with it in a more  \ninteractive fashion. I have a huge amount of data to view, and I'm  \nenvisioning some kind of GUI to more easily navigate it.\n\nIs it possible to write a Cocoa application for the gui? I am an  \nexperienced Mac programmer and can write a front end very quickly.  \nThe question I have is how to control the R display from my app. I  \ncan think of two ways to do it:\n\n1 - Send the R commands to (R.app? command line R?) to be displayed  \non an X11 window (or possibly in R.app?).\n\n2 - Is there a reasonably easy way to call the R framework from my  \napp, create a script internally, and display the result it in my own  \nNSView?\n\nI'd *love* to be able to do no. 2. :)\n\nCheers,\n\nDemitri",
+      "body_snippet": "Hello,\n\nI recently started using R and have found it quite interesting. One  \nthing that I would like to do is be able to work with it in a more  \ninteractive fashion. I have a huge amount of data to ",
+      "thread_id": "thread-454b6d71b3dc",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-321dc3b552ae",
+      "message_id": "<1B62B0D4-00C4-4ABC-9A92-247107240047@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-06-27T18:48:48+02:00",
+      "subject": "[R-SIG-Mac] Call R framework from my own Cocoa app?",
+      "subject_clean": "Call R framework from my own Cocoa app?",
+      "in_reply_to": "<761B0648-A1E5-44F1-8883-4CB404C71366@mac.com>",
+      "references": [
+        "<761B0648-A1E5-44F1-8883-4CB404C71366@mac.com>"
+      ],
+      "body_plain": "You should try to have a look at the Mac-GUI code\n\n\nsvn co https://svn.R-project.org/R-packages/trunk/Mac-GUI Mac-GUI\n\nREngine classes is probably what you want to use.\n\nIt would be nice to have you \"on board\" if you want to contribute.\n\nstefano\n\nOn 27/giu/05, at 18:32, Demitri Muna wrote:\n\n\n> Hello,\n>\n> I recently started using R and have found it quite interesting. One\n> thing that I would like to do is be able to work with it in a more\n> interactive fashion. I have a huge amount of data to view, and I'm\n> envisioning some kind of GUI to more easily navigate it.\n>\n> Is it possible to write a Cocoa application for the gui? I am an\n> experienced Mac programmer and can write a front end very quickly.\n> The question I have is how to control the R display from my app. I\n> can think of two ways to do it:\n>\n> 1 - Send the R commands to (R.app? command line R?) to be displayed\n> on an X11 window (or possibly in R.app?).\n>\n> 2 - Is there a reasonably easy way to call the R framework from my\n> app, create a script internally, and display the result it in my own\n> NSView?\n>\n> I'd *love* to be able to do no. 2. :)\n>\n> Cheers,\n>\n> Demitri\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "You should try to have a look at the Mac-GUI code\n\n\nsvn co https://svn.R-project.org/R-packages/trunk/Mac-GUI Mac-GUI\n\nREngine classes is probably what you want to use.\n\nIt would be nice to have you \"",
+      "thread_id": "thread-454b6d71b3dc",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-0aa7890c6521",
+      "message_id": "<E57AFBD5-9E69-4E29-AE7E-C58BEC4B6140@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-27T13:12:38-04:00",
+      "subject": "[R-SIG-Mac] Call R framework from my own Cocoa app?",
+      "subject_clean": "Call R framework from my own Cocoa app?",
+      "in_reply_to": "<761B0648-A1E5-44F1-8883-4CB404C71366@mac.com>",
+      "references": [
+        "<761B0648-A1E5-44F1-8883-4CB404C71366@mac.com>"
+      ],
+      "body_plain": "Hi Demitri,\n\nOn Jun 27, 2005, at 12:32 PM, Demitri Muna wrote:\n\n> Is it possible to write a Cocoa application for the gui?\n\nYes=write Cocoa application for R, no=write Cocoa application for GUI  \n(although it's not quite clear what you mean by that).\n\nIt is possible to write any GUI in Cocoa for the R framework. The  \ncurrent R.app GUI shows how to do it. You may want to 'borrow' the  \nREngine Obj-C classes from R.app - they are meant to be application  \nindependent and in long term should go into the framework.\n\nBut we have currently no API to interact with the GUI. You can, of  \ncourse, look at the R.app sources and use the classes we provide, but  \nthey are not guaranteed to stay as-is (in fact we have some plans for  \nmajor re-structuring). You can also enhance the GUI for your purposes  \nusing the sources as they are licensed under GPL. We can always use  \nexperienced Cocoa programmers - they are rather rare so far ;).\n\nNow, in some detail:\n\n> 1 - Send the R commands to (R.app? command line R?) to be displayed  \n> on an X11 window (or possibly in R.app?).\n\nYou could use AppleScript for R.app to achieve this very easily.\n\n> 2 - Is there a reasonably easy way to call the R framework from my  \n> app, create a script internally, and display the result it in my  \n> own NSView?\n\nWhat do you mean by \"result\"? Text? R graphics? As of text, REngine  \ngives you full control over the console, so you're free to use  \nwhatever you want. As of R graphics, that's more tricky, because you  \nwill have you write a R device or use the Quartz devices as R.app  \ndoes - look in the R.app sources for details, in principle you could  \nuse any NSView for that.\n\nCheers,\nSimon",
+      "body_snippet": "Hi Demitri,\n\nOn Jun 27, 2005, at 12:32 PM, Demitri Muna wrote:\n\n> Is it possible to write a Cocoa application for the gui?\n\nYes=write Cocoa application for R, no=write Cocoa application for GUI  \n(alt",
+      "thread_id": "thread-454b6d71b3dc",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-88df07618865",
+      "message_id": "<8ED140B0-E3D7-41DF-AA37-2B77744A7486@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-27T19:32:55-04:00",
+      "subject": "[R-SIG-Mac] tcl/tk",
+      "subject_clean": "tcl/tk",
+      "in_reply_to": "<42BFC92E.1030109@fz-rossendorf.de>",
+      "references": [
+        "<42BFC92E.1030109@fz-rossendorf.de>"
+      ],
+      "body_plain": "J?rg,\n\nOn Jun 27, 2005, at 5:38 AM, joerg van den hoff wrote:\n\n> a probably trivial problem:\n>\n> R (from the binary distribution) expects tcl8.4 in /usr/lib or /usr/ \n> local/lib, but it resides in /sw/lib.\n\nThe corresponding tcltk libraries for /usr/local are included in the  \nMac R CRAN distribution, so all you have to do is to enable it during  \ninstallation. If you don't want to bother you can also install it  \nseparately - it's tcltk.pkg in the Packages folder.\n\nIf you want to use a different version you may need to recompile R.\n\nCheers,\nSimon",
+      "body_snippet": "J?rg,\n\nOn Jun 27, 2005, at 5:38 AM, joerg van den hoff wrote:\n\n> a probably trivial problem:\n>\n> R (from the binary distribution) expects tcl8.4 in /usr/lib or /usr/ \n> local/lib, but it resides in /s",
+      "thread_id": "thread-68a5452d8c19",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-891b5496fa2d",
+      "message_id": "<03B427D8-4AC4-4A3B-9536-E13552E3FF04@mac.com>",
+      "from_name": "Demitri Muna",
+      "from_email_hash": "8fe07689db02ed380aac0cf23ce2a464538daa23b7efb375d11e55a021b11301",
+      "date": "2005-06-28T14:29:58+01:00",
+      "subject": "[R-SIG-Mac] Call R framework from my own Cocoa app?",
+      "subject_clean": "Call R framework from my own Cocoa app?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Thanks to both Stefano and Simon for your quick replies! I've been  \nporing through the code, and have found it very interesting.\n\nOn 27 Jun 2005, at 18:12, Simon Urbanek wrote:\n\n> Yes=write Cocoa application for R, no=write Cocoa application for  \n> GUI (although it's not quite clear what you mean by that).\n\nBasically, I was optimistically hoping to be able to write a Cocoa  \napp that would construct small R scripts, pass them to a black box,  \nand get the image back. I'm not trying to reinvent (your) wheel, just  \nhide all the details from the user.\n\nI was not really expecting to interact with the existing gui,  \nalthough the AppleScript suggestion is very interesting. With a Cocoa  \napp generating the scripts based on user input, this may pretty much  \nsolve what I'd like to do. Not as self-contained as initially  \nenvisioned, but probably easier. :)\n\nI've already had a stab at it, and have a bare bones Cocoa app  \nsending scripts to R via AppleScript and generating plots. It's  \nworking quite well (although debugging the AppleScripts is not as  \nclean as I'd like!). The biggest problem I've come across is speed. I  \nhave 10,000 data points I'd like to plot, so in the AppleScript I do  \nsomething like this:\n\ny = c(0, 1, 2, ...., 9999) # not a sequence, but real data\n\nI can't read the data from a file since I'm getting it live from a  \nremote web site. It takes about 0.5-0.9s to read the data from the  \nserver, and 2-5 seconds to execute the AppleScript (on a 450MHz G4 -  \nhey, I love my Cube!). It's taking a fair bit longer (up to 10-12  \nseconds) beyond this to see the plot. My guess is that it is taking a  \nwhile to print all 10,000 values in the R document window, which it  \ndoes before plotting. Can anyone suggest a improvement here? While  \nthis is bad, I actually need to plot 18,000 points (18 of these arrays).\n\n> We can always use experienced Cocoa programmers - they are rather  \n> rare so far ;).\n\nAh.. but the opportunities. :) Unfortunately, I don't have a lot of  \ntime to spend on another project (so many unfinished ones...plus grad  \nschool...). However, I would be curious to see how difficult it would  \nbe to make the R framework standalone. An app could link against it,  \ntalk to R directly, and maybe even use something like Aquaterm (or  \nyour custom view) to produce the plots. I think R.app is great as it  \nis for interactive use, but it would be interesting to see the input  \ncompletely wrapped by Cocoa for custom uses.\n\nI spent a few minutes trying to add REngine to my app, but the  \ndependencies grew pretty quickly. :)\n\nThanks again for your help!\n\nCheers,\n\nDemitri",
+      "body_snippet": "Thanks to both Stefano and Simon for your quick replies! I've been  \nporing through the code, and have found it very interesting.\n\nOn 27 Jun 2005, at 18:12, Simon Urbanek wrote:\n\n> Yes=write Cocoa app",
+      "thread_id": "thread-891b5496fa2d",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-51100a924bb4",
+      "message_id": "<1DC963B1-EA26-4E76-84CC-4B68CFD04DC3@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-28T10:40:49-04:00",
+      "subject": "[R-SIG-Mac] Call R framework from my own Cocoa app?",
+      "subject_clean": "Call R framework from my own Cocoa app?",
+      "in_reply_to": "<03B427D8-4AC4-4A3B-9536-E13552E3FF04@mac.com>",
+      "references": [
+        "<03B427D8-4AC4-4A3B-9536-E13552E3FF04@mac.com>"
+      ],
+      "body_plain": "Hi Demitri,\n\nOn Jun 28, 2005, at 9:29 AM, Demitri Muna wrote:\n\n> Basically, I was optimistically hoping to be able to write a Cocoa   \n> app that would construct small R scripts, pass them to a black  \n> box,  and get the image back.\n\nyou can do that fairly easily just using REngine. I have put together  \na tiny sample project, you can download it from\nhttp://research.att.com/~urbanek/REngineTest.dmg\n\n> clean as I'd like!). The biggest problem I've come across is speed. I\n> have 10,000 data points I'd like to plot, so in the AppleScript I do\n> something like this:\n>\n> y = c(0, 1, 2, ...., 9999) # not a sequence, but real data\n\nThis is no issue if you use REngine, from the above example (silly,  \nbut should illustrate the point):\n\n         double a[10] = { 0.5, 1.3, 4.3, 5.3, 2.6, 1.7, 3.5, 3.3,  \n2.5, 1.6 };\n\n         RSEXP *ax = [[RSEXP alloc] initWithDoubleArray:a length:10];\n         [re assignTo:@\"a\" value:ax];\n\nThis assigns the array directly into R as variable \"a\", it doesn't  \nneed to be converted to string or anything like that.\n\n         RSEXP *r = [re evaluateString:@\"as.double(c(mean(a), var \n(a)))\"];\n         double *dr = [r doubleArray];\n\n         [textView insertText:[NSString stringWithFormat:@\"mean=%f,  \nvariance=%f\\n\", dr[0], dr[1]]];\n\nThis will just get and print some results.\n\nREngine supports both - simple evaluation (as illustrated above) and  \nfull REPL. For the latter look and the <REPLHandler> protocol - if  \nyou implementa that, you get the full control over the console and  \ncallbacks.\n\n>> We can always use experienced Cocoa programmers - they are rather\n>> rare so far ;).\n>>\n>\n> Ah.. but the opportunities. :) Unfortunately, I don't have a lot of  \n> time to spend on another project (so many unfinished ones...plus  \n> grad school...). However, I would be curious to see how difficult  \n> it would be to make the R framework standalone.\n\nIt *is* stand-alone and any application can links against it. You can  \nuse all C-level API that R offers and this is what all R packages do.\n\nOnly the Obj-C wrapper (REngine) is currently not part of the  \nframework for several reasons ranging from Obj-C support in R in  \ngeneral to the fact that the Obj-C API is far from complete.\n\n> I spent a few minutes trying to add REngine to my app, but the   \n> dependencies grew pretty quickly. :)\n\nAll you need now is R installed as framework in /Library/Frameworks.  \nThe demo app above includes REngine that is independent of the R.app.  \nQuartz won't work with that, though - you'd have to get the Quartz  \nclasses from R.app (but it's possible).\n\nCheers,\nSimon",
+      "body_snippet": "Hi Demitri,\n\nOn Jun 28, 2005, at 9:29 AM, Demitri Muna wrote:\n\n> Basically, I was optimistically hoping to be able to write a Cocoa   \n> app that would construct small R scripts, pass them to a black ",
+      "thread_id": "thread-891b5496fa2d",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-7226e81c11dd",
+      "message_id": "<DEA2686A-9233-4EA4-BC51-5580E56EBA3E@mac.com>",
+      "from_name": "Demitri Muna",
+      "from_email_hash": "8fe07689db02ed380aac0cf23ce2a464538daa23b7efb375d11e55a021b11301",
+      "date": "2005-06-28T19:14:56+01:00",
+      "subject": "[R-SIG-Mac] Call R framework from my own Cocoa app?",
+      "subject_clean": "Call R framework from my own Cocoa app?",
+      "in_reply_to": "<1DC963B1-EA26-4E76-84CC-4B68CFD04DC3@r-project.org>",
+      "references": [
+        "<03B427D8-4AC4-4A3B-9536-E13552E3FF04@mac.com>",
+        "<1DC963B1-EA26-4E76-84CC-4B68CFD04DC3@r-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\n\nOn 28 Jun 2005, at 15:40, Simon Urbanek wrote:\n\n> you can do that fairly easily just using REngine. I have put  \n> together a tiny sample project, you can download it from\n> http://research.att.com/~urbanek/REngineTest.dmg\n\nThat is absolutely brilliant - it's exactly what I was hoping to do.  \nThanks for the sample app; it worked perfectly and it's very  \nillustrative. With that I can experiment with the rest of the API.\n\nNow, the final step for me is to display a plot.\n\n> All you need now is R installed as framework in /Library/ \n> Frameworks. The demo app above includes REngine that is independent  \n> of the R.app. Quartz won't work with that, though - you'd have to  \n> get the Quartz classes from R.app (but it's possible).\n\nI copied the following classes into the REngineTest you gave me:  \ndevQuartz.h/c, RQuartz.h/m, QuartzDevice.h/m, RDeviceView.h/m,  \nRGUI.h, Preferences.h/m, PreferenceKeys.h, and RQuartz.nib. With a  \nfew minor changes (mainly commenting out \"#import \"../RController.h\"  \nlines), it compiled successfully.\n\nThese seemed to be the minimum number of classes needed to include  \nRQuartz, RDeviceView, and QuartzDevice. RQuartz.nib looks like the  \ngraphic window containing the custom NSView. I then tried to find  \nwhere an RQuartz is instantiated (either directly or via  \nloadNibNamed:@\"RQuartz\"), but I was not able to find it. I'm guessing  \nthat it's in QuartzDevice, innerQuartzDevice:, but I'm not sure where  \n*that* is called from (or at least, how a plot command triggers it).  \nI copied newQuartzDevice: from RController, but there was no result.  \nWhat am I missing to be able to connect the R engine in my app to the  \nQuartz view?\n\nIt then struck me that I could just as easily use X11 displays, and  \nthat worked the first time I tried it. the only problem - the display  \ndoes not refresh on a resize. I noted that X11 displays do refresh  \nwhen called from R.app - what is the callback that will let me know  \nwhen to redraw the window? Do you buffer it or actually resubmit the  \nplot command(s)?\n\nThank you very much for all your help. I'm really pleased with the  \nresults!\n\nCheers,\n\nDemitri",
+      "body_snippet": "Hi Simon,\n\n\nOn 28 Jun 2005, at 15:40, Simon Urbanek wrote:\n\n> you can do that fairly easily just using REngine. I have put  \n> together a tiny sample project, you can download it from\n> http://researc",
+      "thread_id": "thread-891b5496fa2d",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-3c446f3be814",
+      "message_id": "<23DA3AD5-6848-4585-9216-33B4C9CAE838@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2005-06-28T22:11:38+02:00",
+      "subject": "[R-SIG-Mac] Call R framework from my own Cocoa app?",
+      "subject_clean": "Call R framework from my own Cocoa app?",
+      "in_reply_to": "<DEA2686A-9233-4EA4-BC51-5580E56EBA3E@mac.com>",
+      "references": [
+        "<03B427D8-4AC4-4A3B-9536-E13552E3FF04@mac.com>",
+        "<1DC963B1-EA26-4E76-84CC-4B68CFD04DC3@r-project.org>",
+        "<DEA2686A-9233-4EA4-BC51-5580E56EBA3E@mac.com>"
+      ],
+      "body_plain": "On 28/giu/05, at 20:14, Demitri Muna wrote:\n\n> Hi Simon,\n>\n>\n> On 28 Jun 2005, at 15:40, Simon Urbanek wrote:\n>\n>\n>> you can do that fairly easily just using REngine. I have put\n>> together a tiny sample project, you can download it from\n>> http://research.att.com/~urbanek/REngineTest.dmg\n>>\n>\n> That is absolutely brilliant - it's exactly what I was hoping to do.\n> Thanks for the sample app; it worked perfectly and it's very\n> illustrative. With that I can experiment with the rest of the API.\n>\n> Now, the final step for me is to display a plot.\n>\n>\n>> All you need now is R installed as framework in /Library/\n>> Frameworks. The demo app above includes REngine that is independent\n>> of the R.app. Quartz won't work with that, though - you'd have to\n>> get the Quartz classes from R.app (but it's possible).\n>>\n>\n> I copied the following classes into the REngineTest you gave me:\n> devQuartz.h/c, RQuartz.h/m, QuartzDevice.h/m, RDeviceView.h/m,\n> RGUI.h, Preferences.h/m, PreferenceKeys.h, and RQuartz.nib. With a\n> few minor changes (mainly commenting out \"#import \"../RController.h\"\n> lines), it compiled successfully.\n>\n> These seemed to be the minimum number of classes needed to include\n> RQuartz, RDeviceView, and QuartzDevice. RQuartz.nib looks like the\n> graphic window containing the custom NSView. I then tried to find\n> where an RQuartz is instantiated (either directly or via\n> loadNibNamed:@\"RQuartz\"), but I was not able to find it. I'm guessing\n> that it's in QuartzDevice, innerQuartzDevice:, but I'm not sure where\n> *that* is called from (or at least, how a plot command triggers it).\n\nthese are called by R when you try to open the quartz device. The  \ncode is inside src/library/grDevices/src/devQuartz.c  in the main R  \nsources.\nyou just need to provide the callbacks and then ask R to open the  \nquartz device as any other device, i.e. using R commands (i.e. quartz \n() instead of x11() that you tried)\n\n\n> I copied newQuartzDevice: from RController, but there was no result.\n> What am I missing to be able to connect the R engine in my app to the\n> Quartz view?\n>\n> It then struck me that I could just as easily use X11 displays, and\n> that worked the first time I tried it. the only problem - the display\n> does not refresh on a resize. I noted that X11 displays do refresh\n> when called from R.app - what is the callback that will let me know\n> when to redraw the window?\n\n\nif you look at Rcontroller.m (in R.app sources)\n\nyou need to fire a timer to check for X11 activity. The relevant code is\n\ntimer = [NSTimer scheduledTimerWithTimeInterval:0.05\n                                              target:self\n                                            selector:@selector \n(otherEventLoops:)\n                                            userInfo:0\n                                             repeats:YES];\n\n\n- (IBAction)otherEventLoops:(id)sender {\n     R_runHandlers(R_InputHandlers, R_checkActivity(0, 1));\n}\n\n\n\n\n> Do you buffer it or actually resubmit the\n> plot command(s)?\nno, R (interactive) devices now how to re-plot their content upon  \nresize etc,\n\nbtw, don't rely too much on the current structure of the quartz  \ndevice or at least check from time to time R.app sources. We have  \nplanned to do major changes to the quartz device to allow for more  \ninteractivity\n\n\nstefano\n\n>\n> Thank you very much for all your help. I'm really pleased with the\n> results!\n>\n> Cheers,\n>\n> Demitri\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "On 28/giu/05, at 20:14, Demitri Muna wrote:\n\n> Hi Simon,\n>\n>\n> On 28 Jun 2005, at 15:40, Simon Urbanek wrote:\n>\n>\n>> you can do that fairly easily just using REngine. I have put\n>> together a tiny sam",
+      "thread_id": "thread-891b5496fa2d",
+      "thread_depth": 3,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-15af2ff2b781",
+      "message_id": "<3EA39941-0B43-4267-A33D-BFA924485357@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-28T16:15:49-04:00",
+      "subject": "[R-SIG-Mac] Call R framework from my own Cocoa app?",
+      "subject_clean": "Call R framework from my own Cocoa app?",
+      "in_reply_to": "<DEA2686A-9233-4EA4-BC51-5580E56EBA3E@mac.com>",
+      "references": [
+        "<03B427D8-4AC4-4A3B-9536-E13552E3FF04@mac.com>",
+        "<1DC963B1-EA26-4E76-84CC-4B68CFD04DC3@r-project.org>",
+        "<DEA2686A-9233-4EA4-BC51-5580E56EBA3E@mac.com>"
+      ],
+      "body_plain": "Hi Demitri,\n\nOn Jun 28, 2005, at 2:14 PM, Demitri Muna wrote:\n\n> These seemed to be the minimum number of classes needed to include  \n> RQuartz, RDeviceView, and QuartzDevice. RQuartz.nib looks like the  \n> graphic window containing the custom NSView. I then tried to find  \n> where an RQuartz is instantiated (either directly or via  \n> loadNibNamed:@\"RQuartz\"), but I was not able to find it.\n\nIn REngine/RCallbacks.m in the REngineTest sources at the bottom of  \nthe file there are two dummy callbacks for innerQuartzDevice and  \ngetQuartzParameters - please remove them both, they should come from  \nthe Quartz classes you copied. I put them there so that the test  \nworks even without Quartz.\n\nR.app is a document-based application, and if you look in the  \nQuartzDevice.m sources you will see:\n         newDocument = [[NSDocumentController sharedDocumentController]\n                                                  \nopenUntitledDocumentOfType:@\"pdf\" display:NO];\nSo you have either to change that to explicit window creation or  \nchange the application to be document-based and add a document class  \nfor the type \"pdf\".\n\n> It then struck me that I could just as easily use X11 displays, and  \n> that worked the first time I tried it. the only problem - the  \n> display does not refresh on a resize.\n\nThis is the case because you're not running the R event loop. In  \norder to run the event loop you must implement the <REPLHandler>  \nprotocol, especially handleProcessEvents for handling CF events and  \nthen use runREPL method of REngine to start R's event loop (see  \nRController in the R.app, but that file is historically a big mess,  \nso you want to pick and choose).\n\nCheers,\nSimon",
+      "body_snippet": "Hi Demitri,\n\nOn Jun 28, 2005, at 2:14 PM, Demitri Muna wrote:\n\n> These seemed to be the minimum number of classes needed to include  \n> RQuartz, RDeviceView, and QuartzDevice. RQuartz.nib looks like t",
+      "thread_id": "thread-891b5496fa2d",
+      "thread_depth": 3,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-0ef8ee608f36",
+      "message_id": "<42C2CD44.3090906@fz-rossendorf.de>",
+      "from_name": "joerg van den hoff",
+      "from_email_hash": "856132bf2cce4f826fe8e7eb19e3d1e3ea86cf76307bd11d2a98de80a77607bb",
+      "date": "2005-06-29T18:33:08+02:00",
+      "subject": "[R-SIG-Mac] install of nls.lm failed",
+      "subject_clean": "install of nls.lm failed",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "hi everybody,\n\ntrying to install nls.lm  under R.2.1.0 and Tiger I got:\n\n======================cut============================\n* Installing *source* package 'minpack.lm' ...\n** libs\ng77   -fno-common  -g -O2 -c chkder.f -o chkder.o\ng77   -fno-common  -g -O2 -c dogleg.f -o dogleg.o\ng77   -fno-common  -g -O2 -c dpmpar.f -o dpmpar.o\ng77   -fno-common  -g -O2 -c enorm.f -o enorm.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c fcn_lmder.c -o fcn_lmder.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c fcn_lmdif.c -o fcn_lmdif.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c fcn_message.c -o fcn_message.o\ng77   -fno-common  -g -O2 -c fdjac2.f -o fdjac2.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c get_element.c -o get_element.o\ng77   -fno-common  -g -O2 -c lmder.f -o lmder.o\ng77   -fno-common  -g -O2 -c lmdif.f -o lmdif.o\ng77   -fno-common  -g -O2 -c lmpar.f -o lmpar.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c nls_lm.c -o nls_lm.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c prod.c -o prod.o\ng77   -fno-common  -g -O2 -c qform.f -o qform.o\ng77   -fno-common  -g -O2 -c qrfac.f -o qrfac.o\ng77   -fno-common  -g -O2 -c qrsolv.f -o qrsolv.o\ng77   -fno-common  -g -O2 -c r1mpyq.f -o r1mpyq.o\ng77   -fno-common  -g -O2 -c r1updt.f -o r1updt.o\ng77   -fno-common  -g -O2 -c rwupdt.f -o rwupdt.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c transpose.c -o transpose.o\ngcc-3.3 -no-cpp-precomp \n-I/Library/Frameworks/R.framework/Resources/include \n-I/usr/local/include   -fno-common  -g -O2 -c vector.c -o vector.o\ngcc-3.3 -bundle -flat_namespace -undefined suppress -L/usr/local/lib -o \nminpack.lm.so chkder.o dogleg.o dpmpar.o enorm.o fcn_lmder.o fcn_lmdif.o \nfcn_message.o fdjac2.o get_element.o lmder.o lmdif.o lmpar.o nls_lm.o \nprod.o qform.o qrfac.o qrsolv.o r1mpyq.o r1updt.o rwupdt.o transpose.o \nvector.o -framework vecLib \n-L/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2 -lg2c -lSystem \n-framework R\nld: warning -L: directory name \n(/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2) does not exist\nld: can't locate file for: -lg2c\nmake: *** [minpack.lm.so] Error 1\nERROR: compilation failed for package 'minpack.lm'\n======================cut============================\nindeed, (/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2) does not \nexist (rather, there only is a /usr/lib/gcc/powerpc-apple-darwin6.8/4.0.0).\n\nsince the library path seems to be set by R CMD INSTALL, not by the \npackage content itself (no Makefile ...), I would be grateful if someone \ncould help me out: is the lib-path somehow  hardcoded in the binary \n(.dmg) of R?\n\n\nregards,\n\njoerg",
+      "body_snippet": "hi everybody,\n\ntrying to install nls.lm  under R.2.1.0 and Tiger I got:\n\n======================cut============================\n* Installing *source* package 'minpack.lm' ...\n** libs\ng77   -fno-common ",
+      "thread_id": "thread-0ef8ee608f36",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-646cabcc7499",
+      "message_id": "<65FA4416-38F9-4C54-9A97-EBEB85EE4DE4@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-29T12:47:24-04:00",
+      "subject": "[R-SIG-Mac] install of nls.lm failed",
+      "subject_clean": "install of nls.lm failed",
+      "in_reply_to": "<42C2CD44.3090906@fz-rossendorf.de>",
+      "references": [
+        "<42C2CD44.3090906@fz-rossendorf.de>"
+      ],
+      "body_plain": "On Jun 29, 2005, at 12:33 PM, joerg van den hoff wrote:\n\n> hi everybody,\n>\n> trying to install nls.lm  under R.2.1.0 and Tiger I got:\n\nYou didn't tell us what Fortran compiler you are using, but my wild  \nguess is that you use the one from fink. If that turns out to be true  \nand you insist on using that one, you'll need to compile your own R  \n(or you can try to patch the paths in various places or specify  \nadditional flags for the package to find your libg2c ...). The CRAN  \nbinary requires g77 3.4.2 in /usr/local which you don't have.\n\nCheers,\nSimon",
+      "body_snippet": "On Jun 29, 2005, at 12:33 PM, joerg van den hoff wrote:\n\n> hi everybody,\n>\n> trying to install nls.lm  under R.2.1.0 and Tiger I got:\n\nYou didn't tell us what Fortran compiler you are using, but my wi",
+      "thread_id": "thread-0ef8ee608f36",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-2c40ac117104",
+      "message_id": "<1253d67a050629133874c5e736@mail.gmail.com>",
+      "from_name": "Joel Bremson",
+      "from_email_hash": "4802145a3e2bf37ffad8ba4eeb5630d5113aaf0e51e5869ed246aedc2ed50605",
+      "date": "2005-06-29T13:38:02-07:00",
+      "subject": "[R-SIG-Mac] Fwd: gcc4 R binary?",
+      "subject_clean": "gcc4 R binary?",
+      "in_reply_to": "<1253d67a050629133498c7e8a@mail.gmail.com>",
+      "references": [
+        "<1253d67a050629133498c7e8a@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050629/881975a2/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050629/881975a2/attachment.pl",
+      "thread_id": "thread-2c40ac117104",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-40110ddf3d8b",
+      "message_id": "<F949C883-D84A-4919-B273-7A1C97960F5F@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-29T16:52:18-04:00",
+      "subject": "[R-SIG-Mac] Fwd: gcc4 R binary?",
+      "subject_clean": "gcc4 R binary?",
+      "in_reply_to": "<1253d67a050629133874c5e736@mail.gmail.com>",
+      "references": [
+        "<1253d67a050629133498c7e8a@mail.gmail.com>",
+        "<1253d67a050629133874c5e736@mail.gmail.com>"
+      ],
+      "body_plain": "Joel,\n\nOn Jun 29, 2005, at 4:38 PM, Joel Bremson wrote:\n\n> I'm looking for for the gcc-4.0 compiled binary for OSX.\n\nWhat exactly are referring to? If by \"the [...] binary\" you mean CRAN  \nbinary then there is no such thing, because gcc4 (mostly the fortran  \npart of it) is still very experimental and instable to produce an  \nofficial binary. Also note that it is reported that binaries compiled  \nby gfortran tend to be slower than those complied using g77, so we  \nstick with gcc3 for now as there are no immediate benefits (except  \nmaybe for building 64-bit version, but that is surely not useful for  \nthe mainstream until all parts of OS X are 64-bit).\n\nThere are some 3rd-party gcc4 binaries around and you'll find them if  \nyou look into the recent archives of this list.\n\nCheers,\nSimon",
+      "body_snippet": "Joel,\n\nOn Jun 29, 2005, at 4:38 PM, Joel Bremson wrote:\n\n> I'm looking for for the gcc-4.0 compiled binary for OSX.\n\nWhat exactly are referring to? If by \"the [...] binary\" you mean CRAN  \nbinary then",
+      "thread_id": "thread-2c40ac117104",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-479fee98b29d",
+      "message_id": "<Pine.LNX.4.61.0506300201550.28369@turmalin.kubism.ku.dk>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "18dbece5c6ff5020a97849e579fa1aeaa306a7c0c9fcd2db1e704fd3bc0ae661",
+      "date": "2005-06-30T02:08:30+02:00",
+      "subject": "[R-SIG-Mac] R problem (fwd)",
+      "subject_clean": "R problem (fwd)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi All\n\nA collaborater has problems loading the grDevices package in the \nbasic dmg install of R (Tiger).\n\nTo be precise: he has problems loading the grDevices packages when he \nstarts R on the commandline (in a terminal window), but _not_ when he \nstarts the GUI (!). He has manually installed some graphics libraries (see \nbelow). At first I thought \"ok, messing up the graphics libraries of \ncourse breaks something\", but then I noticed that everything works in \nthe R gui (R.app) loads perfectly. Any ideas on how to make the terminal \nversion of R work?\n\nThe error message from R when I try to load grDevices (it seems that it \nhas a probelm with some jpeg stuff - which I also find kind of odd since \ncapabilities(jpeg) is FALSE)\n\n> library(grDevices)\nError in dyn.load(x, as.logical(local), as.logical(now)) :\n        unable to load shared library\n'/Library/Frameworks/R.framework/Resources/library/grDevices/libs/grDevices.\nso':\n  \ndlopen(/Library/Frameworks/R.framework/Resources/library/grDevices/libs/grDe\nvices.so, 6): Symbol not found: __cg_jpeg_resync_to_restart\n  Referenced from: \n/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Framewor\nks/ImageIO.framework/Versions/A/ImageIO\n  Expected in: /usr/local/lib/libJPEG.dylib\nError: package/namespace load failed for 'grDevices'\n\nAnd this is a list of the installed libraries:\n\n\nMight come from previous instalation of the GDlib library which required\ninstallatio of \n\nzlib\nhttp://www.gzip.org/zlib/\nlibpng\nhttp://www.libpng.org/pub/png/libpng.html\nlibjpeg\nftp://ftp.uu.net/graphics/jpeg/jpegsrc.v6b.tar.gz\nfreetype2\nhttp://freetype.sourceforge.net/download.html\nGD\nhttp://www.boutell.com/gd/\n\nA description of the flag used can be found at\nhttp://www.paginar.net/matias/articles/gd_x_howto.html",
+      "body_snippet": "Hi All\n\nA collaborater has problems loading the grDevices package in the \nbasic dmg install of R (Tiger).\n\nTo be precise: he has problems loading the grDevices packages when he \nstarts R on the comman",
+      "thread_id": "thread-479fee98b29d",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-cf6714b0e12b",
+      "message_id": "<33A64506-0660-4604-AA72-430461FB3E9D@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-06-30T09:20:19+02:00",
+      "subject": "[R-SIG-Mac] Fwd: [Rd] Does not run under Mac OS X 10.3.9 (PR#7975)",
+      "subject_clean": "Does not run under Mac OS X 10.3.9 (PR#7975)",
+      "in_reply_to": null,
+      "references": [
+        "<5b7603e6f609d860e82101853729b9f1@macnews.de>"
+      ],
+      "body_plain": "Begin forwarded message:\n\n\n> From: Matthias Wahl <matthias.wahl at macnews.de>\n> Date: 28 giugno 2005 18:05:54 GMT+02:00\n> To: stefano iacus <jago at mclink.it>\n> Subject: Re: [Rd] Does not run under Mac OS X 10.3.9 (PR#7975)\n>\n>\n> I don' have a folder 'Utilities' in applications, however here is  \n> what I get when I chose\n> 'send error report to Apple'. Maybe that helps you, too.\n>\n> Date/Time:      2005-06-28 18:03:45 +0200\n> OS Version:     10.3.9 (Build 7W98)\n> Report Version: 2\n>\n> Command: R\n> Path:    /Applications/R.app/Contents/MacOS/R\n> Version: 1.11 (1.11)\n> PID:     374\n> Thread:  0\n>\n> Exception:  EXC_BAD_ACCESS (0x0001)\n> Codes:      KERN_INVALID_ADDRESS (0x0001) at 0x80000006\n>\n> Thread 0 Crashed:\n> 0   com.apple.CoreFoundation     0x901c0f74 CFRetain + 0x20\n> 1   com.apple.CoreFoundation     0x901dcc74 CFArrayCreate + 0x144\n> 2   com.apple.Foundation         0x90a6c5e4 -[NSArray  \n> initWithObjects:] + 0xbc\n> 3   org.R-project.R              0x000032e4 -[RController init] +  \n> 0x174\n> 4   com.apple.AppKit             0x92f6bca8 -[NSCustomObject  \n> nibInstantiate] + 0x10c\n> 5   com.apple.AppKit             0x92e9ae54 -[NSIBObjectData  \n> instantiateObject:] + 0xbc\n> 6   com.apple.AppKit             0x92ea1e80 -[NSIBObjectData  \n> nibInstantiateWithOwner:topLevelObjects:] + 0x88\n> 7   com.apple.AppKit             0x92f93c2c loadNib + 0xfc\n> 8   com.apple.AppKit             0x92eeae24 +[NSBundle \n> (NSNibLoading) _loadNibFile:nameTable:withZone:ownerBundle:] + 0x2e8\n> 9   com.apple.AppKit             0x92f69d28 +[NSBundle \n> (NSNibLoading) loadNibFile:externalNameTable:withZone:] + 0x9c\n> 10  com.apple.AppKit             0x92f7b51c +[NSBundle \n> (NSNibLoading) loadNibNamed:owner:] + 0x174\n> 11  com.apple.AppKit             0x92f69b90 NSApplicationMain + 0x174\n> 12  org.R-project.R              0x00002ba0 _start + 0x188 (crt.c:267)\n> 13  dyld                         0x8fe1a278 _dyld_start + 0x64\n>\n> PPC Thread State:\n>   srr0: 0x901c0f74 srr1: 0x0200f030                vrsave: 0x00000000\n>     cr: 0x22000448  xer: 0x00000002   lr: 0x901c0f6c  ctr: 0x901c5acc\n>     r0: 0x901dcc74   r1: 0xbffff5f0   r2: 0x22000448   r3: 0x80000000\n>     r4: 0x80000000   r5: 0xbffff584   r6: 0x0003a348   r7: 0x0003a348\n>     r8: 0x0003a348   r9: 0x00000008  r10: 0xffffffff  r11: 0xa0a21114\n>    r12: 0x901c5acc  r13: 0x00000000  r14: 0x00000000  r15: 0x00000000\n>    r16: 0x00311f50  r17: 0xa2eaab3c  r18: 0xa2e9ab3c  r19: 0xa2eaab3c\n>    r20: 0xa2eaab3c  r21: 0x0003bf18  r22: 0x00000000  r23: 0x00000009\n>    r24: 0xbffff720  r25: 0xbffff724  r26: 0x003a14c0  r27: 0xa01c2e94\n>    r28: 0x00000009  r29: 0x003a1490  r30: 0x003a14bc  r31: 0x901c0f6c\n>\n> Binary Images Description:\n>     0x1000 -    0x38fff org.R-project.R 1.11    /Applications/R.app/ \n> Contents/MacOS/R\n>   0x205000 -   0x226fff libreadline.5.0.dylib     /Library/ \n> Frameworks/R.framework/Resources/lib/libreadline.5.0.dylib\n>  0x1008000 -  0x1195fff libR.dylib     /Library/Frameworks/ \n> R.framework/Resources/lib/libR.dylib\n> 0x806c0000 - 0x806e9fff libxslt.1.dylib     /usr/lib/libxslt.1.dylib\n> 0x80830000 - 0x8090efff libxml2.2.dylib     /usr/lib/libxml2.2.dylib\n> 0x8ed60000 - 0x8ed62fff com.apple.ExceptionHandling 1.2 (???)    / \n> System/Library/Frameworks/ExceptionHandling.framework/Versions/A/ \n> ExceptionHandling\n> 0x8fe00000 - 0x8fe4ffff dyld     /usr/lib/dyld\n> 0x90000000 - 0x9014ffff libSystem.B.dylib     /usr/lib/ \n> libSystem.B.dylib\n> 0x901c0000 - 0x9026dfff com.apple.CoreFoundation 6.3.7 (299.35)    / \n> System/Library/Frameworks/CoreFoundation.framework/Versions/A/ \n> CoreFoundation\n> 0x902b0000 - 0x90529fff com.apple.CoreServices.CarbonCore  \n> 10.3.7    /System/Library/Frameworks/CoreServices.framework/ \n> Versions/A/Frameworks/CarbonCore.framework/Versions/A/CarbonCore\n> 0x90584000 - 0x905f3fff com.apple.framework.IOKit 1.3.6 (???)    / \n> System/Library/Frameworks/IOKit.framework/Versions/A/IOKit\n> 0x90610000 - 0x9069afff com.apple.CoreServices.OSServices 3.0.1    / \n> System/Library/Frameworks/CoreServices.framework/Versions/A/ \n> Frameworks/OSServices.framework/Versions/A/OSServices\n> 0x90700000 - 0x90700fff com.apple.CoreServices 10.3 (???)    / \n> System/Library/Frameworks/CoreServices.framework/Versions/A/ \n> CoreServices\n> 0x907c7000 - 0x907d2fff libCSync.A.dylib     /System/Library/ \n> Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ \n> CoreGraphics.framework/Versions/A/Resources/libCSync.A.dylib\n> 0x907f0000 - 0x907f9fff com.apple.DiskArbitration 2.0.5    /System/ \n> Library/PrivateFrameworks/DiskArbitration.framework/Versions/A/ \n> DiskArbitration\n> 0x90810000 - 0x90810fff com.apple.ApplicationServices 1.0 (???)    / \n> System/Library/Frameworks/ApplicationServices.framework/Versions/A/ \n> ApplicationServices\n> 0x90830000 - 0x9089ffff libobjc.A.dylib     /usr/lib/libobjc.A.dylib\n> 0x90940000 - 0x909b3fff com.apple.DesktopServices 1.2.5    /System/ \n> Library/PrivateFrameworks/DesktopServicesPriv.framework/Versions/A/ \n> DesktopServicesPriv\n> 0x90a20000 - 0x90b7bfff com.apple.Foundation 6.3.7 (500.59)    / \n> System/Library/Frameworks/Foundation.framework/Versions/C/Foundation\n> 0x90d20000 - 0x90d3bfff com.apple.SystemConfiguration 1.7.1  \n> (???)    /System/Library/Frameworks/SystemConfiguration.framework/ \n> Versions/A/SystemConfiguration\n> 0x90ec0000 - 0x90ec0fff com.apple.Cocoa 6.3 (???)    /System/ \n> Library/Frameworks/Cocoa.framework/Versions/A/Cocoa\n> 0x910b0000 - 0x91101fff com.apple.bom 1.2.5 (63.2)    /System/ \n> Library/PrivateFrameworks/Bom.framework/Versions/A/Bom\n> 0x913a0000 - 0x9145ffff ColorSync     /System/Library/Frameworks/ \n> ApplicationServices.framework/Versions/A/Frameworks/ \n> ColorSync.framework/Versions/A/ColorSync\n> 0x914ad000 - 0x914c1fff libCGATS.A.dylib     /System/Library/ \n> Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ \n> CoreGraphics.framework/Versions/A/Resources/libCGATS.A.dylib\n> 0x914e0000 - 0x91549fff com.apple.htmlrendering 1.1.2    /System/ \n> Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> HTMLRendering.framework/Versions/A/HTMLRendering\n> 0x915e0000 - 0x91699fff com.apple.QD 3.4.67 (???)    /System/ \n> Library/Frameworks/ApplicationServices.framework/Versions/A/ \n> Frameworks/QD.framework/Versions/A/QD\n> 0x91720000 - 0x917b3fff com.apple.print.framework.PrintCore 3.3    / \n> System/Library/Frameworks/ApplicationServices.framework/Versions/A/ \n> Frameworks/PrintCore.framework/Versions/A/PrintCore\n> 0x91820000 - 0x91830fff com.apple.speech.recognition.framework  \n> 3.3    /System/Library/Frameworks/Carbon.framework/Versions/A/ \n> Frameworks/SpeechRecognition.framework/Versions/A/SpeechRecognition\n> 0x91850000 - 0x9186afff com.apple.openscripting 1.2.1 (???)    / \n> System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> OpenScripting.framework/Versions/A/OpenScripting\n> 0x91890000 - 0x918a0fff com.apple.ImageCapture 2.1.5    /System/ \n> Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> ImageCapture.framework/Versions/A/ImageCapture\n> 0x918d0000 - 0x918dcfff com.apple.help 1.0.1    /System/Library/ \n> Frameworks/Carbon.framework/Versions/A/Frameworks/Help.framework/ \n> Versions/A/Help\n> 0x91900000 - 0x9190dfff com.apple.CommonPanels 1.2.1 (1.0)    / \n> System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> CommonPanels.framework/Versions/A/CommonPanels\n> 0x91930000 - 0x9197efff com.apple.print.framework.Print 3.3    / \n> System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> Print.framework/Versions/A/Print\n> 0x919a7000 - 0x919c1fff libresolv.9.dylib     /usr/lib/libresolv. \n> 9.dylib\n> 0x919d0000 - 0x919dbfff com.apple.securityhi 1.2 (90)    /System/ \n> Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> SecurityHI.framework/Versions/A/SecurityHI\n> 0x919e3000 - 0x91a1bfff com.apple.AE 1.4    /System/Library/ \n> Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ \n> AE.framework/Versions/A/AE\n> 0x91a40000 - 0x91ab3fff com.apple.NavigationServices 3.3.3    / \n> System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> NavigationServices.framework/Versions/A/NavigationServices\n> 0x91b10000 - 0x91b2afff libPDFRIP.A.dylib     /System/Library/ \n> Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ \n> CoreGraphics.framework/Versions/A/Resources/libPDFRIP.A.dylib\n> 0x91b50000 - 0x91b5ffff libPSRIP.A.dylib     /System/Library/ \n> Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ \n> CoreGraphics.framework/Versions/A/Resources/libPSRIP.A.dylib\n> 0x91f0d000 - 0x91f0dfff com.apple.Carbon 10.3 (???)    /System/ \n> Library/Frameworks/Carbon.framework/Versions/A/Carbon\n> 0x92056000 - 0x9206dfff com.apple.LangAnalysis 1.5.4    /System/ \n> Library/Frameworks/ApplicationServices.framework/Versions/A/ \n> Frameworks/LangAnalysis.framework/Versions/A/LangAnalysis\n> 0x920f0000 - 0x92116fff com.apple.FindByContent 1.4 (1.2)    / \n> System/Library/Frameworks/ApplicationServices.framework/Versions/A/ \n> Frameworks/FindByContent.framework/Versions/A/FindByContent\n> 0x92140000 - 0x92327fff com.apple.security 2.4 (177)    /System/ \n> Library/Frameworks/Security.framework/Versions/A/Security\n> 0x924b0000 - 0x924e8fff com.apple.LaunchServices 10.3.5 (98.4)    / \n> System/Library/Frameworks/ApplicationServices.framework/Versions/A/ \n> Frameworks/LaunchServices.framework/Versions/A/LaunchServices\n> 0x927b6000 - 0x927d3fff com.apple.audio.SoundManager 3.9    /System/ \n> Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> CarbonSound.framework/Versions/A/CarbonSound\n> 0x927f0000 - 0x92827fff com.apple.CFNetwork 1.2.1 (7)    /System/ \n> Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/ \n> CFNetwork.framework/Versions/A/CFNetwork\n> 0x92880000 - 0x92c05fff com.apple.HIToolbox 1.3.6 (???)    /System/ \n> Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> HIToolbox.framework/Versions/A/HIToolbox\n> 0x92e70000 - 0x9336ffff com.apple.AppKit 6.3.8 (743.39)    /System/ \n> Library/Frameworks/AppKit.framework/Versions/C/AppKit\n> 0x9398f000 - 0x939fcfff libvDSP.dylib     /System/Library/ \n> Frameworks/Accelerate.framework/Versions/A/Frameworks/ \n> vecLib.framework/Versions/A/libvDSP.dylib\n> 0x93a20000 - 0x93a34fff libcups.2.dylib     /usr/lib/libcups.2.dylib\n> 0x93a50000 - 0x93a54fff libmathCommon.A.dylib     /usr/lib/system/ \n> libmathCommon.A.dylib\n> 0x940f0000 - 0x94108fff com.apple.WebServices 1.1.1 (1.1.0)    / \n> System/Library/Frameworks/CoreServices.framework/Versions/A/ \n> Frameworks/WebServicesCore.framework/Versions/A/WebServicesCore\n> 0x941b0000 - 0x941dbfff libncurses.5.dylib     /usr/lib/libncurses. \n> 5.dylib\n> 0x944c0000 - 0x94556fff com.apple.WebKit 312.1    /System/Library/ \n> Frameworks/WebKit.framework/Versions/A/WebKit\n> 0x94640000 - 0x94649fff libz.1.dylib     /usr/lib/libz.1.dylib\n> 0x9464c000 - 0x9469cfff com.apple.HIServices 1.4.1 (0.0.1d1)    / \n> System/Library/Frameworks/ApplicationServices.framework/Versions/A/ \n> Frameworks/HIServices.framework/Versions/A/HIServices\n> 0x946e0000 - 0x9473ffff com.apple.SearchKit 1.0.2    /System/ \n> Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/ \n> SearchKit.framework/Versions/A/SearchKit\n> 0x9477d000 - 0x94790fff com.apple.speech.synthesis.framework  \n> 3.2    /System/Library/Frameworks/ApplicationServices.framework/ \n> Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/ \n> SpeechSynthesis\n> 0x94800000 - 0x9488cfff com.apple.ink.framework 101.1.4 (55.12)    / \n> System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ \n> Ink.framework/Versions/A/Ink\n> 0x948fa000 - 0x94961fff com.apple.audio.CoreAudio 2.1.3    /System/ \n> Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio\n> 0x949ba000 - 0x949cdfff libRIP.A.dylib     /System/Library/ \n> Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ \n> CoreGraphics.framework/Versions/A/Resources/libRIP.A.dylib\n> 0x94ea0000 - 0x954a6fff libBLAS.dylib     /System/Library/ \n> Frameworks/Accelerate.framework/Versions/A/Frameworks/ \n> vecLib.framework/Versions/A/libBLAS.dylib\n> 0x95500000 - 0x957d0fff libLAPACK.dylib     /System/Library/ \n> Frameworks/Accelerate.framework/Versions/A/Frameworks/ \n> vecLib.framework/Versions/A/libLAPACK.dylib\n> 0x958e0000 - 0x95900fff libvMisc.dylib     /System/Library/ \n> Frameworks/Accelerate.framework/Versions/A/Frameworks/ \n> vecLib.framework/Versions/A/libvMisc.dylib\n> 0x95b50000 - 0x95c32fff libicucore.A.dylib     /usr/lib/ \n> libicucore.A.dylib\n> 0x95ca0000 - 0x95d62fff libcrypto.0.9.7.dylib     /usr/lib/ \n> libcrypto.0.9.7.dylib\n> 0x95dc0000 - 0x95deefff libssl.0.9.7.dylib     /usr/lib/libssl. \n> 0.9.7.dylib\n> 0x95dfe000 - 0x95eb6fff com.apple.audio.toolbox.AudioToolbox  \n> 1.3.3    /System/Library/Frameworks/AudioToolbox.framework/Versions/ \n> A/AudioToolbox\n> 0x95f30000 - 0x9601efff libiconv.2.dylib     /usr/lib/libiconv.2.dylib\n> 0x961b0000 - 0x96292fff com.apple.JavaScriptCore 312    /System/ \n> Library/Frameworks/WebKit.framework/Versions/A/Frameworks/ \n> JavaScriptCore.framework/Versions/A/JavaScriptCore\n> 0x962e6000 - 0x965befff com.apple.CoreGraphics 1.203.30 (???)    / \n> System/Library/Frameworks/ApplicationServices.framework/Versions/A/ \n> Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics\n> 0x96b50000 - 0x96bdffff ATS     /System/Library/Frameworks/ \n> ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/ \n> Versions/A/ATS\n> 0x96e80000 - 0x96e90fff com.apple.vecLib 3.0.3 (vecLib 3.0.3)    / \n> System/Library/Frameworks/vecLib.framework/Versions/A/vecLib\n> 0x970f0000 - 0x970f8fff libbsm.dylib     /usr/lib/libbsm.dylib\n> 0x973e0000 - 0x976c6fff com.apple.WebCore 315    /System/Library/ \n> Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/ \n> Versions/A/WebCore\n> 0x9798b000 - 0x9798bfff com.apple.audio.units.AudioUnit 1.3.3    / \n> System/Library/Frameworks/AudioUnit.framework/Versions/A/AudioUnit\n>\n>\n>\n>\n> Am 28.06.2005 um 16:53 schrieb stefano iacus:\n>\n>\n>\n>> You should give us more feedback if you want us to be of any help  \n>> to you.\n>> Could you please send us the crash report of R? (See Console.app  \n>> in /Applications/Utilities )\n>> stefano\n>>\n>> On 28/giu/05, at 06:23, matthias.wahl at macnews.de wrote:\n>>\n>>\n>>\n>>> Full_Name: Matthias Wahl\n>>> Version: 2.0.1 and 2.1.0a\n>>> OS: Mac OS X 10.3.9\n>>> Submission from: (NULL) (84.159.39.159)\n>>>\n>>>\n>>> Version 2.1.0a does get installed, R is available under  \n>>> applications,\n>>> however when trying to start R I get an error message that R is  \n>>> terminated\n>>> due to an error and that's it. Re-installing didn't help at all.\n>>>\n>>> Then I tried Version 2.0.1. and there I don't even get an icon to  \n>>> start R.\n>>>\n>>> ______________________________________________\n>>> R-devel at r-project.org mailing list\n>>> https://stat.ethz.ch/mailman/listinfo/r-devel\n>>>\n>>>\n>>>\n>>>\n>>\n>>\n>>\n>\n>\n>\n>",
+      "body_snippet": "Begin forwarded message:\n\n\n> From: Matthias Wahl <matthias.wahl at macnews.de>\n> Date: 28 giugno 2005 18:05:54 GMT+02:00\n> To: stefano iacus <jago at mclink.it>\n> Subject: Re: [Rd] Does not run under ",
+      "thread_id": "thread-cf6714b0e12b",
+      "thread_depth": 0,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-b2bd927da9ab",
+      "message_id": "<42C3BA59.20705@fz-rossendorf.de>",
+      "from_name": "joerg van den hoff",
+      "from_email_hash": "856132bf2cce4f826fe8e7eb19e3d1e3ea86cf76307bd11d2a98de80a77607bb",
+      "date": "2005-06-30T11:24:41+02:00",
+      "subject": "[R-SIG-Mac] install of nls.lm failed",
+      "subject_clean": "install of nls.lm failed",
+      "in_reply_to": "<65FA4416-38F9-4C54-9A97-EBEB85EE4DE4@r-project.org>",
+      "references": [
+        "<42C2CD44.3090906@fz-rossendorf.de>",
+        "<65FA4416-38F9-4C54-9A97-EBEB85EE4DE4@r-project.org>"
+      ],
+      "body_plain": "Simon Urbanek wrote:\n> On Jun 29, 2005, at 12:33 PM, joerg van den hoff wrote:\n> \n>> hi everybody,\n>>\n>> trying to install nls.lm  under R.2.1.0 and Tiger I got:\n> \n> \n> You didn't tell us what Fortran compiler you are using, but my wild  \n> guess is that you use the one from fink. If that turns out to be true  \n> and you insist on using that one, you'll need to compile your own R  (or \n\nsimon,\nthanks for your response.\nyour \"wild guess\" is correct and, well, I insist on nothing like that, \nbut it's simply the only g77 which materialized/was required at some \npoint of installing packages via fink.\n\n> you can try to patch the paths in various places or specify  additional \n> flags for the package to find your libg2c ...).\n\nafter some false starts: the only thing which seems necessary is:\n\n- mkdir /usr/local/lib/gcc/powerpc-apple-darwin6.8\n- ln -s /sw/lib 3.4.2\n\nafter this the package installed and seems(...) to run without problems.\n\n> The CRAN  binary \n> requires g77 3.4.2 in /usr/local which you don't have.\n\nand since g77 seems not to be installed as part of the DevTools, this \nwould mean to recompile/reinstall gcc from scratch? would it not be a \nbetter idea to use environment variables instead of hardcoding the path \ninto the binary which seems, after all, not to be a standard setup? or \nam I wrong (apart from the \"given infinite time, one could do \neverything\" problem)?\n> \n> Cheers,\n> Simon\n> \n> \nregards,\njoerg",
+      "body_snippet": "Simon Urbanek wrote:\n> On Jun 29, 2005, at 12:33 PM, joerg van den hoff wrote:\n> \n>> hi everybody,\n>>\n>> trying to install nls.lm  under R.2.1.0 and Tiger I got:\n> \n> \n> You didn't tell us what Fortra",
+      "thread_id": "thread-0ef8ee608f36",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-0b358bb2515d",
+      "message_id": "<70EBA1CA-EF6B-48E8-AFEB-4273564A7CD4@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-30T12:26:54-04:00",
+      "subject": "[R-SIG-Mac] install of nls.lm failed",
+      "subject_clean": "install of nls.lm failed",
+      "in_reply_to": "<42C3BA59.20705@fz-rossendorf.de>",
+      "references": [
+        "<42C2CD44.3090906@fz-rossendorf.de>",
+        "<65FA4416-38F9-4C54-9A97-EBEB85EE4DE4@r-project.org>",
+        "<42C3BA59.20705@fz-rossendorf.de>"
+      ],
+      "body_plain": "On Jun 30, 2005, at 5:24 AM, joerg van den hoff wrote:\n\n> and since g77 seems not to be installed as part of the DevTools,  \n> this would mean to recompile/reinstall gcc from scratch?\n\nNot necessarily - see the R for Mac FAQ - there are several places  \nwhere you can get just the g77 compiler.\n\n> would it not be a better idea to use environment variables instead  \n> of hardcoding the path into the binary which seems, after all, not  \n> to be a standard setup? or am I wrong (apart from the \"given  \n> infinite time, one could do everything\" problem)?\n\nBy design R on unix platforms determines compiler settings at  \nconfigure/build time (and for a good reason). If you use a binary,  \nyou have to make sure all parts of the system (including compilers)  \nare exactly same as at build time. It's not just the paths - it is  \nnot guaranteed that the fink compiler uses the same includes and  \nlibraries (in fact it often doesn't), so all other flags have to be  \nset accordingly as well. Users reported several problems with the  \nfink g77 so the only 'clean' solution is to re-compile R, because  \nthat is the only guarantee that all flags are determined correctly.\n\nCheers,\nSimon",
+      "body_snippet": "On Jun 30, 2005, at 5:24 AM, joerg van den hoff wrote:\n\n> and since g77 seems not to be installed as part of the DevTools,  \n> this would mean to recompile/reinstall gcc from scratch?\n\nNot necessarily",
+      "thread_id": "thread-0ef8ee608f36",
+      "thread_depth": 3,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-1577a924122f",
+      "message_id": "<13E7FFA3-FE24-4105-B1CA-309BFF1EF951@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-06-30T12:35:00-04:00",
+      "subject": "[R-SIG-Mac] R problem (fwd)",
+      "subject_clean": "R problem (fwd)",
+      "in_reply_to": "<Pine.LNX.4.61.0506300201550.28369@turmalin.kubism.ku.dk>",
+      "references": [
+        "<Pine.LNX.4.61.0506300201550.28369@turmalin.kubism.ku.dk>"
+      ],
+      "body_plain": "On Jun 29, 2005, at 8:08 PM, Kasper Daniel Hansen wrote:\n\n> The error message from R when I try to load grDevices (it seems  \n> that it has a probelm with some jpeg stuff - which I also find kind  \n> of odd since capabilities(jpeg) is FALSE)\n\nBy default R before 2.1.1 added /usr/local/lib to DYLD_LIBRARY_PATH  \nwhich overrides the search sequence for dynamic libraries.\n\nYou will have to remove /usr/local/lib/libjpeg.dylib because it  \nconflicts with system's ImageIO framework - it should be a just a  \nsymlink anyway so it shouldn't affect other applications. (see http:// \nwiki.urbanek.info/index.cgi?TigeR for details) This is fixed in R 2.1.1.\n\nCheers,\nSimon",
+      "body_snippet": "On Jun 29, 2005, at 8:08 PM, Kasper Daniel Hansen wrote:\n\n> The error message from R when I try to load grDevices (it seems  \n> that it has a probelm with some jpeg stuff - which I also find kind  \n> ",
+      "thread_id": "thread-479fee98b29d",
+      "thread_depth": 1,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-7092209e45f0",
+      "message_id": "<BEE97C92.35C7%mblanche@uclink.berkeley.edu>",
+      "from_name": "Marco Blanchette",
+      "from_email_hash": "c0ca884bef4605bf03a7566d9bf90f3a38d042dbcaa0841191e420dfa24b844b",
+      "date": "2005-06-30T10:40:18-07:00",
+      "subject": "[R-SIG-Mac] R problem",
+      "subject_clean": "R problem",
+      "in_reply_to": "<13E7FFA3-FE24-4105-B1CA-309BFF1EF951@r-project.org>",
+      "references": [],
+      "body_plain": "Many tx guys... Removed the conflicting  libXXX.dylib symlink in\n/usr/local/bin and everything is back to normal.\n\n\nOn 6/30/05 9:35 AM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n\n> wiki.urbanek.info/index.cgi?TigeR for details\n\n\nMarco Blanchette, Ph.D.\n\nmblanche at uclink.berkeley.edu\n\nDonald C. Rio's lab\nDepartment of Molecular and Cell Biology\n16 Barker Hall\nUniversity of California\nBerkeley, CA 94720-3204\n\nTel: (510) 642-1084\nCell: (510) 847-0996\nFax: (510) 642-6062",
+      "body_snippet": "Many tx guys... Removed the conflicting  libXXX.dylib symlink in\n/usr/local/bin and everything is back to normal.\n\n\nOn 6/30/05 9:35 AM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n\n> wiki.",
+      "thread_id": "thread-479fee98b29d",
+      "thread_depth": 2,
+      "month": "2005-06"
+    },
+    {
+      "id": "msg-aa65b55b4810",
+      "message_id": "<Pine.LNX.4.61.0506302014150.7629@turmalin.kubism.ku.dk>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "18dbece5c6ff5020a97849e579fa1aeaa306a7c0c9fcd2db1e704fd3bc0ae661",
+      "date": "2005-06-30T20:15:27+02:00",
+      "subject": "[R-SIG-Mac] R problem (fwd)",
+      "subject_clean": "R problem (fwd)",
+      "in_reply_to": "<13E7FFA3-FE24-4105-B1CA-309BFF1EF951@r-project.org>",
+      "references": [
+        "<Pine.LNX.4.61.0506300201550.28369@turmalin.kubism.ku.dk>",
+        "<13E7FFA3-FE24-4105-B1CA-309BFF1EF951@r-project.org>"
+      ],
+      "body_plain": "Yeah, thanks. Speaking of R-2.1.1 - is it normal that you do not provide \nnew binaries for a new version? Or is it because the patched version was \nso recent anyway?\n\nKasper\n\nOn Thu, 30 Jun 2005, Simon Urbanek wrote:\n\n> On Jun 29, 2005, at 8:08 PM, Kasper Daniel Hansen wrote:\n> \n> > The error message from R when I try to load grDevices (it seems that it\n> > has a probelm with some jpeg stuff - which I also find kind of odd since\n> > capabilities(jpeg) is FALSE)\n> \n> By default R before 2.1.1 added /usr/local/lib to DYLD_LIBRARY_PATH which\n> overrides the search sequence for dynamic libraries.\n> \n> You will have to remove /usr/local/lib/libjpeg.dylib because it conflicts with\n> system's ImageIO framework - it should be a just a symlink anyway so it\n> shouldn't affect other applications. (see http://\n> wiki.urbanek.info/index.cgi?TigeR for details) This is fixed in R 2.1.1.\n> \n> Cheers,\n> Simon\n> \n>",
+      "body_snippet": "Yeah, thanks. Speaking of R-2.1.1 - is it normal that you do not provide \nnew binaries for a new version? Or is it because the patched version was \nso recent anyway?\n\nKasper\n\nOn Thu, 30 Jun 2005, Simo",
+      "thread_id": "thread-479fee98b29d",
+      "thread_depth": 2,
+      "month": "2005-06"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-9d0ec44589d6",
+      "subject": "R Package compilation problem with Fortran",
+      "message_count": 3,
+      "participants": [
+        "Brian Beckage",
+        "Simon Urbanek"
+      ],
+      "started": "2005-06-10T10:43:30-04:00",
+      "last_reply": "2005-06-10T13:35:35-04:00",
+      "root_message_id": "msg-9d0ec44589d6"
+    },
+    {
+      "id": "thread-08002f07e851",
+      "subject": "R Package compilation problem with Fortran",
+      "message_count": 1,
+      "participants": [
+        "Don MacQueen"
+      ],
+      "started": "2005-06-10T11:11:05-07:00",
+      "last_reply": "2005-06-10T11:11:05-07:00",
+      "root_message_id": "msg-08002f07e851"
+    },
+    {
+      "id": "thread-005fb0bd709d",
+      "subject": "emacs/ess problems",
+      "message_count": 3,
+      "participants": [
+        "Don MacQueen",
+        "Federico Calboli",
+        "Simon Urbanek"
+      ],
+      "started": "2005-06-13T19:19:37+01:00",
+      "last_reply": "2005-06-13T15:02:54-04:00",
+      "root_message_id": "msg-005fb0bd709d"
+    },
+    {
+      "id": "thread-28d3dc690c87",
+      "subject": "gfortran binary for Xcode 2.1",
+      "message_count": 9,
+      "participants": [
+        "Naji",
+        "Simon Urbanek"
+      ],
+      "started": "2005-06-15T09:37:52-04:00",
+      "last_reply": "2005-06-22T15:12:16+02:00",
+      "root_message_id": "msg-28d3dc690c87"
+    },
+    {
+      "id": "thread-95953ef44c69",
+      "subject": "2.1.0a for Macs (PR#7952)",
+      "message_count": 1,
+      "participants": [
+        "Rob J Goedman"
+      ],
+      "started": "2005-06-16T15:03:41-07:00",
+      "last_reply": "2005-06-16T15:03:41-07:00",
+      "root_message_id": "msg-95953ef44c69"
+    },
+    {
+      "id": "thread-eb10538fe5ec",
+      "subject": "Differences x86/Mac",
+      "message_count": 1,
+      "participants": [
+        "Ken Beath"
+      ],
+      "started": "2005-06-16T15:09:06+10:00",
+      "last_reply": "2005-06-16T15:09:06+10:00",
+      "root_message_id": "msg-eb10538fe5ec"
+    },
+    {
+      "id": "thread-647dc72d2a9b",
+      "subject": "64bit Tiger performance vs 32 bit Wintel vs 32 bit Linux",
+      "message_count": 3,
+      "participants": [
+        "Shea, Ed",
+        "Simon Urbanek"
+      ],
+      "started": "2005-06-17T15:16:35-04:00",
+      "last_reply": "2005-06-18T15:39:18-04:00",
+      "root_message_id": "msg-647dc72d2a9b"
+    },
+    {
+      "id": "thread-c715933c8f09",
+      "subject": "R 2.1.1 for optimized for G5+Tiger",
+      "message_count": 7,
+      "participants": [
+        "James Wettenhall",
+        "Naji",
+        "Simon Urbanek",
+        "Thomas Adams"
+      ],
+      "started": "2005-06-22T14:08:40-04:00",
+      "last_reply": "2005-06-24T16:52:34+10:00",
+      "root_message_id": "msg-c715933c8f09"
+    },
+    {
+      "id": "thread-8cf1a34fa28a",
+      "subject": "load history does not work on OS X",
+      "message_count": 1,
+      "participants": [
+        "Steven T. Stoddard"
+      ],
+      "started": "2005-06-22T16:14:07-05:00",
+      "last_reply": "2005-06-22T16:14:07-05:00",
+      "root_message_id": "msg-8cf1a34fa28a"
+    },
+    {
+      "id": "thread-19dd28029ddf",
+      "subject": "os x / g95 package namespace load problem",
+      "message_count": 5,
+      "participants": [
+        "Jan de Leeuw",
+        "Joel Bremson",
+        "Simon Urbanek"
+      ],
+      "started": "2005-06-23T12:39:44-07:00",
+      "last_reply": "2005-06-23T20:28:30-04:00",
+      "root_message_id": "msg-19dd28029ddf"
+    },
+    {
+      "id": "thread-b77e10d5e89e",
+      "subject": "R with Aqua Tcl/Tk",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2005-06-23T14:42:58-07:00",
+      "last_reply": "2005-06-23T14:42:58-07:00",
+      "root_message_id": "msg-b77e10d5e89e"
+    },
+    {
+      "id": "thread-92aedcdbc247",
+      "subject": "compiling gap on mac os x",
+      "message_count": 1,
+      "participants": [
+        "Kenny Ye"
+      ],
+      "started": "2005-06-23T15:19:24-04:00",
+      "last_reply": "2005-06-23T15:19:24-04:00",
+      "root_message_id": "msg-92aedcdbc247"
+    },
+    {
+      "id": "thread-e3c591aa87e2",
+      "subject": "Re :  R 2.1.1 for optimized for G5+Tiger",
+      "message_count": 3,
+      "participants": [
+        "Simon Urbanek",
+        "joerg van den hoff"
+      ],
+      "started": "2005-06-23T18:14:28+02:00",
+      "last_reply": "2005-06-24T10:14:30+02:00",
+      "root_message_id": "msg-e3c591aa87e2"
+    },
+    {
+      "id": "thread-29e4f00ec26d",
+      "subject": "compiling R 2.1.1",
+      "message_count": 4,
+      "participants": [
+        "Kenny Ye",
+        "stefano iacus"
+      ],
+      "started": "2005-06-23T23:03:47-04:00",
+      "last_reply": "2005-06-25T09:48:25+02:00",
+      "root_message_id": "msg-29e4f00ec26d"
+    },
+    {
+      "id": "thread-032436e1d665",
+      "subject": "cannot read demo() window",
+      "message_count": 1,
+      "participants": [
+        "Federico Calboli"
+      ],
+      "started": "2005-06-24T16:39:15+01:00",
+      "last_reply": "2005-06-24T16:39:15+01:00",
+      "root_message_id": "msg-032436e1d665"
+    },
+    {
+      "id": "thread-13920acb7ad2",
+      "subject": "R Stop Icon Bug",
+      "message_count": 2,
+      "participants": [
+        "Ken Beath",
+        "Simon Urbanek"
+      ],
+      "started": "2005-06-26T19:32:01+10:00",
+      "last_reply": "2005-06-26T13:36:32-04:00",
+      "root_message_id": "msg-13920acb7ad2"
+    },
+    {
+      "id": "thread-68a5452d8c19",
+      "subject": "tcl/tk",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "joerg van den hoff"
+      ],
+      "started": "2005-06-27T11:38:54+02:00",
+      "last_reply": "2005-06-27T19:32:55-04:00",
+      "root_message_id": "msg-68a5452d8c19"
+    },
+    {
+      "id": "thread-454b6d71b3dc",
+      "subject": "Call R framework from my own Cocoa app?",
+      "message_count": 3,
+      "participants": [
+        "Demitri Muna",
+        "Simon Urbanek",
+        "stefano iacus"
+      ],
+      "started": "2005-06-27T17:32:34+01:00",
+      "last_reply": "2005-06-27T13:12:38-04:00",
+      "root_message_id": "msg-454b6d71b3dc"
+    },
+    {
+      "id": "thread-891b5496fa2d",
+      "subject": "Call R framework from my own Cocoa app?",
+      "message_count": 5,
+      "participants": [
+        "Demitri Muna",
+        "Simon Urbanek",
+        "stefano iacus"
+      ],
+      "started": "2005-06-28T14:29:58+01:00",
+      "last_reply": "2005-06-28T16:15:49-04:00",
+      "root_message_id": "msg-891b5496fa2d"
+    },
+    {
+      "id": "thread-2c40ac117104",
+      "subject": "gcc4 R binary?",
+      "message_count": 2,
+      "participants": [
+        "Joel Bremson",
+        "Simon Urbanek"
+      ],
+      "started": "2005-06-29T13:38:02-07:00",
+      "last_reply": "2005-06-29T16:52:18-04:00",
+      "root_message_id": "msg-2c40ac117104"
+    },
+    {
+      "id": "thread-0ef8ee608f36",
+      "subject": "install of nls.lm failed",
+      "message_count": 4,
+      "participants": [
+        "Simon Urbanek",
+        "joerg van den hoff"
+      ],
+      "started": "2005-06-29T18:33:08+02:00",
+      "last_reply": "2005-06-30T12:26:54-04:00",
+      "root_message_id": "msg-0ef8ee608f36"
+    },
+    {
+      "id": "thread-479fee98b29d",
+      "subject": "R problem (fwd)",
+      "message_count": 4,
+      "participants": [
+        "Kasper Daniel Hansen",
+        "Marco Blanchette",
+        "Simon Urbanek"
+      ],
+      "started": "2005-06-30T02:08:30+02:00",
+      "last_reply": "2005-06-30T20:15:27+02:00",
+      "root_message_id": "msg-479fee98b29d"
+    },
+    {
+      "id": "thread-cf6714b0e12b",
+      "subject": "Does not run under Mac OS X 10.3.9 (PR#7975)",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2005-06-30T09:20:19+02:00",
+      "last_reply": "2005-06-30T09:20:19+02:00",
+      "root_message_id": "msg-cf6714b0e12b"
+    }
+  ]
+}

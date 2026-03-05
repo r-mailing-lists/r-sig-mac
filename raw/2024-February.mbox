@@ -1,0 +1,2876 @@
+From mcgrund|er @end|ng |rom gm@||@com  Sat Feb 10 03:00:37 2024
+From: mcgrund|er @end|ng |rom gm@||@com (Michael Grundler)
+Date: Fri, 9 Feb 2024 21:00:37 -0500
+Subject: [R-SIG-Mac] R graphics not updating on Sonoma M3 Pro
+Message-ID: <CAOJnz6ScrOoWFhf8jS7ij38QYKT5BLznnwaRn_BnVGJ88YMGrA@mail.gmail.com>
+
+Hi all,
+
+I recently upgraded to a new Macbook Pro (Nov 23) with the M3 Pro chip
+running Sonoma 14.3.1 and am experiencing some graphics issues.
+
+plot(1:10) will open a graphics window just fine, but then calling
+points(1:10, col=2) will not update that plot (i.e., all the points
+are still black). BUT after calling plot(1:10) again and navigating
+back to the previous plot I can suddenly see the updated plot (i.e.,
+all the points are now red).
+
+I'm observing the behavior in Terminal running R 4.3.2 (from both
+homebrew and macports) and in R.app running R 4.4.0 (development).
+
+Any help would be appreciated
+
+Mike
+
+
+From h@n@on @end|ng |rom dep@uw@edu  Sat Feb 10 03:25:03 2024
+From: h@n@on @end|ng |rom dep@uw@edu (Bryan Hanson)
+Date: Fri, 9 Feb 2024 19:25:03 -0700
+Subject: [R-SIG-Mac] R graphics not updating on Sonoma M3 Pro
+In-Reply-To: <CAOJnz6ScrOoWFhf8jS7ij38QYKT5BLznnwaRn_BnVGJ88YMGrA@mail.gmail.com>
+References: <CAOJnz6ScrOoWFhf8jS7ij38QYKT5BLznnwaRn_BnVGJ88YMGrA@mail.gmail.com>
+Message-ID: <991EA528-608C-4E54-892B-94E5966168D3@depauw.edu>
+
+Did you re-install XQuartz when you upgraded?  Generally one needs to when upgrading.  Bryan
+
+> On Feb 9, 2024, at 7:00?PM, Michael Grundler <mcgrundler at gmail.com> wrote:
+> 
+> Hi all,
+> 
+> I recently upgraded to a new Macbook Pro (Nov 23) with the M3 Pro chip
+> running Sonoma 14.3.1 and am experiencing some graphics issues.
+> 
+> plot(1:10) will open a graphics window just fine, but then calling
+> points(1:10, col=2) will not update that plot (i.e., all the points
+> are still black). BUT after calling plot(1:10) again and navigating
+> back to the previous plot I can suddenly see the updated plot (i.e.,
+> all the points are now red).
+> 
+> I'm observing the behavior in Terminal running R 4.3.2 (from both
+> homebrew and macports) and in R.app running R 4.4.0 (development).
+> 
+> Any help would be appreciated
+> 
+> Mike
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+=============
+Bryan A. Hanson
+Prof. Emeritus, DePauw University
+Chemistry & Biochemistry
+hanson at depauw.edu
+profbryanhanson at gmail.com
+Nerdy blog: ChemoSpec.org
+I?m at GMT -7 year round
+
+
+
+
+
+
+
+	[[alternative HTML version deleted]]
+
+
+From roy@mende|@@ohn @end|ng |rom no@@@gov  Sat Feb 10 03:33:20 2024
+From: roy@mende|@@ohn @end|ng |rom no@@@gov (Roy Mendelssohn - NOAA Federal)
+Date: Fri, 9 Feb 2024 18:33:20 -0800
+Subject: [R-SIG-Mac] R graphics not updating on Sonoma M3 Pro
+In-Reply-To: <CAOJnz6ScrOoWFhf8jS7ij38QYKT5BLznnwaRn_BnVGJ88YMGrA@mail.gmail.com>
+References: <CAOJnz6ScrOoWFhf8jS7ij38QYKT5BLznnwaRn_BnVGJ88YMGrA@mail.gmail.com>
+Message-ID: <9952A6CF-92F9-4955-AAA4-08C253A0A1C3@noaa.gov>
+
+Hi Michael:
+
+> On Feb 9, 2024, at 6:00 PM, Michael Grundler <mcgrundler at gmail.com> wrote:
+> 
+> I'm observing the behavior in Terminal running R 4.3.2 (from both
+> homebrew and macports) and in R.app running R 4.4.0 (development).
+
+While this may be problem in R  (and also the advice given by Bryan Hanson to re-install XQuartz),   generally if you are installing from MacPorts or homebrew you are on your own as for help from here.  I would also suggest installing from CRAN,  and if the problem still persists after re-installing XQuartz,  then report the issue.  There could be subtle differences in how R gets built in homebrew or MacPorts, (there also may not be)  but the people most likely to be able to know how to answer this can?t be certain if there are differences and surely do not have the time to find out.
+
+HTH,
+
+-Roy
+
+
+	[[alternative HTML version deleted]]
+
+
+From mcgrund|er @end|ng |rom gm@||@com  Sat Feb 10 04:05:34 2024
+From: mcgrund|er @end|ng |rom gm@||@com (Michael Grundler)
+Date: Fri, 9 Feb 2024 22:05:34 -0500
+Subject: [R-SIG-Mac] R graphics not updating on Sonoma M3 Pro
+In-Reply-To: <9952A6CF-92F9-4955-AAA4-08C253A0A1C3@noaa.gov>
+References: <CAOJnz6ScrOoWFhf8jS7ij38QYKT5BLznnwaRn_BnVGJ88YMGrA@mail.gmail.com>
+ <9952A6CF-92F9-4955-AAA4-08C253A0A1C3@noaa.gov>
+Message-ID: <CAOJnz6SL3Ch5i2vMwNvM=2jp+C5MLPGCQdrfz9T7JV=rF=ZWNQ@mail.gmail.com>
+
+Thank you. Yes, I can confirm the problem persists after re-installing
+XQuartz and installing 4.3.2 from CRAN.
+
+On Fri, Feb 9, 2024 at 9:33?PM Roy Mendelssohn - NOAA Federal
+<roy.mendelssohn at noaa.gov> wrote:
+>
+> Hi Michael:
+>
+> On Feb 9, 2024, at 6:00 PM, Michael Grundler <mcgrundler at gmail.com> wrote:
+>
+> I'm observing the behavior in Terminal running R 4.3.2 (from both
+> homebrew and macports) and in R.app running R 4.4.0 (development).
+>
+>
+> While this may be problem in R  (and also the advice given by Bryan Hanson to re-install XQuartz),   generally if you are installing from MacPorts or homebrew you are on your own as for help from here.  I would also suggest installing from CRAN,  and if the problem still persists after re-installing XQuartz,  then report the issue.  There could be subtle differences in how R gets built in homebrew or MacPorts, (there also may not be)  but the people most likely to be able to know how to answer this can?t be certain if there are differences and surely do not have the time to find out.
+>
+> HTH,
+>
+> -Roy
+>
+
+
+From du@@@@dr|@n @end|ng |rom gm@||@com  Sat Feb 10 09:17:59 2024
+From: du@@@@dr|@n @end|ng |rom gm@||@com (=?UTF-8?B?QWRyaWFuIER1yJlh?=)
+Date: Sat, 10 Feb 2024 10:17:59 +0200
+Subject: [R-SIG-Mac] R graphics not updating on Sonoma M3 Pro
+In-Reply-To: <CAOJnz6SL3Ch5i2vMwNvM=2jp+C5MLPGCQdrfz9T7JV=rF=ZWNQ@mail.gmail.com>
+References: <CAOJnz6ScrOoWFhf8jS7ij38QYKT5BLznnwaRn_BnVGJ88YMGrA@mail.gmail.com>
+ <9952A6CF-92F9-4955-AAA4-08C253A0A1C3@noaa.gov>
+ <CAOJnz6SL3Ch5i2vMwNvM=2jp+C5MLPGCQdrfz9T7JV=rF=ZWNQ@mail.gmail.com>
+Message-ID: <CAJ=0CtAehnyQVwX4vY9YvU=wFx+sfLCF-D=1PL5+0Uqd2N3X4w@mail.gmail.com>
+
+I confirm this happens on my M2 Max, with regular install from CRAN.
+Best,
+Adrian
+
+On Sat, Feb 10, 2024 at 5:06?AM Michael Grundler <mcgrundler at gmail.com>
+wrote:
+
+> Thank you. Yes, I can confirm the problem persists after re-installing
+> XQuartz and installing 4.3.2 from CRAN.
+>
+> On Fri, Feb 9, 2024 at 9:33?PM Roy Mendelssohn - NOAA Federal
+> <roy.mendelssohn at noaa.gov> wrote:
+> >
+> > Hi Michael:
+> >
+> > On Feb 9, 2024, at 6:00 PM, Michael Grundler <mcgrundler at gmail.com>
+> wrote:
+> >
+> > I'm observing the behavior in Terminal running R 4.3.2 (from both
+> > homebrew and macports) and in R.app running R 4.4.0 (development).
+> >
+> >
+> > While this may be problem in R  (and also the advice given by Bryan
+> Hanson to re-install XQuartz),   generally if you are installing from
+> MacPorts or homebrew you are on your own as for help from here.  I would
+> also suggest installing from CRAN,  and if the problem still persists after
+> re-installing XQuartz,  then report the issue.  There could be subtle
+> differences in how R gets built in homebrew or MacPorts, (there also may
+> not be)  but the people most likely to be able to know how to answer this
+> can?t be certain if there are differences and surely do not have the time
+> to find out.
+> >
+> > HTH,
+> >
+> > -Roy
+> >
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+	[[alternative HTML version deleted]]
+
+
+From m@cdec @end|ng |rom me@com  Wed Feb 14 20:29:09 2024
+From: m@cdec @end|ng |rom me@com (=?utf-8?Q?Mar=C3=ADa_de_los_=C3=81ngeles_Casares_de_Cal?=)
+Date: Wed, 14 Feb 2024 20:29:09 +0100
+Subject: [R-SIG-Mac] Spanish version of R, version 4.3.2, does not work
+Message-ID: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+
+Hi everyone,
+
+I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+R does not work!
+
+For example:
+
+x <- 1:20         		        #this is ok
+y <- 10 + rnorm(n=20,mean=0,sd=1)  	#this is ok
+plot(x,y,pch=20,col="red")  	        #this is ok, but I have to run some times this
+model <- lm(y~x)                        #this is ok
+summary(model)  		        #this is ok
+abline(model)      		        #R does not plot the regression line in the window where I have the points.
+
+(And this code in RStudio works well).
+
+(I have installed the last version of XQuartz.)
+
+I do not know what is the problem.
+Perhaps, because is the Spanish version?
+How can I install the English version?
+
+Any help?
+Thank you in advance.
+
+Best regards.
+Mar?a-?ngeles Casares-de-Cal
+	[[alternative HTML version deleted]]
+
+
+From m@cdec @end|ng |rom me@com  Fri Feb 16 10:25:54 2024
+From: m@cdec @end|ng |rom me@com (=?utf-8?Q?Mar=C3=ADa_de_los_=C3=81ngeles_Casares_de_Cal?=)
+Date: Fri, 16 Feb 2024 10:25:54 +0100
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+Message-ID: <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+
+Dear Simon and anyone else who might be interested in this:
+
+I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+I have tested it on several computers, in Terminal and with RGUI. 
+I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+
+What I have done is the following:
+In the "abline" command help, the first example is:
+## Setup up coordinate system (with x == y aspect ratio):
+plot(c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+## the x- and y-axis, and an integer grid
+abline(h = 0, v = 0, col = "gray60")
+text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+abline(a = 1, b = 2, col = 2)
+text(1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+
+if I run line by line, R does not do the plots (only open the Quartz window).
+If I run all together, R does the plots sometimes yes and sometimes no.
+
+I have the latest stable version of XQuartz (2.8.5)
+
+What could be the problem?
+
+Thank you in advance.
+Best regards.
+Mar?a-?ngeles Casares-de-Cal
+
+
+> Inicio del mensaje reenviado:
+> 
+> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+> Asunto: Spanish version of R, version 4.3.2, does not work
+> Fecha: 14 de febrero de 2024, 20:29:09 CET
+> Para: r-sig-mac at r-project.org
+> 
+> Hi everyone,
+> 
+> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+> R does not work!
+> 
+> For example:
+> 
+> x <- 1:20         		        #this is ok
+> y <- 10 + rnorm(n=20,mean=0,sd=1)  	#this is ok
+> plot(x,y,pch=20,col="red")  	        #this is ok, but I have to run some times this
+> model <- lm(y~x)                        #this is ok
+> summary(model)  		        #this is ok
+> abline(model)      		        #R does not plot the regression line in the window where I have the points.
+> 
+> (And this code in RStudio works well).
+> 
+> (I have installed the last version of XQuartz.)
+> 
+> I do not know what is the problem.
+> Perhaps, because is the Spanish version?
+> How can I install the English version?
+> 
+> Any help?
+> Thank you in advance.
+> 
+> Best regards.
+> Mar?a-?ngeles Casares-de-Cal
+
+
+	[[alternative HTML version deleted]]
+
+
+From m@cdec @end|ng |rom me@com  Fri Feb 16 10:25:54 2024
+From: m@cdec @end|ng |rom me@com (=?utf-8?Q?Mar=C3=ADa_de_los_=C3=81ngeles_Casares_de_Cal?=)
+Date: Fri, 16 Feb 2024 10:25:54 +0100
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+Message-ID: <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+
+Dear Simon and anyone else who might be interested in this:
+
+I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+I have tested it on several computers, in Terminal and with RGUI. 
+I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+
+What I have done is the following:
+In the "abline" command help, the first example is:
+## Setup up coordinate system (with x == y aspect ratio):
+plot(c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+## the x- and y-axis, and an integer grid
+abline(h = 0, v = 0, col = "gray60")
+text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+abline(a = 1, b = 2, col = 2)
+text(1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+
+if I run line by line, R does not do the plots (only open the Quartz window).
+If I run all together, R does the plots sometimes yes and sometimes no.
+
+I have the latest stable version of XQuartz (2.8.5)
+
+What could be the problem?
+
+Thank you in advance.
+Best regards.
+Mar?a-?ngeles Casares-de-Cal
+
+
+> Inicio del mensaje reenviado:
+> 
+> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+> Asunto: Spanish version of R, version 4.3.2, does not work
+> Fecha: 14 de febrero de 2024, 20:29:09 CET
+> Para: r-sig-mac at r-project.org
+> 
+> Hi everyone,
+> 
+> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+> R does not work!
+> 
+> For example:
+> 
+> x <- 1:20         		        #this is ok
+> y <- 10 + rnorm(n=20,mean=0,sd=1)  	#this is ok
+> plot(x,y,pch=20,col="red")  	        #this is ok, but I have to run some times this
+> model <- lm(y~x)                        #this is ok
+> summary(model)  		        #this is ok
+> abline(model)      		        #R does not plot the regression line in the window where I have the points.
+> 
+> (And this code in RStudio works well).
+> 
+> (I have installed the last version of XQuartz.)
+> 
+> I do not know what is the problem.
+> Perhaps, because is the Spanish version?
+> How can I install the English version?
+> 
+> Any help?
+> Thank you in advance.
+> 
+> Best regards.
+> Mar?a-?ngeles Casares-de-Cal
+
+
+	[[alternative HTML version deleted]]
+
+
+From dut@ngc @end|ng |rom gm@||@com  Fri Feb 16 11:07:51 2024
+From: dut@ngc @end|ng |rom gm@||@com (Christophe Dutang)
+Date: Fri, 16 Feb 2024 11:07:51 +0100
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+ <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+Message-ID: <4D59668B-32C1-4614-81BC-B066D2D09FCC@gmail.com>
+
+Dear Maria,
+
+It works perfectly my MacBook (Apple M1).
+
+> R.version
+               _                           
+platform       aarch64-apple-darwin20      
+arch           aarch64                     
+os             darwin20                    
+system         aarch64, darwin20           
+status                                     
+major          4                           
+minor          3.2                         
+year           2023                        
+month          10                          
+day            31                          
+svn rev        85441                       
+language       R                           
+version.string R version 4.3.2 (2023-10-31)
+nickname       Eye Holes   
+
+
+Do you use the correct version of R?
+
+Christophe 
+
+-------------------------------------------------
+Christophe DUTANG
+LJK, Ensimag, Grenoble INP, UGA, France
+ILB research fellow
+Web: http://dutangc.free.fr
+-------------------------------------------------
+
+> Le 16 f?vr. 2024 ? 10:25, Mar?a de los ?ngeles Casares de Cal via R-SIG-Mac <r-sig-mac at r-project.org> a ?crit :
+> 
+> Dear Simon and anyone else who might be interested in this:
+> 
+> I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+> I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+> I have tested it on several computers, in Terminal and with RGUI. 
+> I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+> 
+> What I have done is the following:
+> In the "abline" command help, the first example is:
+> ## Setup up coordinate system (with x == y aspect ratio):
+> plot(c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+> ## the x- and y-axis, and an integer grid
+> abline(h = 0, v = 0, col = "gray60")
+> text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+> abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+> abline(a = 1, b = 2, col = 2)
+> text(1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+> 
+> if I run line by line, R does not do the plots (only open the Quartz window).
+> If I run all together, R does the plots sometimes yes and sometimes no.
+> 
+> I have the latest stable version of XQuartz (2.8.5)
+> 
+> What could be the problem?
+> 
+> Thank you in advance.
+> Best regards.
+> Mar?a-?ngeles Casares-de-Cal
+> 
+> 
+>> Inicio del mensaje reenviado:
+>> 
+>> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+>> Asunto: Spanish version of R, version 4.3.2, does not work
+>> Fecha: 14 de febrero de 2024, 20:29:09 CET
+>> Para: r-sig-mac at r-project.org
+>> 
+>> Hi everyone,
+>> 
+>> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+>> R does not work!
+>> 
+>> For example:
+>> 
+>> x <- 1:20                 #this is ok
+>> y <- 10 + rnorm(n=20,mean=0,sd=1)   #this is ok
+>> plot(x,y,pch=20,col="red")          #this is ok, but I have to run some times this
+>> model <- lm(y~x)                        #this is ok
+>> summary(model)          #this is ok
+>> abline(model)              #R does not plot the regression line in the window where I have the points.
+>> 
+>> (And this code in RStudio works well).
+>> 
+>> (I have installed the last version of XQuartz.)
+>> 
+>> I do not know what is the problem.
+>> Perhaps, because is the Spanish version?
+>> How can I install the English version?
+>> 
+>> Any help?
+>> Thank you in advance.
+>> 
+>> Best regards.
+>> Mar?a-?ngeles Casares-de-Cal
+> 
+> 
+> [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Fri Feb 16 11:20:28 2024
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Fri, 16 Feb 2024 05:20:28 -0500
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+ <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+Message-ID: <92fe2ecb-7851-41fc-9e2e-780da9e0f3c0@gmail.com>
+
+I don't think you have described how you installed R.  Did you use the 
+installer from CRAN, or build it yourself, or get it from some other 
+source like Homebrew or MacPorts?
+
+Duncan Murdoch
+
+On 16/02/2024 4:25 a.m., Mar?a de los ?ngeles Casares de Cal via 
+R-SIG-Mac wrote:
+> Dear Simon and anyone else who might be interested in this:
+> 
+> I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+> I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+> I have tested it on several computers, in Terminal and with RGUI.
+> I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+> 
+> What I have done is the following:
+> In the "abline" command help, the first example is:
+> ## Setup up coordinate system (with x == y aspect ratio):
+> plot(c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+> ## the x- and y-axis, and an integer grid
+> abline(h = 0, v = 0, col = "gray60")
+> text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+> abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+> abline(a = 1, b = 2, col = 2)
+> text(1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+> 
+> if I run line by line, R does not do the plots (only open the Quartz window).
+> If I run all together, R does the plots sometimes yes and sometimes no.
+> 
+> I have the latest stable version of XQuartz (2.8.5)
+> 
+> What could be the problem?
+> 
+> Thank you in advance.
+> Best regards.
+> Mar?a-?ngeles Casares-de-Cal
+> 
+> 
+>> Inicio del mensaje reenviado:
+>>
+>> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+>> Asunto: Spanish version of R, version 4.3.2, does not work
+>> Fecha: 14 de febrero de 2024, 20:29:09 CET
+>> Para: r-sig-mac at r-project.org
+>>
+>> Hi everyone,
+>>
+>> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+>> R does not work!
+>>
+>> For example:
+>>
+>> x <- 1:20         		        #this is ok
+>> y <- 10 + rnorm(n=20,mean=0,sd=1)  	#this is ok
+>> plot(x,y,pch=20,col="red")  	        #this is ok, but I have to run some times this
+>> model <- lm(y~x)                        #this is ok
+>> summary(model)  		        #this is ok
+>> abline(model)      		        #R does not plot the regression line in the window where I have the points.
+>>
+>> (And this code in RStudio works well).
+>>
+>> (I have installed the last version of XQuartz.)
+>>
+>> I do not know what is the problem.
+>> Perhaps, because is the Spanish version?
+>> How can I install the English version?
+>>
+>> Any help?
+>> Thank you in advance.
+>>
+>> Best regards.
+>> Mar?a-?ngeles Casares-de-Cal
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From r|p|ey @end|ng |rom @t@t@@ox@@c@uk  Fri Feb 16 11:36:46 2024
+From: r|p|ey @end|ng |rom @t@t@@ox@@c@uk (Prof Brian Ripley)
+Date: Fri, 16 Feb 2024 10:36:46 +0000
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+ <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+Message-ID: <82dae9d6-bbec-4ad0-bd91-25fff8b4f8e4@stats.ox.ac.uk>
+
+You need to make clear what graphics device and R build you used: the 
+default on a CRAN build of macOS is quartz(), which has nothing to do 
+with XQuartz.  But is this a CRAN build?  AFAIK quartz() is not the 
+default device in RStudio.
+
+And also give the information (sessionInfo()) requested in the posting 
+guide.  As Christophe Dutang has posted, this works for him on arm64 
+macOS (and also for me).  CRAN provides both Intel and arm64 builds ....
+
+As the posting guide also asks, you should try R-patched: binary 
+installers are available at https://mac.r-project.org/ for both 
+architectures.
+
+The macOS GUI is usually called R.app (see e.g. the R-admin manual). 
+RGUI is for Windows.
+
+On 16/02/2024 09:25, Mar?a de los ?ngeles Casares de Cal via R-SIG-Mac 
+wrote:
+> Dear Simon and anyone else who might be interested in this:
+> 
+> I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+> I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+> I have tested it on several computers, in Terminal and with RGUI.
+> I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+> 
+> What I have done is the following:
+> In the "abline" command help, the first example is:
+> ## Setup up coordinate system (with x == y aspect ratio):
+> plot(c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+> ## the x- and y-axis, and an integer grid
+> abline(h = 0, v = 0, col = "gray60")
+> text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+> abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+> abline(a = 1, b = 2, col = 2)
+> text(1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+> 
+> if I run line by line, R does not do the plots (only open the Quartz window).
+> If I run all together, R does the plots sometimes yes and sometimes no.
+> 
+> I have the latest stable version of XQuartz (2.8.5)
+> 
+> What could be the problem?
+> 
+> Thank you in advance.
+> Best regards.
+> Mar?a-?ngeles Casares-de-Cal
+> 
+> 
+>> Inicio del mensaje reenviado:
+>>
+>> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+>> Asunto: Spanish version of R, version 4.3.2, does not work
+>> Fecha: 14 de febrero de 2024, 20:29:09 CET
+>> Para: r-sig-mac at r-project.org
+>>
+>> Hi everyone,
+>>
+>> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+>> R does not work!
+>>
+>> For example:
+>>
+>> x <- 1:20         		        #this is ok
+>> y <- 10 + rnorm(n=20,mean=0,sd=1)  	#this is ok
+>> plot(x,y,pch=20,col="red")  	        #this is ok, but I have to run some times this
+>> model <- lm(y~x)                        #this is ok
+>> summary(model)  		        #this is ok
+>> abline(model)      		        #R does not plot the regression line in the window where I have the points.
+>>
+>> (And this code in RStudio works well).
+>>
+>> (I have installed the last version of XQuartz.)
+>>
+>> I do not know what is the problem.
+>> Perhaps, because is the Spanish version?
+>> How can I install the English version?
+>>
+>> Any help?
+>> Thank you in advance.
+>>
+>> Best regards.
+>> Mar?a-?ngeles Casares-de-Cal
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Brian D. Ripley,                  ripley at stats.ox.ac.uk
+Emeritus Professor of Applied Statistics, University of Oxford
+
+
+From m|k3h@|| @end|ng |rom gm@||@com  Fri Feb 16 13:32:13 2024
+From: m|k3h@|| @end|ng |rom gm@||@com (Michael Hall)
+Date: Fri, 16 Feb 2024 06:32:13 -0600
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in      MacOS
+Message-ID: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+
+It also works for me on both my current m3 and also my old x86.
+
+I also always assumed Quartz meant XQuartz. However with neither architecture did it seem to start XQuartz in order to render. 
+
+Sonoma on both machines. M3 = R 4.3.2. X86 = R 4.3.1
+
+From mcgrund|er @end|ng |rom gm@||@com  Fri Feb 16 14:10:40 2024
+From: mcgrund|er @end|ng |rom gm@||@com (Michael Grundler)
+Date: Fri, 16 Feb 2024 08:10:40 -0500
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+Message-ID: <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+
+I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+mac. Using the default quartz() device and running the example line by
+line shows a blank device. If the device window is resized, however,
+the expected result appears. The example runs fine using x11(). The
+example also runs fine on both quartz() and x11() on my old x86
+running under Sonoma 14.2.1.
+
+> sessionInfo()
+R version 4.3.2 Patched (2024-02-13 r85905)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.3.1
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+ LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/New_York
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+loaded via a namespace (and not attached):
+[1] compiler_4.3.2
+
+On Fri, Feb 16, 2024 at 7:32?AM Michael Hall <mik3hall at gmail.com> wrote:
+>
+> It also works for me on both my current m3 and also my old x86.
+>
+> I also always assumed Quartz meant XQuartz. However with neither architecture did it seem to start XQuartz in order to render.
+>
+> Sonoma on both machines. M3 = R 4.3.2. X86 = R 4.3.1
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From m@cdec @end|ng |rom me@com  Fri Feb 16 10:25:54 2024
+From: m@cdec @end|ng |rom me@com (=?utf-8?Q?Mar=C3=ADa_de_los_=C3=81ngeles_Casares_de_Cal?=)
+Date: Fri, 16 Feb 2024 10:25:54 +0100
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+Message-ID: <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+
+Dear Simon and anyone else who might be interested in this:
+
+I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+I have tested it on several computers, in Terminal and with RGUI. 
+I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+
+What I have done is the following:
+In the "abline" command help, the first example is:
+## Setup up coordinate system (with x == y aspect ratio):
+plot(c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+## the x- and y-axis, and an integer grid
+abline(h = 0, v = 0, col = "gray60")
+text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+abline(a = 1, b = 2, col = 2)
+text(1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+
+if I run line by line, R does not do the plots (only open the Quartz window).
+If I run all together, R does the plots sometimes yes and sometimes no.
+
+I have the latest stable version of XQuartz (2.8.5)
+
+What could be the problem?
+
+Thank you in advance.
+Best regards.
+Mar?a-?ngeles Casares-de-Cal
+
+
+> Inicio del mensaje reenviado:
+> 
+> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+> Asunto: Spanish version of R, version 4.3.2, does not work
+> Fecha: 14 de febrero de 2024, 20:29:09 CET
+> Para: r-sig-mac at r-project.org
+> 
+> Hi everyone,
+> 
+> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+> R does not work!
+> 
+> For example:
+> 
+> x <- 1:20         		        #this is ok
+> y <- 10 + rnorm(n=20,mean=0,sd=1)  	#this is ok
+> plot(x,y,pch=20,col="red")  	        #this is ok, but I have to run some times this
+> model <- lm(y~x)                        #this is ok
+> summary(model)  		        #this is ok
+> abline(model)      		        #R does not plot the regression line in the window where I have the points.
+> 
+> (And this code in RStudio works well).
+> 
+> (I have installed the last version of XQuartz.)
+> 
+> I do not know what is the problem.
+> Perhaps, because is the Spanish version?
+> How can I install the English version?
+> 
+> Any help?
+> Thank you in advance.
+> 
+> Best regards.
+> Mar?a-?ngeles Casares-de-Cal
+
+
+	[[alternative HTML version deleted]]
+
+
+From ro|||n|or@|| @end|ng |rom gm@||@com  Fri Feb 16 21:16:58 2024
+From: ro|||n|or@|| @end|ng |rom gm@||@com (roy)
+Date: Fri, 16 Feb 2024 12:16:58 -0800
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+ <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+Message-ID: <CAA5fQyovj-r10tUZ032DwwUnOUWxWPF1KP9NC_ULQ276fdCTWA@mail.gmail.com>
+
+On the following cfg:
+
+Intel macmini 2018
+
+macos 14.3.1
+
+R 4.1.2
+
+XQuartz 2.8.5
+
+RStudio 2023.03.0+386
+
+Running the example from the "abline" command in R (cmd line) and RStudio,
+I get the same results that Mar?a-?ngeles and Michael G. described (i.e.,
+no plots via R and plots via RStudiio). When I switched back to an older
+version of XQuartz (2.7.11) the plots worked well.
+
+cheers, roy
+
+
+On Fri, Feb 16, 2024 at 5:11?AM Michael Grundler <mcgrundler at gmail.com>
+wrote:
+
+> I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+> binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+> mac. Using the default quartz() device and running the example line by
+> line shows a blank device. If the device window is resized, however,
+> the expected result appears. The example runs fine using x11(). The
+> example also runs fine on both quartz() and x11() on my old x86
+> running under Sonoma 14.2.1.
+>
+> > sessionInfo()
+> R version 4.3.2 Patched (2024-02-13 r85905)
+> Platform: aarch64-apple-darwin20 (64-bit)
+> Running under: macOS Sonoma 14.3.1
+>
+> Matrix products: default
+> BLAS:
+>  /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+> LAPACK:
+> /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+>  LAPACK version 3.11.0
+>
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>
+> time zone: America/New_York
+> tzcode source: internal
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> loaded via a namespace (and not attached):
+> [1] compiler_4.3.2
+>
+> On Fri, Feb 16, 2024 at 7:32?AM Michael Hall <mik3hall at gmail.com> wrote:
+> >
+> > It also works for me on both my current m3 and also my old x86.
+> >
+> > I also always assumed Quartz meant XQuartz. However with neither
+> architecture did it seem to start XQuartz in order to render.
+> >
+> > Sonoma on both machines. M3 = R 4.3.2. X86 = R 4.3.1
+> > _______________________________________________
+> > R-SIG-Mac mailing list
+> > R-SIG-Mac at r-project.org
+> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+	[[alternative HTML version deleted]]
+
+
+From kev|nu@hey @end|ng |rom gm@||@com  Sat Feb 17 19:46:33 2024
+From: kev|nu@hey @end|ng |rom gm@||@com (Kevin Ushey)
+Date: Sat, 17 Feb 2024 10:46:33 -0800
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <CAA5fQyovj-r10tUZ032DwwUnOUWxWPF1KP9NC_ULQ276fdCTWA@mail.gmail.com>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+ <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+ <CAA5fQyovj-r10tUZ032DwwUnOUWxWPF1KP9NC_ULQ276fdCTWA@mail.gmail.com>
+Message-ID: <CAJXgQP2epn+t8qsgXjabHuSBEVMj3h2KpSQJ5zjznV9vo+8WWA@mail.gmail.com>
+
+I'm seeing this as well. In case it's relevant, I saw something
+similar, but the points do appear to get appropriately redrawn if I
+resize the Quartz window. (The window is fairly jittery / jumpy when I
+try to do so, though.)
+
+On Fri, Feb 16, 2024 at 12:17?PM roy <rollinforall at gmail.com> wrote:
+>
+> On the following cfg:
+>
+> Intel macmini 2018
+>
+> macos 14.3.1
+>
+> R 4.1.2
+>
+> XQuartz 2.8.5
+>
+> RStudio 2023.03.0+386
+>
+> Running the example from the "abline" command in R (cmd line) and RStudio,
+> I get the same results that Mar?a-?ngeles and Michael G. described (i.e.,
+> no plots via R and plots via RStudiio). When I switched back to an older
+> version of XQuartz (2.7.11) the plots worked well.
+>
+> cheers, roy
+>
+>
+> On Fri, Feb 16, 2024 at 5:11?AM Michael Grundler <mcgrundler at gmail.com>
+> wrote:
+>
+> > I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+> > binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+> > mac. Using the default quartz() device and running the example line by
+> > line shows a blank device. If the device window is resized, however,
+> > the expected result appears. The example runs fine using x11(). The
+> > example also runs fine on both quartz() and x11() on my old x86
+> > running under Sonoma 14.2.1.
+> >
+> > > sessionInfo()
+> > R version 4.3.2 Patched (2024-02-13 r85905)
+> > Platform: aarch64-apple-darwin20 (64-bit)
+> > Running under: macOS Sonoma 14.3.1
+> >
+> > Matrix products: default
+> > BLAS:
+> >  /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+> > LAPACK:
+> > /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+> >  LAPACK version 3.11.0
+> >
+> > locale:
+> > [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+> >
+> > time zone: America/New_York
+> > tzcode source: internal
+> >
+> > attached base packages:
+> > [1] stats     graphics  grDevices utils     datasets  methods   base
+> >
+> > loaded via a namespace (and not attached):
+> > [1] compiler_4.3.2
+> >
+> > On Fri, Feb 16, 2024 at 7:32?AM Michael Hall <mik3hall at gmail.com> wrote:
+> > >
+> > > It also works for me on both my current m3 and also my old x86.
+> > >
+> > > I also always assumed Quartz meant XQuartz. However with neither
+> > architecture did it seem to start XQuartz in order to render.
+> > >
+> > > Sonoma on both machines. M3 = R 4.3.2. X86 = R 4.3.1
+> > > _______________________________________________
+> > > R-SIG-Mac mailing list
+> > > R-SIG-Mac at r-project.org
+> > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> >
+> > _______________________________________________
+> > R-SIG-Mac mailing list
+> > R-SIG-Mac at r-project.org
+> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> >
+>
+>         [[alternative HTML version deleted]]
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From p@@c@|t|t|e @end|ng |rom gm@||@com  Sun Feb 18 03:18:01 2024
+From: p@@c@|t|t|e @end|ng |rom gm@||@com (Pascal Title)
+Date: Sat, 17 Feb 2024 21:18:01 -0500
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <CAJXgQP2epn+t8qsgXjabHuSBEVMj3h2KpSQJ5zjznV9vo+8WWA@mail.gmail.com>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+ <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+ <CAA5fQyovj-r10tUZ032DwwUnOUWxWPF1KP9NC_ULQ276fdCTWA@mail.gmail.com>
+ <CAJXgQP2epn+t8qsgXjabHuSBEVMj3h2KpSQJ5zjznV9vo+8WWA@mail.gmail.com>
+Message-ID: <e18b0dd5-7285-4dfc-bc79-613f524b10a1@Spark>
+
+I am also having the same problems as described in this thread. Following the example code posted by Mar?a-?ngeles Casares-de-Cal, if I run the code line by line, additions to the plot do not appear unless I resize the window. If I select the code block and execute all at once, it is inconsistent, sometimes working fully, sometimes partially, sometimes not at all.
+
+R is installed from CRAN:
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.3.1
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib; LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/New_York
+tzcode source: internal
+
+attached base packages:
+[1] stats graphics grDevices utils datasets methods base
+
+loaded via a namespace (and not attached):
+[1] compiler_4.3.2
+
+XQuartz version 2.8.5.
+
+-Pascal Title
+On Feb 17, 2024 at 13:47 -0500, Kevin Ushey <kevinushey at gmail.com>, wrote:
+> I'm seeing this as well. In case it's relevant, I saw something
+> similar, but the points do appear to get appropriately redrawn if I
+> resize the Quartz window. (The window is fairly jittery / jumpy when I
+> try to do so, though.)
+>
+> On Fri, Feb 16, 2024 at 12:17?PM roy <rollinforall at gmail.com> wrote:
+> >
+> > On the following cfg:
+> >
+> > Intel macmini 2018
+> >
+> > macos 14.3.1
+> >
+> > R 4.1.2
+> >
+> > XQuartz 2.8.5
+> >
+> > RStudio 2023.03.0+386
+> >
+> > Running the example from the "abline" command in R (cmd line) and RStudio,
+> > I get the same results that Mar?a-?ngeles and Michael G. described (i.e.,
+> > no plots via R and plots via RStudiio). When I switched back to an older
+> > version of XQuartz (2.7.11) the plots worked well.
+> >
+> > cheers, roy
+> >
+> >
+> > On Fri, Feb 16, 2024 at 5:11?AM Michael Grundler <mcgrundler at gmail.com>
+> > wrote:
+> >
+> > > I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+> > > binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+> > > mac. Using the default quartz() device and running the example line by
+> > > line shows a blank device. If the device window is resized, however,
+> > > the expected result appears. The example runs fine using x11(). The
+> > > example also runs fine on both quartz() and x11() on my old x86
+> > > running under Sonoma 14.2.1.
+> > >
+> > > > sessionInfo()
+> > > R version 4.3.2 Patched (2024-02-13 r85905)
+> > > Platform: aarch64-apple-darwin20 (64-bit)
+> > > Running under: macOS Sonoma 14.3.1
+> > >
+> > > Matrix products: default
+> > > BLAS:
+> > > /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+> > > LAPACK:
+> > > /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+> > > LAPACK version 3.11.0
+> > >
+> > > locale:
+> > > [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+> > >
+> > > time zone: America/New_York
+> > > tzcode source: internal
+> > >
+> > > attached base packages:
+> > > [1] stats graphics grDevices utils datasets methods base
+> > >
+> > > loaded via a namespace (and not attached):
+> > > [1] compiler_4.3.2
+> > >
+> > > On Fri, Feb 16, 2024 at 7:32?AM Michael Hall <mik3hall at gmail.com> wrote:
+> > > >
+> > > > It also works for me on both my current m3 and also my old x86.
+> > > >
+> > > > I also always assumed Quartz meant XQuartz. However with neither
+> > > architecture did it seem to start XQuartz in order to render.
+> > > >
+> > > > Sonoma on both machines. M3 = R 4.3.2. X86 = R 4.3.1
+> > > > _______________________________________________
+> > > > R-SIG-Mac mailing list
+> > > > R-SIG-Mac at r-project.org
+> > > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> > >
+> > > _______________________________________________
+> > > R-SIG-Mac mailing list
+> > > R-SIG-Mac at r-project.org
+> > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> > >
+> >
+> > [[alternative HTML version deleted]]
+> >
+> > _______________________________________________
+> > R-SIG-Mac mailing list
+> > R-SIG-Mac at r-project.org
+> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+	[[alternative HTML version deleted]]
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Sun Feb 18 05:01:20 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Sun, 18 Feb 2024 17:01:20 +1300
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+ <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+Message-ID: <51F2B7F0-8FDC-4E67-94A0-9518A1A8535B@R-project.org>
+
+Maria,
+
+can you, please, include the full output of sessionInfo() in R and 
+system_profiler SPHardwareDataType | grep Model
+in Terminal? I cannot replicate it, either, but then we have no idea which hardware and macOS you are using.
+
+Thanks,
+Simon
+
+
+
+> On Feb 16, 2024, at 10:25 PM, Mar?a de los ?ngeles Casares de Cal <macdec at me.com> wrote:
+> 
+> Dear Simon and anyone else who might be interested in this:
+> 
+> I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+> I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+> I have tested it on several computers, in Terminal and with RGUI. 
+> I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+> 
+> What I have done is the following:
+> In the "abline" command help, the first example is:
+> ## Setup up coordinate system (with x == y aspect ratio):
+> 
+> plot
+> (c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+> ## the x- and y-axis, and an integer grid
+> 
+> abline
+> (h = 0, v = 0, col = "gray60")
+> 
+> text
+> (1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+> 
+> abline
+> (h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+> 
+> abline
+> (a = 1, b = 2, col = 2)
+> 
+> text
+> (1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+> 
+> if I run line by line, R does not do the plots (only open the Quartz window).
+> If I run all together, R does the plots sometimes yes and sometimes no.
+> 
+> I have the latest stable version of XQuartz (2.8.5)
+> 
+> What could be the problem?
+> 
+> Thank you in advance.
+> Best regards.
+> Mar?a-?ngeles Casares-de-Cal
+> 
+> 
+>> Inicio del mensaje reenviado:
+>> 
+>> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+>> Asunto: Spanish version of R, version 4.3.2, does not work
+>> Fecha: 14 de febrero de 2024, 20:29:09 CET
+>> Para: r-sig-mac at r-project.org
+>> 
+>> Hi everyone,
+>> 
+>> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+>> R does not work!
+>> 
+>> For example:
+>> 
+>> x <- 1:20         		        #this is ok
+>> y <- 10 + rnorm(n=20,mean=0,sd=1)  	#this is ok
+>> plot(x,y,pch=20,col="red")  	        #this is ok, but I have to run some times this
+>> model <- lm(y~x)                        #this is ok
+>> summary(model)  		        #this is ok
+>> abline(model)      		        #R does not plot the regression line in the window where I have the points.
+>> 
+>> (And this code in RStudio works well).
+>> 
+>> (I have installed the last version of XQuartz.)
+>> 
+>> I do not know what is the problem.
+>> Perhaps, because is the Spanish version?
+>> How can I install the English version?
+>> 
+>> Any help?
+>> Thank you in advance.
+>> 
+>> Best regards.
+>> Mar?a-?ngeles Casares-de-Cal
+> 
+
+
+From kev|nu@hey @end|ng |rom gm@||@com  Sun Feb 18 07:24:21 2024
+From: kev|nu@hey @end|ng |rom gm@||@com (Kevin Ushey)
+Date: Sat, 17 Feb 2024 22:24:21 -0800
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <51F2B7F0-8FDC-4E67-94A0-9518A1A8535B@R-project.org>
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+ <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+ <51F2B7F0-8FDC-4E67-94A0-9518A1A8535B@R-project.org>
+Message-ID: <CAJXgQP1pi0AV8RoqRaS+B2bjFKzz1MPWs37xn6M7FEk25_kHwQ@mail.gmail.com>
+
+Since I'm able to reproduce the issue as well...
+
+$ system_profiler SPHardwareDataType | grep Model
+      Model Name: MacBook Pro
+      Model Identifier: MacBookPro18,1
+      Model Number: Z14V0016HLL/A
+
+and
+
+> sessionInfo()
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.3.1
+
+As a slightly more minimal example, this reproduces the issue readily for me:
+
+    plot(1); Sys.sleep(1); abline(h = 1, v = 1, col = "gray60")
+
+The plot with the single point is shown, but the two lines are not
+drawn. (They do get rendered later if I resize the Quartz window.)
+
+If I remove the `Sys.sleep(1)` call, then the single point and the two
+lines are all drawn together.
+
+My best guess is that this is related to the most recent Sonoma
+update; perhaps something has changed on the AppKit / Quartz side. Let
+me know if there's any other information I can try and provide.
+
+Best,
+Kevin
+
+On Sat, Feb 17, 2024 at 8:01?PM Simon Urbanek
+<simon.urbanek at r-project.org> wrote:
+>
+> Maria,
+>
+> can you, please, include the full output of sessionInfo() in R and
+> system_profiler SPHardwareDataType | grep Model
+> in Terminal? I cannot replicate it, either, but then we have no idea which hardware and macOS you are using.
+>
+> Thanks,
+> Simon
+>
+>
+>
+> > On Feb 16, 2024, at 10:25 PM, Mar?a de los ?ngeles Casares de Cal <macdec at me.com> wrote:
+> >
+> > Dear Simon and anyone else who might be interested in this:
+> >
+> > I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+> > I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+> > I have tested it on several computers, in Terminal and with RGUI.
+> > I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+> >
+> > What I have done is the following:
+> > In the "abline" command help, the first example is:
+> > ## Setup up coordinate system (with x == y aspect ratio):
+> >
+> > plot
+> > (c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+> > ## the x- and y-axis, and an integer grid
+> >
+> > abline
+> > (h = 0, v = 0, col = "gray60")
+> >
+> > text
+> > (1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+> >
+> > abline
+> > (h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+> >
+> > abline
+> > (a = 1, b = 2, col = 2)
+> >
+> > text
+> > (1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+> >
+> > if I run line by line, R does not do the plots (only open the Quartz window).
+> > If I run all together, R does the plots sometimes yes and sometimes no.
+> >
+> > I have the latest stable version of XQuartz (2.8.5)
+> >
+> > What could be the problem?
+> >
+> > Thank you in advance.
+> > Best regards.
+> > Mar?a-?ngeles Casares-de-Cal
+> >
+> >
+> >> Inicio del mensaje reenviado:
+> >>
+> >> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+> >> Asunto: Spanish version of R, version 4.3.2, does not work
+> >> Fecha: 14 de febrero de 2024, 20:29:09 CET
+> >> Para: r-sig-mac at r-project.org
+> >>
+> >> Hi everyone,
+> >>
+> >> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+> >> R does not work!
+> >>
+> >> For example:
+> >>
+> >> x <- 1:20                            #this is ok
+> >> y <- 10 + rnorm(n=20,mean=0,sd=1)    #this is ok
+> >> plot(x,y,pch=20,col="red")           #this is ok, but I have to run some times this
+> >> model <- lm(y~x)                        #this is ok
+> >> summary(model)                       #this is ok
+> >> abline(model)                        #R does not plot the regression line in the window where I have the points.
+> >>
+> >> (And this code in RStudio works well).
+> >>
+> >> (I have installed the last version of XQuartz.)
+> >>
+> >> I do not know what is the problem.
+> >> Perhaps, because is the Spanish version?
+> >> How can I install the English version?
+> >>
+> >> Any help?
+> >> Thank you in advance.
+> >>
+> >> Best regards.
+> >> Mar?a-?ngeles Casares-de-Cal
+> >
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From m@cdec @end|ng |rom me@com  Sun Feb 18 17:46:14 2024
+From: m@cdec @end|ng |rom me@com (=?utf-8?Q?Mar=C3=ADa_de_los_=C3=81ngeles_Casares_de_Cal?=)
+Date: Sun, 18 Feb 2024 17:46:14 +0100
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <51F2B7F0-8FDC-4E67-94A0-9518A1A8535B@R-project.org>
+References: <2ED4DF32-6AB1-4F17-A244-149B516C37A9@me.com>
+ <874F4466-7BE1-4624-8DF5-79FA49246F0A@me.com>
+ <51F2B7F0-8FDC-4E67-94A0-9518A1A8535B@R-project.org>
+Message-ID: <60F5237C-17BD-48A2-96C5-E585D099DB70@me.com>
+
+
+Dear Simon,
+
+Thank you very much for your interest.
+Here is the information.
+
+I have downloaded R from CRAN: https://cloud.r-project.org/
+
+sessionInfo()
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.3.1
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Madrid
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+[1] compiler_4.3.2
+
+system_profiler SPHardwareDataType | grep Model
+      Model Name: MacBook Air
+      Model Identifier: Mac14,2
+      Model Number: Z161000GJY/A
+
+And it happens to me the same as others who have written on the list about this issue:
+Using the default quartz() device and running the R?s help example of abline, line by line, shows a blank device.
+If the device window is resized, however, the expected result appears.
+
+Thank you very much.
+
+Best regards.
+?ngeles
+
+> El 18 feb 2024, a las 5:01, Simon Urbanek <simon.urbanek at r-project.org> escribi?:
+> 
+> Maria,
+> 
+> can you, please, include the full output of sessionInfo() in R and 
+> system_profiler SPHardwareDataType | grep Model
+> in Terminal? I cannot replicate it, either, but then we have no idea which hardware and macOS you are using.
+> 
+> Thanks,
+> Simon
+> 
+> 
+> 
+>> On Feb 16, 2024, at 10:25 PM, Mar?a de los ?ngeles Casares de Cal <macdec at me.com> wrote:
+>> 
+>> Dear Simon and anyone else who might be interested in this:
+>> 
+>> I have studied in more detail the problem referred to in the message below, and can confirm that R does not work well on macOS when I do graphics (plots).
+>> I have only tested with the "abline? command, using the examples that are in R?s help. And it does not work.
+>> I have tested it on several computers, in Terminal and with RGUI. 
+>> I have also checked it in RStudio in macOS (it does work) and with R in Windows (it does work).
+>> 
+>> What I have done is the following:
+>> In the "abline" command help, the first example is:
+>> ## Setup up coordinate system (with x == y aspect ratio):
+>> 
+>> plot
+>> (c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+>> ## the x- and y-axis, and an integer grid
+>> 
+>> abline
+>> (h = 0, v = 0, col = "gray60")
+>> 
+>> text
+>> (1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+>> 
+>> abline
+>> (h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+>> 
+>> abline
+>> (a = 1, b = 2, col = 2)
+>> 
+>> text
+>> (1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+>> 
+>> if I run line by line, R does not do the plots (only open the Quartz window).
+>> If I run all together, R does the plots sometimes yes and sometimes no.
+>> 
+>> I have the latest stable version of XQuartz (2.8.5)
+>> 
+>> What could be the problem?
+>> 
+>> Thank you in advance.
+>> Best regards.
+>> Mar?a-?ngeles Casares-de-Cal
+>> 
+>> 
+>>> Inicio del mensaje reenviado:
+>>> 
+>>> De: Mar?a de los ?ngeles Casares de Cal <macdec at me.com>
+>>> Asunto: Spanish version of R, version 4.3.2, does not work
+>>> Fecha: 14 de febrero de 2024, 20:29:09 CET
+>>> Para: r-sig-mac at r-project.org
+>>> 
+>>> Hi everyone,
+>>> 
+>>> I have a problem since I have installed the last version of R 4.3.2 (spanish version)
+>>> R does not work!
+>>> 
+>>> For example:
+>>> 
+>>> x <- 1:20         		        #this is ok
+>>> y <- 10 + rnorm(n=20,mean=0,sd=1)  	#this is ok
+>>> plot(x,y,pch=20,col="red")  	        #this is ok, but I have to run some times this
+>>> model <- lm(y~x)                        #this is ok
+>>> summary(model)  		        #this is ok
+>>> abline(model)      		        #R does not plot the regression line in the window where I have the points.
+>>> 
+>>> (And this code in RStudio works well).
+>>> 
+>>> (I have installed the last version of XQuartz.)
+>>> 
+>>> I do not know what is the problem.
+>>> Perhaps, because is the Spanish version?
+>>> How can I install the English version?
+>>> 
+>>> Any help?
+>>> Thank you in advance.
+>>> 
+>>> Best regards.
+>>> Mar?a-?ngeles Casares-de-Cal
+>> 
+> 
+
+
+	[[alternative HTML version deleted]]
+
+
+From m@cdec @end|ng |rom me@com  Sun Feb 18 17:56:38 2024
+From: m@cdec @end|ng |rom me@com (=?utf-8?Q?Mar=C3=ADa_de_los_=C3=81ngeles_Casares_de_Cal?=)
+Date: Sun, 18 Feb 2024 17:56:38 +0100
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+ <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+Message-ID: <988A2B64-9C3F-4AB5-907E-5752CB375E0B@me.com>
+
+Thank you very much for your information, Michael.
+
+I had not realize that by changing the size of the window where all the plots should be, everything appears.
+The same thing happens to me too.
+
+Regards,
+?ngeles
+
+
+sessionInfo()
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.3.1
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Madrid
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+[1] compiler_4.3.2
+
+system_profiler SPHardwareDataType | grep Model
+     Model Name: MacBook Air
+     Model Identifier: Mac14,2
+     Model Number: Z161000GJY/A
+
+
+
+> El 16 feb 2024, a las 14:10, Michael Grundler <mcgrundler at gmail.com> escribi?:
+> 
+> I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+> binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+> mac. Using the default quartz() device and running the example line by
+> line shows a blank device. If the device window is resized, however,
+> the expected result appears. The example runs fine using x11(). The
+> example also runs fine on both quartz() and x11() on my old x86
+> running under Sonoma 14.2.1.
+> 
+>> sessionInfo()
+> R version 4.3.2 Patched (2024-02-13 r85905)
+> Platform: aarch64-apple-darwin20 (64-bit)
+> Running under: macOS Sonoma 14.3.1
+> 
+> Matrix products: default
+> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+> LAPACK version 3.11.0
+> 
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+> 
+> time zone: America/New_York
+> tzcode source: internal
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> loaded via a namespace (and not attached):
+> [1] compiler_4.3.2
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+	[[alternative HTML version deleted]]
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Sun Feb 18 23:57:05 2024
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Sun, 18 Feb 2024 17:57:05 -0500
+Subject: [R-SIG-Mac] Permission issues running R in terminal
+Message-ID: <d949abc5-16af-4ed4-a0db-2c08d2480d0a@gmail.com>
+
+I wanted to see the options to R CMD INSTALL, and was surprised to see 
+this output:
+
+$ R CMD INSTALL --help
+shell-init: error retrieving current directory: getcwd: cannot access 
+parent directories: Operation not permitted
+shell-init: error retrieving current directory: getcwd: cannot access 
+parent directories: Operation not permitted
+shell-init: error retrieving current directory: getcwd: cannot access 
+parent directories: Operation not permitted
+shell-init: error retrieving current directory: getcwd: cannot access 
+parent directories: Operation not permitted
+shell-init: error retrieving current directory: getcwd: cannot access 
+parent directories: Operation not permitted
+shell-init: error retrieving current directory: getcwd: cannot access 
+parent directories: Operation not permitted
+Error in tools:::.install_packages() :
+   current working directory cannot be ascertained
+shell-init: error retrieving current directory: getcwd: cannot access 
+parent directories: Operation not permitted
+
+I installed R from CRAN, and am not running the current version:  I'm 
+still on 4.3.1, with OS also kind of old:  Monterey 12.7.3, so I was 
+surprised by this.  Is anyone else seeing it?
+
+Duncan Murdoch
+
+
+From pd@|gd @end|ng |rom gm@||@com  Mon Feb 19 10:28:03 2024
+From: pd@|gd @end|ng |rom gm@||@com (peter dalgaard)
+Date: Mon, 19 Feb 2024 10:28:03 +0100
+Subject: [R-SIG-Mac] Permission issues running R in terminal
+In-Reply-To: <d949abc5-16af-4ed4-a0db-2c08d2480d0a@gmail.com>
+References: <d949abc5-16af-4ed4-a0db-2c08d2480d0a@gmail.com>
+Message-ID: <7A7A3BD7-D3E7-4674-B2EE-6D888C3901C5@gmail.com>
+
+I have the same setup, and not seeing this. That is, _unless_ I try from a shell running in a deleted diretory:
+
+Peters-iMac:BUILD-dist pd$  R CMD INSTALL --help
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+...
+
+(because BUILD-dist is wiped and re-created by the automatic builds, but the shell still refers to the unlinked directory.)
+
+-pd
+
+> On 18 Feb 2024, at 23:57 , Duncan Murdoch <murdoch.duncan at gmail.com> wrote:
+> 
+> I wanted to see the options to R CMD INSTALL, and was surprised to see this output:
+> 
+> $ R CMD INSTALL --help
+> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+> Error in tools:::.install_packages() :
+>  current working directory cannot be ascertained
+> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+> 
+> I installed R from CRAN, and am not running the current version:  I'm still on 4.3.1, with OS also kind of old:  Monterey 12.7.3, so I was surprised by this.  Is anyone else seeing it?
+> 
+> Duncan Murdoch
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business School
+Solbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From jeroenoom@ @end|ng |rom gm@||@com  Mon Feb 19 10:43:24 2024
+From: jeroenoom@ @end|ng |rom gm@||@com (Jeroen Ooms)
+Date: Mon, 19 Feb 2024 10:43:24 +0100
+Subject: [R-SIG-Mac] Permission issues running R in terminal
+In-Reply-To: <d949abc5-16af-4ed4-a0db-2c08d2480d0a@gmail.com>
+References: <d949abc5-16af-4ed4-a0db-2c08d2480d0a@gmail.com>
+Message-ID: <CABFfbXs01-+wu49igyKukBCfr0iC_+-=fRZRFWvBv=ebwo=yEA@mail.gmail.com>
+
+On Sun, Feb 18, 2024 at 11:57?PM Duncan Murdoch <murdoch.duncan at gmail.com>
+wrote:
+
+> I wanted to see the options to R CMD INSTALL, and was surprised to see
+> this output:
+>
+> $ R CMD INSTALL --help
+> shell-init: error retrieving current directory: getcwd: cannot access
+> parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access
+> parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access
+> parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access
+> parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access
+> parent directories: Operation not permitted
+> shell-init: error retrieving current directory: getcwd: cannot access
+> parent directories: Operation not permitted
+> Error in tools:::.install_packages() :
+>    current working directory cannot be ascertained
+> shell-init: error retrieving current directory: getcwd: cannot access
+> parent directories: Operation not permitted
+>
+> I installed R from CRAN, and am not running the current version:  I'm
+> still on 4.3.1, with OS also kind of old:  Monterey 12.7.3, so I was
+> surprised by this.  Is anyone else seeing it?
+>
+
+This happens when you don't have write access in the current dir:
+
+mkdir /tmp/test
+cd /tmp/test
+chmod 0 .
+R CMD INSTALL --help
+
+	[[alternative HTML version deleted]]
+
+
+From pd@|gd @end|ng |rom gm@||@com  Mon Feb 19 11:22:59 2024
+From: pd@|gd @end|ng |rom gm@||@com (peter dalgaard)
+Date: Mon, 19 Feb 2024 11:22:59 +0100
+Subject: [R-SIG-Mac] Permission issues running R in terminal
+In-Reply-To: <CABFfbXs01-+wu49igyKukBCfr0iC_+-=fRZRFWvBv=ebwo=yEA@mail.gmail.com>
+References: <d949abc5-16af-4ed4-a0db-2c08d2480d0a@gmail.com>
+ <CABFfbXs01-+wu49igyKukBCfr0iC_+-=fRZRFWvBv=ebwo=yEA@mail.gmail.com>
+Message-ID: <455197D9-F5A1-4C4B-BA9A-3BA5477A335F@gmail.com>
+
+To be precise: execute access, not write access. 
+
+However, neither that nor deleting the dir gives the exact "Operation not permitted" error.
+
+-pd
+
+> On 19 Feb 2024, at 10:43 , Jeroen Ooms <jeroenooms at gmail.com> wrote:
+> 
+> On Sun, Feb 18, 2024 at 11:57?PM Duncan Murdoch <murdoch.duncan at gmail.com>
+> wrote:
+> 
+>> I wanted to see the options to R CMD INSTALL, and was surprised to see
+>> this output:
+>> 
+>> $ R CMD INSTALL --help
+>> shell-init: error retrieving current directory: getcwd: cannot access
+>> parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access
+>> parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access
+>> parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access
+>> parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access
+>> parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access
+>> parent directories: Operation not permitted
+>> Error in tools:::.install_packages() :
+>>   current working directory cannot be ascertained
+>> shell-init: error retrieving current directory: getcwd: cannot access
+>> parent directories: Operation not permitted
+>> 
+>> I installed R from CRAN, and am not running the current version:  I'm
+>> still on 4.3.1, with OS also kind of old:  Monterey 12.7.3, so I was
+>> surprised by this.  Is anyone else seeing it?
+>> 
+> 
+> This happens when you don't have write access in the current dir:
+> 
+> mkdir /tmp/test
+> cd /tmp/test
+> chmod 0 .
+> R CMD INSTALL --help
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business School
+Solbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Mon Feb 19 11:31:52 2024
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Mon, 19 Feb 2024 05:31:52 -0500
+Subject: [R-SIG-Mac] Permission issues running R in terminal
+In-Reply-To: <7A7A3BD7-D3E7-4674-B2EE-6D888C3901C5@gmail.com>
+References: <d949abc5-16af-4ed4-a0db-2c08d2480d0a@gmail.com>
+ <7A7A3BD7-D3E7-4674-B2EE-6D888C3901C5@gmail.com>
+Message-ID: <d5b2e9f8-18c3-4032-81bf-5e5883662f03@gmail.com>
+
+Yes, that was it.  Thanks!
+
+Duncan
+
+On 19/02/2024 4:28 a.m., peter dalgaard wrote:
+> I have the same setup, and not seeing this. That is, _unless_ I try from a shell running in a deleted diretory:
+> 
+> Peters-iMac:BUILD-dist pd$  R CMD INSTALL --help
+> shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+> ...
+> 
+> (because BUILD-dist is wiped and re-created by the automatic builds, but the shell still refers to the unlinked directory.)
+> 
+> -pd
+> 
+>> On 18 Feb 2024, at 23:57 , Duncan Murdoch <murdoch.duncan at gmail.com> wrote:
+>>
+>> I wanted to see the options to R CMD INSTALL, and was surprised to see this output:
+>>
+>> $ R CMD INSTALL --help
+>> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+>> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+>> Error in tools:::.install_packages() :
+>>   current working directory cannot be ascertained
+>> shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+>>
+>> I installed R from CRAN, and am not running the current version:  I'm still on 4.3.1, with OS also kind of old:  Monterey 12.7.3, so I was surprised by this.  Is anyone else seeing it?
+>>
+>> Duncan Murdoch
+>>
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Mon Feb 19 11:37:03 2024
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Mon, 19 Feb 2024 05:37:03 -0500
+Subject: [R-SIG-Mac] Permission issues running R in terminal
+In-Reply-To: <455197D9-F5A1-4C4B-BA9A-3BA5477A335F@gmail.com>
+References: <d949abc5-16af-4ed4-a0db-2c08d2480d0a@gmail.com>
+ <CABFfbXs01-+wu49igyKukBCfr0iC_+-=fRZRFWvBv=ebwo=yEA@mail.gmail.com>
+ <455197D9-F5A1-4C4B-BA9A-3BA5477A335F@gmail.com>
+Message-ID: <2ed446d2-02d3-4cad-ba22-213fccf42dc4@gmail.com>
+
+On 19/02/2024 5:22 a.m., peter dalgaard wrote:
+> To be precise: execute access, not write access.
+> 
+> However, neither that nor deleting the dir gives the exact "Operation not permitted" error.
+
+I had deleted the directory using the Finder, so "cd .." led to 
+"~/.Trash".  If I delete it using "rm -r", I get a slightly different 
+message.
+
+Duncan
+
+> 
+> -pd
+> 
+>> On 19 Feb 2024, at 10:43 , Jeroen Ooms <jeroenooms at gmail.com> wrote:
+>>
+>> On Sun, Feb 18, 2024 at 11:57?PM Duncan Murdoch <murdoch.duncan at gmail.com>
+>> wrote:
+>>
+>>> I wanted to see the options to R CMD INSTALL, and was surprised to see
+>>> this output:
+>>>
+>>> $ R CMD INSTALL --help
+>>> shell-init: error retrieving current directory: getcwd: cannot access
+>>> parent directories: Operation not permitted
+>>> shell-init: error retrieving current directory: getcwd: cannot access
+>>> parent directories: Operation not permitted
+>>> shell-init: error retrieving current directory: getcwd: cannot access
+>>> parent directories: Operation not permitted
+>>> shell-init: error retrieving current directory: getcwd: cannot access
+>>> parent directories: Operation not permitted
+>>> shell-init: error retrieving current directory: getcwd: cannot access
+>>> parent directories: Operation not permitted
+>>> shell-init: error retrieving current directory: getcwd: cannot access
+>>> parent directories: Operation not permitted
+>>> Error in tools:::.install_packages() :
+>>>    current working directory cannot be ascertained
+>>> shell-init: error retrieving current directory: getcwd: cannot access
+>>> parent directories: Operation not permitted
+>>>
+>>> I installed R from CRAN, and am not running the current version:  I'm
+>>> still on 4.3.1, with OS also kind of old:  Monterey 12.7.3, so I was
+>>> surprised by this.  Is anyone else seeing it?
+>>>
+>>
+>> This happens when you don't have write access in the current dir:
+>>
+>> mkdir /tmp/test
+>> cd /tmp/test
+>> chmod 0 .
+>> R CMD INSTALL --help
+>>
+>> 	[[alternative HTML version deleted]]
+>>
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Wed Feb 21 22:57:22 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Thu, 22 Feb 2024 10:57:22 +1300
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <988A2B64-9C3F-4AB5-907E-5752CB375E0B@me.com>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+ <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+ <988A2B64-9C3F-4AB5-907E-5752CB375E0B@me.com>
+Message-ID: <4ACE05E1-2154-4A6C-82A2-B7C690761CF2@R-project.org>
+
+I can confirm that this is a bug specific to macOS Sonoma 14.3.1, even earlier versions of Sonoma don't have that problem. Given the number of previous bugs in Sonoma chances are Apple may fix in the in the next release, but I'll see if we can do anything about it on our end in the meantime.
+
+Cheers,
+Simon
+
+
+> On 19/02/2024, at 5:56 AM, Mar?a de los ?ngeles Casares de Cal via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+> 
+> Thank you very much for your information, Michael.
+> 
+> I had not realize that by changing the size of the window where all the plots should be, everything appears.
+> The same thing happens to me too.
+> 
+> Regards,
+> ?ngeles
+> 
+> 
+> sessionInfo()
+> R version 4.3.2 (2023-10-31)
+> Platform: aarch64-apple-darwin20 (64-bit)
+> Running under: macOS Sonoma 14.3.1
+> 
+> Matrix products: default
+> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+> 
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+> 
+> time zone: Europe/Madrid
+> tzcode source: internal
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base     
+> 
+> loaded via a namespace (and not attached):
+> [1] compiler_4.3.2
+> 
+> system_profiler SPHardwareDataType | grep Model
+>     Model Name: MacBook Air
+>     Model Identifier: Mac14,2
+>     Model Number: Z161000GJY/A
+> 
+> 
+> 
+>> El 16 feb 2024, a las 14:10, Michael Grundler <mcgrundler at gmail.com> escribi?:
+>> 
+>> I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+>> binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+>> mac. Using the default quartz() device and running the example line by
+>> line shows a blank device. If the device window is resized, however,
+>> the expected result appears. The example runs fine using x11(). The
+>> example also runs fine on both quartz() and x11() on my old x86
+>> running under Sonoma 14.2.1.
+>> 
+>>> sessionInfo()
+>> R version 4.3.2 Patched (2024-02-13 r85905)
+>> Platform: aarch64-apple-darwin20 (64-bit)
+>> Running under: macOS Sonoma 14.3.1
+>> 
+>> Matrix products: default
+>> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+>> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+>> LAPACK version 3.11.0
+>> 
+>> locale:
+>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>> 
+>> time zone: America/New_York
+>> tzcode source: internal
+>> 
+>> attached base packages:
+>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>> 
+>> loaded via a namespace (and not attached):
+>> [1] compiler_4.3.2
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Thu Feb 22 04:33:50 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Thu, 22 Feb 2024 16:33:50 +1300
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <4ACE05E1-2154-4A6C-82A2-B7C690761CF2@R-project.org>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+ <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+ <988A2B64-9C3F-4AB5-907E-5752CB375E0B@me.com>
+ <4ACE05E1-2154-4A6C-82A2-B7C690761CF2@R-project.org>
+Message-ID: <D119BA5E-5795-4F49-B65A-0B996271E576@R-project.org>
+
+I can confirm that this is a rather nasty Sonoma bug at least since macOS 14.3.1. It seems Apple tried to implement some kind of optimization that wants to minimize redraws in views, but it's buggy in that it doesn't detect that the contents have actually changed and thus refuses to redraw the view even though R tells it to do so. I found a somewhat convoluted work-around: if we draw two different things (just say dummy rectangles of varying color) and then overwrite them with the actual R plot then even Sonoma will redraw the view. It is rather bizarre... The work around of doodling unrelated things on the screen is now in R-devel and R-patched (85968 and 85969 resp.) so please check R 4.3.3 beta r85969 or higher from mac.R-project.org
+
+Cheers,
+Simon
+
+
+
+> On 22/02/2024, at 10:57 AM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+> 
+> I can confirm that this is a bug specific to macOS Sonoma 14.3.1, even earlier versions of Sonoma don't have that problem. Given the number of previous bugs in Sonoma chances are Apple may fix in the in the next release, but I'll see if we can do anything about it on our end in the meantime.
+> 
+> Cheers,
+> Simon
+> 
+> 
+>> On 19/02/2024, at 5:56 AM, Mar?a de los ?ngeles Casares de Cal via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>> 
+>> Thank you very much for your information, Michael.
+>> 
+>> I had not realize that by changing the size of the window where all the plots should be, everything appears.
+>> The same thing happens to me too.
+>> 
+>> Regards,
+>> ?ngeles
+>> 
+>> 
+>> sessionInfo()
+>> R version 4.3.2 (2023-10-31)
+>> Platform: aarch64-apple-darwin20 (64-bit)
+>> Running under: macOS Sonoma 14.3.1
+>> 
+>> Matrix products: default
+>> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+>> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+>> 
+>> locale:
+>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>> 
+>> time zone: Europe/Madrid
+>> tzcode source: internal
+>> 
+>> attached base packages:
+>> [1] stats     graphics  grDevices utils     datasets  methods   base     
+>> 
+>> loaded via a namespace (and not attached):
+>> [1] compiler_4.3.2
+>> 
+>> system_profiler SPHardwareDataType | grep Model
+>>    Model Name: MacBook Air
+>>    Model Identifier: Mac14,2
+>>    Model Number: Z161000GJY/A
+>> 
+>> 
+>> 
+>>> El 16 feb 2024, a las 14:10, Michael Grundler <mcgrundler at gmail.com> escribi?:
+>>> 
+>>> I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+>>> binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+>>> mac. Using the default quartz() device and running the example line by
+>>> line shows a blank device. If the device window is resized, however,
+>>> the expected result appears. The example runs fine using x11(). The
+>>> example also runs fine on both quartz() and x11() on my old x86
+>>> running under Sonoma 14.2.1.
+>>> 
+>>>> sessionInfo()
+>>> R version 4.3.2 Patched (2024-02-13 r85905)
+>>> Platform: aarch64-apple-darwin20 (64-bit)
+>>> Running under: macOS Sonoma 14.3.1
+>>> 
+>>> Matrix products: default
+>>> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+>>> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+>>> LAPACK version 3.11.0
+>>> 
+>>> locale:
+>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>>> 
+>>> time zone: America/New_York
+>>> tzcode source: internal
+>>> 
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>> 
+>>> loaded via a namespace (and not attached):
+>>> [1] compiler_4.3.2
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+>> 
+>> 	[[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From ke||ey @end|ng |rom d@|@c@  Wed Feb 21 23:23:45 2024
+From: ke||ey @end|ng |rom d@|@c@ (Daniel Kelley)
+Date: Wed, 21 Feb 2024 22:23:45 +0000
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <4ACE05E1-2154-4A6C-82A2-B7C690761CF2@R-project.org>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+ <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+ <988A2B64-9C3F-4AB5-907E-5752CB375E0B@me.com>
+ <4ACE05E1-2154-4A6C-82A2-B7C690761CF2@R-project.org>
+Message-ID: <F24AE38C-6666-462D-A830-5D4B57C7491C@dal.ca>
+
+For what it's worth, I also see the bug in the trial Sonoma identified as
+
+    macOS Version 14.4 Beta (23E5205c)
+
+which was updated today.  I'm not sure how many beta versions they have released, but so far none has led to a fix.  My guess is that they are aware of the problem and working on it, because I've seen what seem to be similar problems with text (in the mail application for example) but they have lessened in the last two or so beta versions.
+
+As others have noted, resizing fixes things.  I tend to just use x11() though, because it's also nice and fast for images and I use them a fair bit.
+
+Many thanks to all of those who have worked so hard on R over the years.  It's a very pleasant system, and community.
+
+Dan.
+
+> On Feb 21, 2024, at 5:57?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+> 
+> CAUTION: The Sender of this email is not from within Dalhousie.
+> 
+> I can confirm that this is a bug specific to macOS Sonoma 14.3.1, even earlier versions of Sonoma don't have that problem. Given the number of previous bugs in Sonoma chances are Apple may fix in the in the next release, but I'll see if we can do anything about it on our end in the meantime.
+> 
+> Cheers,
+> Simon
+> 
+> 
+>> On 19/02/2024, at 5:56 AM, Mar?a de los ?ngeles Casares de Cal via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>> 
+>> Thank you very much for your information, Michael.
+>> 
+>> I had not realize that by changing the size of the window where all the plots should be, everything appears.
+>> The same thing happens to me too.
+>> 
+>> Regards,
+>> ?ngeles
+>> 
+>> 
+>> sessionInfo()
+>> R version 4.3.2 (2023-10-31)
+>> Platform: aarch64-apple-darwin20 (64-bit)
+>> Running under: macOS Sonoma 14.3.1
+>> 
+>> Matrix products: default
+>> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+>> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+>> 
+>> locale:
+>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>> 
+>> time zone: Europe/Madrid
+>> tzcode source: internal
+>> 
+>> attached base packages:
+>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>> 
+>> loaded via a namespace (and not attached):
+>> [1] compiler_4.3.2
+>> 
+>> system_profiler SPHardwareDataType | grep Model
+>>    Model Name: MacBook Air
+>>    Model Identifier: Mac14,2
+>>    Model Number: Z161000GJY/A
+>> 
+>> 
+>> 
+>>> El 16 feb 2024, a las 14:10, Michael Grundler <mcgrundler at gmail.com> escribi?:
+>>> 
+>>> I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+>>> binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+>>> mac. Using the default quartz() device and running the example line by
+>>> line shows a blank device. If the device window is resized, however,
+>>> the expected result appears. The example runs fine using x11(). The
+>>> example also runs fine on both quartz() and x11() on my old x86
+>>> running under Sonoma 14.2.1.
+>>> 
+>>>> sessionInfo()
+>>> R version 4.3.2 Patched (2024-02-13 r85905)
+>>> Platform: aarch64-apple-darwin20 (64-bit)
+>>> Running under: macOS Sonoma 14.3.1
+>>> 
+>>> Matrix products: default
+>>> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+>>> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+>>> LAPACK version 3.11.0
+>>> 
+>>> locale:
+>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>>> 
+>>> time zone: America/New_York
+>>> tzcode source: internal
+>>> 
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>> 
+>>> loaded via a namespace (and not attached):
+>>> [1] compiler_4.3.2
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+>> 
+>>      [[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From m@cdec @end|ng |rom me@com  Thu Feb 22 11:21:32 2024
+From: m@cdec @end|ng |rom me@com (=?utf-8?Q?Mar=C3=ADa_de_los_=C3=81ngeles_Casares_de_Cal?=)
+Date: Thu, 22 Feb 2024 11:21:32 +0100
+Subject: [R-SIG-Mac] Graphics in R, version 4.3.2,
+ does not work well in MacOS
+In-Reply-To: <D119BA5E-5795-4F49-B65A-0B996271E576@R-project.org>
+References: <11EF37DD-AFF7-49F3-BD28-28BF47D3DC74@gmail.com>
+ <CAOJnz6SF88Ucx9yy7MtK3T4ZywvA7EHpeX1vyVywoKTUE=+NiA@mail.gmail.com>
+ <988A2B64-9C3F-4AB5-907E-5752CB375E0B@me.com>
+ <4ACE05E1-2154-4A6C-82A2-B7C690761CF2@R-project.org>
+ <D119BA5E-5795-4F49-B65A-0B996271E576@R-project.org>
+Message-ID: <AC43A3BC-AC03-4754-BB1F-434CC1059783@me.com>
+
+Thank you very much, Simon.
+
+I have installed this R:
+R-4.3-branch
+4.3.3 RC
+(2024/02/22, r85969)
+
+And the problem is solved.
+
+Thanks again.
+I would like to add my voice to Daniel Kelley's message:
+Many thanks to all of those who have worked so hard on R over the years.  It's a very pleasant system, and community.
+
+Best regards,
+?ngeles
+
+
+
+> El 22 feb 2024, a las 4:33, Simon Urbanek <simon.urbanek at R-project.org> escribi?:
+> 
+> I can confirm that this is a rather nasty Sonoma bug at least since macOS 14.3.1. It seems Apple tried to implement some kind of optimization that wants to minimize redraws in views, but it's buggy in that it doesn't detect that the contents have actually changed and thus refuses to redraw the view even though R tells it to do so. I found a somewhat convoluted work-around: if we draw two different things (just say dummy rectangles of varying color) and then overwrite them with the actual R plot then even Sonoma will redraw the view. It is rather bizarre... The work around of doodling unrelated things on the screen is now in R-devel and R-patched (85968 and 85969 resp.) so please check R 4.3.3 beta r85969 or higher from mac.R-project.org
+> 
+> Cheers,
+> Simon
+> 
+> 
+> 
+>> On 22/02/2024, at 10:57 AM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+>> 
+>> I can confirm that this is a bug specific to macOS Sonoma 14.3.1, even earlier versions of Sonoma don't have that problem. Given the number of previous bugs in Sonoma chances are Apple may fix in the in the next release, but I'll see if we can do anything about it on our end in the meantime.
+>> 
+>> Cheers,
+>> Simon
+>> 
+>> 
+>>> On 19/02/2024, at 5:56 AM, Mar?a de los ?ngeles Casares de Cal via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>>> 
+>>> Thank you very much for your information, Michael.
+>>> 
+>>> I had not realize that by changing the size of the window where all the plots should be, everything appears.
+>>> The same thing happens to me too.
+>>> 
+>>> Regards,
+>>> ?ngeles
+>>> 
+>>> 
+>>> sessionInfo()
+>>> R version 4.3.2 (2023-10-31)
+>>> Platform: aarch64-apple-darwin20 (64-bit)
+>>> Running under: macOS Sonoma 14.3.1
+>>> 
+>>> Matrix products: default
+>>> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+>>> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+>>> 
+>>> locale:
+>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>>> 
+>>> time zone: Europe/Madrid
+>>> tzcode source: internal
+>>> 
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base     
+>>> 
+>>> loaded via a namespace (and not attached):
+>>> [1] compiler_4.3.2
+>>> 
+>>> system_profiler SPHardwareDataType | grep Model
+>>>   Model Name: MacBook Air
+>>>   Model Identifier: Mac14,2
+>>>   Model Number: Z161000GJY/A
+>>> 
+>>> 
+>>> 
+>>>> El 16 feb 2024, a las 14:10, Michael Grundler <mcgrundler at gmail.com> escribi?:
+>>>> 
+>>>> I am also observing the same behavior as Mar?a with the 4.3.2 Patched
+>>>> binary from mac.r-project.org running under Sonoma 14.3.1 on an m3
+>>>> mac. Using the default quartz() device and running the example line by
+>>>> line shows a blank device. If the device window is resized, however,
+>>>> the expected result appears. The example runs fine using x11(). The
+>>>> example also runs fine on both quartz() and x11() on my old x86
+>>>> running under Sonoma 14.2.1.
+>>>> 
+>>>>> sessionInfo()
+>>>> R version 4.3.2 Patched (2024-02-13 r85905)
+>>>> Platform: aarch64-apple-darwin20 (64-bit)
+>>>> Running under: macOS Sonoma 14.3.1
+>>>> 
+>>>> Matrix products: default
+>>>> BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib
+>>>> LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+>>>> LAPACK version 3.11.0
+>>>> 
+>>>> locale:
+>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>>>> 
+>>>> time zone: America/New_York
+>>>> tzcode source: internal
+>>>> 
+>>>> attached base packages:
+>>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>> 
+>>>> loaded via a namespace (and not attached):
+>>>> [1] compiler_4.3.2
+>>>> 
+>>>> _______________________________________________
+>>>> R-SIG-Mac mailing list
+>>>> R-SIG-Mac at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>> 
+>>> 
+>>> 	[[alternative HTML version deleted]]
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>> 
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+> 
+
+
+	[[alternative HTML version deleted]]
+
+
+From @pencer@gr@ve@ @end|ng |rom prod@y@e@com  Tue Feb 27 20:02:09 2024
+From: @pencer@gr@ve@ @end|ng |rom prod@y@e@com (Spencer Graves)
+Date: Tue, 27 Feb 2024 13:02:09 -0600
+Subject: [R-SIG-Mac] pdflatex not found! Not building PDF manual.
+Message-ID: <b1bc0db9-02ed-43d7-8e08-5b674f5e0ac8@prodsyse.com>
+
+Hello:
+
+
+	  Running "devtools::check_win_devel()", I got, "pdflatex not found! 
+Not building PDF manual." "sessionInfo()" below.
+
+
+	  Suggestions?
+	  Thanks,
+	  Spencer Graves
+
+
+  sessionInfo()
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.3.1
+
+Matrix products: default
+BLAS: 
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+
+LAPACK: 
+/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib; 
+  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+loaded via a namespace (and not attached):
+  [1] miniUI_0.1.1.1    compiler_4.3.2    promises_1.2.1    Rcpp_1.0.12 
+
+  [5] stringr_1.5.1     callr_3.7.3       later_1.3.2 
+fastmap_1.1.1
+  [9] mime_0.12         R6_2.5.1          curl_5.2.0 
+htmlwidgets_1.6.4
+[13] tibble_3.2.1      desc_1.4.3        profvis_0.3.8     shiny_1.8.0
+[17] pillar_1.9.0      rlang_1.1.3       utf8_1.2.4        cachem_1.0.8
+[21] stringi_1.8.3     httpuv_1.6.14     fs_1.6.3          pkgload_1.3.4
+[25] memoise_2.0.1     cli_3.6.2         magrittr_2.0.3    ps_1.7.6
+[29] processx_3.8.3    digest_0.6.34     rstudioapi_0.15.0 xtable_1.8-4
+[33] remotes_2.4.2.1   devtools_2.4.5    lifecycle_1.0.4   vctrs_0.6.5
+[37] glue_1.7.0        urlchecker_1.0.1  sessioninfo_1.2.2 pkgbuild_1.4.3
+[41] fansi_1.0.6       purrr_1.0.2       pkgconfig_2.0.3   tools_4.3.2
+[45] usethis_2.2.3     ellipsis_0.3.2    htmltools_0.5.7
+ >
+
+
+From m@rc_@chw@rtz @end|ng |rom me@com  Tue Feb 27 22:05:58 2024
+From: m@rc_@chw@rtz @end|ng |rom me@com (Marc Schwartz)
+Date: Tue, 27 Feb 2024 16:05:58 -0500
+Subject: [R-SIG-Mac] pdflatex not found! Not building PDF manual.
+In-Reply-To: <b1bc0db9-02ed-43d7-8e08-5b674f5e0ac8@prodsyse.com>
+References: <b1bc0db9-02ed-43d7-8e08-5b674f5e0ac8@prodsyse.com>
+Message-ID: <486DC03B-353B-4CD0-B581-F7E40C8F5137@me.com>
+
+Dennis,
+
+Do you have a TeX installation on your Mac?
+
+pdflatex is typically installed with TeX, which for macOS is usually via MacTeX:
+
+  https://tug.org/mactex/
+
+Once you have that installed, you should be good to go, but if you are currently running an interactive R session, you will likely need to exit that, and then after installing MacTex, restart your R session.
+
+You will also end up with a TeX folder in your Applications folder, where supporting apps will reside, including the TeX Live utility, which can be used to update the TeX installation periodically.
+
+Regards,
+
+Marc Schwartz
+
+
+?-----Original Message-----
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org>> on behalf of Spencer Graves <spencer.graves at prodsyse.com <mailto:spencer.graves at prodsyse.com>>
+Date: Tuesday, February 27, 2024 at 2:02 PM
+To: r-sig-mac <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>
+Subject: [R-SIG-Mac] pdflatex not found! Not building PDF manual.
+
+
+Hello:
+
+Running "devtools::check_win_devel()", I got, "pdflatex not found! 
+Not building PDF manual." "sessionInfo()" below.
+
+Suggestions?
+Thanks,
+Spencer Graves
+
+
+
+
+sessionInfo()
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.3.1
+
+
+Matrix products: default
+BLAS: 
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+
+
+LAPACK: 
+/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib; 
+LAPACK version 3.11.0
+
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+
+time zone: America/Chicago
+tzcode source: internal
+
+
+attached base packages:
+[1] stats graphics grDevices utils datasets methods base
+
+
+loaded via a namespace (and not attached):
+[1] miniUI_0.1.1.1 compiler_4.3.2 promises_1.2.1 Rcpp_1.0.12 
+
+
+[5] stringr_1.5.1 callr_3.7.3 later_1.3.2 
+fastmap_1.1.1
+[9] mime_0.12 R6_2.5.1 curl_5.2.0 
+htmlwidgets_1.6.4
+[13] tibble_3.2.1 desc_1.4.3 profvis_0.3.8 shiny_1.8.0
+[17] pillar_1.9.0 rlang_1.1.3 utf8_1.2.4 cachem_1.0.8
+[21] stringi_1.8.3 httpuv_1.6.14 fs_1.6.3 pkgload_1.3.4
+[25] memoise_2.0.1 cli_3.6.2 magrittr_2.0.3 ps_1.7.6
+[29] processx_3.8.3 digest_0.6.34 rstudioapi_0.15.0 xtable_1.8-4
+[33] remotes_2.4.2.1 devtools_2.4.5 lifecycle_1.0.4 vctrs_0.6.5
+[37] glue_1.7.0 urlchecker_1.0.1 sessioninfo_1.2.2 pkgbuild_1.4.3
+[41] fansi_1.0.6 purrr_1.0.2 pkgconfig_2.0.3 tools_4.3.2
+[45] usethis_2.2.3 ellipsis_0.3.2 htmltools_0.5.7
+>
+
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>
+
+
+From m@rc_@chw@rtz @end|ng |rom me@com  Tue Feb 27 22:29:30 2024
+From: m@rc_@chw@rtz @end|ng |rom me@com (Marc Schwartz)
+Date: Tue, 27 Feb 2024 16:29:30 -0500
+Subject: [R-SIG-Mac] pdflatex not found! Not building PDF manual.
+In-Reply-To: <486DC03B-353B-4CD0-B581-F7E40C8F5137@me.com>
+References: <b1bc0db9-02ed-43d7-8e08-5b674f5e0ac8@prodsyse.com>
+ <486DC03B-353B-4CD0-B581-F7E40C8F5137@me.com>
+Message-ID: <2541799A-4EFC-4610-9719-365E9D81F4B9@me.com>
+
+Spencer,
+
+My apologies, as my eyes caught a different post by Dennis on R-Help, as I was in the process of replying to yours.
+
+Regards,
+
+Marc
+
+?-----Original Message-----
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org>> on behalf of Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>
+Reply-To: Marc Schwartz <marc_schwartz at me.com <mailto:marc_schwartz at me.com>>
+Date: Tuesday, February 27, 2024 at 4:06 PM
+To: Spencer Graves <spencer.graves at prodsyse.com <mailto:spencer.graves at prodsyse.com>>, r-sig-mac <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>
+Subject: Re: [R-SIG-Mac] pdflatex not found! Not building PDF manual.
+
+
+Dennis,
+
+
+Do you have a TeX installation on your Mac?
+
+
+pdflatex is typically installed with TeX, which for macOS is usually via MacTeX:
+
+
+https://tug.org/mactex/ <https://tug.org/mactex/>
+
+
+Once you have that installed, you should be good to go, but if you are currently running an interactive R session, you will likely need to exit that, and then after installing MacTex, restart your R session.
+
+
+You will also end up with a TeX folder in your Applications folder, where supporting apps will reside, including the TeX Live utility, which can be used to update the TeX installation periodically.
+
+
+Regards,
+
+
+Marc Schwartz
+
+
+
+
+?-----Original Message-----
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org> <mailto:r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org>>> on behalf of Spencer Graves <spencer.graves at prodsyse.com <mailto:spencer.graves at prodsyse.com> <mailto:spencer.graves at prodsyse.com <mailto:spencer.graves at prodsyse.com>>>
+Date: Tuesday, February 27, 2024 at 2:02 PM
+To: r-sig-mac <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org> <mailto:r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>>
+Subject: [R-SIG-Mac] pdflatex not found! Not building PDF manual.
+
+
+
+
+Hello:
+
+
+Running "devtools::check_win_devel()", I got, "pdflatex not found! 
+Not building PDF manual." "sessionInfo()" below.
+
+
+Suggestions?
+Thanks,
+Spencer Graves
+
+
+
+
+
+
+
+
+sessionInfo()
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.3.1
+
+
+
+
+Matrix products: default
+BLAS: 
+/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+
+
+
+
+LAPACK: 
+/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib; 
+LAPACK version 3.11.0
+
+
+
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+
+
+
+time zone: America/Chicago
+tzcode source: internal
+
+
+
+
+attached base packages:
+[1] stats graphics grDevices utils datasets methods base
+
+
+
+
+loaded via a namespace (and not attached):
+[1] miniUI_0.1.1.1 compiler_4.3.2 promises_1.2.1 Rcpp_1.0.12 
+
+
+
+
+[5] stringr_1.5.1 callr_3.7.3 later_1.3.2 
+fastmap_1.1.1
+[9] mime_0.12 R6_2.5.1 curl_5.2.0 
+htmlwidgets_1.6.4
+[13] tibble_3.2.1 desc_1.4.3 profvis_0.3.8 shiny_1.8.0
+[17] pillar_1.9.0 rlang_1.1.3 utf8_1.2.4 cachem_1.0.8
+[21] stringi_1.8.3 httpuv_1.6.14 fs_1.6.3 pkgload_1.3.4
+[25] memoise_2.0.1 cli_3.6.2 magrittr_2.0.3 ps_1.7.6
+[29] processx_3.8.3 digest_0.6.34 rstudioapi_0.15.0 xtable_1.8-4
+[33] remotes_2.4.2.1 devtools_2.4.5 lifecycle_1.0.4 vctrs_0.6.5
+[37] glue_1.7.0 urlchecker_1.0.1 sessioninfo_1.2.2 pkgbuild_1.4.3
+[41] fansi_1.0.6 purrr_1.0.2 pkgconfig_2.0.3 tools_4.3.2
+[45] usethis_2.2.3 ellipsis_0.3.2 htmltools_0.5.7
+>
+
+
+
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org> <mailto:R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>>
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac> <https://stat.ethz.ch/mailman/listinfo/r-sig-mac> <https://stat.ethz.ch/mailman/listinfo/r-sig-mac&gt;>
+
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>
+
+
+From @pencer@gr@ve@ @end|ng |rom prod@y@e@com  Wed Feb 28 01:38:21 2024
+From: @pencer@gr@ve@ @end|ng |rom prod@y@e@com (Spencer Graves)
+Date: Tue, 27 Feb 2024 18:38:21 -0600
+Subject: [R-SIG-Mac] pdflatex not found! Not building PDF manual.
+In-Reply-To: <486DC03B-353B-4CD0-B581-F7E40C8F5137@me.com>
+References: <b1bc0db9-02ed-43d7-8e08-5b674f5e0ac8@prodsyse.com>
+ <486DC03B-353B-4CD0-B581-F7E40C8F5137@me.com>
+Message-ID: <5e62a238-af33-45d7-b099-eb24780ef554@prodsyse.com>
+
+Hi, Marc: That's what I needed. Thanks. Spencer Graves
+
+
+On 2/27/24 3:05 PM, Marc Schwartz wrote:
+> Dennis,
+> 
+> Do you have a TeX installation on your Mac?
+> 
+> pdflatex is typically installed with TeX, which for macOS is usually via MacTeX:
+> 
+>    https://tug.org/mactex/
+> 
+> Once you have that installed, you should be good to go, but if you are currently running an interactive R session, you will likely need to exit that, and then after installing MacTex, restart your R session.
+> 
+> You will also end up with a TeX folder in your Applications folder, where supporting apps will reside, including the TeX Live utility, which can be used to update the TeX installation periodically.
+> 
+> Regards,
+> 
+> Marc Schwartz
+> 
+> 
+> ?-----Original Message-----
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org>> on behalf of Spencer Graves <spencer.graves at prodsyse.com <mailto:spencer.graves at prodsyse.com>>
+> Date: Tuesday, February 27, 2024 at 2:02 PM
+> To: r-sig-mac <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>
+> Subject: [R-SIG-Mac] pdflatex not found! Not building PDF manual.
+> 
+> 
+> Hello:
+> 
+> Running "devtools::check_win_devel()", I got, "pdflatex not found!
+> Not building PDF manual." "sessionInfo()" below.
+> 
+> Suggestions?
+> Thanks,
+> Spencer Graves
+> 
+> 
+> 
+> 
+> sessionInfo()
+> R version 4.3.2 (2023-10-31)
+> Platform: aarch64-apple-darwin20 (64-bit)
+> Running under: macOS Sonoma 14.3.1
+> 
+> 
+> Matrix products: default
+> BLAS:
+> /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+> 
+> 
+> LAPACK:
+> /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;
+> LAPACK version 3.11.0
+> 
+> 
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+> 
+> 
+> time zone: America/Chicago
+> tzcode source: internal
+> 
+> 
+> attached base packages:
+> [1] stats graphics grDevices utils datasets methods base
+> 
+> 
+> loaded via a namespace (and not attached):
+> [1] miniUI_0.1.1.1 compiler_4.3.2 promises_1.2.1 Rcpp_1.0.12
+> 
+> 
+> [5] stringr_1.5.1 callr_3.7.3 later_1.3.2
+> fastmap_1.1.1
+> [9] mime_0.12 R6_2.5.1 curl_5.2.0
+> htmlwidgets_1.6.4
+> [13] tibble_3.2.1 desc_1.4.3 profvis_0.3.8 shiny_1.8.0
+> [17] pillar_1.9.0 rlang_1.1.3 utf8_1.2.4 cachem_1.0.8
+> [21] stringi_1.8.3 httpuv_1.6.14 fs_1.6.3 pkgload_1.3.4
+> [25] memoise_2.0.1 cli_3.6.2 magrittr_2.0.3 ps_1.7.6
+> [29] processx_3.8.3 digest_0.6.34 rstudioapi_0.15.0 xtable_1.8-4
+> [33] remotes_2.4.2.1 devtools_2.4.5 lifecycle_1.0.4 vctrs_0.6.5
+> [37] glue_1.7.0 urlchecker_1.0.1 sessioninfo_1.2.2 pkgbuild_1.4.3
+> [41] fansi_1.0.6 purrr_1.0.2 pkgconfig_2.0.3 tools_4.3.2
+> [45] usethis_2.2.3 ellipsis_0.3.2 htmltools_0.5.7
+>>
+> 
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>
+> 
+> 
+> 
+>
+
+

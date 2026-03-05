@@ -1,0 +1,721 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2025-12",
+  "messages": [
+    {
+      "id": "msg-d1099940e14f",
+      "message_id": "<243aee3f-ac5e-45c1-8a12-00fa7d4a932e@gmail.com>",
+      "from_name": "Ben Bolker",
+      "from_email_hash": "058f22460bce77c55c3340fec40d01e374409ed76ec5a897b62075a27eb9734c",
+      "date": "2025-12-02T19:10:24-05:00",
+      "subject": "[R-SIG-Mac] CRAN LaTeX infrastructure for packages",
+      "subject_clean": "CRAN LaTeX infrastructure for packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I'm not a regular reader of r-sig-mac, but have a question about CRAN \nLaTeX infrastructure for MacOS.\n\n   This may be a question specifically for Simon Urbanek, but thought \nI'd check here first in case anyone has insights.\n\n   I recently sent a new version of the lme4 package (1.1-38) to CRAN; \nit passed all the incoming tests, but I'm now seeing warnings (at \nhttps://cran.r-project.org/web/checks/check_results_lme4.html) from the \nr-release-macos-arm64  and r-oldrel-macos-arm64  (but *not* from the \nx86_64 platforms):\n\n >   ! LaTeX Error: File `blkarray.sty' not found.\n\nThis hasn't happened before.  Furthermore, when I go back in the git log \nfor the package I see:\n\ncommit 3140cc0f1b394c6888d7704ee3d5de5f45df2886\nAuthor: Ben Bolker <bbolker at gmail.com>\nDate:   Thu Aug 10 10:28:55 2017 -0400\n\n     .Rbuildignore blkarray.sty as per CRAN request\n\nIn particular, Kurt Hornik sent a mass e-mail in 2017 to many package \nmaintainers saying:\n\n >  These [packages] contain copies of standard LaTeX .sty files which \nshould be excluded from the package (as shipping these copies should not \nbe necessary, and may even cause trouble in case the local copies become \noutdated [as just happened for a recent CRAN submission]).\n\n   So my best guess is that this is an oversight/platform glitch on the \narm64 platforms ...\n\n   Thoughts?\n\n   sincerely\n    Ben Bolker",
+      "body_snippet": "I'm not a regular reader of r-sig-mac, but have a question about CRAN \nLaTeX infrastructure for MacOS.\n\n   This may be a question specifically for Simon Urbanek, but thought \nI'd check here first in c",
+      "thread_id": "thread-d1099940e14f",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-470ff4b1a62e",
+      "message_id": "<C67F7EF3-5F3A-45E7-8FA6-C1206FFA6ADD@gmail.com>",
+      "from_name": "Peter Dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2025-12-03T14:20:54+01:00",
+      "subject": "[R-SIG-Mac] CRAN LaTeX infrastructure for packages",
+      "subject_clean": "CRAN LaTeX infrastructure for packages",
+      "in_reply_to": "<243aee3f-ac5e-45c1-8a12-00fa7d4a932e@gmail.com>",
+      "references": [
+        "<243aee3f-ac5e-45c1-8a12-00fa7d4a932e@gmail.com>"
+      ],
+      "body_plain": "Hi Ben,\n\nFor whatever is is worth, I do have (on an M4)\n\n% find /usr/local -name blkarray.sty\n/usr/local/texlive/2024/texmf-dist/tex/latex/blkarray/blkarray.sty\n\nand I don't recall doing anything special to get it. So yes, most likely there's a glitch in the TeX install on the macos-arm64 builder.\n\n-pd\n\n\n> On 3 Dec 2025, at 01.10, Ben Bolker <bbolker at gmail.com> wrote:\n> \n>  I'm not a regular reader of r-sig-mac, but have a question about CRAN LaTeX infrastructure for MacOS.\n> \n>  This may be a question specifically for Simon Urbanek, but thought I'd check here first in case anyone has insights.\n> \n>  I recently sent a new version of the lme4 package (1.1-38) to CRAN; it passed all the incoming tests, but I'm now seeing warnings (at https://cran.r-project.org/web/checks/check_results_lme4.html) from the r-release-macos-arm64  and r-oldrel-macos-arm64  (but *not* from the x86_64 platforms):\n> \n> >   ! LaTeX Error: File `blkarray.sty' not found.\n> \n> This hasn't happened before.  Furthermore, when I go back in the git log for the package I see:\n> \n> commit 3140cc0f1b394c6888d7704ee3d5de5f45df2886\n> Author: Ben Bolker <bbolker at gmail.com>\n> Date:   Thu Aug 10 10:28:55 2017 -0400\n> \n>    .Rbuildignore blkarray.sty as per CRAN request\n> \n> In particular, Kurt Hornik sent a mass e-mail in 2017 to many package maintainers saying:\n> \n> >  These [packages] contain copies of standard LaTeX .sty files which should be excluded from the package (as shipping these copies should not be necessary, and may even cause trouble in case the local copies become outdated [as just happened for a recent CRAN submission]).\n> \n>  So my best guess is that this is an oversight/platform glitch on the arm64 platforms ...\n> \n>  Thoughts?\n> \n>  sincerely\n>   Ben Bolker\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Hi Ben,\n\nFor whatever is is worth, I do have (on an M4)\n\n% find /usr/local -name blkarray.sty\n/usr/local/texlive/2024/texmf-dist/tex/latex/blkarray/blkarray.sty\n\nand I don't recall doing anything spec",
+      "thread_id": "thread-d1099940e14f",
+      "thread_depth": 1,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-58680e08cccd",
+      "message_id": "<75648329-9637-48F8-9611-E7150E1103DB@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2025-12-03T09:08:17-05:00",
+      "subject": "[R-SIG-Mac] CRAN LaTeX infrastructure for packages",
+      "subject_clean": "CRAN LaTeX infrastructure for packages",
+      "in_reply_to": "<C67F7EF3-5F3A-45E7-8FA6-C1206FFA6ADD@gmail.com>",
+      "references": [
+        "<243aee3f-ac5e-45c1-8a12-00fa7d4a932e@gmail.com>",
+        "<C67F7EF3-5F3A-45E7-8FA6-C1206FFA6ADD@gmail.com>"
+      ],
+      "body_plain": "Hi,\n\nAs far as I know, that style file is part of the standard MacTeX distribution, which is built upon TeX Live, and includes the blkarray package by default. I have it installed on my MacBook and did not do anything other than a default install of the full MacTeX release:\n\n % find /usr/local -name blkarray.sty\n/usr/local/texlive/2025/texmf-dist/tex/latex/blkarray/blkarray.sty\n\nAs Peter notes, I suspect that this is an issue on CRAN and would defer to Simon's interaction here.\n\nAlso, as an FYI to Peter, I note below from the file path that you have TeX Live 2024 installed. The distributions are updated annually, and 2025 was released this past spring (March/April time frame). I do not believe that a prior year distribution is maintained for updates once the current year distribution is released, even though you can have multiple annual releases installed in parallel.\n\nRegards,\n\nMarc\n\n> On Dec 3, 2025, at 8:20?AM, Peter Dalgaard <pdalgd at gmail.com> wrote:\n> \n> Hi Ben,\n> \n> For whatever is is worth, I do have (on an M4)\n> \n> % find /usr/local -name blkarray.sty\n> /usr/local/texlive/2024/texmf-dist/tex/latex/blkarray/blkarray.sty\n> \n> and I don't recall doing anything special to get it. So yes, most likely there's a glitch in the TeX install on the macos-arm64 builder.\n> \n> -pd\n> \n> \n>> On 3 Dec 2025, at 01.10, Ben Bolker <bbolker at gmail.com> wrote:\n>> \n>> I'm not a regular reader of r-sig-mac, but have a question about CRAN LaTeX infrastructure for MacOS.\n>> \n>> This may be a question specifically for Simon Urbanek, but thought I'd check here first in case anyone has insights.\n>> \n>> I recently sent a new version of the lme4 package (1.1-38) to CRAN; it passed all the incoming tests, but I'm now seeing warnings (at https://cran.r-project.org/web/checks/check_results_lme4.html) from the r-release-macos-arm64  and r-oldrel-macos-arm64  (but *not* from the x86_64 platforms):\n>> \n>>>  ! LaTeX Error: File `blkarray.sty' not found.\n>> \n>> This hasn't happened before.  Furthermore, when I go back in the git log for the package I see:\n>> \n>> commit 3140cc0f1b394c6888d7704ee3d5de5f45df2886\n>> Author: Ben Bolker <bbolker at gmail.com>\n>> Date:   Thu Aug 10 10:28:55 2017 -0400\n>> \n>>   .Rbuildignore blkarray.sty as per CRAN request\n>> \n>> In particular, Kurt Hornik sent a mass e-mail in 2017 to many package maintainers saying:\n>> \n>>> These [packages] contain copies of standard LaTeX .sty files which should be excluded from the package (as shipping these copies should not be necessary, and may even cause trouble in case the local copies become outdated [as just happened for a recent CRAN submission]).\n>> \n>> So my best guess is that this is an oversight/platform glitch on the arm64 platforms ...\n>> \n>> Thoughts?\n>> \n>> sincerely\n>>  Ben Bolker\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> -- \n> Peter Dalgaard, Professor,\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Office: A 4.23\n> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Hi,\n\nAs far as I know, that style file is part of the standard MacTeX distribution, which is built upon TeX Live, and includes the blkarray package by default. I have it installed on my MacBook and di",
+      "thread_id": "thread-d1099940e14f",
+      "thread_depth": 2,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-f771a66980bc",
+      "message_id": "<1D5F002D-194F-403C-942C-A6DABB47468F@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-04T08:33:52+13:00",
+      "subject": "[R-SIG-Mac] CRAN LaTeX infrastructure for packages",
+      "subject_clean": "CRAN LaTeX infrastructure for packages",
+      "in_reply_to": "<243aee3f-ac5e-45c1-8a12-00fa7d4a932e@gmail.com>",
+      "references": [
+        "<243aee3f-ac5e-45c1-8a12-00fa7d4a932e@gmail.com>"
+      ],
+      "body_plain": "Ben,\n\nit is not an oversight in that I'm not aware of any agreed set of optional packages. I'm also not aware of the discussion you quote from 2017, but if there is anything that you need that is not in the standard set then all you need to do is tell me that you require it.\n\nThe change is that the most recent builds are now done on VMs that are now setup fully automatically (=no manual intervention) and use TinyTeX instead of MacTeX to make maintenance easier - FWIW  see\nhttps://github.com/R-macos/vm-scripts-mini-r/blob/master/shared/setup.sh\n\nIf you need any packages that are not a part of the standard TinyTeX bundle then you just need to tell me (or you can ask TinyTeX to include it so it is available to others as well).\n\nCheers,\nSimon\n\n\n> On 3/12/2025, at 1:10 PM, Ben Bolker <bbolker at gmail.com> wrote:\n> \n>  I'm not a regular reader of r-sig-mac, but have a question about CRAN LaTeX infrastructure for MacOS.\n> \n>  This may be a question specifically for Simon Urbanek, but thought I'd check here first in case anyone has insights.\n> \n>  I recently sent a new version of the lme4 package (1.1-38) to CRAN; it passed all the incoming tests, but I'm now seeing warnings (at https://cran.r-project.org/web/checks/check_results_lme4.html) from the r-release-macos-arm64  and r-oldrel-macos-arm64  (but *not* from the x86_64 platforms):\n> \n> >   ! LaTeX Error: File `blkarray.sty' not found.\n> \n> This hasn't happened before.  Furthermore, when I go back in the git log for the package I see:\n> \n> commit 3140cc0f1b394c6888d7704ee3d5de5f45df2886\n> Author: Ben Bolker <bbolker at gmail.com>\n> Date:   Thu Aug 10 10:28:55 2017 -0400\n> \n>    .Rbuildignore blkarray.sty as per CRAN request\n> \n> In particular, Kurt Hornik sent a mass e-mail in 2017 to many package maintainers saying:\n> \n> >  These [packages] contain copies of standard LaTeX .sty files which should be excluded from the package (as shipping these copies should not be necessary, and may even cause trouble in case the local copies become outdated [as just happened for a recent CRAN submission]).\n> \n>  So my best guess is that this is an oversight/platform glitch on the arm64 platforms ...\n> \n>  Thoughts?\n> \n>  sincerely\n>   Ben Bolker\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Ben,\n\nit is not an oversight in that I'm not aware of any agreed set of optional packages. I'm also not aware of the discussion you quote from 2017, but if there is anything that you need that is not ",
+      "thread_id": "thread-d1099940e14f",
+      "thread_depth": 1,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-b0b0f16c1ec7",
+      "message_id": "<ade3d997-2c21-4d9e-bb4d-bb44d4ea6810@gmail.com>",
+      "from_name": "Ben Bolker",
+      "from_email_hash": "058f22460bce77c55c3340fec40d01e374409ed76ec5a897b62075a27eb9734c",
+      "date": "2025-12-03T15:05:03-05:00",
+      "subject": "[R-SIG-Mac] CRAN LaTeX infrastructure for packages",
+      "subject_clean": "CRAN LaTeX infrastructure for packages",
+      "in_reply_to": "<1D5F002D-194F-403C-942C-A6DABB47468F@R-project.org>",
+      "references": [
+        "<243aee3f-ac5e-45c1-8a12-00fa7d4a932e@gmail.com>",
+        "<1D5F002D-194F-403C-942C-A6DABB47468F@R-project.org>"
+      ],
+      "body_plain": "OK, then this is my official request to include blkarray.sty in the \nset of available LaTeX style files on the arm64 platform ... (i.e. the \nblkarray LaTeX package, \nhttps://ctan.org/tex-archive/macros/latex/contrib/blkarray?lang=en )\n\n  This is the list of 'unnecessary' style files that were included in \nKurt Hornik's 2017 e-mail to maintainers.  I don't know if there's an \neasy way to diff against the set of files that TinyTeX provides ...\n\n\na4wide.sty\nactuarialangle.sty\nactuarialsymbol.sty\nalgorithm2e.sty\nalgorithmic.sty\namsmath.sty\namssymb.sty\nauthblk.sty\nblkarray.sty\nbm.sty\nchicago.sty\nenumitem.sty\nenviron.sty\nfancyhdr.sty\nfancyheadings.sty\nfancyvrb.sty\nfloat.sty\nframed.sty\nfullpage.sty\ngeometry.sty\ninconsolata.sty\nlayout.sty\nlongtable.sty\nnatbib.sty\nnicefrac.sty\nplaceins.sty\nrelsize.sty\nshadethm.sty\nsiunitx.sty\nsrcltx.sty\nsubfigure.sty\nsvnkw.sty\nsvn-multi.sty\ntabu.sty\ntitleps.sty\ntitlesec.sty\ntitletoc.sty\ntrimspaces.sty\nupquote.sty\nversions.sty\nzi4.sty\n\n   I don't know if you should try to provide all these, or wait for \ntests to fail and fix things one package at a time ...\n\n   cheers\n    Ben Bolker\n\nOn 12/3/25 14:33, Simon Urbanek wrote:\n> Ben,\n> \n> it is not an oversight in that I'm not aware of any agreed set of optional packages. I'm also not aware of the discussion you quote from 2017, but if there is anything that you need that is not in the standard set then all you need to do is tell me that you require it.\n> \n> The change is that the most recent builds are now done on VMs that are now setup fully automatically (=no manual intervention) and use TinyTeX instead of MacTeX to make maintenance easier - FWIW  see\n> https://github.com/R-macos/vm-scripts-mini-r/blob/master/shared/setup.sh\n> \n> If you need any packages that are not a part of the standard TinyTeX bundle then you just need to tell me (or you can ask TinyTeX to include it so it is available to others as well).\n> \n> Cheers,\n> Simon\n> \n> \n>> On 3/12/2025, at 1:10 PM, Ben Bolker <bbolker at gmail.com> wrote:\n>>\n>>   I'm not a regular reader of r-sig-mac, but have a question about CRAN LaTeX infrastructure for MacOS.\n>>\n>>   This may be a question specifically for Simon Urbanek, but thought I'd check here first in case anyone has insights.\n>>\n>>   I recently sent a new version of the lme4 package (1.1-38) to CRAN; it passed all the incoming tests, but I'm now seeing warnings (at https://cran.r-project.org/web/checks/check_results_lme4.html) from the r-release-macos-arm64  and r-oldrel-macos-arm64  (but *not* from the x86_64 platforms):\n>>\n>>>    ! LaTeX Error: File `blkarray.sty' not found.\n>>\n>> This hasn't happened before.  Furthermore, when I go back in the git log for the package I see:\n>>\n>> commit 3140cc0f1b394c6888d7704ee3d5de5f45df2886\n>> Author: Ben Bolker <bbolker at gmail.com>\n>> Date:   Thu Aug 10 10:28:55 2017 -0400\n>>\n>>     .Rbuildignore blkarray.sty as per CRAN request\n>>\n>> In particular, Kurt Hornik sent a mass e-mail in 2017 to many package maintainers saying:\n>>\n>>>   These [packages] contain copies of standard LaTeX .sty files which should be excluded from the package (as shipping these copies should not be necessary, and may even cause trouble in case the local copies become outdated [as just happened for a recent CRAN submission]).\n>>\n>>   So my best guess is that this is an oversight/platform glitch on the arm64 platforms ...\n>>\n>>   Thoughts?\n>>\n>>   sincerely\n>>    Ben Bolker\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n> \n\n-- \nDr. Benjamin Bolker\nProfessor, Mathematics & Statistics and Biology, McMaster University\nAssociate chair (graduate), Mathematics & Statistics\nDirector, School of Computational Science and Engineering\n* E-mail is sent at my convenience; I don't expect replies outside of \nworking hours.",
+      "body_snippet": "OK, then this is my official request to include blkarray.sty in the \nset of available LaTeX style files on the arm64 platform ... (i.e. the \nblkarray LaTeX package, \nhttps://ctan.org/tex-archive/macro",
+      "thread_id": "thread-d1099940e14f",
+      "thread_depth": 2,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-1257fd2e0782",
+      "message_id": "<CAAC2A32-4D00-4B69-9376-4DCEB947B8BB@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-04T09:12:37+13:00",
+      "subject": "[R-SIG-Mac] CRAN LaTeX infrastructure for packages",
+      "subject_clean": "CRAN LaTeX infrastructure for packages",
+      "in_reply_to": "<ade3d997-2c21-4d9e-bb4d-bb44d4ea6810@gmail.com>",
+      "references": [
+        "<243aee3f-ac5e-45c1-8a12-00fa7d4a932e@gmail.com>",
+        "<1D5F002D-194F-403C-942C-A6DABB47468F@R-project.org>",
+        "<ade3d997-2c21-4d9e-bb4d-bb44d4ea6810@gmail.com>"
+      ],
+      "body_plain": "Ben,\n\nthanks for the list! From those the following are missing from the standard TinyTex:\n\n== actuarialangle.sty\n== actuarialsymbol.sty\n== algorithm2e.sty\n== blkarray.sty\n== chicago.sty\n== relsize.sty\n== shadethm.sty\n== svnkw.sty\n== svn-multi.sty\n== versions.sty\n\nSo I'll set that they are included one way or another.\n\nThanks,\nSimon\n\n\n\n> On 4/12/2025, at 9:05 AM, Ben Bolker <bbolker at gmail.com> wrote:\n> \n>   OK, then this is my official request to include blkarray.sty in the set of available LaTeX style files on the arm64 platform ... (i.e. the blkarray LaTeX package, https://ctan.org/tex-archive/macros/latex/contrib/blkarray?lang=en )\n> \n> This is the list of 'unnecessary' style files that were included in Kurt Hornik's 2017 e-mail to maintainers.  I don't know if there's an easy way to diff against the set of files that TinyTeX provides ...\n> \n> \n> a4wide.sty\n> actuarialangle.sty\n> actuarialsymbol.sty\n> algorithm2e.sty\n> algorithmic.sty\n> amsmath.sty\n> amssymb.sty\n> authblk.sty\n> blkarray.sty\n> bm.sty\n> chicago.sty\n> enumitem.sty\n> environ.sty\n> fancyhdr.sty\n> fancyheadings.sty\n> fancyvrb.sty\n> float.sty\n> framed.sty\n> fullpage.sty\n> geometry.sty\n> inconsolata.sty\n> layout.sty\n> longtable.sty\n> natbib.sty\n> nicefrac.sty\n> placeins.sty\n> relsize.sty\n> shadethm.sty\n> siunitx.sty\n> srcltx.sty\n> subfigure.sty\n> svnkw.sty\n> svn-multi.sty\n> tabu.sty\n> titleps.sty\n> titlesec.sty\n> titletoc.sty\n> trimspaces.sty\n> upquote.sty\n> versions.sty\n> zi4.sty\n> \n>  I don't know if you should try to provide all these, or wait for tests to fail and fix things one package at a time ...\n> \n>  cheers\n>   Ben Bolker\n> \n> On 12/3/25 14:33, Simon Urbanek wrote:\n>> Ben,\n>> it is not an oversight in that I'm not aware of any agreed set of optional packages. I'm also not aware of the discussion you quote from 2017, but if there is anything that you need that is not in the standard set then all you need to do is tell me that you require it.\n>> The change is that the most recent builds are now done on VMs that are now setup fully automatically (=no manual intervention) and use TinyTeX instead of MacTeX to make maintenance easier - FWIW  see\n>> https://github.com/R-macos/vm-scripts-mini-r/blob/master/shared/setup.sh\n>> If you need any packages that are not a part of the standard TinyTeX bundle then you just need to tell me (or you can ask TinyTeX to include it so it is available to others as well).\n>> Cheers,\n>> Simon\n>>> On 3/12/2025, at 1:10 PM, Ben Bolker <bbolker at gmail.com> wrote:\n>>> \n>>>  I'm not a regular reader of r-sig-mac, but have a question about CRAN LaTeX infrastructure for MacOS.\n>>> \n>>>  This may be a question specifically for Simon Urbanek, but thought I'd check here first in case anyone has insights.\n>>> \n>>>  I recently sent a new version of the lme4 package (1.1-38) to CRAN; it passed all the incoming tests, but I'm now seeing warnings (at https://cran.r-project.org/web/checks/check_results_lme4.html) from the r-release-macos-arm64  and r-oldrel-macos-arm64  (but *not* from the x86_64 platforms):\n>>> \n>>>>   ! LaTeX Error: File `blkarray.sty' not found.\n>>> \n>>> This hasn't happened before.  Furthermore, when I go back in the git log for the package I see:\n>>> \n>>> commit 3140cc0f1b394c6888d7704ee3d5de5f45df2886\n>>> Author: Ben Bolker <bbolker at gmail.com>\n>>> Date:   Thu Aug 10 10:28:55 2017 -0400\n>>> \n>>>    .Rbuildignore blkarray.sty as per CRAN request\n>>> \n>>> In particular, Kurt Hornik sent a mass e-mail in 2017 to many package maintainers saying:\n>>> \n>>>>  These [packages] contain copies of standard LaTeX .sty files which should be excluded from the package (as shipping these copies should not be necessary, and may even cause trouble in case the local copies become outdated [as just happened for a recent CRAN submission]).\n>>> \n>>>  So my best guess is that this is an oversight/platform glitch on the arm64 platforms ...\n>>> \n>>>  Thoughts?\n>>> \n>>>  sincerely\n>>>   Ben Bolker\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n> \n> -- \n> Dr. Benjamin Bolker\n> Professor, Mathematics & Statistics and Biology, McMaster University\n> Associate chair (graduate), Mathematics & Statistics\n> Director, School of Computational Science and Engineering\n> * E-mail is sent at my convenience; I don't expect replies outside of working hours.\n>",
+      "body_snippet": "Ben,\n\nthanks for the list! From those the following are missing from the standard TinyTex:\n\n== actuarialangle.sty\n== actuarialsymbol.sty\n== algorithm2e.sty\n== blkarray.sty\n== chicago.sty\n== relsize.st",
+      "thread_id": "thread-d1099940e14f",
+      "thread_depth": 3,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-615cd39eba64",
+      "message_id": "<88d185ba-e1ac-44bc-8368-ed4bde4e9436@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2025-12-10T06:13:24-05:00",
+      "subject": "[R-SIG-Mac] Using sanitizers in MacOS builds",
+      "subject_clean": "Using sanitizers in MacOS builds",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am making some large changes to rgl, and something I've done is \ncausing crashes which I'm having trouble tracking down.  These are \nlikely things that one of the sanitizers could detect, so I'd like to do \na build using one.\n\nThe WRE manual gives partial instructions about how to enable them.  It \nfirst says to put these lines in ~/.R/Makevars:\n\n   CC = gcc -std=gnu99 -fsanitize=address -fno-omit-frame-pointer\n   CXX = g++ -fsanitize=address -fno-omit-frame-pointer\n   FC = gfortran -fsanitize=address\n\nThese don't work for me on my Mac, generating lots of compile errors \nthat I don't see with the default settings.\n\nLater WRE gives other instructions for clang 18.  What's not clear to me \nis what I should do for the default compiler tools (including clang 16) \nfrom mac.r-project.org.  Can anyone suggest what I should do for this \nsituation:\n\n  - using the default build of R from CRAN\n  - using the libs and tools from mac.r-project.org\n  - trying to build rgl with the sanitizer options\n\nDuncan Murdoch",
+      "body_snippet": "I am making some large changes to rgl, and something I've done is \ncausing crashes which I'm having trouble tracking down.  These are \nlikely things that one of the sanitizers could detect, so I'd lik",
+      "thread_id": "thread-615cd39eba64",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-55de92d147a3",
+      "message_id": "<efcfd446-c237-4104-8a92-e883c56ace18@icloud.com>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "c5d0d8f09bc545ede8356a1fd199c0f278d5b7361e67127bf6c141458274153c",
+      "date": "2025-12-10T12:29:26Z",
+      "subject": "[R-SIG-Mac] Using sanitizers in MacOS builds",
+      "subject_clean": "Using sanitizers in MacOS builds",
+      "in_reply_to": "<88d185ba-e1ac-44bc-8368-ed4bde4e9436@gmail.com>",
+      "references": [
+        "<88d185ba-e1ac-44bc-8368-ed4bde4e9436@gmail.com>"
+      ],
+      "body_plain": "On 10/12/2025 11:13, Duncan Murdoch wrote:\n> I am making some large changes to rgl, and something I've done is \n> causing crashes which I'm having trouble tracking down.? These are \n> likely things that one of the sanitizers could detect, so I'd like to do \n> a build using one.\n> \n> The WRE manual gives partial instructions about how to enable them.? It \n> first says to put these lines in ~/.R/Makevars:\n> \n>  ? CC = gcc -std=gnu99 -fsanitize=address -fno-omit-frame-pointer\n>  ? CXX = g++ -fsanitize=address -fno-omit-frame-pointer\n>  ? FC = gfortran -fsanitize=address\n\nNot for macOS ....\n\n> These don't work for me on my Mac, generating lots of compile errors \n> that I don't see with the default settings.\n> \n> Later WRE gives other instructions for clang 18.? What's not clear to me \n> is what I should do for the default compiler tools (including clang 16) \n> from mac.r-project.org.? Can anyone suggest what I should do for this \n> situation:\n> \n>  ?- using the default build of R from CRAN\n\nAFAIK you need to build R with sanitizers: it might be possible without \nbut the issues often are partially in the way the package calls back into R.\n\n>  ?- using the libs and tools from mac.r-project.org\n\nIn principle this might needs libs built against the sanitizers but I \nhave only seen one instance over the years.  Normally you will get less \n(but still useful) information.\n\nAnything built with sanitizers needs to be of the same compiler version \nas used for R (in Linux experience, even the same patch version).\n\n>  ?- trying to build rgl with the sanitizer options\n\nSee\n\nhttps://www.stats.ox.ac.uk/pub/bdr/M1-SAN/README.txt\n\nwhich is tested daily, but only with up-to-date macOS and tools.\n\nI don't think the gfortran used on macOS has sanitizer support, but it \nany case GCC's is not compatible with LLVM's.  So this is C/C++ only.\n\n-- \nBrian D. Ripley,                  ripleybd at icloud.com\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 10/12/2025 11:13, Duncan Murdoch wrote:\n> I am making some large changes to rgl, and something I've done is \n> causing crashes which I'm having trouble tracking down.? These are \n> likely things th",
+      "thread_id": "thread-615cd39eba64",
+      "thread_depth": 1,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-7ee3e4f07d4b",
+      "message_id": "<9eeb475c-a33d-4902-a067-2ea284e41a3c@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2025-12-10T09:24:37-05:00",
+      "subject": "[R-SIG-Mac] Using sanitizers in MacOS builds",
+      "subject_clean": "Using sanitizers in MacOS builds",
+      "in_reply_to": "<efcfd446-c237-4104-8a92-e883c56ace18@icloud.com>",
+      "references": [
+        "<88d185ba-e1ac-44bc-8368-ed4bde4e9436@gmail.com>",
+        "<efcfd446-c237-4104-8a92-e883c56ace18@icloud.com>"
+      ],
+      "body_plain": "Thanks.  With any luck, these will show my error, and I can make some \nprogress.\n\nDuncan Murdoch\n\nOn 2025-12-10 7:29 a.m., Prof Brian Ripley wrote:\n> On 10/12/2025 11:13, Duncan Murdoch wrote:\n>> I am making some large changes to rgl, and something I've done is\n>> causing crashes which I'm having trouble tracking down.? These are\n>> likely things that one of the sanitizers could detect, so I'd like to do\n>> a build using one.\n>>\n>> The WRE manual gives partial instructions about how to enable them.? It\n>> first says to put these lines in ~/.R/Makevars:\n>>\n>>   ? CC = gcc -std=gnu99 -fsanitize=address -fno-omit-frame-pointer\n>>   ? CXX = g++ -fsanitize=address -fno-omit-frame-pointer\n>>   ? FC = gfortran -fsanitize=address\n> \n> Not for macOS ....\n> \n>> These don't work for me on my Mac, generating lots of compile errors\n>> that I don't see with the default settings.\n>>\n>> Later WRE gives other instructions for clang 18.? What's not clear to me\n>> is what I should do for the default compiler tools (including clang 16)\n>> from mac.r-project.org.? Can anyone suggest what I should do for this\n>> situation:\n>>\n>>   ?- using the default build of R from CRAN\n> \n> AFAIK you need to build R with sanitizers: it might be possible without\n> but the issues often are partially in the way the package calls back into R.\n> \n>>   ?- using the libs and tools from mac.r-project.org\n> \n> In principle this might needs libs built against the sanitizers but I\n> have only seen one instance over the years.  Normally you will get less\n> (but still useful) information.\n> \n> Anything built with sanitizers needs to be of the same compiler version\n> as used for R (in Linux experience, even the same patch version).\n> \n>>   ?- trying to build rgl with the sanitizer options\n> \n> See\n> \n> https://www.stats.ox.ac.uk/pub/bdr/M1-SAN/README.txt\n> \n> which is tested daily, but only with up-to-date macOS and tools.\n> \n> I don't think the gfortran used on macOS has sanitizer support, but it\n> any case GCC's is not compatible with LLVM's.  So this is C/C++ only.\n>",
+      "body_snippet": "Thanks.  With any luck, these will show my error, and I can make some \nprogress.\n\nDuncan Murdoch\n\nOn 2025-12-10 7:29 a.m., Prof Brian Ripley wrote:\n> On 10/12/2025 11:13, Duncan Murdoch wrote:\n>> I am",
+      "thread_id": "thread-615cd39eba64",
+      "thread_depth": 2,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-5770bb7efc34",
+      "message_id": "<07729acf-04af-4770-9003-92508ca4fbe0@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2025-12-10T15:27:06-05:00",
+      "subject": "[R-SIG-Mac] Using sanitizers in MacOS builds",
+      "subject_clean": "Using sanitizers in MacOS builds",
+      "in_reply_to": "<9eeb475c-a33d-4902-a067-2ea284e41a3c@gmail.com>",
+      "references": [
+        "<88d185ba-e1ac-44bc-8368-ed4bde4e9436@gmail.com>",
+        "<efcfd446-c237-4104-8a92-e883c56ace18@icloud.com>",
+        "<9eeb475c-a33d-4902-a067-2ea284e41a3c@gmail.com>"
+      ],
+      "body_plain": "This was very helpful.  Turns out one loop decremented using i-- when it \nshould have had --i.  That overwrote element \"-1\" of a vector, and \ncaused a later crash.  One of the sanitizers caught the out-of-bounds write.\n\nDuncan Murdoch\n\nOn 2025-12-10 9:24 a.m., Duncan Murdoch wrote:\n> Thanks.  With any luck, these will show my error, and I can make some\n> progress.\n> \n> Duncan Murdoch\n> \n> On 2025-12-10 7:29 a.m., Prof Brian Ripley wrote:\n>> On 10/12/2025 11:13, Duncan Murdoch wrote:\n>>> I am making some large changes to rgl, and something I've done is\n>>> causing crashes which I'm having trouble tracking down.? These are\n>>> likely things that one of the sanitizers could detect, so I'd like to do\n>>> a build using one.\n>>>\n>>> The WRE manual gives partial instructions about how to enable them.? It\n>>> first says to put these lines in ~/.R/Makevars:\n>>>\n>>>    ? CC = gcc -std=gnu99 -fsanitize=address -fno-omit-frame-pointer\n>>>    ? CXX = g++ -fsanitize=address -fno-omit-frame-pointer\n>>>    ? FC = gfortran -fsanitize=address\n>>\n>> Not for macOS ....\n>>\n>>> These don't work for me on my Mac, generating lots of compile errors\n>>> that I don't see with the default settings.\n>>>\n>>> Later WRE gives other instructions for clang 18.? What's not clear to me\n>>> is what I should do for the default compiler tools (including clang 16)\n>>> from mac.r-project.org.? Can anyone suggest what I should do for this\n>>> situation:\n>>>\n>>>    ?- using the default build of R from CRAN\n>>\n>> AFAIK you need to build R with sanitizers: it might be possible without\n>> but the issues often are partially in the way the package calls back into R.\n>>\n>>>    ?- using the libs and tools from mac.r-project.org\n>>\n>> In principle this might needs libs built against the sanitizers but I\n>> have only seen one instance over the years.  Normally you will get less\n>> (but still useful) information.\n>>\n>> Anything built with sanitizers needs to be of the same compiler version\n>> as used for R (in Linux experience, even the same patch version).\n>>\n>>>    ?- trying to build rgl with the sanitizer options\n>>\n>> See\n>>\n>> https://www.stats.ox.ac.uk/pub/bdr/M1-SAN/README.txt\n>>\n>> which is tested daily, but only with up-to-date macOS and tools.\n>>\n>> I don't think the gfortran used on macOS has sanitizer support, but it\n>> any case GCC's is not compatible with LLVM's.  So this is C/C++ only.\n>>\n>",
+      "body_snippet": "This was very helpful.  Turns out one loop decremented using i-- when it \nshould have had --i.  That overwrote element \"-1\" of a vector, and \ncaused a later crash.  One of the sanitizers caught the ou",
+      "thread_id": "thread-615cd39eba64",
+      "thread_depth": 3,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-c211fec931b9",
+      "message_id": "<CABFfbXtbpH5q3wFMkZ9OipZZVYF7bwZwaHeXPjk58rmrX_0gsw@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2025-12-11T19:26:53Z",
+      "subject": "[R-SIG-Mac] MacOS binaries for R-4.6",
+      "subject_clean": "MacOS binaries for R-4.6",
+      "in_reply_to": "<7BD2A703-B85D-4982-B3DD-795D4AC9BF23@R-project.org>",
+      "references": [
+        "<CABFfbXvM9BUvz+hOUxOUwO+e5iHmsoKFRjg9BdJYsSNQWCaH+A@mail.gmail.com>",
+        "<7BD2A703-B85D-4982-B3DD-795D4AC9BF23@R-project.org>"
+      ],
+      "body_plain": "Hello,\n\nI was wondering if there is an update to what will be the SDKROOT and\nMACOSX_DEPLOYMENT_TARGET for R-4.6-arm? This way we can match the\nsettings in R-universe and bioconductor.\n\nI see binary packages are now uploaded to a new path:\nhttps://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/. Is\nthis likely to be the final decision for R-4.6?\n\nAlso It would be interesting to know which version of libomp.dylib\nwill be included with R-macos 4.6 :)\n\nThank you!\n\n\n\n\n\nOn Wed, Nov 12, 2025 at 9:07?PM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n> Jeroen,\n>\n> the 4.6 binaries are available on CRAN since July. However note that they are experimental since they are built using the same build machine as 4.5. We are in the process of setting up a new VM for R-devel package builds so the target and toolchain will likely change for the arm64 build. With the performance framework updates on arm in macOS 14 it may be worth considering to increase the target correspondingly.\n>\n> Cheers,\n> Simon\n>\n>\n>\n> > On 13 Nov 2025, at 01:36, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> >\n> > As every year, starting this month, the bioconductor development branch now targets R-4.6 for the planned release in April.\n> >\n> > Last year CRAN provided MacOS r-devel package binaries way ahead of the release, see\n> > https://stat.ethz.ch/pipermail/r-sig-mac/2025-January/015106.html\n> >\n> > This was super helpful. It would be great if this can be done again early in the cycle, especially if there may be upgrades of clang / libomp planned.\n> >\n>",
+      "body_snippet": "Hello,\n\nI was wondering if there is an update to what will be the SDKROOT and\nMACOSX_DEPLOYMENT_TARGET for R-4.6-arm? This way we can match the\nsettings in R-universe and bioconductor.\n\nI see binary p",
+      "thread_id": "thread-c211fec931b9",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-0a5016091027",
+      "message_id": "<CABtg=KmJqk1wGFFRdAF-5+2jy2fzkYfkE3EnvJ568nPa1k9_6g@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "79df10281c8db01a49e04a2604925829b32dce62a7d5cf4b6eb242379d9b1158",
+      "date": "2025-12-11T22:15:30+01:00",
+      "subject": "[R-SIG-Mac] CRAN metadata inconsistencies for macOS binaries",
+      "subject_clean": "CRAN metadata inconsistencies for macOS binaries",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This has been happening recently for newly published packages. The new\nbinary is built, the old one is removed, but the metadata is not\nupdated yet, at least not on the main CRAN server.\n\n? install.packages(\"proxy\", repos = \"https://cran.r-project.org\")\nInstalling package into ?/Users/gaborcsardi/Library/R/arm64/4.5/library?\n(as ?lib? is unspecified)\ntrying URL 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz'\nError in download.file(urls, destfiles, \"libcurl\", mode = \"wb\", ...) :\n  cannot open URL\n'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz'\nIn addition: Warning message:\nIn download.file(urls, destfiles, \"libcurl\", mode = \"wb\", ...) :\n  cannot open URL\n'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz':\nHTTP status was '404 Not Found'\nWarning in download.packages(pkgs, destdir = tmpd, available = available,  :\n  download of package ?proxy? failed",
+      "body_snippet": "This has been happening recently for newly published packages. The new\nbinary is built, the old one is removed, but the metadata is not\nupdated yet, at least not on the main CRAN server.\n\n? install.pa",
+      "thread_id": "thread-0a5016091027",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-c1a5e4dc693b",
+      "message_id": "<C67380D5-5DBD-4A8A-9A7A-01886A9370C4@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-12T15:16:10+13:00",
+      "subject": "[R-SIG-Mac] CRAN metadata inconsistencies for macOS binaries",
+      "subject_clean": "CRAN metadata inconsistencies for macOS binaries",
+      "in_reply_to": "<CABtg=KmJqk1wGFFRdAF-5+2jy2fzkYfkE3EnvJ568nPa1k9_6g@mail.gmail.com>",
+      "references": [
+        "<CABtg=KmJqk1wGFFRdAF-5+2jy2fzkYfkE3EnvJ568nPa1k9_6g@mail.gmail.com>"
+      ],
+      "body_plain": "G?bor,\n\nif the update is big enough then it is possible that the packages are synced before the index due to the time it takes to transfer all the content. If you have issues, please use the master server, i.e.,\n\ninstall.packages(\"proxy\", repos=\"https://mac.r-project.org\")\n\nsince that one is guaranteed to be consistent: it is populated by first copying all new packages from the build machines and only then the index is updated and only after that the old versions are deleted. You can check if a mirror may be inconsistent by checking for the existence of the \"00_COPYING?\" file in the repository - that one is copied before the first package and is removed when the index is synced.\n\nCheers,\nSimon\n\n\n> On 12 Dec 2025, at 10:15, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n> This has been happening recently for newly published packages. The new\n> binary is built, the old one is removed, but the metadata is not\n> updated yet, at least not on the main CRAN server.\n> \n> ? install.packages(\"proxy\", repos = \"https://cran.r-project.org\")\n> Installing package into ?/Users/gaborcsardi/Library/R/arm64/4.5/library?\n> (as ?lib? is unspecified)\n> trying URL 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz'\n> Error in download.file(urls, destfiles, \"libcurl\", mode = \"wb\", ...) :\n>  cannot open URL\n> 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz'\n> In addition: Warning message:\n> In download.file(urls, destfiles, \"libcurl\", mode = \"wb\", ...) :\n>  cannot open URL\n> 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz':\n> HTTP status was '404 Not Found'\n> Warning in download.packages(pkgs, destdir = tmpd, available = available,  :\n>  download of package ?proxy? failed\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "G?bor,\n\nif the update is big enough then it is possible that the packages are synced before the index due to the time it takes to transfer all the content. If you have issues, please use the master se",
+      "thread_id": "thread-0a5016091027",
+      "thread_depth": 1,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-f3c7f17c4a3a",
+      "message_id": "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-12T16:20:13+13:00",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This email is mostly of interest to those that build Mac binaries or want to maintain binary compatibility with CRAN. Also if you are on an Apple Silicon Mac (M1,M2,?) and your macOS is *older* than macOS 14, please read the last paragraph at the bottom.\n\nOur current Mac R release and package builds are targeting macOS 11 (Big Sur) for both Intel and arm64 to offer as wide coverage of users as possible. Unfortunately, Apple has removed hardware support for most Intel Macs from recent macOS versions which means that majority of Intel Mac users cannot upgrade their OS - which is reflected in our estimated macOS version user share and therefore we cannot change the target for x86_64 binaries without abandoning a large fraction of our users.\n\nHowever, all arm64 (Apple Silicon) Mac hardware is supported by latest macOS versions so there is no practical obstacle for Apple Silicon users to upgrade their macOS. Therefore we are considering moving the minimum target for CRAN R binaries and packages to macOS 14 (Sonoma), because it allows us and packages to leverage several new technologies and tools. To that effect R-devel arm64 builds have been switched to a \"sonoma-arm64\" build target, with the corresponding repository URL of /bin/macosx/sonoma-arm64/contrib/4.6 (output of contrib.url(\"\", type=\"binary\") in those builds). The binaries will be built with the following setup/settings:\n\nHost OS: macOS 15.7.1 (Sequoia)\nToolchain: Xcode/CLT 26.0, GNU Fortran 14.2 (from CRAN)\nSDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk\nMACOSX_DEPLOYMENT_TARGET=14.0\n\nAccordingly, the recipes binaries are built using the same settings and are available in following repository:\n\nhttps://mac.r-project.org/bin/darwin23/arm64/\n\nCorresponding nightly R binaries are available as usual at\n\nhttps://mac.r-project.org/sonoma/last-success/\n\nThe goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate. I would also like to hear from any Apple Silicon users that are unable to upgrade to macOS 14 or higher for whatever reason (corporate system management etc.).\n\nThanks,\nSimon",
+      "body_snippet": "This email is mostly of interest to those that build Mac binaries or want to maintain binary compatibility with CRAN. Also if you are on an Apple Silicon Mac (M1,M2,?) and your macOS is *older* than m",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-493968aca564",
+      "message_id": "<0B94956C-224A-41C9-95B4-F8FBB6E8B3B6@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-12T16:25:13+13:00",
+      "subject": "[R-SIG-Mac] MacOS binaries for R-4.6",
+      "subject_clean": "MacOS binaries for R-4.6",
+      "in_reply_to": "<CABFfbXtbpH5q3wFMkZ9OipZZVYF7bwZwaHeXPjk58rmrX_0gsw@mail.gmail.com>",
+      "references": [
+        "<CABFfbXvM9BUvz+hOUxOUwO+e5iHmsoKFRjg9BdJYsSNQWCaH+A@mail.gmail.com>",
+        "<7BD2A703-B85D-4982-B3DD-795D4AC9BF23@R-project.org>",
+        "<CABFfbXtbpH5q3wFMkZ9OipZZVYF7bwZwaHeXPjk58rmrX_0gsw@mail.gmail.com>"
+      ],
+      "body_plain": "Jeroen,\n\nsee the last announcement of the sonoma build which I think should answer most questions - one more detail below.\n\n\n> On 12 Dec 2025, at 08:26, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> \n> Hello,\n> \n> I was wondering if there is an update to what will be the SDKROOT and\n> MACOSX_DEPLOYMENT_TARGET for R-4.6-arm? This way we can match the\n> settings in R-universe and bioconductor.\n> \n> I see binary packages are now uploaded to a new path:\n> https://cran.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/. Is\n> this likely to be the final decision for R-4.6?\n> \n> Also It would be interesting to know which version of libomp.dylib\n> will be included with R-macos 4.6 :)\n> \n\nLLVM 19.1.5 to match current Xcode 26.x, i.e. https://mac.r-project.org/openmp/openmp-19.1.5-darwin20-Release.tar.gz\n\nFWIW the MacBuilder is currently offline for OS upgrade and will be setup to match the new sonoma VM builds.\n\nCheers,\nSimon",
+      "body_snippet": "Jeroen,\n\nsee the last announcement of the sonoma build which I think should answer most questions - one more detail below.\n\n\n> On 12 Dec 2025, at 08:26, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> ",
+      "thread_id": "thread-c211fec931b9",
+      "thread_depth": 1,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-b25ad0432d3b",
+      "message_id": "<CABtg=KmLisJ3QJ0mC=-zU6z0eXTpCMjWsaP8cwKkgSDeKT0H4A@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "79df10281c8db01a49e04a2604925829b32dce62a7d5cf4b6eb242379d9b1158",
+      "date": "2025-12-12T08:50:57+01:00",
+      "subject": "[R-SIG-Mac] CRAN metadata inconsistencies for macOS binaries",
+      "subject_clean": "CRAN metadata inconsistencies for macOS binaries",
+      "in_reply_to": "<C67380D5-5DBD-4A8A-9A7A-01886A9370C4@R-project.org>",
+      "references": [
+        "<CABtg=KmJqk1wGFFRdAF-5+2jy2fzkYfkE3EnvJ568nPa1k9_6g@mail.gmail.com>",
+        "<C67380D5-5DBD-4A8A-9A7A-01886A9370C4@R-project.org>"
+      ],
+      "body_plain": "Are you fine with using the mac.r-project.org server as a default\nmirror on macOS? E.g. in RStudio, on GitHub Actions, etc? That's a lot\nof traffic.\n\nmac.r-project.org is also not ideally located (i.e. much slower) for\nmost users, especially compared to the CDN at cloud.r-project.org.\n\nDo you think it would be possible to keep the old binary packages\naround for a day or so? That would not only help with the sync issue,\nbut also with potentially outdated metadata. AFAIR this is what\nDebian/Ubuntu repositories do.\n\nThanks,\nGabor\n\nOn Fri, Dec 12, 2025 at 3:16?AM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n> G?bor,\n>\n> if the update is big enough then it is possible that the packages are synced before the index due to the time it takes to transfer all the content. If you have issues, please use the master server, i.e.,\n>\n> install.packages(\"proxy\", repos=\"https://mac.r-project.org\")\n>\n> since that one is guaranteed to be consistent: it is populated by first copying all new packages from the build machines and only then the index is updated and only after that the old versions are deleted. You can check if a mirror may be inconsistent by checking for the existence of the \"00_COPYING?\" file in the repository - that one is copied before the first package and is removed when the index is synced.\n>\n> Cheers,\n> Simon\n>\n>\n> > On 12 Dec 2025, at 10:15, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> >\n> > This has been happening recently for newly published packages. The new\n> > binary is built, the old one is removed, but the metadata is not\n> > updated yet, at least not on the main CRAN server.\n> >\n> > ? install.packages(\"proxy\", repos = \"https://cran.r-project.org\")\n> > Installing package into ?/Users/gaborcsardi/Library/R/arm64/4.5/library?\n> > (as ?lib? is unspecified)\n> > trying URL 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz'\n> > Error in download.file(urls, destfiles, \"libcurl\", mode = \"wb\", ...) :\n> >  cannot open URL\n> > 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz'\n> > In addition: Warning message:\n> > In download.file(urls, destfiles, \"libcurl\", mode = \"wb\", ...) :\n> >  cannot open URL\n> > 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz':\n> > HTTP status was '404 Not Found'\n> > Warning in download.packages(pkgs, destdir = tmpd, available = available,  :\n> >  download of package ?proxy? failed\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>",
+      "body_snippet": "Are you fine with using the mac.r-project.org server as a default\nmirror on macOS? E.g. in RStudio, on GitHub Actions, etc? That's a lot\nof traffic.\n\nmac.r-project.org is also not ideally located (i.e",
+      "thread_id": "thread-0a5016091027",
+      "thread_depth": 2,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-da4560c41a92",
+      "message_id": "<757E5505-F1D0-4A9C-81E5-4E5DDDA4FB1F@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-12T21:22:53+13:00",
+      "subject": "[R-SIG-Mac] CRAN metadata inconsistencies for macOS binaries",
+      "subject_clean": "CRAN metadata inconsistencies for macOS binaries",
+      "in_reply_to": "<CABtg=KmLisJ3QJ0mC=-zU6z0eXTpCMjWsaP8cwKkgSDeKT0H4A@mail.gmail.com>",
+      "references": [
+        "<CABtg=KmJqk1wGFFRdAF-5+2jy2fzkYfkE3EnvJ568nPa1k9_6g@mail.gmail.com>",
+        "<C67380D5-5DBD-4A8A-9A7A-01886A9370C4@R-project.org>",
+        "<CABtg=KmLisJ3QJ0mC=-zU6z0eXTpCMjWsaP8cwKkgSDeKT0H4A@mail.gmail.com>"
+      ],
+      "body_plain": "G?bor,\n\nit is not a mirror, just the main source of Mac binaries, so what I was saying is that if you have a temporary problem with your regular mirror, then you can use it to circumvent that problem. It is ideally located for US users (it is in a Dallas data center), but clearly will be slower from other places - but it is certainly not intended as a CDN.\n\nAnything beyond that source is not under my control, I don't actually know how the mirrors get populated, so that would be probably a discussion at CRAN level. I know that sources are handled by temporary symlinks to the archive for a short time so old versions work temporarily, but since binaries don't have an archive we don't have a provision for that. I guess it would be possible to not delete the old packages during the PACKAGES sync but keep them around longer if some additional sweep or delay was implemented.\n\nHistorically, Mac binaries have been built incrementally, so each sync is typically small so it is very unlikely for the problem to occur. My only guess is that with the R-devel re-builds they got larger than usual which may have possibly led to issue. The other possibility could be that some network issues could abort a sync which then only gets retried later and the repository is inconsistent in the meantime - but hat's beyond my control. All syncs are anonymous pulls so I don't have the logs so can't really tell.\n\nCheers,\nSimon\n\n\n> On 12/12/2025, at 8:50 PM, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n> Are you fine with using the mac.r-project.org server as a default mirror on macOS? E.g. in RStudio, on GitHub Actions, etc? That's a lot of traffic.\n> \n> mac.r-project.org is also not ideally located (i.e. much slower) for most users, especially compared to the CDN at cloud.r-project.org.\n> \n> Do you think it would be possible to keep the old binary packages around for a day or so? That would not only help with the sync issue, but also with potentially outdated metadata. AFAIR this is what Debian/Ubuntu repositories do.\n> \n> Thanks,\n> Gabor\n> \n> On Fri, Dec 12, 2025 at 3:16?AM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n>> \n>> G?bor,\n>> \n>> if the update is big enough then it is possible that the packages are synced before the index due to the time it takes to transfer all the content. If you have issues, please use the master server, i.e.,\n>> \n>> install.packages(\"proxy\", repos=\"https://mac.r-project.org\")\n>> \n>> since that one is guaranteed to be consistent: it is populated by first copying all new packages from the build machines and only then the index is updated and only after that the old versions are deleted. You can check if a mirror may be inconsistent by checking for the existence of the \"00_COPYING?\" file in the repository - that one is copied before the first package and is removed when the index is synced.\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>>> On 12 Dec 2025, at 10:15, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n>>> \n>>> This has been happening recently for newly published packages. The new\n>>> binary is built, the old one is removed, but the metadata is not\n>>> updated yet, at least not on the main CRAN server.\n>>> \n>>> ? install.packages(\"proxy\", repos = \"https://cran.r-project.org\")\n>>> Installing package into ?/Users/gaborcsardi/Library/R/arm64/4.5/library?\n>>> (as ?lib? is unspecified)\n>>> trying URL 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz'\n>>> Error in download.file(urls, destfiles, \"libcurl\", mode = \"wb\", ...) :\n>>> cannot open URL\n>>> 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz'\n>>> In addition: Warning message:\n>>> In download.file(urls, destfiles, \"libcurl\", mode = \"wb\", ...) :\n>>> cannot open URL\n>>> 'https://cran.r-project.org/bin/macosx/big-sur-arm64/contrib/4.5/proxy_0.4-27.tgz':\n>>> HTTP status was '404 Not Found'\n>>> Warning in download.packages(pkgs, destdir = tmpd, available = available,  :\n>>> download of package ?proxy? failed\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>",
+      "body_snippet": "G?bor,\n\nit is not a mirror, just the main source of Mac binaries, so what I was saying is that if you have a temporary problem with your regular mirror, then you can use it to circumvent that problem.",
+      "thread_id": "thread-0a5016091027",
+      "thread_depth": 3,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-8d1d1dcb8022",
+      "message_id": "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2025-12-13T22:24:00Z",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>"
+      ],
+      "body_plain": "On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n\n> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n\nThanks. Some quick observations:\n\nThe x86_64 build of r-devel on https://mac.r-project.org/ is almost 2\nmonths old?\n\nOn arm64, using the latest R-devel-arm64.pkg on a machine with macOS\n15 and Xcode_16.2, I get the following error for all packages with\ncompiled C code:\n\n  error: invalid value 'gnu23' in '-std=gnu23'\n  note: use 'c2x' for 'Working Draft for ISO C2x' standard\n  note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard",
+      "body_snippet": "On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n\n> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. S",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 1,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-f4a32831c02c",
+      "message_id": "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-14T11:39:16+13:00",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+        "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>"
+      ],
+      "body_plain": "> On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> \n> On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n> \n>> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n> \n> Thanks. Some quick observations:\n> \n> The x86_64 build of r-devel on https://mac.r-project.org/ is almost 2 months old?\n> \n\nShould be fixed now.\n\n\n> On arm64, using the latest R-devel-arm64.pkg on a machine with macOS 15 and Xcode_16.2, I get the following error for all packages with compiled C code:\n> \n>  error: invalid value 'gnu23' in '-std=gnu23'\n>  note: use 'c2x' for 'Working Draft for ISO C2x' standard\n>  note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard\n> \n\n\nThat is expected, you'll need at least Xcode 16.3 since 16.2 is LLVM 17 while 16.3 is LLVM 19 which, as has been discussed at length, was a big breaking jump. As noted, what is actually used is Xcode 26.x so that would be recommended (albeit not required).\n\nIt does raise an interesting point, though: macOS 15 is not an issue since you can install all the way to Xcode 26.3 without problems, but macOS 14 (which is our designed target) only runs Xcode 16.2. However, the whole point of moving the target forward was that we upgrade from Xcode 16.2 since that's what we used for the Big Sur build, so sticking with it would defeat the whole purpose. So, would anyone be unhappy if we simply declared macOS 14 as the run-time target, but development needs macOS 15 for the compiler support? It's not ideal, but the only other way would be to deliberately disable C23 support - it's doable, though.\n\nCheers,\nSimon",
+      "body_snippet": "> On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> \n> On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n> \n>> The goal is to remove the ",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 2,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-9029050a0a41",
+      "message_id": "<CABFfbXufmqLTi-yuQZjNdwM-ZDbbEg_zApnZSAdDnmA0WnzTzg@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2025-12-13T23:03:09Z",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+        "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+        "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>"
+      ],
+      "body_plain": "On Sat, Dec 13, 2025 at 10:39?PM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n>\n>\n> > On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> >\n> > On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n> > <simon.urbanek at r-project.org> wrote:\n> >\n> >> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n> >\n> > Thanks. Some quick observations:\n> >\n> > The x86_64 build of r-devel on https://mac.r-project.org/ is almost 2 months old?\n> >\n>\n> Should be fixed now.\n>\n>\n> > On arm64, using the latest R-devel-arm64.pkg on a machine with macOS 15 and Xcode_16.2, I get the following error for all packages with compiled C code:\n> >\n> >  error: invalid value 'gnu23' in '-std=gnu23'\n> >  note: use 'c2x' for 'Working Draft for ISO C2x' standard\n> >  note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard\n> >\n>\n>\n> That is expected, you'll need at least Xcode 16.3 since 16.2 is LLVM 17 while 16.3 is LLVM 19 which, as has been discussed at length, was a big breaking jump. As noted, what is actually used is Xcode 26.x so that would be recommended (albeit not required).\n\nThe reason we were using 16.2 is that newer xcode versions still do\nnot seem to work with the libomp.dylib included with base R. Has\nlibomp.dylib been updated yet? According to otool it is the same\nversion as before?\n\n  otool -L lib/libomp.dylib\n     /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libomp.dylib\n(compatibility version 5.0.0, current version 5.0.0)\n     /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current\nversion 1292.100.5)",
+      "body_snippet": "On Sat, Dec 13, 2025 at 10:39?PM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n>\n>\n> > On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> >\n> > On Fri, Dec 12, 2025 a",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 3,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-046cab795e1e",
+      "message_id": "<4F1BD255-0659-4E27-A68B-C0189BF240A7@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-14T13:29:14+13:00",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<CABFfbXufmqLTi-yuQZjNdwM-ZDbbEg_zApnZSAdDnmA0WnzTzg@mail.gmail.com>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+        "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+        "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>",
+        "<CABFfbXufmqLTi-yuQZjNdwM-ZDbbEg_zApnZSAdDnmA0WnzTzg@mail.gmail.com>"
+      ],
+      "body_plain": "> On 14/12/2025, at 12:03 PM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> \n> On Sat, Dec 13, 2025 at 10:39?PM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n>> \n>> \n>> \n>>> On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n>>> \n>>> On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n>>> <simon.urbanek at r-project.org> wrote:\n>>> \n>>>> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n>>> \n>>> Thanks. Some quick observations:\n>>> \n>>> The x86_64 build of r-devel on https://mac.r-project.org/ is almost 2 months old?\n>>> \n>> \n>> Should be fixed now.\n>> \n>> \n>>> On arm64, using the latest R-devel-arm64.pkg on a machine with macOS 15 and Xcode_16.2, I get the following error for all packages with compiled C code:\n>>> \n>>> error: invalid value 'gnu23' in '-std=gnu23'\n>>> note: use 'c2x' for 'Working Draft for ISO C2x' standard\n>>> note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard\n>>> \n>> \n>> \n>> That is expected, you'll need at least Xcode 16.3 since 16.2 is LLVM 17 while 16.3 is LLVM 19 which, as has been discussed at length, was a big breaking jump. As noted, what is actually used is Xcode 26.x so that would be recommended (albeit not required).\n> \n> The reason we were using 16.2 is that newer xcode versions still do\n> not seem to work with the libomp.dylib included with base R. Has\n> libomp.dylib been updated yet?\n\n\nYes, it matches the Xcode - as noted:\n\n\n> On 12/12/2025, at 4:25 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n>> On 12 Dec 2025, at 08:26, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n>> [...]\n>> Also It would be interesting to know which version of libomp.dylib will be included with R-macos 4.6 :)\n>> \n> \n> LLVM 19.1.5 to match current Xcode 26.x, i.e. https://mac.r-project.org/openmp/openmp-19.1.5-darwin20-Release.tar.gz\n> \n\n\n\nAgain, that was the point of the tool upgrade :).\n\n\n\n> According to otool it is the same version as before?\n> \n\n\notool shows the API version as declared by Intel OpenMP, but the LLVM team has never updated it despite breaking changes, unfortunately :/. It's really annoying since it means it is very hard to determine which LLVM it came from - even internally all of the them declare the same version 5.0.20140926 and API version 5.0.201611 - both being almost 10 years out of date.\n\nCheers,\nSimon\n\n\n\n>  otool -L lib/libomp.dylib\n>     /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libomp.dylib\n> (compatibility version 5.0.0, current version 5.0.0)\n>     /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current\n> version 1292.100.5)\n>",
+      "body_snippet": "> On 14/12/2025, at 12:03 PM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> \n> On Sat, Dec 13, 2025 at 10:39?PM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n>> \n>> \n>> \n>>> On 14/12/2025, ",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 4,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-f0b0c1d031f6",
+      "message_id": "<56d26cd9-2ac1-46e8-8b6e-47f9602a90c4@gmail.com>",
+      "from_name": "Mikael Jagan",
+      "from_email_hash": "4bef0ec6e88ca2d9a2d39dae930cd5ac951a48aafc09e210705e7cdcf3fd5964",
+      "date": "2025-12-14T03:33:24-05:00",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<mailman.15511.1859.1765667006.1806.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.15511.1859.1765667006.1806.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "> Date: Sun, 14 Dec 2025 11:39:16 +1300\n> From: Simon Urbanek<simon.urbanek at R-project.org>\n> \n> \n> \n>> On 14/12/2025, at 11:24 AM, Jeroen Ooms<jeroenooms at gmail.com> wrote:\n>>\n>> On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n>> <simon.urbanek at r-project.org> wrote:\n>>\n>>> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n>> Thanks. Some quick observations:\n>>\n>> The x86_64 build of r-devel onhttps://mac.r-project.org/ is almost 2 months old?\n>>\n> Should be fixed now.\n> \n> \n>> On arm64, using the latest R-devel-arm64.pkg on a machine with macOS 15 and Xcode_16.2, I get the following error for all packages with compiled C code:\n>>\n>>   error: invalid value 'gnu23' in '-std=gnu23'\n>>   note: use 'c2x' for 'Working Draft for ISO C2x' standard\n>>   note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard\n>>\n> \n> That is expected, you'll need at least Xcode 16.3 since 16.2 is LLVM 17 while 16.3 is LLVM 19 which, as has been discussed at length, was a big breaking jump. As noted, what is actually used is Xcode 26.x so that would be recommended (albeit not required).\n> \n> It does raise an interesting point, though: macOS 15 is not an issue since you can install all the way to Xcode 26.3 without problems, but macOS 14 (which is our designed target) only runs Xcode 16.2. However, the whole point of moving the target forward was that we upgrade from Xcode 16.2 since that's what we used for the Big Sur build, so sticking with it would defeat the whole purpose. So, would anyone be unhappy if we simply declared macOS 14 as the run-time target, but development needs macOS 15 for the compiler support? It's not ideal, but the only other way would be to deliberately disable C23 support - it's doable, though.\n> \n\nI am still running macOS 14 with Xcode 16.2, so I will be unhappy for the time\nit takes to upgrade - not only macOS but also whatever I have installed under\n/usr/local.  I delayed so long because Xcode 16.3 broke so much ...\n\nBut I really ought to start testing with the newer toolchains, so I will just\nupgrade and be done with it.\n\nMikael\n\n\n> Cheers,\n> Simon",
+      "body_snippet": "> Date: Sun, 14 Dec 2025 11:39:16 +1300\n> From: Simon Urbanek<simon.urbanek at R-project.org>\n> \n> \n> \n>> On 14/12/2025, at 11:24 AM, Jeroen Ooms<jeroenooms at gmail.com> wrote:\n>>\n>> On Fri, Dec 12, ",
+      "thread_id": "thread-f0b0c1d031f6",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-5ab3b5bd2553",
+      "message_id": "<CABFfbXtrDT9G744iGASYh6a-gweS14tvwaW1Jn966H=7kQzx-Q@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2025-12-14T14:49:39Z",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<4F1BD255-0659-4E27-A68B-C0189BF240A7@R-project.org>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+        "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+        "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>",
+        "<CABFfbXufmqLTi-yuQZjNdwM-ZDbbEg_zApnZSAdDnmA0WnzTzg@mail.gmail.com>",
+        "<4F1BD255-0659-4E27-A68B-C0189BF240A7@R-project.org>"
+      ],
+      "body_plain": "On Sun, Dec 14, 2025 at 12:29?AM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n>\n>\n> > On 14/12/2025, at 12:03 PM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> >\n> > On Sat, Dec 13, 2025 at 10:39?PM Simon Urbanek\n> > <simon.urbanek at r-project.org> wrote:\n> >>\n> >>\n> >>\n> >>> On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> >>>\n> >>> On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n> >>> <simon.urbanek at r-project.org> wrote:\n> >>>\n> >>>> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n> >>>\n> >>> Thanks. Some quick observations:\n> >>>\n> >>> The x86_64 build of r-devel on https://mac.r-project.org/ is almost 2 months old?\n> >>>\n> >>\n> >> Should be fixed now.\n> >>\n> >>\n> >>> On arm64, using the latest R-devel-arm64.pkg on a machine with macOS 15 and Xcode_16.2, I get the following error for all packages with compiled C code:\n> >>>\n> >>> error: invalid value 'gnu23' in '-std=gnu23'\n> >>> note: use 'c2x' for 'Working Draft for ISO C2x' standard\n> >>> note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard\n> >>>\n> >>\n> >>\n> >> That is expected, you'll need at least Xcode 16.3 since 16.2 is LLVM 17 while 16.3 is LLVM 19 which, as has been discussed at length, was a big breaking jump. As noted, what is actually used is Xcode 26.x so that would be recommended (albeit not required).\n> >\n> > The reason we were using 16.2 is that newer xcode versions still do\n> > not seem to work with the libomp.dylib included with base R. Has\n> > libomp.dylib been updated yet?\n>\n>\n> Yes, it matches the Xcode - as noted:\n>\n>\n> > On 12/12/2025, at 4:25 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> >\n> >> On 12 Dec 2025, at 08:26, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> >> [...]\n> >> Also It would be interesting to know which version of libomp.dylib will be included with R-macos 4.6 :)\n> >>\n> >\n> > LLVM 19.1.5 to match current Xcode 26.x, i.e. https://mac.r-project.org/openmp/openmp-19.1.5-darwin20-Release.tar.gz\n> >\n>\n>\n>\n> Again, that was the point of the tool upgrade :).\n>\n>\n>\n> > According to otool it is the same version as before?\n> >\n>\n>\n> otool shows the API version as declared by Intel OpenMP, but the LLVM team has never updated it despite breaking changes, unfortunately :/. It's really annoying since it means it is very hard to determine which LLVM it came from - even internally all of the them declare the same version 5.0.20140926 and API version 5.0.201611 - both being almost 10 years out of date.\n\nAre you able to build e.g. data.table with OpenMP support with this\nnew toolchain? I am still getting the linking error that we see with\nR-4.5 on MacOS-15, even with the newer libomp.dylib : symbol not found\nin flat namespace '___kmpc_dispatch_deinit'\n\nSee log: https://github.com/r-universe/rdatatable/actions/runs/20198940208/job/57994421244\n\nI thought that the reason was that libomp.dylib included with R was\ntoo old, but maybe the diagnosis is incorrect.",
+      "body_snippet": "On Sun, Dec 14, 2025 at 12:29?AM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n>\n>\n> > On 14/12/2025, at 12:03 PM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> >\n> > On Sat, Dec 13, 2025 a",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 5,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-f8c8fc21f917",
+      "message_id": "<E467FAB2-A145-481B-A5E5-1D6270B0EF11@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2025-12-14T23:33:34+01:00",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+        "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+        "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>"
+      ],
+      "body_plain": "Some Intel machines won't go to Sequoia, including this 2019 MB Air, but I suppose that is irrelevant. \n\nBut Sequoia seems to have messed up the calendar integration with Exchange, which is a bit of a pain, so some might prefer staying on OS 14.x. \n\n-pd\n\n> On 13 Dec 2025, at 23.39, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> \n> \n>> On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n>> \n>> On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n>> <simon.urbanek at r-project.org> wrote:\n>> \n>>> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n>> \n>> Thanks. Some quick observations:\n>> \n>> The x86_64 build of r-devel on https://mac.r-project.org/ is almost 2 months old?\n>> \n> \n> Should be fixed now.\n> \n> \n>> On arm64, using the latest R-devel-arm64.pkg on a machine with macOS 15 and Xcode_16.2, I get the following error for all packages with compiled C code:\n>> \n>> error: invalid value 'gnu23' in '-std=gnu23'\n>> note: use 'c2x' for 'Working Draft for ISO C2x' standard\n>> note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard\n>> \n> \n> \n> That is expected, you'll need at least Xcode 16.3 since 16.2 is LLVM 17 while 16.3 is LLVM 19 which, as has been discussed at length, was a big breaking jump. As noted, what is actually used is Xcode 26.x so that would be recommended (albeit not required).\n> \n> It does raise an interesting point, though: macOS 15 is not an issue since you can install all the way to Xcode 26.3 without problems, but macOS 14 (which is our designed target) only runs Xcode 16.2. However, the whole point of moving the target forward was that we upgrade from Xcode 16.2 since that's what we used for the Big Sur build, so sticking with it would defeat the whole purpose. So, would anyone be unhappy if we simply declared macOS 14 as the run-time target, but development needs macOS 15 for the compiler support? It's not ideal, but the only other way would be to deliberately disable C23 support - it's doable, though.\n> \n> Cheers,\n> Simon\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Some Intel machines won't go to Sequoia, including this 2019 MB Air, but I suppose that is irrelevant. \n\nBut Sequoia seems to have messed up the calendar integration with Exchange, which is a bit of a",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 3,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-713d4d23af56",
+      "message_id": "<66325E11-1B7A-4337-AC27-3538F2A825EA@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-15T13:32:33+13:00",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<E467FAB2-A145-481B-A5E5-1D6270B0EF11@gmail.com>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+        "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+        "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>",
+        "<E467FAB2-A145-481B-A5E5-1D6270B0EF11@gmail.com>"
+      ],
+      "body_plain": "Peter,\n\nthanks. There may be a compromise is to disable C23 support in R so it is still compatible with the older Xcode while still being able to use the new compliers. I don?t think there is too much appetite for C23 anyway as people will move the C++20 at best and the C standards don?t really matter (well, C23 is absolutely terrible due to the \"bool\" mess they created). That may be the best way forward.\n\nCheers,\nSimon \n \n\n> On 15 Dec 2025, at 11:33, peter dalgaard <pdalgd at gmail.com> wrote:\n> \n> Some Intel machines won't go to Sequoia, including this 2019 MB Air, but I suppose that is irrelevant. \n> \n> But Sequoia seems to have messed up the calendar integration with Exchange, which is a bit of a pain, so some might prefer staying on OS 14.x. \n> \n> -pd\n> \n>> On 13 Dec 2025, at 23.39, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> \n>> \n>> \n>>> On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n>>> \n>>> On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n>>> <simon.urbanek at r-project.org> wrote:\n>>> \n>>>> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n>>> \n>>> Thanks. Some quick observations:\n>>> \n>>> The x86_64 build of r-devel on https://mac.r-project.org/ is almost 2 months old?\n>>> \n>> \n>> Should be fixed now.\n>> \n>> \n>>> On arm64, using the latest R-devel-arm64.pkg on a machine with macOS 15 and Xcode_16.2, I get the following error for all packages with compiled C code:\n>>> \n>>> error: invalid value 'gnu23' in '-std=gnu23'\n>>> note: use 'c2x' for 'Working Draft for ISO C2x' standard\n>>> note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard\n>>> \n>> \n>> \n>> That is expected, you'll need at least Xcode 16.3 since 16.2 is LLVM 17 while 16.3 is LLVM 19 which, as has been discussed at length, was a big breaking jump. As noted, what is actually used is Xcode 26.x so that would be recommended (albeit not required).\n>> \n>> It does raise an interesting point, though: macOS 15 is not an issue since you can install all the way to Xcode 26.3 without problems, but macOS 14 (which is our designed target) only runs Xcode 16.2. However, the whole point of moving the target forward was that we upgrade from Xcode 16.2 since that's what we used for the Big Sur build, so sticking with it would defeat the whole purpose. So, would anyone be unhappy if we simply declared macOS 14 as the run-time target, but development needs macOS 15 for the compiler support? It's not ideal, but the only other way would be to deliberately disable C23 support - it's doable, though.\n>> \n>> Cheers,\n>> Simon\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> -- \n> Peter Dalgaard, Professor,\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Office: A 4.23\n> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n>",
+      "body_snippet": "Peter,\n\nthanks. There may be a compromise is to disable C23 support in R so it is still compatible with the older Xcode while still being able to use the new compliers. I don?t think there is too much",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 4,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-d3ec6b4d81af",
+      "message_id": "<82079585-E2AF-4636-9E9A-6670895527D3@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2025-12-15T13:57:56+13:00",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<CABFfbXtrDT9G744iGASYh6a-gweS14tvwaW1Jn966H=7kQzx-Q@mail.gmail.com>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+        "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+        "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>",
+        "<CABFfbXufmqLTi-yuQZjNdwM-ZDbbEg_zApnZSAdDnmA0WnzTzg@mail.gmail.com>",
+        "<4F1BD255-0659-4E27-A68B-C0189BF240A7@R-project.org>",
+        "<CABFfbXtrDT9G744iGASYh6a-gweS14tvwaW1Jn966H=7kQzx-Q@mail.gmail.com>"
+      ],
+      "body_plain": "Jeroen,\n\nI have no trouble with data.table, are you sure you are using the latest R-devel? It does have that symbol:\n\n$ nm /Library/Frameworks/R.framework/Resources/lib/libomp.dylib| grep deinit\n0000000000068b0c T ___kmp_hidden_helper_threads_deinitz_release\n0000000000068af4 T ___kmp_hidden_helper_threads_deinitz_wait\n0000000000051c64 T ___kmpc_dispatch_deinit\n\n(FWIW note that the x86_64 build is still big-sur and it won?t change, only the arm64 builds are updated).\n\nCheers,\nSimon\n\n\n> On 15 Dec 2025, at 03:49, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> \n> On Sun, Dec 14, 2025 at 12:29?AM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n>> \n>> \n>> \n>>> On 14/12/2025, at 12:03 PM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n>>> \n>>> On Sat, Dec 13, 2025 at 10:39?PM Simon Urbanek\n>>> <simon.urbanek at r-project.org> wrote:\n>>>> \n>>>> \n>>>> \n>>>>> On 14/12/2025, at 11:24 AM, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n>>>>> \n>>>>> On Fri, Dec 12, 2025 at 3:20?AM Simon Urbanek\n>>>>> <simon.urbanek at r-project.org> wrote:\n>>>>> \n>>>>>> The goal is to remove the existing big-sur-arm64 R-devel binaries in favor of the sonoma-arm64 R-devel build. Since we are still far away from the R-devel release, all this is considered experimental and may change in the future (possibly Fortran upgrade is in the cards), but given that this is not a minor change, I want to give others the opportunity to test the new setup and comment as appropriate.\n>>>>> \n>>>>> Thanks. Some quick observations:\n>>>>> \n>>>>> The x86_64 build of r-devel on https://mac.r-project.org/ is almost 2 months old?\n>>>>> \n>>>> \n>>>> Should be fixed now.\n>>>> \n>>>> \n>>>>> On arm64, using the latest R-devel-arm64.pkg on a machine with macOS 15 and Xcode_16.2, I get the following error for all packages with compiled C code:\n>>>>> \n>>>>> error: invalid value 'gnu23' in '-std=gnu23'\n>>>>> note: use 'c2x' for 'Working Draft for ISO C2x' standard\n>>>>> note: use 'gnu2x' for 'Working Draft for ISO C2x with GNU extensions' standard\n>>>>> \n>>>> \n>>>> \n>>>> That is expected, you'll need at least Xcode 16.3 since 16.2 is LLVM 17 while 16.3 is LLVM 19 which, as has been discussed at length, was a big breaking jump. As noted, what is actually used is Xcode 26.x so that would be recommended (albeit not required).\n>>> \n>>> The reason we were using 16.2 is that newer xcode versions still do\n>>> not seem to work with the libomp.dylib included with base R. Has\n>>> libomp.dylib been updated yet?\n>> \n>> \n>> Yes, it matches the Xcode - as noted:\n>> \n>> \n>>> On 12/12/2025, at 4:25 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n>>> \n>>>> On 12 Dec 2025, at 08:26, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n>>>> [...]\n>>>> Also It would be interesting to know which version of libomp.dylib will be included with R-macos 4.6 :)\n>>>> \n>>> \n>>> LLVM 19.1.5 to match current Xcode 26.x, i.e. https://mac.r-project.org/openmp/openmp-19.1.5-darwin20-Release.tar.gz\n>>> \n>> \n>> \n>> \n>> Again, that was the point of the tool upgrade :).\n>> \n>> \n>> \n>>> According to otool it is the same version as before?\n>>> \n>> \n>> \n>> otool shows the API version as declared by Intel OpenMP, but the LLVM team has never updated it despite breaking changes, unfortunately :/. It's really annoying since it means it is very hard to determine which LLVM it came from - even internally all of the them declare the same version 5.0.20140926 and API version 5.0.201611 - both being almost 10 years out of date.\n> \n> Are you able to build e.g. data.table with OpenMP support with this\n> new toolchain? I am still getting the linking error that we see with\n> R-4.5 on MacOS-15, even with the newer libomp.dylib : symbol not found\n> in flat namespace '___kmpc_dispatch_deinit'\n> \n> See log: https://github.com/r-universe/rdatatable/actions/runs/20198940208/job/57994421244\n> \n> I thought that the reason was that libomp.dylib included with R was\n> too old, but maybe the diagnosis is incorrect.\n>",
+      "body_snippet": "Jeroen,\n\nI have no trouble with data.table, are you sure you are using the latest R-devel? It does have that symbol:\n\n$ nm /Library/Frameworks/R.framework/Resources/lib/libomp.dylib| grep deinit\n00000",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 6,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-c32afdfe50ab",
+      "message_id": "<CABFfbXseHjC1ho5SGywm7QiPDyZhud3_UkMnyz9nwGtXoxPLTw@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2025-12-15T18:39:16Z",
+      "subject": "[R-SIG-Mac] Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "subject_clean": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "in_reply_to": "<82079585-E2AF-4636-9E9A-6670895527D3@R-project.org>",
+      "references": [
+        "<119B1E53-F3A1-4221-92FD-BBF7E13705CD@R-project.org>",
+        "<CABFfbXuGCZzRsHEnPkFmk0=BupkbfcFVz3pVbQG3mZ+sqcYFyg@mail.gmail.com>",
+        "<9FC292A5-1C0D-4C11-B072-FD6CE8E6538F@R-project.org>",
+        "<CABFfbXufmqLTi-yuQZjNdwM-ZDbbEg_zApnZSAdDnmA0WnzTzg@mail.gmail.com>",
+        "<4F1BD255-0659-4E27-A68B-C0189BF240A7@R-project.org>",
+        "<CABFfbXtrDT9G744iGASYh6a-gweS14tvwaW1Jn966H=7kQzx-Q@mail.gmail.com>",
+        "<82079585-E2AF-4636-9E9A-6670895527D3@R-project.org>"
+      ],
+      "body_plain": "On Mon, Dec 15, 2025 at 12:58?AM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n> Jeroen,\n>\n> I have no trouble with data.table, are you sure you are using the latest R-devel? It does have that symbol:\n>\n> $ nm /Library/Frameworks/R.framework/Resources/lib/libomp.dylib| grep deinit\n> 0000000000068b0c T ___kmp_hidden_helper_threads_deinitz_release\n> 0000000000068af4 T ___kmp_hidden_helper_threads_deinitz_wait\n> 0000000000051c64 T ___kmpc_dispatch_deinit\n>\n> (FWIW note that the x86_64 build is still big-sur and it won?t change, only the arm64 builds are updated).\n\nIt seems the issue has disappeared in the latest build of\nR-devel-arm64.pkg (2025/12/14). We can now build data.table for\nR-4.6-arm with openmp support on Xcode26.",
+      "body_snippet": "On Mon, Dec 15, 2025 at 12:58?AM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n> Jeroen,\n>\n> I have no trouble with data.table, are you sure you are using the latest R-devel? It does have th",
+      "thread_id": "thread-f3c7f17c4a3a",
+      "thread_depth": 7,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-7860d85729ee",
+      "message_id": "<CABFfbXtQpNFkn4sE+xXXp7ecHP17xCdgLsbpng9qpMXRAZESjQ@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2025-12-17T10:09:44Z",
+      "subject": "[R-SIG-Mac] (MacOS 15 x86_64) Error: running examples in ‘stats-Ex.R’ failed",
+      "subject_clean": "(MacOS 15 x86_64) Error: running examples in ‘stats-Ex.R’ failed",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Checking base R on MacOS 15 fails a test on intel (not arm64), see:\nhttps://contributor.r-project.org/svn-dashboard/\n\n   Error: running examples in ?stats-Ex.R? failed\n   ...\n   Error: identical(strip(qrI), strip(lmI[c(\"hat\", \"sigma\")])) is not TRUE",
+      "body_snippet": "Checking base R on MacOS 15 fails a test on intel (not arm64), see:\nhttps://contributor.r-project.org/svn-dashboard/\n\n   Error: running examples in ?stats-Ex.R? failed\n   ...\n   Error: identical(strip",
+      "thread_id": "thread-7860d85729ee",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-5a176ad8bee2",
+      "message_id": "<2DA59F7D-49B5-400D-A34C-D9F21552A7A1@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2025-12-17T14:15:02+01:00",
+      "subject": "[R-SIG-Mac]  (MacOS 15 x86_64) Error: running examples in ‘stats-Ex.R’ failed",
+      "subject_clean": "(MacOS 15 x86_64) Error: running examples in ‘stats-Ex.R’ failed",
+      "in_reply_to": "<CABFfbXtQpNFkn4sE+xXXp7ecHP17xCdgLsbpng9qpMXRAZESjQ@mail.gmail.com>",
+      "references": [
+        "<CABFfbXtQpNFkn4sE+xXXp7ecHP17xCdgLsbpng9qpMXRAZESjQ@mail.gmail.com>"
+      ],
+      "body_plain": "If you goo further back, you will see FAIL on the same platform for quite a while, but failing in different places. E.g.,\n\n2025-11-05T19:29:34.2882140Z   > coef(fmCc)\n2025-11-05T19:29:34.2883410Z   (Intercept)           x         chB         chC         cha         chb         chc         chd \n2025-11-05T19:29:34.2885100Z    12.7781626  19.8494272  -0.8240301  -1.3309157 -31.7032317 -32.8819084 -33.3519985 -34.6249161 \n2025-11-05T19:29:34.2886740Z   > ## (Intercept)           x         chB         chC         cha         chb         chc         chd\n2025-11-05T19:29:34.2888830Z   > ##  12.7781626  19.8494272  -0.8240301  -1.3309157 -31.7032317 -32.8819084 -33.3519985 -34.6249161\n2025-11-05T19:29:34.2891030Z   > (coef(fmCf) -> cf.f) # the same\n2025-11-05T19:29:34.2892540Z   (Intercept)           x         chB         chC         cha         chb         chc         chd \n2025-11-05T19:29:34.2894330Z    12.7781626  19.8494272  -0.8240301  -1.3309157 -31.7032317 -32.8819084 -33.3519985 -34.6249161 \n2025-11-05T19:29:34.2895830Z   > stopifnot(exprs = {\n2025-11-05T19:29:34.2897020Z   +     identical(coef(fmCc), cf.f)\n2025-11-05T19:29:34.2898910Z   + })\n2025-11-05T19:29:34.2900180Z   Error: identical(coef(fmCc), cf.f) is not TRUE\n2025-11-05T19:29:34.2902120Z   Execution halted\n\nI think we have been here before and the culprit was stochasticity in the multithreaded Accelerate framework. Basically the examples do the same thing twice and get different results.\n\n.pd\n\n> On 17 Dec 2025, at 11.09, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> \n> Checking base R on MacOS 15 fails a test on intel (not arm64), see:\n> https://contributor.r-project.org/svn-dashboard/\n> \n>   Error: running examples in ?stats-Ex.R? failed\n>   ...\n>   Error: identical(strip(qrI), strip(lmI[c(\"hat\", \"sigma\")])) is not TRUE\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "If you goo further back, you will see FAIL on the same platform for quite a while, but failing in different places. E.g.,\n\n2025-11-05T19:29:34.2882140Z   > coef(fmCc)\n2025-11-05T19:29:34.2883410Z   (I",
+      "thread_id": "thread-7860d85729ee",
+      "thread_depth": 1,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-ea9e98070671",
+      "message_id": "<20251230010942.050573fa@Tarkus>",
+      "from_name": "Ivan Krylov",
+      "from_email_hash": "d5e69509b1e550954e7dc7df9fde68d8fd4a7973fb076b5d966efe67850be3c9",
+      "date": "2025-12-30T01:09:42+03:00",
+      "subject": "[R-SIG-Mac] configure tests for OpenMP fail when building CRAN binary packages",
+      "subject_clean": "configure tests for OpenMP fail when building CRAN binary packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nSome packages that use a configure test for OpenMP support now don't\ndetect it when being compiled for macOS:\n\nhttps://www.r-project.org/nosvn/R.check/r-release-macos-arm64/RcppArmadillo-00install.html\nhttps://www.r-project.org/nosvn/R.check/r-release-macos-x86_64/data.table-00install.html\n\nThe test for working OpenMP support used by these two packages is\n\nPKG_CFLAGS='-Xclang -fopenmp' PKG_LIBS=-lomp R CMD SHLIB test.c\n\n...completing with an exit status of 0. (Where test.c contains some\nvalid OpenMP directives.) It's not ideal, but it's prone to false\npositives, not false negatives.\n\nThe problem does not happen on the macOS builder.\n\nCould the CRAN builder be possibly missing some configuration\npertaining to libomp.dylib? Is there anything I could do to help\ndiagnose the problem?\n\n-- \nBest regards,\nIvan",
+      "body_snippet": "Hello,\n\nSome packages that use a configure test for OpenMP support now don't\ndetect it when being compiled for macOS:\n\nhttps://www.r-project.org/nosvn/R.check/r-release-macos-arm64/RcppArmadillo-00ins",
+      "thread_id": "thread-ea9e98070671",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-19af24d4b68c",
+      "message_id": "<DM3PPF9A5B544E06CC4A1731F23560D144CFABFA@DM3PPF9A5B544E0.NAMP223.PROD.OUTLOOK.COM>",
+      "from_name": "Naresh Gurbuxani",
+      "from_email_hash": "df5d90539e2666ddc66f8b815f804e76e9cbe0b9fbf72e62a714b1e3536d5dae",
+      "date": "2025-12-29T22:55:50Z",
+      "subject": "[R-SIG-Mac] Fwd: [R] data.table does not find openmp support",
+      "subject_clean": "data.table does not find openmp support",
+      "in_reply_to": null,
+      "references": [
+        "<51DE1882-0E64-4616-9BE8-81C1DCED719B@hotmail.com>"
+      ],
+      "body_plain": "I should have posted this here.\n\nSent from my iPhone\n\nBegin forwarded message:\n\nFrom: Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>\nDate: December 29, 2025 at 12:02:10?PM EST\nTo: r-help at r-project.org\nSubject: [R] data.table does not find openmp support\n\n?\nOn my Intel Mac, with R 4.4, data.table worked with openmp support.\nAfter installing R 4.5, I reinstalled data.table using\ninstall.packages(\"data.table\").  Installation went smoothly, but\ndata.table did not detect openmp support.  I removed data.table, then\nreinstalled using install.packages(\"data.table\", type = \"source\").  Now\ndata.table install has non-zero exit status.\n\nFollowing instructions at https://mac.r-project.org/openmp/, I installed\nOpen MP support by running on command line\n\ncurl -O https://mac.r-project.org/openmp/openmp-17.0.6-darwin20-Release.tar.gz\nsudo tar fvxz openmp-17.0.6-darwin20-Release.tar.gz -C /\n\nBelow is information from my R session:\n\nsessionInfo()\nR version 4.5.2 (2025-10-31)\nPlatform: x86_64-apple-darwin20\nRunning under: macOS Sequoia 15.7.3\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRblas.0.dylib\nLAPACK: /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: America/New_York\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  utils     datasets  grDevices methods   base\n\nother attached packages:\n[1] lattice_0.22-7\n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.2 tools_4.5.2    grid_4.5.2\nsystem(\"gfortran --version\")\nGNU Fortran (GCC) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\nsystem(\"xcode-select -version\")\nxcode-select version 2410.\nsystem(\"gcc --version\")\nApple clang version 17.0.0 (clang-1700.6.3.2)\nTarget: x86_64-apple-darwin24.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\ninstall.packages(\"data.table\", lib = .libPaths()[2], type = \"source\")\ntrying URL 'https://cran.r-project.org/src/contrib/data.table_1.18.0.tar.gz'\nContent type 'application/x-gzip' length 6020932 bytes (5.7 MB)\n==================================================\ndownloaded 5.7 MB\n\n* installing *source* package ?data.table? ...\n** this is package ?data.table? version ?1.18.0?\n** package ?data.table? successfully unpacked and MD5 sums checked\n** using staged installation\nzlib 1.3.1 is available ok\n* checking if R installation supports OpenMP with \"-Xclang -fopenmp\" ... yes\n** libs\nusing C compiler: ?Apple clang version 17.0.0 (clang-1700.6.3.2)?\nusing SDK: ?MacOSX26.2.sdk?\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c assign.c -o assign.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c between.c -o between.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c bmerge.c -o bmerge.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c chmatch.c -o chmatch.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c cj.c -o cj.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c coalesce.c -o coalesce.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c dogroups.c -o dogroups.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c fastmean.c -o fastmean.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c fcast.c -o fcast.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c fifelse.c -o fifelse.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c fmelt.c -o fmelt.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c forder.c -o forder.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c frank.c -o frank.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c fread.c -o fread.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c freadR.c -o freadR.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c froll.c -o froll.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c frollR.c -o frollR.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c frolladaptive.c -o frolladaptive.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c frollapply.c -o frollapply.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c fsort.c -o fsort.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c fwrite.c -o fwrite.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c fwriteR.c -o fwriteR.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c gsumm.c -o gsumm.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c hash.c -o hash.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c idatetime.c -o idatetime.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c ijoin.c -o ijoin.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c init.c -o init.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c inrange.c -o inrange.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c mergelist.c -o mergelist.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c nafill.c -o nafill.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c negate.c -o negate.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c nqrecreateindices.c -o nqrecreateindices.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c openmp-utils.c -o openmp-utils.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c programming.c -o programming.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c quickselect.c -o quickselect.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c rbindlist.c -o rbindlist.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c reorder.c -o reorder.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c shellsort.c -o shellsort.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c shift.c -o shift.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c snprintf.c -o snprintf.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c subset.c -o subset.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c transpose.c -o transpose.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c types.c -o types.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c uniqlist.c -o uniqlist.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c utils.c -o utils.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c vecseq.c -o vecseq.o\nclang -arch x86_64 -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/opt/R/x86_64/include   -Xclang -fopenmp  -I/opt/local/include -fPIC  -falign-functions=64 -Wall -g -O2  -c wrappers.c -o wrappers.o\nclang -arch x86_64 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -L/Library/Frameworks/R.framework/Resources/lib -L/opt/R/x86_64/lib -o data.table.so assign.o between.o bmerge.o chmatch.o cj.o coalesce.o dogroups.o fastmean.o fcast.o fifelse.o fmelt.o forder.o frank.o fread.o freadR.o froll.o frollR.o frolladaptive.o frollapply.o fsort.o fwrite.o fwriteR.o gsumm.o hash.o idatetime.o ijoin.o init.o inrange.o mergelist.o nafill.o negate.o nqrecreateindices.o openmp-utils.o programming.o quickselect.o rbindlist.o reorder.o shellsort.o shift.o snprintf.o subset.o transpose.o types.o uniqlist.o utils.o vecseq.o wrappers.o -lomp -L/opt/local/lib -lz -F/Library/Frameworks/R.framework/.. -framework R\nPKG_CFLAGS = -Xclang -fopenmp -I/opt/local/include\nPKG_LIBS = -lomp -L/opt/local/lib -lz\nif [ \"data.table.so\" != \"data_table.so\" ]; then mv data.table.so data_table.so; fi\nif [ \"\" != \"Windows_NT\" ] && [ `uname -s` = 'Darwin' ]; then install_name_tool -id data_table.so data_table.so; fi\ninstalling to /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/00LOCK-data.table/00new/data.table/libs\n** R\n** inst\n** byte-compile and prepare package for lazy loading\n** help\n*** installing help indices\n** building package indices\n** installing vignettes\n** testing if installed package can be loaded from temporary location\nError: package or namespace load failed for ?data.table? in dyn.load(file, DLLpath = DLLpath, ...):\nunable to load shared object '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/00LOCK-data.table/00new/data.table/libs/data_table.so':\n dlopen(/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/00LOCK-data.table/00new/data.table/libs/data_table.so, 0x0006): symbol not found in flat namespace '___kmpc_dispatch_deinit'\nError: loading failed\nExecution halted\nERROR: loading failed\n* removing ?/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/data.table?\n\nThe downloaded source packages are in\n   ?/private/var/folders/d5/sbs6108j6qd9jw7g652bm9sr0000gn/T/RtmpqcFVH3/downloaded_packages?\nWarning message:\nIn install.packages(\"data.table\", lib = .libPaths()[2], type = \"source\") :\n installation of package ?data.table? had non-zero exit status\n______________________________________________\nR-help at r-project.org mailing list -- To UNSUBSCRIBE and more, see\nhttps://stat.ethz.ch/mailman/listinfo/r-help\nPLEASE do read the posting guide https://www.R-project.org/posting-guide.html\nand provide commented, minimal, self-contained, reproducible code.\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I should have posted this here.\n\nSent from my iPhone\n\nBegin forwarded message:\n\nFrom: Naresh Gurbuxani <naresh_gurbuxani at hotmail.com>\nDate: December 29, 2025 at 12:02:10?PM EST\nTo: r-help at r-proj",
+      "thread_id": "thread-19af24d4b68c",
+      "thread_depth": 0,
+      "month": "2025-12"
+    },
+    {
+      "id": "msg-955b05bcf85f",
+      "message_id": "<CABFfbXsStmo=dsZUN7whJtXyzcZmfY_nhwmp4E5WZisE+3E8mA@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2025-12-30T00:04:48+01:00",
+      "subject": "[R-SIG-Mac] configure tests for OpenMP fail when building CRAN binary packages",
+      "subject_clean": "configure tests for OpenMP fail when building CRAN binary packages",
+      "in_reply_to": "<20251230010942.050573fa@Tarkus>",
+      "references": [
+        "<20251230010942.050573fa@Tarkus>"
+      ],
+      "body_plain": "FWIW, the binaries on r-universe are built with the documented CRAN\ninstructions and all pick up on openmp as expected, both for R-release\nand R-devel:\n\n  https://rdatatable.r-universe.dev/data.table/buildlog\n  https://rcppcore.r-universe.dev/RcppArmadillo/buildlog\n\nThe libomp.dylib file is included with base R, so my guess would be\nthat the openmp include dir somehow got removed from the CRAN machine?\n\n\n\n\n\n\n\nOn Mon, Dec 29, 2025 at 11:09?PM Ivan Krylov via R-SIG-Mac\n<r-sig-mac at r-project.org> wrote:\n>\n> Hello,\n>\n> Some packages that use a configure test for OpenMP support now don't\n> detect it when being compiled for macOS:\n>\n> https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/RcppArmadillo-00install.html\n> https://www.r-project.org/nosvn/R.check/r-release-macos-x86_64/data.table-00install.html\n>\n> The test for working OpenMP support used by these two packages is\n>\n> PKG_CFLAGS='-Xclang -fopenmp' PKG_LIBS=-lomp R CMD SHLIB test.c\n>\n> ...completing with an exit status of 0. (Where test.c contains some\n> valid OpenMP directives.) It's not ideal, but it's prone to false\n> positives, not false negatives.\n>\n> The problem does not happen on the macOS builder.\n>\n> Could the CRAN builder be possibly missing some configuration\n> pertaining to libomp.dylib? Is there anything I could do to help\n> diagnose the problem?\n>\n> --\n> Best regards,\n> Ivan\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "FWIW, the binaries on r-universe are built with the documented CRAN\ninstructions and all pick up on openmp as expected, both for R-release\nand R-devel:\n\n  https://rdatatable.r-universe.dev/data.table/",
+      "thread_id": "thread-ea9e98070671",
+      "thread_depth": 1,
+      "month": "2025-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-d1099940e14f",
+      "subject": "CRAN LaTeX infrastructure for packages",
+      "message_count": 6,
+      "participants": [
+        "Ben Bolker",
+        "Marc Schwartz",
+        "Peter Dalgaard",
+        "Simon Urbanek"
+      ],
+      "started": "2025-12-02T19:10:24-05:00",
+      "last_reply": "2025-12-04T09:12:37+13:00",
+      "root_message_id": "msg-d1099940e14f"
+    },
+    {
+      "id": "thread-615cd39eba64",
+      "subject": "Using sanitizers in MacOS builds",
+      "message_count": 4,
+      "participants": [
+        "Duncan Murdoch",
+        "Prof Brian Ripley"
+      ],
+      "started": "2025-12-10T06:13:24-05:00",
+      "last_reply": "2025-12-10T15:27:06-05:00",
+      "root_message_id": "msg-615cd39eba64"
+    },
+    {
+      "id": "thread-c211fec931b9",
+      "subject": "MacOS binaries for R-4.6",
+      "message_count": 2,
+      "participants": [
+        "Jeroen Ooms",
+        "Simon Urbanek"
+      ],
+      "started": "2025-12-11T19:26:53+00:00",
+      "last_reply": "2025-12-12T16:25:13+13:00",
+      "root_message_id": "msg-c211fec931b9"
+    },
+    {
+      "id": "thread-0a5016091027",
+      "subject": "CRAN metadata inconsistencies for macOS binaries",
+      "message_count": 4,
+      "participants": [
+        "Gábor Csárdi",
+        "Simon Urbanek"
+      ],
+      "started": "2025-12-11T22:15:30+01:00",
+      "last_reply": "2025-12-12T21:22:53+13:00",
+      "root_message_id": "msg-0a5016091027"
+    },
+    {
+      "id": "thread-f3c7f17c4a3a",
+      "subject": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "message_count": 10,
+      "participants": [
+        "Jeroen Ooms",
+        "Simon Urbanek",
+        "peter dalgaard"
+      ],
+      "started": "2025-12-12T16:20:13+13:00",
+      "last_reply": "2025-12-15T18:39:16+00:00",
+      "root_message_id": "msg-f3c7f17c4a3a"
+    },
+    {
+      "id": "thread-f0b0c1d031f6",
+      "subject": "Announcement: R-devel \"sonoma-arm64\" Mac builds",
+      "message_count": 1,
+      "participants": [
+        "Mikael Jagan"
+      ],
+      "started": "2025-12-14T03:33:24-05:00",
+      "last_reply": "2025-12-14T03:33:24-05:00",
+      "root_message_id": "msg-f0b0c1d031f6"
+    },
+    {
+      "id": "thread-7860d85729ee",
+      "subject": "(MacOS 15 x86_64) Error: running examples in ‘stats-Ex.R’ failed",
+      "message_count": 2,
+      "participants": [
+        "Jeroen Ooms",
+        "peter dalgaard"
+      ],
+      "started": "2025-12-17T10:09:44+00:00",
+      "last_reply": "2025-12-17T14:15:02+01:00",
+      "root_message_id": "msg-7860d85729ee"
+    },
+    {
+      "id": "thread-19af24d4b68c",
+      "subject": "data.table does not find openmp support",
+      "message_count": 1,
+      "participants": [
+        "Naresh Gurbuxani"
+      ],
+      "started": "2025-12-29T22:55:50+00:00",
+      "last_reply": "2025-12-29T22:55:50+00:00",
+      "root_message_id": "msg-19af24d4b68c"
+    },
+    {
+      "id": "thread-ea9e98070671",
+      "subject": "configure tests for OpenMP fail when building CRAN binary packages",
+      "message_count": 2,
+      "participants": [
+        "Ivan Krylov",
+        "Jeroen Ooms"
+      ],
+      "started": "2025-12-30T01:09:42+03:00",
+      "last_reply": "2025-12-30T00:04:48+01:00",
+      "root_message_id": "msg-ea9e98070671"
+    }
+  ]
+}

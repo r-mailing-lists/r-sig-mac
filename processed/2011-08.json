@@ -1,0 +1,1278 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2011-08",
+  "messages": [
+    {
+      "id": "msg-f695e614a51b",
+      "message_id": "<CA5C657D.4A62%ross.darnell@csiro.au>",
+      "from_name": "Ross.Darnell at csiro.au",
+      "from_email_hash": "7943afe2057d438cc340d510d0dff9220cc784eb300eab800566223c5129910a",
+      "date": "2011-08-01T14:15:25+10:00",
+      "subject": "[R-SIG-Mac] R.app cannot see tar but R (console) can",
+      "subject_clean": "R.app cannot see tar but R (console) can",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "If I run\n\n> system('tar')\nwithin the console version of R I get\n\n> system('tar')\ntar: Must specify one of -c, -r, -t, -u, -x\n\nIf I try using R.app  I get\n\nR version 2.13.1 (2011-07-08)\nCopyright (C) 2011 The R Foundation for Statistical Computing\nISBN 3-900051-07-0\nPlatform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n[R.app GUI 1.41 (5874) x86_64-apple-darwin9.8.0]\n\n[Workspace restored from /Users/dar143/.RData]\n[History restored from /Users/dar143/.Rapp.history]\n\n> system(tar)\nError in system(tar) : non-empty character argument expected\n\nSame problem running R within Emacs/ESS\nSo the  path for tar is not known to R.app.  What is the best way to fix this?\n\nRegards\nRoss Darnell",
+      "body_snippet": "If I run\n\n> system('tar')\nwithin the console version of R I get\n\n> system('tar')\ntar: Must specify one of -c, -r, -t, -u, -x\n\nIf I try using R.app  I get\n\nR version 2.13.1 (2011-07-08)\nCopyright (C) 2",
+      "thread_id": "thread-f695e614a51b",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-bea34733ba7c",
+      "message_id": "<F4BCE593-33DB-4CFD-B886-E52D38CD3614@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "997bb787abf80042157dc28e91db13eb5e5c0f433207dba7fcb5331fa2e472af",
+      "date": "2011-08-01T07:41:00+02:00",
+      "subject": "[R-SIG-Mac] R.app cannot see tar but R (console) can",
+      "subject_clean": "R.app cannot see tar but R (console) can",
+      "in_reply_to": "<CA5C657D.4A62%ross.darnell@csiro.au>",
+      "references": [
+        "<CA5C657D.4A62%ross.darnell@csiro.au>"
+      ],
+      "body_plain": "On 01-08-2011, at 06:15, <Ross.Darnell at csiro.au> <Ross.Darnell at csiro.au> wrote:\n\n> If I run\n> \n>> system('tar')\n> within the console version of R I get\n> \n>> system('tar')\n> tar: Must specify one of -c, -r, -t, -u, -x\n> \n> If I try using R.app  I get\n> \n> R version 2.13.1 (2011-07-08)\n> Copyright (C) 2011 The R Foundation for Statistical Computing\n> ISBN 3-900051-07-0\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> \n> R is free software and comes with ABSOLUTELY NO WARRANTY.\n> You are welcome to redistribute it under certain conditions.\n> Type 'license()' or 'licence()' for distribution details.\n> \n>  Natural language support but running in an English locale\n> \n> R is a collaborative project with many contributors.\n> Type 'contributors()' for more information and\n> 'citation()' on how to cite R or R packages in publications.\n> \n> Type 'demo()' for some demos, 'help()' for on-line help, or\n> 'help.start()' for an HTML browser interface to help.\n> Type 'q()' to quit R.\n> \n> [R.app GUI 1.41 (5874) x86_64-apple-darwin9.8.0]\n> \n> [Workspace restored from /Users/dar143/.RData]\n> [History restored from /Users/dar143/.Rapp.history]\n> \n>> system(tar)\n> Error in system(tar) : non-empty character argument expected\n\n1. You should have done system(\"tar\"). Now R is looking for an object tar which is empty.\n\n2. GUI applications in Mac OS X don't inherit/receive  the environment used in Terminal.\n\nYou can check this in R.app with Sys.getenv(\"PATH\").\nYou could use Sys.setenv(PATH=\"...\") in R.app to set PATH for that session.\n\nIf you want GUI applications to always receive certain environment variables then  see\n\nhttp://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x\nhttp://developer.apple.com/library/mac/#qa/qa1067/_index.html\nhttp://developer.apple.com/library/mac/#documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/EnvironmentVars.html\n\nIf you would like to set environment variables for GUI applications in a \"nice\" way (would also work for Emacs I think) you can use RCenvironment which provides a preference pane for setting environment variables for GUI applications. See\n\nhttp://www.rubicode.com/Software/RCEnvironment/\n\nbest\n\nBerend",
+      "body_snippet": "On 01-08-2011, at 06:15, <Ross.Darnell at csiro.au> <Ross.Darnell at csiro.au> wrote:\n\n> If I run\n> \n>> system('tar')\n> within the console version of R I get\n> \n>> system('tar')\n> tar: Must specify on",
+      "thread_id": "thread-f695e614a51b",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-7c597b5393b6",
+      "message_id": "<alpine.LFD.2.02.1108010724560.4028@gannet.stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2011-08-01T07:27:50+01:00",
+      "subject": "[R-SIG-Mac] R.app cannot see tar but R (console) can",
+      "subject_clean": "R.app cannot see tar but R (console) can",
+      "in_reply_to": "<F4BCE593-33DB-4CFD-B886-E52D38CD3614@xs4all.nl>",
+      "references": [
+        "<CA5C657D.4A62%ross.darnell@csiro.au>",
+        "<F4BCE593-33DB-4CFD-B886-E52D38CD3614@xs4all.nl>"
+      ],
+      "body_plain": "And R itself (on any Unix-alike) sets the standard environment \nvariable TAR, so why not simply use it, e.g.\n\nsystem2(Sys.getenv(\"TAR\"), <character vector of args>))\n\nOr use utils::untar etc.\n\nOn Mon, 1 Aug 2011, Berend Hasselman wrote:\n\n>\n> On 01-08-2011, at 06:15, <Ross.Darnell at csiro.au> <Ross.Darnell at csiro.au> wrote:\n>\n>> If I run\n>>\n>>> system('tar')\n>> within the console version of R I get\n>>\n>>> system('tar')\n>> tar: Must specify one of -c, -r, -t, -u, -x\n>>\n>> If I try using R.app  I get\n>>\n>> R version 2.13.1 (2011-07-08)\n>> Copyright (C) 2011 The R Foundation for Statistical Computing\n>> ISBN 3-900051-07-0\n>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>>\n>> R is free software and comes with ABSOLUTELY NO WARRANTY.\n>> You are welcome to redistribute it under certain conditions.\n>> Type 'license()' or 'licence()' for distribution details.\n>>\n>>  Natural language support but running in an English locale\n>>\n>> R is a collaborative project with many contributors.\n>> Type 'contributors()' for more information and\n>> 'citation()' on how to cite R or R packages in publications.\n>>\n>> Type 'demo()' for some demos, 'help()' for on-line help, or\n>> 'help.start()' for an HTML browser interface to help.\n>> Type 'q()' to quit R.\n>>\n>> [R.app GUI 1.41 (5874) x86_64-apple-darwin9.8.0]\n>>\n>> [Workspace restored from /Users/dar143/.RData]\n>> [History restored from /Users/dar143/.Rapp.history]\n>>\n>>> system(tar)\n>> Error in system(tar) : non-empty character argument expected\n>\n> 1. You should have done system(\"tar\"). Now R is looking for an object tar which is empty.\n>\n> 2. GUI applications in Mac OS X don't inherit/receive  the environment used in Terminal.\n>\n> You can check this in R.app with Sys.getenv(\"PATH\").\n> You could use Sys.setenv(PATH=\"...\") in R.app to set PATH for that session.\n>\n> If you want GUI applications to always receive certain environment variables then  see\n>\n> http://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x\n> http://developer.apple.com/library/mac/#qa/qa1067/_index.html\n> http://developer.apple.com/library/mac/#documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/EnvironmentVars.html\n>\n> If you would like to set environment variables for GUI applications in a \"nice\" way (would also work for Emacs I think) you can use RCenvironment which provides a preference pane for setting environment variables for GUI applications. See\n>\n> http://www.rubicode.com/Software/RCEnvironment/\n>\n> best\n>\n> Berend\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "And R itself (on any Unix-alike) sets the standard environment \nvariable TAR, so why not simply use it, e.g.\n\nsystem2(Sys.getenv(\"TAR\"), <character vector of args>))\n\nOr use utils::untar etc.\n\nOn Mon,",
+      "thread_id": "thread-f695e614a51b",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-40dadc71d291",
+      "message_id": "<7B1C123F-39A7-4F10-8603-00DD2065D0A2@tcd.ie>",
+      "from_name": "Alan Kelly",
+      "from_email_hash": "630f014376794c1b04ed2bfdeb2c06cbec62d533d5ebb40a001c7e5875ef5d5c",
+      "date": "2011-08-01T13:20:07+01:00",
+      "subject": "[R-SIG-Mac] problem with loading JGR",
+      "subject_clean": "problem with loading JGR",
+      "in_reply_to": "<mailman.311.1245773596.4459.r-sig-mac@stat.math.ethz.ch>",
+      "references": [
+        "<mailman.311.1245773596.4459.r-sig-mac@stat.math.ethz.ch>"
+      ],
+      "body_plain": "dear all, my intention was to check-out Deducer for teaching purposes.  Deducer would not load indicating problems with loading \"iplots\".  The error message is the same as that repoduced below when I try to load JGR.  I've checked the Info.plist file in the R folder and there is no \"StartOnFirstThread\" command line.\nAny advice on how I might proceed?\nMany thanks,\nAlan Kelly\nTrinity College Dublin\n\n\n> library(JGR)\nLoading required package: rJava\nLoading required package: JavaGD\nLoading required package: iplots\nNote: On Mac OS X we strongly recommend using iplots from within JGR.\nProceed at your own risk as iplots cannot resolve potential ev.loop deadlocks.\n'Yes' is assumed for all dialogs as they cannot be shown without a deadlock,\nalso ievent.wait() is disabled.\nError in .jnew(\"org/rosuda/iplots/Framework\") : \n  java.lang.InternalError: Can't start the AWT because Java was started on the first thread.  Make sure StartOnFirstThread is not specified in your application's Info.plist or on the command line\nError: package 'iplots' could not be loaded\n\nSession Info\n> sessionInfo()\nR version 2.13.1 (2011-07-08)\nPlatform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n\nlocale:\n[1] en_US/en_US/en_US/C/en_US/en_US\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] JavaGD_0.5-4 rJava_0.9-1 \n\nloaded via a namespace (and not attached):\n[1] coda_0.14-2     grid_2.13.1     lattice_0.19-30",
+      "body_snippet": "dear all, my intention was to check-out Deducer for teaching purposes.  Deducer would not load indicating problems with loading \"iplots\".  The error message is the same as that repoduced below when I ",
+      "thread_id": "thread-40dadc71d291",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-6f1af4464292",
+      "message_id": "<CAG2OMvuCs_v4kJQzJw2tQHfvHGgkwaYaQeFWZmvPzXRYURA0TA@mail.gmail.com>",
+      "from_name": "Brandon Hurr",
+      "from_email_hash": "07b11f2be5f0cfa7ad22b7f575e38fba30509e5949ec628b2289c829b60f4491",
+      "date": "2011-08-01T13:46:43+01:00",
+      "subject": "[R-SIG-Mac] problem with loading JGR",
+      "subject_clean": "problem with loading JGR",
+      "in_reply_to": "<7B1C123F-39A7-4F10-8603-00DD2065D0A2@tcd.ie>",
+      "references": [
+        "<mailman.311.1245773596.4459.r-sig-mac@stat.math.ethz.ch>",
+        "<7B1C123F-39A7-4F10-8603-00DD2065D0A2@tcd.ie>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110801/d2e79061/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110801/d2e79061/attachment.pl>",
+      "thread_id": "thread-40dadc71d291",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-f4dd25bd72bf",
+      "message_id": "<8bc8242c91c8a42fe47df2ae33eb017e.squirrel@mail.stat.ucla.edu>",
+      "from_name": "ian.fellows at stat.ucla.edu",
+      "from_email_hash": "aa2c780fbe5343d29316529dbad2b61e2a8735d64e323f572a06de636ac36465",
+      "date": "2011-08-01T08:31:16-07:00",
+      "subject": "[R-SIG-Mac] problem with loading JGR",
+      "subject_clean": "problem with loading JGR",
+      "in_reply_to": "<CAG2OMvuCs_v4kJQzJw2tQHfvHGgkwaYaQeFWZmvPzXRYURA0TA@mail.gmail.com>",
+      "references": [
+        "<mailman.311.1245773596.4459.r-sig-mac@stat.math.ethz.ch>",
+        "<7B1C123F-39A7-4F10-8603-00DD2065D0A2@tcd.ie>",
+        "<CAG2OMvuCs_v4kJQzJw2tQHfvHGgkwaYaQeFWZmvPzXRYURA0TA@mail.gmail.com>"
+      ],
+      "body_plain": "on the mac Deducer must be used from within the JGR console. see:\nhttp://www.deducer.org/pmwiki/pmwiki.php?n=Main.MacOSXInstallation\n\nian\n\n\n> Funny enough I was trying the same thing today after reading the\n> discussion\n> in Baptiste's Physicists thread. I get a very similar error when I started\n> it in R...\n>\n>> require(deducer)\n> Loading required package: deducer\n> Warning message:\n> In library(package, lib.loc = lib.loc, character.only = TRUE,\n> logical.return\n> = TRUE,  :\n>   there is no package called 'deducer'\n>> require(Deducer)\n> Loading required package: Deducer\n> Loading required package: rJava\n> Loading required package: JGR\n> Loading required package: JavaGD\n> Loading required package: iplots\n> Note: On Mac OS X we strongly recommend using iplots from within JGR.\n> Proceed at your own risk as iplots cannot resolve potential ev.loop\n> deadlocks.\n> 'Yes' is assumed for all dialogs as they cannot be shown without a\n> deadlock,\n> also ievent.wait() is disabled.\n> Error : .onLoad failed in loadNamespace() for 'iplots', details:\n>   call: .jnew(\"org/rosuda/iplots/Framework\")\n>   error: java.lang.InternalError: Can't start the AWT because Java was\n> started on the first thread.  Make sure StartOnFirstThread is not\n> specified\n> in your application's Info.plist or on the command line\n> Failed with error:  ?package 'iplots' could not be loaded?\n>\n>> sessionInfo()\n> R version 2.13.1 (2011-07-08)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] grid      stats     graphics  grDevices utils     datasets  methods\n> base\n>\n> other attached packages:\n>  [1] JavaGD_0.5-4    rJava_0.9-1     edgeR_2.2.5     quantmod_0.3-15\n> TTR_0.20-2      xts_0.8-0\n>  [7] zoo_1.7-2       Defaults_1.1-1  tis_1.17        ggplot2_0.8.9\n> proto_0.3-9.2   reshape_0.8.4\n> [13] plyr_1.6\n>\n> loaded via a namespace (and not attached):\n> [1] digest_0.5.0    lattice_0.19-30 limma_3.8.2     tools_2.13.1\n>\n>\n> But I downloaded the application from JGR directly and ran it. In JGR it\n> loaded all the packages just fine. http://www.rforge.net/JGR/files/\n>\n> I can't say I know how to use it yet though... Just need to RTFM I guess.\n>\n> Brandon\n>\n>\n>\n>\n>\n> On Mon, Aug 1, 2011 at 13:20, Alan Kelly <AKELLY at tcd.ie> wrote:\n>\n>> dear all, my intention was to check-out Deducer for teaching purposes.\n>>  Deducer would not load indicating problems with loading \"iplots\".  The\n>> error message is the same as that repoduced below when I try to load\n>> JGR.\n>>  I've checked the Info.plist file in the R folder and there is no\n>> \"StartOnFirstThread\" command line.\n>> Any advice on how I might proceed?\n>> Many thanks,\n>> Alan Kelly\n>> Trinity College Dublin\n>>\n>>\n>> > library(JGR)\n>> Loading required package: rJava\n>> Loading required package: JavaGD\n>> Loading required package: iplots\n>> Note: On Mac OS X we strongly recommend using iplots from within JGR.\n>> Proceed at your own risk as iplots cannot resolve potential ev.loop\n>> deadlocks.\n>> 'Yes' is assumed for all dialogs as they cannot be shown without a\n>> deadlock,\n>> also ievent.wait() is disabled.\n>> Error in .jnew(\"org/rosuda/iplots/Framework\") :\n>>  java.lang.InternalError: Can't start the AWT because Java was started\n>> on\n>> the first thread.  Make sure StartOnFirstThread is not specified in your\n>> application's Info.plist or on the command line\n>> Error: package 'iplots' could not be loaded\n>>\n>> Session Info\n>> > sessionInfo()\n>> R version 2.13.1 (2011-07-08)\n>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>>\n>> locale:\n>> [1] en_US/en_US/en_US/C/en_US/en_US\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] JavaGD_0.5-4 rJava_0.9-1\n>>\n>> loaded via a namespace (and not attached):\n>> [1] coda_0.14-2     grid_2.13.1     lattice_0.19-30\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "on the mac Deducer must be used from within the JGR console. see:\nhttp://www.deducer.org/pmwiki/pmwiki.php?n=Main.MacOSXInstallation\n\nian\n\n\n> Funny enough I was trying the same thing today after readi",
+      "thread_id": "thread-40dadc71d291",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-6ebb5a8c18ff",
+      "message_id": "<a41563219cb9c684d8a00c5772242c75.squirrel@mail.stat.ucla.edu>",
+      "from_name": "ian.fellows at stat.ucla.edu",
+      "from_email_hash": "aa2c780fbe5343d29316529dbad2b61e2a8735d64e323f572a06de636ac36465",
+      "date": "2011-08-01T08:34:31-07:00",
+      "subject": "[R-SIG-Mac] problem with loading JGR",
+      "subject_clean": "problem with loading JGR",
+      "in_reply_to": "<CAG2OMvuCs_v4kJQzJw2tQHfvHGgkwaYaQeFWZmvPzXRYURA0TA@mail.gmail.com>",
+      "references": [
+        "<mailman.311.1245773596.4459.r-sig-mac@stat.math.ethz.ch>",
+        "<7B1C123F-39A7-4F10-8603-00DD2065D0A2@tcd.ie>",
+        "<CAG2OMvuCs_v4kJQzJw2tQHfvHGgkwaYaQeFWZmvPzXRYURA0TA@mail.gmail.com>"
+      ],
+      "body_plain": "on the mac Deducer must be used from within the JGR console. see:\nhttp://www.deducer.org/pmwiki/pmwiki.php?n=Main.MacOSXInstallation\n\nThere is quite a bit of information to get you started in the manual:\nhttp://www.deducer.org/pmwiki/pmwiki.php?n=Main.DeducerManual\n\nian\n\n\n> Funny enough I was trying the same thing today after reading the\n> discussion\n> in Baptiste's Physicists thread. I get a very similar error when I started\n> it in R...\n>\n>> require(deducer)\n> Loading required package: deducer\n> Warning message:\n> In library(package, lib.loc = lib.loc, character.only = TRUE,\n> logical.return\n> = TRUE,  :\n>   there is no package called 'deducer'\n>> require(Deducer)\n> Loading required package: Deducer\n> Loading required package: rJava\n> Loading required package: JGR\n> Loading required package: JavaGD\n> Loading required package: iplots\n> Note: On Mac OS X we strongly recommend using iplots from within JGR.\n> Proceed at your own risk as iplots cannot resolve potential ev.loop\n> deadlocks.\n> 'Yes' is assumed for all dialogs as they cannot be shown without a\n> deadlock,\n> also ievent.wait() is disabled.\n> Error : .onLoad failed in loadNamespace() for 'iplots', details:\n>   call: .jnew(\"org/rosuda/iplots/Framework\")\n>   error: java.lang.InternalError: Can't start the AWT because Java was\n> started on the first thread.  Make sure StartOnFirstThread is not\n> specified\n> in your application's Info.plist or on the command line\n> Failed with error:  ?package 'iplots' could not be loaded?\n>\n>> sessionInfo()\n> R version 2.13.1 (2011-07-08)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] grid      stats     graphics  grDevices utils     datasets  methods\n> base\n>\n> other attached packages:\n>  [1] JavaGD_0.5-4    rJava_0.9-1     edgeR_2.2.5     quantmod_0.3-15\n> TTR_0.20-2      xts_0.8-0\n>  [7] zoo_1.7-2       Defaults_1.1-1  tis_1.17        ggplot2_0.8.9\n> proto_0.3-9.2   reshape_0.8.4\n> [13] plyr_1.6\n>\n> loaded via a namespace (and not attached):\n> [1] digest_0.5.0    lattice_0.19-30 limma_3.8.2     tools_2.13.1\n>\n>\n> But I downloaded the application from JGR directly and ran it. In JGR it\n> loaded all the packages just fine. http://www.rforge.net/JGR/files/\n>\n> I can't say I know how to use it yet though... Just need to RTFM I guess.\n>\n> Brandon\n>\n>\n>\n>\n>\n> On Mon, Aug 1, 2011 at 13:20, Alan Kelly <AKELLY at tcd.ie> wrote:\n>\n>> dear all, my intention was to check-out Deducer for teaching purposes.\n>>  Deducer would not load indicating problems with loading \"iplots\".  The\n>> error message is the same as that repoduced below when I try to load\n>> JGR.\n>>  I've checked the Info.plist file in the R folder and there is no\n>> \"StartOnFirstThread\" command line.\n>> Any advice on how I might proceed?\n>> Many thanks,\n>> Alan Kelly\n>> Trinity College Dublin\n>>\n>>\n>> > library(JGR)\n>> Loading required package: rJava\n>> Loading required package: JavaGD\n>> Loading required package: iplots\n>> Note: On Mac OS X we strongly recommend using iplots from within JGR.\n>> Proceed at your own risk as iplots cannot resolve potential ev.loop\n>> deadlocks.\n>> 'Yes' is assumed for all dialogs as they cannot be shown without a\n>> deadlock,\n>> also ievent.wait() is disabled.\n>> Error in .jnew(\"org/rosuda/iplots/Framework\") :\n>>  java.lang.InternalError: Can't start the AWT because Java was started\n>> on\n>> the first thread.  Make sure StartOnFirstThread is not specified in your\n>> application's Info.plist or on the command line\n>> Error: package 'iplots' could not be loaded\n>>\n>> Session Info\n>> > sessionInfo()\n>> R version 2.13.1 (2011-07-08)\n>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>>\n>> locale:\n>> [1] en_US/en_US/en_US/C/en_US/en_US\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] JavaGD_0.5-4 rJava_0.9-1\n>>\n>> loaded via a namespace (and not attached):\n>> [1] coda_0.14-2     grid_2.13.1     lattice_0.19-30\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "on the mac Deducer must be used from within the JGR console. see:\nhttp://www.deducer.org/pmwiki/pmwiki.php?n=Main.MacOSXInstallation\n\nThere is quite a bit of information to get you started in the manu",
+      "thread_id": "thread-40dadc71d291",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-177287910243",
+      "message_id": "<8551C23F-161B-4870-82B5-C3A233F5A251@tcd.ie>",
+      "from_name": "Alan Kelly",
+      "from_email_hash": "630f014376794c1b04ed2bfdeb2c06cbec62d533d5ebb40a001c7e5875ef5d5c",
+      "date": "2011-08-01T17:29:55+01:00",
+      "subject": "[R-SIG-Mac] problem with loading JGR",
+      "subject_clean": "problem with loading JGR",
+      "in_reply_to": "<CAG2OMvtuJ0rmiGdnF4-7XfmWud-W0FryyUiNTLE8JbXmzZLzdQ@mail.gmail.com>",
+      "references": [
+        "<mailman.311.1245773596.4459.r-sig-mac@stat.math.ethz.ch>",
+        "<7B1C123F-39A7-4F10-8603-00DD2065D0A2@tcd.ie>",
+        "<CAG2OMvuCs_v4kJQzJw2tQHfvHGgkwaYaQeFWZmvPzXRYURA0TA@mail.gmail.com>",
+        "<FCE8AEA3-33C8-42EE-BE94-22A21B0ABFEE@tcd.ie>",
+        "<CAG2OMvu-=OdbX_gqThmSdnBJMvr=b-fC+T2gRhk3P_nFWawNGg@mail.gmail.com>",
+        "<958E304C-C865-4CF5-A891-3508B0A4D2DD@tcd.ie>",
+        "<CAG2OMvtuJ0rmiGdnF4-7XfmWud-W0FryyUiNTLE8JbXmzZLzdQ@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110801/879bc47b/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110801/879bc47b/attachment.pl>",
+      "thread_id": "thread-177287910243",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-14ba86f0dca1",
+      "message_id": "<E220BCCF-6869-4C15-813B-5621F8FBC6F1@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-01T13:26:21-04:00",
+      "subject": "[R-SIG-Mac] R.app cannot see tar but R (console) can",
+      "subject_clean": "R.app cannot see tar but R (console) can",
+      "in_reply_to": "<F4BCE593-33DB-4CFD-B886-E52D38CD3614@xs4all.nl>",
+      "references": [
+        "<CA5C657D.4A62%ross.darnell@csiro.au>",
+        "<F4BCE593-33DB-4CFD-B886-E52D38CD3614@xs4all.nl>"
+      ],
+      "body_plain": "On Aug 1, 2011, at 1:41 AM, Berend Hasselman <bhh at xs4all.nl> wrote:\n\n> \n> On 01-08-2011, at 06:15, <Ross.Darnell at csiro.au> <Ross.Darnell at csiro.au> wrote:\n> \n>> If I run\n>> \n>>> system('tar')\n>> within the console version of R I get\n>> \n>>> system('tar')\n>> tar: Must specify one of -c, -r, -t, -u, -x\n>> \n>> If I try using R.app  I get\n>> \n>> R version 2.13.1 (2011-07-08)\n>> Copyright (C) 2011 The R Foundation for Statistical Computing\n>> ISBN 3-900051-07-0\n>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>> \n>> R is free software and comes with ABSOLUTELY NO WARRANTY.\n>> You are welcome to redistribute it under certain conditions.\n>> Type 'license()' or 'licence()' for distribution details.\n>> \n>> Natural language support but running in an English locale\n>> \n>> R is a collaborative project with many contributors.\n>> Type 'contributors()' for more information and\n>> 'citation()' on how to cite R or R packages in publications.\n>> \n>> Type 'demo()' for some demos, 'help()' for on-line help, or\n>> 'help.start()' for an HTML browser interface to help.\n>> Type 'q()' to quit R.\n>> \n>> [R.app GUI 1.41 (5874) x86_64-apple-darwin9.8.0]\n>> \n>> [Workspace restored from /Users/dar143/.RData]\n>> [History restored from /Users/dar143/.Rapp.history]\n>> \n>>> system(tar)\n>> Error in system(tar) : non-empty character argument expected\n> \n> 1. You should have done system(\"tar\"). Now R is looking for an object tar which is empty.\n> \n> 2. GUI applications in Mac OS X don't inherit/receive  the environment used in Terminal.\n> \n> You can check this in R.app with Sys.getenv(\"PATH\").\n> You could use Sys.setenv(PATH=\"...\") in R.app to set PATH for that session.\n> \n> If you want GUI applications to always receive certain environment variables then  see\n> \n\nI would prefer references to canonical sources (R for Mac FAQ 12.19)\n\n\n> http://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x\n> http://developer.apple.com/library/mac/#qa/qa1067/_index.html\n> http://developer.apple.com/library/mac/#documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/EnvironmentVars.html\n> \n> If you would like to set environment variables for GUI applications in a \"nice\" way (would also work for Emacs I think) you can use RCenvironment which provides a preference pane for setting environment variables for GUI applications. See\n> \n> http://www.rubicode.com/Software/RCEnvironment/\n> \n> best\n> \n> Berend\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "On Aug 1, 2011, at 1:41 AM, Berend Hasselman <bhh at xs4all.nl> wrote:\n\n> \n> On 01-08-2011, at 06:15, <Ross.Darnell at csiro.au> <Ross.Darnell at csiro.au> wrote:\n> \n>> If I run\n>> \n>>> system('tar')\n",
+      "thread_id": "thread-f695e614a51b",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-4480a2065288",
+      "message_id": "<3F750D8B-A4BB-467C-903C-E9263A9B2E5B@imperial.ac.uk>",
+      "from_name": "Jaffe, Andrew H",
+      "from_email_hash": "fb24e98c270c893ae5c49fc272161c882162684b1239ecf941e69c23ed087c0d",
+      "date": "2011-08-03T11:19:27Z",
+      "subject": "[R-SIG-Mac] gfortran for lion",
+      "subject_clean": "gfortran for lion",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear all,\n\nI was attempting to install the latest gfortran for OS X 10.7 Lion. \n\nI note that there is an Xcode add-on version for Lion. Its readme screen does indeed claim that this \"GNU Fortran 4.2.4 for Xcode 4.1\".\n\nHowever:\n\n * the \"file list\" in the package says \"GNU Fortran 4.2.4 for Xcode 3.2.3\" \n * the files themselves are labelled ./usr/bin/i686-apple-darwin11-gfortran-4.2.1.\n * gfortran --version gives \"GNU Fortran (GCC) 4.2.1 (Apple Inc. build 5666) (dot 3)\"\n\nSo, which is it? (And can/should I use the old 2008 CRAN version instead?)\n\nYours,\n\nAndrew",
+      "body_snippet": "Dear all,\n\nI was attempting to install the latest gfortran for OS X 10.7 Lion. \n\nI note that there is an Xcode add-on version for Lion. Its readme screen does indeed claim that this \"GNU Fortran 4.2.4",
+      "thread_id": "thread-4480a2065288",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-38439bae8545",
+      "message_id": "<CE3FD5D0-FBFD-4C41-AC23-CD04CC65C8D6@googlemail.com>",
+      "from_name": "Martin Batholdy",
+      "from_email_hash": "57605b0d784bab519fd53d94f11bdc3e647351a53cd2c5e2cdf3eb0528ee83fb",
+      "date": "2011-08-03T22:41:19+02:00",
+      "subject": "[R-SIG-Mac] GUI problems (opening files, workspace, font-size)",
+      "subject_clean": "GUI problems (opening files, workspace, font-size)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\n\nI just clean installed my entire system and upgraded to mac OS lion.\n\nNow I have two (minor) GUI-related issues with the newest R-installation for mac OS (2.13.1).\nI don't know if that is lion related, but perhaps someone can help me;\n\nFirst, I am not able to open R-scripts with a double-click in the finder.\nInstead of opening the file in the built-in R-editor, it seems like that the console tries to execute the code on startup.\nAnd therefore I get some error messages.\n\nWhen R is already open, double-clicking on an R-file in the finder opens the file in a new editor-window,\nbut if R is closed, it tries to open the code directly in the console.\n\nHow can I change this behavior?\n\nAlso it seems like that R tries to restore the last session, although I explicitly set the option to not save the workspace in the preferences.\n\n\n\nAnd secondly, how can I change the font-size in the console-window of the R-GUI?\nI can do a pinch-gesture to increase the font-size, but on the next start of R I again have a rather small font-size.\n\n\n\nthanks!",
+      "body_snippet": "Hi,\n\n\nI just clean installed my entire system and upgraded to mac OS lion.\n\nNow I have two (minor) GUI-related issues with the newest R-installation for mac OS (2.13.1).\nI don't know if that is lion r",
+      "thread_id": "thread-38439bae8545",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-fe17125a3a88",
+      "message_id": "<CAOP8_44v_Ot2tZP1_CtFrvBLQ8FPRVj=8wZ-0ZJAgV7jHrXw_w@mail.gmail.com>",
+      "from_name": "Bas Jansen",
+      "from_email_hash": "721e911ef537e46c469aac84c39f004f080e69219c7a683385a63c6c1ca55c13",
+      "date": "2011-08-05T13:29:30+02:00",
+      "subject": "[R-SIG-Mac] gfortran for lion",
+      "subject_clean": "gfortran for lion",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110805/0edaa4fa/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110805/0edaa4fa/attachment.pl>",
+      "thread_id": "thread-fe17125a3a88",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-cd51ef1b2f95",
+      "message_id": "<8A9F507A-CA39-4826-83AA-6043E1973365@imperial.ac.uk>",
+      "from_name": "Jaffe, Andrew H",
+      "from_email_hash": "fb24e98c270c893ae5c49fc272161c882162684b1239ecf941e69c23ed087c0d",
+      "date": "2011-08-05T11:35:27Z",
+      "subject": "[R-SIG-Mac] gfortran for lion",
+      "subject_clean": "gfortran for lion",
+      "in_reply_to": "<CAOP8_44v_Ot2tZP1_CtFrvBLQ8FPRVj=8wZ-0ZJAgV7jHrXw_w@mail.gmail.com>",
+      "references": [
+        "<CAOP8_44v_Ot2tZP1_CtFrvBLQ8FPRVj=8wZ-0ZJAgV7jHrXw_w@mail.gmail.com>"
+      ],
+      "body_plain": "Bas et al,\n\nSorry if I wasn't clear: my point was that this file does not appear to actually contain Gnu Fortran 4.2.4 for Mac OS X 10.7, despite the filename (and indeed the readme file!)\n\nYours,\n\nAndrew\n\n\nOn 5 Aug 2011, at 12:29, Bas Jansen wrote:\n\n> Hi Andrew:\n> \n> I went to http://r.research.att.com/tools/, where you can find  gfortran-lion-5666-3.pkg (GNU Fortran 4.2.4 for Mac OS X 10.7 (Lion))\n> \n> Kind regards,\n> Bas\n> \n> On Fri, Aug 5, 2011 at 12:00 PM, <r-sig-mac-request at r-project.org> wrote:\n> Send R-SIG-Mac mailing list submissions to\n>        r-sig-mac at r-project.org\n> \n> To subscribe or unsubscribe via the World Wide Web, visit\n>        https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> or, via email, send a message with subject or body 'help' to\n>        r-sig-mac-request at r-project.org\n> \n> You can reach the person managing the list at\n>        r-sig-mac-owner at r-project.org\n> \n> When replying, please edit your Subject line so it is more specific\n> than \"Re: Contents of R-SIG-Mac digest...\"\n> \n> \n> Today's Topics:\n> \n>   1.  gfortran for lion (Jaffe, Andrew H)\n> \n> \n> ----------------------------------------------------------------------\n> \n> Message: 1\n> Date: Wed, 3 Aug 2011 11:19:27 +0000\n> From: \"Jaffe, Andrew H\" <a.jaffe at imperial.ac.uk>\n> To: \"r-sig-mac at r-project.org\" <r-sig-mac at r-project.org>\n> Cc: \"Jaffe, Andrew H\" <a.jaffe at imperial.ac.uk>\n> Subject: [R-SIG-Mac] gfortran for lion\n> Message-ID: <3F750D8B-A4BB-467C-903C-E9263A9B2E5B at imperial.ac.uk>\n> Content-Type: text/plain; charset=\"us-ascii\"\n> \n> Dear all,\n> \n> I was attempting to install the latest gfortran for OS X 10.7 Lion.\n> \n> I note that there is an Xcode add-on version for Lion. Its readme screen does indeed claim that this \"GNU Fortran 4.2.4 for Xcode 4.1\".\n> \n> However:\n> \n>  * the \"file list\" in the package says \"GNU Fortran 4.2.4 for Xcode 3.2.3\"\n>  * the files themselves are labelled ./usr/bin/i686-apple-darwin11-gfortran-4.2.1.\n>  * gfortran --version gives \"GNU Fortran (GCC) 4.2.1 (Apple Inc. build 5666) (dot 3)\"\n> \n> So, which is it? (And can/should I use the old 2008 CRAN version instead?)\n> \n> Yours,\n> \n> Andrew\n> \n> \n> \n> ------------------------------\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> End of R-SIG-Mac Digest, Vol 102, Issue 5\n> *****************************************\n>",
+      "body_snippet": "Bas et al,\n\nSorry if I wasn't clear: my point was that this file does not appear to actually contain Gnu Fortran 4.2.4 for Mac OS X 10.7, despite the filename (and indeed the readme file!)\n\nYours,\n\nAn",
+      "thread_id": "thread-fe17125a3a88",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-39635f98cd6e",
+      "message_id": "<4E3CD346.9020606@e-ForAll.org>",
+      "from_name": "FJProenza",
+      "from_email_hash": "899af055e8b03bbd9b41f7d4470575449d28546421529241572bf3fe1b9204ae",
+      "date": "2011-08-06T13:38:14+08:00",
+      "subject": "[R-SIG-Mac] Installing R on Lion",
+      "subject_clean": "Installing R on Lion",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Most of the instructions appearing on the FAQs for Mac apply to earlier \nversions of the ope rating system.\n\nI recently installed Lion on my Intel Power Mac and would appreciate any \nadvice regarding important differences in the installation and build up \nprocedure.\n\nThanks,\n\nFJP",
+      "body_snippet": "Most of the instructions appearing on the FAQs for Mac apply to earlier \nversions of the ope rating system.\n\nI recently installed Lion on my Intel Power Mac and would appreciate any \nadvice regarding ",
+      "thread_id": "thread-39635f98cd6e",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-76c851e7c80b",
+      "message_id": "<BC62CA82-E21A-4671-ADF7-3D6602A1C018@unsw.edu.au>",
+      "from_name": "William Northcott",
+      "from_email_hash": "7dafc07bed3a88df59876e2befe0a7ec884984275498112673771db5f0bc1b0c",
+      "date": "2011-08-06T19:34:36+10:00",
+      "subject": "[R-SIG-Mac] gfortran for lion",
+      "subject_clean": "gfortran for lion",
+      "in_reply_to": "<mailman.21.1312538406.10421.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.21.1312538406.10421.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "> From: \"Jaffe, Andrew H\" <a.jaffe at imperial.ac.uk>\n> Dear all,\n> \n> I was attempting to install the latest gfortran for OS X 10.7 Lion. \n> \n> I note that there is an Xcode add-on version for Lion. Its readme screen does indeed claim that this \"GNU Fortran 4.2.4 for Xcode 4.1\".\n> \n> However:\n> \n> * the \"file list\" in the package says \"GNU Fortran 4.2.4 for Xcode 3.2.3\" \n> * the files themselves are labelled ./usr/bin/i686-apple-darwin11-gfortran-4.2.1.\n> * gfortran --version gives \"GNU Fortran (GCC) 4.2.1 (Apple Inc. build 5666) (dot 3)\"\n\nThis last version works for me with Xcode 4.1.\n\nBill Northcott",
+      "body_snippet": "> From: \"Jaffe, Andrew H\" <a.jaffe at imperial.ac.uk>\n> Dear all,\n> \n> I was attempting to install the latest gfortran for OS X 10.7 Lion. \n> \n> I note that there is an Xcode add-on version for Lion. ",
+      "thread_id": "thread-76c851e7c80b",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-0ff019cf2c0b",
+      "message_id": "<5E093C2B-CD69-4B85-8E91-15E097000AA4@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-06T10:17:26-04:00",
+      "subject": "[R-SIG-Mac] gfortran for lion",
+      "subject_clean": "gfortran for lion",
+      "in_reply_to": "<3F750D8B-A4BB-467C-903C-E9263A9B2E5B@imperial.ac.uk>",
+      "references": [
+        "<3F750D8B-A4BB-467C-903C-E9263A9B2E5B@imperial.ac.uk>"
+      ],
+      "body_plain": "On Aug 3, 2011, at 7:19 AM, Jaffe, Andrew H wrote:\n\n> Dear all,\n> \n> I was attempting to install the latest gfortran for OS X 10.7 Lion. \n> \n> I note that there is an Xcode add-on version for Lion. Its readme screen does indeed claim that this \"GNU Fortran 4.2.4 for Xcode 4.1\".\n> \n> However:\n> \n> * the \"file list\" in the package says \"GNU Fortran 4.2.4 for Xcode 3.2.3\" \n> * the files themselves are labelled ./usr/bin/i686-apple-darwin11-gfortran-4.2.1.\n> * gfortran --version gives \"GNU Fortran (GCC) 4.2.1 (Apple Inc. build 5666) (dot 3)\"\n> \n> So, which is it? (And can/should I use the old 2008 CRAN version instead?)\n> \n\nI have no idea what you mean by \"file list\", but everything else is exactly as it should be. It's GNU Fortran 4.2.4 compiled in Apple's gcc 4.2.1 (build 5666.3) branch - which is what Xcode 4.1 is (see gcc-4.2 --version).\n\nYou can use either (as the post said). The differences from the CRAN Fortran are the same as for any of the Leopard and Snow Leopard Xcode add-ons, nothing changed since.\n\nCheers,\nSimon",
+      "body_snippet": "On Aug 3, 2011, at 7:19 AM, Jaffe, Andrew H wrote:\n\n> Dear all,\n> \n> I was attempting to install the latest gfortran for OS X 10.7 Lion. \n> \n> I note that there is an Xcode add-on version for Lion. It",
+      "thread_id": "thread-4480a2065288",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-ca9bd924a0e0",
+      "message_id": "<9E3B033D-4B60-48FB-8B5C-2F4C914946FE@imperial.ac.uk>",
+      "from_name": "Jaffe, Andrew H",
+      "from_email_hash": "fb24e98c270c893ae5c49fc272161c882162684b1239ecf941e69c23ed087c0d",
+      "date": "2011-08-06T14:33:07Z",
+      "subject": "[R-SIG-Mac] gfortran for lion",
+      "subject_clean": "gfortran for lion",
+      "in_reply_to": "<5E093C2B-CD69-4B85-8E91-15E097000AA4@r-project.org>",
+      "references": [
+        "<3F750D8B-A4BB-467C-903C-E9263A9B2E5B@imperial.ac.uk>",
+        "<5E093C2B-CD69-4B85-8E91-15E097000AA4@r-project.org>"
+      ],
+      "body_plain": "Dear Simon,\n\nOn 6 Aug 2011, at 15:17, Simon Urbanek wrote:\n\n> On Aug 3, 2011, at 7:19 AM, Jaffe, Andrew H wrote:\n> \n>> I was attempting to install the latest gfortran for OS X 10.7 Lion. \n>> \n>> I note that there is an Xcode add-on version for Lion. Its readme screen does indeed claim that this \"GNU Fortran 4.2.4 for Xcode 4.1\".\n>> \n>> However:\n>> \n>> * the \"file list\" in the package says \"GNU Fortran 4.2.4 for Xcode 3.2.3\" \n>> * the files themselves are labelled ./usr/bin/i686-apple-darwin11-gfortran-4.2.1.\n>> * gfortran --version gives \"GNU Fortran (GCC) 4.2.1 (Apple Inc. build 5666) (dot 3)\"\n>> \n>> So, which is it? (And can/should I use the old 2008 CRAN version instead?)\n>> \n> \n> I have no idea what you mean by \"file list\", but everything else is exactly as it should be. It's GNU Fortran 4.2.4 compiled in Apple's gcc 4.2.1 (build 5666.3) branch - which is what Xcode 4.1 is (see gcc-4.2 --version).\n\nThanks for the clarification. \n\nBy \"file list\" I meant what you get from the menu item \"Show Files\" in the installer. \n\nBut I admit that it's all still a bit confusing. Nowhere does it say \"4.2.4\", just \"4.2.1\" which I think I now understand is the gcc version used to compile it, not the gfortran version. Should \"--version\" give the version of the program you're using?\n\n> You can use either (as the post said). The differences from the CRAN Fortran are the same as for any of the Leopard and Snow Leopard Xcode add-ons, nothing changed since.\n> \n> Cheers,\n> Simon\n\nYours,\n\nAndrew",
+      "body_snippet": "Dear Simon,\n\nOn 6 Aug 2011, at 15:17, Simon Urbanek wrote:\n\n> On Aug 3, 2011, at 7:19 AM, Jaffe, Andrew H wrote:\n> \n>> I was attempting to install the latest gfortran for OS X 10.7 Lion. \n>> \n>> I not",
+      "thread_id": "thread-4480a2065288",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-d9b0e7055c93",
+      "message_id": "<EE041355-0074-4B00-856E-7C2D56FABB8F@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-06T10:46:56-04:00",
+      "subject": "[R-SIG-Mac] gfortran for lion",
+      "subject_clean": "gfortran for lion",
+      "in_reply_to": "<9E3B033D-4B60-48FB-8B5C-2F4C914946FE@imperial.ac.uk>",
+      "references": [
+        "<3F750D8B-A4BB-467C-903C-E9263A9B2E5B@imperial.ac.uk>",
+        "<5E093C2B-CD69-4B85-8E91-15E097000AA4@r-project.org>",
+        "<9E3B033D-4B60-48FB-8B5C-2F4C914946FE@imperial.ac.uk>"
+      ],
+      "body_plain": "On Aug 6, 2011, at 10:33 AM, Jaffe, Andrew H wrote:\n\n> Dear Simon,\n> \n> On 6 Aug 2011, at 15:17, Simon Urbanek wrote:\n> \n>> On Aug 3, 2011, at 7:19 AM, Jaffe, Andrew H wrote:\n>> \n>>> I was attempting to install the latest gfortran for OS X 10.7 Lion. \n>>> \n>>> I note that there is an Xcode add-on version for Lion. Its readme screen does indeed claim that this \"GNU Fortran 4.2.4 for Xcode 4.1\".\n>>> \n>>> However:\n>>> \n>>> * the \"file list\" in the package says \"GNU Fortran 4.2.4 for Xcode 3.2.3\" \n>>> * the files themselves are labelled ./usr/bin/i686-apple-darwin11-gfortran-4.2.1.\n>>> * gfortran --version gives \"GNU Fortran (GCC) 4.2.1 (Apple Inc. build 5666) (dot 3)\"\n>>> \n>>> So, which is it? (And can/should I use the old 2008 CRAN version instead?)\n>>> \n>> \n>> I have no idea what you mean by \"file list\", but everything else is exactly as it should be. It's GNU Fortran 4.2.4 compiled in Apple's gcc 4.2.1 (build 5666.3) branch - which is what Xcode 4.1 is (see gcc-4.2 --version).\n> \n> Thanks for the clarification. \n> \n> By \"file list\" I meant what you get from the menu item \"Show Files\" in the installer. \n> \n\nI'm not on Lion right now so I'll check later, but I don't think I'll be re-packaging it for that ;).\n\n\n> But I admit that it's all still a bit confusing. Nowhere does it say \"4.2.4\", just \"4.2.1\" which I think I now understand is the gcc version used to compile it, not the gfortran version. Should \"--version\" give the version of the program you're using?\n> \n\nIt does - your'e using Apple's gcc 4.2.1 with Fortran front-end from gcc 4.2.4 (i.e. the back-end is still gcc-4.2.1). Obviously, it's something that the authors didn't anticipate so there is no provision for labeling that mix ;) - the build simply shows the branch version which is gcc-4.2.1 5666.3. Given that Apple has no Fortran in their branch, there is really no \"corresponding\" Fortran.\n\nCheers,\nSimon\n\n\n>> You can use either (as the post said). The differences from the CRAN Fortran are the same as for any of the Leopard and Snow Leopard Xcode add-ons, nothing changed since.\n>> \n>> Cheers,\n>> Simon\n> \n> Yours,\n> \n> Andrew\n> \n>",
+      "body_snippet": "On Aug 6, 2011, at 10:33 AM, Jaffe, Andrew H wrote:\n\n> Dear Simon,\n> \n> On 6 Aug 2011, at 15:17, Simon Urbanek wrote:\n> \n>> On Aug 3, 2011, at 7:19 AM, Jaffe, Andrew H wrote:\n>> \n>>> I was attempting ",
+      "thread_id": "thread-4480a2065288",
+      "thread_depth": 3,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-54a239bc9de6",
+      "message_id": "<AC0372D7-B1B4-44C0-A5F6-035425683498@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-06T10:51:12-04:00",
+      "subject": "[R-SIG-Mac] Installing R on Lion",
+      "subject_clean": "Installing R on Lion",
+      "in_reply_to": "<4E3CD346.9020606@e-ForAll.org>",
+      "references": [
+        "<4E3CD346.9020606@e-ForAll.org>"
+      ],
+      "body_plain": "On Aug 6, 2011, at 1:38 AM, FJProenza wrote:\n\n> Most of the instructions appearing on the FAQs for Mac apply to earlier versions of the ope rating system.\n> \n\nWhat makes you think so?\n\n\n> I recently installed Lion on my Intel Power Mac and would appreciate any advice regarding important differences in the installation and build up procedure.\n> \n\nWhy should they be different? There are no real technical differences since 10.5 (Leopard) - the binary package is the same and if you want to build R from sources, you simply have to follow the instructions - it's not different, either.\n\nCheers,\nSimon",
+      "body_snippet": "On Aug 6, 2011, at 1:38 AM, FJProenza wrote:\n\n> Most of the instructions appearing on the FAQs for Mac apply to earlier versions of the ope rating system.\n> \n\nWhat makes you think so?\n\n\n> I recently i",
+      "thread_id": "thread-39635f98cd6e",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-12a838a7f209",
+      "message_id": "<4E3F1F0F.3030800@upf.edu>",
+      "from_name": "Francisco J. Proenza",
+      "from_email_hash": "899af055e8b03bbd9b41f7d4470575449d28546421529241572bf3fe1b9204ae",
+      "date": "2011-08-08T07:26:07+08:00",
+      "subject": "[R-SIG-Mac] R for Mac",
+      "subject_clean": "R for Mac",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "On Aug 6, 2011, at 1:38 AM, FJProenza wrote:\n\nDear Simon:\n\n > > Most of the instructions appearing on the FAQs for Mac apply to \nearlier versions of the ope rating system.\n > >\nWhat makes you think so?\n\nThe fact that the instructions make no mention of Lion, only the \nprevious OS versions (e.g. Leopard) are mentioned.\n\n > > I recently installed Lion on my Intel Power Mac and would \nappreciate any advice regarding important differences in the \ninstallation and build up procedure.\n > >\nWhy should they be different? There are no real technical differences \nsince 10.5 (Leopard) - the binary package is the same and if you want to \nbuild R from sources, you simply have to follow the instructions - it's \nnot different, either.\n\nGood to know.\n\nThanks,\n\nFrancisco",
+      "body_snippet": "On Aug 6, 2011, at 1:38 AM, FJProenza wrote:\n\nDear Simon:\n\n > > Most of the instructions appearing on the FAQs for Mac apply to \nearlier versions of the ope rating system.\n > >\nWhat makes you think so",
+      "thread_id": "thread-12a838a7f209",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-1f0b7056e276",
+      "message_id": "<CA672E2A.4877%schmidt@lone-star.de>",
+      "from_name": "Sebastian Schmidt",
+      "from_email_hash": "99bfd08e3f2e82868cf1d931fd2233b305ab1a23338f822b278953c83ea41cae",
+      "date": "2011-08-09T18:34:18+02:00",
+      "subject": "[R-SIG-Mac] Multicore and as.POSIXct on MacOS Lion",
+      "subject_clean": "Multicore and as.POSIXct on MacOS Lion",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Multicore and/or as.POSIXct seems to have problems with MacOS Lion.\n\nThe following program (from the pvec help) runs fine:\n\ndates <- sprintf('%04d-%02d-%02d', as.integer(2000+rnorm(1e5)),\n                  as.integer(runif(1e5,1,12)), as.integer(runif(1e5,1,28)))\n\n\nsystem.time(a <- as.POSIXct(dates))\n\nbut\n\nsystem.time(b <- pvec(dates, as.POSIXct))\n\nblocks all cpu cores and does not terminate on both my Apple machines. I\ntested that on MacOS Lion with multicore 1.5 and 1.6 under R 2.13.1 and R\n2.12.2. On snow leopard everything ran smooth.\n\nIs this a problem with R libraries or with the OS? Are there any known\nworkarounds?\n\nThank you very much,\nSebastian",
+      "body_snippet": "Multicore and/or as.POSIXct seems to have problems with MacOS Lion.\n\nThe following program (from the pvec help) runs fine:\n\ndates <- sprintf('%04d-%02d-%02d', as.integer(2000+rnorm(1e5)),\n            ",
+      "thread_id": "thread-1f0b7056e276",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-129dfbfc2240",
+      "message_id": "<9D93A979-F444-4369-885B-EDB32618B6EC@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-11T10:26:23-04:00",
+      "subject": "[R-SIG-Mac] Multicore and as.POSIXct on MacOS Lion",
+      "subject_clean": "Multicore and as.POSIXct on MacOS Lion",
+      "in_reply_to": "<CA672E2A.4877%schmidt@lone-star.de>",
+      "references": [
+        "<CA672E2A.4877%schmidt@lone-star.de>"
+      ],
+      "body_plain": "On Aug 9, 2011, at 12:34 PM, Sebastian Schmidt wrote:\n\n> Multicore and/or as.POSIXct seems to have problems with MacOS Lion.\n> \n> The following program (from the pvec help) runs fine:\n> \n> dates <- sprintf('%04d-%02d-%02d', as.integer(2000+rnorm(1e5)),\n>                  as.integer(runif(1e5,1,12)), as.integer(runif(1e5,1,28)))\n> \n> \n> system.time(a <- as.POSIXct(dates))\n> \n> but\n> \n> system.time(b <- pvec(dates, as.POSIXct))\n> \n> blocks all cpu cores and does not terminate on both my Apple machines. I\n> tested that on MacOS Lion with multicore 1.5 and 1.6 under R 2.13.1 and R\n> 2.12.2. On snow leopard everything ran smooth.\n> \n> Is this a problem with R libraries or with the OS? Are there any known\n> workarounds?\n> \n\nI had a report from someone (ah, Sebastian, now I see it was you :)) that there are certain system calls that block on Lion - and I think they were date/time related. It seems to be a bug in Lion. I did have time to have a closer look yet (mainly because I avoid Lion until it gets more stable so I can use it on my regular machines), but I doubt there is much we can do - more likely Apple needs to fix it.\n\nCheers,\nSimon",
+      "body_snippet": "On Aug 9, 2011, at 12:34 PM, Sebastian Schmidt wrote:\n\n> Multicore and/or as.POSIXct seems to have problems with MacOS Lion.\n> \n> The following program (from the pvec help) runs fine:\n> \n> dates <- sp",
+      "thread_id": "thread-1f0b7056e276",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-d1552e75845c",
+      "message_id": "<CAB5rbyV6GsN-+_0wp91ka3g3ELBSpb2o-P8iB9UZSoz0-v5U6w@mail.gmail.com>",
+      "from_name": "Michael Hoban",
+      "from_email_hash": "ad60412e13d8abb6841cead16e523ce18e29d7bfd3707091884af1cc527e1149",
+      "date": "2011-08-11T11:35:37-07:00",
+      "subject": "[R-SIG-Mac] Unicode characters in script?",
+      "subject_clean": "Unicode characters in script?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all-\n\nI tried searching before posting, but this is one of those tricky\nquestions to search for. My issue is this: within the R.app gui, I can\nuse extended characters in plot labels without any issue (specifically\nin my case the ?, lowercase delta), for example:\n\n> plot(c(1:10) ~ c(1:10), main=\"?foobie bletch?\")\n\nHowever, when I try to do the same in a script from the terminal\n(interpreted by Rscript), I get a bunch of errors related to character\nencoding:\n  ....\n  conversion failure on '?foobie bletch?' in 'mbcsToSbcs': dot\nsubstituted for <e2>\n  ....\n\nIs there a way to make this work? Or is Rscript not equipped to handle\nmultibyte characters?\n\nthanks in advance,\n\n_mykle",
+      "body_snippet": "Hi all-\n\nI tried searching before posting, but this is one of those tricky\nquestions to search for. My issue is this: within the R.app gui, I can\nuse extended characters in plot labels without any iss",
+      "thread_id": "thread-d1552e75845c",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-834e3cdbede7",
+      "message_id": "<CAMOc9Smg7SRBuXJatkwbjCSnyciT8PXq2tOW7t3NRDWR2Wv_2A@mail.gmail.com>",
+      "from_name": "R Erickson",
+      "from_email_hash": "d09f04809cff960de64ed7fd587d647cfe64df4656d1850c19324286844673c9",
+      "date": "2011-08-11T15:26:04-05:00",
+      "subject": "[R-SIG-Mac] Unicode characters in script?",
+      "subject_clean": "Unicode characters in script?",
+      "in_reply_to": "<CAB5rbyV6GsN-+_0wp91ka3g3ELBSpb2o-P8iB9UZSoz0-v5U6w@mail.gmail.com>",
+      "references": [
+        "<CAB5rbyV6GsN-+_0wp91ka3g3ELBSpb2o-P8iB9UZSoz0-v5U6w@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110811/2208e2a6/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110811/2208e2a6/attachment.pl>",
+      "thread_id": "thread-d1552e75845c",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-14743650dd33",
+      "message_id": "<CAB5rbyVtqsY1-G3mFF4tFNCZR4g0r6EWWBNGpyqCHuanODsxfA@mail.gmail.com>",
+      "from_name": "Michael Hoban",
+      "from_email_hash": "ad60412e13d8abb6841cead16e523ce18e29d7bfd3707091884af1cc527e1149",
+      "date": "2011-08-11T13:40:49-07:00",
+      "subject": "[R-SIG-Mac] Unicode characters in script?",
+      "subject_clean": "Unicode characters in script?",
+      "in_reply_to": "<CAMOc9Smg7SRBuXJatkwbjCSnyciT8PXq2tOW7t3NRDWR2Wv_2A@mail.gmail.com>",
+      "references": [
+        "<CAB5rbyV6GsN-+_0wp91ka3g3ELBSpb2o-P8iB9UZSoz0-v5U6w@mail.gmail.com>",
+        "<CAMOc9Smg7SRBuXJatkwbjCSnyciT8PXq2tOW7t3NRDWR2Wv_2A@mail.gmail.com>"
+      ],
+      "body_plain": "I have, it doesn't seem to make a difference. It looks like the\nproblem concerns the PDF output device being used from Rscript as\nopposed to quartz in R.app.\n\nOn Thu, Aug 11, 2011 at 1:26 PM, R Erickson <raerickson at gmail.com> wrote:\n> Mylke,\n>\n> Have you tried using the \"\\u###\" tool, where ### is the Unicode number? For\n> example,\n>\n> plot(c(1:10) ~ c(1:10), main=\"\\u2202 foobie bletch \\u0192\")\n>\n> produces a del character and italics function \"f\". You may wish to use\n> different Unicode characters, but these were the first character codes I\n> found.\n>\n> To look up the Unicode numbers, I personally like to use the \"insert special\n> characters\" tool in Pages, which may be found at:\n>\n> Edit -> Special characters\n>\n> Alternatively, a web search for \"Unicode characters\" should give you several\n> sites to find this information at as well.\n>\n> Hope this helps!\n>\n> Richard Erickson\n>\n> On Thu, Aug 11, 2011 at 1:35 PM, Michael Hoban <mhoban at ucsc.edu> wrote:\n>>\n>> Hi all-\n>>\n>> I tried searching before posting, but this is one of those tricky\n>> questions to search for. My issue is this: within the R.app gui, I can\n>> use extended characters in plot labels without any issue (specifically\n>> in my case the ?, lowercase delta), for example:\n>>\n>> > plot(c(1:10) ~ c(1:10), main=\"?foobie bletch?\")\n>>\n>> However, when I try to do the same in a script from the terminal\n>> (interpreted by Rscript), I get a bunch of errors related to character\n>> encoding:\n>> ?....\n>> ?conversion failure on '?foobie bletch?' in 'mbcsToSbcs': dot\n>> substituted for <e2>\n>> ?....\n>>\n>> Is there a way to make this work? Or is Rscript not equipped to handle\n>> multibyte characters?\n>>\n>> thanks in advance,\n>>\n>> _mykle\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "I have, it doesn't seem to make a difference. It looks like the\nproblem concerns the PDF output device being used from Rscript as\nopposed to quartz in R.app.\n\nOn Thu, Aug 11, 2011 at 1:26 PM, R Ericks",
+      "thread_id": "thread-d1552e75845c",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-08870a0dc076",
+      "message_id": "<14BBEE00-C54A-463F-B5B4-43C10675A6AF@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-11T21:13:41-04:00",
+      "subject": "[R-SIG-Mac] Unicode characters in script?",
+      "subject_clean": "Unicode characters in script?",
+      "in_reply_to": "<CAB5rbyV6GsN-+_0wp91ka3g3ELBSpb2o-P8iB9UZSoz0-v5U6w@mail.gmail.com>",
+      "references": [
+        "<CAB5rbyV6GsN-+_0wp91ka3g3ELBSpb2o-P8iB9UZSoz0-v5U6w@mail.gmail.com>"
+      ],
+      "body_plain": "On Aug 11, 2011, at 2:35 PM, Michael Hoban wrote:\n\n> Hi all-\n> \n> I tried searching before posting, but this is one of those tricky\n> questions to search for. My issue is this: within the R.app gui, I can\n> use extended characters in plot labels without any issue (specifically\n> in my case the ?, lowercase delta), for example:\n> \n>> plot(c(1:10) ~ c(1:10), main=\"?foobie bletch?\")\n> \n> However, when I try to do the same in a script from the terminal\n> (interpreted by Rscript), I get a bunch of errors related to character\n> encoding:\n>  ....\n>  conversion failure on '?foobie bletch?' in 'mbcsToSbcs': dot\n> substituted for <e2>\n>  ....\n> \n> Is there a way to make this work? Or is Rscript not equipped to handle\n> multibyte characters?\n> \n\nIt seems your'e running Rscript in a locale that doesn't support unicode (probably C). Make sure you use UTF-8 locale (e.g. LANG=en_US.UTF-8)\n\nCheers,\nSimon",
+      "body_snippet": "On Aug 11, 2011, at 2:35 PM, Michael Hoban wrote:\n\n> Hi all-\n> \n> I tried searching before posting, but this is one of those tricky\n> questions to search for. My issue is this: within the R.app gui, I",
+      "thread_id": "thread-d1552e75845c",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-8c60b9486ffd",
+      "message_id": "<alpine.LFD.2.02.1108120713580.5116@gannet.stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2011-08-12T07:23:03+01:00",
+      "subject": "[R-SIG-Mac] Unicode characters in script?",
+      "subject_clean": "Unicode characters in script?",
+      "in_reply_to": "<14BBEE00-C54A-463F-B5B4-43C10675A6AF@r-project.org>",
+      "references": [
+        "<CAB5rbyV6GsN-+_0wp91ka3g3ELBSpb2o-P8iB9UZSoz0-v5U6w@mail.gmail.com>",
+        "<14BBEE00-C54A-463F-B5B4-43C10675A6AF@r-project.org>"
+      ],
+      "body_plain": "On Thu, 11 Aug 2011, Simon Urbanek wrote:\n\n>\n> On Aug 11, 2011, at 2:35 PM, Michael Hoban wrote:\n>\n>> Hi all-\n>>\n>> I tried searching before posting, but this is one of those tricky\n>> questions to search for. My issue is this: within the R.app gui, I can\n>> use extended characters in plot labels without any issue (specifically\n>> in my case the ?, lowercase delta), for example:\n>>\n>>> plot(c(1:10) ~ c(1:10), main=\"?foobie bletch?\")\n>>\n>> However, when I try to do the same in a script from the terminal\n>> (interpreted by Rscript), I get a bunch of errors related to character\n>> encoding:\n>>  ....\n>>  conversion failure on '?foobie bletch?' in 'mbcsToSbcs': dot\n>> substituted for <e2>\n>>  ....\n>>\n>> Is there a way to make this work? Or is Rscript not equipped to handle\n>> multibyte characters?\n>>\n>\n> It seems your'e running Rscript in a locale that doesn't support \n> unicode (probably C). Make sure you use UTF-8 locale (e.g. \n> LANG=en_US.UTF-8)\n\nMaybe: but because he blatently ignored the posting guide, we don't \nknow.\n\nAnother possibility is that he is using a graphics device that does \nnot support those characters (and again, we have not been told).\n\nUsing Greek characters requires the postscript() and pdf() devices to \nbe told to work in Greek, as their help pages (and the R manuals) \nmakes clear.  It is those graphics languages (and not Rscript) which \ndo not support Unicode.  You will also need viewers that support the \nGreek characters ....\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On Thu, 11 Aug 2011, Simon Urbanek wrote:\n\n>\n> On Aug 11, 2011, at 2:35 PM, Michael Hoban wrote:\n>\n>> Hi all-\n>>\n>> I tried searching before posting, but this is one of those tricky\n>> questions to se",
+      "thread_id": "thread-d1552e75845c",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-f94e6066f1c4",
+      "message_id": "<CAB5rbyWVGusMsksWG9eW_h96_LDfKwMrwV4XEPX0qAyr7TOkbA@mail.gmail.com>",
+      "from_name": "Michael Hoban",
+      "from_email_hash": "ad60412e13d8abb6841cead16e523ce18e29d7bfd3707091884af1cc527e1149",
+      "date": "2011-08-11T23:36:31-07:00",
+      "subject": "[R-SIG-Mac] Unicode characters in script?",
+      "subject_clean": "Unicode characters in script?",
+      "in_reply_to": "<alpine.LFD.2.02.1108120713580.5116@gannet.stats.ox.ac.uk>",
+      "references": [
+        "<CAB5rbyV6GsN-+_0wp91ka3g3ELBSpb2o-P8iB9UZSoz0-v5U6w@mail.gmail.com>",
+        "<14BBEE00-C54A-463F-B5B4-43C10675A6AF@r-project.org>",
+        "<alpine.LFD.2.02.1108120713580.5116@gannet.stats.ox.ac.uk>"
+      ],
+      "body_plain": "In my first posting, I didn't know there were two different graphics\noutput mechanisms at work. In my second, I had found that out. The\nsame code in two places uses different back-ends, and produces\ndifferent output results, and it was by no means immediately apparent\nthat that's the case. I meant no slight against Rscript itself or by\nextension its author. In all of the documentation I read, there was\nnothing that explicitly said that the figures produced by R.app were\nfundamentally different from those generated from the command line\n(especially as the default format for saving from R.app figures is\npdf). Also, if I generate the figure from within R.app and save it as\na PDF, it \"just works,\" further leading me to assume it should \"just\nwork\" from the command line. Sorry for the confusion.\n\n\n\n\nOn Thu, Aug 11, 2011 at 11:23 PM, Prof Brian Ripley\n<ripley at stats.ox.ac.uk> wrote:\n> On Thu, 11 Aug 2011, Simon Urbanek wrote:\n>\n>>\n>> On Aug 11, 2011, at 2:35 PM, Michael Hoban wrote:\n>>\n>>> Hi all-\n>>>\n>>> I tried searching before posting, but this is one of those tricky\n>>> questions to search for. My issue is this: within the R.app gui, I can\n>>> use extended characters in plot labels without any issue (specifically\n>>> in my case the ?, lowercase delta), for example:\n>>>\n>>>> plot(c(1:10) ~ c(1:10), main=\"?foobie bletch?\")\n>>>\n>>> However, when I try to do the same in a script from the terminal\n>>> (interpreted by Rscript), I get a bunch of errors related to character\n>>> encoding:\n>>> ?....\n>>> ?conversion failure on '?foobie bletch?' in 'mbcsToSbcs': dot\n>>> substituted for <e2>\n>>> ?....\n>>>\n>>> Is there a way to make this work? Or is Rscript not equipped to handle\n>>> multibyte characters?\n>>>\n>>\n>> It seems your'e running Rscript in a locale that doesn't support unicode\n>> (probably C). Make sure you use UTF-8 locale (e.g. LANG=en_US.UTF-8)\n>\n> Maybe: but because he blatently ignored the posting guide, we don't know.\n>\n> Another possibility is that he is using a graphics device that does not\n> support those characters (and again, we have not been told).\n>\n> Using Greek characters requires the postscript() and pdf() devices to be\n> told to work in Greek, as their help pages (and the R manuals) makes clear.\n> ?It is those graphics languages (and not Rscript) which do not support\n> Unicode. ?You will also need viewers that support the Greek characters ....\n>\n>\n> --\n> Brian D. Ripley, ? ? ? ? ? ? ? ? ?ripley at stats.ox.ac.uk\n> Professor of Applied Statistics, ?http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford, ? ? ? ? ? ? Tel: ?+44 1865 272861 (self)\n> 1 South Parks Road, ? ? ? ? ? ? ? ? ? ? +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK ? ? ? ? ? ? ? ?Fax: ?+44 1865 272595",
+      "body_snippet": "In my first posting, I didn't know there were two different graphics\noutput mechanisms at work. In my second, I had found that out. The\nsame code in two places uses different back-ends, and produces\nd",
+      "thread_id": "thread-d1552e75845c",
+      "thread_depth": 3,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-751547ed2380",
+      "message_id": "<F7539357-91F1-4DB7-9235-BD23E8431D3A@gmail.com>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "906d407a729647cc91c4e43ce28d4fcaa3d8c31102184befaff986e86fb70998",
+      "date": "2011-08-12T18:48:32+01:00",
+      "subject": "[R-SIG-Mac] service to run R from mail.app?",
+      "subject_clean": "service to run R from mail.app?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "hi all,\ni wonder if anyone has made a service to send an email selection  to R and run it?\n\nWould be nice to be able to cmd-return click and have this work, as in textmate. Especially with all the example code coming through mail lists...\n\nIf no one's done it, I'll have a go.\n\nt",
+      "body_snippet": "hi all,\ni wonder if anyone has made a service to send an email selection  to R and run it?\n\nWould be nice to be able to cmd-return click and have this work, as in textmate. Especially with all the exa",
+      "thread_id": "thread-751547ed2380",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-ba3837e73b14",
+      "message_id": "<84E1B5F8-8D5E-40D6-B580-A15D48664370@web.de>",
+      "from_name": "Marius Hofert",
+      "from_email_hash": "714e7ac153717bff20f42400aba665888222ccb9ce4c1fd00a017112d458fea3",
+      "date": "2011-08-15T15:35:38+02:00",
+      "subject": "[R-SIG-Mac] Install multiple versions of R on Mac",
+      "subject_clean": "Install multiple versions of R on Mac",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear expeRts,\n\nI would like to run R 2.13 and R 2.14 on a MacBook Pro (2.53 GHz Intel Core 2 Duo, 4 GB 1067 MHz DDR3) with Mac OS X 10.6.8. I installed Rswitch to switch between the two versions. On installing the second version (2.14), I executed\nsudo pkgutil --forget org.r-project.R.Leopard.fw.pkg\nin the Terminal as suggested on the installation process. Then I finished the installation. 2.14 runs great (64-bit), but when I switch to R 2.13 and start R, I get the output below. \n\nWhat did I do wrong?\n\nNote: I previously had only R 2.14 running. Then I installed R 2.13 (because some things are not available for 2.14). On the installation I missed the fact that R 2.14 is not available anymore [I missed the note on using pkgutil...], so I only had R 2.13 (also running fine). After that I downloaded R 2.14 and executed the pkgutil command during the installation process. I'm not sure if this matters (I guess not, since that's probably the more typical way [first having 2.13 installed and then 2.14 :-)]). \n\nCheers,\n\nMarius\n\n\n *** caught segfault ***\naddress 0x54d8, cause 'memory not mapped'\n\nTraceback:\n 1: .Call(\"R_initMethodDispatch\", as.environment(where), PACKAGE = \"methods\")\n 2: initMethodDispatch(where)\n 3: ..First.lib(libname, pkgName, env)\n 4: fun(...)\n 5: doTryCatch(return(expr), name, parentenv, handler)\n 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n 7: tryCatchList(expr, classes, parentenv, handlers)\n 8: tryCatch(fun(...), error = identity)\n 9: runHook(\".onLoad\", package, env, package.lib, package)\n10: loadNamespace(package, c(which.lib.loc, lib.loc), keep.source = keep.source)\n11: doTryCatch(return(expr), name, parentenv, handler)\n12: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n13: tryCatchList(expr, classes, parentenv, handlers)\n14: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if (!is.null(call)) {        if (identical(call[[1L]], quote(doTryCatch)))             call <- sys.call(-4L)        dcall <- deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")        LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg, \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L], type = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type = \"b\") + nchar(sm[1L],                 type = \"b\")        if (w > LONG)             prefix <- paste(prefix, \"\\n  \", sep = \"\")    }    else prefix <- \"Error : \"    msg <- paste(prefix, conditionMessage(e), \"\\n\", sep = \"\")    .Internal(seterrmessage(msg[1L]))    if (!silent && identical(getOption(\"show.error.messages\"),         TRUE)) {        cat(msg, file = stderr())        .Internal(printDeferredWarnings())    }    invisible(structure(msg, class = \"try-error\"))})\n15: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc), keep.source = keep.source)    dataPath <- file.path(which.lib.loc, package, \"data\")    env <- attachNamespace(ns, pos = pos, dataPath = dataPath,         deps)})\n16: library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,     warn.conflicts = warn.conflicts, quietly = quietly, keep.source = keep.source)\n17: doTryCatch(return(expr), name, parentenv, handler)\n18: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n19: tryCatchList(expr, classes, parentenv, handlers)\n20: tryCatch(library(package, lib.loc = lib.loc, character.only = TRUE,     logical.return = TRUE, warn.conflicts = warn.conflicts, quietly = quietly,     keep.source = keep.source), error = function(e) e)\n21: require(\"methods\", quietly = TRUE, warn.conflicts = FALSE, character.only = TRUE)\n22: .OptRequireMethods()\n\nPossible actions:\n1: abort (with core dump, if enabled)\n2: normal R exit\n3: exit R without saving workspace\n4: exit R saving workspace\nSelection:",
+      "body_snippet": "Dear expeRts,\n\nI would like to run R 2.13 and R 2.14 on a MacBook Pro (2.53 GHz Intel Core 2 Duo, 4 GB 1067 MHz DDR3) with Mac OS X 10.6.8. I installed Rswitch to switch between the two versions. On i",
+      "thread_id": "thread-ba3837e73b14",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-0ac42542a9c8",
+      "message_id": "<DCE81E14EB74504B971DAD4D2DB0356B08927807A3@crcmail4.BCCRC.CA>",
+      "from_name": "Steven McKinney",
+      "from_email_hash": "44aa12668679bb305d8b993a0f1862867c6779e459c5c1b2cb7aae17c9887eeb",
+      "date": "2011-08-15T11:24:17-07:00",
+      "subject": "[R-SIG-Mac] Install multiple versions of R on Mac",
+      "subject_clean": "Install multiple versions of R on Mac",
+      "in_reply_to": "<2787_1313415352_1313415352_84E1B5F8-8D5E-40D6-B580-A15D48664370@web.de>",
+      "references": [
+        "<2787_1313415352_1313415352_84E1B5F8-8D5E-40D6-B580-A15D48664370@web.de>"
+      ],
+      "body_plain": "Hi Marius,\n\nWhat I have found is that RSwitch does not work if you only have one instance of R.app in\nyour Applications folder.  RSwitch does not modify R.app in the Applications folder, so after\nyou switched back to R-2.13.? with RSwitch, the R-2.13 startup is interacting with the\nR-2.14 R.app in some fashion that Simon Urbanek might be able to explain but which I\nhave not yet worked out.\n\nWhen I needed both R-2.12.2 and R-2.13.1, I made a folder\ncalled \"temp\" in Applications, then copied the R.app from R-GUI-5732-2.12-leopard_Leopard64.dmg \nto Applications/temp and renamed it R-2.12.2_64bit.app, then moved that to the\nApplications folder.  Next I copied the R.app from R-GUI-5885-2.13-leopard-Leopard64.dmg\nto Applications/temp, renamed it to R-2.13.1_64bit.app, then moved it to the Applications\nfolder.  Now after I use RSwitch, if I run the appropriate R-<version>.app the Mac R GUI\ninitialization and startup works.  See e.g. \n\nhttp://www.mail-archive.com/r-sig-mac at r-project.org/msg00559.html\n\nR-GUI-5732-2.12-leopard_Leopard64.dmg and the like available from \nhttp://r.research.att.com/\n\nYour R.app in the Applications directory is the one from the last R you installed,\nwhich appears to be the current development version.  So rename R.app to\nsomething such as R-2.14.0_devel_64bit.app.  Then reinstall R-2.13.1 or use the strategy\nI outlined above, and get the R-2.13.1 R.app renamed to R-2.13.1_64bit.app\n\nThen after you use RSwitch, run the appropriate R-<version>.app\n\n\nHTH \n\nSteven McKinney\n________________________________________\nFrom: r-sig-mac-bounces at r-project.org [r-sig-mac-bounces at r-project.org] On Behalf Of Marius Hofert [m_hofert at web.de]\nSent: August 15, 2011 6:35 AM\nTo: Help R\nSubject: [R-SIG-Mac] Install multiple versions of R on Mac\n\nDear expeRts,\n\nI would like to run R 2.13 and R 2.14 on a MacBook Pro (2.53 GHz Intel Core 2 Duo, 4 GB 1067 MHz DDR3) with Mac OS X 10.6.8. I installed Rswitch to switch between the two versions. On installing the second version (2.14), I executed\nsudo pkgutil --forget org.r-project.R.Leopard.fw.pkg\nin the Terminal as suggested on the installation process. Then I finished the installation. 2.14 runs great (64-bit), but when I switch to R 2.13 and start R, I get the output below.\n\nWhat did I do wrong?\n\nNote: I previously had only R 2.14 running. Then I installed R 2.13 (because some things are not available for 2.14). On the installation I missed the fact that R 2.14 is not available anymore [I missed the note on using pkgutil...], so I only had R 2.13 (also running fine). After that I downloaded R 2.14 and executed the pkgutil command during the installation process. I'm not sure if this matters (I guess not, since that's probably the more typical way [first having 2.13 installed and then 2.14 :-)]).\n\nCheers,\n\nMarius\n\n\n *** caught segfault ***\naddress 0x54d8, cause 'memory not mapped'\n\nTraceback:\n 1: .Call(\"R_initMethodDispatch\", as.environment(where), PACKAGE = \"methods\")\n 2: initMethodDispatch(where)\n 3: ..First.lib(libname, pkgName, env)\n 4: fun(...)\n 5: doTryCatch(return(expr), name, parentenv, handler)\n 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n 7: tryCatchList(expr, classes, parentenv, handlers)\n 8: tryCatch(fun(...), error = identity)\n 9: runHook(\".onLoad\", package, env, package.lib, package)\n10: loadNamespace(package, c(which.lib.loc, lib.loc), keep.source = keep.source)\n11: doTryCatch(return(expr), name, parentenv, handler)\n12: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n13: tryCatchList(expr, classes, parentenv, handlers)\n14: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if (!is.null(call)) {        if (identical(call[[1L]], quote(doTryCatch)))             call <- sys.call(-4L)        dcall <- deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")        LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg, \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L], type = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type = \"b\") + nchar(sm[1L],                 type = \"b\")        if (w > LONG)             prefix <- paste(prefix, \"\\n  \", sep = \"\")    }    else prefix <- \"Error : \"    msg <- paste(prefix, conditionMessage(e), \"\\n\", sep = \"\")    .Internal(seterrmessage(msg[1L]))    if (!silent && identical(getOption(\"show.error.messages\"),         TRUE)) {        cat(msg, file = stderr())        .Internal(printDeferredWarnings())    }    invisible(structure(msg, class = \"try-error\"))})\n15: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc), keep.source = keep.source)    dataPath <- file.path(which.lib.loc, package, \"data\")    env <- attachNamespace(ns, pos = pos, dataPath = dataPath,         deps)})\n16: library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,     warn.conflicts = warn.conflicts, quietly = quietly, keep.source = keep.source)\n17: doTryCatch(return(expr), name, parentenv, handler)\n18: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n19: tryCatchList(expr, classes, parentenv, handlers)\n20: tryCatch(library(package, lib.loc = lib.loc, character.only = TRUE,     logical.return = TRUE, warn.conflicts = warn.conflicts, quietly = quietly,     keep.source = keep.source), error = function(e) e)\n21: require(\"methods\", quietly = TRUE, warn.conflicts = FALSE, character.only = TRUE)\n22: .OptRequireMethods()\n\nPossible actions:\n1: abort (with core dump, if enabled)\n2: normal R exit\n3: exit R without saving workspace\n4: exit R saving workspace\nSelection:\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Hi Marius,\n\nWhat I have found is that RSwitch does not work if you only have one instance of R.app in\nyour Applications folder.  RSwitch does not modify R.app in the Applications folder, so after\nyou ",
+      "thread_id": "thread-0ac42542a9c8",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-bf7a76c8b8f7",
+      "message_id": "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2011-08-15T14:42:26-04:00",
+      "subject": "[R-SIG-Mac] accented vowels",
+      "subject_clean": "accented vowels",
+      "in_reply_to": "<mailman.282.1313131019.4449.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.282.1313131019.4449.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "Hi,\n\nI usually do not give second thought to accented vowels and R handles everything fine thanks to UTF8 being used in my R scripts. But today I have a problem. Accented vowels do not behave properly when they were imported into R using list.files.\n\nMaybe this is because  OS X (I'm using 10.6.8) still uses MacRoman for file names, though visually the names seem to have been read correctly into R.\n\nAn example is better than words:\n\nsessionInfo()\nR version 2.13.1 (2011-07-08)\nPlatform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n\nlocale:\n[1] fr_CA.UTF-8/fr_CA.UTF-8/C/C/fr_CA.UTF-8/fr_CA.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\n\nThis does not cause problem:\na = c(\"1_MO2 crevettes po2crit.Rda\", \"1_MO2 soles S?te sda.Rda\", \"1_MO2 turbots po2crit.Rda\"); a\n[1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"    \"1_MO2 turbots po2crit.Rda\"  \n\na2 = gsub(\" S?te\", \"S\", a); a2\n[1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 solesS sda.Rda\"        \"1_MO2 turbots po2crit.Rda\"  \n\n\nbut if instead of creating the vector within the R script, I read it as a series of file names, the substitution does not work. I am sorry that I cannot make this a reproducible example as it requires the 3 files to exist on your computer, but you could create 3 dummy files having the same names in the directory of your choice.\n\ndon = file.path(\"donn?es/\")\nb = list.files(path = don, pattern = \"1_MO2\"); b\n[1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"  \n\nb2 = gsub(\" S?te\", \"S\",  b); b2  \n[1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"  \n\nI am puzzled and also \"stuck\". For now I'll modify the file name, but I need to be able to handle such names at some point.\n\nAny advice?\n\nthanks in advance,\n\nDenis",
+      "body_snippet": "Hi,\n\nI usually do not give second thought to accented vowels and R handles everything fine thanks to UTF8 being used in my R scripts. But today I have a problem. Accented vowels do not behave properly",
+      "thread_id": "thread-bf7a76c8b8f7",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-20162e1d7046",
+      "message_id": "<58CAAD71-7EE8-4455-ADDA-81F10992DB82@me.com>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "f71020ffc3e652c343ed317ccc3f93e34d8ef0a9f0957488c183197dedcdd86c",
+      "date": "2011-08-15T15:13:10-04:00",
+      "subject": "[R-SIG-Mac] accented vowels",
+      "subject_clean": "accented vowels",
+      "in_reply_to": "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>",
+      "references": [
+        "<mailman.282.1313131019.4449.r-sig-mac@r-project.org>",
+        "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>"
+      ],
+      "body_plain": "As a follow up, I tried this\n\na[2]\n[1] \"1_MO2 soles S?te sda.Rda\"\nb[2]\n[1] \"1_MO2 soles S?te sda.Rda\"\na[2] == b[2]\n[1] FALSE\n\nDenis\nLe 2011-08-15 ? 14:42, Denis Chabot a ?crit :\n\n> Hi,\n> \n> I usually do not give second thought to accented vowels and R handles everything fine thanks to UTF8 being used in my R scripts. But today I have a problem. Accented vowels do not behave properly when they were imported into R using list.files.\n> \n> Maybe this is because  OS X (I'm using 10.6.8) still uses MacRoman for file names, though visually the names seem to have been read correctly into R.\n> \n> An example is better than words:\n> \n> sessionInfo()\n> R version 2.13.1 (2011-07-08)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> \n> locale:\n> [1] fr_CA.UTF-8/fr_CA.UTF-8/C/C/fr_CA.UTF-8/fr_CA.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base     \n> \n> \n> This does not cause problem:\n> a = c(\"1_MO2 crevettes po2crit.Rda\", \"1_MO2 soles S?te sda.Rda\", \"1_MO2 turbots po2crit.Rda\"); a\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"    \"1_MO2 turbots po2crit.Rda\"  \n> \n> a2 = gsub(\" S?te\", \"S\", a); a2\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 solesS sda.Rda\"        \"1_MO2 turbots po2crit.Rda\"  \n> \n> \n> but if instead of creating the vector within the R script, I read it as a series of file names, the substitution does not work. I am sorry that I cannot make this a reproducible example as it requires the 3 files to exist on your computer, but you could create 3 dummy files having the same names in the directory of your choice.\n> \n> don = file.path(\"donn?es/\")\n> b = list.files(path = don, pattern = \"1_MO2\"); b\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"  \n> \n> b2 = gsub(\" S?te\", \"S\",  b); b2  \n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"  \n> \n> I am puzzled and also \"stuck\". For now I'll modify the file name, but I need to be able to handle such names at some point.\n> \n> Any advice?\n> \n> thanks in advance,\n> \n> Denis\n>",
+      "body_snippet": "As a follow up, I tried this\n\na[2]\n[1] \"1_MO2 soles S?te sda.Rda\"\nb[2]\n[1] \"1_MO2 soles S?te sda.Rda\"\na[2] == b[2]\n[1] FALSE\n\nDenis\nLe 2011-08-15 ? 14:42, Denis Chabot a ?crit :\n\n> Hi,\n> \n> I usually ",
+      "thread_id": "thread-bf7a76c8b8f7",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-c0ad1e08a1a6",
+      "message_id": "<DCE81E14EB74504B971DAD4D2DB0356B0892A706EA@crcmail4.BCCRC.CA>",
+      "from_name": "Steven McKinney",
+      "from_email_hash": "44aa12668679bb305d8b993a0f1862867c6779e459c5c1b2cb7aae17c9887eeb",
+      "date": "2011-08-15T12:58:45-07:00",
+      "subject": "[R-SIG-Mac] Install multiple versions of R on Mac",
+      "subject_clean": "Install multiple versions of R on Mac",
+      "in_reply_to": "<CA14920F-F696-4786-9CE8-40C3DB5310ED@web.de>",
+      "references": [
+        "<2787_1313415352_1313415352_84E1B5F8-8D5E-40D6-B580-A15D48664370@web.de>",
+        "<DCE81E14EB74504B971DAD4D2DB0356B08927807A3@crcmail4.BCCRC.CA>",
+        "<CA14920F-F696-4786-9CE8-40C3DB5310ED@web.de>"
+      ],
+      "body_plain": "> -----Original Message-----\n> From: m_hofert at web.de [mailto:m_hofert at web.de]\n> Sent: August-15-11 12:22 PM\n> To: Steven McKinney\n> Subject: Re: [R-SIG-Mac] Install multiple versions of R on Mac\n> \n> Hi Steven,\n> \n> thanks a lot for your help. Below are my comments.\n> \n> Cheers,\n> \n> Marius\n> \n> On 2011-08-15, at 20:24 , Steven McKinney wrote:\n> \n> > Hi Marius,\n> >\n> > What I have found is that RSwitch does not work if you only have one instance of R.app in\n> > your Applications folder.  RSwitch does not modify R.app in the Applications folder, so after\n> > you switched back to R-2.13.? with RSwitch, the R-2.13 startup is interacting with the\n> > R-2.14 R.app in some fashion that Simon Urbanek might be able to explain but which I\n> > have not yet worked out.\n> >\n> > When I needed both R-2.12.2 and R-2.13.1, I made a folder\n> > called \"temp\" in Applications, then copied the R.app from R-GUI-5732-2.12-leopard_Leopard64.dmg\n> > to Applications/temp and renamed it R-2.12.2_64bit.app, then moved that to the\n> > Applications folder.  Next I copied the R.app from R-GUI-5885-2.13-leopard-Leopard64.dmg\n> > to Applications/temp, renamed it to R-2.13.1_64bit.app, then moved it to the Applications\n> > folder.  Now after I use RSwitch, if I run the appropriate R-<version>.app the Mac R GUI\n> > initialization and startup works.  See e.g.\n> >\n> > http://www.mail-archive.com/r-sig-mac at r-project.org/msg00559.html\n> >\n> > R-GUI-5732-2.12-leopard_Leopard64.dmg and the like available from\n> > http://r.research.att.com/\n> >\n> > Your R.app in the Applications directory is the one from the last R you installed,\n> > which appears to be the current development version.  So rename R.app to\n> > something such as R-2.14.0_devel_64bit.app.\n> \n> (1) I renamed it to R_2.14_devel_32bit since R.app is the one for 32bit; the R64.app I renamed to\n> R_2.14_devel_64bit. Afterwards, I only had R_2.14_devel_32bit.app and R_2.14_devel_64bit.app in the\n> Applications folder.\n> (2) I then reinstalled R 2.13 (from CRAN) and executed \"sudo pkgutil --forget org.r-\n> project.R.Leopard.fw.pkg\"\n> (3) Then, I got another R.app and R64bit.app in the Applications folder (of course)\n> (4) I renamed them as R_2.13_32bit and R_2.13_64bit, respectively; so I had four R*.apps in the\n> Applications folder\n> (5) Then I started Rswitch. It said: 2.13.1 for version 2.13 and <incomplete installation> for 2.14.\n> Nevertheless, I chose 2.14 and started R_2.14_devel_64bit.app. It crashed on startup.\n> (6) I then realized that this pkgutil command only works for *earlier* versions than the one installed\n> (7) So I then installed R 2.14 again (and also again using the pkgutil command)\n> (8) If I now start RSwitch, I get: 2.13.1 for version 2.13 and 2.14.0 for version 2.14; looks good,\n> right?\n> \n> Okay, here is what I figured out:\n> - (8) tells me that both versions are correctly installed.\n> - If I start one of the versions with its corresponding *.app and RSwitch is set to this version, then\n> this version starts fine\n> - However, if I start one of the version (with its *.app) with the other version being set in RSwitch,\n> then I get this messy segfault output\n> \n> So, it seems crucial to use the correct version on startup. It would be nice if RSwitch could select\n> this.\n\nYes, it would be great if RSwitch could be set up in such a \nfashion - I don't know if Simon Urbanek has any plans to do \nso.  I think at this point RSwitch is meant to switch versions \nproperly for unix shell command line invocation, but not \ninvocation via R.app in the Applications directory (unless you \nmanually set up and select the properly renamed R-<version>.app \nas above).\n\nSimon Urbanek is clear about RSwitch:  \"The following binaries \nare not maintained or supported by R-core and are provided \nwithout any guarantee and for convenience only\" so use carefully.\n\n> \n> Cheers & many thanks again.\n> \n> Marius\n> \n> \n> > Then reinstall R-2.13.1 or use the strategy\n> > I outlined above, and get the R-2.13.1 R.app renamed to R-2.13.1_64bit.app\n> >\n> > Then after you use RSwitch, run the appropriate R-<version>.app\n> >\n> >\n> > HTH\n> >\n> > Steven McKinney\n> > ________________________________________\n> > From: r-sig-mac-bounces at r-project.org [r-sig-mac-bounces at r-project.org] On Behalf Of Marius Hofert\n> [m_hofert at web.de]\n> > Sent: August 15, 2011 6:35 AM\n> > To: Help R\n> > Subject: [R-SIG-Mac] Install multiple versions of R on Mac\n> >\n> > Dear expeRts,\n> >\n> > I would like to run R 2.13 and R 2.14 on a MacBook Pro (2.53 GHz Intel Core 2 Duo, 4 GB 1067 MHz\n> DDR3) with Mac OS X 10.6.8. I installed Rswitch to switch between the two versions. On installing the\n> second version (2.14), I executed\n> > sudo pkgutil --forget org.r-project.R.Leopard.fw.pkg\n> > in the Terminal as suggested on the installation process. Then I finished the installation. 2.14\n> runs great (64-bit), but when I switch to R 2.13 and start R, I get the output below.\n> >\n> > What did I do wrong?\n> >\n> > Note: I previously had only R 2.14 running. Then I installed R 2.13 (because some things are not\n> available for 2.14). On the installation I missed the fact that R 2.14 is not available anymore [I\n> missed the note on using pkgutil...], so I only had R 2.13 (also running fine). After that I\n> downloaded R 2.14 and executed the pkgutil command during the installation process. I'm not sure if\n> this matters (I guess not, since that's probably the more typical way [first having 2.13 installed and\n> then 2.14 :-)]).\n> >\n> > Cheers,\n> >\n> > Marius\n> >\n> >\n> > *** caught segfault ***\n> > address 0x54d8, cause 'memory not mapped'\n> >\n> > Traceback:\n> > 1: .Call(\"R_initMethodDispatch\", as.environment(where), PACKAGE = \"methods\")\n> > 2: initMethodDispatch(where)\n> > 3: ..First.lib(libname, pkgName, env)\n> > 4: fun(...)\n> > 5: doTryCatch(return(expr), name, parentenv, handler)\n> > 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n> > 7: tryCatchList(expr, classes, parentenv, handlers)\n> > 8: tryCatch(fun(...), error = identity)\n> > 9: runHook(\".onLoad\", package, env, package.lib, package)\n> > 10: loadNamespace(package, c(which.lib.loc, lib.loc), keep.source = keep.source)\n> > 11: doTryCatch(return(expr), name, parentenv, handler)\n> > 12: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n> > 13: tryCatchList(expr, classes, parentenv, handlers)\n> > 14: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if (!is.null(call)) {\n> if (identical(call[[1L]], quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")        LONG <- 75L        msg <-\n> conditionMessage(e)        sm <- strsplit(msg, \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\")\n> + nchar(sm[1L], type = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type = \"b\") +\n> nchar(sm[1L],                 type = \"b\")        if (w > LONG)             prefix <- paste(prefix, \"\\n\n> \", sep = \"\")    }    else prefix <- \"Error : \"    msg <- paste(prefix, conditionMessage(e), \"\\n\", sep\n> = \"\")    .Internal(seterrmessage(msg[1L]))    if (!silent &&\n> identical(getOption(\"show.error.messages\"),         TRUE)) {        cat(msg, file = stderr())\n> .Internal(printDeferredWarnings())    }    invisible(structure(msg, class = \"try-error\"))})\n> > 15: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc), keep.source = keep.source)\n> dataPath <- file.path(which.lib.loc, package, \"data\")    env <- attachNamespace(ns, pos = pos,\n> dataPath = dataPath,         deps)})\n> > 16: library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,\n> warn.conflicts = warn.conflicts, quietly = quietly, keep.source = keep.source)\n> > 17: doTryCatch(return(expr), name, parentenv, handler)\n> > 18: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n> > 19: tryCatchList(expr, classes, parentenv, handlers)\n> > 20: tryCatch(library(package, lib.loc = lib.loc, character.only = TRUE,     logical.return = TRUE,\n> warn.conflicts = warn.conflicts, quietly = quietly,     keep.source = keep.source), error =\n> function(e) e)\n> > 21: require(\"methods\", quietly = TRUE, warn.conflicts = FALSE, character.only = TRUE)\n> > 22: .OptRequireMethods()\n> >\n> > Possible actions:\n> > 1: abort (with core dump, if enabled)\n> > 2: normal R exit\n> > 3: exit R without saving workspace\n> > 4: exit R saving workspace\n> > Selection:\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> -----Original Message-----\n> From: m_hofert at web.de [mailto:m_hofert at web.de]\n> Sent: August-15-11 12:22 PM\n> To: Steven McKinney\n> Subject: Re: [R-SIG-Mac] Install multiple versions of R on Mac",
+      "thread_id": "thread-c0ad1e08a1a6",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-c6c3c7e6d9b5",
+      "message_id": "<4E49A675.20905@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "17e1fcd7901e6a11dc6bc3ede542d46252611499631dfb4199936939fda2e399",
+      "date": "2011-08-15T19:06:29-04:00",
+      "subject": "[R-SIG-Mac] accented vowels",
+      "subject_clean": "accented vowels",
+      "in_reply_to": "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>",
+      "references": [
+        "<mailman.282.1313131019.4449.r-sig-mac@r-project.org>",
+        "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>"
+      ],
+      "body_plain": "On 11-08-15 2:42 PM, Denis Chabot wrote:\n> Hi,\n>\n> I usually do not give second thought to accented vowels and R handles everything fine thanks to UTF8 being used in my R scripts. But today I have a problem. Accented vowels do not behave properly when they were imported into R using list.files.\n>\n> Maybe this is because  OS X (I'm using 10.6.8) still uses MacRoman for file names, though visually the names seem to have been read correctly into R.\n>\n> An example is better than words:\n>\n> sessionInfo()\n> R version 2.13.1 (2011-07-08)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>\n> locale:\n> [1] fr_CA.UTF-8/fr_CA.UTF-8/C/C/fr_CA.UTF-8/fr_CA.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n>\n> This does not cause problem:\n> a = c(\"1_MO2 crevettes po2crit.Rda\", \"1_MO2 soles S?te sda.Rda\", \"1_MO2 turbots po2crit.Rda\"); a\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"    \"1_MO2 turbots po2crit.Rda\"\n>\n> a2 = gsub(\" S?te\", \"S\", a); a2\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 solesS sda.Rda\"        \"1_MO2 turbots po2crit.Rda\"\n>\n>\n> but if instead of creating the vector within the R script, I read it as a series of file names, the substitution does not work. I am sorry that I cannot make this a reproducible example as it requires the 3 files to exist on your computer, but you could create 3 dummy files having the same names in the directory of your choice.\n>\n> don = file.path(\"donn?es/\")\n> b = list.files(path = don, pattern = \"1_MO2\"); b\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>\n> b2 = gsub(\" S?te\", \"S\",  b); b2\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>\n> I am puzzled and also \"stuck\". For now I'll modify the file name, but I need to be able to handle such names at some point.\n>\n> Any advice?\n\n\nPossibly your system really is using MacRoman or some other local \nencoding; in that case, iconv(x, \"\", \"UTF-8\") should convert from the \nlocal encoding to UTF-8.\n\nI think declaring everything to be UTF8 may be sufficient.  When I use \nlist.files(), I see the encoding listed as \"unknown\", but\n\nx <- list.files()\nEncoding(x) <- \"UTF-8\"\n\nworks.  However, the iconv() method should be safer.\n\nDuncan Murdoch",
+      "body_snippet": "On 11-08-15 2:42 PM, Denis Chabot wrote:\n> Hi,\n>\n> I usually do not give second thought to accented vowels and R handles everything fine thanks to UTF8 being used in my R scripts. But today I have a p",
+      "thread_id": "thread-bf7a76c8b8f7",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-bfcf17537dbd",
+      "message_id": "<E8B2E4D4-EAEE-4794-8823-528D7EDFEAB4@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2011-08-15T19:48:38-04:00",
+      "subject": "[R-SIG-Mac] accented vowels",
+      "subject_clean": "accented vowels",
+      "in_reply_to": "<4E49A675.20905@gmail.com>",
+      "references": [
+        "<mailman.282.1313131019.4449.r-sig-mac@r-project.org>",
+        "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>",
+        "<4E49A675.20905@gmail.com>"
+      ],
+      "body_plain": "Le 2011-08-15 ? 19:06, Duncan Murdoch a ?crit :\n\n> On 11-08-15 2:42 PM, Denis Chabot wrote:\n>> Hi,\n>> \n>> I usually do not give second thought to accented vowels and R handles everything fine thanks to UTF8 being used in my R scripts. But today I have a problem. Accented vowels do not behave properly when they were imported into R using list.files.\n>> \n>> Maybe this is because  OS X (I'm using 10.6.8) still uses MacRoman for file names, though visually the names seem to have been read correctly into R.\n>> \n>> An example is better than words:\n>> \n>> sessionInfo()\n>> R version 2.13.1 (2011-07-08)\n>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>> \n>> locale:\n>> [1] fr_CA.UTF-8/fr_CA.UTF-8/C/C/fr_CA.UTF-8/fr_CA.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>> \n>> \n>> This does not cause problem:\n>> a = c(\"1_MO2 crevettes po2crit.Rda\", \"1_MO2 soles S?te sda.Rda\", \"1_MO2 turbots po2crit.Rda\"); a\n>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"    \"1_MO2 turbots po2crit.Rda\"\n>> \n>> a2 = gsub(\" S?te\", \"S\", a); a2\n>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 solesS sda.Rda\"        \"1_MO2 turbots po2crit.Rda\"\n>> \n>> \n>> but if instead of creating the vector within the R script, I read it as a series of file names, the substitution does not work. I am sorry that I cannot make this a reproducible example as it requires the 3 files to exist on your computer, but you could create 3 dummy files having the same names in the directory of your choice.\n>> \n>> don = file.path(\"donn?es/\")\n>> b = list.files(path = don, pattern = \"1_MO2\"); b\n>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>> \n>> b2 = gsub(\" S?te\", \"S\",  b); b2\n>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>> \n>> I am puzzled and also \"stuck\". For now I'll modify the file name, but I need to be able to handle such names at some point.\n>> \n>> Any advice?\n> \n> \n> Possibly your system really is using MacRoman or some other local encoding; in that case, iconv(x, \"\", \"UTF-8\") should convert from the local encoding to UTF-8.\n> \n> I think declaring everything to be UTF8 may be sufficient.  When I use list.files(), I see the encoding listed as \"unknown\", but\n> \n> x <- list.files()\n> Encoding(x) <- \"UTF-8\"\n> \n> works.  However, the iconv() method should be safer.\n> \n> Duncan Murdoch\n\nHi Duncan, \n\niconv() confirmed what I suspected: there was no problem with the encoding of the result of list.files, and if there had been one, the \"?\" would not have looked like a \"?\". Therefore, I got nonsense when treating this \"?\" as MacRoman to be converted into UTF-8:\n\niconv(b, from=\"MacRoman\", to=\"UTF-8\")\n[1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles Se??te sda.Rda\"  \"1_MO2 turbots po2crit.Rda\"  \n\nIt is not clear however that R considered b to be UTF=8:\nEncoding(b)\n[1] \"unknown\" \"unknown\" \"unknown\"\n\nso I followed your suggestion:\n\nEncoding(b) <- \"UTF-8\"\nEncoding(b)\n[1] \"unknown\" \"UTF-8\"   \"unknown\"\n\nbut gsub still did not work:\nb2 = gsub(\" S?te\", \"S\",  b); b2  \n[1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"  \n\nI do not know why gsub worked with example \"a\" but not \"b\" in the example shown in my original message. Strange and frustrating.\n\nDenis",
+      "body_snippet": "Le 2011-08-15 ? 19:06, Duncan Murdoch a ?crit :\n\n> On 11-08-15 2:42 PM, Denis Chabot wrote:\n>> Hi,\n>> \n>> I usually do not give second thought to accented vowels and R handles everything fine thanks t",
+      "thread_id": "thread-bf7a76c8b8f7",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-52f95254fbf7",
+      "message_id": "<4E49D4D1.2000501@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "17e1fcd7901e6a11dc6bc3ede542d46252611499631dfb4199936939fda2e399",
+      "date": "2011-08-15T22:24:17-04:00",
+      "subject": "[R-SIG-Mac] accented vowels",
+      "subject_clean": "accented vowels",
+      "in_reply_to": "<E8B2E4D4-EAEE-4794-8823-528D7EDFEAB4@globetrotter.net>",
+      "references": [
+        "<mailman.282.1313131019.4449.r-sig-mac@r-project.org>",
+        "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>",
+        "<4E49A675.20905@gmail.com>",
+        "<E8B2E4D4-EAEE-4794-8823-528D7EDFEAB4@globetrotter.net>"
+      ],
+      "body_plain": "On 11-08-15 7:48 PM, Denis Chabot wrote:\n>\n> Le 2011-08-15 ? 19:06, Duncan Murdoch a ?crit :\n>\n>> On 11-08-15 2:42 PM, Denis Chabot wrote:\n>>> Hi,\n>>>\n>>> I usually do not give second thought to accented vowels and R handles everything fine thanks to UTF8 being used in my R scripts. But today I have a problem. Accented vowels do not behave properly when they were imported into R using list.files.\n>>>\n>>> Maybe this is because  OS X (I'm using 10.6.8) still uses MacRoman for file names, though visually the names seem to have been read correctly into R.\n>>>\n>>> An example is better than words:\n>>>\n>>> sessionInfo()\n>>> R version 2.13.1 (2011-07-08)\n>>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>>>\n>>> locale:\n>>> [1] fr_CA.UTF-8/fr_CA.UTF-8/C/C/fr_CA.UTF-8/fr_CA.UTF-8\n>>>\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>\n>>>\n>>> This does not cause problem:\n>>> a = c(\"1_MO2 crevettes po2crit.Rda\", \"1_MO2 soles S?te sda.Rda\", \"1_MO2 turbots po2crit.Rda\"); a\n>>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"    \"1_MO2 turbots po2crit.Rda\"\n>>>\n>>> a2 = gsub(\" S?te\", \"S\", a); a2\n>>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 solesS sda.Rda\"        \"1_MO2 turbots po2crit.Rda\"\n>>>\n>>>\n>>> but if instead of creating the vector within the R script, I read it as a series of file names, the substitution does not work. I am sorry that I cannot make this a reproducible example as it requires the 3 files to exist on your computer, but you could create 3 dummy files having the same names in the directory of your choice.\n>>>\n>>> don = file.path(\"donn?es/\")\n>>> b = list.files(path = don, pattern = \"1_MO2\"); b\n>>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>>>\n>>> b2 = gsub(\" S?te\", \"S\",  b); b2\n>>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>>>\n>>> I am puzzled and also \"stuck\". For now I'll modify the file name, but I need to be able to handle such names at some point.\n>>>\n>>> Any advice?\n>>\n>>\n>> Possibly your system really is using MacRoman or some other local encoding; in that case, iconv(x, \"\", \"UTF-8\") should convert from the local encoding to UTF-8.\n>>\n>> I think declaring everything to be UTF8 may be sufficient.  When I use list.files(), I see the encoding listed as \"unknown\", but\n>>\n>> x<- list.files()\n>> Encoding(x)<- \"UTF-8\"\n>>\n>> works.  However, the iconv() method should be safer.\n>>\n>> Duncan Murdoch\n>\n> Hi Duncan,\n>\n> iconv() confirmed what I suspected: there was no problem with the encoding of the result of list.files, and if there had been one, the \"?\" would not have looked like a \"?\". Therefore, I got nonsense when treating this \"?\" as MacRoman to be converted into UTF-8:\n>\n> iconv(b, from=\"MacRoman\", to=\"UTF-8\")\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles Se??te sda.Rda\"  \"1_MO2 turbots po2crit.Rda\"\n>\n> It is not clear however that R considered b to be UTF=8:\n> Encoding(b)\n> [1] \"unknown\" \"unknown\" \"unknown\"\n>\n> so I followed your suggestion:\n>\n> Encoding(b)<- \"UTF-8\"\n> Encoding(b)\n> [1] \"unknown\" \"UTF-8\"   \"unknown\"\n>\n> but gsub still did not work:\n> b2 = gsub(\" S?te\", \"S\",  b); b2\n> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>\n> I do not know why gsub worked with example \"a\" but not \"b\" in the example shown in my original message. Strange and frustrating.\n\nUnicode sometimes gives different ways to encode what is rendered as the \nsame character (e.g. letter + accent versus accented letter).  I think \n(see below) the OS uses one convention, but R chooses the other when it \nparses your text.\n\nCut and paste did just work for me, in a version of R 2.13.0 Patched \nwhich predates 2.13.1 by a few weeks; I'm not up to date on my Mac:\n\n\n > x <- list.files()\n > x\n[1] \"1_MO2 soles Se?te sda.Rda\"\n > gsub(\"Se?te\", \"XXXX\", x)\n[1] \"1_MO2 soles XXXX sda.Rda\"\n\n\n\nIn the second line, I didn't try to type the pattern containing Se?te, I \njust cut and pasted it from the printed version of x.\n\nOne other possibility (and perhaps it's the best one, if your \nsubstitutions are all so simple) is to use the useBytes=TRUE option to \ngsub.  You can use charToRaw to see the bytes in a string, to make sure \nthey are what you expect.\n\nWhen I do that, I see that the e? really is handled differently in the \ntwo cases:\n\n > charToRaw(\"Se?te\") # cut and paste from list.files() output\n[1] 53 65 cc 80 74 65\n > charToRaw(\"S?te\") # entered on the keyboard\n[1] 53 c3 a8 74 65\n\nSo your solution is ugly:  you'll need to code all your substitutions \ntwice (or more!) to handle all the possible ways the same letter could \nbe encoded.  Or maybe iconv() or some other function has an option to \nnormalize the encoding.  (I've just read some more about the issue in \nhttp://en.wikipedia.org/wiki/Unicode_equivalence; normalization is what \nyou want to do, but I don't know how to do it.)\n\nDuncan Murdoch",
+      "body_snippet": "On 11-08-15 7:48 PM, Denis Chabot wrote:\n>\n> Le 2011-08-15 ? 19:06, Duncan Murdoch a ?crit :\n>\n>> On 11-08-15 2:42 PM, Denis Chabot wrote:\n>>> Hi,\n>>>\n>>> I usually do not give second thought to accen",
+      "thread_id": "thread-bf7a76c8b8f7",
+      "thread_depth": 3,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-65a7b2c0be3b",
+      "message_id": "<B911A884-AB88-4D7D-9AB6-15F710009754@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-16T08:15:03+01:00",
+      "subject": "[R-SIG-Mac] Install multiple versions of R on Mac",
+      "subject_clean": "Install multiple versions of R on Mac",
+      "in_reply_to": "<DCE81E14EB74504B971DAD4D2DB0356B08927807A3@crcmail4.BCCRC.CA>",
+      "references": [
+        "<2787_1313415352_1313415352_84E1B5F8-8D5E-40D6-B580-A15D48664370@web.de>",
+        "<DCE81E14EB74504B971DAD4D2DB0356B08927807A3@crcmail4.BCCRC.CA>"
+      ],
+      "body_plain": "On Aug 15, 2011, at 7:24 PM, Steven McKinney wrote:\n\n> Hi Marius,\n> \n> What I have found is that RSwitch does not work if you only have one instance of R.app in\n> your Applications folder.  RSwitch does not modify R.app in the Applications folder, so after\n> you switched back to R-2.13.? with RSwitch, the R-2.13 startup is interacting with the\n> R-2.14 R.app in some fashion that Simon Urbanek might be able to explain but which I\n> have not yet worked out.\n> \n\nR.app is always tied to a particular R version, because it's compiled against R (the path to libR.dylib contains the version). So you can only use R.app with the version of R it was compiled against. RSwitch only makes one of the other frameworks \"Current\", it has no effect on the R.apps on your machine.\n\nAs Steven pointed out you have to move/copy your R.app/R64.app out of the way to keep them separate for each R version. Alternatively you can also download them separately from the R.research.att.com pages. It doesn't matter how you name them or where you put them. The installation process will keep your old R.apps if they are not in Applications (which is not standard on Mac OS X but very useful for having multiple R versions).\n\nCheers,\nSimon\n\n\n> When I needed both R-2.12.2 and R-2.13.1, I made a folder\n> called \"temp\" in Applications, then copied the R.app from R-GUI-5732-2.12-leopard_Leopard64.dmg \n> to Applications/temp and renamed it R-2.12.2_64bit.app, then moved that to the\n> Applications folder.  Next I copied the R.app from R-GUI-5885-2.13-leopard-Leopard64.dmg\n> to Applications/temp, renamed it to R-2.13.1_64bit.app, then moved it to the Applications\n> folder.  Now after I use RSwitch, if I run the appropriate R-<version>.app the Mac R GUI\n> initialization and startup works.  See e.g. \n> \n> http://www.mail-archive.com/r-sig-mac at r-project.org/msg00559.html\n> \n> R-GUI-5732-2.12-leopard_Leopard64.dmg and the like available from \n> http://r.research.att.com/\n> \n> Your R.app in the Applications directory is the one from the last R you installed,\n> which appears to be the current development version.  So rename R.app to\n> something such as R-2.14.0_devel_64bit.app.  Then reinstall R-2.13.1 or use the strategy\n> I outlined above, and get the R-2.13.1 R.app renamed to R-2.13.1_64bit.app\n> \n> Then after you use RSwitch, run the appropriate R-<version>.app\n> \n> \n> HTH \n> \n> Steven McKinney\n> ________________________________________\n> From: r-sig-mac-bounces at r-project.org [r-sig-mac-bounces at r-project.org] On Behalf Of Marius Hofert [m_hofert at web.de]\n> Sent: August 15, 2011 6:35 AM\n> To: Help R\n> Subject: [R-SIG-Mac] Install multiple versions of R on Mac\n> \n> Dear expeRts,\n> \n> I would like to run R 2.13 and R 2.14 on a MacBook Pro (2.53 GHz Intel Core 2 Duo, 4 GB 1067 MHz DDR3) with Mac OS X 10.6.8. I installed Rswitch to switch between the two versions. On installing the second version (2.14), I executed\n> sudo pkgutil --forget org.r-project.R.Leopard.fw.pkg\n> in the Terminal as suggested on the installation process. Then I finished the installation. 2.14 runs great (64-bit), but when I switch to R 2.13 and start R, I get the output below.\n> \n> What did I do wrong?\n> \n> Note: I previously had only R 2.14 running. Then I installed R 2.13 (because some things are not available for 2.14). On the installation I missed the fact that R 2.14 is not available anymore [I missed the note on using pkgutil...], so I only had R 2.13 (also running fine). After that I downloaded R 2.14 and executed the pkgutil command during the installation process. I'm not sure if this matters (I guess not, since that's probably the more typical way [first having 2.13 installed and then 2.14 :-)]).\n> \n> Cheers,\n> \n> Marius\n> \n> \n> *** caught segfault ***\n> address 0x54d8, cause 'memory not mapped'\n> \n> Traceback:\n> 1: .Call(\"R_initMethodDispatch\", as.environment(where), PACKAGE = \"methods\")\n> 2: initMethodDispatch(where)\n> 3: ..First.lib(libname, pkgName, env)\n> 4: fun(...)\n> 5: doTryCatch(return(expr), name, parentenv, handler)\n> 6: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n> 7: tryCatchList(expr, classes, parentenv, handlers)\n> 8: tryCatch(fun(...), error = identity)\n> 9: runHook(\".onLoad\", package, env, package.lib, package)\n> 10: loadNamespace(package, c(which.lib.loc, lib.loc), keep.source = keep.source)\n> 11: doTryCatch(return(expr), name, parentenv, handler)\n> 12: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n> 13: tryCatchList(expr, classes, parentenv, handlers)\n> 14: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if (!is.null(call)) {        if (identical(call[[1L]], quote(doTryCatch)))             call <- sys.call(-4L)        dcall <- deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")        LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg, \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L], type = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type = \"b\") + nchar(sm[1L],                 type = \"b\")        if (w > LONG)             prefix <- paste(prefix, \"\\n  \", sep = \"\")    }    else prefix <- \"Error : \"    msg <- paste(prefix, conditionMessage(e), \"\\n\", sep = \"\")    .Internal(seterrmessage(msg[1L]))    if (!silent && identical(getOption(\"show.error.messages\"),         TRUE)) {        cat(msg, file = stderr())        .Internal(printDeferredWarnings())    }    invisible(structure(msg, class = \"try-error\"))})\n> 15: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc), keep.source = keep.source)    dataPath <- file.path(which.lib.loc, package, \"data\")    env <- attachNamespace(ns, pos = pos, dataPath = dataPath,         deps)})\n> 16: library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,     warn.conflicts = warn.conflicts, quietly = quietly, keep.source = keep.source)\n> 17: doTryCatch(return(expr), name, parentenv, handler)\n> 18: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n> 19: tryCatchList(expr, classes, parentenv, handlers)\n> 20: tryCatch(library(package, lib.loc = lib.loc, character.only = TRUE,     logical.return = TRUE, warn.conflicts = warn.conflicts, quietly = quietly,     keep.source = keep.source), error = function(e) e)\n> 21: require(\"methods\", quietly = TRUE, warn.conflicts = FALSE, character.only = TRUE)\n> 22: .OptRequireMethods()\n> \n> Possible actions:\n> 1: abort (with core dump, if enabled)\n> 2: normal R exit\n> 3: exit R without saving workspace\n> 4: exit R saving workspace\n> Selection:\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "On Aug 15, 2011, at 7:24 PM, Steven McKinney wrote:\n\n> Hi Marius,\n> \n> What I have found is that RSwitch does not work if you only have one instance of R.app in\n> your Applications folder.  RSwitch do",
+      "thread_id": "thread-0ac42542a9c8",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-bfa14ddeb3ee",
+      "message_id": "<D3B69037-F357-4CD5-9690-49E58AB398C1@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2011-08-16T06:16:21-04:00",
+      "subject": "[R-SIG-Mac] accented vowels",
+      "subject_clean": "accented vowels",
+      "in_reply_to": "<4E49D4D1.2000501@gmail.com>",
+      "references": [
+        "<mailman.282.1313131019.4449.r-sig-mac@r-project.org>",
+        "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>",
+        "<4E49A675.20905@gmail.com>",
+        "<E8B2E4D4-EAEE-4794-8823-528D7EDFEAB4@globetrotter.net>",
+        "<4E49D4D1.2000501@gmail.com>"
+      ],
+      "body_plain": "Le 2011-08-15 ? 22:24, Duncan Murdoch a ?crit :\n\n> On 11-08-15 7:48 PM, Denis Chabot wrote:\n>> \n>> Le 2011-08-15 ? 19:06, Duncan Murdoch a ?crit :\n>> \n>>> On 11-08-15 2:42 PM, Denis Chabot wrote:\n>>>> Hi,\n>>>> \n>>>> I usually do not give second thought to accented vowels and R handles everything fine thanks to UTF8 being used in my R scripts. But today I have a problem. Accented vowels do not behave properly when they were imported into R using list.files.\n>>>> \n>>>> Maybe this is because  OS X (I'm using 10.6.8) still uses MacRoman for file names, though visually the names seem to have been read correctly into R.\n>>>> \n>>>> An example is better than words:\n>>>> \n>>>> sessionInfo()\n>>>> R version 2.13.1 (2011-07-08)\n>>>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>>>> \n>>>> locale:\n>>>> [1] fr_CA.UTF-8/fr_CA.UTF-8/C/C/fr_CA.UTF-8/fr_CA.UTF-8\n>>>> \n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>> \n>>>> \n>>>> This does not cause problem:\n>>>> a = c(\"1_MO2 crevettes po2crit.Rda\", \"1_MO2 soles S?te sda.Rda\", \"1_MO2 turbots po2crit.Rda\"); a\n>>>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"    \"1_MO2 turbots po2crit.Rda\"\n>>>> \n>>>> a2 = gsub(\" S?te\", \"S\", a); a2\n>>>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 solesS sda.Rda\"        \"1_MO2 turbots po2crit.Rda\"\n>>>> \n>>>> \n>>>> but if instead of creating the vector within the R script, I read it as a series of file names, the substitution does not work. I am sorry that I cannot make this a reproducible example as it requires the 3 files to exist on your computer, but you could create 3 dummy files having the same names in the directory of your choice.\n>>>> \n>>>> don = file.path(\"donn?es/\")\n>>>> b = list.files(path = don, pattern = \"1_MO2\"); b\n>>>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>>>> \n>>>> b2 = gsub(\" S?te\", \"S\",  b); b2\n>>>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>>>> \n>>>> I am puzzled and also \"stuck\". For now I'll modify the file name, but I need to be able to handle such names at some point.\n>>>> \n>>>> Any advice?\n>>> \n>>> \n>>> Possibly your system really is using MacRoman or some other local encoding; in that case, iconv(x, \"\", \"UTF-8\") should convert from the local encoding to UTF-8.\n>>> \n>>> I think declaring everything to be UTF8 may be sufficient.  When I use list.files(), I see the encoding listed as \"unknown\", but\n>>> \n>>> x<- list.files()\n>>> Encoding(x)<- \"UTF-8\"\n>>> \n>>> works.  However, the iconv() method should be safer.\n>>> \n>>> Duncan Murdoch\n>> \n>> Hi Duncan,\n>> \n>> iconv() confirmed what I suspected: there was no problem with the encoding of the result of list.files, and if there had been one, the \"?\" would not have looked like a \"?\". Therefore, I got nonsense when treating this \"?\" as MacRoman to be converted into UTF-8:\n>> \n>> iconv(b, from=\"MacRoman\", to=\"UTF-8\")\n>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles Se??te sda.Rda\"  \"1_MO2 turbots po2crit.Rda\"\n>> \n>> It is not clear however that R considered b to be UTF=8:\n>> Encoding(b)\n>> [1] \"unknown\" \"unknown\" \"unknown\"\n>> \n>> so I followed your suggestion:\n>> \n>> Encoding(b)<- \"UTF-8\"\n>> Encoding(b)\n>> [1] \"unknown\" \"UTF-8\"   \"unknown\"\n>> \n>> but gsub still did not work:\n>> b2 = gsub(\" S?te\", \"S\",  b); b2\n>> [1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 soles S?te sda.Rda\"     \"1_MO2 turbots po2crit.Rda\"\n>> \n>> I do not know why gsub worked with example \"a\" but not \"b\" in the example shown in my original message. Strange and frustrating.\n> \n> Unicode sometimes gives different ways to encode what is rendered as the same character (e.g. letter + accent versus accented letter).  I think (see below) the OS uses one convention, but R chooses the other when it parses your text.\n> \n> Cut and paste did just work for me, in a version of R 2.13.0 Patched which predates 2.13.1 by a few weeks; I'm not up to date on my Mac:\n> \n> \n> > x <- list.files()\n> > x\n> [1] \"1_MO2 soles S?te sda.Rda\"\n> > gsub(\"S?te\", \"XXXX\", x)\n> [1] \"1_MO2 soles XXXX sda.Rda\"\n> \n> \n> \n> In the second line, I didn't try to type the pattern containing S?te, I just cut and pasted it from the printed version of x.\n> \n> One other possibility (and perhaps it's the best one, if your substitutions are all so simple) is to use the useBytes=TRUE option to gsub.  You can use charToRaw to see the bytes in a string, to make sure they are what you expect.\n> \n> When I do that, I see that the ? really is handled differently in the two cases:\n> \n> > charToRaw(\"S?te\") # cut and paste from list.files() output\n> [1] 53 65 cc 80 74 65\n> > charToRaw(\"S?te\") # entered on the keyboard\n> [1] 53 c3 a8 74 65\n> \n> So your solution is ugly:  you'll need to code all your substitutions twice (or more!) to handle all the possible ways the same letter could be encoded.  Or maybe iconv() or some other function has an option to normalize the encoding.  (I've just read some more about the issue in http://en.wikipedia.org/wiki/Unicode_equivalence; normalization is what you want to do, but I don't know how to do it.)\n> \n> Duncan Murdoch\n\nHi again Duncan,\n\nthe \"Errors due to normalization differences\" part of the article you referred to seems to confirm your suspicion. \n\nI can get this to work but it is messy:\n\nS?tefileraw = charToRaw(substr(b[2],13,17))\nS?tefile = rawToChar(S?tefileraw)\n\nS?tekbraw = charToRaw(substr(a[2],13,16))\nS?tekb = rawToChar(S?tekbraw)\n\nc = b\nc = gsub(S?tefile, S?tekb, c)\nat this point, S?te has become the \"keyboard\" version and the rest of the script can work\nc2 = gsub(\" S?te\", \"S\", c); c2\n[1] \"1_MO2 crevettes po2crit.Rda\" \"1_MO2 solesS sda.Rda\"        \"1_MO2 turbots po2crit.Rda\"  \n\nI'll keep accented vowels out of file names for this project whenever I'll have to use gsub on them!\n\nThanks again,\n\nDenis",
+      "body_snippet": "Le 2011-08-15 ? 22:24, Duncan Murdoch a ?crit :\n\n> On 11-08-15 7:48 PM, Denis Chabot wrote:\n>> \n>> Le 2011-08-15 ? 19:06, Duncan Murdoch a ?crit :\n>> \n>>> On 11-08-15 2:42 PM, Denis Chabot wrote:\n>>>>",
+      "thread_id": "thread-bf7a76c8b8f7",
+      "thread_depth": 4,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-fe2235dd879f",
+      "message_id": "<7B014BA5-1E22-443A-97C0-790720A555C5@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2011-08-16T08:07:18-04:00",
+      "subject": "[R-SIG-Mac] accented vowels",
+      "subject_clean": "accented vowels",
+      "in_reply_to": "<4E49D4D1.2000501@gmail.com>",
+      "references": [
+        "<mailman.282.1313131019.4449.r-sig-mac@r-project.org>",
+        "<8BE248EA-761A-4951-BB33-4B1BF2B98302@globetrotter.net>",
+        "<4E49A675.20905@gmail.com>",
+        "<E8B2E4D4-EAEE-4794-8823-528D7EDFEAB4@globetrotter.net>",
+        "<4E49D4D1.2000501@gmail.com>"
+      ],
+      "body_plain": "Duncan, I think I'll avoid the problem in another manner, leaving me free to choose whatever file names I want or need.\n\nThe reason I used gsub on file names is that I want to collate a series of data.frames using rbind (or rbind.fill). For this, I need to know the names of the data.frames I just read and this depends on the files that were in the directory I choose to read.\n\nI therefore use a bunch of gsub to extract data.frame names from file names (file names were constructed to make this possible).\n\nBut I did this only because I did not know how to find the name of a data.frame after it is loaded. I searched on the net to see if this was feasible. I did not find a way to do this (short of doing a ls() before and after each load to see what has changed) but I found something close, thanks to you actually, in an answer you gave to another user!\n\n> Aug 12, 2011; 3:23pmRe: Getting data from an *.RData file into a data.frame object.\n> On 12/08/2011 3:12 PM, Ed Heaton wrote:\n> \n> > Hi, all. \n> > \n> > I'm new to R.  I've been a SAS programmer for 20 years. \n> > \n> > I seem to be having trouble with the most basic task - bringing a table in \n> > an *.RData file into a data.frame object. \n> > \n> > Here's how I created the *.RData file. \n> > \n> > library(RODBC) \n> > db<- odbcConnect(\"*******\") \n> > df<- sqlQuery( \n> >      db \n> >    , \"select * from schema.table where year(someDate)=2006\" \n> > ) \n> > save( \n> >      df \n> >    , file=\"C:/Documents and Settings/userName/My Documents/table2006.RData\" \n> > ) \n> > dim(df) \n> > remove(df) \n> > odbcClose(db) \n> > remove(db) \n> > detach(\"package:RODBC\") \n> > \n> > Next, I moved that data file (table2006.RData) to another workstation - not \n> > at the client site. \n> > \n> > Now, I need to get that data file into a data.frame object.  I know this \n> > should be simple, but I can't seem to find out how to do that.  I tried the \n> > following.  First, after opening R without doing anything, RGui used 35,008 \n> > KB of memory.  I submitted the following. \n> > \n> > >  debt2006<- load(\"T:/R.Data/table2006.RData\") \n> > \n> > Memory used by RGui jumped to 191,512 KB.  So, it looks like the data \n> > loaded.  However, debt2005 is of type character instead of data.frame. \n> > \n> > >  ls() \n> > [1] \"debt2005\" \n> > >  class(debt2005) \n> > [1] \"character\" \n> > > \n> > \n> > Help, please.\n> ... [show rest of quote]\n> \n> save() and load() work with multiple objects, and the objects keep their \n> names.  So your object would be recreated as \"df\" after the load. \n> \n> If you just want to save the data from one object without its name, use \n> saveRDS() and readRDS(). \n> \n> Duncan Murdoch \n\nI'll use this in the current project to avoid the situation that led to my initial message. Many thanks!\n\nDenis",
+      "body_snippet": "Duncan, I think I'll avoid the problem in another manner, leaving me free to choose whatever file names I want or need.\n\nThe reason I used gsub on file names is that I want to collate a series of data",
+      "thread_id": "thread-bf7a76c8b8f7",
+      "thread_depth": 4,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-20f65de81fa6",
+      "message_id": "<4E4B6A77.9060701@gmail.com>",
+      "from_name": "Bhima Pandava",
+      "from_email_hash": "a586e798f0740a01ceb540a680c56c5876b38f0aa568dcaa84b8da8671f8532e",
+      "date": "2011-08-17T09:15:03+02:00",
+      "subject": "[R-SIG-Mac] Help rJava and imaplib.",
+      "subject_clean": "Help rJava and imaplib.",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110817/73493123/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110817/73493123/attachment.pl>",
+      "thread_id": "thread-20f65de81fa6",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-edc055b0d02a",
+      "message_id": "<AEEA3943-28C1-4CD9-8863-B2EA1E2A6E2D@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-17T08:33:03+01:00",
+      "subject": "[R-SIG-Mac] Help rJava and imaplib.",
+      "subject_clean": "Help rJava and imaplib.",
+      "in_reply_to": "<4E4B6A77.9060701@gmail.com>",
+      "references": [
+        "<4E4B6A77.9060701@gmail.com>"
+      ],
+      "body_plain": "On Aug 17, 2011, at 8:15 AM, Bhima Pandava wrote:\n\n> I am trying to teach myself a little R and recently I found an entry \n> over at R-Bloggers & Expansed, on how to create social graphs from your \n> email \n> <http://expansed.com/2011/08/sna-visualising-an-email-box-with-r/>, that \n> interested me.\n> \n> I am using Mac OS Lion, so I installed the R-2.13.1pkg and the R.app \n> R-2.13-patched.  The script requires the Network, rJython, and rJava \n> libraries, so I installed these as binaries.  Mac OS Lion does not come \n> with a Java Development Kit installed,\n\n\nIt does (it will be installed the first time you try to use it). You may want to give it a shot - using MacPorts may be your problem.\n\nCheers,\nSimon\n\n\n> so I installed one from Mac Ports \n> and then I also tried building it from source based on the \n> instructions.  I then registered the JDK with R using \"sudo R CMD \n> javareconf\".  The script fails when executed with the following error:\n> \n> Error in .jcall(\"RJavaTools\", \"Ljava/lang/Object;\", \"invokeMethod\", cl,  :\n>   Traceback (most recent call last):\n>   File \"<string>\", line 1, in <module>\n>   File \n> \"/Library/Frameworks/R.framework/Versions/2.13/Resources/library/rJython/jython.jar/Lib/imaplib.py\", \n> line 437, in fetch\n>   File \n> \"/Library/Frameworks/R.framework/Versions/2.13/Resources/library/rJython/jython.jar/Lib/imaplib.py\", \n> line 1055, in _simple_command\n>   File \n> \"/Library/Frameworks/R.framework/Versions/2.13/Resources/library/rJython/jython.jar/Lib/imaplib.py\", \n> line 892, in _command_complete\n> imaplib.error: FETCH command error: BAD ['Could not parse command']\n> \n> I have tried many, many different things but I simply can not work out \n> how to make this work.  As other people sound like they have run this, \n> it is a mystery to me.  One of the things I have tried was trying the \n> same thing in a virtual instance of Linux running on my Mac and that \n> segfaults.  Another is installing the rJava library as source, so that \n> it would be compiled on my machine.  This fails due to R expecting a \n> different framework version.  The error returned is:\n> \n> checking whether JNI programs can be compiled... configure: error: \n> Cannot compile a simple JNI program. See config.log for details.\n> \n> and checking the log I find:\n> \n> Dyld Error Message:\n>   Library not loaded: \n> /Library/Frameworks/R.framework/Versions/2.12/Resources/lib/libR.dylib\n>   Referenced from: /Applications/R.app/Contents/MacOS/R\n>   Reason: image not found\n> \n> I am using Framework version 2.13, so I do not even have a directory for \n> version 2.12.  The file \"libR.dylib\" is in the right place for 2.13 but \n> I do not know how to configure R.app to use a particular version of the \n> Framework.  Or even if this is actually the root of the problem above.\n> \n> If anyone has any suggestions I would appreciate it... or even if \n> someone could try the script Expansed published and see if it works for \n> them, I would appreciate that as well.\n> \n> Thanks!\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "On Aug 17, 2011, at 8:15 AM, Bhima Pandava wrote:\n\n> I am trying to teach myself a little R and recently I found an entry \n> over at R-Bloggers & Expansed, on how to create social graphs from your \n> ",
+      "thread_id": "thread-20f65de81fa6",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-190973ec7d4b",
+      "message_id": "<35575C8B-0B9A-4483-9676-701426677399@gmail.com>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "906d407a729647cc91c4e43ce28d4fcaa3d8c31102184befaff986e86fb70998",
+      "date": "2011-08-17T15:28:29+01:00",
+      "subject": "[R-SIG-Mac] service to run R from mail.app?",
+      "subject_clean": "service to run R from mail.app?",
+      "in_reply_to": "<F7539357-91F1-4DB7-9235-BD23E8431D3A@gmail.com>",
+      "references": [
+        "<F7539357-91F1-4DB7-9235-BD23E8431D3A@gmail.com>"
+      ],
+      "body_plain": "On 12 Aug 2011, at 6:48 PM, Timothy Bates wrote:\n> I wonder if anyone has made a service to send an email selection  to R and run it?\n\nAttached is a service to run selected text in R.\n\nTo install. unzip, and move the resulting file as \"~/Library/Services/Run selection in R.workflow\"\n\nIt will then appear in your Services menu. When run, it will send any selected text to R.app (has to be called ?R? - not R64 - and execute it.\n\nYou can assign a keyboard shortcut in Keyboard->Services\n\nHave fun,\ntim\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: Run selection in R.workflow.zip\nType: application/zip\nSize: 48020 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110817/d7a07bf6/attachment-0001.zip>",
+      "body_snippet": "On 12 Aug 2011, at 6:48 PM, Timothy Bates wrote:\n> I wonder if anyone has made a service to send an email selection  to R and run it?\n\nAttached is a service to run selected text in R.\n\nTo install. unz",
+      "thread_id": "thread-751547ed2380",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-79014570b398",
+      "message_id": "<CAHZXMrEXaKrwXA=cfKu7xmh6HV4XBmymX9+qv5L45+tS730H3Q@mail.gmail.com>",
+      "from_name": "Evan W Carson",
+      "from_email_hash": "5ba20befc6d1102a02d06381a17ed12f7dbc2ee62b412d04a76e050a2a4c13ba",
+      "date": "2011-08-18T16:42:26-06:00",
+      "subject": "[R-SIG-Mac] Rpy",
+      "subject_clean": "Rpy",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110818/59468eff/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110818/59468eff/attachment.pl>",
+      "thread_id": "thread-79014570b398",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-e37b1857e78d",
+      "message_id": "<CAHZXMrG-a6Fp1nV-B8OoztXjSjces7L1SgGQ5M4iQWdrOiFX9w@mail.gmail.com>",
+      "from_name": "Evan W Carson",
+      "from_email_hash": "5ba20befc6d1102a02d06381a17ed12f7dbc2ee62b412d04a76e050a2a4c13ba",
+      "date": "2011-08-18T17:03:27-06:00",
+      "subject": "[R-SIG-Mac] Rpy",
+      "subject_clean": "Rpy",
+      "in_reply_to": "<CAHZXMrEXaKrwXA=cfKu7xmh6HV4XBmymX9+qv5L45+tS730H3Q@mail.gmail.com>",
+      "references": [
+        "<CAHZXMrEXaKrwXA=cfKu7xmh6HV4XBmymX9+qv5L45+tS730H3Q@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110818/2af9c1bd/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110818/2af9c1bd/attachment.pl>",
+      "thread_id": "thread-79014570b398",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-592a219db0fb",
+      "message_id": "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>",
+      "from_name": "Yan Zhou",
+      "from_email_hash": "269bc957e0d648207c4923bbbb2684f7a56acab9d45b120eb1bd80875a375624",
+      "date": "2011-08-19T21:06:32+01:00",
+      "subject": "[R-SIG-Mac] R 2.13.1-patched, vecLib problem on Lion",
+      "subject_clean": "R 2.13.1-patched, vecLib problem on Lion",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear all, \n\nI have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n\nI did a fresh install of R and I checked that the BLAS library is linked to vecLib. However the following simple code halt on my machine.\n\n\ta <- matrix(rnorm(640 * 640), ncol = 640)\n\tb <- eigen(a)\n\nThis should take less than a second. However after an hour R is still halted. I tried a few more times it is reproducible on my machine.\n\nI then built R my self, linked to vecLib, and using Lion's system default tools. The build passed check and the code above runs without a problem.\n\nI am not sure what is wrong here.\n\nThe machine I am using is a Mid-2010 MacBook Pro 15\", Core i7 2.66GHz.\n\nDoes anyone has the same problem or it is that there's something wrong with my machine only?\n\nBest regards,\n\nYan Zhou",
+      "body_snippet": "Dear all, \n\nI have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n\nI did a fresh install of R and I checked that the BLAS library is linked to vecLib. However th",
+      "thread_id": "thread-592a219db0fb",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-33f6988fd448",
+      "message_id": "<FE628FB1-FD4E-4906-938C-C8580179D0A4@imperial.ac.uk>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2011-08-19T21:25:00+01:00",
+      "subject": "[R-SIG-Mac] R 2.13.1-patched, vecLib problem on Lion",
+      "subject_clean": "R 2.13.1-patched, vecLib problem on Lion",
+      "in_reply_to": "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>",
+      "references": [
+        "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>"
+      ],
+      "body_plain": "On 19 Aug 2011, at 21:06, Yan Zhou wrote:\n\n> Dear all, \n> \n> I have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n> \n> I did a fresh install of R and I checked that the BLAS library is linked to vecLib. However the following simple code halt on my machine.\n> \n> \ta <- matrix(rnorm(640 * 640), ncol = 640)\n> \tb <- eigen(a)\n\nI can reproduce the problem running the code above.\n\nls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib points to libRblas.vecLib.dylib\n\nF\n\n--\nFederico C. F. Calboli\nDepartment of Epidemiology and Biostatistics\nImperial College, St. Mary's Campus\nNorfolk Place, London W2 1PG\n\nTel +44 (0)20 75941602   Fax +44 (0)20 75943193\n\nf.calboli [.a.t] imperial.ac.uk\nf.calboli [.a.t] gmail.com",
+      "body_snippet": "On 19 Aug 2011, at 21:06, Yan Zhou wrote:\n\n> Dear all, \n> \n> I have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n> \n> I did a fresh install of R and I checked ",
+      "thread_id": "thread-592a219db0fb",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-ff9c283b02d5",
+      "message_id": "<F76726FC-6151-4878-8D08-00AFF537920F@imperial.ac.uk>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2011-08-19T21:42:52+01:00",
+      "subject": "[R-SIG-Mac] R 2.13.1-patched, vecLib problem on Lion",
+      "subject_clean": "R 2.13.1-patched, vecLib problem on Lion",
+      "in_reply_to": "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>",
+      "references": [
+        "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>"
+      ],
+      "body_plain": "On 19 Aug 2011, at 21:06, Yan Zhou wrote:\n\n> Dear all, \n> \n> I have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n> \n> I did a fresh install of R and I checked that the BLAS library is linked to vecLib. However the following simple code halt on my machine.\n> \n> \ta <- matrix(rnorm(640 * 640), ncol = 640)\n> \tb <- eigen(a)\n\n\nI'd like to add that after:\n\ncd /Library/Frameworks/R.framework/Resources/lib\nln -sf libRblas.0.dylib libRblas.dylib\n\nthe test above runs fine.\n\nF\n\n\n--\nFederico C. F. Calboli\nDepartment of Epidemiology and Biostatistics\nImperial College, St. Mary's Campus\nNorfolk Place, London W2 1PG\n\nTel +44 (0)20 75941602   Fax +44 (0)20 75943193\n\nf.calboli [.a.t] imperial.ac.uk\nf.calboli [.a.t] gmail.com",
+      "body_snippet": "On 19 Aug 2011, at 21:06, Yan Zhou wrote:\n\n> Dear all, \n> \n> I have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n> \n> I did a fresh install of R and I checked ",
+      "thread_id": "thread-592a219db0fb",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-bcb534f01eb1",
+      "message_id": "<EBCECBAD-CC2D-4CB4-B232-5ACF95956060@me.com>",
+      "from_name": "Yan Zhou",
+      "from_email_hash": "269bc957e0d648207c4923bbbb2684f7a56acab9d45b120eb1bd80875a375624",
+      "date": "2011-08-19T21:47:52+01:00",
+      "subject": "[R-SIG-Mac] R 2.13.1-patched, vecLib problem on Lion",
+      "subject_clean": "R 2.13.1-patched, vecLib problem on Lion",
+      "in_reply_to": "<FE628FB1-FD4E-4906-938C-C8580179D0A4@imperial.ac.uk>",
+      "references": [
+        "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>",
+        "<FE628FB1-FD4E-4906-938C-C8580179D0A4@imperial.ac.uk>"
+      ],
+      "body_plain": "I know this workaround. However that links R to the reference Blas. What keep me confusing is that when linking the R-patched from http://R.research.att.com to vecLib, it halts, but the home-built R, linked to the same vecLib, runs fine.\n\nY\n\n\nOn Aug 19, 2011, at 9:25 PM, Federico Calboli wrote:\n\n> On 19 Aug 2011, at 21:06, Yan Zhou wrote:\n> \n>> Dear all, \n>> \n>> I have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n>> \n>> I did a fresh install of R and I checked that the BLAS library is linked to vecLib. However the following simple code halt on my machine.\n>> \n>> \ta <- matrix(rnorm(640 * 640), ncol = 640)\n>> \tb <- eigen(a)\n> \n> I can reproduce the problem running the code above.\n> \n> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib points to libRblas.vecLib.dylib\n> \n> F\n> \n> --\n> Federico C. F. Calboli\n> Department of Epidemiology and Biostatistics\n> Imperial College, St. Mary's Campus\n> Norfolk Place, London W2 1PG\n> \n> Tel +44 (0)20 75941602   Fax +44 (0)20 75943193\n> \n> f.calboli [.a.t] imperial.ac.uk\n> f.calboli [.a.t] gmail.com\n> \n> \n> \n> \n> \n>",
+      "body_snippet": "I know this workaround. However that links R to the reference Blas. What keep me confusing is that when linking the R-patched from http://R.research.att.com to vecLib, it halts, but the home-built R, ",
+      "thread_id": "thread-592a219db0fb",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-89f0495fe88e",
+      "message_id": "<93C22257-7393-4D0C-8CF0-AD84E610A0E6@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "997bb787abf80042157dc28e91db13eb5e5c0f433207dba7fcb5331fa2e472af",
+      "date": "2011-08-20T15:09:17+02:00",
+      "subject": "[R-SIG-Mac] R 2.13.1-patched, vecLib problem on Lion",
+      "subject_clean": "R 2.13.1-patched, vecLib problem on Lion",
+      "in_reply_to": "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>",
+      "references": [
+        "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>"
+      ],
+      "body_plain": "On 19-08-2011, at 22:06, Yan Zhou wrote:\n\n> Dear all, \n> \n> I have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n> \n> I did a fresh install of R and I checked that the BLAS library is linked to vecLib. However the following simple code halt on my machine.\n> \n> \ta <- matrix(rnorm(640 * 640), ncol = 640)\n> \tb <- eigen(a)\n> \n> This should take less than a second. However after an hour R is still halted. I tried a few more times it is reproducible on my machine.\n> \n> I then built R my self, linked to vecLib, and using Lion's system default tools. The build passed check and the code above runs without a problem.\n> \n> I am not sure what is wrong here.\n> \n> The machine I am using is a Mid-2010 MacBook Pro 15\", Core i7 2.66GHz.\n> \n> Does anyone has the same problem or it is that there's something wrong with my machine only?\n\nI have tried this on my MacBook Air 2011 (1.6Ghz i5, 4Gb memory, 128Gb flash) and Mac OS X 10.7.1\nUsing R 2.13.1 of 2011-07-08.\n\nThe problem occurs when running R 64 bit.\nThe 32 bit R doesn't have the problem.\n\nBerend",
+      "body_snippet": "On 19-08-2011, at 22:06, Yan Zhou wrote:\n\n> Dear all, \n> \n> I have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n> \n> I did a fresh install of R and I checked t",
+      "thread_id": "thread-592a219db0fb",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-8359840f03f4",
+      "message_id": "<F0B7E6EA-934E-4F83-82AA-82894B9D2679@me.com>",
+      "from_name": "Yan Zhou",
+      "from_email_hash": "269bc957e0d648207c4923bbbb2684f7a56acab9d45b120eb1bd80875a375624",
+      "date": "2011-08-20T14:32:39+01:00",
+      "subject": "[R-SIG-Mac] R 2.13.1-patched, vecLib problem on Lion",
+      "subject_clean": "R 2.13.1-patched, vecLib problem on Lion",
+      "in_reply_to": "<93C22257-7393-4D0C-8CF0-AD84E610A0E6@xs4all.nl>",
+      "references": [
+        "<148C6748-2D19-4B5B-94D8-CA34AF861CB4@me.com>",
+        "<93C22257-7393-4D0C-8CF0-AD84E610A0E6@xs4all.nl>"
+      ],
+      "body_plain": "On Aug 20, 2011, at 2:09 PM, Berend Hasselman wrote:\n\n> \n> On 19-08-2011, at 22:06, Yan Zhou wrote:\n> \n>> Dear all, \n>> \n>> I have a problem with R 2.31-patched from http://R.research.att.com/. I am using Lion 10.7.1\n>> \n>> I did a fresh install of R and I checked that the BLAS library is linked to vecLib. However the following simple code halt on my machine.\n>> \n>> \ta <- matrix(rnorm(640 * 640), ncol = 640)\n>> \tb <- eigen(a)\n>> \n>> This should take less than a second. However after an hour R is still halted. I tried a few more times it is reproducible on my machine.\n>> \n>> I then built R my self, linked to vecLib, and using Lion's system default tools. The build passed check and the code above runs without a problem.\n>> \n>> I am not sure what is wrong here.\n>> \n>> The machine I am using is a Mid-2010 MacBook Pro 15\", Core i7 2.66GHz.\n>> \n>> Does anyone has the same problem or it is that there's something wrong with my machine only?\n> \n> I have tried this on my MacBook Air 2011 (1.6Ghz i5, 4Gb memory, 128Gb flash) and Mac OS X 10.7.1\n> Using R 2.13.1 of 2011-07-08.\n> \n> The problem occurs when running R 64 bit.\n> The 32 bit R doesn't have the problem.\n> \nEm, I tried it for 32 bit too, it runs fine. I guess it may be a linking problem. \n\nYan",
+      "body_snippet": "On Aug 20, 2011, at 2:09 PM, Berend Hasselman wrote:\n\n> \n> On 19-08-2011, at 22:06, Yan Zhou wrote:\n> \n>> Dear all, \n>> \n>> I have a problem with R 2.31-patched from http://R.research.att.com/. I am u",
+      "thread_id": "thread-592a219db0fb",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-eacc633f7105",
+      "message_id": "<4E50D080.7040300@gmail.com>",
+      "from_name": "Bhima Pandava",
+      "from_email_hash": "a586e798f0740a01ceb540a680c56c5876b38f0aa568dcaa84b8da8671f8532e",
+      "date": "2011-08-21T11:31:44+02:00",
+      "subject": "[R-SIG-Mac] What is the correct method to install a JDK on Mac OS Lion?",
+      "subject_clean": "What is the correct method to install a JDK on Mac OS Lion?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110821/60673271/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110821/60673271/attachment.pl>",
+      "thread_id": "thread-eacc633f7105",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-be57556ea0ae",
+      "message_id": "<EFB4F4CA-6F2A-4BC3-BFAD-58125073DD3A@gmail.com>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "906d407a729647cc91c4e43ce28d4fcaa3d8c31102184befaff986e86fb70998",
+      "date": "2011-08-24T14:37:00+01:00",
+      "subject": "[R-SIG-Mac] turn off text transforms",
+      "subject_clean": "turn off text transforms",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "hi all,\nif I enter the following into R.app\n\n> 1/8 x 248.70\n\nI get\nError: unexpected symbol in \"1/8 x?\n\nBecause OS text entry is transforming 1/8 into ?.\n\nIs there a way to turn that off selectively for R.app?\n\ntim",
+      "body_snippet": "hi all,\nif I enter the following into R.app\n\n> 1/8 x 248.70\n\nI get\nError: unexpected symbol in \"1/8 x?\n\nBecause OS text entry is transforming 1/8 into ?.\n\nIs there a way to turn that off selectively f",
+      "thread_id": "thread-be57556ea0ae",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-730c6a9bd0fb",
+      "message_id": "<alpine.LFD.2.02.1108250707120.21926@gannet.stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2011-08-25T07:08:42+01:00",
+      "subject": "[R-SIG-Mac] turn off text transforms",
+      "subject_clean": "turn off text transforms",
+      "in_reply_to": "<EFB4F4CA-6F2A-4BC3-BFAD-58125073DD3A@gmail.com>",
+      "references": [
+        "<EFB4F4CA-6F2A-4BC3-BFAD-58125073DD3A@gmail.com>"
+      ],
+      "body_plain": "On Wed, 24 Aug 2011, Timothy Bates wrote:\n\n> hi all,\n> if I enter the following into R.app\n>\n>> 1/8 x 248.70\n>\n> I get\n> Error: unexpected symbol in \"1/8 x?\n>\n> Because OS text entry is transforming 1/8 into ?.\n\nI don't think so: do you have any evidence for that?  R.app gives the \nsame message as any other version of R.\n\nYour expression is invalid R: use * for multiplication.\n\n>\n> Is there a way to turn that off selectively for R.app?\n>\n> tim\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On Wed, 24 Aug 2011, Timothy Bates wrote:\n\n> hi all,\n> if I enter the following into R.app\n>\n>> 1/8 x 248.70\n>\n> I get\n> Error: unexpected symbol in \"1/8 x?\n>\n> Because OS text entry is transforming 1",
+      "thread_id": "thread-be57556ea0ae",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-fe4f29f40335",
+      "message_id": "<5396DADF-E924-4335-819A-C95E7E521E2E@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-25T15:58:50+01:00",
+      "subject": "[R-SIG-Mac] What is the correct method to install a JDK on Mac OS Lion?",
+      "subject_clean": "What is the correct method to install a JDK on Mac OS Lion?",
+      "in_reply_to": "<4E50D080.7040300@gmail.com>",
+      "references": [
+        "<4E50D080.7040300@gmail.com>"
+      ],
+      "body_plain": "On Aug 21, 2011, at 10:31 AM, Bhima Pandava wrote:\n\n> Hi,\n> \n>     I'm using R.app on Mac OS Lion and when I attempt to build the \n> rJava package from source I get the following error:\n> \n> Checking whether JNI programs can be compiled... configure: error: \n> Cannot compile a simple JNI program. See *config.log* for details.\n> \n> Make sure you have Java Development Kit installed and correctly \n> registered in R.\n> If in doubt, re-run \"R CMD javareconf\" as root.\n> \n> ERROR: configuration failed for package 'rJava'\n> * removing \n> '/Library/Frameworks/R.framework/Versions/2.14/Resources/library/rJava'\n> \n> On a fresh Mac OS install, executing the command: sudo R CMD javareconf \n> fails with:\n> \n>  \"No Java runtime present, requesting install. Java interpreter doesn't \n> work properly.\" and then initiates fetching of Apple's Java runtime.\n> \n> executing the command, once the Java runtime is finished completes with \n> the following output\n> \n> Java interpreter : /usr/bin/java\n> Java version     : 1.6.0_26\n> Java home path   : \n> /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home\n> Java compiler    : /usr/bin/javac\n> Java headers gen.: /usr/bin/javah\n> Java archive tool: /usr/bin/jar\n> *Java library path:*\n> JNI linker flags : -framework JavaVM\n> JNI cpp flags    : -I$(JAVA_HOME)/include\n> \n> Updating Java configuration in /Library/Frameworks/R.framework/Resources\n> Done.\n> \n> Attempting to build the rJava package again results in the same error as \n> before.\n> \n> This causes me to ask a few questions:\n> \n> 1) Is the Java package that my Mac automatically downloaded from Apple \n> the right package?\n\nYes\n\n\n>  If not which one should I use?\n> 2) Above there is no Java Library path listed, is this part of my problem?\n\nNo, OS X doesn't need it\n\n\n> 3) Where is the config.log that R.app generates?  Dredging around the \n> Console.app and the likely places did not reveal it.\n> \n\nIt is deleted after the installation. You want to use the unpacked tar ball.\n\n\nBut to your real issue - Apple doesn't provide headers inside the Java home anymore, so you want to re-run javareconf pointing to the framework:\n\nR CMD javareconf JAVA_CPPFLAGS=-I/System/Library/Frameworks/JavaVM.framework/Headers\n\n(normally you don' t need sudo but if you used it once, you have to use it from then on).\n\nCheers,\nSimon\n\n\n\n> For what it is worth I have tried 3 different version of R at this \n> point: (R-2.13-branch, \n> <http://r.research.att.com/R-2.13-branch-leopard.pkg>R-2.13-patched for \n> Lion, R-devel)\n> \n> Thanks for any help!\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "On Aug 21, 2011, at 10:31 AM, Bhima Pandava wrote:\n\n> Hi,\n> \n>     I'm using R.app on Mac OS Lion and when I attempt to build the \n> rJava package from source I get the following error:\n> \n> Checking ",
+      "thread_id": "thread-eacc633f7105",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-4af50a0377c0",
+      "message_id": "<357F44C8-F224-4968-8FF7-AA33FF29CE2A@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2011-08-25T16:04:13+01:00",
+      "subject": "[R-SIG-Mac] turn off text transforms",
+      "subject_clean": "turn off text transforms",
+      "in_reply_to": "<EFB4F4CA-6F2A-4BC3-BFAD-58125073DD3A@gmail.com>",
+      "references": [
+        "<EFB4F4CA-6F2A-4BC3-BFAD-58125073DD3A@gmail.com>"
+      ],
+      "body_plain": "On Aug 24, 2011, at 2:37 PM, Timothy Bates wrote:\n\n> hi all,\n> if I enter the following into R.app\n> \n>> 1/8 x 248.70\n> \n> I get\n> Error: unexpected symbol in \"1/8 x?\n> \n> Because OS text entry is transforming 1/8 into ?.\n> \n> Is there a way to turn that off selectively for R.app?\n> \n\nBrian is right, but I noticed myself that there is something wonky going on with the editor on Lion - it is translating characters where it should not (e.g. \\dots) - and I know only of the global configuration to disable it. I'll have a look if there is some message that could be send to the text view on Lion once I'm back (next week) because its highly annoying ?\n\nCheers,\nSimon",
+      "body_snippet": "On Aug 24, 2011, at 2:37 PM, Timothy Bates wrote:\n\n> hi all,\n> if I enter the following into R.app\n> \n>> 1/8 x 248.70\n> \n> I get\n> Error: unexpected symbol in \"1/8 x?\n> \n> Because OS text entry is tra",
+      "thread_id": "thread-be57556ea0ae",
+      "thread_depth": 1,
+      "month": "2011-08"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-40dadc71d291",
+      "subject": "problem with loading JGR",
+      "message_count": 4,
+      "participants": [
+        "Alan Kelly",
+        "Brandon Hurr",
+        "ian.fellows at stat.ucla.edu"
+      ],
+      "started": "2011-08-01T13:20:07+01:00",
+      "last_reply": "2011-08-01T08:34:31-07:00",
+      "root_message_id": "msg-40dadc71d291"
+    },
+    {
+      "id": "thread-f695e614a51b",
+      "subject": "R.app cannot see tar but R (console) can",
+      "message_count": 4,
+      "participants": [
+        "Berend Hasselman",
+        "Prof Brian Ripley",
+        "Ross.Darnell at csiro.au",
+        "Simon Urbanek"
+      ],
+      "started": "2011-08-01T14:15:25+10:00",
+      "last_reply": "2011-08-01T13:26:21-04:00",
+      "root_message_id": "msg-f695e614a51b"
+    },
+    {
+      "id": "thread-177287910243",
+      "subject": "problem with loading JGR",
+      "message_count": 1,
+      "participants": [
+        "Alan Kelly"
+      ],
+      "started": "2011-08-01T17:29:55+01:00",
+      "last_reply": "2011-08-01T17:29:55+01:00",
+      "root_message_id": "msg-177287910243"
+    },
+    {
+      "id": "thread-4480a2065288",
+      "subject": "gfortran for lion",
+      "message_count": 4,
+      "participants": [
+        "Jaffe, Andrew H",
+        "Simon Urbanek"
+      ],
+      "started": "2011-08-03T11:19:27+00:00",
+      "last_reply": "2011-08-06T10:46:56-04:00",
+      "root_message_id": "msg-4480a2065288"
+    },
+    {
+      "id": "thread-38439bae8545",
+      "subject": "GUI problems (opening files, workspace, font-size)",
+      "message_count": 1,
+      "participants": [
+        "Martin Batholdy"
+      ],
+      "started": "2011-08-03T22:41:19+02:00",
+      "last_reply": "2011-08-03T22:41:19+02:00",
+      "root_message_id": "msg-38439bae8545"
+    },
+    {
+      "id": "thread-fe17125a3a88",
+      "subject": "gfortran for lion",
+      "message_count": 2,
+      "participants": [
+        "Bas Jansen",
+        "Jaffe, Andrew H"
+      ],
+      "started": "2011-08-05T13:29:30+02:00",
+      "last_reply": "2011-08-05T11:35:27+00:00",
+      "root_message_id": "msg-fe17125a3a88"
+    },
+    {
+      "id": "thread-39635f98cd6e",
+      "subject": "Installing R on Lion",
+      "message_count": 2,
+      "participants": [
+        "FJProenza",
+        "Simon Urbanek"
+      ],
+      "started": "2011-08-06T13:38:14+08:00",
+      "last_reply": "2011-08-06T10:51:12-04:00",
+      "root_message_id": "msg-39635f98cd6e"
+    },
+    {
+      "id": "thread-76c851e7c80b",
+      "subject": "gfortran for lion",
+      "message_count": 1,
+      "participants": [
+        "William Northcott"
+      ],
+      "started": "2011-08-06T19:34:36+10:00",
+      "last_reply": "2011-08-06T19:34:36+10:00",
+      "root_message_id": "msg-76c851e7c80b"
+    },
+    {
+      "id": "thread-12a838a7f209",
+      "subject": "R for Mac",
+      "message_count": 1,
+      "participants": [
+        "Francisco J. Proenza"
+      ],
+      "started": "2011-08-08T07:26:07+08:00",
+      "last_reply": "2011-08-08T07:26:07+08:00",
+      "root_message_id": "msg-12a838a7f209"
+    },
+    {
+      "id": "thread-1f0b7056e276",
+      "subject": "Multicore and as.POSIXct on MacOS Lion",
+      "message_count": 2,
+      "participants": [
+        "Sebastian Schmidt",
+        "Simon Urbanek"
+      ],
+      "started": "2011-08-09T18:34:18+02:00",
+      "last_reply": "2011-08-11T10:26:23-04:00",
+      "root_message_id": "msg-1f0b7056e276"
+    },
+    {
+      "id": "thread-d1552e75845c",
+      "subject": "Unicode characters in script?",
+      "message_count": 6,
+      "participants": [
+        "Michael Hoban",
+        "Prof Brian Ripley",
+        "R Erickson",
+        "Simon Urbanek"
+      ],
+      "started": "2011-08-11T11:35:37-07:00",
+      "last_reply": "2011-08-11T23:36:31-07:00",
+      "root_message_id": "msg-d1552e75845c"
+    },
+    {
+      "id": "thread-751547ed2380",
+      "subject": "service to run R from mail.app?",
+      "message_count": 2,
+      "participants": [
+        "Timothy Bates"
+      ],
+      "started": "2011-08-12T18:48:32+01:00",
+      "last_reply": "2011-08-17T15:28:29+01:00",
+      "root_message_id": "msg-751547ed2380"
+    },
+    {
+      "id": "thread-0ac42542a9c8",
+      "subject": "Install multiple versions of R on Mac",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "Steven McKinney"
+      ],
+      "started": "2011-08-15T11:24:17-07:00",
+      "last_reply": "2011-08-16T08:15:03+01:00",
+      "root_message_id": "msg-0ac42542a9c8"
+    },
+    {
+      "id": "thread-c0ad1e08a1a6",
+      "subject": "Install multiple versions of R on Mac",
+      "message_count": 1,
+      "participants": [
+        "Steven McKinney"
+      ],
+      "started": "2011-08-15T12:58:45-07:00",
+      "last_reply": "2011-08-15T12:58:45-07:00",
+      "root_message_id": "msg-c0ad1e08a1a6"
+    },
+    {
+      "id": "thread-bf7a76c8b8f7",
+      "subject": "accented vowels",
+      "message_count": 7,
+      "participants": [
+        "Denis Chabot",
+        "Duncan Murdoch"
+      ],
+      "started": "2011-08-15T14:42:26-04:00",
+      "last_reply": "2011-08-16T08:07:18-04:00",
+      "root_message_id": "msg-bf7a76c8b8f7"
+    },
+    {
+      "id": "thread-ba3837e73b14",
+      "subject": "Install multiple versions of R on Mac",
+      "message_count": 1,
+      "participants": [
+        "Marius Hofert"
+      ],
+      "started": "2011-08-15T15:35:38+02:00",
+      "last_reply": "2011-08-15T15:35:38+02:00",
+      "root_message_id": "msg-ba3837e73b14"
+    },
+    {
+      "id": "thread-20f65de81fa6",
+      "subject": "Help rJava and imaplib.",
+      "message_count": 2,
+      "participants": [
+        "Bhima Pandava",
+        "Simon Urbanek"
+      ],
+      "started": "2011-08-17T09:15:03+02:00",
+      "last_reply": "2011-08-17T08:33:03+01:00",
+      "root_message_id": "msg-20f65de81fa6"
+    },
+    {
+      "id": "thread-79014570b398",
+      "subject": "Rpy",
+      "message_count": 2,
+      "participants": [
+        "Evan W Carson"
+      ],
+      "started": "2011-08-18T16:42:26-06:00",
+      "last_reply": "2011-08-18T17:03:27-06:00",
+      "root_message_id": "msg-79014570b398"
+    },
+    {
+      "id": "thread-592a219db0fb",
+      "subject": "R 2.13.1-patched, vecLib problem on Lion",
+      "message_count": 6,
+      "participants": [
+        "Berend Hasselman",
+        "Federico Calboli",
+        "Yan Zhou"
+      ],
+      "started": "2011-08-19T21:06:32+01:00",
+      "last_reply": "2011-08-20T14:32:39+01:00",
+      "root_message_id": "msg-592a219db0fb"
+    },
+    {
+      "id": "thread-eacc633f7105",
+      "subject": "What is the correct method to install a JDK on Mac OS Lion?",
+      "message_count": 2,
+      "participants": [
+        "Bhima Pandava",
+        "Simon Urbanek"
+      ],
+      "started": "2011-08-21T11:31:44+02:00",
+      "last_reply": "2011-08-25T15:58:50+01:00",
+      "root_message_id": "msg-eacc633f7105"
+    },
+    {
+      "id": "thread-be57556ea0ae",
+      "subject": "turn off text transforms",
+      "message_count": 3,
+      "participants": [
+        "Prof Brian Ripley",
+        "Simon Urbanek",
+        "Timothy Bates"
+      ],
+      "started": "2011-08-24T14:37:00+01:00",
+      "last_reply": "2011-08-25T16:04:13+01:00",
+      "root_message_id": "msg-be57556ea0ae"
+    }
+  ]
+}

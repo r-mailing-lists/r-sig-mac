@@ -1,0 +1,1043 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2014-05",
+  "messages": [
+    {
+      "id": "msg-3ca95bf75e25",
+      "message_id": "<6F07C8CA-9928-4C79-B343-96E85E1E2BAF@mac.com>",
+      "from_name": "美彦 馬場",
+      "from_email_hash": "531421b3679a9135c4a06ea9b9e1574f6e8053c36c7172ce959a7a98a66504a5",
+      "date": "2014-05-02T08:45:54+09:00",
+      "subject": "[R-SIG-Mac] rgdal on mac os 10.9",
+      "subject_clean": "rgdal on mac os 10.9",
+      "in_reply_to": "<7FE2ACEA-64AB-4668-A74B-F6BB62651284@stat.ucla.edu>",
+      "references": [
+        "<CC228526-4798-4815-AEA6-080E29CF9DAC@stat.ucla.edu>",
+        "<m2vbtr7z76.fsf@krugs.de>",
+        "<536119EA.3020904@stats.ox.ac.uk>",
+        "<m2mwf294x2.fsf@krugs.de>",
+        "<7FE2ACEA-64AB-4668-A74B-F6BB62651284@stat.ucla.edu>"
+      ],
+      "body_plain": "Ian,\n\nGiven your situation, you may want to consider using Fink at least for a while for the reasons below.\n\n1. Fink's R is stored in /sw, and allows another (.pkg or HomeBrew installed) R.\n2. You may delete /sw if you don't like it.\n3. Fink provides several Marvericks binaries of CRAN packages in dpkg format.  See\n  http://bindist.finkproject.org/10.9/dists/stable/main/binary-darwin-x86_64/sci/\n4. The CRAN binaries are linked to Fink's R, don't affect another R if installed.\n5. The CRAN binaries are stored in /sw/share, so another R can install its CRAN packages in $HOME.\n6. Fink is aware of compiler issues.  C++ packages on Marvericks are linked to libc++, not libstdc++.\n\nThe drawbacks are:\n1. You need to learn how to use Fink.\n2. Fink's CRAN packages are slightly older than official.\n\n\nOn May 1, 2014, at 1:42, Ian Fellows <ian.fellows at stat.ucla.edu> wrote:\n\n> Thanks for the replies everyone,\n> \n> @Simon: Thank you. That will be most useful, especially for those of us with dependent packages and (shall we say) a less sophisticated user base.\n> \n> @Brian: Thank you for pointing that out, though I think ?ignored\" is a inappropriate word. My main concern is not for myself (I can certainly figure out how to build and install rgdal and its dependancies), but for the users of my packages that depend on rgdal.\n> \n> It is good to hear that the snow leapord binaries work. I was a little hesitant to use them as your linked e-mail lists rgdal in both the ?it?s okay to use the binaries? category, and the ?it?s missing for good reason? category so I wasn?t entirely sure if a subtle binary incompatibility might crop up.\n> \n> @BABA and @Rainer: I?ve had (let?s say) mixed success with fink and homebrew. Thanks for sharing your experiences.\n> \n> Best,\n> Ian\n> \n> p.s. For reference, you can install rgdal from the snow leapord repo with:\n> \n> download.file(\"http://cran.r-project.org/bin/macosx/contrib/3.1/rgdal_0.8-16.tgz\",\"rgdal_0.8-16.tgz?)\n> install.packages(\"sp?)\n> install.packages(\"rgdal_0.8-16.tgz\",.libPaths()[1],NULL)\n> \n> \n> On Apr 30, 2014, at 9:07 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n> \n>> Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n>> \n>>> On 30/04/2014 13:56, Rainer M Krug wrote:\n>>>> If I remember correctly, the installation from source was quite easy:\n>>>> apart from the usual compilers, you need gdal installed, which installs\n>>>> easily via homebrew [1]. After this, installation of rgdal from source\n>>>> worked without any additional configurations?\n>>> \n>>> No, not really.\n>>> \n>>> 1) for a portable package you will need static GDAL.\n>>> \n>>> 2) GDAL can make use of a wide range of external software to read\n>>> raster files: without quite a lot of the optional ones it is not much\n>>> use for rgdal and other R packages.  Simon needs to build that for\n>>> Mavericks, and statically too.\n>> \n>> Sorry - I was talking of installing it in R via type=\"source\" not on\n>> CRAN. For CRAN it is definitely a different issue.\n>> \n>> \n>> Rainer\n>> \n>>> \n>>> However, Fellows has ignored all the advice to use the Snow Leopard\n>>> package of R 3.1.0 if he wants rgdal.  That is in the current manual\n>>> (http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X)\n>>> and was posted to this list recently\n>>> (https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).\n>>> That is by far the easiest solution.\n>>> \n>>>> \n>>>> Rainer\n>>>> \n>>>> \n>>>> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>>>> \n>>>>> Hi All,\n>>>>> \n>>>>> Does anyone know if there are plans to have rgdal compile correctly on\n>>>>> the CRAN Mavericks machine? I?ve really been enjoying the binaries\n>>>>> that have been available as building from source is a non-trival\n>>>>> hassle.\n>>>>> \n>>>>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>>>> \n>>>>> Best,\n>>>>> Ian\n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>>> \n>>>> Footnotes:\n>>>> [1]  http://brew.sh/\n>>>> \n>>>> \n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>> \n>> -- \n>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>> \n>> Centre of Excellence for Invasion Biology\n>> Stellenbosch University\n>> South Africa\n>> \n>> Tel :       +33 - (0)9 53 10 27 44\n>> Cell:       +33 - (0)6 85 62 59 98\n>> Fax :       +33 - (0)9 58 10 27 44\n>> \n>> Fax (D):    +49 - (0)3 21 21 25 22 44\n>> \n>> email:      Rainer at krugs.de\n>> \n>> Skype:      RMkrug\n>> \n>> PGP: 0x0F52F982\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Ian,\n\nGiven your situation, you may want to consider using Fink at least for a while for the reasons below.\n\n1. Fink's R is stored in /sw, and allows another (.pkg or HomeBrew installed) R.\n2. You may",
+      "thread_id": "thread-3ca95bf75e25",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-48abc2b8d9af",
+      "message_id": "<SNT405-EAS1956989DD09C0FBE73BA60AA64C0@phx.gbl>",
+      "from_name": "laurel lr",
+      "from_email_hash": "6fe079bf929228e48e95c1c07f335e98687dc7b43f47d029d2e308185431cbb7",
+      "date": "2014-05-04T23:58:10-06:00",
+      "subject": "[R-SIG-Mac] [R] tcltk makes R crash under Mavericks",
+      "subject_clean": "tcltk makes R crash under Mavericks",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140504/680ac39e/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140504/680ac39e/attachment.pl>",
+      "thread_id": "thread-48abc2b8d9af",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-4f2c56df5ec9",
+      "message_id": "<SNT405-EAS152011802EEDE25E9A0FEA4A64C0@phx.gbl>",
+      "from_name": "laurel lr",
+      "from_email_hash": "6fe079bf929228e48e95c1c07f335e98687dc7b43f47d029d2e308185431cbb7",
+      "date": "2014-05-04T23:59:02-06:00",
+      "subject": "[R-SIG-Mac] Segfault Error in GUI version of R",
+      "subject_clean": "Segfault Error in GUI version of R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140504/ef6bca6f/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140504/ef6bca6f/attachment.pl>",
+      "thread_id": "thread-4f2c56df5ec9",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-8076e65bf3c0",
+      "message_id": "<CAGx1TMDtxFsyawG5v9xAyMiMo=i=5sxzY=zf7u7UtVPbckx6xQ@mail.gmail.com>",
+      "from_name": "Richard M. Heiberger",
+      "from_email_hash": "4ce810eab8587777db353ea9d997b9e94d9e73af018121f9a3424238038952df",
+      "date": "2014-05-06T15:11:48-04:00",
+      "subject": "[R-SIG-Mac] warning message from OS X",
+      "subject_clean": "warning message from OS X",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "May  6 15:08:33 rmhs-MacBook-Air.local R[21671] <Error>:\nCGContextSetFont: invalid context 0x10064d430. This is a serious\nerror. This application, or a library it uses, is using an invalid\ncontext  and is thereby contributing to an overall degradation of\nsystem stability and reliability. This notice is a courtesy: please\nfix this problem. It will become a fatal error in an upcoming update.\n\nI get this message when I page up and down too quickly when using\nthe Quartz device.\nI use the keyboard Apple-LeftArrow and Apple-RightArrow.\n\nRich",
+      "body_snippet": "May  6 15:08:33 rmhs-MacBook-Air.local R[21671] <Error>:\nCGContextSetFont: invalid context 0x10064d430. This is a serious\nerror. This application, or a library it uses, is using an invalid\ncontext  an",
+      "thread_id": "thread-8076e65bf3c0",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-efb035be22a8",
+      "message_id": "<94B94483-43C8-4B2F-83C5-B1966B93C6A4@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2014-05-06T19:53:07-07:00",
+      "subject": "[R-SIG-Mac] Report of failure with installation of MonetDB.R",
+      "subject_clean": "Report of failure with installation of MonetDB.R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Hannes or anybody;\n\nI did not find any pages (despite searching) for the installation process of MonetDB on a Mac. I'm currently running MacOS 10.7.5 and R 3.1.0 Patched (2014-04-21 r65431) -- \"Spring Dance\". There is a source package for MonetDB at:\n\nhttps://www.monetdb.org/downloads/MacOSX/Jan2014-SP1/MonetDB-11.17.13-x86_64-Darwin-9-bin.tar.bz2\n\nIt's home page has direction for installation on Linux and PC but makes no mention of Macs. Downloading that file resulted in a couple of automatic steps and the creation in my ~/Download/ directory of a hierarchy of usr2/local/monetdb\n\nReading the MacOS R-FAQ in \"For R.app you may need to add e.g. /usr/local/bin and it is usually most convenient to use command-line R.\" Reasoning that the files in monetdb should actually go into usr/local/ I dragged them to that location with Finder.app, and authenticated when requested.\n\n(This process failed and I am now looking for instruction on properly installing on a Mac. Is this page going to lead me on the path of righteousness?\n\nhttps://developer.apple.com/library/mac/documentation/porting/conceptual/portingunix/compiling/compiling.html\n\nMy reading of Mac-SIG leads me to believe that using MacPorts will not be a stable strategy for interaction with R.\n\n-- \nDavid.\n\n========= failed efforts recorded below ==================\n\nI installed MonetDB.R from R.app using the Package installation dialog with \"install dependencies\" checked. \n\nlibrary(MonetDB.R) # succeeded without complaint and reported:\n\nLoading required package: DBI\nLoading required package: digest\n\nhelp(package=\"MonetDB.r\")  # Trying the Example code in monetdb.server.setup\n\n> startscript <- monetdb.server.setup(\"/tmp/database\",\"/usr/local/monetdb/\", \"db1\", 50001)\n> pid <- monetdb.server.start(startscript)\n/private/tmp/database/db1.sh: line 2: /usr/local/monetdb/mserver5: No such file or directory\nRead 1 item\n> monetdb.server.stop(pid)\n/bin/sh: line 0: kill: (22661) - No such process\n> conn <- dbConnect(MonetDB.R(), \"monetdb://localhost:50001/db1\")\nError in .local(drv, ...) : Could not connect to localhost:50001\n\n\nThen tried the code on the help page for 'MonetDB.R-package'\n\n> conn <- dbConnect(MonetDB.R(), \"monetdb://localhost/demo\")\nError in .local(drv, ...) : Could not connect to localhost:50000\n> dbListTables(conn)\nError in is(object, Cl) : \n  error in evaluating the argument 'conn' in selecting a method for function 'dbListTables': Error: object 'conn' not found\n> data(iris)\n> dbWriteTable(conn, \"iris\", iris)\nError in is(object, Cl) : \n  error in evaluating the argument 'conn' in selecting a method for function 'dbWriteTable': Error: object 'conn' not found\n> dbGetQuery(conn, \"SELECT COUNT(*) FROM iris;\")\nError in dbGetQuery(conn, \"SELECT COUNT(*) FROM iris;\") : \n  error in evaluating the argument 'conn' in selecting a method for function 'dbGetQuery': Error: object 'conn' not found\n> d <- dbReadTable(conn, \"iris\")\nError in is(object, Cl) : \n  error in evaluating the argument 'conn' in selecting a method for function 'dbReadTable': Error: object 'conn' not found\n\nSo obviously there is something about this client server setup that I have not done properly or understood how to access. I've been through the R-FAQ many times and still do not understand the issues surrounding the use of homebrew and MacPorts. It's something to do with binary files in the right places and I fear this is another instance of such failure.\n\n(I'm also unable to scroll the Mac-FAQ to see the end of the file when the window is wider than about 60 characters.)\n--  \nDavid Winsemius\nAlameda, CA, USA",
+      "body_snippet": "Dear Hannes or anybody;\n\nI did not find any pages (despite searching) for the installation process of MonetDB on a Mac. I'm currently running MacOS 10.7.5 and R 3.1.0 Patched (2014-04-21 r65431) -- \"S",
+      "thread_id": "thread-efb035be22a8",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-eda50bfcc422",
+      "message_id": "<CAJ55+d+crV5p1Givv5RZEDcAgK81ixWMoDMH=8c8Mx7v=uGtGQ@mail.gmail.com>",
+      "from_name": "Thomas Lumley",
+      "from_email_hash": "7d3e82acd7a177485858a278f82b82d7e665640301fe16d4c1d9312e4963cff3",
+      "date": "2014-05-07T15:19:02+12:00",
+      "subject": "[R-SIG-Mac] Report of failure with installation of MonetDB.R",
+      "subject_clean": "Report of failure with installation of MonetDB.R",
+      "in_reply_to": "<94B94483-43C8-4B2F-83C5-B1966B93C6A4@comcast.net>",
+      "references": [
+        "<94B94483-43C8-4B2F-83C5-B1966B93C6A4@comcast.net>"
+      ],
+      "body_plain": "The error message looks as if you need /bin on the end of the path:\nit's looking for /usr/local/monetdb/mserver5 but the file is probably\n/usr/local/monetdb/bin/mserver5\n\nPersonally, I start the server from the Terminal command line, per\nhttp://www.monetdb.com/Documentation/monetdbd\n\nFirst time only\n/usr/local/monetdb/bin/monetdbd create ~/my-dbfarm\n\nSubsequent times:\nBefore starting R\n/usr/local/monetdb/bin/monetdbd start ~/my-dbfarm\n\nAfter exiting R\n/usr/local/monetdb/bin/monetdbd start ~/my-dbfarm\n\n\n   -thomas\n\n\n\n\nOn Wed, May 7, 2014 at 2:53 PM, David Winsemius <dwinsemius at comcast.net> wrote:\n> Dear Hannes or anybody;\n>\n> I did not find any pages (despite searching) for the installation process of MonetDB on a Mac. I'm currently running MacOS 10.7.5 and R 3.1.0 Patched (2014-04-21 r65431) -- \"Spring Dance\". There is a source package for MonetDB at:\n>\n> https://www.monetdb.org/downloads/MacOSX/Jan2014-SP1/MonetDB-11.17.13-x86_64-Darwin-9-bin.tar.bz2\n>\n> It's home page has direction for installation on Linux and PC but makes no mention of Macs. Downloading that file resulted in a couple of automatic steps and the creation in my ~/Download/ directory of a hierarchy of usr2/local/monetdb\n>\n> Reading the MacOS R-FAQ in \"For R.app you may need to add e.g. /usr/local/bin and it is usually most convenient to use command-line R.\" Reasoning that the files in monetdb should actually go into usr/local/ I dragged them to that location with Finder.app, and authenticated when requested.\n>\n> (This process failed and I am now looking for instruction on properly installing on a Mac. Is this page going to lead me on the path of righteousness?\n>\n> https://developer.apple.com/library/mac/documentation/porting/conceptual/portingunix/compiling/compiling.html\n>\n> My reading of Mac-SIG leads me to believe that using MacPorts will not be a stable strategy for interaction with R.\n>\n> --\n> David.\n>\n> ========= failed efforts recorded below ==================\n>\n> I installed MonetDB.R from R.app using the Package installation dialog with \"install dependencies\" checked.\n>\n> library(MonetDB.R) # succeeded without complaint and reported:\n>\n> Loading required package: DBI\n> Loading required package: digest\n>\n> help(package=\"MonetDB.r\")  # Trying the Example code in monetdb.server.setup\n>\n>> startscript <- monetdb.server.setup(\"/tmp/database\",\"/usr/local/monetdb/\", \"db1\", 50001)\n>> pid <- monetdb.server.start(startscript)\n> /private/tmp/database/db1.sh: line 2: /usr/local/monetdb/mserver5: No such file or directory\n> Read 1 item\n>> monetdb.server.stop(pid)\n> /bin/sh: line 0: kill: (22661) - No such process\n>> conn <- dbConnect(MonetDB.R(), \"monetdb://localhost:50001/db1\")\n> Error in .local(drv, ...) : Could not connect to localhost:50001\n>\n>\n> Then tried the code on the help page for 'MonetDB.R-package'\n>\n>> conn <- dbConnect(MonetDB.R(), \"monetdb://localhost/demo\")\n> Error in .local(drv, ...) : Could not connect to localhost:50000\n>> dbListTables(conn)\n> Error in is(object, Cl) :\n>   error in evaluating the argument 'conn' in selecting a method for function 'dbListTables': Error: object 'conn' not found\n>> data(iris)\n>> dbWriteTable(conn, \"iris\", iris)\n> Error in is(object, Cl) :\n>   error in evaluating the argument 'conn' in selecting a method for function 'dbWriteTable': Error: object 'conn' not found\n>> dbGetQuery(conn, \"SELECT COUNT(*) FROM iris;\")\n> Error in dbGetQuery(conn, \"SELECT COUNT(*) FROM iris;\") :\n>   error in evaluating the argument 'conn' in selecting a method for function 'dbGetQuery': Error: object 'conn' not found\n>> d <- dbReadTable(conn, \"iris\")\n> Error in is(object, Cl) :\n>   error in evaluating the argument 'conn' in selecting a method for function 'dbReadTable': Error: object 'conn' not found\n>\n> So obviously there is something about this client server setup that I have not done properly or understood how to access. I've been through the R-FAQ many times and still do not understand the issues surrounding the use of homebrew and MacPorts. It's something to do with binary files in the right places and I fear this is another instance of such failure.\n>\n> (I'm also unable to scroll the Mac-FAQ to see the end of the file when the window is wider than about 60 characters.)\n> --\n> David Winsemius\n> Alameda, CA, USA\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\n-- \nThomas Lumley\nProfessor of Biostatistics\nUniversity of Auckland",
+      "body_snippet": "The error message looks as if you need /bin on the end of the path:\nit's looking for /usr/local/monetdb/mserver5 but the file is probably\n/usr/local/monetdb/bin/mserver5\n\nPersonally, I start the serve",
+      "thread_id": "thread-efb035be22a8",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-c70cb46047ab",
+      "message_id": "<1D7317FF-5B01-4D47-84C0-CFD14FECD4A4@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2014-05-06T21:23:06-07:00",
+      "subject": "[R-SIG-Mac] Solved ... was Re: Report of failure with installation of MonetDB.R",
+      "subject_clean": "Solved ... was Re: Report of failure with installation of MonetDB.R",
+      "in_reply_to": "<CAJ55+d+crV5p1Givv5RZEDcAgK81ixWMoDMH=8c8Mx7v=uGtGQ@mail.gmail.com>",
+      "references": [
+        "<94B94483-43C8-4B2F-83C5-B1966B93C6A4@comcast.net>",
+        "<CAJ55+d+crV5p1Givv5RZEDcAgK81ixWMoDMH=8c8Mx7v=uGtGQ@mail.gmail.com>"
+      ],
+      "body_plain": "On May 6, 2014, at 8:19 PM, Thomas Lumley wrote:\n\n> The error message looks as if you need /bin on the end of the path:\n> it's looking for /usr/local/monetdb/mserver5 but the file is probably\n> /usr/local/monetdb/bin/mserver5\n> \n> Personally, I start the server from the Terminal command line, per\n> http://www.monetdb.com/Documentation/monetdbd\n> \n> First time only\n> /usr/local/monetdb/bin/monetdbd create ~/my-dbfarm\n> \n> Subsequent times:\n> Before starting R\n> /usr/local/monetdb/bin/monetdbd start ~/my-dbfarm\n\nBoth of those commands run without error from the Terminal.app command line. When I execute one of the suggested commands in the Documentation page, I get:\n\ndavid-winsemiuss-mac-pro:~ davidwinsemius$ monetdbd get all ~/my-dbfarm\n-bash: monetdbd: command not found\n\nBut if I give it a full path it succeeds:\ndavid-winsemiuss-mac-pro:~ davidwinsemius$ /usr/local/monetdb/bin/monetdbd get all ~/my-dbfarm\n   property            value\nhostname         david-winsemiuss-mac-pro.local\ndbfarm           /Users/davidwinsemius/my-dbfarm\nstatus           monetdbd[22794] 1.7 (Jan2014-SP1) is serving this dbfarm\nmserver          /usr/local/monetdb/bin/mserver5\nlogfile          /Users/davidwinsemius/my-dbfarm/merovingian.log\npidfile          /Users/davidwinsemius/my-dbfarm/merovingian.pid\nsockdir          /tmp\nport             50000\nexittimeout      60\nforward          proxy\ndiscovery        true\ndiscoveryttl     600\ncontrol          no\npassphrase       <unknown>\nmapisock         /tmp/.s.monetdb.50000\ncontrolsock      /tmp/.s.merovingian.50000\n\nSo I think I may need to add /usr/local/monetdb/bin/ to my bash PATH.\n\n\n Adding it to my Sys.path may be needed as well because the help page example still fails:\n\n> library(MonetDB.R)\nLoading required package: DBI\nLoading required package: digest\n> conn <- dbConnect(MonetDB.R(), \"monetdb://localhost/demo\")\nError in .monetAuthenticate(socket, dbname, user, password, language = language) : \n  Authentication error: !monetdbd: no such database 'demo', please create it first\n\n> Sys.getenv()['PATH']\n                                                                                                                                  PATH \n\"/opt/local/bin:/opt/local/sbin:/sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/texbin:/usr/X11/bin:/usr/X11R6/bin\" \n\nI finally decide that was not needed after working through a bit more of the documentation going back and forth between the bash console and the R console:\n\n> conn <- dbConnect(MonetDB.R(), \"monetdb://david-winsemiuss-mac-pro.local/demo\")\nError in .monetAuthenticate(socket, dbname, user, password, language = language) : \n  Authentication error: !monetdbd: no such database 'demo', please create it first\n\nSo I tried creating it with:\n\ndavid-winsemiuss-mac-pro:~ davidwinsemius$ /usr/local/monetdb/bin/monetdb create demo\ncreated database in maintenance mode: demo\n\n> conn <- dbConnect(MonetDB.R(), \"monetdb://david-winsemiuss-mac-pro.local/demo\")\nError in .monetAuthenticate(socket, dbname, user, password, language = language) : \n  Authentication error: !monetdbd: database 'demo' is under maintenance\n\nSo I ran the next command from the MonetDB documentation:\n\ndavid-winsemiuss-mac-pro:~ davidwinsemius$ /usr/local/monetdb/bin/monetdb start demo\nstarting database 'demo'... done\n\nThen the example code runs:\n\n> conn <- dbConnect(MonetDB.R(), \"monetdb://david-winsemiuss-mac-pro.local/demo\")\n> dbListTables(conn)\ncharacter(0)\n> data(iris)\n> dbWriteTable(conn, \"iris\", iris)\n[1] TRUE\n> dbGetQuery(conn, \"SELECT COUNT(*) FROM iris;\")\n   L1\n1 150\n> d <- dbReadTable(conn, \"iris\")\n> str(d)\n'data.frame':\t150 obs. of  5 variables:\n $ sepal_length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...\n $ sepal_width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...\n $ petal_length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...\n $ petal_width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...\n $ species     : chr  \"setosa\" \"setosa\" \"setosa\" \"setosa\" ...\n\nI still need to add the ../monetdb/bin location to my bash PATH, but I think I can figure than out\n\n\nThank you for your assistance, Thomas.\n\n-- \nDavid\n\n\n> \n> After exiting R\n> /usr/local/monetdb/bin/monetdbd start ~/my-dbfarm\n> \n> \n>   -thomas\n> \n> \n> \n> \n> On Wed, May 7, 2014 at 2:53 PM, David Winsemius <dwinsemius at comcast.net> wrote:\n>> Dear Hannes or anybody;\n>> \n>> I did not find any pages (despite searching) for the installation process of MonetDB on a Mac. I'm currently running MacOS 10.7.5 and R 3.1.0 Patched (2014-04-21 r65431) -- \"Spring Dance\". There is a source package for MonetDB at:\n>> \n>> https://www.monetdb.org/downloads/MacOSX/Jan2014-SP1/MonetDB-11.17.13-x86_64-Darwin-9-bin.tar.bz2\n>> \n>> It's home page has direction for installation on Linux and PC but makes no mention of Macs. Downloading that file resulted in a couple of automatic steps and the creation in my ~/Download/ directory of a hierarchy of usr2/local/monetdb\n>> \n>> Reading the MacOS R-FAQ in \"For R.app you may need to add e.g. /usr/local/bin and it is usually most convenient to use command-line R.\" Reasoning that the files in monetdb should actually go into usr/local/ I dragged them to that location with Finder.app, and authenticated when requested.\n>> \n>> (This process failed and I am now looking for instruction on properly installing on a Mac. Is this page going to lead me on the path of righteousness?\n>> \n>> https://developer.apple.com/library/mac/documentation/porting/conceptual/portingunix/compiling/compiling.html\n>> \n>> My reading of Mac-SIG leads me to believe that using MacPorts will not be a stable strategy for interaction with R.\n>> \n>> --\n>> David.\n>> \n>> ========= failed efforts recorded below ==================\n>> \n>> I installed MonetDB.R from R.app using the Package installation dialog with \"install dependencies\" checked.\n>> \n>> library(MonetDB.R) # succeeded without complaint and reported:\n>> \n>> Loading required package: DBI\n>> Loading required package: digest\n>> \n>> help(package=\"MonetDB.r\")  # Trying the Example code in monetdb.server.setup\n>> \n>>> startscript <- monetdb.server.setup(\"/tmp/database\",\"/usr/local/monetdb/\", \"db1\", 50001)\n>>> pid <- monetdb.server.start(startscript)\n>> /private/tmp/database/db1.sh: line 2: /usr/local/monetdb/mserver5: No such file or directory\n>> Read 1 item\n>>> monetdb.server.stop(pid)\n>> /bin/sh: line 0: kill: (22661) - No such process\n>>> conn <- dbConnect(MonetDB.R(), \"monetdb://localhost:50001/db1\")\n>> Error in .local(drv, ...) : Could not connect to localhost:50001\n>> \n>> \n>> Then tried the code on the help page for 'MonetDB.R-package'\n>> \n>>> conn <- dbConnect(MonetDB.R(), \"monetdb://localhost/demo\")\n>> Error in .local(drv, ...) : Could not connect to localhost:50000\n>>> dbListTables(conn)\n>> Error in is(object, Cl) :\n>>  error in evaluating the argument 'conn' in selecting a method for function 'dbListTables': Error: object 'conn' not found\n>>> data(iris)\n>>> dbWriteTable(conn, \"iris\", iris)\n>> Error in is(object, Cl) :\n>>  error in evaluating the argument 'conn' in selecting a method for function 'dbWriteTable': Error: object 'conn' not found\n>>> dbGetQuery(conn, \"SELECT COUNT(*) FROM iris;\")\n>> Error in dbGetQuery(conn, \"SELECT COUNT(*) FROM iris;\") :\n>>  error in evaluating the argument 'conn' in selecting a method for function 'dbGetQuery': Error: object 'conn' not found\n>>> d <- dbReadTable(conn, \"iris\")\n>> Error in is(object, Cl) :\n>>  error in evaluating the argument 'conn' in selecting a method for function 'dbReadTable': Error: object 'conn' not found\n>> \n>> So obviously there is something about this client server setup that I have not done properly or understood how to access. I've been through the R-FAQ many times and still do not understand the issues surrounding the use of homebrew and MacPorts. It's something to do with binary files in the right places and I fear this is another instance of such failure.\n>> \n>> (I'm also unable to scroll the Mac-FAQ to see the end of the file when the window is wider than about 60 characters.)\n>> --\n>> David Winsemius\n>> Alameda, CA, USA\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> \n> -- \n> Thomas Lumley\n> Professor of Biostatistics\n> University of Auckland\n\nDavid Winsemius\nAlameda, CA, USA",
+      "body_snippet": "On May 6, 2014, at 8:19 PM, Thomas Lumley wrote:\n\n> The error message looks as if you need /bin on the end of the path:\n> it's looking for /usr/local/monetdb/mserver5 but the file is probably\n> /usr/l",
+      "thread_id": "thread-efb035be22a8",
+      "thread_depth": 2,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-c1c77fae71cd",
+      "message_id": "<5FB5AB9B-B054-414A-AEF0-329BF3669BEE@gmail.com>",
+      "from_name": "Tim Bates",
+      "from_email_hash": "906d407a729647cc91c4e43ce28d4fcaa3d8c31102184befaff986e86fb70998",
+      "date": "2014-05-09T20:04:57+01:00",
+      "subject": "[R-SIG-Mac] tip bar parameters: can it be modified to show specific S3 method parameter lists?",
+      "subject_clean": "tip bar parameters: can it be modified to show specific S3 method parameter lists?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "It blows windows people away when they see the \"tip bar? (the bottom bar that shows function parameters) display all the parameters for an obscure function.\n\nIt similarly dismays mac users when it shows something un-explainatory like\n\nfunction_I_havent_used_for_ages(x, ?) # i.e., ? instead of the list for the specific S3 the user wants\n\nQuestion: Is there are way to \n\n1. modify the function bar so that if the user, for instance, fills in parameter 1, the tip updates with the parameters for that hanlder.\n\nso \"plot(? would show the following in the bottom bar:\n\nplot(x,y,?)\n\nbut  \"plot(myOpenMxModel,\"\nwould show\nplot(myOpenMxModel, std = T, digits = 2, dotFilename = \"name\", pathLabels = c(\"none\", \"labels\", \"both?), showFixed = F, showError = T, precision = NULL)\n\n2. With lots of parameters, the font size is too small (the list wraps and instead of the bar doubling in height, the font halves: If it was possible to either increase or fix the font size and grow the boar height, that would be great!\n\nthanks,\ntim",
+      "body_snippet": "It blows windows people away when they see the \"tip bar? (the bottom bar that shows function parameters) display all the parameters for an obscure function.\n\nIt similarly dismays mac users when it sho",
+      "thread_id": "thread-c1c77fae71cd",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-dd9ffb1c51b9",
+      "message_id": "<53707BE9.5050002@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-05-12T08:44:41+01:00",
+      "subject": "[R-SIG-Mac] rgeos and rgdal binary packages for Mavericks",
+      "subject_clean": "rgeos and rgdal binary packages for Mavericks",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have put statically-linked packages up on CRANxtras for the CRAN \nMavericks distribution.  To use,\n\nsetRepositories(ind = c(1,6))  # so you get the dependencies from CRAN\ninstall.packages(c('rgeos', 'rgdal'))\n\n[It is nothing like so easy to do from the R.app menus.]\n\nrgdal is compiled against the latest GDAL 1.11.0 and has a good range of \nGDAL and OGR drivers compiled in.\n\nHowever, any packages which depend on these will need to compiled from \nsource unless/until binaries are built for the main CRAN repository.\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "I have put statically-linked packages up on CRANxtras for the CRAN \nMavericks distribution.  To use,\n\nsetRepositories(ind = c(1,6))  # so you get the dependencies from CRAN\ninstall.packages(c('rgeos',",
+      "thread_id": "thread-dd9ffb1c51b9",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-78fb9a63eec1",
+      "message_id": "<CAJqbkv69cTFO8YSQf7JRDbw2M5mM3pdiAVPnNa71Jbx+c6gWXA@mail.gmail.com>",
+      "from_name": "Paul Cantalupo",
+      "from_email_hash": "9dcae7ea69a96074da5c6774d0f35cb3a07fa8d88556002493a0a51841c5c673",
+      "date": "2014-05-12T08:48:05-04:00",
+      "subject": "[R-SIG-Mac] invalid digital signature for R-3.1.0-mavericks",
+      "subject_clean": "invalid digital signature for R-3.1.0-mavericks",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140512/7c0d93cf/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140512/7c0d93cf/attachment.pl>",
+      "thread_id": "thread-78fb9a63eec1",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-888b0474de57",
+      "message_id": "<E6D3F834-3D07-492B-9BDB-AA98E260F4B4@uv.es>",
+      "from_name": "Agustín Diez Castillo",
+      "from_email_hash": "06e9fc2d532549390e19725bb420f27d90cbc300bb6655696455523fe060dbc4",
+      "date": "2014-05-12T15:14:22+02:00",
+      "subject": "[R-SIG-Mac] Problems loading rgeos and rgdal binary packages for Mavericks",
+      "subject_clean": "Problems loading rgeos and rgdal binary packages for Mavericks",
+      "in_reply_to": "<53707BE9.5050002@stats.ox.ac.uk>",
+      "references": [
+        "<53707BE9.5050002@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Thanks a lot for that,\nSurely I did something wrong, if so disregard this. In the unlikely case I did it wright, I?m getting an error when trying to load either rgdal [1] or rgeos [2]\n[1]\nError in dyn.load(file, DLLpath = DLLpath, ...) : \n  unable to load shared object '/Users/agus/Library/R/3.1/library/rgdal/libs/rgdal.so':\n  dlopen(/Users/agus/Library/R/3.1/library/rgdal/libs/rgdal.so, 6): Library not loaded: libR.dylib\n  Referenced from: /Users/agus/Library/R/3.1/library/rgdal/libs/rgdal.so\n  Reason: image not found\nError: package or namespace load failed for ?rgdal?\n[2]\nError in dyn.load(file, DLLpath = DLLpath, ...) : \n  unable to load shared object '/Users/agus/Library/R/3.1/library/rgeos/libs/rgeos.so':\n  dlopen(/Users/agus/Library/R/3.1/library/rgeos/libs/rgeos.so, 6): Library not loaded: libR.dylib\n  Referenced from: /Users/agus/Library/R/3.1/library/rgeos/libs/rgeos.so\n  Reason: image not found\nError: package or namespace load failed for ?rgeos?\n\nsessionInfo()\nR version 3.1.0 Patched (2014-04-26 r65504)\nPlatform: x86_64-apple-darwin13.1.0 (64-bit)\n\nlocale:\n[1] en_US.UTF-8/UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] sp_1.0-15\n\nloaded via a namespace (and not attached):\n[1] grid_3.1.0      lattice_0.20-29 tools_3.1.0\nOn 12 May 2014, at 09:44, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n\n> I have put statically-linked packages up on CRANxtras for the CRAN Mavericks distribution.  To use,\n> \n> setRepositories(ind = c(1,6))  # so you get the dependencies from CRAN\n> install.packages(c('rgeos', 'rgdal'))\n> \n> [It is nothing like so easy to do from the R.app menus.]\n> \n> rgdal is compiled against the latest GDAL 1.11.0 and has a good range of GDAL and OGR drivers compiled in.\n> \n> However, any packages which depend on these will need to compiled from source unless/until binaries are built for the main CRAN repository.\n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Thanks a lot for that,\nSurely I did something wrong, if so disregard this. In the unlikely case I did it wright, I?m getting an error when trying to load either rgdal [1] or rgeos [2]\n[1]\nError in dyn",
+      "thread_id": "thread-dd9ffb1c51b9",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-44864976de46",
+      "message_id": "<5370D1FA.3020309@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-05-12T14:51:54+01:00",
+      "subject": "[R-SIG-Mac] Problems loading rgeos and rgdal binary packages for Mavericks",
+      "subject_clean": "Problems loading rgeos and rgdal binary packages for Mavericks",
+      "in_reply_to": "<E6D3F834-3D07-492B-9BDB-AA98E260F4B4@uv.es>",
+      "references": [
+        "<53707BE9.5050002@stats.ox.ac.uk>",
+        "<E6D3F834-3D07-492B-9BDB-AA98E260F4B4@uv.es>"
+      ],
+      "body_plain": "These were only tested with command-line R, and I did not know R.app \n(which I never use) was different.  Now fixed for use with R.app.\n\nThanks for the report.\n\nOn 12/05/2014 14:14, Agust?n Diez Castillo wrote:\n> Thanks a lot for that,\n> Surely I did something wrong, if so disregard this. In the unlikely case I did it wright, I?m getting an error when trying to load either rgdal [1] or rgeos [2]\n> [1]\n> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>    unable to load shared object '/Users/agus/Library/R/3.1/library/rgdal/libs/rgdal.so':\n>    dlopen(/Users/agus/Library/R/3.1/library/rgdal/libs/rgdal.so, 6): Library not loaded: libR.dylib\n>    Referenced from: /Users/agus/Library/R/3.1/library/rgdal/libs/rgdal.so\n>    Reason: image not found\n> Error: package or namespace load failed for ?rgdal?\n> [2]\n> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>    unable to load shared object '/Users/agus/Library/R/3.1/library/rgeos/libs/rgeos.so':\n>    dlopen(/Users/agus/Library/R/3.1/library/rgeos/libs/rgeos.so, 6): Library not loaded: libR.dylib\n>    Referenced from: /Users/agus/Library/R/3.1/library/rgeos/libs/rgeos.so\n>    Reason: image not found\n> Error: package or namespace load failed for ?rgeos?\n>\n> sessionInfo()\n> R version 3.1.0 Patched (2014-04-26 r65504)\n> Platform: x86_64-apple-darwin13.1.0 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] sp_1.0-15\n>\n> loaded via a namespace (and not attached):\n> [1] grid_3.1.0      lattice_0.20-29 tools_3.1.0\n> On 12 May 2014, at 09:44, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>\n>> I have put statically-linked packages up on CRANxtras for the CRAN Mavericks distribution.  To use,\n>>\n>> setRepositories(ind = c(1,6))  # so you get the dependencies from CRAN\n>> install.packages(c('rgeos', 'rgdal'))\n>>\n>> [It is nothing like so easy to do from the R.app menus.]\n>>\n>> rgdal is compiled against the latest GDAL 1.11.0 and has a good range of GDAL and OGR drivers compiled in.\n>>\n>> However, any packages which depend on these will need to compiled from source unless/until binaries are built for the main CRAN repository.\n>>\n>> --\n>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "These were only tested with command-line R, and I did not know R.app \n(which I never use) was different.  Now fixed for use with R.app.\n\nThanks for the report.\n\nOn 12/05/2014 14:14, Agust?n Diez Casti",
+      "thread_id": "thread-dd9ffb1c51b9",
+      "thread_depth": 2,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-606525b053d1",
+      "message_id": "<5370F85F.9060904@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-05-12T17:35:43+01:00",
+      "subject": "[R-SIG-Mac] invalid digital signature for R-3.1.0-mavericks",
+      "subject_clean": "invalid digital signature for R-3.1.0-mavericks",
+      "in_reply_to": "<CAJqbkv69cTFO8YSQf7JRDbw2M5mM3pdiAVPnNa71Jbx+c6gWXA@mail.gmail.com>",
+      "references": [
+        "<CAJqbkv69cTFO8YSQf7JRDbw2M5mM3pdiAVPnNa71Jbx+c6gWXA@mail.gmail.com>"
+      ],
+      "body_plain": "Two possibilities from \nhttp://stackoverflow.com/questions/11958643/how-do-i-prevent-the-the-package-was-signed-with-an-invalid-certificate-warnin \n:\n\n1) Your security settings might allow only downloads from the App Store \n(look at System Preferences | Security & Privacy | General).\n\n2) Your certificate chain is broken.\n\nAlso, check your OS is fully updated: some googling shows Apple updates \nas a cause for similar problems.\n\nOn 12/05/2014 13:48, Paul Cantalupo wrote:\n> Hello,\n>\n> I'm trying to upgrade R from 3.0.3 to 3.1 on MacBookPro Mavericks 10.9.2.\n> After downloading R-3.1.0-mavericks.pkg from http://cran.stat.ucla.edu/ and\n> clicking it, I get the following error message:\n>\n> \"R-3.1.0-mavericks.pkg can't be installed because its digital signature is\n> invalid\".\n>\n> I checked the md5 signature with md5sum and it matches that found on the\n\nAgain: that is not a signature: it is a 'hash' or 'checksum' or 'digest'.\n\n> download page. I also tried re-downloading the package from different\n> mirror sites and I get the same error. I also tried R-3.1.0-snowleopard.pkg\n> but I got the following error:\n>\n> \"This package was signed with an invalid certificate. This package might\n> not install what you expect.\"\n>\n> But unlike the mavericks.pkg, the snowleopard.pkg provides me the option to\n> continue the install in spite of the warning.\n>\n> Why am I getting these 'invalid' warnings? How do I securely and properly\n> install R 3.1 on my Mac that is running Mavericks? It is strange that just\n> a few weeks ago, I did not have these problems installing R 3.0.3.\n>\n> Thank you for your help,\n>\n>\n> Paul\n>\n> P.S. I originally posted this email here\n> https://stat.ethz.ch/pipermail/r-help/2014-May/374522.html\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "Two possibilities from \nhttp://stackoverflow.com/questions/11958643/how-do-i-prevent-the-the-package-was-signed-with-an-invalid-certificate-warnin \n:\n\n1) Your security settings might allow only downlo",
+      "thread_id": "thread-78fb9a63eec1",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-b09b007a7816",
+      "message_id": "<loom.20140514T181135-440@post.gmane.org>",
+      "from_name": "Christopher Quick",
+      "from_email_hash": "cf5b9bd7887a94e5bb0b833787e8fdf0763c66c2b4fe044eab36f23bcf2306f9",
+      "date": "2014-05-14T16:13:15Z",
+      "subject": "[R-SIG-Mac] rgeos and rgdal binary packages for Mavericks",
+      "subject_clean": "rgeos and rgdal binary packages for Mavericks",
+      "in_reply_to": null,
+      "references": [
+        "<53707BE9.5050002@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Prof Brian Ripley <ripley <at> stats.ox.ac.uk> writes:\n\n> \n> I have put statically-linked packages up on CRANxtras for the CRAN \n> Mavericks distribution.  To use,\n> \n> setRepositories(ind = c(1,6))  # so you get the dependencies from CRAN\n> install.packages(c('rgeos', 'rgdal'))\n> \n> [It is nothing like so easy to do from the R.app menus.]\n> \n> rgdal is compiled against the latest GDAL 1.11.0 and has a good range of \n> GDAL and OGR drivers compiled in.\n> \n> However, any packages which depend on these will need to compiled from \n> source unless/until binaries are built for the main CRAN repository.\n> \n\nThank you very much for doing this Brian! \nIt worked splendidly and saved me the trouble of building \nfrom source.",
+      "body_snippet": "Prof Brian Ripley <ripley <at> stats.ox.ac.uk> writes:\n\n> \n> I have put statically-linked packages up on CRANxtras for the CRAN \n> Mavericks distribution.  To use,\n> \n> setRepositories(ind = c(1,6))  ",
+      "thread_id": "thread-dd9ffb1c51b9",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-5b644d954dab",
+      "message_id": "<6E601D64-3EAB-4592-9525-1FF7E9E3E0CD@mac.com>",
+      "from_name": "thatsanicehatyouhave at mac.com",
+      "from_email_hash": "8fe07689db02ed380aac0cf23ce2a464538daa23b7efb375d11e55a021b11301",
+      "date": "2014-05-16T16:34:18-04:00",
+      "subject": "[R-SIG-Mac] Passing external data to R",
+      "subject_clean": "Passing external data to R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nIs there a way to pass data and/or commands to R from an external program? For example, let's say I have a Cocoa program (that I'm writing) and R running in the background. Is there a mechanism where I can send data to R such that it will be accessible from the console window? Can I send data and a plot command to open a window in R and plot it there?\n\nMore generally, is there a cross-platform mechanism for this as well? I've been searching but haven't come up with anything great. I did find RPy2 where one could send data and plotting commands to R, but the plot I made was modal which isn't great.\n\nThanks!\n\nDemitri",
+      "body_snippet": "Hi,\n\nIs there a way to pass data and/or commands to R from an external program? For example, let's say I have a Cocoa program (that I'm writing) and R running in the background. Is there a mechanism w",
+      "thread_id": "thread-5b644d954dab",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-14e8fc4c95e3",
+      "message_id": "<53787E02.1070506@gmail.com>",
+      "from_name": "Ville Hallikainen",
+      "from_email_hash": "25fbcce3151510284558abffc15684970d9056e29d71eec4dcb37f048c271b08",
+      "date": "2014-05-18T12:31:46+03:00",
+      "subject": "[R-SIG-Mac] Fwd: The old versions of versions, and especially packages",
+      "subject_clean": "The old versions of versions, and especially packages",
+      "in_reply_to": "<53787D4F.70806@gmail.com>",
+      "references": [
+        "<53787D4F.70806@gmail.com>"
+      ],
+      "body_plain": "Dear R-users,\nwhat is the most easiest way to download old versions of R and it's\npackages. I have found some functions, but none of them have worked. How\nto use the Archieve for this purpose. I would like to have detailed\ninstructions for Mac. I would need only some older version e.g. effects\n2.2-4. I know the address at http://cran.r-project.org/bin/macosx/old/.\n\nVille",
+      "body_snippet": "Dear R-users,\nwhat is the most easiest way to download old versions of R and it's\npackages. I have found some functions, but none of them have worked. How\nto use the Archieve for this purpose. I would",
+      "thread_id": "thread-14e8fc4c95e3",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-490689839f89",
+      "message_id": "<loom.20140521T021520-838@post.gmane.org>",
+      "from_name": "Sorin Matei",
+      "from_email_hash": "485666f3cffb55e37f5febe1e69901a74a8b7a2d6c473010a74776a85f63b41d",
+      "date": "2014-05-21T00:16:58Z",
+      "subject": "[R-SIG-Mac] Package",
+      "subject_clean": "Package",
+      "in_reply_to": null,
+      "references": [
+        "<CAM=hxMxpNOEFUHLym6pa6nZ68EPWAPRvv2G=ZLV8HsA0Mg_kPg@mail.gmail.com>",
+        "<535589B0.8070906@stats.ox.ac.uk>",
+        "<CAM=hxMxgDOU0OGx9CAdNR17dkpE51J=cw0DwZpAn6uAuJFJ0xQ@mail.gmail.com>"
+      ],
+      "body_plain": "Allen,\n\nI have the exact same problem. Did you find a solution\n\nAllen Lin <cheetah0513 <at> gmail.com> writes:",
+      "body_snippet": "Allen,\n\nI have the exact same problem. Did you find a solution\n\nAllen Lin <cheetah0513 <at> gmail.com> writes:",
+      "thread_id": "thread-490689839f89",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-a7efbdedda9b",
+      "message_id": "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com>",
+      "from_name": "Grant Rettke",
+      "from_email_hash": "6ea8db3c06087f6dac3f0fd206429f0ee1570896646ccbf2d72f907f7c04ca64",
+      "date": "2014-05-21T14:37:43-05:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140521/d137c6ba/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140521/d137c6ba/attachment.pl>",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-87bc081fdcd9",
+      "message_id": "<B074C835-5F05-4D0B-BCBF-DBBF4A3A8050@me.com>",
+      "from_name": "Vincent Goulet",
+      "from_email_hash": "bc5a6cd6b19b750ccb5f3272cd4a5e7069b8d280acb0bad2b7995c0e4290f59f",
+      "date": "2014-05-21T18:32:53-04:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com>",
+      "references": [
+        "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com>"
+      ],
+      "body_plain": "Ok, I'm biased here, but for me (and my students!) the simple procedure is:\n\n1. Install the R binary from CRAN;\n\n2. Install my Emacs distribution for OS X that comes bundled with ESS: http://vgoulet.act.ulaval.ca/en/emacs/mac\n\n3. Enjoy.\n\nEnvoy? de mon iPad\n\n> Le 2014-05-21 ? 15:37, Grant Rettke <gcr at wisdomandwonder.com> a ?crit :\n> \n> Hi,\n> \n> I'm working on setting up a new to me OSX machine with R. My preference is\n> via Homebrew, with which I'll\n> be using Emacs and ESS. Looking out for trouble, I tried to do a little\n> legwork first of all to see what is the status quo for installing R on\n> Mavericks. There are more than a few options and I am wanting to get your\n> feedback on what worked for you, and if you happened to follow any of these\n> directions. Here is what I found:\n> \n> https://onote2.github.io/2013/12/04/install-r-on-mac-os-x-109-mavericks/\n> \n> The simplest. Looks great.\n> \n> http://davidsimpson.me/2013/02/26/installing-r-on-os-x/\n> \n> Also simple.\n> \n> http://zmjones.com/mac-setup/#R\n> \n> Also quite simple.\n> \n> http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#step-1\n> https://github.com/Homebrew/homebrew-science/issues/427\n> \n> Sometimes things go wrong?\n> \n> http://cran.r-project.org/bin/macosx/\n> \n> If all else fails, or perhaps are any of you Emacs users using this instead\n> of Homebrew?\n> \n> It looks pretty straightforward at this point; just wanted to talk to some\n> other folks and see what worked for them.\n> \n> Kind regards,\n> \n> Grant Rettke | AAAS, ACM, ASA, FSF, IEEE, SIAM, Sigma Xi\n> gcr at wisdomandwonder.com | http://www.wisdomandwonder.com/\n> ?Wisdom begins in wonder.? --Socrates\n> ((? (x) (x x)) (? (x) (x x)))\n> ?Life has become immeasurably better since I have been forced to stop\n> taking it seriously.? --Thompson\n> \n>    [[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Ok, I'm biased here, but for me (and my students!) the simple procedure is:\n\n1. Install the R binary from CRAN;\n\n2. Install my Emacs distribution for OS X that comes bundled with ESS: http://vgoulet.a",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-4858273d7841",
+      "message_id": "<896199462.578789.1400712139614.JavaMail.root@fhcrc.org>",
+      "from_name": "Dan Tenenbaum",
+      "from_email_hash": "588191179e1473316acba74fd9f9fb7b6024bc1e0dcdc5cb81f8f2c35fa8200c",
+      "date": "2014-05-21T15:42:19-07:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<B074C835-5F05-4D0B-BCBF-DBBF4A3A8050@me.com>",
+      "references": [],
+      "body_plain": "----- Original Message -----\n> From: \"Vincent Goulet\" <vincent.goulet at me.com>\n> To: \"Grant Rettke\" <gcr at wisdomandwonder.com>\n> Cc: r-sig-mac at r-project.org\n> Sent: Wednesday, May 21, 2014 3:32:53 PM\n> Subject: Re: [R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?\n> \n> Ok, I'm biased here, but for me (and my students!) the simple\n> procedure is:\n> \n> 1. Install the R binary from CRAN;\n\nI agree. I believe (correct me if I am wrong) that if you install R in any other way, including Homebrew, you cannot install and use binary CRAN and Bioconductor packages. Which means you have to have a development environment on your machine and you have to wait for every package to build from source.\n\nDan\n\n\n> \n> 2. Install my Emacs distribution for OS X that comes bundled with\n> ESS: http://vgoulet.act.ulaval.ca/en/emacs/mac\n> \n> 3. Enjoy.\n> \n> Envoy? de mon iPad\n> \n> > Le 2014-05-21 ? 15:37, Grant Rettke <gcr at wisdomandwonder.com> a\n> > ?crit :\n> > \n> > Hi,\n> > \n> > I'm working on setting up a new to me OSX machine with R. My\n> > preference is\n> > via Homebrew, with which I'll\n> > be using Emacs and ESS. Looking out for trouble, I tried to do a\n> > little\n> > legwork first of all to see what is the status quo for installing R\n> > on\n> > Mavericks. There are more than a few options and I am wanting to\n> > get your\n> > feedback on what worked for you, and if you happened to follow any\n> > of these\n> > directions. Here is what I found:\n> > \n> > https://onote2.github.io/2013/12/04/install-r-on-mac-os-x-109-mavericks/\n> > \n> > The simplest. Looks great.\n> > \n> > http://davidsimpson.me/2013/02/26/installing-r-on-os-x/\n> > \n> > Also simple.\n> > \n> > http://zmjones.com/mac-setup/#R\n> > \n> > Also quite simple.\n> > \n> > http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#step-1\n> > https://github.com/Homebrew/homebrew-science/issues/427\n> > \n> > Sometimes things go wrong?\n> > \n> > http://cran.r-project.org/bin/macosx/\n> > \n> > If all else fails, or perhaps are any of you Emacs users using this\n> > instead\n> > of Homebrew?\n> > \n> > It looks pretty straightforward at this point; just wanted to talk\n> > to some\n> > other folks and see what worked for them.\n> > \n> > Kind regards,\n> > \n> > Grant Rettke | AAAS, ACM, ASA, FSF, IEEE, SIAM, Sigma Xi\n> > gcr at wisdomandwonder.com | http://www.wisdomandwonder.com/\n> > ?Wisdom begins in wonder.? --Socrates\n> > ((? (x) (x x)) (? (x) (x x)))\n> > ?Life has become immeasurably better since I have been forced to\n> > stop\n> > taking it seriously.? --Thompson\n> > \n> >    [[alternative HTML version deleted]]\n> > \n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "----- Original Message -----\n> From: \"Vincent Goulet\" <vincent.goulet at me.com>\n> To: \"Grant Rettke\" <gcr at wisdomandwonder.com>\n> Cc: r-sig-mac at r-project.org\n> Sent: Wednesday, May 21, 2014 3:32",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 2,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-7af1dd65b0a7",
+      "message_id": "<537D87A3.8090805@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-05-22T06:14:11+01:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<896199462.578789.1400712139614.JavaMail.root@fhcrc.org>",
+      "references": [
+        "<896199462.578789.1400712139614.JavaMail.root@fhcrc.org>"
+      ],
+      "body_plain": "On 21/05/2014 23:42, Dan Tenenbaum wrote:\n>\n>\n> ----- Original Message -----\n>> From: \"Vincent Goulet\" <vincent.goulet at me.com>\n>> To: \"Grant Rettke\" <gcr at wisdomandwonder.com>\n>> Cc: r-sig-mac at r-project.org\n>> Sent: Wednesday, May 21, 2014 3:32:53 PM\n>> Subject: Re: [R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?\n>>\n>> Ok, I'm biased here, but for me (and my students!) the simple\n>> procedure is:\n>>\n>> 1. Install the R binary from CRAN;\n>\n> I agree. I believe (correct me if I am wrong) that if you install R in any other way, including Homebrew, you cannot install and use binary CRAN and Bioconductor packages. Which means you have to have a development environment on your machine and you have to wait for every package to build from source.\n\nIt is slightly wrong: you can build R from the sources emulating how it \nis done for CRAN (and r.research.att.com): then type = \n\"mac.binary.mavericks\" will work.  But very few people would have a need \nof that.\n\nHowever, the coverage for the Mavericks binary packages on CRAN is still \nnot as good as for Snow Leopard, and if you primarily use binary \npackages we recommend the Snow Leopard CRAN binary.  The benefits of the \nMavericks build come when installing packages from sources.\n\n> Dan\n>\n>\n>>\n>> 2. Install my Emacs distribution for OS X that comes bundled with\n>> ESS: http://vgoulet.act.ulaval.ca/en/emacs/mac\n>>\n>> 3. Enjoy.\n>>\n>> Envoy? de mon iPad\n>>\n>>> Le 2014-05-21 ? 15:37, Grant Rettke <gcr at wisdomandwonder.com> a\n>>> ?crit :\n>>>\n>>> Hi,\n>>>\n>>> I'm working on setting up a new to me OSX machine with R. My\n>>> preference is\n>>> via Homebrew, with which I'll\n>>> be using Emacs and ESS. Looking out for trouble, I tried to do a\n>>> little\n>>> legwork first of all to see what is the status quo for installing R\n>>> on\n>>> Mavericks. There are more than a few options and I am wanting to\n>>> get your\n>>> feedback on what worked for you, and if you happened to follow any\n>>> of these\n>>> directions. Here is what I found:\n>>>\n>>> https://onote2.github.io/2013/12/04/install-r-on-mac-os-x-109-mavericks/\n>>>\n>>> The simplest. Looks great.\n>>>\n>>> http://davidsimpson.me/2013/02/26/installing-r-on-os-x/\n>>>\n>>> Also simple.\n>>>\n>>> http://zmjones.com/mac-setup/#R\n>>>\n>>> Also quite simple.\n>>>\n>>> http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#step-1\n>>> https://github.com/Homebrew/homebrew-science/issues/427\n>>>\n>>> Sometimes things go wrong?\n>>>\n>>> http://cran.r-project.org/bin/macosx/\n>>>\n>>> If all else fails, or perhaps are any of you Emacs users using this\n>>> instead\n>>> of Homebrew?\n>>>\n>>> It looks pretty straightforward at this point; just wanted to talk\n>>> to some\n>>> other folks and see what worked for them.\n>>>\n>>> Kind regards,\n>>>\n>>> Grant Rettke | AAAS, ACM, ASA, FSF, IEEE, SIAM, Sigma Xi\n>>> gcr at wisdomandwonder.com | http://www.wisdomandwonder.com/\n>>> ?Wisdom begins in wonder.? --Socrates\n>>> ((? (x) (x x)) (? (x) (x x)))\n>>> ?Life has become immeasurably better since I have been forced to\n>>> stop\n>>> taking it seriously.? --Thompson\n>>>\n>>>     [[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On 21/05/2014 23:42, Dan Tenenbaum wrote:\n>\n>\n> ----- Original Message -----\n>> From: \"Vincent Goulet\" <vincent.goulet at me.com>\n>> To: \"Grant Rettke\" <gcr at wisdomandwonder.com>\n>> Cc: r-sig-mac at",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 3,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-806e9c8e624f",
+      "message_id": "<D1D85EC1-2540-43C2-A451-3A053E577B93@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "d2573f0c0a474184a9d96c815fc6bf37ff7c6392082069d810139c562d5a6f71",
+      "date": "2014-05-22T10:18:21+02:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<B074C835-5F05-4D0B-BCBF-DBBF4A3A8050@me.com>",
+      "references": [
+        "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com>",
+        "<B074C835-5F05-4D0B-BCBF-DBBF4A3A8050@me.com>"
+      ],
+      "body_plain": "On 22 May 2014, at 00:32 , Vincent Goulet <vincent.goulet at me.com> wrote:\n\n> Ok, I'm biased here, but for me (and my students!) the simple procedure is:\n> \n> 1. Install the R binary from CRAN;\n> \n> 2. Install my Emacs distribution for OS X that comes bundled with ESS: http://vgoulet.act.ulaval.ca/en/emacs/mac\n\n2a. (variant) Install Aquamacs, which also comes with ESS and AUCTeX. \n\n> \n> 3. Enjoy.\n> \n> Envoy? de mon iPad\n> \n>> Le 2014-05-21 ? 15:37, Grant Rettke <gcr at wisdomandwonder.com> a ?crit :\n>> \n>> Hi,\n>> \n>> I'm working on setting up a new to me OSX machine with R. My preference is\n>> via Homebrew, with which I'll\n>> be using Emacs and ESS. Looking out for trouble, I tried to do a little\n>> legwork first of all to see what is the status quo for installing R on\n>> Mavericks. There are more than a few options and I am wanting to get your\n>> feedback on what worked for you, and if you happened to follow any of these\n>> directions. Here is what I found:\n>> \n>> https://onote2.github.io/2013/12/04/install-r-on-mac-os-x-109-mavericks/\n>> \n>> The simplest. Looks great.\n>> \n>> http://davidsimpson.me/2013/02/26/installing-r-on-os-x/\n>> \n>> Also simple.\n>> \n>> http://zmjones.com/mac-setup/#R\n>> \n>> Also quite simple.\n>> \n>> http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#step-1\n>> https://github.com/Homebrew/homebrew-science/issues/427\n>> \n>> Sometimes things go wrong?\n>> \n>> http://cran.r-project.org/bin/macosx/\n>> \n>> If all else fails, or perhaps are any of you Emacs users using this instead\n>> of Homebrew?\n>> \n>> It looks pretty straightforward at this point; just wanted to talk to some\n>> other folks and see what worked for them.\n>> \n>> Kind regards,\n>> \n>> Grant Rettke | AAAS, ACM, ASA, FSF, IEEE, SIAM, Sigma Xi\n>> gcr at wisdomandwonder.com | http://www.wisdomandwonder.com/\n>> ?Wisdom begins in wonder.? --Socrates\n>> ((? (x) (x x)) (? (x) (x x)))\n>> ?Life has become immeasurably better since I have been forced to stop\n>> taking it seriously.? --Thompson\n>> \n>>   [[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "On 22 May 2014, at 00:32 , Vincent Goulet <vincent.goulet at me.com> wrote:\n\n> Ok, I'm biased here, but for me (and my students!) the simple procedure is:\n> \n> 1. Install the R binary from CRAN;\n> \n> ",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 2,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-70a150fdcf0c",
+      "message_id": "<m24n0i42so.fsf@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2014-05-22T10:48:23+02:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com> (Grant Rettke's message of \"Wed, 21 May 2014 14:37:43 -0500\")",
+      "references": [
+        "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com>"
+      ],
+      "body_plain": "Grant Rettke <gcr at wisdomandwonder.com> writes:\n\n> Hi,\n>\n> I'm working on setting up a new to me OSX machine with R. My preference is\n> via Homebrew, with which I'll\n> be using Emacs and ESS. Looking out for trouble, I tried to do a little\n> legwork first of all to see what is the status quo for installing R on\n> Mavericks. There are more than a few options and I am wanting to get your\n> feedback on what worked for you, and if you happened to follow any of these\n> directions. Here is what I found:\n\nI am using R & emacs (the version provided by [1]) installed via homebrew, ESS and org-mode installed",
+      "body_snippet": "Grant Rettke <gcr at wisdomandwonder.com> writes:\n\n> Hi,\n>\n> I'm working on setting up a new to me OSX machine with R. My preference is\n> via Homebrew, with which I'll\n> be using Emacs and ESS. Lookin",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-b39c6b3a9df4",
+      "message_id": "<m2zjia2o0g.fsf@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2014-05-22T10:53:03+02:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<D1D85EC1-2540-43C2-A451-3A053E577B93@gmail.com> (peter dalgaard's message of \"Thu, 22 May 2014 10:18:21 +0200\")",
+      "references": [
+        "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com>",
+        "<B074C835-5F05-4D0B-BCBF-DBBF4A3A8050@me.com>",
+        "<D1D85EC1-2540-43C2-A451-3A053E577B93@gmail.com>"
+      ],
+      "body_plain": "peter dalgaard <pdalgd at gmail.com> writes:\n\n> On 22 May 2014, at 00:32 , Vincent Goulet <vincent.goulet at me.com> wrote:\n>\n>> Ok, I'm biased here, but for me (and my students!) the simple procedure is:\n>> \n>> 1. Install the R binary from CRAN;\n>> \n>> 2. Install my Emacs distribution for OS X that comes bundled with ESS: http://vgoulet.act.ulaval.ca/en/emacs/mac\n>\n> 2a. (variant) Install Aquamacs, which also comes with ESS and AUCTeX. \n\nThere are differning opinions about Aquamacs (Macified version of emacs\nand bundled with some packages) or emacs - I decided (after using Linux\nfor several years) to use emacs, due to \n\n1) compatibility with other OS (different config files for emacs and\nAquamacs)\n2) Same keyboard shortcuts between OS\n3) newer versions of emacs then used in Aquamacs\n\nBut I am sure Aquamacs makes some things easier then using emacs, but I\nthink emacs fits better tigether with the idea of using homebrew, while\nAquamacs fits better to the approach of using native Mac installers.\n\nCheers,\n\nRainer\n\n\n>\n>> \n>> 3. Enjoy.\n>> \n>> Envoy? de mon iPad\n>> \n>>> Le 2014-05-21 ? 15:37, Grant Rettke <gcr at wisdomandwonder.com> a ?crit :\n>>> \n>>> Hi,\n>>> \n>>> I'm working on setting up a new to me OSX machine with R. My preference is\n>>> via Homebrew, with which I'll\n>>> be using Emacs and ESS. Looking out for trouble, I tried to do a little\n>>> legwork first of all to see what is the status quo for installing R on\n>>> Mavericks. There are more than a few options and I am wanting to get your\n>>> feedback on what worked for you, and if you happened to follow any of these\n>>> directions. Here is what I found:\n>>> \n>>> https://onote2.github.io/2013/12/04/install-r-on-mac-os-x-109-mavericks/\n>>> \n>>> The simplest. Looks great.\n>>> \n>>> http://davidsimpson.me/2013/02/26/installing-r-on-os-x/\n>>> \n>>> Also simple.\n>>> \n>>> http://zmjones.com/mac-setup/#R\n>>> \n>>> Also quite simple.\n>>> \n>>> http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#step-1\n>>> https://github.com/Homebrew/homebrew-science/issues/427\n>>> \n>>> Sometimes things go wrong?\n>>> \n>>> http://cran.r-project.org/bin/macosx/\n>>> \n>>> If all else fails, or perhaps are any of you Emacs users using this instead\n>>> of Homebrew?\n>>> \n>>> It looks pretty straightforward at this point; just wanted to talk to some\n>>> other folks and see what worked for them.\n>>> \n>>> Kind regards,\n>>> \n>>> Grant Rettke | AAAS, ACM, ASA, FSF, IEEE, SIAM, Sigma Xi\n>>> gcr at wisdomandwonder.com | http://www.wisdomandwonder.com/\n>>> ?Wisdom begins in wonder.? --Socrates\n>>> ((? (x) (x x)) (? (x) (x x)))\n>>> ?Life has become immeasurably better since I have been forced to stop\n>>> taking it seriously.? --Thompson\n>>> \n>>>   [[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 494 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140522/ed17eb0a/attachment.bin>",
+      "body_snippet": "peter dalgaard <pdalgd at gmail.com> writes:\n\n> On 22 May 2014, at 00:32 , Vincent Goulet <vincent.goulet at me.com> wrote:\n>\n>> Ok, I'm biased here, but for me (and my students!) the simple procedure",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 3,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-1905f4aa6c27",
+      "message_id": "<m2vbsy2nxx.fsf@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2014-05-22T10:54:34+02:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<537D87A3.8090805@stats.ox.ac.uk> (Brian Ripley's message of \"Thu, 22 May 2014 06:14:11 +0100\")",
+      "references": [
+        "<896199462.578789.1400712139614.JavaMail.root@fhcrc.org>",
+        "<537D87A3.8090805@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n\n> On 21/05/2014 23:42, Dan Tenenbaum wrote:\n>>\n>>\n>> ----- Original Message -----\n>>> From: \"Vincent Goulet\" <vincent.goulet at me.com>\n>>> To: \"Grant Rettke\" <gcr at wisdomandwonder.com>\n>>> Cc: r-sig-mac at r-project.org\n>>> Sent: Wednesday, May 21, 2014 3:32:53 PM\n>>> Subject: Re: [R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?\n>>>\n>>> Ok, I'm biased here, but for me (and my students!) the simple\n>>> procedure is:\n>>>\n>>> 1. Install the R binary from CRAN;\n>>\n>> I agree. I believe (correct me if I am wrong) that if you install R\n>> in any other way, including Homebrew, you cannot install and use\n>> binary CRAN and Bioconductor packages. Which means you have to have\n>> a development environment on your machine and you have to wait for\n>> every package to build from source.\n>\n> It is slightly wrong: you can build R from the sources emulating how\n> it is done for CRAN (and r.research.att.com): then type =\n> \"mac.binary.mavericks\" will work.  But very few people would have a\n> need of that.\n\nAnd I don't think that homebrew is doing this actually.\n\n>\n> However, the coverage for the Mavericks binary packages on CRAN is\n> still not as good as for Snow Leopard, and if you primarily use binary\n> packages we recommend the Snow Leopard CRAN binary.  The benefits of\n> the Mavericks build come when installing packages from sources.\n>\n>> Dan\n>>\n>>\n>>>\n>>> 2. Install my Emacs distribution for OS X that comes bundled with\n>>> ESS: http://vgoulet.act.ulaval.ca/en/emacs/mac\n>>>\n>>> 3. Enjoy.\n>>>\n>>> Envoy? de mon iPad\n>>>\n>>>> Le 2014-05-21 ? 15:37, Grant Rettke <gcr at wisdomandwonder.com> a\n>>>> ?crit :\n>>>>\n>>>> Hi,\n>>>>\n>>>> I'm working on setting up a new to me OSX machine with R. My\n>>>> preference is\n>>>> via Homebrew, with which I'll\n>>>> be using Emacs and ESS. Looking out for trouble, I tried to do a\n>>>> little\n>>>> legwork first of all to see what is the status quo for installing R\n>>>> on\n>>>> Mavericks. There are more than a few options and I am wanting to\n>>>> get your\n>>>> feedback on what worked for you, and if you happened to follow any\n>>>> of these\n>>>> directions. Here is what I found:\n>>>>\n>>>> https://onote2.github.io/2013/12/04/install-r-on-mac-os-x-109-mavericks/\n>>>>\n>>>> The simplest. Looks great.\n>>>>\n>>>> http://davidsimpson.me/2013/02/26/installing-r-on-os-x/\n>>>>\n>>>> Also simple.\n>>>>\n>>>> http://zmjones.com/mac-setup/#R\n>>>>\n>>>> Also quite simple.\n>>>>\n>>>> http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#step-1\n>>>> https://github.com/Homebrew/homebrew-science/issues/427\n>>>>\n>>>> Sometimes things go wrong?\n>>>>\n>>>> http://cran.r-project.org/bin/macosx/\n>>>>\n>>>> If all else fails, or perhaps are any of you Emacs users using this\n>>>> instead\n>>>> of Homebrew?\n>>>>\n>>>> It looks pretty straightforward at this point; just wanted to talk\n>>>> to some\n>>>> other folks and see what worked for them.\n>>>>\n>>>> Kind regards,\n>>>>\n>>>> Grant Rettke | AAAS, ACM, ASA, FSF, IEEE, SIAM, Sigma Xi\n>>>> gcr at wisdomandwonder.com | http://www.wisdomandwonder.com/\n>>>> ?Wisdom begins in wonder.? --Socrates\n>>>> ((? (x) (x x)) (? (x) (x x)))\n>>>> ?Life has become immeasurably better since I have been forced to\n>>>> stop\n>>>> taking it seriously.? --Thompson\n>>>>\n>>>>     [[alternative HTML version deleted]]\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n\n-- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 494 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140522/73d69a48/attachment.bin>",
+      "body_snippet": "Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n\n> On 21/05/2014 23:42, Dan Tenenbaum wrote:\n>>\n>>\n>> ----- Original Message -----\n>>> From: \"Vincent Goulet\" <vincent.goulet at me.com>\n>>> To: \"G",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 4,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-de26cf82ecd0",
+      "message_id": "<A85147AA-8A33-46C9-857B-11B2CC761407@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "d2573f0c0a474184a9d96c815fc6bf37ff7c6392082069d810139c562d5a6f71",
+      "date": "2014-05-22T11:30:28+02:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<m2zjia2o0g.fsf@krugs.de>",
+      "references": [
+        "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com>",
+        "<B074C835-5F05-4D0B-BCBF-DBBF4A3A8050@me.com>",
+        "<D1D85EC1-2540-43C2-A451-3A053E577B93@gmail.com>",
+        "<m2zjia2o0g.fsf@krugs.de>"
+      ],
+      "body_plain": "On 22 May 2014, at 10:53 , Rainer M Krug <Rainer at krugs.de> wrote:\n\n> peter dalgaard <pdalgd at gmail.com> writes:\n> \n>> On 22 May 2014, at 00:32 , Vincent Goulet <vincent.goulet at me.com> wrote:\n>> \n>>> Ok, I'm biased here, but for me (and my students!) the simple procedure is:\n>>> \n>>> 1. Install the R binary from CRAN;\n>>> \n>>> 2. Install my Emacs distribution for OS X that comes bundled with ESS: http://vgoulet.act.ulaval.ca/en/emacs/mac\n>> \n>> 2a. (variant) Install Aquamacs, which also comes with ESS and AUCTeX. \n> \n> There are differning opinions about Aquamacs (Macified version of emacs\n> and bundled with some packages) or emacs - I decided (after using Linux\n> for several years) to use emacs, due to \n> \n> 1) compatibility with other OS (different config files for emacs and\n> Aquamacs)\n\nHmm, maybe. I try not to go beyond the things that are settable via Customize, and that seems to be pretty much the same as in plain Emacs (and Emacs itself has changed things between versions too.) Except for a few TeX convenience settings (electric braces, math mode on by default) what I change is mostly machine-specific anyway (fonts, modifier keys).\n\n> 2) Same keyboard shortcuts between OS\n\nFor the common things, you actually have both the Mac and the Emacs Shortcuts available. I.e., you can either mark out a region and do c-w / c-y or cmd-x / cmd-v to cut and paste. It is mostly a matter of self discipline to avoid the standard commands.\n\n> 3) newer versions of emacs then used in Aquamacs\n> \n\nCurrently, both are at 24.3. The emacs that ships with Mavericks is at 22.1, though. \n\n> But I am sure Aquamacs makes some things easier then using emacs, but I\n> think emacs fits better tigether with the idea of using homebrew, while\n> Aquamacs fits better to the approach of using native Mac installers.\n\n> \n> -- \n> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> \n> Centre of Excellence for Invasion Biology\n> Stellenbosch University\n> South Africa\n> \n> Tel :       +33 - (0)9 53 10 27 44\n> Cell:       +33 - (0)6 85 62 59 98\n> Fax :       +33 - (0)9 58 10 27 44\n> \n> Fax (D):    +49 - (0)3 21 21 25 22 44\n> \n> email:      Rainer at krugs.de\n> \n> Skype:      RMkrug\n> \n> PGP: 0x0F52F982\n\n-- \nPeter Dalgaard, Professor\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "On 22 May 2014, at 10:53 , Rainer M Krug <Rainer at krugs.de> wrote:\n\n> peter dalgaard <pdalgd at gmail.com> writes:\n> \n>> On 22 May 2014, at 00:32 , Vincent Goulet <vincent.goulet at me.com> wrote:\n>",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 4,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-96a75f79b725",
+      "message_id": "<m2egzm2kp8.fsf@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2014-05-22T12:04:35+02:00",
+      "subject": "[R-SIG-Mac] Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "subject_clean": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "in_reply_to": "<A85147AA-8A33-46C9-857B-11B2CC761407@gmail.com> (peter dalgaard's message of \"Thu, 22 May 2014 11:30:28 +0200\")",
+      "references": [
+        "<CAAjq1mfSPk9sXuqnwS4bueiX0rwLg0ktFRYSvNoCNkgQf8PedQ@mail.gmail.com>",
+        "<B074C835-5F05-4D0B-BCBF-DBBF4A3A8050@me.com>",
+        "<D1D85EC1-2540-43C2-A451-3A053E577B93@gmail.com>",
+        "<m2zjia2o0g.fsf@krugs.de>",
+        "<A85147AA-8A33-46C9-857B-11B2CC761407@gmail.com>"
+      ],
+      "body_plain": "peter dalgaard <pdalgd at gmail.com> writes:\n\n> On 22 May 2014, at 10:53 , Rainer M Krug <Rainer at krugs.de> wrote:\n>\n>> peter dalgaard <pdalgd at gmail.com> writes:\n>> \n>>> On 22 May 2014, at 00:32 , Vincent Goulet <vincent.goulet at me.com> wrote:\n>>> \n>>>> Ok, I'm biased here, but for me (and my students!) the simple procedure is:\n>>>> \n>>>> 1. Install the R binary from CRAN;\n>>>> \n>>>> 2. Install my Emacs distribution for OS X that comes bundled with ESS: http://vgoulet.act.ulaval.ca/en/emacs/mac\n>>> \n>>> 2a. (variant) Install Aquamacs, which also comes with ESS and AUCTeX. \n>> \n>> There are differning opinions about Aquamacs (Macified version of emacs\n>> and bundled with some packages) or emacs - I decided (after using Linux\n>> for several years) to use emacs, due to \n>> \n>> 1) compatibility with other OS (different config files for emacs and\n>> Aquamacs)\n>\n> Hmm, maybe. I try not to go beyond the things that are settable via\n> Customize, and that seems to be pretty much the same as in plain Emacs\n> (and Emacs itself has changed things between versions too.) Except for\n> a few TeX convenience settings (electric braces, math mode on by\n> default) what I change is mostly machine-specific anyway (fonts,\n> modifier keys).\n\nMy statement is based on reading and on initial tries to get Aquamacs\nworking with my config which I failed, while the normal emacs loaded the\nconfig from linux immediately (after the packages required were installed).\n\n>\n>> 2) Same keyboard shortcuts between OS\n>\n> For the common things, you actually have both the Mac and the Emacs\n> Shortcuts available. I.e., you can either mark out a region and do c-w\n> / c-y or cmd-x / cmd-v to cut and paste. It is mostly a matter of self\n> discipline to avoid the standard commands.\n\nAgreed here.\n\n>\n>> 3) newer versions of emacs then used in Aquamacs\n>> \n>\n> Currently, both are at 24.3. The emacs that ships with Mavericks is at 22.1, though. \n\nYes - currently. \n\nand don't get me started on the default versions included on the mac -\nit sometimes sounds like a technology museum of ancient computer history\n...\n\nBut as I said below, I am sure Aquamacs will do the job as well and\npossibly faster to get going then traditional emacs.\n\nCheers,\n\nRainer\n\n>\n>> But I am sure Aquamacs makes some things easier then using emacs, but I\n>> think emacs fits better tigether with the idea of using homebrew, while\n>> Aquamacs fits better to the approach of using native Mac installers.\n>\n>> \n>> -- \n>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>> \n>> Centre of Excellence for Invasion Biology\n>> Stellenbosch University\n>> South Africa\n>> \n>> Tel :       +33 - (0)9 53 10 27 44\n>> Cell:       +33 - (0)6 85 62 59 98\n>> Fax :       +33 - (0)9 58 10 27 44\n>> \n>> Fax (D):    +49 - (0)3 21 21 25 22 44\n>> \n>> email:      Rainer at krugs.de\n>> \n>> Skype:      RMkrug\n>> \n>> PGP: 0x0F52F982\n\n-- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 494 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140522/d8fe925e/attachment.bin>",
+      "body_snippet": "peter dalgaard <pdalgd at gmail.com> writes:\n\n> On 22 May 2014, at 10:53 , Rainer M Krug <Rainer at krugs.de> wrote:\n>\n>> peter dalgaard <pdalgd at gmail.com> writes:\n>> \n>>> On 22 May 2014, at 00:32 ",
+      "thread_id": "thread-a7efbdedda9b",
+      "thread_depth": 5,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-3ea657e8957f",
+      "message_id": "<537DEC5B.6090707@utoronto.ca>",
+      "from_name": "Tim Dickinson",
+      "from_email_hash": "e038d2bc0a6d6f0cd0603ce20f8bd7a93670b5185d4d5a8db4d285cfe446fddf",
+      "date": "2014-05-22T08:23:55-04:00",
+      "subject": "[R-SIG-Mac] Running R on Mac OS10.9.3 [cf. Best installation approach of R on Mavericks]",
+      "subject_clean": "Running R on Mac OS10.9.3 [cf. Best installation approach of R on Mavericks]",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi--- I am also setting up a new OS10.9 (Mavericks) machine and \ninstalled the corresponding build of R 3.1.0 only to discover that the \nPackage Manager doesn't work. Without uninstalling anything I then tried \ninstalling the Snow Leopard version and still get the same error message \npasted below: \"'.find.package' is defunct.\"\n\nI think this is the problem referred to on list by Brian Ripley: \n\"However, the coverage for the Mavericks binary packages on CRAN is \nstill not as good as for Snow Leopard, and if you primarily use binary \npackages we recommend the Snow Leopard CRAN binary.  The benefits of the \nMavericks build come when installing packages from sources.\"\n\nI'm not very good at complicated installs, so I would be grateful for \nadvice how to recover from this and get a functioning copy of the Snow \nLeopard version installed on my machine.\n\nMany thanks, ---TAD.\n\n> R version 3.1.0 (2014-04-10) -- \"Spring Dance\"\n> Copyright (C) 2014 The R Foundation for Statistical Computing\n> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>\n> R is free software and comes with ABSOLUTELY NO WARRANTY.\n> You are welcome to redistribute it under certain conditions.\n> Type 'license()' or 'licence()' for distribution details.\n>\n>   Natural language support but running in an English locale\n>\n> R is a collaborative project with many contributors.\n> Type 'contributors()' for more information and\n> 'citation()' on how to cite R or R packages in publications.\n>\n> Type 'demo()' for some demos, 'help()' for on-line help, or\n> 'help.start()' for an HTML browser interface to help.\n> Type 'q()' to quit R.\n>\n> [R.app GUI 1.63 (6734) x86_64-apple-darwin10.8.0]\n>\n> [History restored from /Users/tad/.Rapp.history]\n>\n> Error: '.find.package' is defunct.\n> Use 'find.package' instead.\n> See help(\"Defunct\")\n> >\n\n  \n<++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n<Tim Dickinson\n<Senior Curator Emeritus\n<ROM Green Plant Herbarium (TRT)\n<\n<Department of Natural History\n<Royal Ontario Museum\n<100 Queen's Park\n<Toronto  ON\n<CANADA  M5S 2C6\n<\n<Phone:  (416) 586 8032     FAX:  (416) 586 7921\n<E-mail:  tim.dickinson at utoronto.ca\n<URL: http://www.rom.on.ca/collections/curators/dickinson.php\n<URL: http://www.eeb.utoronto.ca/people/faculty/dickinson\n<++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+      "body_snippet": "Hi--- I am also setting up a new OS10.9 (Mavericks) machine and \ninstalled the corresponding build of R 3.1.0 only to discover that the \nPackage Manager doesn't work. Without uninstalling anything I t",
+      "thread_id": "thread-3ea657e8957f",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-f541bdb8b756",
+      "message_id": "<537DEF1B.9060502@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-05-22T13:35:39+01:00",
+      "subject": "[R-SIG-Mac] Running R on Mac OS10.9.3 [cf. Best installation approach of R on Mavericks]",
+      "subject_clean": "Running R on Mac OS10.9.3 [cf. Best installation approach of R on Mavericks]",
+      "in_reply_to": "<537DEC5B.6090707@utoronto.ca>",
+      "references": [
+        "<537DEC5B.6090707@utoronto.ca>"
+      ],
+      "body_plain": "On 22/05/2014 13:23, Tim Dickinson wrote:\n> Hi--- I am also setting up a new OS10.9 (Mavericks) machine and\n> installed the corresponding build of R 3.1.0 only to discover that the\n> Package Manager doesn't work. Without uninstalling anything I then tried\n> installing the Snow Leopard version and still get the same error message\n> pasted below: \"'.find.package' is defunct.\"\n>\n> I think this is the problem referred to on list by Brian Ripley:\n> \"However, the coverage for the Mavericks binary packages on CRAN is\n> still not as good as for Snow Leopard, and if you primarily use binary\n> packages we recommend the Snow Leopard CRAN binary.  The benefits of the\n> Mavericks build come when installing packages from sources.\"\n>\n> I'm not very good at complicated installs, so I would be grateful for\n> advice how to recover from this and get a functioning copy of the Snow\n> Leopard version installed on my machine.\n\nThat is not so: it is a known bug in R.app and so present in both builds \n(unless they have been updated since I last tried).  Update R.app (or \ninstall an R-patched build) from http://r.research.att.com/.\n\nAnd how to uninstall and install are in the manual, so we will not write \nout here.  Specifically \nhttp://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X \n.\n>\n> Many thanks, ---TAD.\n>\n>> R version 3.1.0 (2014-04-10) -- \"Spring Dance\"\n>> Copyright (C) 2014 The R Foundation for Statistical Computing\n>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>\n>> R is free software and comes with ABSOLUTELY NO WARRANTY.\n>> You are welcome to redistribute it under certain conditions.\n>> Type 'license()' or 'licence()' for distribution details.\n>>\n>>   Natural language support but running in an English locale\n>>\n>> R is a collaborative project with many contributors.\n>> Type 'contributors()' for more information and\n>> 'citation()' on how to cite R or R packages in publications.\n>>\n>> Type 'demo()' for some demos, 'help()' for on-line help, or\n>> 'help.start()' for an HTML browser interface to help.\n>> Type 'q()' to quit R.\n>>\n>> [R.app GUI 1.63 (6734) x86_64-apple-darwin10.8.0]\n>>\n>> [History restored from /Users/tad/.Rapp.history]\n>>\n>> Error: '.find.package' is defunct.\n>> Use 'find.package' instead.\n>> See help(\"Defunct\")\n>> >\n>\n>\n> <++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n> <Tim Dickinson\n> <Senior Curator Emeritus\n> <ROM Green Plant Herbarium (TRT)\n> <\n> <Department of Natural History\n> <Royal Ontario Museum\n> <100 Queen's Park\n> <Toronto  ON\n> <CANADA  M5S 2C6\n> <\n> <Phone:  (416) 586 8032     FAX:  (416) 586 7921\n> <E-mail:  tim.dickinson at utoronto.ca\n> <URL: http://www.rom.on.ca/collections/curators/dickinson.php\n> <URL: http://www.eeb.utoronto.ca/people/faculty/dickinson\n> <++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On 22/05/2014 13:23, Tim Dickinson wrote:\n> Hi--- I am also setting up a new OS10.9 (Mavericks) machine and\n> installed the corresponding build of R 3.1.0 only to discover that the\n> Package Manager d",
+      "thread_id": "thread-3ea657e8957f",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-99354caa95e6",
+      "message_id": "<CABtg=Kn2LEuEcio+vqZ47P7VxzXxK3hVZJFTin=vedWgU6CtZQ@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "be1b1aa2bf940edb4d90301c038c97e98b84ed5c8724f0d46a3b2ee263683539",
+      "date": "2014-05-23T15:52:33+02:00",
+      "subject": "[R-SIG-Mac] Fwd: The old versions of versions, and especially packages",
+      "subject_clean": "The old versions of versions, and especially packages",
+      "in_reply_to": "<53787E02.1070506@gmail.com>",
+      "references": [
+        "<53787D4F.70806@gmail.com>",
+        "<53787E02.1070506@gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140523/1a91db1f/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140523/1a91db1f/attachment.pl>",
+      "thread_id": "thread-14e8fc4c95e3",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-0c0532585226",
+      "message_id": "<E20FDA9D-B2F1-4193-8753-907DF8117C71@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "997bb787abf80042157dc28e91db13eb5e5c0f433207dba7fcb5331fa2e472af",
+      "date": "2014-05-24T09:23:40+02:00",
+      "subject": "[R-SIG-Mac] Problem with gfortran 4.8.2",
+      "subject_clean": "Problem with gfortran 4.8.2",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am experiencing a problem with gfortran 4.8.2 obtained from r.research.att.com (http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2).\n\nCompiling a simple program (in fixed format)\n\n      program test2\n          double precision a\n          a = 12.438739\n          print *, a      \n     stop     \n     end\n\non a Mac Mini with the following hardware review\n\n  Model Name:\tMac mini\n  Model Identifier:\tMacmini4,1\n  Processor Name:\tIntel Core 2 Duo\n  Processor Speed:\t2.66 GHz\n  Number of Processors:\t1\n  Total Number of Cores:\t2\n  L2 Cache:\t3 MB\n  Memory:\t8 GB\n  Bus Speed:\t1.07 GHz\n  Boot ROM Version:\tMM41.0042.B03\n  SMC Version (system):\t1.65f2\n\nrunning with OS X Mavericks 10.9.3 (13D65) leads to a crash of f951.\nThis is what appears in Terminal:\n\n[.../test2]: gfortran test2.f\nf951: internal compiler error: Illegal instruction: 4\n\nf951: internal compiler error: Abort trap: 6\ngfortran: internal compiler error: Abort trap: 6 (program f951)\nAbort trap: 6\n\nFollowing a discussion in http://trac.macports.org/ticket/41364 I ran the debugger lldb.\nWith this as result\n\n[.../test2]: lldb -- /usr/local/libexec/gcc/x86_64-apple-darwin13.0.0/4.8.2/f951 test2.f\nCurrent executable set to '/usr/local/libexec/gcc/x86_64-apple-darwin13.0.0/4.8.2/f951' (x86_64).\n(lldb) run\nProcess 1755 launched: '/usr/local/libexec/gcc/x86_64-apple-darwin13.0.0/4.8.2/f951' (x86_64)\nProcess 1755 stopped\n* thread #1: tid = 0x6bb2, 0x0000000100914486 f951`__gmpn_popcount + 134, queue = 'com.apple.main-thread', stop reason = EXC_BAD_INSTRUCTION (code=EXC_I386_INVOP, subcode=0x0)\n    frame #0: 0x0000000100914486 f951`__gmpn_popcount + 134\nf951`__gmpn_popcount + 134:\n-> 0x100914486:  popcntq 0x38(%rdi,%rsi,8), %r9\n   0x10091448d:  addq   %r9, %rax\n   0x100914490:  addq   $0x8, %rsi\n   0x100914494:  js     0x100914440               ; __gmpn_popcount + 64\n(lldb) bt\n* thread #1: tid = 0x6bb2, 0x0000000100914486 f951`__gmpn_popcount + 134, queue = 'com.apple.main-thread', stop reason = EXC_BAD_INSTRUCTION (code=EXC_I386_INVOP, subcode=0x0)\n  * frame #0: 0x0000000100914486 f951`__gmpn_popcount + 134\n    frame #1: 0x00000001008fac03 f951`parsed_string_to_mpfr + 2595\n    frame #2: 0x00000001008fa0ee f951`mpfr_strtofr + 1870\n    frame #3: 0x00000001008e3520 f951`mpfr_set_str + 32\n    frame #4: 0x00000001000043cc f951`gfc_convert_real(char const*, int, locus*) + 44\n    frame #5: 0x0000000100078fce f951`match_real_constant(gfc_expr**, int) + 798\n    frame #6: 0x000000010007a50c f951`gfc_match_literal_constant(gfc_expr**, int) + 1404\n    frame #7: 0x0000000100061097 f951`match_mult_operand(gfc_expr**) + 87\n    frame #8: 0x000000010006137d f951`match_add_operand(gfc_expr**) + 29\n    frame #9: 0x00000001000616c5 f951`match_level_2(gfc_expr**) + 261\n    frame #10: 0x0000000100061785 f951`match_level_3(gfc_expr**) + 21\n    frame #11: 0x00000001000618b6 f951`match_and_operand(gfc_expr**) + 54\n    frame #12: 0x0000000100061ab5 f951`match_or_operand(gfc_expr**) + 21\n    frame #13: 0x0000000100061bc5 f951`match_equiv_operand(gfc_expr**) + 21\n    frame #14: 0x0000000100061cd7 f951`match_level_5(gfc_expr**) + 23\n    frame #15: 0x0000000100060f47 f951`gfc_match_expr(gfc_expr**) + 23\n    frame #16: 0x000000010005a48a f951`gfc_match(char const*, ...) + 842\n    frame #17: 0x000000010005baec f951`gfc_match_assignment() + 124\n    frame #18: 0x000000010007102a f951`match_word(char const*, match (*)(), locus*) (.part.3) + 10\n    frame #19: 0x00000001000726d5 f951`decode_statement() + 229\n    frame #20: 0x0000000100073f6a f951`next_statement() + 810\n    frame #21: 0x0000000100074b2d f951`parse_spec(gfc_statement) + 1325\n    frame #22: 0x0000000100076fb9 f951`parse_progunit(gfc_statement) + 9\n    frame #23: 0x00000001000782e7 f951`gfc_parse_file() + 1127\n    frame #24: 0x00000001000b7f46 f951`gfc_be_parse_file() + 38\n    frame #25: 0x000000010063d774 f951`compile_file() + 52\n    frame #26: 0x000000010063f519 f951`toplev_main(int, char**) + 2825\n(lldb) \n\n\nCompiling the exact same program on a Macbook Air 11-inch with an Intel Core i5 as processor  and the exact same OS X 10.9.3 does not give an internal compiler error at all. The program compiles and runs.\n\nIt seems the crash in connected to the Intel Core 2 Duo processor in this case.\ngfortran-4.2.3 obtained from CRAN compiles the program without any problems.\n\nSince I maintain packages using Fortran I can?t switch to the Mavericks distribution of R and use gfortran 4.8.2.\nUsing the Snow Leopard  version of R together with gfortran 4.2.3 from CRAN works perfectly.\n\nMaybe someone can throw some light on this and hopefully the problem can be fixed.\n\nBerend",
+      "body_snippet": "I am experiencing a problem with gfortran 4.8.2 obtained from r.research.att.com (http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2).\n\nCompiling a simple program (in fixed format)\n\n      ",
+      "thread_id": "thread-0c0532585226",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-b2cc27466ac7",
+      "message_id": "<CB296040-5082-432E-8F69-FE5F9486BDE7@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-05-26T22:29:22-04:00",
+      "subject": "[R-SIG-Mac] Problem with gfortran 4.8.2",
+      "subject_clean": "Problem with gfortran 4.8.2",
+      "in_reply_to": "<E20FDA9D-B2F1-4193-8753-907DF8117C71@xs4all.nl>",
+      "references": [
+        "<E20FDA9D-B2F1-4193-8753-907DF8117C71@xs4all.nl>"
+      ],
+      "body_plain": "Berend,\n\nyes, your CPU is too old and thus doesn't work with the binary due to lack of support for some newer instructions. I suspect gmp/mpfr may be using some simd instructions that your CPU doesn't support.\n\nCheers,\nSimon\n\n\nOn May 24, 2014, at 3:23 AM, Berend Hasselman <bhh at xs4all.nl> wrote:\n\n> \n> I am experiencing a problem with gfortran 4.8.2 obtained from r.research.att.com (http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2).\n> \n> Compiling a simple program (in fixed format)\n> \n>      program test2\n>          double precision a\n>          a = 12.438739\n>          print *, a      \n>     stop     \n>     end\n> \n> on a Mac Mini with the following hardware review\n> \n>  Model Name:\tMac mini\n>  Model Identifier:\tMacmini4,1\n>  Processor Name:\tIntel Core 2 Duo\n>  Processor Speed:\t2.66 GHz\n>  Number of Processors:\t1\n>  Total Number of Cores:\t2\n>  L2 Cache:\t3 MB\n>  Memory:\t8 GB\n>  Bus Speed:\t1.07 GHz\n>  Boot ROM Version:\tMM41.0042.B03\n>  SMC Version (system):\t1.65f2\n> \n> running with OS X Mavericks 10.9.3 (13D65) leads to a crash of f951.\n> This is what appears in Terminal:\n> \n> [.../test2]: gfortran test2.f\n> f951: internal compiler error: Illegal instruction: 4\n> \n> f951: internal compiler error: Abort trap: 6\n> gfortran: internal compiler error: Abort trap: 6 (program f951)\n> Abort trap: 6\n> \n> Following a discussion in http://trac.macports.org/ticket/41364 I ran the debugger lldb.\n> With this as result\n> \n> [.../test2]: lldb -- /usr/local/libexec/gcc/x86_64-apple-darwin13.0.0/4.8.2/f951 test2.f\n> Current executable set to '/usr/local/libexec/gcc/x86_64-apple-darwin13.0.0/4.8.2/f951' (x86_64).\n> (lldb) run\n> Process 1755 launched: '/usr/local/libexec/gcc/x86_64-apple-darwin13.0.0/4.8.2/f951' (x86_64)\n> Process 1755 stopped\n> * thread #1: tid = 0x6bb2, 0x0000000100914486 f951`__gmpn_popcount + 134, queue = 'com.apple.main-thread', stop reason = EXC_BAD_INSTRUCTION (code=EXC_I386_INVOP, subcode=0x0)\n>    frame #0: 0x0000000100914486 f951`__gmpn_popcount + 134\n> f951`__gmpn_popcount + 134:\n> -> 0x100914486:  popcntq 0x38(%rdi,%rsi,8), %r9\n>   0x10091448d:  addq   %r9, %rax\n>   0x100914490:  addq   $0x8, %rsi\n>   0x100914494:  js     0x100914440               ; __gmpn_popcount + 64\n> (lldb) bt\n> * thread #1: tid = 0x6bb2, 0x0000000100914486 f951`__gmpn_popcount + 134, queue = 'com.apple.main-thread', stop reason = EXC_BAD_INSTRUCTION (code=EXC_I386_INVOP, subcode=0x0)\n>  * frame #0: 0x0000000100914486 f951`__gmpn_popcount + 134\n>    frame #1: 0x00000001008fac03 f951`parsed_string_to_mpfr + 2595\n>    frame #2: 0x00000001008fa0ee f951`mpfr_strtofr + 1870\n>    frame #3: 0x00000001008e3520 f951`mpfr_set_str + 32\n>    frame #4: 0x00000001000043cc f951`gfc_convert_real(char const*, int, locus*) + 44\n>    frame #5: 0x0000000100078fce f951`match_real_constant(gfc_expr**, int) + 798\n>    frame #6: 0x000000010007a50c f951`gfc_match_literal_constant(gfc_expr**, int) + 1404\n>    frame #7: 0x0000000100061097 f951`match_mult_operand(gfc_expr**) + 87\n>    frame #8: 0x000000010006137d f951`match_add_operand(gfc_expr**) + 29\n>    frame #9: 0x00000001000616c5 f951`match_level_2(gfc_expr**) + 261\n>    frame #10: 0x0000000100061785 f951`match_level_3(gfc_expr**) + 21\n>    frame #11: 0x00000001000618b6 f951`match_and_operand(gfc_expr**) + 54\n>    frame #12: 0x0000000100061ab5 f951`match_or_operand(gfc_expr**) + 21\n>    frame #13: 0x0000000100061bc5 f951`match_equiv_operand(gfc_expr**) + 21\n>    frame #14: 0x0000000100061cd7 f951`match_level_5(gfc_expr**) + 23\n>    frame #15: 0x0000000100060f47 f951`gfc_match_expr(gfc_expr**) + 23\n>    frame #16: 0x000000010005a48a f951`gfc_match(char const*, ...) + 842\n>    frame #17: 0x000000010005baec f951`gfc_match_assignment() + 124\n>    frame #18: 0x000000010007102a f951`match_word(char const*, match (*)(), locus*) (.part.3) + 10\n>    frame #19: 0x00000001000726d5 f951`decode_statement() + 229\n>    frame #20: 0x0000000100073f6a f951`next_statement() + 810\n>    frame #21: 0x0000000100074b2d f951`parse_spec(gfc_statement) + 1325\n>    frame #22: 0x0000000100076fb9 f951`parse_progunit(gfc_statement) + 9\n>    frame #23: 0x00000001000782e7 f951`gfc_parse_file() + 1127\n>    frame #24: 0x00000001000b7f46 f951`gfc_be_parse_file() + 38\n>    frame #25: 0x000000010063d774 f951`compile_file() + 52\n>    frame #26: 0x000000010063f519 f951`toplev_main(int, char**) + 2825\n> (lldb) \n> \n> \n> Compiling the exact same program on a Macbook Air 11-inch with an Intel Core i5 as processor  and the exact same OS X 10.9.3 does not give an internal compiler error at all. The program compiles and runs.\n> \n> It seems the crash in connected to the Intel Core 2 Duo processor in this case.\n> gfortran-4.2.3 obtained from CRAN compiles the program without any problems.\n> \n> Since I maintain packages using Fortran I can?t switch to the Mavericks distribution of R and use gfortran 4.8.2.\n> Using the Snow Leopard  version of R together with gfortran 4.2.3 from CRAN works perfectly.\n> \n> Maybe someone can throw some light on this and hopefully the problem can be fixed.\n> \n> Berend\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Berend,\n\nyes, your CPU is too old and thus doesn't work with the binary due to lack of support for some newer instructions. I suspect gmp/mpfr may be using some simd instructions that your CPU doesn't",
+      "thread_id": "thread-0c0532585226",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-e27832ec0793",
+      "message_id": "<CAJ=0CtDdC2xBJ-uQRp=VPKgX_9wzJQJkrxRT+DeE7GgHUGcZeg@mail.gmail.com>",
+      "from_name": "Adrian Dușa",
+      "from_email_hash": "0adf325a6f5cc3417b78ab9f04c87fd96893831035070b13aabdf34b83338b0f",
+      "date": "2014-05-28T18:11:32+03:00",
+      "subject": "[R-SIG-Mac] installing RMySQL",
+      "subject_clean": "installing RMySQL",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140528/39e6dd82/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140528/39e6dd82/attachment.pl>",
+      "thread_id": "thread-e27832ec0793",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-1cb1d2b2ac85",
+      "message_id": "<C24F7BBD-2D0F-4ED6-9B62-6D01DE16F605@schrecktech.com>",
+      "from_name": "Scott Robert Schreckengaust",
+      "from_email_hash": "f4cdffe3c95375e8a0282bb01b547778f4674677fe64246e2e19eb649a7dcc9a",
+      "date": "2014-05-29T06:09:00-07:00",
+      "subject": "[R-SIG-Mac] installing RMySQL",
+      "subject_clean": "installing RMySQL",
+      "in_reply_to": "<CAJ=0CtDdC2xBJ-uQRp=VPKgX_9wzJQJkrxRT+DeE7GgHUGcZeg@mail.gmail.com>",
+      "references": [
+        "<CAJ=0CtDdC2xBJ-uQRp=VPKgX_9wzJQJkrxRT+DeE7GgHUGcZeg@mail.gmail.com>"
+      ],
+      "body_plain": "Try adding the other two configure.args \"--with-mysql-inc\" and \"--with-mysql-lib\":\n\n$ R CMD INSTALL --configure-args='--with-mysql-dir=/usr/local/mysql-5.6.17-osx10.7-x86_64 --with-mysql-inc=/usr/local/mysql-5.6.17-osx10.7-x86_64/include --with-mysql-lib=/usr/local/mysql-5.6.17-osx10.7-x86_64/lib' RMySQL_0.9-3.tar.gz.tar.gz\n\nor\n\ninstall.packages(\"RMySQL\", configure.args=\"--with-mysql-dir=/usr/local//mysql-5.6.17-osx10.7x86_64 --with-mysql-inc=/usr/local/mysql-5.6.17-osx10.7-x86_64/include --with-mysql-lib=/usr/local/mysql-5.6.17-osx10.7-x86_64/lib\")\n\nCheers,\nScott\n\nOn May 28, 2014, at 8:11 AM, Adrian Du?a <dusa.adrian at unibuc.ro> wrote:\n\n> Hello everyone,\n> \n> I am having some difficulties installing the RMySQL package from sources\n> (not available via the R Package Installer GUI, probably for the same\n> reasons). Just installed a fresh instance of MySQL, which I could find in:\n> /usr/local/mysql-5.6.17-osx10.7-x86_64\n> \n> \n> This is what I get:\n> \n> $ R CMD INSTALL RMySQL_0.9-3.tar.gz.tar.gz\n> ...\n> Configuration error:\n>  could not find the MySQL installation include and/or library\n>  directories.  Manually specify the location of the MySQL\n>  libraries and the header files and re-run R CMD INSTALL.\n> \n> \n> I tried:\n> \n> $ export PKG_CPPFLAGS=\"/usr/local/mysql-5.6.17-osx10.7-x86_64/include/\"\n> $ export PKG_LIBS=\"/usr/local/mysql-5.6.17-osx10.7-x86_64/lib/\"\n> $ R CMD INSTALL RMySQL_0.9-3.tar.gz.tar.gz\n> ...\n> In file included from RS-MySQL.c:22:\n> ./RS-MySQL.h:32:10: fatal error: 'mysql.h' file not found\n> #include <mysql.h>\n>         ^\n> 1 error generated.\n> \n> \n> Also tried:\n> \n> $ R CMD INSTALL\n> --configure-args='--with-mysql-dir=/usr/local/mysql-5.6.17-osx10.7-x86_64'\n> RMySQL_0.9-3.tar.gz.tar.gz\n> \n> (with the same result)\n> \n> I'd be grateful for any hint, thanks in advance,\n> Adrian\n> \n> \n> -- \n> Adrian Dusa\n> University of Bucharest\n> Romanian Social Data Archive\n> 1, Schitu Magureanu Bd.\n> 050025 Bucharest sector 5\n> Romania\n> Tel.:+40 21 3126618 \\\n>        +40 21 3120210 / int.101\n> Fax: +40 21 3158391\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Try adding the other two configure.args \"--with-mysql-inc\" and \"--with-mysql-lib\":\n\n$ R CMD INSTALL --configure-args='--with-mysql-dir=/usr/local/mysql-5.6.17-osx10.7-x86_64 --with-mysql-inc=/usr/loca",
+      "thread_id": "thread-e27832ec0793",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-1d301d6de701",
+      "message_id": "<CAJ=0CtCWtkN1tTyKGOws0n6dONuneD29KKLE8e_mdk-wNFLUyg@mail.gmail.com>",
+      "from_name": "Adrian Dușa",
+      "from_email_hash": "0adf325a6f5cc3417b78ab9f04c87fd96893831035070b13aabdf34b83338b0f",
+      "date": "2014-05-29T19:09:32+03:00",
+      "subject": "[R-SIG-Mac] installing RMySQL",
+      "subject_clean": "installing RMySQL",
+      "in_reply_to": "<C24F7BBD-2D0F-4ED6-9B62-6D01DE16F605@schrecktech.com>",
+      "references": [
+        "<CAJ=0CtDdC2xBJ-uQRp=VPKgX_9wzJQJkrxRT+DeE7GgHUGcZeg@mail.gmail.com>",
+        "<C24F7BBD-2D0F-4ED6-9B62-6D01DE16F605@schrecktech.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140529/d54c68f2/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140529/d54c68f2/attachment.pl>",
+      "thread_id": "thread-e27832ec0793",
+      "thread_depth": 2,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-1b29fc7fb390",
+      "message_id": "<D00A024C-973E-4103-AB60-449BE794E220@steinitz.org>",
+      "from_name": "Dominic Steinitz",
+      "from_email_hash": "2d7b6ea6425df1e2234a158a30d10da8a2cd312aeed001ce24f2ebe00ee3f8f5",
+      "date": "2014-05-30T11:07:28+01:00",
+      "subject": "[R-SIG-Mac] The Equivalent of pkg-config for Frameworks",
+      "subject_clean": "The Equivalent of pkg-config for Frameworks",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "My googling skills are failing. I want to install a package which relies on R. This currently works on windows and linux. When I try it on my macbook I get told\n\n> Configuring H-0.1.0.0... \n> Warning: Instead of 'ghc-options: -cpp' use 'extensions: CPP' \n> cabal: The pkg-config package 'libR' version >=3.0 is required but it \n> could \n> not be found. \n> Failed to install H-0.1.0.0 \n> Updating documentation index /Users/dom/Library/Haskell/doc/index.html \n> cabal: Error: some packages failed to install: \n> H-0.1.0.0 failed during the configure step. The exception was: \n> ExitFailure 1 \n\nBut I have R installed\n\n> $ R --version \n> R version 3.0.2 (2013-09-25) -- \"Frisbee Sailing\" \n> Copyright (C) 2013 The R Foundation for Statistical Computing \n> Platform: x86_64-apple-darwin10.8.0 (64-bit) \n\n\nIt seems the installer for the package uses pkg-config to check for the existence of R.\n\n> $ pkg-config --version\n> 0.28\n\n\nIt finds e.g. the gnu scientific library\n\n> $ pkg-config  --libs gsl\n> -L/usr/local/Cellar/gsl/1.16/lib -lgsl -lgslcblas -lm\n\n\nBut can?t find R\n\n> $ pkg-config  --libs R\n> Package R was not found in the pkg-config search path.\n> Perhaps you should add the directory containing `R.pc'\n> to the PKG_CONFIG_PATH environment variable\n> No package 'R' found\n\n\nOn my installation, R lives in\n\n> /Library/Frameworks/R.framework\n\nIn order to use pkg-config, it seems I need a .pc file somewhere but I can?t find one.\n\nCan someone either tell me where the .pc file is for R or alternatively how to tell the installer where to find R?\n\nMany thanks\n\nDominic Steinitz\ndominic at steinitz.org\nhttp://idontgetoutmuch.wordpress.com",
+      "body_snippet": "My googling skills are failing. I want to install a package which relies on R. This currently works on windows and linux. When I try it on my macbook I get told\n\n> Configuring H-0.1.0.0... \n> Warning:",
+      "thread_id": "thread-1b29fc7fb390",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-0a00d1110b19",
+      "message_id": "<56BBC201-9A4A-4F45-A3E7-2BCE60CC7353@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-05-30T10:36:57-04:00",
+      "subject": "[R-SIG-Mac] The Equivalent of pkg-config for Frameworks",
+      "subject_clean": "The Equivalent of pkg-config for Frameworks",
+      "in_reply_to": "<D00A024C-973E-4103-AB60-449BE794E220@steinitz.org>",
+      "references": [
+        "<D00A024C-973E-4103-AB60-449BE794E220@steinitz.org>"
+      ],
+      "body_plain": "On May 30, 2014, at 6:07 AM, Dominic Steinitz <dominic at steinitz.org> wrote:\n\n> My googling skills are failing. I want to install a package which relies on R. This currently works on windows and linux. When I try it on my macbook I get told\n> \n>> Configuring H-0.1.0.0... \n>> Warning: Instead of 'ghc-options: -cpp' use 'extensions: CPP' \n>> cabal: The pkg-config package 'libR' version >=3.0 is required but it \n>> could \n>> not be found. \n>> Failed to install H-0.1.0.0 \n>> Updating documentation index /Users/dom/Library/Haskell/doc/index.html \n>> cabal: Error: some packages failed to install: \n>> H-0.1.0.0 failed during the configure step. The exception was: \n>> ExitFailure 1 \n> \n> But I have R installed\n> \n>> $ R --version \n>> R version 3.0.2 (2013-09-25) -- \"Frisbee Sailing\" \n>> Copyright (C) 2013 The R Foundation for Statistical Computing \n>> Platform: x86_64-apple-darwin10.8.0 (64-bit) \n> \n> \n> It seems the installer for the package uses pkg-config to check for the existence of R.\n> \n>> $ pkg-config --version\n>> 0.28\n> \n> \n> It finds e.g. the gnu scientific library\n> \n>> $ pkg-config  --libs gsl\n>> -L/usr/local/Cellar/gsl/1.16/lib -lgsl -lgslcblas -lm\n> \n> \n> But can?t find R\n> \n>> $ pkg-config  --libs R\n>> Package R was not found in the pkg-config search path.\n>> Perhaps you should add the directory containing `R.pc'\n>> to the PKG_CONFIG_PATH environment variable\n>> No package 'R' found\n> \n> \n> On my installation, R lives in\n> \n>> /Library/Frameworks/R.framework\n> \n> In order to use pkg-config, it seems I need a .pc file somewhere but I can?t find one.\n> \n> Can someone either tell me where the .pc file is for R or alternatively how to tell the installer where to find R?\n> \n\nMac OS X has no pkg-config, so that's why native version of R has no R.pc. It seems that whatever you are compiling doesn't have native OS X support. Since you are already mixing brewed and native code, you may as well just use brew entirely since you've already entered murky waters. I didn't test, but I would presume that it gives you a non-framework installation of R which may provide R.pc.\n\nHow to tell the installer to find R is a question you should pose to the authors of whatever you're trying to compile, R has no control over that. Note that the canonical way to obtain R flags is via `R CMD config` so I'd say this is a bug in the package you're compiling - it should be using R CMD config --cppflags and R CMD config --ldflags instead of pkg-config -- it may use pkg-config as a fallback, but is should support R CMD config in the first place.\n\nFinally, you could hand-craft libR.pc which points to the native installation of R - it could look something like\n\nrhome=/Library/Frameworks/R.framework/Resources\nrincludedir=/Library/Frameworks/R.framework/Headers\n\nName: libR\nDescription: R as a library\nVersion: 3.1.0\nLibs: -F/Library/Frameworks/R.framework/.. -framework R -llzma -lz -licucore -lm -liconv\nCflags: -I${rincludedir}\nLibs.private:\n\nUntested and, again, the proper way is to use\n\nR CMD config --cppflags\nR CMD config --ldflags\n\nCheers,\nSimon\n\n\n\n> Many thanks\n> \n> Dominic Steinitz\n> dominic at steinitz.org\n> http://idontgetoutmuch.wordpress.com\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On May 30, 2014, at 6:07 AM, Dominic Steinitz <dominic at steinitz.org> wrote:\n\n> My googling skills are failing. I want to install a package which relies on R. This currently works on windows and lin",
+      "thread_id": "thread-1b29fc7fb390",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-900cf08cb15e",
+      "message_id": "<8B2CAC1D-07DB-4E4E-A542-2ECC7DF90DD3@steinitz.org>",
+      "from_name": "Dominic Steinitz",
+      "from_email_hash": "2d7b6ea6425df1e2234a158a30d10da8a2cd312aeed001ce24f2ebe00ee3f8f5",
+      "date": "2014-05-30T15:57:00+01:00",
+      "subject": "[R-SIG-Mac] The Equivalent of pkg-config for Frameworks",
+      "subject_clean": "The Equivalent of pkg-config for Frameworks",
+      "in_reply_to": "<56BBC201-9A4A-4F45-A3E7-2BCE60CC7353@r-project.org>",
+      "references": [
+        "<D00A024C-973E-4103-AB60-449BE794E220@steinitz.org>",
+        "<56BBC201-9A4A-4F45-A3E7-2BCE60CC7353@r-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\nThanks very much for this. Very much appreciated. I will communicate with the package authors but they only support windows and linux at the moment. I was hoping it would be straightforward to get it to work for Mac OS and then send them a patch. From what you say, it shouldn?t be too difficult. I will try next week but I may need a bit more help.\n\nBTW the package is really cool. It allows you to call R from Haskell in an integrated way. I need to be able to perform non linear least squares and there is no existing library in Haskell to do this; enter R :-)\n\nThanks once again,\n\nDominic Steinitz\ndominic at steinitz.org\nhttp://idontgetoutmuch.wordpress.com\n\nOn 30 May 2014, at 15:36, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n\n> \n> On May 30, 2014, at 6:07 AM, Dominic Steinitz <dominic at steinitz.org> wrote:\n> \n>> My googling skills are failing. I want to install a package which relies on R. This currently works on windows and linux. When I try it on my macbook I get told\n>> \n>>> Configuring H-0.1.0.0... \n>>> Warning: Instead of 'ghc-options: -cpp' use 'extensions: CPP' \n>>> cabal: The pkg-config package 'libR' version >=3.0 is required but it \n>>> could \n>>> not be found. \n>>> Failed to install H-0.1.0.0 \n>>> Updating documentation index /Users/dom/Library/Haskell/doc/index.html \n>>> cabal: Error: some packages failed to install: \n>>> H-0.1.0.0 failed during the configure step. The exception was: \n>>> ExitFailure 1 \n>> \n>> But I have R installed\n>> \n>>> $ R --version \n>>> R version 3.0.2 (2013-09-25) -- \"Frisbee Sailing\" \n>>> Copyright (C) 2013 The R Foundation for Statistical Computing \n>>> Platform: x86_64-apple-darwin10.8.0 (64-bit) \n>> \n>> \n>> It seems the installer for the package uses pkg-config to check for the existence of R.\n>> \n>>> $ pkg-config --version\n>>> 0.28\n>> \n>> \n>> It finds e.g. the gnu scientific library\n>> \n>>> $ pkg-config  --libs gsl\n>>> -L/usr/local/Cellar/gsl/1.16/lib -lgsl -lgslcblas -lm\n>> \n>> \n>> But can?t find R\n>> \n>>> $ pkg-config  --libs R\n>>> Package R was not found in the pkg-config search path.\n>>> Perhaps you should add the directory containing `R.pc'\n>>> to the PKG_CONFIG_PATH environment variable\n>>> No package 'R' found\n>> \n>> \n>> On my installation, R lives in\n>> \n>>> /Library/Frameworks/R.framework\n>> \n>> In order to use pkg-config, it seems I need a .pc file somewhere but I can?t find one.\n>> \n>> Can someone either tell me where the .pc file is for R or alternatively how to tell the installer where to find R?\n>> \n> \n> Mac OS X has no pkg-config, so that's why native version of R has no R.pc. It seems that whatever you are compiling doesn't have native OS X support. Since you are already mixing brewed and native code, you may as well just use brew entirely since you've already entered murky waters. I didn't test, but I would presume that it gives you a non-framework installation of R which may provide R.pc.\n> \n> How to tell the installer to find R is a question you should pose to the authors of whatever you're trying to compile, R has no control over that. Note that the canonical way to obtain R flags is via `R CMD config` so I'd say this is a bug in the package you're compiling - it should be using R CMD config --cppflags and R CMD config --ldflags instead of pkg-config -- it may use pkg-config as a fallback, but is should support R CMD config in the first place.\n> \n> Finally, you could hand-craft libR.pc which points to the native installation of R - it could look something like\n> \n> rhome=/Library/Frameworks/R.framework/Resources\n> rincludedir=/Library/Frameworks/R.framework/Headers\n> \n> Name: libR\n> Description: R as a library\n> Version: 3.1.0\n> Libs: -F/Library/Frameworks/R.framework/.. -framework R -llzma -lz -licucore -lm -liconv\n> Cflags: -I${rincludedir}\n> Libs.private:\n> \n> Untested and, again, the proper way is to use\n> \n> R CMD config --cppflags\n> R CMD config --ldflags\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> Many thanks\n>> \n>> Dominic Steinitz\n>> dominic at steinitz.org\n>> http://idontgetoutmuch.wordpress.com\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>",
+      "body_snippet": "Hi Simon,\n\nThanks very much for this. Very much appreciated. I will communicate with the package authors but they only support windows and linux at the moment. I was hoping it would be straightforward",
+      "thread_id": "thread-1b29fc7fb390",
+      "thread_depth": 2,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-d63c8bd235bf",
+      "message_id": "<6ad998be-b147-421a-8a06-0a7abe939fb6@googlegroups.com>",
+      "from_name": "Davood Tofighi",
+      "from_email_hash": "d06b0b32c6f156690221e98d107edcbd9bef9ddd80f7e1ed2b38be2f0ec7f89e",
+      "date": "2014-05-31T08:00:58-07:00",
+      "subject": "[R-SIG-Mac] Choosing between Snow Leopard and Mavericks builds",
+      "subject_clean": "Choosing between Snow Leopard and Mavericks builds",
+      "in_reply_to": "<5356147B.5050000@stats.ox.ac.uk>",
+      "references": [
+        "<5356147B.5050000@stats.ox.ac.uk>"
+      ],
+      "body_plain": "I have a follow up question. How can I install gfortran-4.8.2 on the \nMavericks? \n\nOn Tuesday, April 22, 2014 3:04:27 AM UTC-4, Prof Brian Ripley wrote:\n>\n> I've noticed some confusion about which CRAN installer package to use, \n> and even reluctance to update to 3.1.0.  So some pointers for Mavericks \n> users \n>\n> 1) AFAIK no users are going to be worse off using the Snow Leopard build \n> of 3.1.0 rather than the only (Snow Leopard) build of 3.0.x. \n>\n> 2) The Mavericks build has support for C++11-using packages (there are \n> currently less than a handful) and some performance improvements from \n> its later compilers (and in rare cases these are large). \n>\n> 3) If you rely on binary packages with are not available for the \n> Mavericks build, install the Snow Leopard one.  Currently that includes \n> CRAN packages rgdal and rjags and all the BioC packages. \n>\n> 4) If you install packages from source, you will be most likely better \n> off with the Mavericks build. \n>\n> 5) The two builds need different Fortran compilers installed: you can \n> have both compilers at once.  The details are at \n> http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X .  As \n> far as I know a Fortran compiler is only needed if you install packages \n> from sources. \n>\n> Some of the Mavericks binary packages are missing for good reason.  The \n> C++ binary interface for the Xcode 5.x compilers in Mavericks is \n> completely different, so external software has to be compiled with those \n> compilers.  This affects CRAN packages \n>\n> RQuantlib RProtoBuf RVowalWabbit rgdal rjags rzmq \n>\n> Most of these can be gotten to work (see the results labelled \n> r-devel-osx-x86_64-clang at \n> http://cran.r-project.org/web/checks/check_summary.html) if compiling \n> from sources.  There are packages with badly-written C++ which do not \n> compile under Mavericks, but as we have been chasing the CRAN \n> maintainers for a few months there are very few left (the main example \n> is BioC's package mzR). \n>\n> We had expected that by this time Mavericks users would be in a \n> majority, but it seems the proportion is in the 40s (%).  Thus for R \n> 3.1.0 most of the effort has gone into the Snow Leopard build: expect \n> that to change by R 3.2.0 in a year's time. \n>\n> -- \n> Brian D. Ripley,                  rip... at stats.ox.ac.uk <javascript:> \n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/ \n> University of Oxford,             Tel:  +44 1865 272861 (self) \n> 1 South Parks Road,                     +44 1865 272866 (PA) \n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595 \n>\n> _______________________________________________ \n> R-SIG-Mac mailing list \n> R-SI... at r-project.org <javascript:> \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac \n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140531/73b9ae14/attachment.html>",
+      "body_snippet": "I have a follow up question. How can I install gfortran-4.8.2 on the \nMavericks? \n\nOn Tuesday, April 22, 2014 3:04:27 AM UTC-4, Prof Brian Ripley wrote:\n>\n> I've noticed some confusion about which CRA",
+      "thread_id": "thread-d63c8bd235bf",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-d63c8bd235bf",
+      "message_id": "<6ad998be-b147-421a-8a06-0a7abe939fb6@googlegroups.com>",
+      "from_name": "Davood Tofighi",
+      "from_email_hash": "d06b0b32c6f156690221e98d107edcbd9bef9ddd80f7e1ed2b38be2f0ec7f89e",
+      "date": "2014-05-31T08:00:58-07:00",
+      "subject": "[R-SIG-Mac] Choosing between Snow Leopard and Mavericks builds",
+      "subject_clean": "Choosing between Snow Leopard and Mavericks builds",
+      "in_reply_to": "<5356147B.5050000@stats.ox.ac.uk>",
+      "references": [
+        "<5356147B.5050000@stats.ox.ac.uk>"
+      ],
+      "body_plain": "I have a follow up question. How can I install gfortran-4.8.2 on the \nMavericks? \n\nOn Tuesday, April 22, 2014 3:04:27 AM UTC-4, Prof Brian Ripley wrote:\n>\n> I've noticed some confusion about which CRAN installer package to use, \n> and even reluctance to update to 3.1.0.  So some pointers for Mavericks \n> users \n>\n> 1) AFAIK no users are going to be worse off using the Snow Leopard build \n> of 3.1.0 rather than the only (Snow Leopard) build of 3.0.x. \n>\n> 2) The Mavericks build has support for C++11-using packages (there are \n> currently less than a handful) and some performance improvements from \n> its later compilers (and in rare cases these are large). \n>\n> 3) If you rely on binary packages with are not available for the \n> Mavericks build, install the Snow Leopard one.  Currently that includes \n> CRAN packages rgdal and rjags and all the BioC packages. \n>\n> 4) If you install packages from source, you will be most likely better \n> off with the Mavericks build. \n>\n> 5) The two builds need different Fortran compilers installed: you can \n> have both compilers at once.  The details are at \n> http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X .  As \n> far as I know a Fortran compiler is only needed if you install packages \n> from sources. \n>\n> Some of the Mavericks binary packages are missing for good reason.  The \n> C++ binary interface for the Xcode 5.x compilers in Mavericks is \n> completely different, so external software has to be compiled with those \n> compilers.  This affects CRAN packages \n>\n> RQuantlib RProtoBuf RVowalWabbit rgdal rjags rzmq \n>\n> Most of these can be gotten to work (see the results labelled \n> r-devel-osx-x86_64-clang at \n> http://cran.r-project.org/web/checks/check_summary.html) if compiling \n> from sources.  There are packages with badly-written C++ which do not \n> compile under Mavericks, but as we have been chasing the CRAN \n> maintainers for a few months there are very few left (the main example \n> is BioC's package mzR). \n>\n> We had expected that by this time Mavericks users would be in a \n> majority, but it seems the proportion is in the 40s (%).  Thus for R \n> 3.1.0 most of the effort has gone into the Snow Leopard build: expect \n> that to change by R 3.2.0 in a year's time. \n>\n> -- \n> Brian D. Ripley,                  rip... at stats.ox.ac.uk <javascript:> \n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/ \n> University of Oxford,             Tel:  +44 1865 272861 (self) \n> 1 South Parks Road,                     +44 1865 272866 (PA) \n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595 \n>\n> _______________________________________________ \n> R-SIG-Mac mailing list \n> R-SI... at r-project.org <javascript:> \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac \n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140531/73b9ae14/attachment-0001.html>",
+      "body_snippet": "I have a follow up question. How can I install gfortran-4.8.2 on the \nMavericks? \n\nOn Tuesday, April 22, 2014 3:04:27 AM UTC-4, Prof Brian Ripley wrote:\n>\n> I've noticed some confusion about which CRA",
+      "thread_id": "thread-d63c8bd235bf",
+      "thread_depth": 0,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-732da9b4295d",
+      "message_id": "<F7DA2635-5765-45F0-90EF-44B8373E411C@stats.ox.ac.uk>",
+      "from_name": "Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-05-31T16:10:31+01:00",
+      "subject": "[R-SIG-Mac] Choosing between Snow Leopard and Mavericks builds",
+      "subject_clean": "Choosing between Snow Leopard and Mavericks builds",
+      "in_reply_to": "<6ad998be-b147-421a-8a06-0a7abe939fb6@googlegroups.com>",
+      "references": [
+        "<5356147B.5050000@stats.ox.ac.uk>",
+        "<6ad998be-b147-421a-8a06-0a7abe939fb6@googlegroups.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140531/d19a23c7/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140531/d19a23c7/attachment.pl>",
+      "thread_id": "thread-d63c8bd235bf",
+      "thread_depth": 1,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-64675c01b9dc",
+      "message_id": "<CFAF69A7.E0D1%igow@hbs.edu>",
+      "from_name": "Gow, Ian",
+      "from_email_hash": "3297a14dca994871d0c07251fcd190bcfd9cf033d1ae0a3726297187b8a9f05b",
+      "date": "2014-05-31T11:14:46-04:00",
+      "subject": "[R-SIG-Mac] Choosing between Snow Leopard and Mavericks builds",
+      "subject_clean": "Choosing between Snow Leopard and Mavericks builds",
+      "in_reply_to": "<F7DA2635-5765-45F0-90EF-44B8373E411C@stats.ox.ac.uk>",
+      "references": [
+        "<5356147B.5050000@stats.ox.ac.uk>",
+        "<6ad998be-b147-421a-8a06-0a7abe939fb6@googlegroups.com>",
+        "<F7DA2635-5765-45F0-90EF-44B8373E411C@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Also, instructions here <http://r.research.att.com/libs/> complement the\nmanual (if you are---as I was---unsure what to do with the file you get\nfrom the link in the instructions\n<http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2>).\n\nOn 2014-05-31, 11:10 AM, \"Brian Ripley\" <ripley at stats.ox.ac.uk> wrote:\n\n>\n>\n>> On 31 May 2014, at 16:00, Davood Tofighi <dtofighi at gmail.com> wrote:\n>> \n>> I have a follow up question. How can I install gfortran-4.8.2 on the\n>>Mavericks? \n>\n>See the manual: link below.\n>\n>> \n>>> On Tuesday, April 22, 2014 3:04:27 AM UTC-4, Prof Brian Ripley wrote:\n>>> I've noticed some confusion about which CRAN installer package to use,\n>>> and even reluctance to update to 3.1.0.  So some pointers for\n>>>Mavericks \n>>> users \n>>> \n>>> 1) AFAIK no users are going to be worse off using the Snow Leopard\n>>>build \n>>> of 3.1.0 rather than the only (Snow Leopard) build of 3.0.x.\n>>> \n>>> 2) The Mavericks build has support for C++11-using packages (there are\n>>> currently less than a handful) and some performance improvements from\n>>> its later compilers (and in rare cases these are large).\n>>> \n>>> 3) If you rely on binary packages with are not available for the\n>>> Mavericks build, install the Snow Leopard one.  Currently that\n>>>includes \n>>> CRAN packages rgdal and rjags and all the BioC packages.\n>>> \n>>> 4) If you install packages from source, you will be most likely better\n>>> off with the Mavericks build.\n>>> \n>>> 5) The two builds need different Fortran compilers installed: you can\n>>> have both compilers at once.  The details are at\n>>> http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X .\n>>>As \n>>> far as I know a Fortran compiler is only needed if you install\n>>>packages \n>>> from sources. \n>>> \n>>> Some of the Mavericks binary packages are missing for good reason.\n>>>The \n>>> C++ binary interface for the Xcode 5.x compilers in Mavericks is\n>>> completely different, so external software has to be compiled with\n>>>those \n>>> compilers.  This affects CRAN packages\n>>> \n>>> RQuantlib RProtoBuf RVowalWabbit rgdal rjags rzmq\n>>> \n>>> Most of these can be gotten to work (see the results labelled\n>>> r-devel-osx-x86_64-clang at\n>>> http://cran.r-project.org/web/checks/check_summary.html) if compiling\n>>> from sources.  There are packages with badly-written C++ which do not\n>>> compile under Mavericks, but as we have been chasing the CRAN\n>>> maintainers for a few months there are very few left (the main example\n>>> is BioC's package mzR).\n>>> \n>>> We had expected that by this time Mavericks users would be in a\n>>> majority, but it seems the proportion is in the 40s (%).  Thus for R\n>>> 3.1.0 most of the effort has gone into the Snow Leopard build: expect\n>>> that to change by R 3.2.0 in a year's time.\n>>> \n>>> -- \n>>> Brian D. Ripley,                  rip... at stats.ox.ac.uk\n>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SI... at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\t[[alternative HTML version deleted]]\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Also, instructions here <http://r.research.att.com/libs/> complement the\nmanual (if you are---as I was---unsure what to do with the file you get\nfrom the link in the instructions\n<http://r.research.at",
+      "thread_id": "thread-d63c8bd235bf",
+      "thread_depth": 2,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-6aa0077c090c",
+      "message_id": "<5389F2C6.9090000@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-05-31T16:18:30+01:00",
+      "subject": "[R-SIG-Mac] Choosing between Snow Leopard and Mavericks builds",
+      "subject_clean": "Choosing between Snow Leopard and Mavericks builds",
+      "in_reply_to": "<CFAF69A7.E0D1%igow@hbs.edu>",
+      "references": [
+        "<5356147B.5050000@stats.ox.ac.uk>",
+        "<6ad998be-b147-421a-8a06-0a7abe939fb6@googlegroups.com>",
+        "<F7DA2635-5765-45F0-90EF-44B8373E411C@stats.ox.ac.uk>",
+        "<CFAF69A7.E0D1%igow@hbs.edu>"
+      ],
+      "body_plain": "On 31/05/2014 16:14, Gow, Ian wrote:\n> Also, instructions here <http://r.research.att.com/libs/> complement the\n> manual (if you are---as I was---unsure what to do with the file you get\n> from the link in the instructions\n> <http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2>).\n\nBut the current manuals give more details ... footnote 44 says\n\nThis is a tarball which needs to be unpacked in the Terminal by e.g. \nsudo tar -zxf gfortran-4.8.2-darwin13.tar.bz2 -C /.\n\n>\n> On 2014-05-31, 11:10 AM, \"Brian Ripley\" <ripley at stats.ox.ac.uk> wrote:\n>\n>>\n>>\n>>> On 31 May 2014, at 16:00, Davood Tofighi <dtofighi at gmail.com> wrote:\n>>>\n>>> I have a follow up question. How can I install gfortran-4.8.2 on the\n>>> Mavericks?\n>>\n>> See the manual: link below.\n>>\n>>>\n>>>> On Tuesday, April 22, 2014 3:04:27 AM UTC-4, Prof Brian Ripley wrote:\n>>>> I've noticed some confusion about which CRAN installer package to use,\n>>>> and even reluctance to update to 3.1.0.  So some pointers for\n>>>> Mavericks\n>>>> users\n>>>>\n>>>> 1) AFAIK no users are going to be worse off using the Snow Leopard\n>>>> build\n>>>> of 3.1.0 rather than the only (Snow Leopard) build of 3.0.x.\n>>>>\n>>>> 2) The Mavericks build has support for C++11-using packages (there are\n>>>> currently less than a handful) and some performance improvements from\n>>>> its later compilers (and in rare cases these are large).\n>>>>\n>>>> 3) If you rely on binary packages with are not available for the\n>>>> Mavericks build, install the Snow Leopard one.  Currently that\n>>>> includes\n>>>> CRAN packages rgdal and rjags and all the BioC packages.\n>>>>\n>>>> 4) If you install packages from source, you will be most likely better\n>>>> off with the Mavericks build.\n>>>>\n>>>> 5) The two builds need different Fortran compilers installed: you can\n>>>> have both compilers at once.  The details are at\n>>>> http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X .\n>>>> As\n>>>> far as I know a Fortran compiler is only needed if you install\n>>>> packages\n>>>> from sources.\n>>>>\n>>>> Some of the Mavericks binary packages are missing for good reason.\n>>>> The\n>>>> C++ binary interface for the Xcode 5.x compilers in Mavericks is\n>>>> completely different, so external software has to be compiled with\n>>>> those\n>>>> compilers.  This affects CRAN packages\n>>>>\n>>>> RQuantlib RProtoBuf RVowalWabbit rgdal rjags rzmq\n>>>>\n>>>> Most of these can be gotten to work (see the results labelled\n>>>> r-devel-osx-x86_64-clang at\n>>>> http://cran.r-project.org/web/checks/check_summary.html) if compiling\n>>>> from sources.  There are packages with badly-written C++ which do not\n>>>> compile under Mavericks, but as we have been chasing the CRAN\n>>>> maintainers for a few months there are very few left (the main example\n>>>> is BioC's package mzR).\n>>>>\n>>>> We had expected that by this time Mavericks users would be in a\n>>>> majority, but it seems the proportion is in the 40s (%).  Thus for R\n>>>> 3.1.0 most of the effort has gone into the Snow Leopard build: expect\n>>>> that to change by R 3.2.0 in a year's time.\n>>>>\n>>>> --\n>>>> Brian D. Ripley,                  rip... at stats.ox.ac.uk\n>>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SI... at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> \t[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On 31/05/2014 16:14, Gow, Ian wrote:\n> Also, instructions here <http://r.research.att.com/libs/> complement the\n> manual (if you are---as I was---unsure what to do with the file you get\n> from the lin",
+      "thread_id": "thread-d63c8bd235bf",
+      "thread_depth": 3,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-4d0c518fef3b",
+      "message_id": "<CFAF6DA2.E113%igow@hbs.edu>",
+      "from_name": "Gow, Ian",
+      "from_email_hash": "3297a14dca994871d0c07251fcd190bcfd9cf033d1ae0a3726297187b8a9f05b",
+      "date": "2014-05-31T11:31:14-04:00",
+      "subject": "[R-SIG-Mac] Choosing between Snow Leopard and Mavericks builds",
+      "subject_clean": "Choosing between Snow Leopard and Mavericks builds",
+      "in_reply_to": "<5389F2C6.9090000@stats.ox.ac.uk>",
+      "references": [
+        "<5356147B.5050000@stats.ox.ac.uk>",
+        "<6ad998be-b147-421a-8a06-0a7abe939fb6@googlegroups.com>",
+        "<F7DA2635-5765-45F0-90EF-44B8373E411C@stats.ox.ac.uk>",
+        "<CFAF69A7.E0D1%igow@hbs.edu>",
+        "<5389F2C6.9090000@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Perfect. Sorry. I too me a while to see that, as I was looking in the\nwrong place (for link below: `gsub(\"r-release\", \"r-devel\",\n\"http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X\")`)\n\n\nOn 2014-05-31, 11:18 AM, \"Prof Brian Ripley\" <ripley at stats.ox.ac.uk> wrote:\n\n>On 31/05/2014 16:14, Gow, Ian wrote:\n>> Also, instructions here <http://r.research.att.com/libs/> complement the\n>> manual (if you are---as I was---unsure what to do with the file you get\n>> from the link in the instructions\n>> <http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2>).\n>\n>But the current manuals give more details ... footnote 44 says\n>\n>This is a tarball which needs to be unpacked in the Terminal by e.g.\n>sudo tar -zxf gfortran-4.8.2-darwin13.tar.bz2 -C /.\n>\n>>\n>> On 2014-05-31, 11:10 AM, \"Brian Ripley\" <ripley at stats.ox.ac.uk> wrote:\n>>\n>>>\n>>>\n>>>> On 31 May 2014, at 16:00, Davood Tofighi <dtofighi at gmail.com> wrote:\n>>>>\n>>>> I have a follow up question. How can I install gfortran-4.8.2 on the\n>>>> Mavericks?\n>>>\n>>> See the manual: link below.\n>>>\n>>>>\n>>>>> On Tuesday, April 22, 2014 3:04:27 AM UTC-4, Prof Brian Ripley wrote:\n>>>>> I've noticed some confusion about which CRAN installer package to\n>>>>>use,\n>>>>> and even reluctance to update to 3.1.0.  So some pointers for\n>>>>> Mavericks\n>>>>> users\n>>>>>\n>>>>> 1) AFAIK no users are going to be worse off using the Snow Leopard\n>>>>> build\n>>>>> of 3.1.0 rather than the only (Snow Leopard) build of 3.0.x.\n>>>>>\n>>>>> 2) The Mavericks build has support for C++11-using packages (there\n>>>>>are\n>>>>> currently less than a handful) and some performance improvements from\n>>>>> its later compilers (and in rare cases these are large).\n>>>>>\n>>>>> 3) If you rely on binary packages with are not available for the\n>>>>> Mavericks build, install the Snow Leopard one.  Currently that\n>>>>> includes\n>>>>> CRAN packages rgdal and rjags and all the BioC packages.\n>>>>>\n>>>>> 4) If you install packages from source, you will be most likely\n>>>>>better\n>>>>> off with the Mavericks build.\n>>>>>\n>>>>> 5) The two builds need different Fortran compilers installed: you can\n>>>>> have both compilers at once.  The details are at\n>>>>> http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X .\n>>>>> As\n>>>>> far as I know a Fortran compiler is only needed if you install\n>>>>> packages\n>>>>> from sources.\n>>>>>\n>>>>> Some of the Mavericks binary packages are missing for good reason.\n>>>>> The\n>>>>> C++ binary interface for the Xcode 5.x compilers in Mavericks is\n>>>>> completely different, so external software has to be compiled with\n>>>>> those\n>>>>> compilers.  This affects CRAN packages\n>>>>>\n>>>>> RQuantlib RProtoBuf RVowalWabbit rgdal rjags rzmq\n>>>>>\n>>>>> Most of these can be gotten to work (see the results labelled\n>>>>> r-devel-osx-x86_64-clang at\n>>>>> http://cran.r-project.org/web/checks/check_summary.html) if compiling\n>>>>> from sources.  There are packages with badly-written C++ which do not\n>>>>> compile under Mavericks, but as we have been chasing the CRAN\n>>>>> maintainers for a few months there are very few left (the main\n>>>>>example\n>>>>> is BioC's package mzR).\n>>>>>\n>>>>> We had expected that by this time Mavericks users would be in a\n>>>>> majority, but it seems the proportion is in the 40s (%).  Thus for R\n>>>>> 3.1.0 most of the effort has gone into the Snow Leopard build: expect\n>>>>> that to change by R 3.2.0 in a year's time.\n>>>>>\n>>>>> --\n>>>>> Brian D. Ripley,                  rip... at stats.ox.ac.uk\n>>>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>>>>\n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SI... at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>> \t[[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n>-- \n>Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>University of Oxford,             Tel:  +44 1865 272861 (self)\n>1 South Parks Road,                     +44 1865 272866 (PA)\n>Oxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "Perfect. Sorry. I too me a while to see that, as I was looking in the\nwrong place (for link below: `gsub(\"r-release\", \"r-devel\",\n\"http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X\")`)\n",
+      "thread_id": "thread-d63c8bd235bf",
+      "thread_depth": 4,
+      "month": "2014-05"
+    },
+    {
+      "id": "msg-4fb61c3c6064",
+      "message_id": "<5389F7E6.9080900@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-05-31T16:40:22+01:00",
+      "subject": "[R-SIG-Mac] Choosing between Snow Leopard and Mavericks builds",
+      "subject_clean": "Choosing between Snow Leopard and Mavericks builds",
+      "in_reply_to": "<CFAF6DA2.E113%igow@hbs.edu>",
+      "references": [
+        "<5356147B.5050000@stats.ox.ac.uk>",
+        "<6ad998be-b147-421a-8a06-0a7abe939fb6@googlegroups.com>",
+        "<F7DA2635-5765-45F0-90EF-44B8373E411C@stats.ox.ac.uk>",
+        "<CFAF69A7.E0D1%igow@hbs.edu>",
+        "<5389F2C6.9090000@stats.ox.ac.uk>",
+        "<CFAF6DA2.E113%igow@hbs.edu>"
+      ],
+      "body_plain": "On 31/05/2014 16:31, Gow, Ian wrote:\n> Perfect. Sorry. I too me a while to see that, as I was looking in the\n> wrong place (for link below: `gsub(\"r-release\", \"r-devel\",\n> \"http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X\")`)\n\nAlways look in current manuals ('r-patched' would do equally well): \nr-release is frozen until 3.1.1 comes along.\n\n>\n>\n> On 2014-05-31, 11:18 AM, \"Prof Brian Ripley\" <ripley at stats.ox.ac.uk> wrote:\n>\n>> On 31/05/2014 16:14, Gow, Ian wrote:\n>>> Also, instructions here <http://r.research.att.com/libs/> complement the\n>>> manual (if you are---as I was---unsure what to do with the file you get\n>>> from the link in the instructions\n>>> <http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2>).\n>>\n>> But the current manuals give more details ... footnote 44 says\n>>\n>> This is a tarball which needs to be unpacked in the Terminal by e.g.\n>> sudo tar -zxf gfortran-4.8.2-darwin13.tar.bz2 -C /.\n>>\n>>>\n>>> On 2014-05-31, 11:10 AM, \"Brian Ripley\" <ripley at stats.ox.ac.uk> wrote:\n>>>\n>>>>\n>>>>\n>>>>> On 31 May 2014, at 16:00, Davood Tofighi <dtofighi at gmail.com> wrote:\n>>>>>\n>>>>> I have a follow up question. How can I install gfortran-4.8.2 on the\n>>>>> Mavericks?\n>>>>\n>>>> See the manual: link below.\n>>>>\n>>>>>\n>>>>>> On Tuesday, April 22, 2014 3:04:27 AM UTC-4, Prof Brian Ripley wrote:\n>>>>>> I've noticed some confusion about which CRAN installer package to\n>>>>>> use,\n>>>>>> and even reluctance to update to 3.1.0.  So some pointers for\n>>>>>> Mavericks\n>>>>>> users\n>>>>>>\n>>>>>> 1) AFAIK no users are going to be worse off using the Snow Leopard\n>>>>>> build\n>>>>>> of 3.1.0 rather than the only (Snow Leopard) build of 3.0.x.\n>>>>>>\n>>>>>> 2) The Mavericks build has support for C++11-using packages (there\n>>>>>> are\n>>>>>> currently less than a handful) and some performance improvements from\n>>>>>> its later compilers (and in rare cases these are large).\n>>>>>>\n>>>>>> 3) If you rely on binary packages with are not available for the\n>>>>>> Mavericks build, install the Snow Leopard one.  Currently that\n>>>>>> includes\n>>>>>> CRAN packages rgdal and rjags and all the BioC packages.\n>>>>>>\n>>>>>> 4) If you install packages from source, you will be most likely\n>>>>>> better\n>>>>>> off with the Mavericks build.\n>>>>>>\n>>>>>> 5) The two builds need different Fortran compilers installed: you can\n>>>>>> have both compilers at once.  The details are at\n>>>>>> http://cran.r-project.org/doc/manuals/r-release/R-admin.html#OS-X .\n>>>>>> As\n>>>>>> far as I know a Fortran compiler is only needed if you install\n>>>>>> packages\n>>>>>> from sources.\n>>>>>>\n>>>>>> Some of the Mavericks binary packages are missing for good reason.\n>>>>>> The\n>>>>>> C++ binary interface for the Xcode 5.x compilers in Mavericks is\n>>>>>> completely different, so external software has to be compiled with\n>>>>>> those\n>>>>>> compilers.  This affects CRAN packages\n>>>>>>\n>>>>>> RQuantlib RProtoBuf RVowalWabbit rgdal rjags rzmq\n>>>>>>\n>>>>>> Most of these can be gotten to work (see the results labelled\n>>>>>> r-devel-osx-x86_64-clang at\n>>>>>> http://cran.r-project.org/web/checks/check_summary.html) if compiling\n>>>>>> from sources.  There are packages with badly-written C++ which do not\n>>>>>> compile under Mavericks, but as we have been chasing the CRAN\n>>>>>> maintainers for a few months there are very few left (the main\n>>>>>> example\n>>>>>> is BioC's package mzR).\n>>>>>>\n>>>>>> We had expected that by this time Mavericks users would be in a\n>>>>>> majority, but it seems the proportion is in the 40s (%).  Thus for R\n>>>>>> 3.1.0 most of the effort has gone into the Snow Leopard build: expect\n>>>>>> that to change by R 3.2.0 in a year's time.\n>>>>>>\n>>>>>> --\n>>>>>> Brian D. Ripley,                  rip... at stats.ox.ac.uk\n>>>>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>>>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>>>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>>>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>>>>>\n>>>>>> _______________________________________________\n>>>>>> R-SIG-Mac mailing list\n>>>>>> R-SI... at r-project.org\n>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>\n>>>> \t[[alternative HTML version deleted]]\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>\n>>\n>> --\n>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On 31/05/2014 16:31, Gow, Ian wrote:\n> Perfect. Sorry. I too me a while to see that, as I was looking in the\n> wrong place (for link below: `gsub(\"r-release\", \"r-devel\",\n> \"http://cran.r-project.org/d",
+      "thread_id": "thread-d63c8bd235bf",
+      "thread_depth": 5,
+      "month": "2014-05"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-3ca95bf75e25",
+      "subject": "rgdal on mac os 10.9",
+      "message_count": 1,
+      "participants": [
+        "美彦 馬場"
+      ],
+      "started": "2014-05-02T08:45:54+09:00",
+      "last_reply": "2014-05-02T08:45:54+09:00",
+      "root_message_id": "msg-3ca95bf75e25"
+    },
+    {
+      "id": "thread-48abc2b8d9af",
+      "subject": "tcltk makes R crash under Mavericks",
+      "message_count": 1,
+      "participants": [
+        "laurel lr"
+      ],
+      "started": "2014-05-04T23:58:10-06:00",
+      "last_reply": "2014-05-04T23:58:10-06:00",
+      "root_message_id": "msg-48abc2b8d9af"
+    },
+    {
+      "id": "thread-4f2c56df5ec9",
+      "subject": "Segfault Error in GUI version of R",
+      "message_count": 1,
+      "participants": [
+        "laurel lr"
+      ],
+      "started": "2014-05-04T23:59:02-06:00",
+      "last_reply": "2014-05-04T23:59:02-06:00",
+      "root_message_id": "msg-4f2c56df5ec9"
+    },
+    {
+      "id": "thread-8076e65bf3c0",
+      "subject": "warning message from OS X",
+      "message_count": 1,
+      "participants": [
+        "Richard M. Heiberger"
+      ],
+      "started": "2014-05-06T15:11:48-04:00",
+      "last_reply": "2014-05-06T15:11:48-04:00",
+      "root_message_id": "msg-8076e65bf3c0"
+    },
+    {
+      "id": "thread-efb035be22a8",
+      "subject": "Report of failure with installation of MonetDB.R",
+      "message_count": 3,
+      "participants": [
+        "David Winsemius",
+        "Thomas Lumley"
+      ],
+      "started": "2014-05-06T19:53:07-07:00",
+      "last_reply": "2014-05-06T21:23:06-07:00",
+      "root_message_id": "msg-efb035be22a8"
+    },
+    {
+      "id": "thread-c1c77fae71cd",
+      "subject": "tip bar parameters: can it be modified to show specific S3 method parameter lists?",
+      "message_count": 1,
+      "participants": [
+        "Tim Bates"
+      ],
+      "started": "2014-05-09T20:04:57+01:00",
+      "last_reply": "2014-05-09T20:04:57+01:00",
+      "root_message_id": "msg-c1c77fae71cd"
+    },
+    {
+      "id": "thread-dd9ffb1c51b9",
+      "subject": "rgeos and rgdal binary packages for Mavericks",
+      "message_count": 4,
+      "participants": [
+        "Agustín Diez Castillo",
+        "Christopher Quick",
+        "Prof Brian Ripley"
+      ],
+      "started": "2014-05-12T08:44:41+01:00",
+      "last_reply": "2014-05-14T16:13:15+00:00",
+      "root_message_id": "msg-dd9ffb1c51b9"
+    },
+    {
+      "id": "thread-78fb9a63eec1",
+      "subject": "invalid digital signature for R-3.1.0-mavericks",
+      "message_count": 2,
+      "participants": [
+        "Paul Cantalupo",
+        "Prof Brian Ripley"
+      ],
+      "started": "2014-05-12T08:48:05-04:00",
+      "last_reply": "2014-05-12T17:35:43+01:00",
+      "root_message_id": "msg-78fb9a63eec1"
+    },
+    {
+      "id": "thread-5b644d954dab",
+      "subject": "Passing external data to R",
+      "message_count": 1,
+      "participants": [
+        "thatsanicehatyouhave at mac.com"
+      ],
+      "started": "2014-05-16T16:34:18-04:00",
+      "last_reply": "2014-05-16T16:34:18-04:00",
+      "root_message_id": "msg-5b644d954dab"
+    },
+    {
+      "id": "thread-14e8fc4c95e3",
+      "subject": "The old versions of versions, and especially packages",
+      "message_count": 2,
+      "participants": [
+        "Gábor Csárdi",
+        "Ville Hallikainen"
+      ],
+      "started": "2014-05-18T12:31:46+03:00",
+      "last_reply": "2014-05-23T15:52:33+02:00",
+      "root_message_id": "msg-14e8fc4c95e3"
+    },
+    {
+      "id": "thread-490689839f89",
+      "subject": "Package",
+      "message_count": 1,
+      "participants": [
+        "Sorin Matei"
+      ],
+      "started": "2014-05-21T00:16:58+00:00",
+      "last_reply": "2014-05-21T00:16:58+00:00",
+      "root_message_id": "msg-490689839f89"
+    },
+    {
+      "id": "thread-a7efbdedda9b",
+      "subject": "Best installation approach of R on Mavericks for Emacs/Homebrew users?",
+      "message_count": 10,
+      "participants": [
+        "Dan Tenenbaum",
+        "Grant Rettke",
+        "Prof Brian Ripley",
+        "Rainer M Krug",
+        "Vincent Goulet",
+        "peter dalgaard"
+      ],
+      "started": "2014-05-21T14:37:43-05:00",
+      "last_reply": "2014-05-22T12:04:35+02:00",
+      "root_message_id": "msg-a7efbdedda9b"
+    },
+    {
+      "id": "thread-3ea657e8957f",
+      "subject": "Running R on Mac OS10.9.3 [cf. Best installation approach of R on Mavericks]",
+      "message_count": 2,
+      "participants": [
+        "Prof Brian Ripley",
+        "Tim Dickinson"
+      ],
+      "started": "2014-05-22T08:23:55-04:00",
+      "last_reply": "2014-05-22T13:35:39+01:00",
+      "root_message_id": "msg-3ea657e8957f"
+    },
+    {
+      "id": "thread-0c0532585226",
+      "subject": "Problem with gfortran 4.8.2",
+      "message_count": 2,
+      "participants": [
+        "Berend Hasselman",
+        "Simon Urbanek"
+      ],
+      "started": "2014-05-24T09:23:40+02:00",
+      "last_reply": "2014-05-26T22:29:22-04:00",
+      "root_message_id": "msg-0c0532585226"
+    },
+    {
+      "id": "thread-e27832ec0793",
+      "subject": "installing RMySQL",
+      "message_count": 3,
+      "participants": [
+        "Adrian Dușa",
+        "Scott Robert Schreckengaust"
+      ],
+      "started": "2014-05-28T18:11:32+03:00",
+      "last_reply": "2014-05-29T19:09:32+03:00",
+      "root_message_id": "msg-e27832ec0793"
+    },
+    {
+      "id": "thread-1b29fc7fb390",
+      "subject": "The Equivalent of pkg-config for Frameworks",
+      "message_count": 3,
+      "participants": [
+        "Dominic Steinitz",
+        "Simon Urbanek"
+      ],
+      "started": "2014-05-30T11:07:28+01:00",
+      "last_reply": "2014-05-30T15:57:00+01:00",
+      "root_message_id": "msg-1b29fc7fb390"
+    },
+    {
+      "id": "thread-d63c8bd235bf",
+      "subject": "Choosing between Snow Leopard and Mavericks builds",
+      "message_count": 6,
+      "participants": [
+        "Brian Ripley",
+        "Davood Tofighi",
+        "Gow, Ian",
+        "Prof Brian Ripley"
+      ],
+      "started": "2014-05-31T08:00:58-07:00",
+      "last_reply": "2014-05-31T16:40:22+01:00",
+      "root_message_id": "msg-d63c8bd235bf"
+    },
+    {
+      "id": "thread-d63c8bd235bf",
+      "subject": "Choosing between Snow Leopard and Mavericks builds",
+      "message_count": 1,
+      "participants": [
+        "Davood Tofighi"
+      ],
+      "started": "2014-05-31T08:00:58-07:00",
+      "last_reply": "2014-05-31T08:00:58-07:00",
+      "root_message_id": "msg-d63c8bd235bf"
+    }
+  ]
+}

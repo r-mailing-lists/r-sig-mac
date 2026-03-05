@@ -1,0 +1,663 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2018-05",
+  "messages": [
+    {
+      "id": "msg-3c12ac2a5b7f",
+      "message_id": "<C33BA3AF-39FB-4452-9EBF-C6F379AFEF00@plessthan.com>",
+      "from_name": "Dennis Fisher",
+      "from_email_hash": "aae8714c70229398df44248b7fcdedd8e16ddfc74206fcd6fc8fe8dab4d942f2",
+      "date": "2018-05-03T17:01:54-07:00",
+      "subject": "[R-SIG-Mac] Location of plot() window",
+      "subject_clean": "Location of plot() window",
+      "in_reply_to": "<B9C22F84-6B6D-4F9B-A219-F23020459815@R-project.org>",
+      "references": [
+        "<D70FEE8B-3809-4AED-B5FF-480BE2B89B2C@plessthan.com>",
+        "<B9C22F84-6B6D-4F9B-A219-F23020459815@R-project.org>"
+      ],
+      "body_plain": "Simon\n\nI was hopeful that your suggestion would resolve the problem ? however, when I execute the exact code that you suggested from a terminal, I get an error.\n> library(Cocoa)\n> quartz(); w = .M(.M(\"NSApplication\", \"sharedApplication\"), \"keyWindow\")\n> .M(w, \"setFrameTopLeftPoint:\", NSMakePoint(100, 1000))\nError in .M(w, \"setFrameTopLeftPoint:\", NSMakePoint(100, 1000)) : \n  cannot find target class or object.\nA quartz window opens but the .M command did not move the window.  I searched the rforge website to see if it provided any insight but I could not find anything relevant.\n\nI then executed from RGui successfully.\n\nCan you advise how to make this work when executed from a terminal?\n\nOn a different note, the change log contains:\n new conversions code, support for many types\n        has been added. Structs are converted to\n        pairlists with a \"stuct.name\" attribute and vice versa.\n\nIs there an ?r? missing from:\n\tstuct.name\n\nAny help would be appreciated.\n\nThanks.\n\nDennis\n\n\nDennis Fisher MD\nP < (The \"P Less Than\" Company)\nPhone / Fax: 1-866-PLessThan (1-866-753-7784)\nwww.PLessThan.com\n\n\n\n\n> On Apr 30, 2018, at 1:26 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> Dennis,\n> \n> unfortunately, the Quartz windows are always placed at the same coordinates 100 x 100 and there is no option to change that.\n> \n> However, you can move it around using the Cocoa package if you so desire (assuming you're in the R.app):\n> \n> install.packages(\"Cocoa\",,\"http://rforge.net <http://rforge.net/>\")\n> \n> library(Cocoa)\n> \n> ## create a quartz device and get its window\n> ## make sure you run the following as one command or else you'll get the console window instead\n> quartz(); w = .M(.M(\"NSApplication\", \"sharedApplication\"), \"keyWindow\")\n> \n> ## move the window:\n> .M(w, \"setFrameTopLeftPoint:\", NSMakePoint(100, 1000))\n> \n> \n> You can move it anywhere on any screen - also off-screen.\n> \n> The other alternative is to move it using AppleScript.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On Apr 30, 2018, at 11:46 AM, Dennis Fisher <fisher at plessthan.com <mailto:fisher at plessthan.com>> wrote:\n>> \n>> R 3.5.0\n>> OS X\n>> \n>> Colleagues\n>> \n>> When I open a plot() window on-screen, it appears in the lower left corner of the screen.  \n>> Is it possible to control the location?  If so, what commands?  \n>> And, if so, can I locate it to a display other than the primary display?\n>> \n>> Dennis\n>> \n>> \n>> \n>> Dennis Fisher MD\n>> P < (The \"P Less Than\" Company)\n>> Phone / Fax: 1-866-PLessThan (1-866-753-7784)\n>> www.PLessThan.com <http://www.plessthan.com/> <http://www.plessthan.com/ <http://www.plessthan.com/>>\n>> \n>> \n>> \n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Simon\n\nI was hopeful that your suggestion would resolve the problem ? however, when I execute the exact code that you suggested from a terminal, I get an error.\n> library(Cocoa)\n> quartz(); w = .M(.M(",
+      "thread_id": "thread-3c12ac2a5b7f",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-abb883bbdc34",
+      "message_id": "<382450DC-5919-4EFD-9396-6EC2AD61B966@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "d2993af8276d7d16dc443cc9104ee8f859bd1e4d9f6287707febbb204f44d546",
+      "date": "2018-05-15T04:51:28-07:00",
+      "subject": "[R-SIG-Mac] R 3.5.0",
+      "subject_clean": "R 3.5.0",
+      "in_reply_to": "<7593000A-717A-4E2C-8800-CA734856F36A@noaa.gov>",
+      "references": [
+        "<B0627793-1750-49FE-AA25-67895C092A18@noaa.gov>",
+        "<6CCA0389-DA79-4576-B6E4-06918A60D946@R-project.org>",
+        "<7593000A-717A-4E2C-8800-CA734856F36A@noaa.gov>"
+      ],
+      "body_plain": "It was my experience yesterday with using the old method (copy folders to new ../library/ and use update.packages(checkBuilt=TRUE) ) that I was given the option to have packages with more recent updates compiled from source. I had anticipated the issue (time) mentioned by Simon, so I only copied over perhaps a third of my full complement of packages. \n\nSent from my iPhone\n\n> On Apr 25, 2018, at 11:20 AM, Roy Mendelssohn - NOAA Federal <roy.mendelssohn at noaa.gov> wrote:\n> \n> Hi Simon:\n> \n> Perfect,  thank you for the info.  One of the reasons I was asking is in ~/Library/R i have a umber of packages that in fact are in CRAN but what I have are the development versions.  Everything I have in /Library/Frameworks/R are the CRAN versions.  It is easier for me to do the ~/Library//R update myself through a script so I keep the development versions.\n> \n> Mostly also thanks for all of your work on the Mac version.  Much appreciated.\n> \n> -Roy\n> \n>> On Apr 25, 2018, at 11:10 AM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n>> \n>> Roy,\n>> \n>> first, I'd recommend holding off with updating packages. Due to the number of packages, updating all of them takes quite some time, so in order to use the binaries that are built with the release version of R it will probably take at least until tomorrow that they are propagated through the mirror network. Hence you'll have to re-install them anyway if you do it now. \n>> \n>> That said, the \"select packages from previous version\" search function only applies to the system library - the use library is not in scope. However, where you install those packages is up to you depending on the selection in the Package Installer - the two steps are separate in the GUI.\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>> \n>>> On Apr 25, 2018, at 11:26 AM, Roy Mendelssohn - NOAA Federal <roy.mendelssohn at noaa.gov> wrote:\n>>> \n>>> Hi All:\n>>> \n>>> If I remember correctly how R release numbers work,  R 3.5.0 would mean best practice would be to re-install all packages,  is this correct?  The Mac version has had a mechanism that does helps automate this process,  but I have a few questions as to how this works.  Specifically:\n>>> \n>>> 1.  In looking for packages to re-install, does it look just in the /LIbrary/Frameworks/R location for packages,  or does it look in ~/username/Library/R also?\n>>> \n>>> 2.  If it does look at both locations,  does the re-install then put everything into  /LIbrary/Frameworks/R or is present location maintained?\n>>> \n>>> I ask because I have a lot of packages in ~/username/Library/R and want to maintain things that way, so I want to be certain that I know what will happen fi I use the built-in mechanism.\n>>> \n>>> Thanks,\n>>> \n>>> -Roy\n>>> \n>>> \n>>> \n>>> **********************\n>>> \"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n>>> **********************\n>>> Roy Mendelssohn\n>>> Supervisory Operations Research Analyst\n>>> NOAA/NMFS\n>>> Environmental Research Division\n>>> Southwest Fisheries Science Center\n>>> ***Note new street address***\n>>> 110 McAllister Way\n>>> Santa Cruz, CA 95060\n>>> Phone: (831)-420-3666\n>>> Fax: (831) 420-3980\n>>> e-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n>>> \n>>> \"Old age and treachery will overcome youth and skill.\"\n>>> \"From those who have been given much, much will be expected\" \n>>> \"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n> \n> **********************\n> \"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n> **********************\n> Roy Mendelssohn\n> Supervisory Operations Research Analyst\n> NOAA/NMFS\n> Environmental Research Division\n> Southwest Fisheries Science Center\n> ***Note new street address***\n> 110 McAllister Way\n> Santa Cruz, CA 95060\n> Phone: (831)-420-3666\n> Fax: (831) 420-3980\n> e-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n> \n> \"Old age and treachery will overcome youth and skill.\"\n> \"From those who have been given much, much will be expected\" \n> \"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "It was my experience yesterday with using the old method (copy folders to new ../library/ and use update.packages(checkBuilt=TRUE) ) that I was given the option to have packages with more recent updat",
+      "thread_id": "thread-abb883bbdc34",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-1e34d58a9945",
+      "message_id": "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+      "from_name": "Nigel Delaney",
+      "from_email_hash": "af709d3248b8f3fc711eafdbaa7e12b22bf7f4f3010b446992ca6bd1c9201f63",
+      "date": "2018-05-16T11:40:18-07:00",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nMac binaries on R are distributed as .pkg files available from CRAN\nfor installation.  Does anyone know if the source script (assuming a\nscript is used) that generates this pkg file is available anywhere?\nThe pkg seems to contain a few elements like a postflight/postinstall\nscript that I could not find in any open source repository and are not\npart of the R binaries.\n\nWe have a few users who are dealing with the fortran compiler issues\non Mac, and were hoping to just modify the current .pkg to contain a\nfew more packages, was hoping to avoid reinventing the wheel on the\npackaging scripts.\n\nThanks for any help,\nNigel",
+      "body_snippet": "Hi,\n\nMac binaries on R are distributed as .pkg files available from CRAN\nfor installation.  Does anyone know if the source script (assuming a\nscript is used) that generates this pkg file is available ",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-0bb2da0944b4",
+      "message_id": "<5517EC3E-2F21-4589-AC07-3D5CE6CC2094@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "d2993af8276d7d16dc443cc9104ee8f859bd1e4d9f6287707febbb204f44d546",
+      "date": "2018-05-16T21:50:28-04:00",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+      "references": [
+        "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>"
+      ],
+      "body_plain": "> On May 16, 2018, at 2:40 PM, Nigel Delaney <nigelfdelaney at gmail.com> wrote:\n> \n> Hi,\n> \n> Mac binaries on R are distributed as .pkg files available from CRAN\n> for installation.  Does anyone know if the source script (assuming a\n> script is used) that generates this pkg file is available anywhere?\n> The pkg seems to contain a few elements like a postflight/postinstall\n> script that I could not find in any open source repository and are not\n> part of the R binaries.\n> \n> We have a few users who are dealing with the fortran compiler issues\n> on Mac, and were hoping to just modify the current .pkg to contain a\n> few more packages, was hoping to avoid reinventing the wheel on the\n> packaging scripts.\n> \n\nAre their clang and gfortran installations up-to-date:\n\nhttps://cran.r-project.org/bin/macosx/tools/\n\n\n> Thanks for any help,\n> Nigel\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> On May 16, 2018, at 2:40 PM, Nigel Delaney <nigelfdelaney at gmail.com> wrote:\n> \n> Hi,\n> \n> Mac binaries on R are distributed as .pkg files available from CRAN\n> for installation.  Does anyone know",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 1,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-7a63194f160a",
+      "message_id": "<DCAFA945-F8C0-4FA9-9129-DA41FA707129@ucsd.edu>",
+      "from_name": "Berry, Charles",
+      "from_email_hash": "be3ca8be90cdbd2a976636fd254b09d9cf1be5c06f05675322b18c5a7949b0d3",
+      "date": "2018-05-17T16:39:30Z",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+      "references": [
+        "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>"
+      ],
+      "body_plain": "> On May 16, 2018, at 11:40 AM, Nigel Delaney <nigelfdelaney at gmail.com> wrote:\n> \n> Hi,\n> \n> Mac binaries on R are distributed as .pkg files available from CRAN\n> for installation.  Does anyone know if the source script (assuming a\n> script is used) that generates this pkg file is available anywhere?\n> The pkg seems to contain a few elements like a postflight/postinstall\n> script that I could not find in any open source repository and are not\n> part of the R binaries.\n> \n> We have a few users who are dealing with the fortran compiler issues\n> on Mac, and were hoping to just modify the current .pkg to contain a\n> few more packages, was hoping to avoid reinventing the wheel on the\n> packaging scripts.\n> \n\n\nWhy not just provide those users with the binaries for those packages?\n\nIf there are more than a few users and/or more than a few packages that need this treatment, set up your own repository and put the binaries there. See:\n\nhttps://cran.r-project.org/doc/manuals/r-release/R-admin.html#Setting-up-a-package-repository\n\nHTH,\n\nChuck",
+      "body_snippet": "> On May 16, 2018, at 11:40 AM, Nigel Delaney <nigelfdelaney at gmail.com> wrote:\n> \n> Hi,\n> \n> Mac binaries on R are distributed as .pkg files available from CRAN\n> for installation.  Does anyone kno",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 1,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-0bc90499ccd0",
+      "message_id": "<CACHhbWP=jYkoRchzXda7iALbdNz8ny_UYaH_P_17yRnz=9=2LQ@mail.gmail.com>",
+      "from_name": "Nigel Delaney",
+      "from_email_hash": "af709d3248b8f3fc711eafdbaa7e12b22bf7f4f3010b446992ca6bd1c9201f63",
+      "date": "2018-05-17T09:44:39-07:00",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": "<DCAFA945-F8C0-4FA9-9129-DA41FA707129@ucsd.edu>",
+      "references": [
+        "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+        "<DCAFA945-F8C0-4FA9-9129-DA41FA707129@ucsd.edu>"
+      ],
+      "body_plain": "Thanks for the responses so far.\n\nDavid - indeed those instructions are up to date, but people are\nstruggling with the issue and unable to fix that (and keep trying to\ninstall from source).\n\nChuck - Thanks also for the suggestion, it's a good idea.  I'm hoping\nwe might be able to have a one step installation to keep things simple\nthough.\n\nCheers,\nNigel\n\nOn Thu, May 17, 2018 at 9:39 AM, Berry, Charles <ccberry at ucsd.edu> wrote:\n>\n>\n>> On May 16, 2018, at 11:40 AM, Nigel Delaney <nigelfdelaney at gmail.com> wrote:\n>>\n>> Hi,\n>>\n>> Mac binaries on R are distributed as .pkg files available from CRAN\n>> for installation.  Does anyone know if the source script (assuming a\n>> script is used) that generates this pkg file is available anywhere?\n>> The pkg seems to contain a few elements like a postflight/postinstall\n>> script that I could not find in any open source repository and are not\n>> part of the R binaries.\n>>\n>> We have a few users who are dealing with the fortran compiler issues\n>> on Mac, and were hoping to just modify the current .pkg to contain a\n>> few more packages, was hoping to avoid reinventing the wheel on the\n>> packaging scripts.\n>>\n>\n>\n> Why not just provide those users with the binaries for those packages?\n>\n> If there are more than a few users and/or more than a few packages that need this treatment, set up your own repository and put the binaries there. See:\n>\n> https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Setting-up-a-package-repository\n>\n> HTH,\n>\n> Chuck\n>\n>\n>",
+      "body_snippet": "Thanks for the responses so far.\n\nDavid - indeed those instructions are up to date, but people are\nstruggling with the issue and unable to fix that (and keep trying to\ninstall from source).\n\nChuck - T",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 2,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-e56d98fdbbaa",
+      "message_id": "<0073969C-B7E4-417C-B67D-C2BC48B8BE90@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "9d6f44bab20e14b56577e49573f5a44619f7f9a29e2fac6760408da4e8df9945",
+      "date": "2018-05-17T19:15:58Z",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": "<CACHhbWP=jYkoRchzXda7iALbdNz8ny_UYaH_P_17yRnz=9=2LQ@mail.gmail.com>",
+      "references": [
+        "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+        "<DCAFA945-F8C0-4FA9-9129-DA41FA707129@ucsd.edu>",
+        "<CACHhbWP=jYkoRchzXda7iALbdNz8ny_UYaH_P_17yRnz=9=2LQ@mail.gmail.com>"
+      ],
+      "body_plain": "Greetings and Salutations Nigel,\n\nI've \"augmented\" the base R install via an unofficial, e.g. not sanctioned by CRAN, Rtools build. This can be found here:\n\nhttps://github.com/coatless/r-macos-rtools\n\nPresently, the latest release only supports the R 3.4.* line:\n\nhttps://github.com/coatless/r-macos-rtools/releases/tag/v1.0.0\n\nI'll likely update it this weekend to provide support for R 3.5.*. In particular, I'll bump the compiler from clang4 to clang6.\n\nSincerely,\n\nJJB\n\n?On 5/17/18, 11:45 AM, \"R-SIG-Mac on behalf of Nigel Delaney\" <r-sig-mac-bounces at r-project.org on behalf of nigelfdelaney at gmail.com> wrote:\n\n    Thanks for the responses so far.\n    \n    David - indeed those instructions are up to date, but people are\n    struggling with the issue and unable to fix that (and keep trying to\n    install from source).\n    \n    Chuck - Thanks also for the suggestion, it's a good idea.  I'm hoping\n    we might be able to have a one step installation to keep things simple\n    though.\n    \n    Cheers,\n    Nigel\n    \n    On Thu, May 17, 2018 at 9:39 AM, Berry, Charles <ccberry at ucsd.edu> wrote:\n    >\n    >\n    >> On May 16, 2018, at 11:40 AM, Nigel Delaney <nigelfdelaney at gmail.com> wrote:\n    >>\n    >> Hi,\n    >>\n    >> Mac binaries on R are distributed as .pkg files available from CRAN\n    >> for installation.  Does anyone know if the source script (assuming a\n    >> script is used) that generates this pkg file is available anywhere?\n    >> The pkg seems to contain a few elements like a postflight/postinstall\n    >> script that I could not find in any open source repository and are not\n    >> part of the R binaries.\n    >>\n    >> We have a few users who are dealing with the fortran compiler issues\n    >> on Mac, and were hoping to just modify the current .pkg to contain a\n    >> few more packages, was hoping to avoid reinventing the wheel on the\n    >> packaging scripts.\n    >>\n    >\n    >\n    > Why not just provide those users with the binaries for those packages?\n    >\n    > If there are more than a few users and/or more than a few packages that need this treatment, set up your own repository and put the binaries there. See:\n    >\n    > https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Setting-up-a-package-repository\n    >\n    > HTH,\n    >\n    > Chuck\n    >\n    >\n    >\n    \n    _______________________________________________\n    R-SIG-Mac mailing list\n    R-SIG-Mac at r-project.org\n    https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Greetings and Salutations Nigel,\n\nI've \"augmented\" the base R install via an unofficial, e.g. not sanctioned by CRAN, Rtools build. This can be found here:\n\nhttps://github.com/coatless/r-macos-rtools\n",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 3,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-3a509ccc47bd",
+      "message_id": "<CAGx1TMBxXX8vsN7q1Qi3m_nknSf7O1kJ384ODzJ0d7D64UtfPA@mail.gmail.com>",
+      "from_name": "Richard M. Heiberger",
+      "from_email_hash": "2e0c4e03037729cd6ae1e263da647802d355abd9b10fb514a2b7bae246e0a94b",
+      "date": "2018-05-22T01:36:52-04:00",
+      "subject": "[R-SIG-Mac] java version, perhaps related to ggplot2",
+      "subject_clean": "java version, perhaps related to ggplot2",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "sI have Macintosh High Sierra 10.13.4\nand R_3.5.0\n\nI am attempting to R CMD build and check my package microplot against\nthe imminent ggplot2_2.2.1.9000\n\nThe build fails with messages\n\n** byte-compile and prepare package for lazy loading\nError : .onLoad failed in loadNamespace() for 'rJava', details:\n  call: dyn.load(file, DLLpath = DLLpath, ...)\n  error: unable to load shared object\n'/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n  dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so,\n6): Library not loaded:\n/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n  Referenced from:\n/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n  Reason: image not found\nERROR: lazy loading failed for package ?microplot?\n\nIndeed I do not have Java 9, I have Java 8, which the Java updater\nsays is current (171).\nThe java site\nhttp://www.oracle.com/technetwork/java/javase/overview/index.html\nseems to want to give me Java 10 (not Java 9), and the discussion on\nthis R-sig-mac list\n    [R-SIG-Mac] R and Java 10 ? rJava not able to build\nbeginning March 29 seems to say 8 is still correct.  As suggested\nthere I looked at R-admin for 3.5.0\nand discover \"The situation with Java support on macOS is messy\".\nI attempted the suggested workaround\nJAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home\nand got the same message as above.\n\nI need guidance as to the next steps I should take.\n\nRich",
+      "body_snippet": "sI have Macintosh High Sierra 10.13.4\nand R_3.5.0\n\nI am attempting to R CMD build and check my package microplot against\nthe imminent ggplot2_2.2.1.9000\n\nThe build fails with messages\n\n** byte-compile",
+      "thread_id": "thread-3a509ccc47bd",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-1aa9f9cb5010",
+      "message_id": "<1527044845999.90398@auckland.ac.nz>",
+      "from_name": "Tom Elliott",
+      "from_email_hash": "9dfc9cd3d78de198a629c970d1786eebaa4bcefb9aaa65888391f890e351a6ba",
+      "date": "2018-05-23T03:07:25Z",
+      "subject": "[R-SIG-Mac] RGtk2 binaries",
+      "subject_clean": "RGtk2 binaries",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all,\n\n\nSince R 3.4, the mac package binaries for RGtk2 have been unavailable. The install log from CRAN shows GTK cannot be found.\n\n* installing *source* package 'RGtk2' ...\n** package 'RGtk2' successfully unpacked and MD5 sums checked\nchecking for pkg-config... /usr/local/bin/pkg-config\nchecking pkg-config is at least version 0.9.0... yes\nchecking for INTROSPECTION... no\nchecking for GTK... no\nconfigure: error: GTK version 2.8.0 required\nERROR: configuration failed for package 'RGtk2'\n* removing '/Volumes/SSD-Data/Builds/R-dev-web/QA/Simon/packages/el-capitan-x86_64/results/3.5/RGtk2.Rcheck/RGtk2'\n\n\nIs there any possibility of this being fixed in the (near) future? We have a software package that depends on RGtk2 for the UI, so we are currently stuck forcing them to use R3.2 which is inevitably becoming obsolete as other packages we use require more up-to-date versions of R.\n\n\n\nThanks,\n\n- Tom?\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all,\n\n\nSince R 3.4, the mac package binaries for RGtk2 have been unavailable. The install log from CRAN shows GTK cannot be found.\n\n* installing *source* package 'RGtk2' ...\n** package 'RGtk2' succ",
+      "thread_id": "thread-1aa9f9cb5010",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-43a1ceab214f",
+      "message_id": "<a522bfd2-958a-bd29-c569-8643b4123f1a@truthfromdata.com>",
+      "from_name": "Lee Godfrey",
+      "from_email_hash": "b3223a3bfdb86e68cca7506fc202b0c446fc5cd2530e1d9a239e50fae2b854fd",
+      "date": "2018-05-23T09:53:30-04:00",
+      "subject": "[R-SIG-Mac] RGtk2 binaries",
+      "subject_clean": "RGtk2 binaries",
+      "in_reply_to": "<1527044845999.90398@auckland.ac.nz>",
+      "references": [
+        "<1527044845999.90398@auckland.ac.nz>"
+      ],
+      "body_plain": "The easiest way to compile RGtk2 is to use homebrew to install gtk+.\n\nI tried to compile, received the same error as you, installed gtk+ and \ncompiled successfully.\n\n\nOn 5/22/18 11:07 PM, Tom Elliott wrote:\n> Hi all,\n>\n>\n> Since R 3.4, the mac package binaries for RGtk2 have been unavailable. The install log from CRAN shows GTK cannot be found.\n>\n> * installing *source* package 'RGtk2' ...\n> ** package 'RGtk2' successfully unpacked and MD5 sums checked\n> checking for pkg-config... /usr/local/bin/pkg-config\n> checking pkg-config is at least version 0.9.0... yes\n> checking for INTROSPECTION... no\n> checking for GTK... no\n> configure: error: GTK version 2.8.0 required\n> ERROR: configuration failed for package 'RGtk2'\n> * removing '/Volumes/SSD-Data/Builds/R-dev-web/QA/Simon/packages/el-capitan-x86_64/results/3.5/RGtk2.Rcheck/RGtk2'\n>\n>\n> Is there any possibility of this being fixed in the (near) future? We have a software package that depends on RGtk2 for the UI, so we are currently stuck forcing them to use R3.2 which is inevitably becoming obsolete as other packages we use require more up-to-date versions of R.\n>\n>\n>\n> Thanks,\n>\n> - Tom?\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "The easiest way to compile RGtk2 is to use homebrew to install gtk+.\n\nI tried to compile, received the same error as you, installed gtk+ and \ncompiled successfully.\n\n\nOn 5/22/18 11:07 PM, Tom Elliott ",
+      "thread_id": "thread-1aa9f9cb5010",
+      "thread_depth": 1,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-95f6e14e382b",
+      "message_id": "<7287B76A-B859-4EC4-AE4F-75D5DF446F32@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "d2993af8276d7d16dc443cc9104ee8f859bd1e4d9f6287707febbb204f44d546",
+      "date": "2018-05-23T19:50:19-04:00",
+      "subject": "[R-SIG-Mac] java version, perhaps related to ggplot2",
+      "subject_clean": "java version, perhaps related to ggplot2",
+      "in_reply_to": "<CAGx1TMBxXX8vsN7q1Qi3m_nknSf7O1kJ384ODzJ0d7D64UtfPA@mail.gmail.com>",
+      "references": [
+        "<CAGx1TMBxXX8vsN7q1Qi3m_nknSf7O1kJ384ODzJ0d7D64UtfPA@mail.gmail.com>"
+      ],
+      "body_plain": "> On May 22, 2018, at 1:36 AM, Richard M. Heiberger <rmh at temple.edu> wrote:\n> \n> sI have Macintosh High Sierra 10.13.4\n> and R_3.5.0\n> \n> I am attempting to R CMD build and check my package microplot against\n> the imminent ggplot2_2.2.1.9000\n> \n\nI have a new High Sierra Machine with a System that was ported over from an earlier version of the OS. I've installed R 3.5.0.  I tried installing micro plot from binary without error, but when I try to load the rJava library I was getting an error with the old Java version 151, so I accepted the Oracle offer of installing version 171 downloaded from the Java website, but I'm also seeing:\n\nlibrary(rJava)\nError: package or namespace load failed for ?rJava?:\n .onLoad failed in loadNamespace() for 'rJava', details:\n  call: dyn.load(file, DLLpath = DLLpath, ...)\n  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n  dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n  Referenced from: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n  Reason: image not found\n\n\nThere is a folder  /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk, but nothing named with a jdk-9 prefix\n\n\nS\nBest;\n\nDavid.\n\n> The build fails with messages\n> \n> ** byte-compile and prepare package for lazy loading\n> Error : .onLoad failed in loadNamespace() for 'rJava', details:\n>  call: dyn.load(file, DLLpath = DLLpath, ...)\n>  error: unable to load shared object\n> '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n>  dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so,\n> 6): Library not loaded:\n> /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n>  Referenced from:\n> /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n>  Reason: image not found\n> ERROR: lazy loading failed for package ?microplot?\n> \n> Indeed I do not have Java 9, I have Java 8, which the Java updater\n> says is current (171).\n> The java site\n> http://www.oracle.com/technetwork/java/javase/overview/index.html\n> seems to want to give me Java 10 (not Java 9), and the discussion on\n> this R-sig-mac list\n>    [R-SIG-Mac] R and Java 10 ? rJava not able to build\n> beginning March 29 seems to say 8 is still correct.  As suggested\n> there I looked at R-admin for 3.5.0\n> and discover \"The situation with Java support on macOS is messy\".\n> I attempted the suggested workaround\n> JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home\n> and got the same message as above.\n> \n> I need guidance as to the next steps I should take.\n> \n> Rich\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> On May 22, 2018, at 1:36 AM, Richard M. Heiberger <rmh at temple.edu> wrote:\n> \n> sI have Macintosh High Sierra 10.13.4\n> and R_3.5.0\n> \n> I am attempting to R CMD build and check my package micropl",
+      "thread_id": "thread-3a509ccc47bd",
+      "thread_depth": 1,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-aff4c1a74f47",
+      "message_id": "<57EAAF27-BD3C-47C4-AF83-FFE4501E7B73@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "d2993af8276d7d16dc443cc9104ee8f859bd1e4d9f6287707febbb204f44d546",
+      "date": "2018-05-23T19:52:42-04:00",
+      "subject": "[R-SIG-Mac] RQDA/RGtk2 Installation Problem",
+      "subject_clean": "RQDA/RGtk2 Installation Problem",
+      "in_reply_to": "<CAGJtK3T3yY8mQM6cUdPFx6fHkEvfk9eQV8_JWE7M88NdgBU40A@mail.gmail.com>",
+      "references": [
+        "<CAGJtK3T3yY8mQM6cUdPFx6fHkEvfk9eQV8_JWE7M88NdgBU40A@mail.gmail.com>"
+      ],
+      "body_plain": "> On Apr 15, 2018, at 8:34 AM, Ryoko Yamamoto <ryokobe at gmail.com> wrote:\n> \n> Greetings,\n> \n> I have been having a problem installing RQDA on my Mac (OS 10.13.2). I\n> followed the installation process on the RQDA page (http://rqda.r-forge.r-\n> project.org/), but I keep getting an error message saying that I am missing\n> pkg-config and GTK. I reinstalled XQuartz and GTK+ 2.24.17 multiple times\n> (and reinstalled R version 3.4.4), but kept receiving the same error\n> message.\n> \n> Some kind person suggested this page as a possible solution:\n> \n> https://stackoverflow.com/questions/19645590/running-rattle-on-mac-os-x-10-9-mavericks/19719518#19719518\n\nThe problem with this answer is that it refers to installation on an older version of R. The current MacOS version uses clang6. See https://cran.r-project.org/bin/macosx/tools/\n\nYou _might_ be able to run clang4 if you really knew what you were doing, but I'm not in any sort of position to opine on that. The Tools page says that clang6 was used to provide OpenMP support.\n\n> \n> I am stuck after \"brew install gtk+ cairo.\" I have very little knowledge of\n> coding, and unsure how to create or modify  ~/.R/Makevars....\n\nA Makevars fie is just a text file. Use TextEdit.app or any programming editor. I'm not sure that those directions are current. The Mac R Tools page used to have similar directions but those directions were removed in the change over to Sierra and High Sierra.\n\n> \n> My apologies for a noob question, but would appreciate if you could walk me\n> through, or point me to a step-by-step tutorial, if it is available. I have\n> already installed XCode and Command Line Tools.\n> \n> Thank you in advance for your help.\n> \n> Ryoko\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> On Apr 15, 2018, at 8:34 AM, Ryoko Yamamoto <ryokobe at gmail.com> wrote:\n> \n> Greetings,\n> \n> I have been having a problem installing RQDA on my Mac (OS 10.13.2). I\n> followed the installation proc",
+      "thread_id": "thread-aff4c1a74f47",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-acb594659ab1",
+      "message_id": "<CACHhbWNdM-d1tay6zyjPN5-WN8A-5QrOZjt29TPxTtqTpzOGJg@mail.gmail.com>",
+      "from_name": "Nigel Delaney",
+      "from_email_hash": "af709d3248b8f3fc711eafdbaa7e12b22bf7f4f3010b446992ca6bd1c9201f63",
+      "date": "2018-05-24T00:14:27-07:00",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": "<0073969C-B7E4-417C-B67D-C2BC48B8BE90@illinois.edu>",
+      "references": [
+        "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+        "<DCAFA945-F8C0-4FA9-9129-DA41FA707129@ucsd.edu>",
+        "<CACHhbWP=jYkoRchzXda7iALbdNz8ny_UYaH_P_17yRnz=9=2LQ@mail.gmail.com>",
+        "<0073969C-B7E4-417C-B67D-C2BC48B8BE90@illinois.edu>"
+      ],
+      "body_plain": "James,\n\nThank you for the wonderful response and for making your packaging code\navailable (and producing this!).  Very much appreciated.\n\nI wound up taking an approach where I just modified the CRAN R installer to\ninclude a few more packages (specifically all I had installed).  I couldn't\nfind advice about this on the internet, so am attaching a subset of the\nscript I used below in case a future individual also wants some advice on\nthis.\n\nCheers,\nNigel\n\n\n# Script to modify the R bundle to add more packages from the users library\n\nwget https://cloud.r-project.org/bin/macosx/R-3.5.0.pkg\n\nBUILD_DIR=build\nmkdir $BUILD_DIR\n\n# Unpack the CRAN R distribution\npkgutil --expand R-3.5.0.pkg $BUILD_DIR/tmp_pkg\n\n\n# Now to add more default packages to the R package payload\n# First extract the payload\npushd $BUILD_DIR/tmp_pkg/r.pkg/\ncat Payload | gzip -d | cpio -id\n\n# Copy all of the users R packages into this\n# folder for distribution\nR_LIB_DIR=$(sed -e 's/\\[1\\] \\\"//' -e 's/\\\"//' <<< $(RScript -e\n'.libPaths()'))\nR_PAYLOAD_DIR=\"R.framework/Resources/library\"\nfor dirname in $R_LIB_DIR/*\ndo\npkg_name=$(basename $dirname)\nif [ ! -d $R_PAYLOAD_DIR/$pkg_name ]\nthen\necho \"Moving package:\" $pkg_name\ncp -r $dirname $R_PAYLOAD_DIR/$pkg_name\nfi\ndone\n\n# Let's remove the debug symbols and their associated plists for compiled\ncode in R\n# packages, as they bloat the installation\nfind $R_PAYLOAD_DIR -name '*so.dSYM' -prune -exec rm -rf {} \\;\n\n# Now build a new r.pkg\npkgbuild --component R.framework --scripts Scripts/ \\\n   --identifier org.r-project.R.el-capitan.fw.pkg \\\n   --version 30574626 \\ # You may want to change this\n   --install-location /Library/Frameworks \\\n   ../../r.pkg\n\npopd\n\n# Remove original one we've replaced\nrm -rf $BUILD_DIR/tmp_pkg/r.pkg\n\n# Flatten remaining components distributed with R\n# (necessary to repackage it all).\nfor fname in $BUILD_DIR/tmp_pkg/*.pkg\ndo\nbname=$(basename $fname)\npkgutil --flatten $fname $BUILD_DIR/$bname\ndone\n\nmv $BUILD_DIR/tmp_pkg/Resources $BUILD_DIR/\nmv $BUILD_DIR/tmp_pkg/Distribution $BUILD_DIR/\n\n(cd $BUILD_DIR; productbuild --distribution Distribution --resources\nResources ../R-With-Your-Stuff.pkg)\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "James,\n\nThank you for the wonderful response and for making your packaging code\navailable (and producing this!).  Very much appreciated.\n\nI wound up taking an approach where I just modified the CRAN R",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 4,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-4c49926fae98",
+      "message_id": "<F7CEB4E8-BCD4-4982-9BC2-3EB7077646E4@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "c9e2a0a74f0bc90af9c0174bb024d3e27937a7674e94e66fd35a7a1d2d603003",
+      "date": "2018-05-24T13:47:43-04:00",
+      "subject": "[R-SIG-Mac] java version, perhaps related to ggplot2",
+      "subject_clean": "java version, perhaps related to ggplot2",
+      "in_reply_to": "<7287B76A-B859-4EC4-AE4F-75D5DF446F32@comcast.net>",
+      "references": [
+        "<CAGx1TMBxXX8vsN7q1Qi3m_nknSf7O1kJ384ODzJ0d7D64UtfPA@mail.gmail.com>",
+        "<7287B76A-B859-4EC4-AE4F-75D5DF446F32@comcast.net>"
+      ],
+      "body_plain": "You need to configure R to match your Java using R CMD javareconf.\n\nThe CRAN machine uses JDK 1.9 which was the default until Java 10 was released recently. If you use something else, you have to configure R accordingly.\n\nAlso I strongly recommend using rJava 0.9-10 since it works around some issue with Java on macOS and with Java 10.\n\nCheers,\nSimon\n\n\n\n\n\n> On May 23, 2018, at 7:50 PM, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n> \n> \n>> On May 22, 2018, at 1:36 AM, Richard M. Heiberger <rmh at temple.edu> wrote:\n>> \n>> sI have Macintosh High Sierra 10.13.4\n>> and R_3.5.0\n>> \n>> I am attempting to R CMD build and check my package microplot against\n>> the imminent ggplot2_2.2.1.9000\n>> \n> \n> I have a new High Sierra Machine with a System that was ported over from an earlier version of the OS. I've installed R 3.5.0.  I tried installing micro plot from binary without error, but when I try to load the rJava library I was getting an error with the old Java version 151, so I accepted the Oracle offer of installing version 171 downloaded from the Java website, but I'm also seeing:\n> \n> library(rJava)\n> Error: package or namespace load failed for ?rJava?:\n> .onLoad failed in loadNamespace() for 'rJava', details:\n>  call: dyn.load(file, DLLpath = DLLpath, ...)\n>  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n>  dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n>  Referenced from: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n>  Reason: image not found\n> \n> \n> There is a folder  /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk, but nothing named with a jdk-9 prefix\n> \n> \n> S\n> Best;\n> \n> David.\n> \n>> The build fails with messages\n>> \n>> ** byte-compile and prepare package for lazy loading\n>> Error : .onLoad failed in loadNamespace() for 'rJava', details:\n>> call: dyn.load(file, DLLpath = DLLpath, ...)\n>> error: unable to load shared object\n>> '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n>> dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so,\n>> 6): Library not loaded:\n>> /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n>> Referenced from:\n>> /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n>> Reason: image not found\n>> ERROR: lazy loading failed for package ?microplot?\n>> \n>> Indeed I do not have Java 9, I have Java 8, which the Java updater\n>> says is current (171).\n>> The java site\n>> http://www.oracle.com/technetwork/java/javase/overview/index.html\n>> seems to want to give me Java 10 (not Java 9), and the discussion on\n>> this R-sig-mac list\n>>   [R-SIG-Mac] R and Java 10 ? rJava not able to build\n>> beginning March 29 seems to say 8 is still correct.  As suggested\n>> there I looked at R-admin for 3.5.0\n>> and discover \"The situation with Java support on macOS is messy\".\n>> I attempted the suggested workaround\n>> JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home\n>> and got the same message as above.\n>> \n>> I need guidance as to the next steps I should take.\n>> \n>> Rich\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "You need to configure R to match your Java using R CMD javareconf.\n\nThe CRAN machine uses JDK 1.9 which was the default until Java 10 was released recently. If you use something else, you have to conf",
+      "thread_id": "thread-3a509ccc47bd",
+      "thread_depth": 2,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-2ffcc7a7991f",
+      "message_id": "<DD6442BF-2FAF-48A0-9E5E-FE73248775B9@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "c9e2a0a74f0bc90af9c0174bb024d3e27937a7674e94e66fd35a7a1d2d603003",
+      "date": "2018-05-24T13:55:56-04:00",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": "<0073969C-B7E4-417C-B67D-C2BC48B8BE90@illinois.edu>",
+      "references": [
+        "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+        "<DCAFA945-F8C0-4FA9-9129-DA41FA707129@ucsd.edu>",
+        "<CACHhbWP=jYkoRchzXda7iALbdNz8ny_UYaH_P_17yRnz=9=2LQ@mail.gmail.com>",
+        "<0073969C-B7E4-417C-B67D-C2BC48B8BE90@illinois.edu>"
+      ],
+      "body_plain": "Just for posterity - please note that the installer referenced below is potentially unsafe and dangerous, because it does NOT actually package the binary but rather contains just an arbitrary shell script and thus you cannot be sure that you get the official binaries or something malicious instead (and it is vulnerable to man-in-the-middle attacks). Also it performs various actions as root that you may or may not like. Be careful trusting installers that are not signed by CRAN members. We only supply the binary and any post-install actions only affect the installed binary not other system functions nor user directories.\n\nCheers,\nSimon\n\n\n\n> On May 17, 2018, at 3:15 PM, Balamuta, James Joseph <balamut2 at illinois.edu> wrote:\n> \n> Greetings and Salutations Nigel,\n> \n> I've \"augmented\" the base R install via an unofficial, e.g. not sanctioned by CRAN, Rtools build. This can be found here:\n> \n> https://github.com/coatless/r-macos-rtools\n> \n> Presently, the latest release only supports the R 3.4.* line:\n> \n> https://github.com/coatless/r-macos-rtools/releases/tag/v1.0.0\n> \n> I'll likely update it this weekend to provide support for R 3.5.*. In particular, I'll bump the compiler from clang4 to clang6.\n> \n> Sincerely,\n> \n> JJB\n> \n> ?On 5/17/18, 11:45 AM, \"R-SIG-Mac on behalf of Nigel Delaney\" <r-sig-mac-bounces at r-project.org on behalf of nigelfdelaney at gmail.com> wrote:\n> \n>    Thanks for the responses so far.\n> \n>    David - indeed those instructions are up to date, but people are\n>    struggling with the issue and unable to fix that (and keep trying to\n>    install from source).\n> \n>    Chuck - Thanks also for the suggestion, it's a good idea.  I'm hoping\n>    we might be able to have a one step installation to keep things simple\n>    though.\n> \n>    Cheers,\n>    Nigel\n> \n>    On Thu, May 17, 2018 at 9:39 AM, Berry, Charles <ccberry at ucsd.edu> wrote:\n>> \n>> \n>>> On May 16, 2018, at 11:40 AM, Nigel Delaney <nigelfdelaney at gmail.com> wrote:\n>>> \n>>> Hi,\n>>> \n>>> Mac binaries on R are distributed as .pkg files available from CRAN\n>>> for installation.  Does anyone know if the source script (assuming a\n>>> script is used) that generates this pkg file is available anywhere?\n>>> The pkg seems to contain a few elements like a postflight/postinstall\n>>> script that I could not find in any open source repository and are not\n>>> part of the R binaries.\n>>> \n>>> We have a few users who are dealing with the fortran compiler issues\n>>> on Mac, and were hoping to just modify the current .pkg to contain a\n>>> few more packages, was hoping to avoid reinventing the wheel on the\n>>> packaging scripts.\n>>> \n>> \n>> \n>> Why not just provide those users with the binaries for those packages?\n>> \n>> If there are more than a few users and/or more than a few packages that need this treatment, set up your own repository and put the binaries there. See:\n>> \n>> https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Setting-up-a-package-repository\n>> \n>> HTH,\n>> \n>> Chuck\n>> \n>> \n>> \n> \n>    _______________________________________________\n>    R-SIG-Mac mailing list\n>    R-SIG-Mac at r-project.org\n>    https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Just for posterity - please note that the installer referenced below is potentially unsafe and dangerous, because it does NOT actually package the binary but rather contains just an arbitrary shell sc",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 4,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-fe26af6683f3",
+      "message_id": "<107ED798-D120-4FC5-A711-57F2C791326E@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "9d6f44bab20e14b56577e49573f5a44619f7f9a29e2fac6760408da4e8df9945",
+      "date": "2018-05-25T02:07:45Z",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": "<CACHhbWNdM-d1tay6zyjPN5-WN8A-5QrOZjt29TPxTtqTpzOGJg@mail.gmail.com>",
+      "references": [
+        "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+        "<DCAFA945-F8C0-4FA9-9129-DA41FA707129@ucsd.edu>",
+        "<CACHhbWP=jYkoRchzXda7iALbdNz8ny_UYaH_P_17yRnz=9=2LQ@mail.gmail.com>",
+        "<0073969C-B7E4-417C-B67D-C2BC48B8BE90@illinois.edu>",
+        "<CACHhbWNdM-d1tay6zyjPN5-WN8A-5QrOZjt29TPxTtqTpzOGJg@mail.gmail.com>"
+      ],
+      "body_plain": "Greetings and Salutations Nigel,\n\nYou?re welcome!\n\nJust a word of advice regarding 3.4.x and 3.5.x, make sure the installer includes packages from the desired version. ALTREP was added in 3.5.x and that has caused issues with users who opt to copy over the previous installation of r binaries to the new install location.\n\nLastly, you may wish to just maintain an R package install script, c.f.\n\nhttps://github.com/coatless/toad/blob/master/install-r-packages.R\n\nSincerely,\n\nJJB\n\nFrom: Nigel Delaney <nigelfdelaney at gmail.com>\nDate: Thursday, May 24, 2018 at 2:14 AM\nTo: \"Balamuta, James Joseph\" <balamut2 at illinois.edu>\nCc: \"r-sig-mac at r-project.org\" <r-sig-mac at r-project.org>\nSubject: Re: [R-SIG-Mac] Generating R .pkg file for Mac Distribution\n\nJames,\n\nThank you for the wonderful response and for making your packaging code available (and producing this!).  Very much appreciated.\n\nI wound up taking an approach where I just modified the CRAN R installer to include a few more packages (specifically all I had installed).  I couldn't find advice about this on the internet, so am attaching a subset of the script I used below in case a future individual also wants some advice on this.\n\nCheers,\nNigel\n\n\n# Script to modify the R bundle to add more packages from the users library\n\nwget https://cloud.r-project.org/bin/macosx/R-3.5.0.pkg\n\nBUILD_DIR=build\nmkdir $BUILD_DIR\n\n# Unpack the CRAN R distribution\npkgutil --expand R-3.5.0.pkg $BUILD_DIR/tmp_pkg\n\n\n# Now to add more default packages to the R package payload\n# First extract the payload\npushd $BUILD_DIR/tmp_pkg/r.pkg/\ncat Payload | gzip -d | cpio -id\n\n# Copy all of the users R packages into this\n# folder for distribution\nR_LIB_DIR=$(sed -e 's/\\[1\\] \\\"//' -e 's/\\\"//' <<< $(RScript -e '.libPaths()'))\nR_PAYLOAD_DIR=\"R.framework/Resources/library\"\nfor dirname in $R_LIB_DIR/*\ndo\npkg_name=$(basename $dirname)\nif [ ! -d $R_PAYLOAD_DIR/$pkg_name ]\nthen\necho \"Moving package:\" $pkg_name\ncp -r $dirname $R_PAYLOAD_DIR/$pkg_name\nfi\ndone\n\n# Let's remove the debug symbols and their associated plists for compiled code in R\n# packages, as they bloat the installation\nfind $R_PAYLOAD_DIR -name '*so.dSYM' -prune -exec rm -rf {} \\;\n\n# Now build a new r.pkg\npkgbuild --component R.framework --scripts Scripts/ \\\n   --identifier org.r-project.R.el-capitan.fw.pkg \\\n   --version 30574626 \\ # You may want to change this\n   --install-location /Library/Frameworks \\\n   ../../r.pkg\n\npopd\n\n# Remove original one we've replaced\nrm -rf $BUILD_DIR/tmp_pkg/r.pkg\n\n# Flatten remaining components distributed with R\n# (necessary to repackage it all).\nfor fname in $BUILD_DIR/tmp_pkg/*.pkg\ndo\nbname=$(basename $fname)\npkgutil --flatten $fname $BUILD_DIR/$bname\ndone\n\nmv $BUILD_DIR/tmp_pkg/Resources $BUILD_DIR/\nmv $BUILD_DIR/tmp_pkg/Distribution $BUILD_DIR/\n\n(cd $BUILD_DIR; productbuild --distribution Distribution --resources Resources ../R-With-Your-Stuff.pkg)\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Greetings and Salutations Nigel,\n\nYou?re welcome!\n\nJust a word of advice regarding 3.4.x and 3.5.x, make sure the installer includes packages from the desired version. ALTREP was added in 3.5.x and th",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 5,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-ea7d013bfec1",
+      "message_id": "<419B2A2E-2C95-4CAA-9487-BF6C457195A8@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "9d6f44bab20e14b56577e49573f5a44619f7f9a29e2fac6760408da4e8df9945",
+      "date": "2018-05-25T02:09:14Z",
+      "subject": "[R-SIG-Mac] Generating R .pkg file for Mac Distribution",
+      "subject_clean": "Generating R .pkg file for Mac Distribution",
+      "in_reply_to": "<DD6442BF-2FAF-48A0-9E5E-FE73248775B9@R-project.org>",
+      "references": [
+        "<CACHhbWM8ORDDgX-Xq1ER6GQ8Uc08M8xd_KwSJw0QeHd-HBVYpw@mail.gmail.com>",
+        "<DCAFA945-F8C0-4FA9-9129-DA41FA707129@ucsd.edu>",
+        "<CACHhbWP=jYkoRchzXda7iALbdNz8ny_UYaH_P_17yRnz=9=2LQ@mail.gmail.com>",
+        "<0073969C-B7E4-417C-B67D-C2BC48B8BE90@illinois.edu>",
+        "<DD6442BF-2FAF-48A0-9E5E-FE73248775B9@R-project.org>"
+      ],
+      "body_plain": "Greetings and Salutations Simon,\n\nI appreciate the feedback at long last; but, I fear that a majority of this is scaremongering at this stage. These installers, clang4 and the _unofficial_ macos rtools, have operated since their inception without incident since almost a year ago. Their sources are public and are also signed by my developer credentials in a way that is similar to the official R installer package.\n\nYou do have one _very_ valid point regarding the woes of an \"online-based\" installer. Meaning, it will attempt to download the appropriate binaries from CRAN, the official gfortran site, and Apple. For those wondering, this is where the phrase \"man-in-the-middle attack\" arises as the request could be intercepted and re-routed. However, when you view the modern day ecosystem of online installers this can largely be said for all of them. One way to address this is to check a pre-defined sha256 hash against the downloaded file hash, which can easily be added to the installer now that this has been raised. \n\nNote: Apple is contacted to install the Xcode Command Line Tools on the user's system through a secure software update.\n\nIn reference to the root escalation, this is required to install into `/usr/local/` and set the appropriate paths within `~/.R/Makevars`, e.g. `LDFLAGS`, `CXX`, `CXX11`, ... . Both of these actions are emphasized to the user in the welcome splash. The latter action is where I believe you have an issue. \n\nWhen making the design decision to include path support, the intent was to ensure everything just \"works\" and avoid having users type in long paths. I find that macOS users are frequently expected to be knowledgeable about Unix-based workflows, but have very little experience within that environment. With the rise in data science, I hope that trend will be reversed. \n\nSincerely,\n\nJJB\n\n?On 5/24/18, 12:56 PM, \"Simon Urbanek\" <simon.urbanek at R-project.org> wrote:\n\n    Just for posterity - please note that the installer referenced below is potentially unsafe and dangerous, because it does NOT actually package the binary but rather contains just an arbitrary shell script and thus you cannot be sure that you get the official binaries or something malicious instead (and it is vulnerable to man-in-the-middle attacks). Also it performs various actions as root that you may or may not like. Be careful trusting installers that are not signed by CRAN members. We only supply the binary and any post-install actions only affect the installed binary not other system functions nor user directories.\n    \n    Cheers,\n    Simon\n    \n    \n    \n    > On May 17, 2018, at 3:15 PM, Balamuta, James Joseph <balamut2 at illinois.edu> wrote:\n    > \n    > Greetings and Salutations Nigel,\n    > \n    > I've \"augmented\" the base R install via an unofficial, e.g. not sanctioned by CRAN, Rtools build. This can be found here:\n    > \n    > https://github.com/coatless/r-macos-rtools\n    > \n    > Presently, the latest release only supports the R 3.4.* line:\n    > \n    > https://github.com/coatless/r-macos-rtools/releases/tag/v1.0.0\n    > \n    > I'll likely update it this weekend to provide support for R 3.5.*. In particular, I'll bump the compiler from clang4 to clang6.\n    > \n    > Sincerely,\n    > \n    > JJB\n    > \n    > On 5/17/18, 11:45 AM, \"R-SIG-Mac on behalf of Nigel Delaney\" <r-sig-mac-bounces at r-project.org on behalf of nigelfdelaney at gmail.com> wrote:\n    > \n    >    Thanks for the responses so far.\n    > \n    >    David - indeed those instructions are up to date, but people are\n    >    struggling with the issue and unable to fix that (and keep trying to\n    >    install from source).\n    > \n    >    Chuck - Thanks also for the suggestion, it's a good idea.  I'm hoping\n    >    we might be able to have a one step installation to keep things simple\n    >    though.\n    > \n    >    Cheers,\n    >    Nigel\n    > \n    >    On Thu, May 17, 2018 at 9:39 AM, Berry, Charles <ccberry at ucsd.edu> wrote:\n    >> \n    >> \n    >>> On May 16, 2018, at 11:40 AM, Nigel Delaney <nigelfdelaney at gmail.com> wrote:\n    >>> \n    >>> Hi,\n    >>> \n    >>> Mac binaries on R are distributed as .pkg files available from CRAN\n    >>> for installation.  Does anyone know if the source script (assuming a\n    >>> script is used) that generates this pkg file is available anywhere?\n    >>> The pkg seems to contain a few elements like a postflight/postinstall\n    >>> script that I could not find in any open source repository and are not\n    >>> part of the R binaries.\n    >>> \n    >>> We have a few users who are dealing with the fortran compiler issues\n    >>> on Mac, and were hoping to just modify the current .pkg to contain a\n    >>> few more packages, was hoping to avoid reinventing the wheel on the\n    >>> packaging scripts.\n    >>> \n    >> \n    >> \n    >> Why not just provide those users with the binaries for those packages?\n    >> \n    >> If there are more than a few users and/or more than a few packages that need this treatment, set up your own repository and put the binaries there. See:\n    >> \n    >> https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Setting-up-a-package-repository\n    >> \n    >> HTH,\n    >> \n    >> Chuck\n    >> \n    >> \n    >> \n    > \n    >    _______________________________________________\n    >    R-SIG-Mac mailing list\n    >    R-SIG-Mac at r-project.org\n    >    https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n    > \n    > \n    > _______________________________________________\n    > R-SIG-Mac mailing list\n    > R-SIG-Mac at r-project.org\n    > https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Greetings and Salutations Simon,\n\nI appreciate the feedback at long last; but, I fear that a majority of this is scaremongering at this stage. These installers, clang4 and the _unofficial_ macos rtool",
+      "thread_id": "thread-1e34d58a9945",
+      "thread_depth": 5,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-c8bb259d68fb",
+      "message_id": "<6194B390-EE1D-4277-9AB3-7AD516B00986@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "d2993af8276d7d16dc443cc9104ee8f859bd1e4d9f6287707febbb204f44d546",
+      "date": "2018-05-24T23:45:23-04:00",
+      "subject": "[R-SIG-Mac] java version, perhaps related to ggplot2",
+      "subject_clean": "java version, perhaps related to ggplot2",
+      "in_reply_to": "<F7CEB4E8-BCD4-4982-9BC2-3EB7077646E4@R-project.org>",
+      "references": [
+        "<CAGx1TMBxXX8vsN7q1Qi3m_nknSf7O1kJ384ODzJ0d7D64UtfPA@mail.gmail.com>",
+        "<7287B76A-B859-4EC4-AE4F-75D5DF446F32@comcast.net>",
+        "<F7CEB4E8-BCD4-4982-9BC2-3EB7077646E4@R-project.org>"
+      ],
+      "body_plain": "> On May 24, 2018, at 1:47 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> You need to configure R to match your Java using R CMD javareconf.\n> \n> The CRAN machine uses JDK 1.9 which was the default until Java 10 was released recently. If you use something else, you have to configure R accordingly.\n> \n> Also I strongly recommend using rJava 0.9-10 since it works around some issue with Java on macOS and with Java 10.\n\nOracle has pulled the JDK 1.9 and only is only offering version 10:\n\nhttp://www.oracle.com/technetwork/java/javase/downloads/index.html\n\n\n-- \nDavid\n> \n> Cheers,\n> Simon\n> \n> \n> \n> \n> \n>> On May 23, 2018, at 7:50 PM, David Winsemius <dwinsemius at comcast.net> wrote:\n>> \n>> \n>> \n>>> On May 22, 2018, at 1:36 AM, Richard M. Heiberger <rmh at temple.edu> wrote:\n>>> \n>>> sI have Macintosh High Sierra 10.13.4\n>>> and R_3.5.0\n>>> \n>>> I am attempting to R CMD build and check my package microplot against\n>>> the imminent ggplot2_2.2.1.9000\n>>> \n>> \n>> I have a new High Sierra Machine with a System that was ported over from an earlier version of the OS. I've installed R 3.5.0.  I tried installing micro plot from binary without error, but when I try to load the rJava library I was getting an error with the old Java version 151, so I accepted the Oracle offer of installing version 171 downloaded from the Java website, but I'm also seeing:\n>> \n>> library(rJava)\n>> Error: package or namespace load failed for ?rJava?:\n>> .onLoad failed in loadNamespace() for 'rJava', details:\n>> call: dyn.load(file, DLLpath = DLLpath, ...)\n>> error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n>> dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n>> Referenced from: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n>> Reason: image not found\n>> \n>> \n>> There is a folder  /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk, but nothing named with a jdk-9 prefix\n>> \n>> \n>> S\n>> Best;\n>> \n>> David.\n>> \n>>> The build fails with messages\n>>> \n>>> ** byte-compile and prepare package for lazy loading\n>>> Error : .onLoad failed in loadNamespace() for 'rJava', details:\n>>> call: dyn.load(file, DLLpath = DLLpath, ...)\n>>> error: unable to load shared object\n>>> '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n>>> dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so,\n>>> 6): Library not loaded:\n>>> /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n>>> Referenced from:\n>>> /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n>>> Reason: image not found\n>>> ERROR: lazy loading failed for package ?microplot?\n>>> \n>>> Indeed I do not have Java 9, I have Java 8, which the Java updater\n>>> says is current (171).\n>>> The java site\n>>> http://www.oracle.com/technetwork/java/javase/overview/index.html\n>>> seems to want to give me Java 10 (not Java 9), and the discussion on\n>>> this R-sig-mac list\n>>>  [R-SIG-Mac] R and Java 10 ? rJava not able to build\n>>> beginning March 29 seems to say 8 is still correct.  As suggested\n>>> there I looked at R-admin for 3.5.0\n>>> and discover \"The situation with Java support on macOS is messy\".\n>>> I attempted the suggested workaround\n>>> JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home\n>>> and got the same message as above.\n>>> \n>>> I need guidance as to the next steps I should take.\n>>> \n>>> Rich\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>",
+      "body_snippet": "> On May 24, 2018, at 1:47 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> You need to configure R to match your Java using R CMD javareconf.\n> \n> The CRAN machine uses JDK 1.9 which wa",
+      "thread_id": "thread-3a509ccc47bd",
+      "thread_depth": 3,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-6bf0cd8e55f6",
+      "message_id": "<CAGx1TMBUEYMNCw0LCVPf-ve-V_CDskHEMKsUOBO08bFHwjzSmw@mail.gmail.com>",
+      "from_name": "Richard M. Heiberger",
+      "from_email_hash": "2e0c4e03037729cd6ae1e263da647802d355abd9b10fb514a2b7bae246e0a94b",
+      "date": "2018-05-25T20:15:03-04:00",
+      "subject": "[R-SIG-Mac] java version, perhaps related to ggplot2",
+      "subject_clean": "java version, perhaps related to ggplot2",
+      "in_reply_to": "<F7CEB4E8-BCD4-4982-9BC2-3EB7077646E4@R-project.org>",
+      "references": [
+        "<CAGx1TMBxXX8vsN7q1Qi3m_nknSf7O1kJ384ODzJ0d7D64UtfPA@mail.gmail.com>",
+        "<7287B76A-B859-4EC4-AE4F-75D5DF446F32@comcast.net>",
+        "<F7CEB4E8-BCD4-4982-9BC2-3EB7077646E4@R-project.org>"
+      ],
+      "body_plain": "Simon,\nthank you for the information about javareconf.\nWould it be possible to build that into the installation of RJava?\n\nDavid,\nThank you for verifying the behavior.\n\n\nI decided to stay with Java 8, because the Java updater thought that\n171 was the next step and I did that yesterday.\n\nI attempted to install rJava_0.9-10\nfrom http://www.rforge.net/rJava/files/\nIt didn't complete, telling me to run\nR CMD javareconf as root.\n\njavareconf ran successfully.\n\nThe next time I tried to install rJava_0.9-10\nit got farther, recognizing the jdk1.8.0_60.jdk that I have.\nIt still didn't continue because I don't have JDK.\n\nI will now try building microplot with ggplot2_2.2.1.9000\nSuccess! microplot now builds.\n\nNow to the intended task which is to R CMD check microplot with the\nggplot2_2.2.1.9000\n\nit passes\nR CMD check microplot_1.0-39.tar.gz\n\nR CMD check --run-dontrun microplot_1.0-39.tar.gz\nthis also passes\n\nOne more step, the demo/ subdirectory\nAlmost clear.  One error which I will investigate tomorrow.\n\nThe error is due to a change in behavior in ggplot2.\nSpecifically, the last statement in demo/latex-ggplot.r no longer works\ndue to a change inside ggplot.  Previously it was reporting NULL, now\nit is reporting character(0).\n\nI will file an issue with https://github.com/tidyverse/ggplot2/issues asking\nwhether the change was accidental or whether I need to change my code\nto allow for the new value.\n\nRich\n\nOn Thu, May 24, 2018 at 1:47 PM, Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n> You need to configure R to match your Java using R CMD javareconf.\n>\n> The CRAN machine uses JDK 1.9 which was the default until Java 10 was released recently. If you use something else, you have to configure R accordingly.\n>\n> Also I strongly recommend using rJava 0.9-10 since it works around some issue with Java on macOS and with Java 10.\n>\n> Cheers,\n> Simon\n>\n>\n>\n>\n>\n>> On May 23, 2018, at 7:50 PM, David Winsemius <dwinsemius at comcast.net> wrote:\n>>\n>>\n>>\n>>> On May 22, 2018, at 1:36 AM, Richard M. Heiberger <rmh at temple.edu> wrote:\n>>>\n>>> sI have Macintosh High Sierra 10.13.4\n>>> and R_3.5.0\n>>>\n>>> I am attempting to R CMD build and check my package microplot against\n>>> the imminent ggplot2_2.2.1.9000\n>>>\n>>\n>> I have a new High Sierra Machine with a System that was ported over from an earlier version of the OS. I've installed R 3.5.0.  I tried installing micro plot from binary without error, but when I try to load the rJava library I was getting an error with the old Java version 151, so I accepted the Oracle offer of installing version 171 downloaded from the Java website, but I'm also seeing:\n>>\n>> library(rJava)\n>> Error: package or namespace load failed for ?rJava?:\n>> .onLoad failed in loadNamespace() for 'rJava', details:\n>>  call: dyn.load(file, DLLpath = DLLpath, ...)\n>>  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n>>  dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n>>  Referenced from: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n>>  Reason: image not found\n>>\n>>\n>> There is a folder  /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk, but nothing named with a jdk-9 prefix\n>>\n>>\n>> S\n>> Best;\n>>\n>> David.\n>>\n>>> The build fails with messages\n>>>\n>>> ** byte-compile and prepare package for lazy loading\n>>> Error : .onLoad failed in loadNamespace() for 'rJava', details:\n>>> call: dyn.load(file, DLLpath = DLLpath, ...)\n>>> error: unable to load shared object\n>>> '/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so':\n>>> dlopen(/Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so,\n>>> 6): Library not loaded:\n>>> /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib\n>>> Referenced from:\n>>> /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rJava/libs/rJava.so\n>>> Reason: image not found\n>>> ERROR: lazy loading failed for package ?microplot?\n>>>\n>>> Indeed I do not have Java 9, I have Java 8, which the Java updater\n>>> says is current (171).\n>>> The java site\n>>> http://www.oracle.com/technetwork/java/javase/overview/index.html\n>>> seems to want to give me Java 10 (not Java 9), and the discussion on\n>>> this R-sig-mac list\n>>>   [R-SIG-Mac] R and Java 10 ? rJava not able to build\n>>> beginning March 29 seems to say 8 is still correct.  As suggested\n>>> there I looked at R-admin for 3.5.0\n>>> and discover \"The situation with Java support on macOS is messy\".\n>>> I attempted the suggested workaround\n>>> JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home\n>>> and got the same message as above.\n>>>\n>>> I need guidance as to the next steps I should take.\n>>>\n>>> Rich\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>",
+      "body_snippet": "Simon,\nthank you for the information about javareconf.\nWould it be possible to build that into the installation of RJava?\n\nDavid,\nThank you for verifying the behavior.\n\n\nI decided to stay with Java 8,",
+      "thread_id": "thread-3a509ccc47bd",
+      "thread_depth": 3,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-85aef1c398d5",
+      "message_id": "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "141973a74d29a70795ea37238f5bd874df32d912ef3abb30a64d59e4509f2dcf",
+      "date": "2018-05-26T12:36:28+01:00",
+      "subject": "[R-SIG-Mac] Tools Update for R3.5?",
+      "subject_clean": "Tools Update for R3.5?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I?ve just installed R3.5 and clang6 and fortran 6.1 and now realize that the compiler packages install in\n/usr/local/clang6 and /usr/local/gfortran  respectively.  I expected that there would also be some automatic\nsymbolic links to /usr/local/bin  etc.  however when I tried to compile packages from source the old versions\nof the compilers are invoked.  I realize that this is probably quite elementary, but I would appreciate some\nadvice on how to complete the installation so the new compilers are accessed.\n\nMany thanks,\nRoger",
+      "body_snippet": "I?ve just installed R3.5 and clang6 and fortran 6.1 and now realize that the compiler packages install in\n/usr/local/clang6 and /usr/local/gfortran  respectively.  I expected that there would also be ",
+      "thread_id": "thread-85aef1c398d5",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-32fe20741701",
+      "message_id": "<4CF84B84-5558-46EF-AB1A-062607E1D2C1@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "c69719e0a30d4c9e08b7018e15997d59a31b7f3d8afd8cc2cb32ae2a9c86aacf",
+      "date": "2018-05-26T14:19:54+02:00",
+      "subject": "[R-SIG-Mac] Tools Update for R3.5?",
+      "subject_clean": "Tools Update for R3.5?",
+      "in_reply_to": "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>",
+      "references": [
+        "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>"
+      ],
+      "body_plain": "> On 26 May 2018, at 13:36, Roger Koenker <rkoenker at illinois.edu> wrote:\n> \n> I?ve just installed R3.5 and clang6 and fortran 6.1 and now realize that the compiler packages install in\n> /usr/local/clang6 and /usr/local/gfortran  respectively.  I expected that there would also be some automatic\n> symbolic links to /usr/local/bin  etc.  however when I tried to compile packages from source the old versions\n> of the compilers are invoked.  I realize that this is probably quite elementary, but I would appreciate some\n> advice on how to complete the installation so the new compilers are accessed.\n> \n\nI added these two lines to  my ~/.profile\n\n# clang6 for R 3.5.0\nexport PATH=/usr/local/clang6/bin:$PATH\n\nand that seems to do the job.\n\nBerend\n\n> Many thanks,\n> Roger\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> On 26 May 2018, at 13:36, Roger Koenker <rkoenker at illinois.edu> wrote:\n> \n> I?ve just installed R3.5 and clang6 and fortran 6.1 and now realize that the compiler packages install in\n> /usr/local/",
+      "thread_id": "thread-85aef1c398d5",
+      "thread_depth": 1,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-5f6d1fc86b51",
+      "message_id": "<73D4EB8D-92CA-4A81-9BD3-806EEB72C5CC@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "c69719e0a30d4c9e08b7018e15997d59a31b7f3d8afd8cc2cb32ae2a9c86aacf",
+      "date": "2018-05-26T14:26:05+02:00",
+      "subject": "[R-SIG-Mac] Tools Update for R3.5?",
+      "subject_clean": "Tools Update for R3.5?",
+      "in_reply_to": "<4CF84B84-5558-46EF-AB1A-062607E1D2C1@xs4all.nl>",
+      "references": [
+        "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>",
+        "<4CF84B84-5558-46EF-AB1A-062607E1D2C1@xs4all.nl>"
+      ],
+      "body_plain": "> On 26 May 2018, at 14:19, Berend Hasselman <bhh at xs4all.nl> wrote:\n> \n> \n>> On 26 May 2018, at 13:36, Roger Koenker <rkoenker at illinois.edu> wrote:\n>> \n>> I?ve just installed R3.5 and clang6 and fortran 6.1 and now realize that the compiler packages install in\n>> /usr/local/clang6 and /usr/local/gfortran  respectively.  I expected that there would also be some automatic\n>> symbolic links to /usr/local/bin  etc.  however when I tried to compile packages from source the old versions\n>> of the compilers are invoked.  I realize that this is probably quite elementary, but I would appreciate some\n>> advice on how to complete the installation so the new compilers are accessed.\n>> \n> \n> I added these two lines to  my ~/.profile\n> \n> # clang6 for R 3.5.0\n> export PATH=/usr/local/clang6/bin:$PATH\n> \n> and that seems to do the job.\n> \n\nMight not do the job.\n\nBut I also added this to my ~/.R/Makevars\n\n# for R 3.5.0\n# https://cran.r-project.org/bin/macosx/tools/\n\nCC=/usr/local/clang6/bin/clang\nCXX=/usr/local/clang6/bin/clang++\nLDFLAGS =-L/usr/local/clang6/lib\n\nand that really does it.\n\nBerend\n\n> Berend\n> \n>> Many thanks,\n>> Roger\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> On 26 May 2018, at 14:19, Berend Hasselman <bhh at xs4all.nl> wrote:\n> \n> \n>> On 26 May 2018, at 13:36, Roger Koenker <rkoenker at illinois.edu> wrote:\n>> \n>> I?ve just installed R3.5 and clang6 and",
+      "thread_id": "thread-85aef1c398d5",
+      "thread_depth": 2,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-a6d74dd0f8d7",
+      "message_id": "<FA919B17-731B-48BB-9C09-B92541125898@illinois.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "141973a74d29a70795ea37238f5bd874df32d912ef3abb30a64d59e4509f2dcf",
+      "date": "2018-05-26T14:17:28+01:00",
+      "subject": "[R-SIG-Mac] Tools Update for R3.5?",
+      "subject_clean": "Tools Update for R3.5?",
+      "in_reply_to": "<8f24be7d51254f4d93cd7e23fa63da11@CITESHT3.ad.uillinois.edu>",
+      "references": [
+        "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>",
+        "<4CF84B84-5558-46EF-AB1A-062607E1D2C1@xs4all.nl>",
+        "<8f24be7d51254f4d93cd7e23fa63da11@CITESHT3.ad.uillinois.edu>"
+      ],
+      "body_plain": "Thanks Berend  that helps considerably,  I added something for gfortran as follows:\n\nCC=/usr/local/clang6/bin/clang\nCXX=/usr/local/clang6/bin/clang++\nLDFLAGS =-L/usr/local/clang6/lib\nF77=/usr/local/gfortran/bin/gfortran\nFLIBS=-L/usr/local/gfortran/lib -lgfortran\n\nand now the gfortran seems to be happy, but I?m still seeing problems with some C:\n\n/usr/local/clang6/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o\nIn file included from init.c:1:\n/Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:34:11: fatal error: 'string.h' file not\n      found\n# include <string.h>            /* for memcpy, memset */\n          ^~~~~~~~~~\n1 error generated.\nmake: *** [init.o] Error 1\nERROR: compilation failed for package ?quantreg?\n\npresumably I?m still missing some LDFLGS for clang6?\n\n> On May 26, 2018, at 1:26 PM, Berend Hasselman <bhh at xs4all.nl> wrote:\n> \n> \n>> On 26 May 2018, at 14:19, Berend Hasselman <bhh at xs4all.nl> wrote:\n>> \n>> \n>>> On 26 May 2018, at 13:36, Roger Koenker <rkoenker at illinois.edu> wrote:\n>>> \n>>> I?ve just installed R3.5 and clang6 and fortran 6.1 and now realize that the compiler packages install in\n>>> /usr/local/clang6 and /usr/local/gfortran  respectively.  I expected that there would also be some automatic\n>>> symbolic links to /usr/local/bin  etc.  however when I tried to compile packages from source the old versions\n>>> of the compilers are invoked.  I realize that this is probably quite elementary, but I would appreciate some\n>>> advice on how to complete the installation so the new compilers are accessed.\n>>> \n>> \n>> I added these two lines to  my ~/.profile\n>> \n>> # clang6 for R 3.5.0\n>> export PATH=/usr/local/clang6/bin:$PATH\n>> \n>> and that seems to do the job.\n>> \n> \n> Might not do the job.\n> \n> But I also added this to my ~/.R/Makevars\n> \n> # for R 3.5.0\n> # https://cran.r-project.org/bin/macosx/tools/\n> \n> CC=/usr/local/clang6/bin/clang\n> CXX=/usr/local/clang6/bin/clang++\n> LDFLAGS =-L/usr/local/clang6/lib\n> \n> and that really does it.\n> \n> Berend\n> \n>> Berend\n>> \n>>> Many thanks,\n>>> Roger\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Thanks Berend  that helps considerably,  I added something for gfortran as follows:\n\nCC=/usr/local/clang6/bin/clang\nCXX=/usr/local/clang6/bin/clang++\nLDFLAGS =-L/usr/local/clang6/lib\nF77=/usr/local/gf",
+      "thread_id": "thread-a6d74dd0f8d7",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-a41ce2192ea6",
+      "message_id": "<7F90230D-2078-411C-84D8-7F331F0A0B1E@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "c69719e0a30d4c9e08b7018e15997d59a31b7f3d8afd8cc2cb32ae2a9c86aacf",
+      "date": "2018-05-26T17:20:52+02:00",
+      "subject": "[R-SIG-Mac] Tools Update for R3.5?",
+      "subject_clean": "Tools Update for R3.5?",
+      "in_reply_to": "<FA919B17-731B-48BB-9C09-B92541125898@illinois.edu>",
+      "references": [
+        "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>",
+        "<4CF84B84-5558-46EF-AB1A-062607E1D2C1@xs4all.nl>",
+        "<8f24be7d51254f4d93cd7e23fa63da11@CITESHT3.ad.uillinois.edu>",
+        "<FA919B17-731B-48BB-9C09-B92541125898@illinois.edu>"
+      ],
+      "body_plain": "> On 26 May 2018, at 15:17, Roger Koenker <rkoenker at illinois.edu> wrote:\n> \n> Thanks Berend  that helps considerably,  I added something for gfortran as follows:\n> \n> CC=/usr/local/clang6/bin/clang\n> CXX=/usr/local/clang6/bin/clang++\n> LDFLAGS =-L/usr/local/clang6/lib\n> F77=/usr/local/gfortran/bin/gfortran\n> FLIBS=-L/usr/local/gfortran/lib -lgfortran\n> \n> and now the gfortran seems to be happy, but I?m still seeing problems with some C:\n> \n> /usr/local/clang6/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o\n> In file included from init.c:1:\n> /Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:34:11: fatal error: 'string.h' file not\n>      found\n> # include <string.h>            /* for memcpy, memset */\n>          ^~~~~~~~~~\n> 1 error generated.\n> make: *** [init.o] Error 1\n> ERROR: compilation failed for package ?quantreg?\n> \n> presumably I?m still missing some LDFLGS for clang6?\n> \n\nLDFLAGS I presume?\nI don't quite understand what is going wrong exactly.\n\nHave you installed MacOs commandlinetools? I do have them installed.\nSee the first few lines of section C.3 in the R Administration and Installation manual.\nAnd see item 2 and item 4 in the README.html in the gfortran-6.1-ElCapitan.dmg.\n\nBut you are defining too many lines in your Makevars.\nI do not have F77 and FLIBS in mine. All taken care of by R's Makeconf (see /Library/Frameworks/R.framework/Versions/3.5/Resources/etc/Makeconf)\nThere is a symlink in /usr/local/bin/gfortran to the actual gfortran (the gfortran installer takes care of that).\n\nI have run R CMD check on quantreg_5.35 and all is ok. No errors.\n\nBerend",
+      "body_snippet": "> On 26 May 2018, at 15:17, Roger Koenker <rkoenker at illinois.edu> wrote:\n> \n> Thanks Berend  that helps considerably,  I added something for gfortran as follows:\n> \n> CC=/usr/local/clang6/bin/clang",
+      "thread_id": "thread-a6d74dd0f8d7",
+      "thread_depth": 1,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-4c3c00a95954",
+      "message_id": "<30D737AF-207E-4A38-9914-CBD1D2A52022@illinois.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "141973a74d29a70795ea37238f5bd874df32d912ef3abb30a64d59e4509f2dcf",
+      "date": "2018-05-26T17:35:04+01:00",
+      "subject": "[R-SIG-Mac] Tools Update for R3.5?",
+      "subject_clean": "Tools Update for R3.5?",
+      "in_reply_to": "<20a8c6089b254f549f562897ce6f64fc@CITESHT4.ad.uillinois.edu>",
+      "references": [
+        "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>",
+        "<4CF84B84-5558-46EF-AB1A-062607E1D2C1@xs4all.nl>",
+        "<8f24be7d51254f4d93cd7e23fa63da11@CITESHT3.ad.uillinois.edu>",
+        "<FA919B17-731B-48BB-9C09-B92541125898@illinois.edu>",
+        "<20a8c6089b254f549f562897ce6f64fc@CITESHT4.ad.uillinois.edu>"
+      ],
+      "body_plain": "Humm?  without the F77 and FLIBS lines I get lots of complaints about:\n\n\t? error: unsupported directive '.stabs?\n\nthat some from using the old version of gfortran that still exists in /usr/local/bin\nWith them the gfortran runs nicely, but the first occurrence  of a C routine produces\nthe error detailed below.  Obviously, there is something fishy with my setup, but \nI thought that fresh R and the two tools packages should have all fitted together.\nThanks again for your suggestions.\n\n\n> On May 26, 2018, at 4:20 PM, Berend Hasselman <bhh at xs4all.nl> wrote:\n> \n>> \n>> On 26 May 2018, at 15:17, Roger Koenker <rkoenker at illinois.edu> wrote:\n>> \n>> Thanks Berend  that helps considerably,  I added something for gfortran as follows:\n>> \n>> CC=/usr/local/clang6/bin/clang\n>> CXX=/usr/local/clang6/bin/clang++\n>> LDFLAGS =-L/usr/local/clang6/lib\n>> F77=/usr/local/gfortran/bin/gfortran\n>> FLIBS=-L/usr/local/gfortran/lib -lgfortran\n>> \n>> and now the gfortran seems to be happy, but I?m still seeing problems with some C:\n>> \n>> /usr/local/clang6/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o\n>> In file included from init.c:1:\n>> /Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:34:11: fatal error: 'string.h' file not\n>>     found\n>> # include <string.h>            /* for memcpy, memset */\n>>         ^~~~~~~~~~\n>> 1 error generated.\n>> make: *** [init.o] Error 1\n>> ERROR: compilation failed for package ?quantreg?\n>> \n>> presumably I?m still missing some LDFLGS for clang6?\n>> \n> \n> LDFLAGS I presume?\n> I don't quite understand what is going wrong exactly.\n> \n> Have you installed MacOs commandlinetools? I do have them installed.\n> See the first few lines of section C.3 in the R Administration and Installation manual.\n> And see item 2 and item 4 in the README.html in the gfortran-6.1-ElCapitan.dmg.\n> \n> But you are defining too many lines in your Makevars.\n> I do not have F77 and FLIBS in mine. All taken care of by R's Makeconf (see /Library/Frameworks/R.framework/Versions/3.5/Resources/etc/Makeconf)\n> There is a symlink in /usr/local/bin/gfortran to the actual gfortran (the gfortran installer takes care of that).\n> \n> I have run R CMD check on quantreg_5.35 and all is ok. No errors.\n> \n> Berend",
+      "body_snippet": "Humm?  without the F77 and FLIBS lines I get lots of complaints about:\n\n\t? error: unsupported directive '.stabs?\n\nthat some from using the old version of gfortran that still exists in /usr/local/bin\nW",
+      "thread_id": "thread-4c3c00a95954",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-54011f5105ec",
+      "message_id": "<9D9FA5DE-1DED-4D6C-8745-6F9B9F1EEF37@illinois.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "141973a74d29a70795ea37238f5bd874df32d912ef3abb30a64d59e4509f2dcf",
+      "date": "2018-05-27T11:15:36+01:00",
+      "subject": "[R-SIG-Mac] Tools Update for R3.5?",
+      "subject_clean": "Tools Update for R3.5?",
+      "in_reply_to": "<e67ed19dba524b9487216c23c6936c23@CHIHT2.ad.uillinois.edu>",
+      "references": [
+        "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>",
+        "<4CF84B84-5558-46EF-AB1A-062607E1D2C1@xs4all.nl>",
+        "<8f24be7d51254f4d93cd7e23fa63da11@CITESHT3.ad.uillinois.edu>",
+        "<FA919B17-731B-48BB-9C09-B92541125898@illinois.edu>",
+        "<20a8c6089b254f549f562897ce6f64fc@CITESHT4.ad.uillinois.edu>",
+        "<e67ed19dba524b9487216c23c6936c23@CHIHT2.ad.uillinois.edu>"
+      ],
+      "body_plain": "Maybe this would provide a little more explicit information about what is going wrong:\n\n/usr/local/clang6/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/clang6/include   -fPIC  -Wall -g -O2  -c init.c -o init.o\nIn file included from init.c:1:\n/Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:34:11: fatal error: 'string.h' file not\n      found\n# include <string.h>            /* for memcpy, memset */\n          ^~~~~~~~~~\n1 error generated.\nmake: *** [init.o] Error 1\n\n\n> On May 26, 2018, at 5:35 PM, Koenker, Roger W <rkoenker at illinois.edu> wrote:\n> \n> Humm?  without the F77 and FLIBS lines I get lots of complaints about:\n> \n> \t? error: unsupported directive '.stabs?\n> \n> that some from using the old version of gfortran that still exists in /usr/local/bin\n> With them the gfortran runs nicely, but the first occurrence  of a C routine produces\n> the error detailed below.  Obviously, there is something fishy with my setup, but \n> I thought that fresh R and the two tools packages should have all fitted together.\n> Thanks again for your suggestions.\n> \n> \n>> On May 26, 2018, at 4:20 PM, Berend Hasselman <bhh at xs4all.nl> wrote:\n>> \n>>> \n>>> On 26 May 2018, at 15:17, Roger Koenker <rkoenker at illinois.edu> wrote:\n>>> \n>>> Thanks Berend  that helps considerably,  I added something for gfortran as follows:\n>>> \n>>> CC=/usr/local/clang6/bin/clang\n>>> CXX=/usr/local/clang6/bin/clang++\n>>> LDFLAGS =-L/usr/local/clang6/lib\n>>> F77=/usr/local/gfortran/bin/gfortran\n>>> FLIBS=-L/usr/local/gfortran/lib -lgfortran\n>>> \n>>> and now the gfortran seems to be happy, but I?m still seeing problems with some C:\n>>> \n>>> /usr/local/clang6/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o\n>>> In file included from init.c:1:\n>>> /Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:34:11: fatal error: 'string.h' file not\n>>>    found\n>>> # include <string.h>            /* for memcpy, memset */\n>>>        ^~~~~~~~~~\n>>> 1 error generated.\n>>> make: *** [init.o] Error 1\n>>> ERROR: compilation failed for package ?quantreg?\n>>> \n>>> presumably I?m still missing some LDFLGS for clang6?\n>>> \n>> \n>> LDFLAGS I presume?\n>> I don't quite understand what is going wrong exactly.\n>> \n>> Have you installed MacOs commandlinetools? I do have them installed.\n>> See the first few lines of section C.3 in the R Administration and Installation manual.\n>> And see item 2 and item 4 in the README.html in the gfortran-6.1-ElCapitan.dmg.\n>> \n>> But you are defining too many lines in your Makevars.\n>> I do not have F77 and FLIBS in mine. All taken care of by R's Makeconf (see /Library/Frameworks/R.framework/Versions/3.5/Resources/etc/Makeconf)\n>> There is a symlink in /usr/local/bin/gfortran to the actual gfortran (the gfortran installer takes care of that).\n>> \n>> I have run R CMD check on quantreg_5.35 and all is ok. No errors.\n>> \n>> Berend\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Maybe this would provide a little more explicit information about what is going wrong:\n\n/usr/local/clang6/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/clang6",
+      "thread_id": "thread-54011f5105ec",
+      "thread_depth": 0,
+      "month": "2018-05"
+    },
+    {
+      "id": "msg-93c49d470114",
+      "message_id": "<B5821E11-C59F-4B50-97CB-D139735EE0B6@illinois.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "141973a74d29a70795ea37238f5bd874df32d912ef3abb30a64d59e4509f2dcf",
+      "date": "2018-05-27T13:32:01+01:00",
+      "subject": "[R-SIG-Mac] Tools Update for R3.5?",
+      "subject_clean": "Tools Update for R3.5?",
+      "in_reply_to": "<33d691e5cfb04e8a8b1116915b2b0bed@CITESHT3.ad.uillinois.edu>",
+      "references": [
+        "<17D50A4E-6BB4-4334-ADE9-905AD65B25AF@illinois.edu>",
+        "<4CF84B84-5558-46EF-AB1A-062607E1D2C1@xs4all.nl>",
+        "<8f24be7d51254f4d93cd7e23fa63da11@CITESHT3.ad.uillinois.edu>",
+        "<FA919B17-731B-48BB-9C09-B92541125898@illinois.edu>",
+        "<20a8c6089b254f549f562897ce6f64fc@CITESHT4.ad.uillinois.edu>",
+        "<e67ed19dba524b9487216c23c6936c23@CHIHT2.ad.uillinois.edu>",
+        "<33d691e5cfb04e8a8b1116915b2b0bed@CITESHT3.ad.uillinois.edu>"
+      ],
+      "body_plain": "Apologies to all,  finally resolved this by the simple, apparently overlooked:\n\n\txcode-select --install\n\n> On May 27, 2018, at 11:15 AM, Koenker, Roger W <rkoenker at illinois.edu> wrote:\n> \n> Maybe this would provide a little more explicit information about what is going wrong:\n> \n> /usr/local/clang6/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/clang6/include   -fPIC  -Wall -g -O2  -c init.c -o init.o\n> In file included from init.c:1:\n> /Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:34:11: fatal error: 'string.h' file not\n>      found\n> # include <string.h>            /* for memcpy, memset */\n>          ^~~~~~~~~~\n> 1 error generated.\n> make: *** [init.o] Error 1\n> \n> \n>> On May 26, 2018, at 5:35 PM, Koenker, Roger W <rkoenker at illinois.edu> wrote:\n>> \n>> Humm?  without the F77 and FLIBS lines I get lots of complaints about:\n>> \n>> \t? error: unsupported directive '.stabs?\n>> \n>> that some from using the old version of gfortran that still exists in /usr/local/bin\n>> With them the gfortran runs nicely, but the first occurrence  of a C routine produces\n>> the error detailed below.  Obviously, there is something fishy with my setup, but \n>> I thought that fresh R and the two tools packages should have all fitted together.\n>> Thanks again for your suggestions.\n>> \n>> \n>>> On May 26, 2018, at 4:20 PM, Berend Hasselman <bhh at xs4all.nl> wrote:\n>>> \n>>>> \n>>>> On 26 May 2018, at 15:17, Roger Koenker <rkoenker at illinois.edu> wrote:\n>>>> \n>>>> Thanks Berend  that helps considerably,  I added something for gfortran as follows:\n>>>> \n>>>> CC=/usr/local/clang6/bin/clang\n>>>> CXX=/usr/local/clang6/bin/clang++\n>>>> LDFLAGS =-L/usr/local/clang6/lib\n>>>> F77=/usr/local/gfortran/bin/gfortran\n>>>> FLIBS=-L/usr/local/gfortran/lib -lgfortran\n>>>> \n>>>> and now the gfortran seems to be happy, but I?m still seeing problems with some C:\n>>>> \n>>>> /usr/local/clang6/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o\n>>>> In file included from init.c:1:\n>>>> /Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:34:11: fatal error: 'string.h' file not\n>>>>   found\n>>>> # include <string.h>            /* for memcpy, memset */\n>>>>       ^~~~~~~~~~\n>>>> 1 error generated.\n>>>> make: *** [init.o] Error 1\n>>>> ERROR: compilation failed for package ?quantreg?\n>>>> \n>>>> presumably I?m still missing some LDFLGS for clang6?\n>>>> \n>>> \n>>> LDFLAGS I presume?\n>>> I don't quite understand what is going wrong exactly.\n>>> \n>>> Have you installed MacOs commandlinetools? I do have them installed.\n>>> See the first few lines of section C.3 in the R Administration and Installation manual.\n>>> And see item 2 and item 4 in the README.html in the gfortran-6.1-ElCapitan.dmg.\n>>> \n>>> But you are defining too many lines in your Makevars.\n>>> I do not have F77 and FLIBS in mine. All taken care of by R's Makeconf (see /Library/Frameworks/R.framework/Versions/3.5/Resources/etc/Makeconf)\n>>> There is a symlink in /usr/local/bin/gfortran to the actual gfortran (the gfortran installer takes care of that).\n>>> \n>>> I have run R CMD check on quantreg_5.35 and all is ok. No errors.\n>>> \n>>> Berend\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Apologies to all,  finally resolved this by the simple, apparently overlooked:\n\n\txcode-select --install\n\n> On May 27, 2018, at 11:15 AM, Koenker, Roger W <rkoenker at illinois.edu> wrote:\n> \n> Maybe t",
+      "thread_id": "thread-93c49d470114",
+      "thread_depth": 0,
+      "month": "2018-05"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-3c12ac2a5b7f",
+      "subject": "Location of plot() window",
+      "message_count": 1,
+      "participants": [
+        "Dennis Fisher"
+      ],
+      "started": "2018-05-03T17:01:54-07:00",
+      "last_reply": "2018-05-03T17:01:54-07:00",
+      "root_message_id": "msg-3c12ac2a5b7f"
+    },
+    {
+      "id": "thread-abb883bbdc34",
+      "subject": "R 3.5.0",
+      "message_count": 1,
+      "participants": [
+        "David Winsemius"
+      ],
+      "started": "2018-05-15T04:51:28-07:00",
+      "last_reply": "2018-05-15T04:51:28-07:00",
+      "root_message_id": "msg-abb883bbdc34"
+    },
+    {
+      "id": "thread-1e34d58a9945",
+      "subject": "Generating R .pkg file for Mac Distribution",
+      "message_count": 9,
+      "participants": [
+        "Balamuta, James Joseph",
+        "Berry, Charles",
+        "David Winsemius",
+        "Nigel Delaney",
+        "Simon Urbanek"
+      ],
+      "started": "2018-05-16T11:40:18-07:00",
+      "last_reply": "2018-05-25T02:09:14+00:00",
+      "root_message_id": "msg-1e34d58a9945"
+    },
+    {
+      "id": "thread-3a509ccc47bd",
+      "subject": "java version, perhaps related to ggplot2",
+      "message_count": 5,
+      "participants": [
+        "David Winsemius",
+        "Richard M. Heiberger",
+        "Simon Urbanek"
+      ],
+      "started": "2018-05-22T01:36:52-04:00",
+      "last_reply": "2018-05-25T20:15:03-04:00",
+      "root_message_id": "msg-3a509ccc47bd"
+    },
+    {
+      "id": "thread-1aa9f9cb5010",
+      "subject": "RGtk2 binaries",
+      "message_count": 2,
+      "participants": [
+        "Lee Godfrey",
+        "Tom Elliott"
+      ],
+      "started": "2018-05-23T03:07:25+00:00",
+      "last_reply": "2018-05-23T09:53:30-04:00",
+      "root_message_id": "msg-1aa9f9cb5010"
+    },
+    {
+      "id": "thread-aff4c1a74f47",
+      "subject": "RQDA/RGtk2 Installation Problem",
+      "message_count": 1,
+      "participants": [
+        "David Winsemius"
+      ],
+      "started": "2018-05-23T19:52:42-04:00",
+      "last_reply": "2018-05-23T19:52:42-04:00",
+      "root_message_id": "msg-aff4c1a74f47"
+    },
+    {
+      "id": "thread-85aef1c398d5",
+      "subject": "Tools Update for R3.5?",
+      "message_count": 3,
+      "participants": [
+        "Berend Hasselman",
+        "Roger Koenker"
+      ],
+      "started": "2018-05-26T12:36:28+01:00",
+      "last_reply": "2018-05-26T14:26:05+02:00",
+      "root_message_id": "msg-85aef1c398d5"
+    },
+    {
+      "id": "thread-a6d74dd0f8d7",
+      "subject": "Tools Update for R3.5?",
+      "message_count": 2,
+      "participants": [
+        "Berend Hasselman",
+        "Roger Koenker"
+      ],
+      "started": "2018-05-26T14:17:28+01:00",
+      "last_reply": "2018-05-26T17:20:52+02:00",
+      "root_message_id": "msg-a6d74dd0f8d7"
+    },
+    {
+      "id": "thread-4c3c00a95954",
+      "subject": "Tools Update for R3.5?",
+      "message_count": 1,
+      "participants": [
+        "Roger Koenker"
+      ],
+      "started": "2018-05-26T17:35:04+01:00",
+      "last_reply": "2018-05-26T17:35:04+01:00",
+      "root_message_id": "msg-4c3c00a95954"
+    },
+    {
+      "id": "thread-54011f5105ec",
+      "subject": "Tools Update for R3.5?",
+      "message_count": 1,
+      "participants": [
+        "Roger Koenker"
+      ],
+      "started": "2018-05-27T11:15:36+01:00",
+      "last_reply": "2018-05-27T11:15:36+01:00",
+      "root_message_id": "msg-54011f5105ec"
+    },
+    {
+      "id": "thread-93c49d470114",
+      "subject": "Tools Update for R3.5?",
+      "message_count": 1,
+      "participants": [
+        "Roger Koenker"
+      ],
+      "started": "2018-05-27T13:32:01+01:00",
+      "last_reply": "2018-05-27T13:32:01+01:00",
+      "root_message_id": "msg-93c49d470114"
+    }
+  ]
+}

@@ -1,0 +1,1979 @@
+From du@@@@dr|@n @end|ng |rom gm@||@com  Tue May  6 18:54:51 2025
+From: du@@@@dr|@n @end|ng |rom gm@||@com (=?UTF-8?B?QWRyaWFuIER1yJlh?=)
+Date: Tue, 6 May 2025 19:54:51 +0300
+Subject: [R-SIG-Mac] OpenMP and MacOS (silicon)
+Message-ID: <CAJ=0CtBA+PjN5Y4jCfChXBYsKapUw6g1p618ES6s3=u9PcNj0w@mail.gmail.com>
+
+Dear All,
+
+I followed with great interest the latest exchange regarding the status of
+the OpenMP under MacOS, learned a great deal of things and now join others
+in thanking Simon and team for making this possible.
+
+This message is just to share my own experience. In following the least
+effort path, my rather quick and painless procedure involves:
+- installing R from CRAN
+- installing GCC and OpenMP via homebrew
+- (not using Xcode, but) using only the Command Line Tools
+- building my package locally
+
+This seems to work, and for that I have two Makevars files. The first is
+located in ~/.R/, containing:
+CC = /opt/homebrew/bin/gcc-14
+CXX = /opt/homebrew/bin/g++-14
+CXX11 = /opt/homebrew/bin/g++-14
+CXX14 = /opt/homebrew/bin/g++-14
+CXX17 = /opt/homebrew/bin/g++-14
+
+The second Makevars file is package specific, in the src/ directory,
+containing:
+PKG_CFLAGS = -fopenmp -O3 -mcpu=apple-m2 -mtune=apple-m2
+PKG_CXXFLAGS = -fopenmp -O3 -mcpu=apple-m2 -mtune=apple-m2
+PKG_LIBS = -fopenmp
+
+I did read (and duly acknowledged) Simon's advice to use R's binaries and
+settings to make everything work on CRAN, it's just that building the
+package locally allows me to use particular flags, for instance "-O3" that
+indicates <speed>, as far as I understand.
+
+I found that various Makevars settings make a huge difference in terms of
+speed, and since speed matters most to me, I try to find the most
+appropriate flags for my own use. Fine-tuning for "apple-m2", plus -O3,
+made my OpenMP code run about 3 times faster than regular OpenMP.
+
+Again, far from me to say this suits everyone's needs, and this procedure
+probably departs from the best practices, it's just something that works
+well in my case.
+
+In hoping this proves useful to anyone, my 2 cents,
+Adrian
+
+	[[alternative HTML version deleted]]
+
+
+From ger@ophii m@iii@g oii gmx@@et  Fri May  9 15:10:18 2025
+From: ger@ophii m@iii@g oii gmx@@et (ger@ophii m@iii@g oii gmx@@et)
+Date: Fri, 9 May 2025 13:10:18 +0000
+Subject: [R-SIG-Mac] 
+ Clarifying the status of OMP in CRAN binaries on Mac
+Message-ID: <trinity-a256c4f7-a1e8-4547-bf94-feae391536ef-1746796218666@trinity-msg-rest-gmx-gmx-live-f4858f84-nllhc>
+
+Hey,
+
+I'm a bit late to the party, but I was just made aware of this thread in my GitHub thread (https://github.com/Rdatatable/data.table/issues/6949), which is very related to the one mentioned here.
+
+To make it as short as possible, I am unable to build data.table from source since Xcode 16.3, which expected reading this thread. I thought I was using the OpenMP from LLVM 19.1.0, which should work again with Xcode 16.3. While doing some research I stumbled over an old R-help thread by me that states that R is always using the libomp.dylib bundled with R (/Library/Frameworks/R.framework/Versions/4.x-arm64/Resources/lib/libomp.dylib). Here's the R-help thread just in case: https://stat.ethz.ch/pipermail/r-help/2024-April/479157.html. Turns out I never really solved this issue since other stuff came up, but now this haunts me again :). I always untar the .tar.gz archive from https://mac.r-project.org/openmp/ as mentioned there and then use a ~/.R/Makevars also as mentioned there, but how do I actually tell R to use the libomp.dylib in /usr/local/lib and not /Library/Frameworks/R.framework/Versions/4.x-arm64/Resources/lib/, when building a package from source?
+
+Thank in advance,
+Philipp
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Sat May 10 02:55:33 2025
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Sat, 10 May 2025 12:55:33 +1200
+Subject: [R-SIG-Mac] 
+ Clarifying the status of OMP in CRAN binaries on Mac
+In-Reply-To: <trinity-a256c4f7-a1e8-4547-bf94-feae391536ef-1746796218666@trinity-msg-rest-gmx-gmx-live-f4858f84-nllhc>
+References: <trinity-a256c4f7-a1e8-4547-bf94-feae391536ef-1746796218666@trinity-msg-rest-gmx-gmx-live-f4858f84-nllhc>
+Message-ID: <D6B845EC-D92F-4F42-ABBE-FAD346380390@R-project.org>
+
+Philipp,
+
+the instructions (if really insist on using Xcode 16.3 - not recommended) are here: https://mac.r-project.org/openmp/ relevant part quoted:
+
+"Note: If you are using CRAN R binary and there is a potential conflict between its run-time and your run-time (which is generally a bad idea!) then you can force the use of your binary by replacing -lomp above with /usr/local/lib/libomp.dylib (note that lack of -l!)."
+
+i.e., you set PKG_LIBS=/usr/local/lib/libomp.dylib when compiling data.table.
+
+Note, however that you then have to re-compile *all* packages that may use OpenMP as your result will be incompatible with the CRAN binaries.
+
+Cheers,
+Simon
+
+
+> On May 10, 2025, at 1:10 AM, Philipp Schneider via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+> 
+> Hey,
+> 
+> I'm a bit late to the party, but I was just made aware of this thread in my GitHub thread (https://github.com/Rdatatable/data.table/issues/6949), which is very related to the one mentioned here.
+> 
+> To make it as short as possible, I am unable to build data.table from source since Xcode 16.3, which expected reading this thread. I thought I was using the OpenMP from LLVM 19.1.0, which should work again with Xcode 16.3. While doing some research I stumbled over an old R-help thread by me that states that R is always using the libomp.dylib bundled with R (/Library/Frameworks/R.framework/Versions/4.x-arm64/Resources/lib/libomp.dylib). Here's the R-help thread just in case: https://stat.ethz.ch/pipermail/r-help/2024-April/479157.html. Turns out I never really solved this issue since other stuff came up, but now this haunts me again :). I always untar the .tar.gz archive from https://mac.r-project.org/openmp/ as mentioned there and then use a ~/.R/Makevars also as mentioned there, but how do I actually tell R to use the libomp.dylib in /usr/local/lib and not /Library/Frameworks/R.framework/Versions/4.x-arm64/Resources/lib/, when building a package from source?
+> 
+> Thank in advance,
+> Philipp
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From ht @end|ng |rom he@therturner@net  Thu May 15 18:24:10 2025
+From: ht @end|ng |rom he@therturner@net (Heather Turner)
+Date: Thu, 15 May 2025 17:24:10 +0100
+Subject: [R-SIG-Mac] Need for `-headerpad_max_install_names` with
+ `--enable-R-framework`
+Message-ID: <98d94688-4b98-4055-bc93-a4b673d31bdb@app.fastmail.com>
+
+Dear All,
+
+I have been building R (on Apple M1 Pro) with `--enable-R-framework` so that I can use the built version of R in RStudio/Positron. My set up was working fine back in February or so, then in April (with the alpha version) I started to hit errors with `make install`:
+
+Creating R framework ...
+  libRlapack
+  libRblas
+error: /Library/Developer/CommandLineTools/usr/bin/install_name_tool: changing install names or rpaths can't be redone for: /Library/Frameworks/R.framework/Versions/R-devel/Resources/bin/exec/R <http://r.framework/Versions/R-devel/Resources/bin/exec/R> (for architecture arm64) because larger updated load commands do not fit (the program must be relinked, and you may need to use -headerpad or -headerpad_max_install_names)
+<similar error for libR, snipped>
+
+I only just got round to exploring further. I can fix the issue by adding 
+
+MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"
+
+to my config.site, but I wonder why I didn't need to set this in the past. Also I wonder if this should be set by default, at least with `--enable-R-framework`?
+
+Let me know if I can provide any information that might be helpful about my configuration/setup.
+
+Best wishes,
+Heather
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Fri May 16 05:43:24 2025
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Fri, 16 May 2025 15:43:24 +1200
+Subject: [R-SIG-Mac] Need for `-headerpad_max_install_names` with
+ `--enable-R-framework`
+In-Reply-To: <98d94688-4b98-4055-bc93-a4b673d31bdb@app.fastmail.com>
+References: <98d94688-4b98-4055-bc93-a4b673d31bdb@app.fastmail.com>
+Message-ID: <BA80DB99-7458-4D20-B21C-5AF87FE45950@R-project.org>
+
+Heather,
+
+yes, please, since we cannot reproduce it, please provide your complete configure flags, full info about your macOS version, tools used (toolchain version and SDK). We are adding -Wl,-headerpad_max_install_names for libraries (see etc/Makeconf, added by configure.ac for darwin), but the binary itself has never caused issues, so I wonder what makes your system produce smaller header that won?t fit the paths.
+
+Thanks,
+Simon
+
+
+> On 16 May 2025, at 04:24, Heather Turner <ht at heatherturner.net> wrote:
+> 
+> Dear All,
+> 
+> I have been building R (on Apple M1 Pro) with `--enable-R-framework` so that I can use the built version of R in RStudio/Positron. My set up was working fine back in February or so, then in April (with the alpha version) I started to hit errors with `make install`:
+> 
+> Creating R framework ...
+>  libRlapack
+>  libRblas
+> error: /Library/Developer/CommandLineTools/usr/bin/install_name_tool: changing install names or rpaths can't be redone for: /Library/Frameworks/R.framework/Versions/R-devel/Resources/bin/exec/R <http://r.framework/Versions/R-devel/Resources/bin/exec/R> (for architecture arm64) because larger updated load commands do not fit (the program must be relinked, and you may need to use -headerpad or -headerpad_max_install_names)
+> <similar error for libR, snipped>
+> 
+> I only just got round to exploring further. I can fix the issue by adding 
+> 
+> MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"
+> 
+> to my config.site, but I wonder why I didn't need to set this in the past. Also I wonder if this should be set by default, at least with `--enable-R-framework`?
+> 
+> Let me know if I can provide any information that might be helpful about my configuration/setup.
+> 
+> Best wishes,
+> Heather
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From ht @end|ng |rom he@therturner@net  Fri May 16 09:36:57 2025
+From: ht @end|ng |rom he@therturner@net (Heather Turner)
+Date: Fri, 16 May 2025 08:36:57 +0100
+Subject: [R-SIG-Mac] Need for `-headerpad_max_install_names` with
+ `--enable-R-framework`
+In-Reply-To: <BA80DB99-7458-4D20-B21C-5AF87FE45950@R-project.org>
+References: <98d94688-4b98-4055-bc93-a4b673d31bdb@app.fastmail.com>
+ <BA80DB99-7458-4D20-B21C-5AF87FE45950@R-project.org>
+Message-ID: <a68e0c62-8f33-438a-8998-aa3997c5da60@app.fastmail.com>
+
+Hi Simon,
+
+I am configuring with 
+
+$TOP_SRCDIR/configure --enable-R-framework --disable-java FW_VERSION=R-devel
+
+and config.site
+
+CC=clang
+OBJC=$CC
+FC="/opt/gfortran/bin/gfortran -mtune=native"
+CPPFLAGS='-isystem /opt/R/arm64/include'
+CXX=clang++
+PKG_CONFIG_PATH=/opt/R/arm64/lib/pkgconfig:/usr/lib/pkgconfig
+CFLAGS="-falign-functions=8 -g -O0"
+FFLAGS="-g -O2 -mmacosx-version-min=11.0"
+FCFLAGS="-g -O2 -mmacosx-version-min=11.0"
+LDFLAGS="-L/opt/R/arm64/lib -L/opt/gfortran/lib"
+CPPFLAGS="-isystem /opt/R/arm64/include -I/opt/R/arm64/include"
+
+[this is the version before adding MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"]
+
+I'm using Command Line Tools only (no full Xcode installed).
+
+macOS version: Sequoia 15.4.1 (24E263)
+CLT version: 16.3.0.0.1.1742442376
+Clang: Apple clang version 17.0.0 (clang-1700.0.13.3)
+Fortran: GNU Fortran (GCC) 8.2.0 (from https://mac.r-project.org/tools/gfortran-14.2-universal.pkg)
+SDK version: 15.4
+SDK path: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+
+and could reproduce the issue on my side with an SVN checkout of R-devel 2025-05-15 r88204.
+
+Hope that helps,
+
+Heather
+
+On Fri, May 16, 2025, at 4:43 AM, Simon Urbanek wrote:
+> Heather,
+>
+> yes, please, since we cannot reproduce it, please provide your complete 
+> configure flags, full info about your macOS version, tools used 
+> (toolchain version and SDK). We are adding 
+> -Wl,-headerpad_max_install_names for libraries (see etc/Makeconf, added 
+> by configure.ac for darwin), but the binary itself has never caused 
+> issues, so I wonder what makes your system produce smaller header that 
+> won?t fit the paths.
+>
+> Thanks,
+> Simon
+>
+>
+>> On 16 May 2025, at 04:24, Heather Turner <ht at heatherturner.net> wrote:
+>> 
+>> Dear All,
+>> 
+>> I have been building R (on Apple M1 Pro) with `--enable-R-framework` so that I can use the built version of R in RStudio/Positron. My set up was working fine back in February or so, then in April (with the alpha version) I started to hit errors with `make install`:
+>> 
+>> Creating R framework ...
+>>  libRlapack
+>>  libRblas
+>> error: /Library/Developer/CommandLineTools/usr/bin/install_name_tool: changing install names or rpaths can't be redone for: /Library/Frameworks/R.framework/Versions/R-devel/Resources/bin/exec/R <http://r.framework/Versions/R-devel/Resources/bin/exec/R> (for architecture arm64) because larger updated load commands do not fit (the program must be relinked, and you may need to use -headerpad or -headerpad_max_install_names)
+>> <similar error for libR, snipped>
+>> 
+>> I only just got round to exploring further. I can fix the issue by adding 
+>> 
+>> MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"
+>> 
+>> to my config.site, but I wonder why I didn't need to set this in the past. Also I wonder if this should be set by default, at least with `--enable-R-framework`?
+>> 
+>> Let me know if I can provide any information that might be helpful about my configuration/setup.
+>> 
+>> Best wishes,
+>> Heather
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>
+
+
+From pd@|gd @end|ng |rom gm@||@com  Fri May 16 10:13:50 2025
+From: pd@|gd @end|ng |rom gm@||@com (peter dalgaard)
+Date: Fri, 16 May 2025 10:13:50 +0200
+Subject: [R-SIG-Mac] Need for `-headerpad_max_install_names` with
+ `--enable-R-framework`
+In-Reply-To: <a68e0c62-8f33-438a-8998-aa3997c5da60@app.fastmail.com>
+References: <98d94688-4b98-4055-bc93-a4b673d31bdb@app.fastmail.com>
+ <BA80DB99-7458-4D20-B21C-5AF87FE45950@R-project.org>
+ <a68e0c62-8f33-438a-8998-aa3997c5da60@app.fastmail.com>
+Message-ID: <D7D4A0EA-BF9D-4112-AB68-C9866D990D07@gmail.com>
+
+CLT 16.3 could be the issue. I also got caught by that not-so-trivial point upgrade, and it broke standalone nmath. Simon hasn't upgraded, so the nightly builds are a version ahead of him for once, but they do not test framework installs, so stuff like this is not detected (fodder for the sustainability project...)
+
+- Peter
+
+> On 16 May 2025, at 09.36, Heather Turner <ht at heatherturner.net> wrote:
+> 
+> Hi Simon,
+> 
+> I am configuring with 
+> 
+> $TOP_SRCDIR/configure --enable-R-framework --disable-java FW_VERSION=R-devel
+> 
+> and config.site
+> 
+> CC=clang
+> OBJC=$CC
+> FC="/opt/gfortran/bin/gfortran -mtune=native"
+> CPPFLAGS='-isystem /opt/R/arm64/include'
+> CXX=clang++
+> PKG_CONFIG_PATH=/opt/R/arm64/lib/pkgconfig:/usr/lib/pkgconfig
+> CFLAGS="-falign-functions=8 -g -O0"
+> FFLAGS="-g -O2 -mmacosx-version-min=11.0"
+> FCFLAGS="-g -O2 -mmacosx-version-min=11.0"
+> LDFLAGS="-L/opt/R/arm64/lib -L/opt/gfortran/lib"
+> CPPFLAGS="-isystem /opt/R/arm64/include -I/opt/R/arm64/include"
+> 
+> [this is the version before adding MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"]
+> 
+> I'm using Command Line Tools only (no full Xcode installed).
+> 
+> macOS version: Sequoia 15.4.1 (24E263)
+> CLT version: 16.3.0.0.1.1742442376
+> Clang: Apple clang version 17.0.0 (clang-1700.0.13.3)
+> Fortran: GNU Fortran (GCC) 8.2.0 (from https://mac.r-project.org/tools/gfortran-14.2-universal.pkg)
+> SDK version: 15.4
+> SDK path: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+> 
+> and could reproduce the issue on my side with an SVN checkout of R-devel 2025-05-15 r88204.
+> 
+> Hope that helps,
+> 
+> Heather
+> 
+> On Fri, May 16, 2025, at 4:43 AM, Simon Urbanek wrote:
+>> Heather,
+>> 
+>> yes, please, since we cannot reproduce it, please provide your complete 
+>> configure flags, full info about your macOS version, tools used 
+>> (toolchain version and SDK). We are adding 
+>> -Wl,-headerpad_max_install_names for libraries (see etc/Makeconf, added 
+>> by configure.ac for darwin), but the binary itself has never caused 
+>> issues, so I wonder what makes your system produce smaller header that 
+>> won?t fit the paths.
+>> 
+>> Thanks,
+>> Simon
+>> 
+>> 
+>>> On 16 May 2025, at 04:24, Heather Turner <ht at heatherturner.net> wrote:
+>>> 
+>>> Dear All,
+>>> 
+>>> I have been building R (on Apple M1 Pro) with `--enable-R-framework` so that I can use the built version of R in RStudio/Positron. My set up was working fine back in February or so, then in April (with the alpha version) I started to hit errors with `make install`:
+>>> 
+>>> Creating R framework ...
+>>> libRlapack
+>>> libRblas
+>>> error: /Library/Developer/CommandLineTools/usr/bin/install_name_tool: changing install names or rpaths can't be redone for: /Library/Frameworks/R.framework/Versions/R-devel/Resources/bin/exec/R <http://r.framework/Versions/R-devel/Resources/bin/exec/R> (for architecture arm64) because larger updated load commands do not fit (the program must be relinked, and you may need to use -headerpad or -headerpad_max_install_names)
+>>> <similar error for libR, snipped>
+>>> 
+>>> I only just got round to exploring further. I can fix the issue by adding 
+>>> 
+>>> MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"
+>>> 
+>>> to my config.site, but I wonder why I didn't need to set this in the past. Also I wonder if this should be set by default, at least with `--enable-R-framework`?
+>>> 
+>>> Let me know if I can provide any information that might be helpful about my configuration/setup.
+>>> 
+>>> Best wishes,
+>>> Heather
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>> 
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Sat May 17 03:49:12 2025
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Sat, 17 May 2025 13:49:12 +1200
+Subject: [R-SIG-Mac] Need for `-headerpad_max_install_names` with
+ `--enable-R-framework`
+In-Reply-To: <a68e0c62-8f33-438a-8998-aa3997c5da60@app.fastmail.com>
+References: <98d94688-4b98-4055-bc93-a4b673d31bdb@app.fastmail.com>
+ <BA80DB99-7458-4D20-B21C-5AF87FE45950@R-project.org>
+ <a68e0c62-8f33-438a-8998-aa3997c5da60@app.fastmail.com>
+Message-ID: <3E642CD4-69EE-40FC-889F-4F64A058567D@R-project.org>
+
+Heather,
+
+thanks, I can reproduce it with CTL 16.3, so it is caused by the toolchain. Although both (16.2 and 16.3) actually have pretty much identical headers and the same local commands, the 16.3 toolchain inserts one small block right behind the load commands thus preventing them to grow. Interestingly, using -Wl,-headerpad_max_install_names just shifts that block back without using any extra space (i.e the file size is the same), so it seems like a reasonable work-around, although it is very perplexing why CLT 16.3 doesn't do that automatically - it looks like a regression in the toolchain. I have now added the work-around to R-devel as r88214.
+
+Cheers,
+Simon
+
+PS: FWIW as noted before, CLT 16.3 despite looking like a minor update is actually a very major breaking change jumping from llvm 17 to 19.
+
+PPS: unrelated to the issue here, but you seem to have a problem in your system: you are picking up some ancient Fortran since you show 8.2 while you should see 14.2.0. Also you are adding /opt/gfortran/lib which shouldn't be in flags as it doesn't have any libraries in the 14.2.0 binary, so it all looks suspicious. If in doubt, remove /opt/gfortran completely and re-install. FWIW the official flags used for CRAN builds are at
+https://svn.r-project.org/R-dev-web/trunk/QA/Simon/R4/conf.big-sur-arm64
+
+
+> On May 16, 2025, at 7:36 PM, Heather Turner <ht at heatherturner.net> wrote:
+> 
+> Hi Simon,
+> 
+> I am configuring with 
+> 
+> $TOP_SRCDIR/configure --enable-R-framework --disable-java FW_VERSION=R-devel
+> 
+> and config.site
+> 
+> CC=clang
+> OBJC=$CC
+> FC="/opt/gfortran/bin/gfortran -mtune=native"
+> CPPFLAGS='-isystem /opt/R/arm64/include'
+> CXX=clang++
+> PKG_CONFIG_PATH=/opt/R/arm64/lib/pkgconfig:/usr/lib/pkgconfig
+> CFLAGS="-falign-functions=8 -g -O0"
+> FFLAGS="-g -O2 -mmacosx-version-min=11.0"
+> FCFLAGS="-g -O2 -mmacosx-version-min=11.0"
+> LDFLAGS="-L/opt/R/arm64/lib -L/opt/gfortran/lib"
+> CPPFLAGS="-isystem /opt/R/arm64/include -I/opt/R/arm64/include"
+> 
+> [this is the version before adding MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"]
+> 
+> I'm using Command Line Tools only (no full Xcode installed).
+> 
+> macOS version: Sequoia 15.4.1 (24E263)
+> CLT version: 16.3.0.0.1.1742442376
+> Clang: Apple clang version 17.0.0 (clang-1700.0.13.3)
+> Fortran: GNU Fortran (GCC) 8.2.0 (from https://mac.r-project.org/tools/gfortran-14.2-universal.pkg)
+> SDK version: 15.4
+> SDK path: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+> 
+> and could reproduce the issue on my side with an SVN checkout of R-devel 2025-05-15 r88204.
+> 
+> Hope that helps,
+> 
+> Heather
+> 
+> On Fri, May 16, 2025, at 4:43 AM, Simon Urbanek wrote:
+>> Heather,
+>> 
+>> yes, please, since we cannot reproduce it, please provide your complete 
+>> configure flags, full info about your macOS version, tools used 
+>> (toolchain version and SDK). We are adding 
+>> -Wl,-headerpad_max_install_names for libraries (see etc/Makeconf, added 
+>> by configure.ac for darwin), but the binary itself has never caused 
+>> issues, so I wonder what makes your system produce smaller header that 
+>> won?t fit the paths.
+>> 
+>> Thanks,
+>> Simon
+>> 
+>> 
+>>> On 16 May 2025, at 04:24, Heather Turner <ht at heatherturner.net> wrote:
+>>> 
+>>> Dear All,
+>>> 
+>>> I have been building R (on Apple M1 Pro) with `--enable-R-framework` so that I can use the built version of R in RStudio/Positron. My set up was working fine back in February or so, then in April (with the alpha version) I started to hit errors with `make install`:
+>>> 
+>>> Creating R framework ...
+>>> libRlapack
+>>> libRblas
+>>> error: /Library/Developer/CommandLineTools/usr/bin/install_name_tool: changing install names or rpaths can't be redone for: /Library/Frameworks/R.framework/Versions/R-devel/Resources/bin/exec/R <http://r.framework/Versions/R-devel/Resources/bin/exec/R> (for architecture arm64) because larger updated load commands do not fit (the program must be relinked, and you may need to use -headerpad or -headerpad_max_install_names)
+>>> <similar error for libR, snipped>
+>>> 
+>>> I only just got round to exploring further. I can fix the issue by adding 
+>>> 
+>>> MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"
+>>> 
+>>> to my config.site, but I wonder why I didn't need to set this in the past. Also I wonder if this should be set by default, at least with `--enable-R-framework`?
+>>> 
+>>> Let me know if I can provide any information that might be helpful about my configuration/setup.
+>>> 
+>>> Best wishes,
+>>> Heather
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>> 
+> 
+
+
+From ht @end|ng |rom he@therturner@net  Mon May 19 11:13:29 2025
+From: ht @end|ng |rom he@therturner@net (Heather Turner)
+Date: Mon, 19 May 2025 10:13:29 +0100
+Subject: [R-SIG-Mac] Need for `-headerpad_max_install_names` with
+ `--enable-R-framework`
+In-Reply-To: <3E642CD4-69EE-40FC-889F-4F64A058567D@R-project.org>
+References: <98d94688-4b98-4055-bc93-a4b673d31bdb@app.fastmail.com>
+ <BA80DB99-7458-4D20-B21C-5AF87FE45950@R-project.org>
+ <a68e0c62-8f33-438a-8998-aa3997c5da60@app.fastmail.com>
+ <3E642CD4-69EE-40FC-889F-4F64A058567D@R-project.org>
+Message-ID: <58b40f5e-efa3-44e9-a653-4f367cb3c895@app.fastmail.com>
+
+Thanks for the update and explanation.
+
+Thanks also for pointing out the Fortran issue - I'm not going to mess with things now as I don't want to break anything before R Dev Day @ Rencontres R, but I'll certainly come back to that and hopefully get my setup sorted out.
+
+Best wishes,
+Heather
+
+On Sat, May 17, 2025, at 2:49 AM, Simon Urbanek wrote:
+> Heather,
+>
+> thanks, I can reproduce it with CTL 16.3, so it is caused by the 
+> toolchain. Although both (16.2 and 16.3) actually have pretty much 
+> identical headers and the same local commands, the 16.3 toolchain 
+> inserts one small block right behind the load commands thus preventing 
+> them to grow. Interestingly, using -Wl,-headerpad_max_install_names 
+> just shifts that block back without using any extra space (i.e the file 
+> size is the same), so it seems like a reasonable work-around, although 
+> it is very perplexing why CLT 16.3 doesn't do that automatically - it 
+> looks like a regression in the toolchain. I have now added the 
+> work-around to R-devel as r88214.
+>
+> Cheers,
+> Simon
+>
+> PS: FWIW as noted before, CLT 16.3 despite looking like a minor update 
+> is actually a very major breaking change jumping from llvm 17 to 19.
+>
+> PPS: unrelated to the issue here, but you seem to have a problem in 
+> your system: you are picking up some ancient Fortran since you show 8.2 
+> while you should see 14.2.0. Also you are adding /opt/gfortran/lib 
+> which shouldn't be in flags as it doesn't have any libraries in the 
+> 14.2.0 binary, so it all looks suspicious. If in doubt, remove 
+> /opt/gfortran completely and re-install. FWIW the official flags used 
+> for CRAN builds are at
+> https://svn.r-project.org/R-dev-web/trunk/QA/Simon/R4/conf.big-sur-arm64
+>
+>
+>> On May 16, 2025, at 7:36 PM, Heather Turner <ht at heatherturner.net> wrote:
+>> 
+>> Hi Simon,
+>> 
+>> I am configuring with 
+>> 
+>> $TOP_SRCDIR/configure --enable-R-framework --disable-java FW_VERSION=R-devel
+>> 
+>> and config.site
+>> 
+>> CC=clang
+>> OBJC=$CC
+>> FC="/opt/gfortran/bin/gfortran -mtune=native"
+>> CPPFLAGS='-isystem /opt/R/arm64/include'
+>> CXX=clang++
+>> PKG_CONFIG_PATH=/opt/R/arm64/lib/pkgconfig:/usr/lib/pkgconfig
+>> CFLAGS="-falign-functions=8 -g -O0"
+>> FFLAGS="-g -O2 -mmacosx-version-min=11.0"
+>> FCFLAGS="-g -O2 -mmacosx-version-min=11.0"
+>> LDFLAGS="-L/opt/R/arm64/lib -L/opt/gfortran/lib"
+>> CPPFLAGS="-isystem /opt/R/arm64/include -I/opt/R/arm64/include"
+>> 
+>> [this is the version before adding MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"]
+>> 
+>> I'm using Command Line Tools only (no full Xcode installed).
+>> 
+>> macOS version: Sequoia 15.4.1 (24E263)
+>> CLT version: 16.3.0.0.1.1742442376
+>> Clang: Apple clang version 17.0.0 (clang-1700.0.13.3)
+>> Fortran: GNU Fortran (GCC) 8.2.0 (from https://mac.r-project.org/tools/gfortran-14.2-universal.pkg)
+>> SDK version: 15.4
+>> SDK path: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+>> 
+>> and could reproduce the issue on my side with an SVN checkout of R-devel 2025-05-15 r88204.
+>> 
+>> Hope that helps,
+>> 
+>> Heather
+>> 
+>> On Fri, May 16, 2025, at 4:43 AM, Simon Urbanek wrote:
+>>> Heather,
+>>> 
+>>> yes, please, since we cannot reproduce it, please provide your complete 
+>>> configure flags, full info about your macOS version, tools used 
+>>> (toolchain version and SDK). We are adding 
+>>> -Wl,-headerpad_max_install_names for libraries (see etc/Makeconf, added 
+>>> by configure.ac for darwin), but the binary itself has never caused 
+>>> issues, so I wonder what makes your system produce smaller header that 
+>>> won?t fit the paths.
+>>> 
+>>> Thanks,
+>>> Simon
+>>> 
+>>> 
+>>>> On 16 May 2025, at 04:24, Heather Turner <ht at heatherturner.net> wrote:
+>>>> 
+>>>> Dear All,
+>>>> 
+>>>> I have been building R (on Apple M1 Pro) with `--enable-R-framework` so that I can use the built version of R in RStudio/Positron. My set up was working fine back in February or so, then in April (with the alpha version) I started to hit errors with `make install`:
+>>>> 
+>>>> Creating R framework ...
+>>>> libRlapack
+>>>> libRblas
+>>>> error: /Library/Developer/CommandLineTools/usr/bin/install_name_tool: changing install names or rpaths can't be redone for: /Library/Frameworks/R.framework/Versions/R-devel/Resources/bin/exec/R <http://r.framework/Versions/R-devel/Resources/bin/exec/R> (for architecture arm64) because larger updated load commands do not fit (the program must be relinked, and you may need to use -headerpad or -headerpad_max_install_names)
+>>>> <similar error for libR, snipped>
+>>>> 
+>>>> I only just got round to exploring further. I can fix the issue by adding 
+>>>> 
+>>>> MAIN_LDFLAGS="-Wl,-headerpad_max_install_names"
+>>>> 
+>>>> to my config.site, but I wonder why I didn't need to set this in the past. Also I wonder if this should be set by default, at least with `--enable-R-framework`?
+>>>> 
+>>>> Let me know if I can provide any information that might be helpful about my configuration/setup.
+>>>> 
+>>>> Best wishes,
+>>>> Heather
+>>>> 
+>>>> _______________________________________________
+>>>> R-SIG-Mac mailing list
+>>>> R-SIG-Mac at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>> 
+>>
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Thu May 22 13:35:51 2025
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Thu, 22 May 2025 07:35:51 -0400
+Subject: [R-SIG-Mac] Installing svglite in R-devel
+Message-ID: <fad523fc-eefc-405b-a03c-3a0b46d5b3e3@gmail.com>
+
+I'm trying to install the svglite package in R-devel on my M3 Mac 
+running Sonoma 14.7.1, and getting these results:
+
+>> install.packages("svglite")
+> --- Please select a CRAN mirror for use in this session ---
+> trying URL 'https://cloud.r-project.org/src/contrib/svglite_2.2.1.tar.gz'
+> Content type 'application/x-gzip' length 134155 bytes (131 KB)
+> ==================================================
+> downloaded 131 KB
+> 
+> * installing *source* package ?svglite? ...
+> ** this is package ?svglite? version ?2.2.1?
+> ** package ?svglite? successfully unpacked and MD5 sums checked
+> ** using staged installation
+> ** libs
+> using C++ compiler: ?Apple clang version 16.0.0 (clang-1600.0.26.6)?
+> using SDK: ?MacOSX15.2.sdk?
+> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c SvgStream.cpp -o SvgStream.o
+> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c cpp11.cpp -o cpp11.o
+> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c devSVG.cpp -o devSVG.o
+> clang++ -std=gnu++17 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -L/Users/murdoch/R/R-devel/lib -L/usr/local/lib -o svglite.so SvgStream.o cpp11.o devSVG.o -lpng -lz -L/Users/murdoch/R/R-devel/lib -lR
+> ld: library 'png' not found
+> clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+> make: *** [svglite.so] Error 1
+> ERROR: compilation failed for package ?svglite?
+> * removing ?/Users/murdoch/R/R-devel/library/svglite?
+
+I do have libpng installed:
+
+> murdoch at djmair4 /opt/R/arm64/lib
+> $ ls -l libpng*
+> lrwxr-xr-x  1 root  admin       10 30 Mar 18:58 libpng.a@ -> libpng16.a
+> lrwxr-xr-x  1 root  admin       11 30 Mar 18:58 libpng.la@ -> libpng16.la
+> -rw-r--r--  1 root  admin  1094008 30 Mar 18:58 libpng16.a
+> -rwxr-xr-x  1 root  admin      895 30 Mar 18:58 libpng16.la*
+
+I have a config.site file in the R-devel-src folder, modified with these 
+changes:
+
+> Index: config.site
+> ===================================================================
+> --- config.site	(revision 88220)
+> +++ config.site	(working copy)
+> @@ -45,7 +45,7 @@
+>  ## It is also necessary to set the architecture here, e.g. 'gcc -m32'.
+>  ## If this is a wrapper it should pass on --version to the real compiler.
+>  ## This will be replaced by CC23 (see below) if a C23 compiler is found.
+> -## CC=
+> +CC=clang
+>  
+>  ## Debugging and optimization options for the C compiler.
+>  ## Use this to specify CFLAGS for the version of the C compiler
+> @@ -111,12 +111,12 @@
+>  ## options (such as defines) for the C preprocessor and compiler.
+>  ## If unset defaults to '-I/usr/local/include', with '-I/sw/include'
+>  ## prepended on systems using Fink with root '/sw'.
+> -## CPPFLAGS=
+> +CPPFLAGS='-isystem /opt/R/arm64/include'
+>  
+>  ## The command which runs the Fortran compiler.
+>  ## Used for both fixed-form and free-form Fortran
+>  ## If this is a wrapper it should pass on --version to the real compiler.
+> -## FC=
+> +FC="/opt/gfortran/bin/gfortran -mtune=native"
+>  
+>  ## Options for the Fortran compiler.
+>  ## Use this to specify comilation flags for fixed-form Fortran.
+> @@ -223,7 +223,7 @@
+>  ## and then looks under the names 'c++', 'g++', 'CC' and more OS-specific
+>  ## names (from autoconf).
+>  ## If this is a wrapper it should pass on --version to the real compiler.
+> -## CXX=
+> +CXX=clang++
+>  
+>  ## Options for the C++ compiler.
+>  ## CXXFLAGS=
+> @@ -255,7 +255,7 @@
+>  
+>  ## Objective-C(++), mainly for macOS
+>  ## On macOS, Apple clang with additional gcc flag -fobjc-exceptions
+> -## OBJC=
+> +OBJC=$CC
+>  ## OBJCFLAGS=
+>  ## OBJC_LIBS-
+>  ## Objective-C compiler, usually the same as $CXX $CXXSTD
+
+Can anyone spot what needs fixing?
+
+Duncan Murdoch
+
+
+From pd@|gd @end|ng |rom gm@||@com  Thu May 22 14:17:27 2025
+From: pd@|gd @end|ng |rom gm@||@com (peter dalgaard)
+Date: Thu, 22 May 2025 14:17:27 +0200
+Subject: [R-SIG-Mac] Installing svglite in R-devel
+In-Reply-To: <fad523fc-eefc-405b-a03c-3a0b46d5b3e3@gmail.com>
+References: <fad523fc-eefc-405b-a03c-3a0b46d5b3e3@gmail.com>
+Message-ID: <10E5CE90-368B-4A2C-A0A9-95F4075FF364@gmail.com>
+
+(Simon will say something about not to use config.site...)
+
+I think you need LDFLAGS in config.site. For the nightlies, I have
+
+% more ~/r-devel/config.site 
+CPPFLAGS=-I/opt/R/arm64/include
+LDFLAGS=-L/opt/R/arm64/lib
+with_tcl_config=/opt/R/arm64/lib/tclConfig.sh
+with_tk_config=/opt/R/arm64/lib/tkConfig.sh
+
+-pd
+
+> On 22 May 2025, at 13:35 , Duncan Murdoch <murdoch.duncan at gmail.com> wrote:
+> 
+> I'm trying to install the svglite package in R-devel on my M3 Mac running Sonoma 14.7.1, and getting these results:
+> 
+>>> install.packages("svglite")
+>> --- Please select a CRAN mirror for use in this session ---
+>> trying URL 'https://cloud.r-project.org/src/contrib/svglite_2.2.1.tar.gz'
+>> Content type 'application/x-gzip' length 134155 bytes (131 KB)
+>> ==================================================
+>> downloaded 131 KB
+>> * installing *source* package ?svglite? ...
+>> ** this is package ?svglite? version ?2.2.1?
+>> ** package ?svglite? successfully unpacked and MD5 sums checked
+>> ** using staged installation
+>> ** libs
+>> using C++ compiler: ?Apple clang version 16.0.0 (clang-1600.0.26.6)?
+>> using SDK: ?MacOSX15.2.sdk?
+>> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c SvgStream.cpp -o SvgStream.o
+>> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c cpp11.cpp -o cpp11.o
+>> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c devSVG.cpp -o devSVG.o
+>> clang++ -std=gnu++17 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -L/Users/murdoch/R/R-devel/lib -L/usr/local/lib -o svglite.so SvgStream.o cpp11.o devSVG.o -lpng -lz -L/Users/murdoch/R/R-devel/lib -lR
+>> ld: library 'png' not found
+>> clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+>> make: *** [svglite.so] Error 1
+>> ERROR: compilation failed for package ?svglite?
+>> * removing ?/Users/murdoch/R/R-devel/library/svglite?
+> 
+> I do have libpng installed:
+> 
+>> murdoch at djmair4 /opt/R/arm64/lib
+>> $ ls -l libpng*
+>> lrwxr-xr-x  1 root  admin       10 30 Mar 18:58 libpng.a@ -> libpng16.a
+>> lrwxr-xr-x  1 root  admin       11 30 Mar 18:58 libpng.la@ -> libpng16.la
+>> -rw-r--r--  1 root  admin  1094008 30 Mar 18:58 libpng16.a
+>> -rwxr-xr-x  1 root  admin      895 30 Mar 18:58 libpng16.la*
+> 
+> I have a config.site file in the R-devel-src folder, modified with these changes:
+> 
+>> Index: config.site
+>> ===================================================================
+>> --- config.site	(revision 88220)
+>> +++ config.site	(working copy)
+>> @@ -45,7 +45,7 @@
+>> ## It is also necessary to set the architecture here, e.g. 'gcc -m32'.
+>> ## If this is a wrapper it should pass on --version to the real compiler.
+>> ## This will be replaced by CC23 (see below) if a C23 compiler is found.
+>> -## CC=
+>> +CC=clang
+>>  ## Debugging and optimization options for the C compiler.
+>> ## Use this to specify CFLAGS for the version of the C compiler
+>> @@ -111,12 +111,12 @@
+>> ## options (such as defines) for the C preprocessor and compiler.
+>> ## If unset defaults to '-I/usr/local/include', with '-I/sw/include'
+>> ## prepended on systems using Fink with root '/sw'.
+>> -## CPPFLAGS=
+>> +CPPFLAGS='-isystem /opt/R/arm64/include'
+>>  ## The command which runs the Fortran compiler.
+>> ## Used for both fixed-form and free-form Fortran
+>> ## If this is a wrapper it should pass on --version to the real compiler.
+>> -## FC=
+>> +FC="/opt/gfortran/bin/gfortran -mtune=native"
+>>  ## Options for the Fortran compiler.
+>> ## Use this to specify comilation flags for fixed-form Fortran.
+>> @@ -223,7 +223,7 @@
+>> ## and then looks under the names 'c++', 'g++', 'CC' and more OS-specific
+>> ## names (from autoconf).
+>> ## If this is a wrapper it should pass on --version to the real compiler.
+>> -## CXX=
+>> +CXX=clang++
+>>  ## Options for the C++ compiler.
+>> ## CXXFLAGS=
+>> @@ -255,7 +255,7 @@
+>>  ## Objective-C(++), mainly for macOS
+>> ## On macOS, Apple clang with additional gcc flag -fobjc-exceptions
+>> -## OBJC=
+>> +OBJC=$CC
+>> ## OBJCFLAGS=
+>> ## OBJC_LIBS-
+>> ## Objective-C compiler, usually the same as $CXX $CXXSTD
+> 
+> Can anyone spot what needs fixing?
+> 
+> Duncan Murdoch
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business School
+Solbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Thu May 22 14:38:26 2025
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Thu, 22 May 2025 08:38:26 -0400
+Subject: [R-SIG-Mac] Installing svglite in R-devel
+In-Reply-To: <10E5CE90-368B-4A2C-A0A9-95F4075FF364@gmail.com>
+References: <fad523fc-eefc-405b-a03c-3a0b46d5b3e3@gmail.com>
+ <10E5CE90-368B-4A2C-A0A9-95F4075FF364@gmail.com>
+Message-ID: <1d560d4c-7f85-4216-a042-af105f2408d5@gmail.com>
+
+Thanks, that did it (after rebuilding R).
+
+Duncan
+
+On 2025-05-22 8:17 a.m., peter dalgaard wrote:
+> (Simon will say something about not to use config.site...)
+> 
+> I think you need LDFLAGS in config.site. For the nightlies, I have
+> 
+> % more ~/r-devel/config.site
+> CPPFLAGS=-I/opt/R/arm64/include
+> LDFLAGS=-L/opt/R/arm64/lib
+> with_tcl_config=/opt/R/arm64/lib/tclConfig.sh
+> with_tk_config=/opt/R/arm64/lib/tkConfig.sh
+> 
+> -pd
+> 
+>> On 22 May 2025, at 13:35 , Duncan Murdoch <murdoch.duncan at gmail.com> wrote:
+>>
+>> I'm trying to install the svglite package in R-devel on my M3 Mac running Sonoma 14.7.1, and getting these results:
+>>
+>>>> install.packages("svglite")
+>>> --- Please select a CRAN mirror for use in this session ---
+>>> trying URL 'https://cloud.r-project.org/src/contrib/svglite_2.2.1.tar.gz'
+>>> Content type 'application/x-gzip' length 134155 bytes (131 KB)
+>>> ==================================================
+>>> downloaded 131 KB
+>>> * installing *source* package ?svglite? ...
+>>> ** this is package ?svglite? version ?2.2.1?
+>>> ** package ?svglite? successfully unpacked and MD5 sums checked
+>>> ** using staged installation
+>>> ** libs
+>>> using C++ compiler: ?Apple clang version 16.0.0 (clang-1600.0.26.6)?
+>>> using SDK: ?MacOSX15.2.sdk?
+>>> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c SvgStream.cpp -o SvgStream.o
+>>> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c cpp11.cpp -o cpp11.o
+>>> clang++ -std=gnu++17 -I"/Users/murdoch/R/R-devel/include" -DNDEBUG  -I'/Users/murdoch/R/R-devel/library/cpp11/include' -I'/Users/murdoch/R/R-devel/library/systemfonts/include' -I'/Users/murdoch/R/R-devel/library/textshaping/include' -isystem /opt/R/arm64/include    -fPIC  -g -O2   -c devSVG.cpp -o devSVG.o
+>>> clang++ -std=gnu++17 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -L/Users/murdoch/R/R-devel/lib -L/usr/local/lib -o svglite.so SvgStream.o cpp11.o devSVG.o -lpng -lz -L/Users/murdoch/R/R-devel/lib -lR
+>>> ld: library 'png' not found
+>>> clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+>>> make: *** [svglite.so] Error 1
+>>> ERROR: compilation failed for package ?svglite?
+>>> * removing ?/Users/murdoch/R/R-devel/library/svglite?
+>>
+>> I do have libpng installed:
+>>
+>>> murdoch at djmair4 /opt/R/arm64/lib
+>>> $ ls -l libpng*
+>>> lrwxr-xr-x  1 root  admin       10 30 Mar 18:58 libpng.a@ -> libpng16.a
+>>> lrwxr-xr-x  1 root  admin       11 30 Mar 18:58 libpng.la@ -> libpng16.la
+>>> -rw-r--r--  1 root  admin  1094008 30 Mar 18:58 libpng16.a
+>>> -rwxr-xr-x  1 root  admin      895 30 Mar 18:58 libpng16.la*
+>>
+>> I have a config.site file in the R-devel-src folder, modified with these changes:
+>>
+>>> Index: config.site
+>>> ===================================================================
+>>> --- config.site	(revision 88220)
+>>> +++ config.site	(working copy)
+>>> @@ -45,7 +45,7 @@
+>>> ## It is also necessary to set the architecture here, e.g. 'gcc -m32'.
+>>> ## If this is a wrapper it should pass on --version to the real compiler.
+>>> ## This will be replaced by CC23 (see below) if a C23 compiler is found.
+>>> -## CC=
+>>> +CC=clang
+>>>   ## Debugging and optimization options for the C compiler.
+>>> ## Use this to specify CFLAGS for the version of the C compiler
+>>> @@ -111,12 +111,12 @@
+>>> ## options (such as defines) for the C preprocessor and compiler.
+>>> ## If unset defaults to '-I/usr/local/include', with '-I/sw/include'
+>>> ## prepended on systems using Fink with root '/sw'.
+>>> -## CPPFLAGS=
+>>> +CPPFLAGS='-isystem /opt/R/arm64/include'
+>>>   ## The command which runs the Fortran compiler.
+>>> ## Used for both fixed-form and free-form Fortran
+>>> ## If this is a wrapper it should pass on --version to the real compiler.
+>>> -## FC=
+>>> +FC="/opt/gfortran/bin/gfortran -mtune=native"
+>>>   ## Options for the Fortran compiler.
+>>> ## Use this to specify comilation flags for fixed-form Fortran.
+>>> @@ -223,7 +223,7 @@
+>>> ## and then looks under the names 'c++', 'g++', 'CC' and more OS-specific
+>>> ## names (from autoconf).
+>>> ## If this is a wrapper it should pass on --version to the real compiler.
+>>> -## CXX=
+>>> +CXX=clang++
+>>>   ## Options for the C++ compiler.
+>>> ## CXXFLAGS=
+>>> @@ -255,7 +255,7 @@
+>>>   ## Objective-C(++), mainly for macOS
+>>> ## On macOS, Apple clang with additional gcc flag -fobjc-exceptions
+>>> -## OBJC=
+>>> +OBJC=$CC
+>>> ## OBJCFLAGS=
+>>> ## OBJC_LIBS-
+>>> ## Objective-C compiler, usually the same as $CXX $CXXSTD
+>>
+>> Can anyone spot what needs fixing?
+>>
+>> Duncan Murdoch
+>>
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Sat May 24 16:30:08 2025
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Sat, 24 May 2025 10:30:08 -0400
+Subject: [R-SIG-Mac] RSelenium in R 4.5.0?
+Message-ID: <d32a6716-bf3d-4e3f-8846-5499918bccfc@gmail.com>
+
+Today I finally updated to R 4.5.0, and found that RSelenium had stopped 
+working.
+
+It appears that it switched to the older convention for the storage of 
+the chromedriver:  it was looking in ~/Library/Application 
+Support/binman_chromedriver/mac_m1 instead of the current 
+~/Library/Application Support/binman_chromedriver/mac-arm64.
+
+Has anyone else seen this?  Any suggested fixes?  I've switched back to 
+R 4.4.3 for now, but I'd like to upgrade.
+
+Duncan Murdoch
+
+
+From c@r| @end|ng |rom w|ttho|t@com  Sun May 25 13:02:51 2025
+From: c@r| @end|ng |rom w|ttho|t@com (Carl Witthoft)
+Date: Sun, 25 May 2025 07:02:51 -0400
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 266, Issue 9
+In-Reply-To: <mailman.15413.1.1748167201.26964.r-sig-mac@r-project.org>
+References: <mailman.15413.1.1748167201.26964.r-sig-mac@r-project.org>
+Message-ID: <3e0b3826-a66e-4c9c-89c9-4ed75a2ca543@witthoft.com>
+
+You mean aside from creating a symlink in
+~/Library/Application Support/binman_chromedriver/mac_m1   ?
+
+
+
+On 5/25/25 6:00 AM, r-sig-mac-request at r-project.org wrote:
+
+> Today I finally updated to R 4.5.0, and found that RSelenium had stopped
+> working.
+> 
+> It appears that it switched to the older convention for the storage of
+> the chromedriver:  it was looking in ~/Library/Application
+> Support/binman_chromedriver/mac_m1 instead of the current
+> ~/Library/Application Support/binman_chromedriver/mac-arm64.
+> 
+> Has anyone else seen this?  Any suggested fixes?  I've switched back to
+> R 4.4.3 for now, but I'd like to upgrade.
+> 
+> Duncan Murdoch
+> 
+> 
+> 
+> 
+> ------------------------------
+> 
+> Subject: Digest Footer
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> 
+> ------------------------------
+> 
+> End of R-SIG-Mac Digest, Vol 266, Issue 9
+> *****************************************
+
+-- 
+Carl Witthoft
+personal: carl at witthoft.com
+The Witthoft Group, Consulting
+https://witthoftgroup.weebly.com/
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Sun May 25 14:04:09 2025
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Sun, 25 May 2025 08:04:09 -0400
+Subject: [R-SIG-Mac] RSelenium in R 4.5.0?
+In-Reply-To: <d32a6716-bf3d-4e3f-8846-5499918bccfc@gmail.com>
+References: <d32a6716-bf3d-4e3f-8846-5499918bccfc@gmail.com>
+Message-ID: <52cc3c80-b1d3-437b-86f2-72e249b9273f@gmail.com>
+
+On 2025-05-24 10:30 a.m., Duncan Murdoch wrote:
+> Today I finally updated to R 4.5.0, and found that RSelenium had stopped
+> working.
+> 
+> It appears that it switched to the older convention for the storage of
+> the chromedriver:  it was looking in ~/Library/Application
+> Support/binman_chromedriver/mac_m1 instead of the current
+> ~/Library/Application Support/binman_chromedriver/mac-arm64.
+> 
+> Has anyone else seen this?  Any suggested fixes?  I've switched back to
+> R 4.4.3 for now, but I'd like to upgrade.
+> 
+> Duncan Murdoch
+
+This is a bug in wdman, which hasn't been updated in a long time. 
+There's a PR for a fix to it and I'd forgotten I installed that sometime 
+last year.  When I installed the fixed version in 4.5.0 everything was fine.
+
+To install the fork, use
+
+     remotes::install_github("ashbythorpe/wdman at chromefix")
+
+Duncan Murdoch
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Sun May 25 14:06:51 2025
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Sun, 25 May 2025 08:06:51 -0400
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 266, Issue 9
+In-Reply-To: <3e0b3826-a66e-4c9c-89c9-4ed75a2ca543@witthoft.com>
+References: <mailman.15413.1.1748167201.26964.r-sig-mac@r-project.org>
+ <3e0b3826-a66e-4c9c-89c9-4ed75a2ca543@witthoft.com>
+Message-ID: <a4a18569-b0d1-402b-b912-8327031a46b1@gmail.com>
+
+That could probably work, but as I just posted, it's not necessary if 
+you incorporate a PR for wdman.
+
+     remotes::install_github("ashbythorpe/wdman at chromefix")
+
+Duncan Murdoch
+
+On 2025-05-25 7:02 a.m., Carl Witthoft wrote:
+> You mean aside from creating a symlink in
+> ~/Library/Application Support/binman_chromedriver/mac_m1   ?
+> 
+> 
+> 
+> On 5/25/25 6:00 AM, r-sig-mac-request at r-project.org wrote:
+> 
+>> Today I finally updated to R 4.5.0, and found that RSelenium had stopped
+>> working.
+>>
+>> It appears that it switched to the older convention for the storage of
+>> the chromedriver:  it was looking in ~/Library/Application
+>> Support/binman_chromedriver/mac_m1 instead of the current
+>> ~/Library/Application Support/binman_chromedriver/mac-arm64.
+>>
+>> Has anyone else seen this?  Any suggested fixes?  I've switched back to
+>> R 4.4.3 for now, but I'd like to upgrade.
+>>
+>> Duncan Murdoch
+>>
+>>
+>>
+>>
+>> ------------------------------
+>>
+>> Subject: Digest Footer
+>>
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>
+>>
+>> ------------------------------
+>>
+>> End of R-SIG-Mac Digest, Vol 266, Issue 9
+>> *****************************************
+>
+
+
+From c@r| @end|ng |rom w|ttho|t@com  Fri May 30 23:00:31 2025
+From: c@r| @end|ng |rom w|ttho|t@com (Carl Witthoft)
+Date: Fri, 30 May 2025 17:00:31 -0400
+Subject: [R-SIG-Mac] upgraded to 4.5 (mac x86), errors
+Message-ID: <8beba9c9-6cd3-4471-b77f-6281d328a23c@witthoft.com>
+
+I suspect this is something simple I forgot to update or delete, but:
+iMac x86 recently upgraded to 15.5 Sequoia.
+
+I installed R 4.5 from CRAN.
+then tried to install the "gmp" library and:
+
+Error: package or namespace load failed for ?gmp? in get(Info[i, 1], 
+envir = env):
+  lazy-load database 
+'/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/gmp/R/gmp.rdb' 
+is corrupt
+In addition: Warning message:
+In get(Info[i, 1], envir = env) :
+   internal error 1 in R_decompress1 with libdeflate
+
+Then,
+library(ggplot2)
+Error: package or namespace load failed for ?ggplot2? in dyn.load(file, 
+DLLpath = DLLpath, ...):
+  unable to load shared object 
+'/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so':
+ 
+dlopen(/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so, 
+0x0006): Library not loaded: 
+/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib
+   Referenced from: <E900C54A-FB6D-371D-B50B-512EB8D2F868> 
+/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so
+   Reason: tried: 
+'/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' 
+(no such file), 
+'/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' 
+(no such file), 
+'/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' 
+(no such file), '/usr/local/lib/libR.dylib' (no such file), 
+'/usr/lib/libR.dylib' (no such file, not in dy
+
+So I need to clear something out that's pointing to the 4.4 paths.  But 
+aged me forgets what that is.
+
+
+
+
+
+-- 
+Carl Witthoft
+personal: carl at witthoft.com
+The Witthoft Group, Consulting
+https://witthoftgroup.weebly.com/
+
+
+From pd@|gd @end|ng |rom gm@||@com  Sat May 31 10:42:00 2025
+From: pd@|gd @end|ng |rom gm@||@com (peter dalgaard)
+Date: Sat, 31 May 2025 10:42:00 +0200
+Subject: [R-SIG-Mac] upgraded to 4.5 (mac x86), errors
+In-Reply-To: <8beba9c9-6cd3-4471-b77f-6281d328a23c@witthoft.com>
+References: <8beba9c9-6cd3-4471-b77f-6281d328a23c@witthoft.com>
+Message-ID: <E6D840C8-7840-4CC7-B81C-966C9925A994@gmail.com>
+
+Works fine here.
+
+Did you do something with your packages after installing?
+
+Reason that I ask: A number of people have been shooting themselves in the foot by copying old package directories over new ones - including the non-CRAN system packages that update.packages() can't fix.
+
+Or, if you have packages in a separate non-versioned library, then you may need update.packages(checkBuilt=TRUE). 
+
+-pd 
+
+> On 30 May 2025, at 23.00, Carl Witthoft <carl at witthoft.com> wrote:
+> 
+> I suspect this is something simple I forgot to update or delete, but:
+> iMac x86 recently upgraded to 15.5 Sequoia.
+> 
+> I installed R 4.5 from CRAN.
+> then tried to install the "gmp" library and:
+> 
+> Error: package or namespace load failed for ?gmp? in get(Info[i, 1], envir = env):
+> lazy-load database '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/gmp/R/gmp.rdb' is corrupt
+> In addition: Warning message:
+> In get(Info[i, 1], envir = env) :
+>  internal error 1 in R_decompress1 with libdeflate
+> 
+> Then,
+> library(ggplot2)
+> Error: package or namespace load failed for ?ggplot2? in dyn.load(file, DLLpath = DLLpath, ...):
+> unable to load shared object '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so':
+> dlopen(/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib
+>  Referenced from: <E900C54A-FB6D-371D-B50B-512EB8D2F868> /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so
+>  Reason: tried: '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/usr/local/lib/libR.dylib' (no such file), '/usr/lib/libR.dylib' (no such file, not in dy
+> 
+> So I need to clear something out that's pointing to the 4.4 paths.  But aged me forgets what that is.
+> 
+> 
+> 
+> 
+> 
+> -- 
+> Carl Witthoft
+> personal: carl at witthoft.com
+> The Witthoft Group, Consulting
+> https://witthoftgroup.weebly.com/
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business SchoolSolbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From c@r| @end|ng |rom w|ttho|t@com  Sat May 31 12:38:36 2025
+From: c@r| @end|ng |rom w|ttho|t@com (Carl Witthoft)
+Date: Sat, 31 May 2025 06:38:36 -0400
+Subject: [R-SIG-Mac] upgraded to 4.5 (mac x86), errors
+In-Reply-To: <E6D840C8-7840-4CC7-B81C-966C9925A994@gmail.com>
+References: <8beba9c9-6cd3-4471-b77f-6281d328a23c@witthoft.com>
+ <E6D840C8-7840-4CC7-B81C-966C9925A994@gmail.com>
+Message-ID: <ebde8931-8b30-45a0-953c-c0f87bf58325@witthoft.com>
+
+I did this sequence: copy over all 4.4 packages and then selected 
+"update all" from the R-gui menu.  Since several CRAN packages (per 
+initial posting) still failed, I guess there's something inside 
+update.packages that doesn't get cleaned out.
+
+Once I removed all the "updated" libraries and did a fresh install, 
+things seem to be OK.
+Thanks to P.D. and D. M. for your suggestions.
+
+On 5/31/25 4:42 AM, peter dalgaard wrote:
+> Works fine here.
+> 
+> Did you do something with your packages after installing?
+> 
+> Reason that I ask: A number of people have been shooting themselves in the foot by copying old package directories over new ones - including the non-CRAN system packages that update.packages() can't fix.
+> 
+> Or, if you have packages in a separate non-versioned library, then you may need update.packages(checkBuilt=TRUE).
+> 
+> -pd
+> 
+>> On 30 May 2025, at 23.00, Carl Witthoft <carl at witthoft.com> wrote:
+>>
+>> I suspect this is something simple I forgot to update or delete, but:
+>> iMac x86 recently upgraded to 15.5 Sequoia.
+>>
+>> I installed R 4.5 from CRAN.
+>> then tried to install the "gmp" library and:
+>>
+>> Error: package or namespace load failed for ?gmp? in get(Info[i, 1], envir = env):
+>> lazy-load database '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/gmp/R/gmp.rdb' is corrupt
+>> In addition: Warning message:
+>> In get(Info[i, 1], envir = env) :
+>>   internal error 1 in R_decompress1 with libdeflate
+>>
+>> Then,
+>> library(ggplot2)
+>> Error: package or namespace load failed for ?ggplot2? in dyn.load(file, DLLpath = DLLpath, ...):
+>> unable to load shared object '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so':
+>> dlopen(/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib
+>>   Referenced from: <E900C54A-FB6D-371D-B50B-512EB8D2F868> /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so
+>>   Reason: tried: '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/usr/local/lib/libR.dylib' (no such file), '/usr/lib/libR.dylib' (no such file, not in dy
+>>
+>> So I need to clear something out that's pointing to the 4.4 paths.  But aged me forgets what that is.
+>>
+>>
+>>
+>>
+>>
+>> -- 
+>> Carl Witthoft
+>> personal: carl at witthoft.com
+>> The Witthoft Group, Consulting
+>> https://witthoftgroup.weebly.com/
+>>
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+-- 
+Carl Witthoft
+personal: carl at witthoft.com
+The Witthoft Group, Consulting
+https://witthoftgroup.weebly.com/
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Sat May 31 13:34:57 2025
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Sat, 31 May 2025 07:34:57 -0400
+Subject: [R-SIG-Mac] upgraded to 4.5 (mac x86), errors
+In-Reply-To: <ebde8931-8b30-45a0-953c-c0f87bf58325@witthoft.com>
+References: <8beba9c9-6cd3-4471-b77f-6281d328a23c@witthoft.com>
+ <E6D840C8-7840-4CC7-B81C-966C9925A994@gmail.com>
+ <ebde8931-8b30-45a0-953c-c0f87bf58325@witthoft.com>
+Message-ID: <6c9c1a8c-6d1b-4367-8c6c-e6bf84ae58b0@gmail.com>
+
+You shot yourself in the foot as Peter said.
+
+There are 3 classes of packages in R:  base, recommended, and 
+contributed.  Base packages are really part of R itself, and are only 
+changed when you update R.
+
+Contributed packages are add-ons, and can be updated independently of R. 
+  They do need to be reinstalled when an R update changes x or y in the 
+x.y.z R version number.  The update.packages() function or the 
+corresponding menu items will do that.
+
+Recommended packages are contributed packages that are distributed with 
+R.  update.packages() will handle them, too.
+
+The base packages will never be updated by update.packages() (which is 
+used by "update all"), so you were trying to use R 4.4 base packages 
+with R 4.5.0.
+
+It would probably make sense to store base packages separately from 
+contributed packages to avoid even the possibility of this kind of user 
+error.
+
+You might think having update.packages() reinstall base packages would 
+be a good idea, but if the base packages are messed up, R is broken, and 
+update.packages() probably won't work properly.
+
+Duncan Murdoch
+
+On 2025-05-31 6:38 a.m., Carl Witthoft wrote:
+> I did this sequence: copy over all 4.4 packages and then selected
+> "update all" from the R-gui menu.  Since several CRAN packages (per
+> initial posting) still failed, I guess there's something inside
+> update.packages that doesn't get cleaned out.
+> 
+> Once I removed all the "updated" libraries and did a fresh install,
+> things seem to be OK.
+> Thanks to P.D. and D. M. for your suggestions.
+> 
+> On 5/31/25 4:42 AM, peter dalgaard wrote:
+>> Works fine here.
+>>
+>> Did you do something with your packages after installing?
+>>
+>> Reason that I ask: A number of people have been shooting themselves in the foot by copying old package directories over new ones - including the non-CRAN system packages that update.packages() can't fix.
+>>
+>> Or, if you have packages in a separate non-versioned library, then you may need update.packages(checkBuilt=TRUE).
+>>
+>> -pd
+>>
+>>> On 30 May 2025, at 23.00, Carl Witthoft <carl at witthoft.com> wrote:
+>>>
+>>> I suspect this is something simple I forgot to update or delete, but:
+>>> iMac x86 recently upgraded to 15.5 Sequoia.
+>>>
+>>> I installed R 4.5 from CRAN.
+>>> then tried to install the "gmp" library and:
+>>>
+>>> Error: package or namespace load failed for ?gmp? in get(Info[i, 1], envir = env):
+>>> lazy-load database '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/gmp/R/gmp.rdb' is corrupt
+>>> In addition: Warning message:
+>>> In get(Info[i, 1], envir = env) :
+>>>    internal error 1 in R_decompress1 with libdeflate
+>>>
+>>> Then,
+>>> library(ggplot2)
+>>> Error: package or namespace load failed for ?ggplot2? in dyn.load(file, DLLpath = DLLpath, ...):
+>>> unable to load shared object '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so':
+>>> dlopen(/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib
+>>>    Referenced from: <E900C54A-FB6D-371D-B50B-512EB8D2F868> /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so
+>>>    Reason: tried: '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/usr/local/lib/libR.dylib' (no such file), '/usr/lib/libR.dylib' (no such file, not in dy
+>>>
+>>> So I need to clear something out that's pointing to the 4.4 paths.  But aged me forgets what that is.
+>>>
+>>>
+>>>
+>>>
+>>>
+>>> -- 
+>>> Carl Witthoft
+>>> personal: carl at witthoft.com
+>>> The Witthoft Group, Consulting
+>>> https://witthoftgroup.weebly.com/
+>>>
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>
+>
+
+
+From c@r| @end|ng |rom w|ttho|t@com  Sat May 31 13:48:23 2025
+From: c@r| @end|ng |rom w|ttho|t@com (Carl Witthoft)
+Date: Sat, 31 May 2025 07:48:23 -0400
+Subject: [R-SIG-Mac] upgraded to 4.5 (mac x86), errors
+In-Reply-To: <6c9c1a8c-6d1b-4367-8c6c-e6bf84ae58b0@gmail.com>
+References: <8beba9c9-6cd3-4471-b77f-6281d328a23c@witthoft.com>
+ <E6D840C8-7840-4CC7-B81C-966C9925A994@gmail.com>
+ <ebde8931-8b30-45a0-953c-c0f87bf58325@witthoft.com>
+ <6c9c1a8c-6d1b-4367-8c6c-e6bf84ae58b0@gmail.com>
+Message-ID: <07935e91-64e1-40c3-b3d8-2c643c709b83@witthoft.com>
+
+Good guess, but that isn't what happened here.  I carefully did NOT 
+replace the "base" package set that's installed along with 4.5 .  It was 
+only the "contributed" collection that I copied over from 4.4 and then 
+ran 'update' on. I apologize for not making that clear earlier.
+
+So, in fact the menu update command did not successfully "clean out" 
+references to dylib files in the 4.4 directory, as the error messages 
+showed. This despite my getting a full set of messages reporting 
+successful download of the latest versions of all the "contributed" 
+packages.
+
+On 5/31/25 7:34 AM, Duncan Murdoch wrote:
+> You shot yourself in the foot as Peter said.
+> 
+> There are 3 classes of packages in R:? base, recommended, and 
+> contributed.? Base packages are really part of R itself, and are only 
+> changed when you update R.
+> 
+> Contributed packages are add-ons, and can be updated independently of R. 
+>  ?They do need to be reinstalled when an R update changes x or y in the 
+> x.y.z R version number.? The update.packages() function or the 
+> corresponding menu items will do that.
+> 
+> Recommended packages are contributed packages that are distributed with 
+> R.? update.packages() will handle them, too.
+> 
+> The base packages will never be updated by update.packages() (which is 
+> used by "update all"), so you were trying to use R 4.4 base packages 
+> with R 4.5.0.
+> 
+> It would probably make sense to store base packages separately from 
+> contributed packages to avoid even the possibility of this kind of user 
+> error.
+> 
+> You might think having update.packages() reinstall base packages would 
+> be a good idea, but if the base packages are messed up, R is broken, and 
+> update.packages() probably won't work properly.
+> 
+> Duncan Murdoch
+> 
+> On 2025-05-31 6:38 a.m., Carl Witthoft wrote:
+>> I did this sequence: copy over all 4.4 packages and then selected
+>> "update all" from the R-gui menu.? Since several CRAN packages (per
+>> initial posting) still failed, I guess there's something inside
+>> update.packages that doesn't get cleaned out.
+>>
+>> Once I removed all the "updated" libraries and did a fresh install,
+>> things seem to be OK.
+>> Thanks to P.D. and D. M. for your suggestions.
+>>
+>> On 5/31/25 4:42 AM, peter dalgaard wrote:
+>>> Works fine here.
+>>>
+>>> Did you do something with your packages after installing?
+>>>
+>>> Reason that I ask: A number of people have been shooting themselves 
+>>> in the foot by copying old package directories over new ones - 
+>>> including the non-CRAN system packages that update.packages() can't fix.
+>>>
+>>> Or, if you have packages in a separate non-versioned library, then 
+>>> you may need update.packages(checkBuilt=TRUE).
+>>>
+>>> -pd
+>>>
+>>>> On 30 May 2025, at 23.00, Carl Witthoft <carl at witthoft.com> wrote:
+>>>>
+>>>> I suspect this is something simple I forgot to update or delete, but:
+>>>> iMac x86 recently upgraded to 15.5 Sequoia.
+>>>>
+>>>> I installed R 4.5 from CRAN.
+>>>> then tried to install the "gmp" library and:
+>>>>
+>>>> Error: package or namespace load failed for ?gmp? in get(Info[i, 1], 
+>>>> envir = env):
+>>>> lazy-load database 
+>>>> '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/gmp/R/gmp.rdb' is corrupt
+>>>> In addition: Warning message:
+>>>> In get(Info[i, 1], envir = env) :
+>>>> ?? internal error 1 in R_decompress1 with libdeflate
+>>>>
+>>>> Then,
+>>>> library(ggplot2)
+>>>> Error: package or namespace load failed for ?ggplot2? in 
+>>>> dyn.load(file, DLLpath = DLLpath, ...):
+>>>> unable to load shared object 
+>>>> '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so':
+>>>> dlopen(/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib
+>>>> ?? Referenced from: <E900C54A-FB6D-371D-B50B-512EB8D2F868> 
+>>>> /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so
+>>>> ?? Reason: tried: 
+>>>> '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/usr/local/lib/libR.dylib' (no such file), '/usr/lib/libR.dylib' (no such file, not in dy
+>>>>
+>>>> So I need to clear something out that's pointing to the 4.4 paths.  
+>>>> But aged me forgets what that is.
+>>>>
+>>>>
+>>>>
+>>>>
+>>>>
+>>>> -- 
+>>>> Carl Witthoft
+>>>> personal: carl at witthoft.com
+>>>> The Witthoft Group, Consulting
+>>>> https://witthoftgroup.weebly.com/
+>>>>
+>>>> _______________________________________________
+>>>> R-SIG-Mac mailing list
+>>>> R-SIG-Mac at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>
+>>
+> 
+
+-- 
+Carl Witthoft
+personal: carl at witthoft.com
+The Witthoft Group, Consulting
+https://witthoftgroup.weebly.com/
+
+
+From biii+rsigm@c m@iii@g oii 8p@wexpress@com  Sat May 31 16:35:46 2025
+From: biii+rsigm@c m@iii@g oii 8p@wexpress@com (biii+rsigm@c m@iii@g oii 8p@wexpress@com)
+Date: Sat, 31 May 2025 10:35:46 -0400
+Subject: [R-SIG-Mac] xquartz hanging
+Message-ID: <6b1ef050-46f2-4036-b062-4c3f28bcf034@8pawexpress.com>
+
+Are there easy fixes or alternatives to using XQuartz for R plots?
+
+I?m running R-4.4.3 (emacs/ess) on macos 15.4.1 and have xquartz-2.8.5 
+installed. Most of the time plotting in R works well enough (I tend to 
+use ggplot2, I don?t know if it happens as often with base plots). 
+Occasionally (several times a week), ?something? happens with the plot 
+window, and from then on that R process can no longer plot anything 
+more. The ?something? is not well defined for me yet, I think it?s a 
+mouse-wheel or mouse-click or similar; the snark in me says ?well don?t 
+do that?, but I cannot nail down exactly how/when it breaks, it just does.
+
+When it happens, the current device window is still open, but it has a 
+mac spinning-colorwheel, no new plotting commands work, and I cannot 
+close the window myself. I cannot dev.off() it, nor does dev.new() give 
+me a new plotting window. When this happens for a particular R process, 
+my only options for plotting are either (a) close the R process and 
+start over, or (b) manually plot to a PDF or similar one-shot graphics 
+device, viewing in a different app.
+
+There are several related issues I can find:
+
+https://github.com/XQuartz/XQuartz/issues/431, specific to macos 15.4 or 
+newer I think; some mention of ?minimizing windows? but I don?t minimize 
+my plot windows, so perhaps not that
+https://github.com/XQuartz/XQuartz/issues/168, closed as ?not planned?, 
+though this one is much older than the first (431) issue
+
+I?ve tried using something like |httpgd| 
+<https://github.com/nx10/httpgd/> since it can (mostly) provide an 
+?always updating graphics device? for example without xquartz. 
+Unfortunately, with some other packages (namely plumber that I use 
+frequently-enough) it can put the R?s REPL into an unbreakable state 
+(#215 <https://github.com/nx10/httpgd/issues/215>). If that were fixed 
+I?d be a lot more comfortable using that as my workaround.
+
+My research has not shown any other options for fixing or replacing 
+xquartz with a more stable solution. Are there good ways to troubleshoot 
+and try to fix the xquartz issue? Does anybody else have a workaround or 
+alternative that is less unwieldy than pdf(..); plot(..); dev.off()?
+
+Thanks,
+Bill
+
+&#8203;
+&#8203;
+	[[alternative HTML version deleted]]
+
+
+From jdnewm|| @end|ng |rom dcn@d@v|@@c@@u@  Sat May 31 17:34:10 2025
+From: jdnewm|| @end|ng |rom dcn@d@v|@@c@@u@ (Jeff Newmiller)
+Date: Sat, 31 May 2025 08:34:10 -0700
+Subject: [R-SIG-Mac] upgraded to 4.5 (mac x86), errors
+In-Reply-To: <07935e91-64e1-40c3-b3d8-2c643c709b83@witthoft.com>
+References: <8beba9c9-6cd3-4471-b77f-6281d328a23c@witthoft.com>
+ <E6D840C8-7840-4CC7-B81C-966C9925A994@gmail.com>
+ <ebde8931-8b30-45a0-953c-c0f87bf58325@witthoft.com>
+ <6c9c1a8c-6d1b-4367-8c6c-e6bf84ae58b0@gmail.com>
+ <07935e91-64e1-40c3-b3d8-2c643c709b83@witthoft.com>
+Message-ID: <D173E37D-39A5-47C3-8AF5-4403BD5328C9@dcn.davis.ca.us>
+
+Carl: "Doctor, it hurts when I don't upgrade properly..."
+Duncan: "... then don't do that."
+Carl: "But I didn't... rather I did"
+
+Carl, copying ANY previously-installed packages over to the upgraded library is a no-no. Just because you did it previously and got lucky does not mean it is okay to do it whenever you upgrade... and your troubles here stem directly from this bad practice.
+
+Put your broken library directory in the trash and start over from scratch.
+
+On May 31, 2025 4:48:23 AM PDT, Carl Witthoft <carl at witthoft.com> wrote:
+>Good guess, but that isn't what happened here.  I carefully did NOT replace the "base" package set that's installed along with 4.5 .  It was only the "contributed" collection that I copied over from 4.4 and then ran 'update' on. I apologize for not making that clear earlier.
+>
+>So, in fact the menu update command did not successfully "clean out" references to dylib files in the 4.4 directory, as the error messages showed. This despite my getting a full set of messages reporting successful download of the latest versions of all the "contributed" packages.
+>
+>On 5/31/25 7:34 AM, Duncan Murdoch wrote:
+>> You shot yourself in the foot as Peter said.
+>> 
+>> There are 3 classes of packages in R:? base, recommended, and contributed.? Base packages are really part of R itself, and are only changed when you update R.
+>> 
+>> Contributed packages are add-ons, and can be updated independently of R.  ?They do need to be reinstalled when an R update changes x or y in the x.y.z R version number.? The update.packages() function or the corresponding menu items will do that.
+>> 
+>> Recommended packages are contributed packages that are distributed with R.? update.packages() will handle them, too.
+>> 
+>> The base packages will never be updated by update.packages() (which is used by "update all"), so you were trying to use R 4.4 base packages with R 4.5.0.
+>> 
+>> It would probably make sense to store base packages separately from contributed packages to avoid even the possibility of this kind of user error.
+>> 
+>> You might think having update.packages() reinstall base packages would be a good idea, but if the base packages are messed up, R is broken, and update.packages() probably won't work properly.
+>> 
+>> Duncan Murdoch
+>> 
+>> On 2025-05-31 6:38 a.m., Carl Witthoft wrote:
+>>> I did this sequence: copy over all 4.4 packages and then selected
+>>> "update all" from the R-gui menu.? Since several CRAN packages (per
+>>> initial posting) still failed, I guess there's something inside
+>>> update.packages that doesn't get cleaned out.
+>>> 
+>>> Once I removed all the "updated" libraries and did a fresh install,
+>>> things seem to be OK.
+>>> Thanks to P.D. and D. M. for your suggestions.
+>>> 
+>>> On 5/31/25 4:42 AM, peter dalgaard wrote:
+>>>> Works fine here.
+>>>> 
+>>>> Did you do something with your packages after installing?
+>>>> 
+>>>> Reason that I ask: A number of people have been shooting themselves in the foot by copying old package directories over new ones - including the non-CRAN system packages that update.packages() can't fix.
+>>>> 
+>>>> Or, if you have packages in a separate non-versioned library, then you may need update.packages(checkBuilt=TRUE).
+>>>> 
+>>>> -pd
+>>>> 
+>>>>> On 30 May 2025, at 23.00, Carl Witthoft <carl at witthoft.com> wrote:
+>>>>> 
+>>>>> I suspect this is something simple I forgot to update or delete, but:
+>>>>> iMac x86 recently upgraded to 15.5 Sequoia.
+>>>>> 
+>>>>> I installed R 4.5 from CRAN.
+>>>>> then tried to install the "gmp" library and:
+>>>>> 
+>>>>> Error: package or namespace load failed for ?gmp? in get(Info[i, 1], envir = env):
+>>>>> lazy-load database '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/gmp/R/gmp.rdb' is corrupt
+>>>>> In addition: Warning message:
+>>>>> In get(Info[i, 1], envir = env) :
+>>>>> ?? internal error 1 in R_decompress1 with libdeflate
+>>>>> 
+>>>>> Then,
+>>>>> library(ggplot2)
+>>>>> Error: package or namespace load failed for ?ggplot2? in dyn.load(file, DLLpath = DLLpath, ...):
+>>>>> unable to load shared object '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so':
+>>>>> dlopen(/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib
+>>>>> ?? Referenced from: <E900C54A-FB6D-371D-B50B-512EB8D2F868> /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so
+>>>>> ?? Reason: tried: '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib' (no such file), '/usr/local/lib/libR.dylib' (no such file), '/usr/lib/libR.dylib' (no such file, not in dy
+>>>>> 
+>>>>> So I need to clear something out that's pointing to the 4.4 paths.  But aged me forgets what that is.
+>>>>> 
+>>>>> 
+>>>>> 
+>>>>> 
+>>>>> 
+>>>>> -- 
+>>>>> Carl Witthoft
+>>>>> personal: carl at witthoft.com
+>>>>> The Witthoft Group, Consulting
+>>>>> https://witthoftgroup.weebly.com/
+>>>>> 
+>>>>> _______________________________________________
+>>>>> R-SIG-Mac mailing list
+>>>>> R-SIG-Mac at r-project.org
+>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>> 
+>>> 
+>> 
+>
+
+-- 
+Sent from my phone. Please excuse my brevity.
+
+
+From m@rc_@chw@rtz @end|ng |rom me@com  Sat May 31 19:04:14 2025
+From: m@rc_@chw@rtz @end|ng |rom me@com (Marc Schwartz)
+Date: Sat, 31 May 2025 13:04:14 -0400
+Subject: [R-SIG-Mac] xquartz hanging
+In-Reply-To: <6b1ef050-46f2-4036-b062-4c3f28bcf034@8pawexpress.com>
+References: <6b1ef050-46f2-4036-b062-4c3f28bcf034@8pawexpress.com>
+Message-ID: <6391E0DB-A675-4BC8-B54E-D679656A4DBC@me.com>
+
+Hi,
+
+I am currently running R 4.5.0 on macOS 15.5 (Sequoia), and I also use emacs (30.1) and ess (25.1.0), the latter from elpa, along with other emacs packages.
+
+I do not have the issue that you are referring to below, and did not under prior versions to the best of my recollection.
+
+I do tend to stay up to date on the versions of all of the above and do clean installs of R and packages with each new version, fully removing the older version file tree first (/Library/Frameworks/R.framework).
+
+Thus, you might consider updating both macOS and R to current versions.
+
+I don't use ggplot*, so cannot comment if there may be something specific to that package causing any issues, albeit, you might post to their github issues page in the absence of other resolutions, especially if you cannot replicate the problem with base graphics:
+
+  https://github.com/tidyverse/ggplot2/issues
+
+One thing that you should do, if you have not, is to be sure to re-install XQuartz after upgrading R versions, and this is referenced on the R macOS CRAN page. See if re-installing XQuartz has any impact on the issues that you are observing.
+
+You might also want to fully uninstall XQuartz first, before re-installing it, and the instructions for that are available on their FAQ page:
+
+  https://www.xquartz.org/FAQs.html
+
+One additional thing to consider is to try to replicate the behavior that you are observing by running R in Terminal and/or via R.app, to try to exclude the possibility that there is something going on with your emacs/ess installation.
+
+If you can replicate the issues in Terminal and/or R.app, that would help to exclude emacs/ess from involvement at least. If you cannot, then you might be sure that you are running the latest versions of emacs and ess to see if that helps, in case they are adding a source of conflict.
+
+Regards,
+
+Marc Schwartz
+
+
+> On May 31, 2025, at 10:35?AM, bill+rsigmac at 8pawexpress.com wrote:
+> 
+> Are there easy fixes or alternatives to using XQuartz for R plots?
+> 
+> I?m running R-4.4.3 (emacs/ess) on macos 15.4.1 and have xquartz-2.8.5 
+> installed. Most of the time plotting in R works well enough (I tend to 
+> use ggplot2, I don?t know if it happens as often with base plots). 
+> Occasionally (several times a week), ?something? happens with the plot 
+> window, and from then on that R process can no longer plot anything 
+> more. The ?something? is not well defined for me yet, I think it?s a 
+> mouse-wheel or mouse-click or similar; the snark in me says ?well don?t 
+> do that?, but I cannot nail down exactly how/when it breaks, it just does.
+> 
+> When it happens, the current device window is still open, but it has a 
+> mac spinning-colorwheel, no new plotting commands work, and I cannot 
+> close the window myself. I cannot dev.off() it, nor does dev.new() give 
+> me a new plotting window. When this happens for a particular R process, 
+> my only options for plotting are either (a) close the R process and 
+> start over, or (b) manually plot to a PDF or similar one-shot graphics 
+> device, viewing in a different app.
+> 
+> There are several related issues I can find:
+> 
+> https://github.com/XQuartz/XQuartz/issues/431, specific to macos 15.4 or 
+> newer I think; some mention of ?minimizing windows? but I don?t minimize 
+> my plot windows, so perhaps not that
+> https://github.com/XQuartz/XQuartz/issues/168, closed as ?not planned?, 
+> though this one is much older than the first (431) issue
+> 
+> I?ve tried using something like |httpgd| 
+> <https://github.com/nx10/httpgd/> since it can (mostly) provide an 
+> ?always updating graphics device? for example without xquartz. 
+> Unfortunately, with some other packages (namely plumber that I use 
+> frequently-enough) it can put the R?s REPL into an unbreakable state 
+> (#215 <https://github.com/nx10/httpgd/issues/215>). If that were fixed 
+> I?d be a lot more comfortable using that as my workaround.
+> 
+> My research has not shown any other options for fixing or replacing 
+> xquartz with a more stable solution. Are there good ways to troubleshoot 
+> and try to fix the xquartz issue? Does anybody else have a workaround or 
+> alternative that is less unwieldy than pdf(..); plot(..); dev.off()?
+> 
+> Thanks,
+> Bill
+> 
+> &#8203;
+> &#8203;
+> [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From kev|nu@hey @end|ng |rom gm@||@com  Sat May 31 19:38:26 2025
+From: kev|nu@hey @end|ng |rom gm@||@com (Kevin Ushey)
+Date: Sat, 31 May 2025 10:38:26 -0700
+Subject: [R-SIG-Mac] upgraded to 4.5 (mac x86), errors
+In-Reply-To: <D173E37D-39A5-47C3-8AF5-4403BD5328C9@dcn.davis.ca.us>
+References: <8beba9c9-6cd3-4471-b77f-6281d328a23c@witthoft.com>
+ <E6D840C8-7840-4CC7-B81C-966C9925A994@gmail.com>
+ <ebde8931-8b30-45a0-953c-c0f87bf58325@witthoft.com>
+ <6c9c1a8c-6d1b-4367-8c6c-e6bf84ae58b0@gmail.com>
+ <07935e91-64e1-40c3-b3d8-2c643c709b83@witthoft.com>
+ <D173E37D-39A5-47C3-8AF5-4403BD5328C9@dcn.davis.ca.us>
+Message-ID: <CAJXgQP1-Jp8vdWK3O_q_okcdUOyy0_ZY5qB9Y0aa_y80B-Xwwg@mail.gmail.com>
+
+Not to be pithy, but R includes version components in its user library
+paths by default for a reason...
+
+On Sat, May 31, 2025, 8:35?AM Jeff Newmiller via R-SIG-Mac <
+r-sig-mac at r-project.org> wrote:
+
+> Carl: "Doctor, it hurts when I don't upgrade properly..."
+> Duncan: "... then don't do that."
+> Carl: "But I didn't... rather I did"
+>
+> Carl, copying ANY previously-installed packages over to the upgraded
+> library is a no-no. Just because you did it previously and got lucky does
+> not mean it is okay to do it whenever you upgrade... and your troubles here
+> stem directly from this bad practice.
+>
+> Put your broken library directory in the trash and start over from scratch.
+>
+> On May 31, 2025 4:48:23 AM PDT, Carl Witthoft <carl at witthoft.com> wrote:
+> >Good guess, but that isn't what happened here.  I carefully did NOT
+> replace the "base" package set that's installed along with 4.5 .  It was
+> only the "contributed" collection that I copied over from 4.4 and then ran
+> 'update' on. I apologize for not making that clear earlier.
+> >
+> >So, in fact the menu update command did not successfully "clean out"
+> references to dylib files in the 4.4 directory, as the error messages
+> showed. This despite my getting a full set of messages reporting successful
+> download of the latest versions of all the "contributed" packages.
+> >
+> >On 5/31/25 7:34 AM, Duncan Murdoch wrote:
+> >> You shot yourself in the foot as Peter said.
+> >>
+> >> There are 3 classes of packages in R:  base, recommended, and
+> contributed.  Base packages are really part of R itself, and are only
+> changed when you update R.
+> >>
+> >> Contributed packages are add-ons, and can be updated independently of
+> R.   They do need to be reinstalled when an R update changes x or y in the
+> x.y.z R version number.  The update.packages() function or the
+> corresponding menu items will do that.
+> >>
+> >> Recommended packages are contributed packages that are distributed with
+> R.  update.packages() will handle them, too.
+> >>
+> >> The base packages will never be updated by update.packages() (which is
+> used by "update all"), so you were trying to use R 4.4 base packages with R
+> 4.5.0.
+> >>
+> >> It would probably make sense to store base packages separately from
+> contributed packages to avoid even the possibility of this kind of user
+> error.
+> >>
+> >> You might think having update.packages() reinstall base packages would
+> be a good idea, but if the base packages are messed up, R is broken, and
+> update.packages() probably won't work properly.
+> >>
+> >> Duncan Murdoch
+> >>
+> >> On 2025-05-31 6:38 a.m., Carl Witthoft wrote:
+> >>> I did this sequence: copy over all 4.4 packages and then selected
+> >>> "update all" from the R-gui menu.  Since several CRAN packages (per
+> >>> initial posting) still failed, I guess there's something inside
+> >>> update.packages that doesn't get cleaned out.
+> >>>
+> >>> Once I removed all the "updated" libraries and did a fresh install,
+> >>> things seem to be OK.
+> >>> Thanks to P.D. and D. M. for your suggestions.
+> >>>
+> >>> On 5/31/25 4:42 AM, peter dalgaard wrote:
+> >>>> Works fine here.
+> >>>>
+> >>>> Did you do something with your packages after installing?
+> >>>>
+> >>>> Reason that I ask: A number of people have been shooting themselves
+> in the foot by copying old package directories over new ones - including
+> the non-CRAN system packages that update.packages() can't fix.
+> >>>>
+> >>>> Or, if you have packages in a separate non-versioned library, then
+> you may need update.packages(checkBuilt=TRUE).
+> >>>>
+> >>>> -pd
+> >>>>
+> >>>>> On 30 May 2025, at 23.00, Carl Witthoft <carl at witthoft.com> wrote:
+> >>>>>
+> >>>>> I suspect this is something simple I forgot to update or delete, but:
+> >>>>> iMac x86 recently upgraded to 15.5 Sequoia.
+> >>>>>
+> >>>>> I installed R 4.5 from CRAN.
+> >>>>> then tried to install the "gmp" library and:
+> >>>>>
+> >>>>> Error: package or namespace load failed for ?gmp? in get(Info[i, 1],
+> envir = env):
+> >>>>> lazy-load database
+> '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/gmp/R/gmp.rdb'
+> is corrupt
+> >>>>> In addition: Warning message:
+> >>>>> In get(Info[i, 1], envir = env) :
+> >>>>>    internal error 1 in R_decompress1 with libdeflate
+> >>>>>
+> >>>>> Then,
+> >>>>> library(ggplot2)
+> >>>>> Error: package or namespace load failed for ?ggplot2? in
+> dyn.load(file, DLLpath = DLLpath, ...):
+> >>>>> unable to load shared object
+> '/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so':
+> >>>>>
+> dlopen(/Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so,
+> 0x0006): Library not loaded:
+> /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib
+> >>>>>    Referenced from: <E900C54A-FB6D-371D-B50B-512EB8D2F868>
+> /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/library/glue/libs/glue.so
+> >>>>>    Reason: tried:
+> '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib'
+> (no such file),
+> '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib'
+> (no such file),
+> '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libR.dylib'
+> (no such file), '/usr/local/lib/libR.dylib' (no such file),
+> '/usr/lib/libR.dylib' (no such file, not in dy
+> >>>>>
+> >>>>> So I need to clear something out that's pointing to the 4.4 paths.
+> But aged me forgets what that is.
+> >>>>>
+> >>>>>
+> >>>>>
+> >>>>>
+> >>>>>
+> >>>>> --
+> >>>>> Carl Witthoft
+> >>>>> personal: carl at witthoft.com
+> >>>>> The Witthoft Group, Consulting
+> >>>>> https://witthoftgroup.weebly.com/
+> >>>>>
+> >>>>> _______________________________________________
+> >>>>> R-SIG-Mac mailing list
+> >>>>> R-SIG-Mac at r-project.org
+> >>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> >>>>
+> >>>
+> >>
+> >
+>
+> --
+> Sent from my phone. Please excuse my brevity.
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+	[[alternative HTML version deleted]]
+
+

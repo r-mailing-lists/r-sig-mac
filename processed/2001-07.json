@@ -1,0 +1,792 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2001-07",
+  "messages": [
+    {
+      "id": "msg-02251a4997e1",
+      "message_id": "<p05010401b774716de17e@[193.170.84.51]>",
+      "from_name": "Peter Paul Sint",
+      "from_email_hash": "c872999a5172ddb3cae62896ec664282e2ec01429b84771dbd2e6d1f41b02552",
+      "date": "2001-07-13T13:40:16+02:00",
+      "subject": "[R-SIG-Mac]Carbon versions double files",
+      "subject_clean": "Carbon versions double files",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Stefano,\n\nIf you write.table twice (e.g. with slight variations) to the same file, a second copy with the SAME filename is produces (in one folder)\n(you have to use the command-info bex to distiguish by date/time).\nNot very Mac OS 9 like!\n\nPeter\n-- \nPeter Sint\nsint@oeaw.ac.at",
+      "body_snippet": "Dear Stefano,\n\nIf you write.table twice (e.g. with slight variations) to the same file, a second copy with the SAME filename is produces (in one folder)\n(you have to use the command-info bex to distig",
+      "thread_id": "thread-02251a4997e1",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-02251a4997e1",
+      "message_id": "<p05010401b774716de17e@[193.170.84.51]>",
+      "from_name": "Peter Paul Sint",
+      "from_email_hash": "c872999a5172ddb3cae62896ec664282e2ec01429b84771dbd2e6d1f41b02552",
+      "date": "2001-07-13T13:40:16+02:00",
+      "subject": "[R-SIG-Mac]Carbon versions double files",
+      "subject_clean": "Carbon versions double files",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Stefano,\n\nIf you write.table twice (e.g. with slight variations) to the same file, a second copy with the SAME filename is produces (in one folder)\n(you have to use the command-info bex to distiguish by date/time).\nNot very Mac OS 9 like!\n\nPeter\n-- \nPeter Sint\nsint@oeaw.ac.at",
+      "body_snippet": "Dear Stefano,\n\nIf you write.table twice (e.g. with slight variations) to the same file, a second copy with the SAME filename is produces (in one folder)\n(you have to use the command-info bex to distig",
+      "thread_id": "thread-02251a4997e1",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-6d59bdd4942b",
+      "message_id": "<p05010403b77490331c6a@[193.170.84.51]>",
+      "from_name": "Peter Paul Sint",
+      "from_email_hash": "c872999a5172ddb3cae62896ec664282e2ec01429b84771dbd2e6d1f41b02552",
+      "date": "2001-07-13T14:30:05+02:00",
+      "subject": "[R-SIG-Mac]plot hidden grid lines",
+      "subject_clean": "plot hidden grid lines",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Stefano,\n\nIt is hard to plot hidden grid lines, e.g. in barplot, covered by the bars.\n\nI do it by doing the barplot, drawing the grid, and painting the bars again (see appendix). Not very satisfactory (and concerning the slow graphics further reducing speed). It comes near to rewriting barplot. If you advise me on the original code to determine the axes (and how to get the appropriate panel variables = what par() 's are used? Are the par()s /din,fin,pin,mai.../ enough or do I need more?) I would do this for my puposes.\n\nBut there is a better solution:\nWhat is missing is an implementation of panel.first\nSee example in plot.default {base}   :\n> data(cars)\n> Speed <- cars$speed\n> Distance <- cars$dist\n> plot(Speed, Distance, panel.first = grid(8,8),\n+      pch = 0, cex = 1.2, col = \"blue\")\n> \nplot(Speed, Distance,\n     panel.first = lines(lowess(Speed, Distance), lty = \"dashed\"),\n     pch = 0, cex = 1.2, col = \"blue\")\n>\n\nAnother way may be to use par(new=T) for continuing to paint on an empty plot?\n(I do not know if axis are set up un a comparable way).\n\nMay be somebody has a better solution?\n\nPeter\n\nMy present solution\n\nbargrid<- function(jjin,beside1=F,horiz1=F,Xlim=NA,Ylim=NA,...) {\n    if(is.na(Ylim)) { if(is.na(Xlim))\n\tjjbp<- barplot(jjin,horiz=horiz1,beside=beside1,axes=F,...) else\n        jjbp<- barplot(jjin,horiz=horiz1,beside=beside1,xlim=Xlim,axes=F,...) } else {           \n        if(is.na(Xlim))    \n    {jjbp<- barplot(jjin,horiz=horiz1,beside=beside1,ylim=Ylim,axes=F,...)} else \n     jjbp<- barplot(jjin,horiz=horiz1,beside=beside1,xlim=Xlim,ylim=Ylim,axes=F,...) } \n    #if(is.vector(jjin))  jjm<- matrix(jjin,1,length(jjin));\n    if(is.vector(jjin)) { jjm<- matrix(jjin,length(jjin),1); \n    #jju<- rep(0,length(jjin) \n    jju<- jjm\n    col1<- heat.colors(length(jjm)); \n    } else \n    { jjm<- jjin;\n    # col1<- rep(heat.colors(jjd1),rep(jjd2,jjd1))\n    if(!is.matrix(jjm))  { cat (\"\\n Input must be matrix or vector\\n\")  };\n    jjd1<- dim(jjm)[1]\n    jjnbarg<- jjd1\n    jjd2<- dim(jjm)[2] \n    col1<- rep(heat.colors(jjd1),rep(jjd2,jjd1))\n    jju<- apply(jjm,2,cumsum)\n    }\npretty1<- pretty(as.vector(jju))\ncat(pretty1,\"\\n\",jju,\"\\n\")\nif(beside1) { pretty1<- pretty(as.vector(jjm));col1<- heat.colors(jjd1)  }\njjrectl<- jju-jjm\njjrectu<- jju\nif(beside1) {jjrectl<- 0;jjrectu<- t(jjm); }\nif(horiz1)  \n    {if(!is.na(Xlim)) { pretty2<- pretty(c(0,Xlim[2]));\n\t    #cat(\"Xlim=\",Xlim,\" pretty2=\",pretty2,\"\\n\"); \n\t    for(i in 1:length(pretty1)) \n\t    abline(v=pretty2[i],lty=\"dashed\"); axis(1,pretty2) } else \n\t    #lines(c(pretty2[i],pretty2[i]),c(0,jjbp[3,4]+1),lty=\"dashed\") } else \n    axis(1,pretty1,tck=1,lty=\"dashed\")      \n    rect( t(jjrectl),jjbp-0.5,t(jjrectu),jjbp+0.5,col=col1)    \n    } else {\n    if(!is.na(Ylim)) {  pretty2<- pretty(c(0,Xlim[2])); for(i in 1:length(pretty1)) \n\tabline(v=pretty2[i],lty=\"dashed\"); axis(2,pretty2) } else \n\t#lines(c(0,jjbp[3,4]),c(pretty1[i],pretty1[i]),lty=\"dashed\")  } else\n    axis(2,pretty1,tck=1,lty=\"dashed\")\n    rect( jjbp-0.5,t(jjrectl),jjbp+0.5,t(jjrectu),col=col1) \n   }\ninvisible(jjbp)\n}\njjin<- 1:5\njjin<- matrix(1:12,3,4)\nbargrid(jjin,beside=T,horiz=T,Xlim=c(-10,13))\n\n\n-- \nPeter Sint\nsint@oeaw.ac.at",
+      "body_snippet": "Dear Stefano,\n\nIt is hard to plot hidden grid lines, e.g. in barplot, covered by the bars.\n\nI do it by doing the barplot, drawing the grid, and painting the bars again (see appendix). Not very satisfa",
+      "thread_id": "thread-6d59bdd4942b",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-6d59bdd4942b",
+      "message_id": "<p05010403b77490331c6a@[193.170.84.51]>",
+      "from_name": "Peter Paul Sint",
+      "from_email_hash": "c872999a5172ddb3cae62896ec664282e2ec01429b84771dbd2e6d1f41b02552",
+      "date": "2001-07-13T14:30:05+02:00",
+      "subject": "[R-SIG-Mac]plot hidden grid lines",
+      "subject_clean": "plot hidden grid lines",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Stefano,\n\nIt is hard to plot hidden grid lines, e.g. in barplot, covered by the bars.\n\nI do it by doing the barplot, drawing the grid, and painting the bars again (see appendix). Not very satisfactory (and concerning the slow graphics further reducing speed). It comes near to rewriting barplot. If you advise me on the original code to determine the axes (and how to get the appropriate panel variables = what par() 's are used? Are the par()s /din,fin,pin,mai.../ enough or do I need more?) I would do this for my puposes.\n\nBut there is a better solution:\nWhat is missing is an implementation of panel.first\nSee example in plot.default {base}   :\n> data(cars)\n> Speed <- cars$speed\n> Distance <- cars$dist\n> plot(Speed, Distance, panel.first = grid(8,8),\n+      pch = 0, cex = 1.2, col = \"blue\")\n> \nplot(Speed, Distance,\n     panel.first = lines(lowess(Speed, Distance), lty = \"dashed\"),\n     pch = 0, cex = 1.2, col = \"blue\")\n>\n\nAnother way may be to use par(new=T) for continuing to paint on an empty plot?\n(I do not know if axis are set up un a comparable way).\n\nMay be somebody has a better solution?\n\nPeter\n\nMy present solution\n\nbargrid<- function(jjin,beside1=F,horiz1=F,Xlim=NA,Ylim=NA,...) {\n    if(is.na(Ylim)) { if(is.na(Xlim))\n\tjjbp<- barplot(jjin,horiz=horiz1,beside=beside1,axes=F,...) else\n        jjbp<- barplot(jjin,horiz=horiz1,beside=beside1,xlim=Xlim,axes=F,...) } else {           \n        if(is.na(Xlim))    \n    {jjbp<- barplot(jjin,horiz=horiz1,beside=beside1,ylim=Ylim,axes=F,...)} else \n     jjbp<- barplot(jjin,horiz=horiz1,beside=beside1,xlim=Xlim,ylim=Ylim,axes=F,...) } \n    #if(is.vector(jjin))  jjm<- matrix(jjin,1,length(jjin));\n    if(is.vector(jjin)) { jjm<- matrix(jjin,length(jjin),1); \n    #jju<- rep(0,length(jjin) \n    jju<- jjm\n    col1<- heat.colors(length(jjm)); \n    } else \n    { jjm<- jjin;\n    # col1<- rep(heat.colors(jjd1),rep(jjd2,jjd1))\n    if(!is.matrix(jjm))  { cat (\"\\n Input must be matrix or vector\\n\")  };\n    jjd1<- dim(jjm)[1]\n    jjnbarg<- jjd1\n    jjd2<- dim(jjm)[2] \n    col1<- rep(heat.colors(jjd1),rep(jjd2,jjd1))\n    jju<- apply(jjm,2,cumsum)\n    }\npretty1<- pretty(as.vector(jju))\ncat(pretty1,\"\\n\",jju,\"\\n\")\nif(beside1) { pretty1<- pretty(as.vector(jjm));col1<- heat.colors(jjd1)  }\njjrectl<- jju-jjm\njjrectu<- jju\nif(beside1) {jjrectl<- 0;jjrectu<- t(jjm); }\nif(horiz1)  \n    {if(!is.na(Xlim)) { pretty2<- pretty(c(0,Xlim[2]));\n\t    #cat(\"Xlim=\",Xlim,\" pretty2=\",pretty2,\"\\n\"); \n\t    for(i in 1:length(pretty1)) \n\t    abline(v=pretty2[i],lty=\"dashed\"); axis(1,pretty2) } else \n\t    #lines(c(pretty2[i],pretty2[i]),c(0,jjbp[3,4]+1),lty=\"dashed\") } else \n    axis(1,pretty1,tck=1,lty=\"dashed\")      \n    rect( t(jjrectl),jjbp-0.5,t(jjrectu),jjbp+0.5,col=col1)    \n    } else {\n    if(!is.na(Ylim)) {  pretty2<- pretty(c(0,Xlim[2])); for(i in 1:length(pretty1)) \n\tabline(v=pretty2[i],lty=\"dashed\"); axis(2,pretty2) } else \n\t#lines(c(0,jjbp[3,4]),c(pretty1[i],pretty1[i]),lty=\"dashed\")  } else\n    axis(2,pretty1,tck=1,lty=\"dashed\")\n    rect( jjbp-0.5,t(jjrectl),jjbp+0.5,t(jjrectu),col=col1) \n   }\ninvisible(jjbp)\n}\njjin<- 1:5\njjin<- matrix(1:12,3,4)\nbargrid(jjin,beside=T,horiz=T,Xlim=c(-10,13))\n\n\n-- \nPeter Sint\nsint@oeaw.ac.at",
+      "body_snippet": "Dear Stefano,\n\nIt is hard to plot hidden grid lines, e.g. in barplot, covered by the bars.\n\nI do it by doing the barplot, drawing the grid, and painting the bars again (see appendix). Not very satisfa",
+      "thread_id": "thread-6d59bdd4942b",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-5296dda8c507",
+      "message_id": "<p05010404b774a34d993e@[193.170.84.51]>",
+      "from_name": "Peter Paul Sint",
+      "from_email_hash": "c872999a5172ddb3cae62896ec664282e2ec01429b84771dbd2e6d1f41b02552",
+      "date": "2001-07-13T15:43:43+02:00",
+      "subject": "[R-SIG-Mac]plot hidden grid lines 2",
+      "subject_clean": "plot hidden grid lines 2",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Stefano,\n\nActually panel.first works somehow but not as I expected\n\njjbp<- barplot(1:5, panel.first=lines(c(0,5),c(1,2),lty=\"dashed\"))\n> jjbp    # position of bar mids\n     [,1]\n[1,]  0.7\n[2,]  1.9\n[3,]  3.1\n[4,]  4.3\n[5,]  5.5\n> \nstarts a line at c(0,5) but goes upward\n(I understand it should advance from (0,1) to (5,2) \n but it also does not work for (0,5)-(1,2)   ) \nsomehow the axes/units seem to be mixed up.\n\nAfter playing around I realize:\naxes are probably scaled such that the xlim=ylim=c(0,1)\nwith this \njjbp<- barplot(1:5, panel.first=abline(h=2/5,lty=\"dashed\"))\nworks.\n\nIs this what is intended? does R work this way on other platforms?\nI assumed the axes of the barplot should be used.\n\nabline uses the yaxis as main abscissa \njjbp<- barplot(seq(0,1,0.2), panel.first=abline(0.5,-1)) \n\n\nPeter\n-- \nPeter Sint\nsint@oeaw.ac.at",
+      "body_snippet": "Dear Stefano,\n\nActually panel.first works somehow but not as I expected\n\njjbp<- barplot(1:5, panel.first=lines(c(0,5),c(1,2),lty=\"dashed\"))\n> jjbp    # position of bar mids\n     [,1]\n[1,]  0.7\n[2,]  1",
+      "thread_id": "thread-5296dda8c507",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-5296dda8c507",
+      "message_id": "<p05010404b774a34d993e@[193.170.84.51]>",
+      "from_name": "Peter Paul Sint",
+      "from_email_hash": "c872999a5172ddb3cae62896ec664282e2ec01429b84771dbd2e6d1f41b02552",
+      "date": "2001-07-13T15:43:43+02:00",
+      "subject": "[R-SIG-Mac]plot hidden grid lines 2",
+      "subject_clean": "plot hidden grid lines 2",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Stefano,\n\nActually panel.first works somehow but not as I expected\n\njjbp<- barplot(1:5, panel.first=lines(c(0,5),c(1,2),lty=\"dashed\"))\n> jjbp    # position of bar mids\n     [,1]\n[1,]  0.7\n[2,]  1.9\n[3,]  3.1\n[4,]  4.3\n[5,]  5.5\n> \nstarts a line at c(0,5) but goes upward\n(I understand it should advance from (0,1) to (5,2) \n but it also does not work for (0,5)-(1,2)   ) \nsomehow the axes/units seem to be mixed up.\n\nAfter playing around I realize:\naxes are probably scaled such that the xlim=ylim=c(0,1)\nwith this \njjbp<- barplot(1:5, panel.first=abline(h=2/5,lty=\"dashed\"))\nworks.\n\nIs this what is intended? does R work this way on other platforms?\nI assumed the axes of the barplot should be used.\n\nabline uses the yaxis as main abscissa \njjbp<- barplot(seq(0,1,0.2), panel.first=abline(0.5,-1)) \n\n\nPeter\n-- \nPeter Sint\nsint@oeaw.ac.at",
+      "body_snippet": "Dear Stefano,\n\nActually panel.first works somehow but not as I expected\n\njjbp<- barplot(1:5, panel.first=lines(c(0,5),c(1,2),lty=\"dashed\"))\n> jjbp    # position of bar mids\n     [,1]\n[1,]  0.7\n[2,]  1",
+      "thread_id": "thread-5296dda8c507",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-a5d15f6c4a1b",
+      "message_id": "<3B54E06B.9F17E46C@lbl.gov>",
+      "from_name": "Phillip N Price",
+      "from_email_hash": "737fe9ece64e07d1c31b7bceba29322460aba3895b1a14c3ac11daf016b9434c",
+      "date": "2001-07-17T18:03:39-07:00",
+      "subject": "[R-SIG-Mac]Which version should I use?",
+      "subject_clean": "Which version should I use?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Apologies for the 0th-order question.  \n\nI'm a longtime user of Splus, but I am switching (or trying, anyway) to\nthe Mac, and would like to take this opportunity to try R.  I'm mostly\nhoping to _use_ R, not work on it, though I am of course happy to submit\nbug reports and that sort of thing.\n\nMy immediate question is: should I use the Carbon/Iacus or the\nCocoa(?)/deLeeuw version?  Are there major functional differences?  Are\nthey similar in terms of stability?  Are there likely to be any\ndifficulties in set-up, or do they both \"just work\"; for the latter\nquestion, does the specific species of X-windows matter?\n\nThanks in advance for answers, and thank you all for working on this\nsoftware.\n\n--Phil Price\n  Lawrence Berkeley National Laboratory",
+      "body_snippet": "Apologies for the 0th-order question.  \n\nI'm a longtime user of Splus, but I am switching (or trying, anyway) to\nthe Mac, and would like to take this opportunity to try R.  I'm mostly\nhoping to _use_ ",
+      "thread_id": "thread-a5d15f6c4a1b",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-a5d15f6c4a1b",
+      "message_id": "<3B54E06B.9F17E46C@lbl.gov>",
+      "from_name": "Phillip N Price",
+      "from_email_hash": "737fe9ece64e07d1c31b7bceba29322460aba3895b1a14c3ac11daf016b9434c",
+      "date": "2001-07-17T18:03:39-07:00",
+      "subject": "[R-SIG-Mac]Which version should I use?",
+      "subject_clean": "Which version should I use?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Apologies for the 0th-order question.  \n\nI'm a longtime user of Splus, but I am switching (or trying, anyway) to\nthe Mac, and would like to take this opportunity to try R.  I'm mostly\nhoping to _use_ R, not work on it, though I am of course happy to submit\nbug reports and that sort of thing.\n\nMy immediate question is: should I use the Carbon/Iacus or the\nCocoa(?)/deLeeuw version?  Are there major functional differences?  Are\nthey similar in terms of stability?  Are there likely to be any\ndifficulties in set-up, or do they both \"just work\"; for the latter\nquestion, does the specific species of X-windows matter?\n\nThanks in advance for answers, and thank you all for working on this\nsoftware.\n\n--Phil Price\n  Lawrence Berkeley National Laboratory",
+      "body_snippet": "Apologies for the 0th-order question.  \n\nI'm a longtime user of Splus, but I am switching (or trying, anyway) to\nthe Mac, and would like to take this opportunity to try R.  I'm mostly\nhoping to _use_ ",
+      "thread_id": "thread-a5d15f6c4a1b",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-443777872868",
+      "message_id": "<200107180303.UAA84880@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-17T20:02:25-07:00",
+      "subject": "[R-SIG-Mac]Which version should I use?",
+      "subject_clean": "Which version should I use?",
+      "in_reply_to": "<3B54E06B.9F17E46C@lbl.gov>",
+      "references": [],
+      "body_plain": "It's the Darwin/deLeeuw version. There is no Cocoa version\nyet, by anybody.\n\nThe answer to the question about which version to use is\nnot straightforward. If you want to run on OS 9 as well as\nOS X, you have to use Carbon/Iacus. If you are a Mac\nperson through and through you will probably use that\none too. If you like the Aqua interface and the menus,\nsame preference.\n\nIf you are used to Unix/X11, then the Darwin/deLeeuw\nversion may be more appealing. Or if  you like to change\nwindow managers every other day. Or if you like the menus\nthat come with the gnome interface and run R from the\ngnome desktop. Or if you like to use update.packages().\nOr if you want to be able to add additional packages a\nbit more easily. Or if you want to use tcl/tk. Or Emacs\nand ESS.\n\nSo far, I have somewhat of a bad conscience to use my\nMac as a Darwin/X11 machine, but I think the Darwin/deLeeuw\nversion is somewhat more complete and convenient for my\nparticular tastes. Eventually, I hope to be able to switch back\nto a version that does not use X11, maybe to a Cocoa\ninterface to R running in Darwin (as we already have for\nPerl, for Scheme48, for Chaitin's Lisp, for mySQL, for\nApache, and for Squeak)\n\n\nOn Tuesday, July 17, 2001, at 06:03 PM, Phillip N Price wrote:\n\n>\n> Apologies for the 0th-order question.\n>\n> I'm a longtime user of Splus, but I am switching (or trying, anyway) to\n> the Mac, and would like to take this opportunity to try R.  I'm mostly\n> hoping to _use_ R, not work on it, though I am of course happy to submit\n> bug reports and that sort of thing.\n>\n> My immediate question is: should I use the Carbon/Iacus or the\n> Cocoa(?)/deLeeuw version?  Are there major functional differences?  Are\n> they similar in terms of stability?  Are there likely to be any\n> difficulties in set-up, or do they both \"just work\"; for the latter\n> question, does the specific species of X-windows matter?\n>\n> Thanks in advance for answers, and thank you all for working on this\n> software.\n>\n> --Phil Price\n>   Lawrence Berkeley National Laboratory\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "It's the Darwin/deLeeuw version. There is no Cocoa version\nyet, by anybody.\n\nThe answer to the question about which version to use is\nnot straightforward. If you want to run on OS 9 as well as\nOS X, y",
+      "thread_id": "thread-a5d15f6c4a1b",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-443777872868",
+      "message_id": "<200107180303.UAA84880@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-17T20:02:25-07:00",
+      "subject": "[R-SIG-Mac]Which version should I use?",
+      "subject_clean": "Which version should I use?",
+      "in_reply_to": "<3B54E06B.9F17E46C@lbl.gov>",
+      "references": [],
+      "body_plain": "It's the Darwin/deLeeuw version. There is no Cocoa version\nyet, by anybody.\n\nThe answer to the question about which version to use is\nnot straightforward. If you want to run on OS 9 as well as\nOS X, you have to use Carbon/Iacus. If you are a Mac\nperson through and through you will probably use that\none too. If you like the Aqua interface and the menus,\nsame preference.\n\nIf you are used to Unix/X11, then the Darwin/deLeeuw\nversion may be more appealing. Or if  you like to change\nwindow managers every other day. Or if you like the menus\nthat come with the gnome interface and run R from the\ngnome desktop. Or if you like to use update.packages().\nOr if you want to be able to add additional packages a\nbit more easily. Or if you want to use tcl/tk. Or Emacs\nand ESS.\n\nSo far, I have somewhat of a bad conscience to use my\nMac as a Darwin/X11 machine, but I think the Darwin/deLeeuw\nversion is somewhat more complete and convenient for my\nparticular tastes. Eventually, I hope to be able to switch back\nto a version that does not use X11, maybe to a Cocoa\ninterface to R running in Darwin (as we already have for\nPerl, for Scheme48, for Chaitin's Lisp, for mySQL, for\nApache, and for Squeak)\n\n\nOn Tuesday, July 17, 2001, at 06:03 PM, Phillip N Price wrote:\n\n>\n> Apologies for the 0th-order question.\n>\n> I'm a longtime user of Splus, but I am switching (or trying, anyway) to\n> the Mac, and would like to take this opportunity to try R.  I'm mostly\n> hoping to _use_ R, not work on it, though I am of course happy to submit\n> bug reports and that sort of thing.\n>\n> My immediate question is: should I use the Carbon/Iacus or the\n> Cocoa(?)/deLeeuw version?  Are there major functional differences?  Are\n> they similar in terms of stability?  Are there likely to be any\n> difficulties in set-up, or do they both \"just work\"; for the latter\n> question, does the specific species of X-windows matter?\n>\n> Thanks in advance for answers, and thank you all for working on this\n> software.\n>\n> --Phil Price\n>   Lawrence Berkeley National Laboratory\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "It's the Darwin/deLeeuw version. There is no Cocoa version\nyet, by anybody.\n\nThe answer to the question about which version to use is\nnot straightforward. If you want to run on OS 9 as well as\nOS X, y",
+      "thread_id": "thread-a5d15f6c4a1b",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-174cadc3a049",
+      "message_id": "<p05101004b77b5649ec19@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "7d8b6f6b0be33863977585caaf9f22b0178ad0d94c5b6d1dc8ac0b8e71fbe3f1",
+      "date": "2001-07-18T08:32:36-07:00",
+      "subject": "[R-SIG-Mac]Which version should I use?",
+      "subject_clean": "Which version should I use?",
+      "in_reply_to": "<3B54E06B.9F17E46C@lbl.gov>",
+      "references": [
+        "<3B54E06B.9F17E46C@lbl.gov>"
+      ],
+      "body_plain": "I have installed and used both. Jan's summary is pretty good.\n\nI don't remember whether the jpeg graphics driver is available in the \nnative (Iacus) version (and can't check right now); it definitely is \nin the X11 (de Leeuw) version. Both have the postscript() graphics \ndriver functioning. I have not yet tried dynamic linking to code \nwritten in another language (eg, fortran or C) with either version; \nthat's a potential major difference.\n\nThe native version works \"out of the box\" so to speak. You definitely \nwill want to install some version of X-windows to use the X11 \nversion, so there is some extra work there. I don't think it matters \nwhich X11 you use (there are only two to choose from, as far as I \nknow, and they're fairly comparable, in my opinion, having tried \nboth).\n\nActually, both versions of R are pretty easy to install, so you \nshouldn't rule out trying them both yourself.\n\n-Don\n\nAt 6:03 PM -0700 7/17/01, Phillip N Price wrote:\n>Apologies for the 0th-order question. \n>\n>I'm a longtime user of Splus, but I am switching (or trying, anyway) to\n>the Mac, and would like to take this opportunity to try R.  I'm mostly\n>hoping to _use_ R, not work on it, though I am of course happy to submit\n>bug reports and that sort of thing.\n>\n>My immediate question is: should I use the Carbon/Iacus or the\n>Cocoa(?)/deLeeuw version?  Are there major functional differences?  Are\n>they similar in terms of stability?  Are there likely to be any\n>difficulties in set-up, or do they both \"just work\"; for the latter\n>question, does the specific species of X-windows matter?\n>\n>Thanks in advance for answers, and thank you all for working on this\n>software.\n>\n>--Phil Price\n>   Lawrence Berkeley National Laboratory\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA\n--------------------------------------",
+      "body_snippet": "I have installed and used both. Jan's summary is pretty good.\n\nI don't remember whether the jpeg graphics driver is available in the \nnative (Iacus) version (and can't check right now); it definitely ",
+      "thread_id": "thread-a5d15f6c4a1b",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-174cadc3a049",
+      "message_id": "<p05101004b77b5649ec19@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "7d8b6f6b0be33863977585caaf9f22b0178ad0d94c5b6d1dc8ac0b8e71fbe3f1",
+      "date": "2001-07-18T08:32:36-07:00",
+      "subject": "[R-SIG-Mac]Which version should I use?",
+      "subject_clean": "Which version should I use?",
+      "in_reply_to": "<3B54E06B.9F17E46C@lbl.gov>",
+      "references": [
+        "<3B54E06B.9F17E46C@lbl.gov>"
+      ],
+      "body_plain": "I have installed and used both. Jan's summary is pretty good.\n\nI don't remember whether the jpeg graphics driver is available in the \nnative (Iacus) version (and can't check right now); it definitely is \nin the X11 (de Leeuw) version. Both have the postscript() graphics \ndriver functioning. I have not yet tried dynamic linking to code \nwritten in another language (eg, fortran or C) with either version; \nthat's a potential major difference.\n\nThe native version works \"out of the box\" so to speak. You definitely \nwill want to install some version of X-windows to use the X11 \nversion, so there is some extra work there. I don't think it matters \nwhich X11 you use (there are only two to choose from, as far as I \nknow, and they're fairly comparable, in my opinion, having tried \nboth).\n\nActually, both versions of R are pretty easy to install, so you \nshouldn't rule out trying them both yourself.\n\n-Don\n\nAt 6:03 PM -0700 7/17/01, Phillip N Price wrote:\n>Apologies for the 0th-order question. \n>\n>I'm a longtime user of Splus, but I am switching (or trying, anyway) to\n>the Mac, and would like to take this opportunity to try R.  I'm mostly\n>hoping to _use_ R, not work on it, though I am of course happy to submit\n>bug reports and that sort of thing.\n>\n>My immediate question is: should I use the Carbon/Iacus or the\n>Cocoa(?)/deLeeuw version?  Are there major functional differences?  Are\n>they similar in terms of stability?  Are there likely to be any\n>difficulties in set-up, or do they both \"just work\"; for the latter\n>question, does the specific species of X-windows matter?\n>\n>Thanks in advance for answers, and thank you all for working on this\n>software.\n>\n>--Phil Price\n>   Lawrence Berkeley National Laboratory\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA\n--------------------------------------",
+      "body_snippet": "I have installed and used both. Jan's summary is pretty good.\n\nI don't remember whether the jpeg graphics driver is available in the \nnative (Iacus) version (and can't check right now); it definitely ",
+      "thread_id": "thread-a5d15f6c4a1b",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-a98fd78aad14",
+      "message_id": "<200107182231.f6IMV8C22350@mail.mclink.it>",
+      "from_name": "jago@mclink.it",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2001-07-19T00:30:50+02:00",
+      "subject": "[R-SIG-Mac]Which version should I use?",
+      "subject_clean": "Which version should I use?",
+      "in_reply_to": "<p05101004b77b5649ec19@[128.115.153.6]>",
+      "references": [],
+      "body_plain": "Jan version is a unix build for Darwin/X11.\nFor a unix user it is probably the \"first best\". \"My\" version is \nintedend to work on earlier versions of MacOS up to OSX.\n\nI'm confident that Jan build is more stable then the carbon version. \nMajor problems in my version is that I have to implement several stuff \nthat are given for free under unix but not under MacOS and its \ncompilers (!).\n\nBoth version accept dynamic linking well. Packages are examples of that.\n\nAs I am the only (actually) developer of R for MacOS and there are many \nthings to implement it is not always esay for me that fix/implement all \nand R/Mac users are really precious for their feedback to me.\n\nStefano\np.s. thanks to Don for its opinion\n\nOn MercoledÃ¬, luglio 18, 2001, at 05:32 , Don MacQueen wrote:\n\n\n>\n> At 6:03 PM -0700 7/17/01, Phillip N Price wrote:\n>> Apologies for the 0th-order question.\n>> I'm a longtime user of Splus, but I am switching (or trying, anyway) to\n>> the Mac, and would like to take this opportunity to try R.  I'm mostly\n>> hoping to _use_ R, not work on it, though I am of course happy to \n>> submit\n>> bug reports and that sort of thing.\n>>\n>> My immediate question is: should I use the Carbon/Iacus or the\n>> Cocoa(?)/deLeeuw version?  Are there major functional differences?  Are\n>> they similar in terms of stability?  Are there likely to be any\n>> difficulties in set-up, or do they both \"just work\"; for the latter\n>> question, does the specific species of X-windows matter?\n>>\n>> Thanks in advance for answers, and thank you all for working on this\n>> software.\n>>\n>> --Phil Price\n>>   Lawrence Berkeley National Laboratory\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> -- --------------------------------------\n> Don MacQueen\n> Environmental Protection Department\n> Lawrence Livermore National Laboratory\n> Livermore, CA, USA\n> --------------------------------------\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Jan version is a unix build for Darwin/X11.\nFor a unix user it is probably the \"first best\". \"My\" version is \nintedend to work on earlier versions of MacOS up to OSX.\n\nI'm confident that Jan build is ",
+      "thread_id": "thread-a5d15f6c4a1b",
+      "thread_depth": 2,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-a98fd78aad14",
+      "message_id": "<200107182231.f6IMV8C22350@mail.mclink.it>",
+      "from_name": "jago@mclink.it",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2001-07-19T00:30:50+02:00",
+      "subject": "[R-SIG-Mac]Which version should I use?",
+      "subject_clean": "Which version should I use?",
+      "in_reply_to": "<p05101004b77b5649ec19@[128.115.153.6]>",
+      "references": [],
+      "body_plain": "Jan version is a unix build for Darwin/X11.\nFor a unix user it is probably the \"first best\". \"My\" version is \nintedend to work on earlier versions of MacOS up to OSX.\n\nI'm confident that Jan build is more stable then the carbon version. \nMajor problems in my version is that I have to implement several stuff \nthat are given for free under unix but not under MacOS and its \ncompilers (!).\n\nBoth version accept dynamic linking well. Packages are examples of that.\n\nAs I am the only (actually) developer of R for MacOS and there are many \nthings to implement it is not always esay for me that fix/implement all \nand R/Mac users are really precious for their feedback to me.\n\nStefano\np.s. thanks to Don for its opinion\n\nOn MercoledÃ¬, luglio 18, 2001, at 05:32 , Don MacQueen wrote:\n\n\n>\n> At 6:03 PM -0700 7/17/01, Phillip N Price wrote:\n>> Apologies for the 0th-order question.\n>> I'm a longtime user of Splus, but I am switching (or trying, anyway) to\n>> the Mac, and would like to take this opportunity to try R.  I'm mostly\n>> hoping to _use_ R, not work on it, though I am of course happy to \n>> submit\n>> bug reports and that sort of thing.\n>>\n>> My immediate question is: should I use the Carbon/Iacus or the\n>> Cocoa(?)/deLeeuw version?  Are there major functional differences?  Are\n>> they similar in terms of stability?  Are there likely to be any\n>> difficulties in set-up, or do they both \"just work\"; for the latter\n>> question, does the specific species of X-windows matter?\n>>\n>> Thanks in advance for answers, and thank you all for working on this\n>> software.\n>>\n>> --Phil Price\n>>   Lawrence Berkeley National Laboratory\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> -- --------------------------------------\n> Don MacQueen\n> Environmental Protection Department\n> Lawrence Livermore National Laboratory\n> Livermore, CA, USA\n> --------------------------------------\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Jan version is a unix build for Darwin/X11.\nFor a unix user it is probably the \"first best\". \"My\" version is \nintedend to work on earlier versions of MacOS up to OSX.\n\nI'm confident that Jan build is ",
+      "thread_id": "thread-a5d15f6c4a1b",
+      "thread_depth": 2,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-91fbb0bf91ba",
+      "message_id": "<200107241448.HAA78776@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-24T07:46:34-07:00",
+      "subject": "[R-SIG-Mac]two OSX/Darwin events of interest to R",
+      "subject_clean": "two OSX/Darwin events of interest to R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "There is now a Cocoa port of Emacs 20.7 (i.e. a Cocoa wrapper around the\nDarwin Emacs) at http://www.porkrind.org/emacs/. Of course there were\nalready command line versions of Emacs, as well as X11 versions of\nEmacs and XEmacs.\n\nThese X11 versions you can get from fink at http://fink.sourceforge.net.\nFink is a way cool system to maintain and update and patch and install\npackages for Darwin. Just install fink, and then get the various updates\nfrom the CVS, and install them more or less automagically. Fink has\nnow about 200 packages (one of them is R-base).\n\nSince yesterday, fink also has a version of g77. This is a fink \nadaptation\nof the g77 for Darwin done by http://www-\njlc.kek.jp/~fujiik/macosx/10.0.X/,\nwhich has many interesting packages available as RPM.\n\nO, yes, fink also has rootless Xfree86.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "There is now a Cocoa port of Emacs 20.7 (i.e. a Cocoa wrapper around the\nDarwin Emacs) at http://www.porkrind.org/emacs/. Of course there were\nalready command line versions of Emacs, as well as X11 ve",
+      "thread_id": "thread-91fbb0bf91ba",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-91fbb0bf91ba",
+      "message_id": "<200107241448.HAA78776@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-24T07:46:34-07:00",
+      "subject": "[R-SIG-Mac]two OSX/Darwin events of interest to R",
+      "subject_clean": "two OSX/Darwin events of interest to R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "There is now a Cocoa port of Emacs 20.7 (i.e. a Cocoa wrapper around the\nDarwin Emacs) at http://www.porkrind.org/emacs/. Of course there were\nalready command line versions of Emacs, as well as X11 versions of\nEmacs and XEmacs.\n\nThese X11 versions you can get from fink at http://fink.sourceforge.net.\nFink is a way cool system to maintain and update and patch and install\npackages for Darwin. Just install fink, and then get the various updates\nfrom the CVS, and install them more or less automagically. Fink has\nnow about 200 packages (one of them is R-base).\n\nSince yesterday, fink also has a version of g77. This is a fink \nadaptation\nof the g77 for Darwin done by http://www-\njlc.kek.jp/~fujiik/macosx/10.0.X/,\nwhich has many interesting packages available as RPM.\n\nO, yes, fink also has rootless Xfree86.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "There is now a Cocoa port of Emacs 20.7 (i.e. a Cocoa wrapper around the\nDarwin Emacs) at http://www.porkrind.org/emacs/. Of course there were\nalready command line versions of Emacs, as well as X11 ve",
+      "thread_id": "thread-91fbb0bf91ba",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-39438c39e8ad",
+      "message_id": "<200107251421.f6PEL5H23657@mail.mclink.it>",
+      "from_name": "Stefano",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2001-07-25T16:20:52+02:00",
+      "subject": "[R-SIG-Mac]lapackLib module fix",
+      "subject_clean": "lapackLib module fix",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This is un update/fixing for the lapack module for rm 130.\nYou'll find the cited file on CRAN starting from tomorrow or directly at\n\nhttp://www.ci.tuwien.ac.at/~iacus/macos/rm130/base\n\nI apologize for the inconvenient.\n\nStefano M. Iacus\n\n\n\n----------------------\n\n\nlapackLib patch for:\n\nR 1.3.0 for Macintosh\n=====================\n\nOnce you have installed the rm130 distribution of R for Macintosh\nyou should substitute the module \"lapackLib\" that you find in\nthe folder\n\nrm130/modules/\n\nwith the file with the same name that you find in the archive\n\nlapackLib.hqx\n\n\nSimply unstuff the file \"lapackLib.hqx\" and move the resulting\n\"lapackLib\" file to the directory \"rm130/modules\". If the Finder\nasks you to replace the existing file, say \"YES\".\n\nYou will we be now able to use the fast lapack library.\n\nJuly 25th 2001\n\nStefano M. Iacus  ->  stefano.iacus@unimi.it",
+      "body_snippet": "This is un update/fixing for the lapack module for rm 130.\nYou'll find the cited file on CRAN starting from tomorrow or directly at\n\nhttp://www.ci.tuwien.ac.at/~iacus/macos/rm130/base\n\nI apologize for",
+      "thread_id": "thread-39438c39e8ad",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-39438c39e8ad",
+      "message_id": "<200107251421.f6PEL5H23657@mail.mclink.it>",
+      "from_name": "Stefano",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2001-07-25T16:20:52+02:00",
+      "subject": "[R-SIG-Mac]lapackLib module fix",
+      "subject_clean": "lapackLib module fix",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This is un update/fixing for the lapack module for rm 130.\nYou'll find the cited file on CRAN starting from tomorrow or directly at\n\nhttp://www.ci.tuwien.ac.at/~iacus/macos/rm130/base\n\nI apologize for the inconvenient.\n\nStefano M. Iacus\n\n\n\n----------------------\n\n\nlapackLib patch for:\n\nR 1.3.0 for Macintosh\n=====================\n\nOnce you have installed the rm130 distribution of R for Macintosh\nyou should substitute the module \"lapackLib\" that you find in\nthe folder\n\nrm130/modules/\n\nwith the file with the same name that you find in the archive\n\nlapackLib.hqx\n\n\nSimply unstuff the file \"lapackLib.hqx\" and move the resulting\n\"lapackLib\" file to the directory \"rm130/modules\". If the Finder\nasks you to replace the existing file, say \"YES\".\n\nYou will we be now able to use the fast lapack library.\n\nJuly 25th 2001\n\nStefano M. Iacus  ->  stefano.iacus@unimi.it",
+      "body_snippet": "This is un update/fixing for the lapack module for rm 130.\nYou'll find the cited file on CRAN starting from tomorrow or directly at\n\nhttp://www.ci.tuwien.ac.at/~iacus/macos/rm130/base\n\nI apologize for",
+      "thread_id": "thread-39438c39e8ad",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-d023f78bd1cb",
+      "message_id": "<200107251421.f6PELKH23964@mail.mclink.it>",
+      "from_name": "Stefano",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2001-07-25T16:21:06+02:00",
+      "subject": "[R-SIG-Mac]current development status (carbon R)",
+      "subject_clean": "current development status (carbon R)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This is a msg to inform you about the state of the art of R porting for \nthe Macintosh.\n\nI'm grateful to all the people who are sending me feedback. This will \nnot be lost and I hope to fix most of the problems in version 1.4.0 of R.\n\nWhat to expect for version 1.3.1 of R (mid august probably):\nThis will be mostly a techincal update (in the mac side)\n\nMy actual work now it to abandon the CodeWarrior compile in favour of \nApple's MPW.\n\nTwo reasons for this (mainly):\n1) makefiles are available\n2) MPW is free from Apple' site\n\nThere are several problems in switching to Apple's MPW that I'm trying \nto solve. Most of the problems are linked with the standard C libraries \nthat make R (but several other famous carbon applications) fail to run \nunder OS X.\nApple is going to release a major fixing for this and as soon as it is \navailable I'll adopt it.\n\nWith point 1) I have in mind possible future Mac/R developers but also \nusers that wants to build their own packages for R.\n\nThe biggest part of delay in releasing precompiled contributed packages \nis that I have to build them one by one with almost an ad hoc procedure. \nNow with MPW all will be automated and simpler.\n\nHave a good summer\n\t\t\t\tStefano",
+      "body_snippet": "This is a msg to inform you about the state of the art of R porting for \nthe Macintosh.\n\nI'm grateful to all the people who are sending me feedback. This will \nnot be lost and I hope to fix most of th",
+      "thread_id": "thread-d023f78bd1cb",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-d023f78bd1cb",
+      "message_id": "<200107251421.f6PELKH23964@mail.mclink.it>",
+      "from_name": "Stefano",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2001-07-25T16:21:06+02:00",
+      "subject": "[R-SIG-Mac]current development status (carbon R)",
+      "subject_clean": "current development status (carbon R)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This is a msg to inform you about the state of the art of R porting for \nthe Macintosh.\n\nI'm grateful to all the people who are sending me feedback. This will \nnot be lost and I hope to fix most of the problems in version 1.4.0 of R.\n\nWhat to expect for version 1.3.1 of R (mid august probably):\nThis will be mostly a techincal update (in the mac side)\n\nMy actual work now it to abandon the CodeWarrior compile in favour of \nApple's MPW.\n\nTwo reasons for this (mainly):\n1) makefiles are available\n2) MPW is free from Apple' site\n\nThere are several problems in switching to Apple's MPW that I'm trying \nto solve. Most of the problems are linked with the standard C libraries \nthat make R (but several other famous carbon applications) fail to run \nunder OS X.\nApple is going to release a major fixing for this and as soon as it is \navailable I'll adopt it.\n\nWith point 1) I have in mind possible future Mac/R developers but also \nusers that wants to build their own packages for R.\n\nThe biggest part of delay in releasing precompiled contributed packages \nis that I have to build them one by one with almost an ad hoc procedure. \nNow with MPW all will be automated and simpler.\n\nHave a good summer\n\t\t\t\tStefano",
+      "body_snippet": "This is a msg to inform you about the state of the art of R porting for \nthe Macintosh.\n\nI'm grateful to all the people who are sending me feedback. This will \nnot be lost and I hope to fix most of th",
+      "thread_id": "thread-d023f78bd1cb",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-6931779c8a4a",
+      "message_id": "<200107251720.KAA18497@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-25T10:19:48-07:00",
+      "subject": "[R-SIG-Mac]Re: cocoa darwin and all that..",
+      "subject_clean": "cocoa darwin and all that..",
+      "in_reply_to": "<20010725161319.4F516FBF3@mail.math.uu.nl>",
+      "references": [],
+      "body_plain": "Sure. You have enlightened me recently about quantum\nstatistics , so it's only fair. This may be\nuseful to other people as well, so I'll copy to the\nr-sig-mac list.\n\nX11 or X11R6 is the X Window system. This is client-server software to \ndisplay\nand manage desktops on networked machines. So if you\nwrite an X client program, you can run it on one machine, and\ndisplay its windows on any other machine on the net which has the\nX server program running (and which gives you permission\nto display). X comes with various widget libraries that\nmake it easier to do graphics programming, and with a whole\nbunch of client programs. Some of these client programs are\ncalled window managers, they determine the details of how\nyour windows look (popup menus, scroll bars, and so on)\nand move. So the Mac Finder is, among other things, a\nwindow manager. Typically X programs run on Unix, but\nthere are also X servers for Windows and even for Mac OS\n(classic). There are not many client programs for X11 on\nMacOS, but of course you can run programs such as\nXemacs, Xdvi, Xpdf etc remotely on a Unix box and have\nthem display their window on your Mac running the X server.\n\nDarwin is Apple latest version of the Unix operating system,\nbased on a combination of FreeBSD and the Mach kernel\nfrom CMU. It is the core of MacOS X, but MacOS X is written\nin such a way that Darwin is invisible to end users (unless\nthey open the Terminal application). For programmers, and\nfor dabblers like me, MacOS X is very attractive, because\nit allows you to work under MacOS X (in the Mac like\ninterface), on the Unix command line (in Terminal), and\n(after installing an X11 server and clients for Darwin) in\nX Window. The big step ahead is that virtually all Unix\nand X11 software ports to the Darwin layer of MacOS X\nwith almost no effort at all. And the major benefit is that\nso much scientific software exists for Unix/X11. So the\nonly thing you need is source code, and it will usually\ncompile without problems. This is what I did for my X11\nversion of R on Darwin (which assumes there is an\nX server on the local machine). I also compiled support\nfor gnome (a desktop system on top of X11, which in this\ncases provides buttons and menus to R windows) and\nfor tcl/tk which allows you to write programs in R\nwith graphical user interfaces (again, on top of X11).\n\nOn MacOS X you can run software in many different\nways, depending on what type of software it is. Previous\nMac programs run in an emulation layer called Classic,\nwith is comparable to emulators such as VirtualPC. You\ncan run PowerPC applications in this \"Mac in a Mac\",\nwith some loss of efficiency.\n\nThere is also specially written software which uses the\nCarbon libraries. Programs using Carbon can run\nnatively on MacOS 8 or MacOS 9, but they also run\nnatively on Mac OS X (i.e. they do not need the Classic\nemulation layer). They have the Aqua look, i.e. the\n\"traffic light\" buttons at the top, and the \"lickable\" look.\nIf Carbon programs run on OS X, they have advanced\nvirtual memory, protected memory, symmetric multiprocessing,\nand so on. This means that when a Carbon program running\nin OS X goes down, nothing else goes down. A Classic\nprogram running in OS X that bombs tales Classic down\nwith it, but the rest keep sunning smoothly. A Classic\nProgram in Classic takes the whole system down, and\nrequires a reboot. Stefano's version of R is a Carbon\nprogram.\n\nSo Carbon is an API (Application Programmer Interface)\nthat gives programmers access to a cleaned up and extended\nversion of the MacOS Toolbox (the Classic API) and that makes\nmost of the advanced services of MacOS X available. Cocoa\nis another API (the latest version of NextStep for MacOS X),\nwith it you can write Cocao applications that only run on\nMacOS X (not in Classic, not on older Macs running MacOS 8\nor MacOS 9). They use even more of the Mac OS X facilities\n(the multiprocessing, for instance), and they have characteristic\nGUI (graphical user interface) elements that makes them\neasily recognizable (in addition to the Aqua look, which they\nshare with Carbon applications). A Cocoa programmer could fairly easily\nwrite a Cocoa driver for the Darwin version of R. I think that\nwould be the ideal version of R for OS X.\n\nAlthough you did not ask, there is also Quartz, which is the\nrendering engine that draws to the screen and to printers. It\nreplaces Quickdraw from Classic and DisplayPostscript from\nNext -- it's native file format is pdf (which makes using TeX\non MacOS X a real pleasure -- TexShop is a Cocoa shell\naround the teTeX system, which is living in the Darwin\nlayer).\n\nBest -- Jan\n\nBooks: the Apple Developer Library\n\nInside OS X: System Overview\nInside OS X: Performance\nInside Cocoa: Object Oriented programming and the Objective C language\nInside Carbon: Carbon Porting Guide\n\nPDF for these books can be downloaded from Apple,\nhttp://developer.apple.com/techpubs/,  print-on-demand\nversions can be ordered from www.fatbrain.com\n\nOReilly\nLearning Cocoa\nLearning Carbon\n\nOsborne\nFeiler: MacOS X. The Complete Reference.\nMorgan Kaufman\nFeiler: MaxOS X Developers Guide.\nNot out yet.\n\nThe number of books about Unix and X11 is infinite, for\nall practical purposes.\n\nOn Wednesday, July 25, 2001, at 09:13 AM, Richard D. Gill wrote:\n\n> dear jan\n> i'm on the mac r email list but i have no idea what is darwin,\n> cocoa, x11 ... can you enlighten me?\n> yours\n> richard\n>\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Sure. You have enlightened me recently about quantum\nstatistics , so it's only fair. This may be\nuseful to other people as well, so I'll copy to the\nr-sig-mac list.\n\nX11 or X11R6 is the X Window syste",
+      "thread_id": "thread-6931779c8a4a",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-6931779c8a4a",
+      "message_id": "<200107251720.KAA18497@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-25T10:19:48-07:00",
+      "subject": "[R-SIG-Mac]Re: cocoa darwin and all that..",
+      "subject_clean": "cocoa darwin and all that..",
+      "in_reply_to": "<20010725161319.4F516FBF3@mail.math.uu.nl>",
+      "references": [],
+      "body_plain": "Sure. You have enlightened me recently about quantum\nstatistics , so it's only fair. This may be\nuseful to other people as well, so I'll copy to the\nr-sig-mac list.\n\nX11 or X11R6 is the X Window system. This is client-server software to \ndisplay\nand manage desktops on networked machines. So if you\nwrite an X client program, you can run it on one machine, and\ndisplay its windows on any other machine on the net which has the\nX server program running (and which gives you permission\nto display). X comes with various widget libraries that\nmake it easier to do graphics programming, and with a whole\nbunch of client programs. Some of these client programs are\ncalled window managers, they determine the details of how\nyour windows look (popup menus, scroll bars, and so on)\nand move. So the Mac Finder is, among other things, a\nwindow manager. Typically X programs run on Unix, but\nthere are also X servers for Windows and even for Mac OS\n(classic). There are not many client programs for X11 on\nMacOS, but of course you can run programs such as\nXemacs, Xdvi, Xpdf etc remotely on a Unix box and have\nthem display their window on your Mac running the X server.\n\nDarwin is Apple latest version of the Unix operating system,\nbased on a combination of FreeBSD and the Mach kernel\nfrom CMU. It is the core of MacOS X, but MacOS X is written\nin such a way that Darwin is invisible to end users (unless\nthey open the Terminal application). For programmers, and\nfor dabblers like me, MacOS X is very attractive, because\nit allows you to work under MacOS X (in the Mac like\ninterface), on the Unix command line (in Terminal), and\n(after installing an X11 server and clients for Darwin) in\nX Window. The big step ahead is that virtually all Unix\nand X11 software ports to the Darwin layer of MacOS X\nwith almost no effort at all. And the major benefit is that\nso much scientific software exists for Unix/X11. So the\nonly thing you need is source code, and it will usually\ncompile without problems. This is what I did for my X11\nversion of R on Darwin (which assumes there is an\nX server on the local machine). I also compiled support\nfor gnome (a desktop system on top of X11, which in this\ncases provides buttons and menus to R windows) and\nfor tcl/tk which allows you to write programs in R\nwith graphical user interfaces (again, on top of X11).\n\nOn MacOS X you can run software in many different\nways, depending on what type of software it is. Previous\nMac programs run in an emulation layer called Classic,\nwith is comparable to emulators such as VirtualPC. You\ncan run PowerPC applications in this \"Mac in a Mac\",\nwith some loss of efficiency.\n\nThere is also specially written software which uses the\nCarbon libraries. Programs using Carbon can run\nnatively on MacOS 8 or MacOS 9, but they also run\nnatively on Mac OS X (i.e. they do not need the Classic\nemulation layer). They have the Aqua look, i.e. the\n\"traffic light\" buttons at the top, and the \"lickable\" look.\nIf Carbon programs run on OS X, they have advanced\nvirtual memory, protected memory, symmetric multiprocessing,\nand so on. This means that when a Carbon program running\nin OS X goes down, nothing else goes down. A Classic\nprogram running in OS X that bombs tales Classic down\nwith it, but the rest keep sunning smoothly. A Classic\nProgram in Classic takes the whole system down, and\nrequires a reboot. Stefano's version of R is a Carbon\nprogram.\n\nSo Carbon is an API (Application Programmer Interface)\nthat gives programmers access to a cleaned up and extended\nversion of the MacOS Toolbox (the Classic API) and that makes\nmost of the advanced services of MacOS X available. Cocoa\nis another API (the latest version of NextStep for MacOS X),\nwith it you can write Cocao applications that only run on\nMacOS X (not in Classic, not on older Macs running MacOS 8\nor MacOS 9). They use even more of the Mac OS X facilities\n(the multiprocessing, for instance), and they have characteristic\nGUI (graphical user interface) elements that makes them\neasily recognizable (in addition to the Aqua look, which they\nshare with Carbon applications). A Cocoa programmer could fairly easily\nwrite a Cocoa driver for the Darwin version of R. I think that\nwould be the ideal version of R for OS X.\n\nAlthough you did not ask, there is also Quartz, which is the\nrendering engine that draws to the screen and to printers. It\nreplaces Quickdraw from Classic and DisplayPostscript from\nNext -- it's native file format is pdf (which makes using TeX\non MacOS X a real pleasure -- TexShop is a Cocoa shell\naround the teTeX system, which is living in the Darwin\nlayer).\n\nBest -- Jan\n\nBooks: the Apple Developer Library\n\nInside OS X: System Overview\nInside OS X: Performance\nInside Cocoa: Object Oriented programming and the Objective C language\nInside Carbon: Carbon Porting Guide\n\nPDF for these books can be downloaded from Apple,\nhttp://developer.apple.com/techpubs/,  print-on-demand\nversions can be ordered from www.fatbrain.com\n\nOReilly\nLearning Cocoa\nLearning Carbon\n\nOsborne\nFeiler: MacOS X. The Complete Reference.\nMorgan Kaufman\nFeiler: MaxOS X Developers Guide.\nNot out yet.\n\nThe number of books about Unix and X11 is infinite, for\nall practical purposes.\n\nOn Wednesday, July 25, 2001, at 09:13 AM, Richard D. Gill wrote:\n\n> dear jan\n> i'm on the mac r email list but i have no idea what is darwin,\n> cocoa, x11 ... can you enlighten me?\n> yours\n> richard\n>\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Sure. You have enlightened me recently about quantum\nstatistics , so it's only fair. This may be\nuseful to other people as well, so I'll copy to the\nr-sig-mac list.\n\nX11 or X11R6 is the X Window syste",
+      "thread_id": "thread-6931779c8a4a",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-e7e9bc5dbe36",
+      "message_id": "<20010726191926.19918.qmail@web10508.mail.yahoo.com>",
+      "from_name": "Jason Liao",
+      "from_email_hash": "dd7971a2432fd8766458f3919096da6d81d92cfa594f85c684b2b9a9ff09f600",
+      "date": "2001-07-26T12:19:26-07:00",
+      "subject": "[R-SIG-Mac]how fast is R on Mac",
+      "subject_clean": "how fast is R on Mac",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am interested in knowing the speed of R on Mac OS X. Can anyone run\nthe following code? It runs on a Pentium III 600 MH with 57 seconds.\nPlease indicate the hardware configration. Thanks in advance.\n\nJason Liao\n\n   hyper <- function(n1,n2,m1,psi)\n   {\n      mode.compute <- function()\n\t  {\n\t     a <- psi - 1;\n\t\t b <- (m1+n1+2)*psi + n2-m1 ;\n\t\t b <- -b;\n\t\t c <- psi*(n1+1)*(m1+1);\n\t\t q <- b + sign(b)*sqrt(b*b-4*a*c);\n\t\t q <- -q/2;\n\t\t \n\t\t return(c/q);\n\t  }\t \n\t  \n      N <- n1+n2;\t  \n      l <- max(0, m1-n2);\n\t  u <- min(n1, m1);\n\n\t  mode <- mode.compute()\n     \n\t  return(mode);\n    }\t  \n\t\n\tprint(date());\n\tsum <- 0;\n\tfor(i in 1:100000)\n\t{\n\t  odds.ratio <- exp(runif(1));\n\t  sum <- sum + hyper(50, 50, 50, odds.ratio);\n\t}\n\tprint(date());\n\tprint(date());\n\t\t \n\t\t \n\n=====\nJason G. Liao\nDepartment of Biometry and Epidemiology\nMedical University of South Carolina\n135 Rutledge Ave., STE 1148, Charleston, SC 29425\nphone (843) 876-1114, fax (843) 876-1126\n\nhttp://www.geocities.com/jg_liao/index.html\n\n__________________________________________________\nDo You Yahoo!?\nMake international calls for as low as $.04/minute with Yahoo! Messenger\nhttp://phonecard.yahoo.com/",
+      "body_snippet": "I am interested in knowing the speed of R on Mac OS X. Can anyone run\nthe following code? It runs on a Pentium III 600 MH with 57 seconds.\nPlease indicate the hardware configration. Thanks in advance.",
+      "thread_id": "thread-e7e9bc5dbe36",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-e7e9bc5dbe36",
+      "message_id": "<20010726191926.19918.qmail@web10508.mail.yahoo.com>",
+      "from_name": "Jason Liao",
+      "from_email_hash": "dd7971a2432fd8766458f3919096da6d81d92cfa594f85c684b2b9a9ff09f600",
+      "date": "2001-07-26T12:19:26-07:00",
+      "subject": "[R-SIG-Mac]how fast is R on Mac",
+      "subject_clean": "how fast is R on Mac",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am interested in knowing the speed of R on Mac OS X. Can anyone run\nthe following code? It runs on a Pentium III 600 MH with 57 seconds.\nPlease indicate the hardware configration. Thanks in advance.\n\nJason Liao\n\n   hyper <- function(n1,n2,m1,psi)\n   {\n      mode.compute <- function()\n\t  {\n\t     a <- psi - 1;\n\t\t b <- (m1+n1+2)*psi + n2-m1 ;\n\t\t b <- -b;\n\t\t c <- psi*(n1+1)*(m1+1);\n\t\t q <- b + sign(b)*sqrt(b*b-4*a*c);\n\t\t q <- -q/2;\n\t\t \n\t\t return(c/q);\n\t  }\t \n\t  \n      N <- n1+n2;\t  \n      l <- max(0, m1-n2);\n\t  u <- min(n1, m1);\n\n\t  mode <- mode.compute()\n     \n\t  return(mode);\n    }\t  \n\t\n\tprint(date());\n\tsum <- 0;\n\tfor(i in 1:100000)\n\t{\n\t  odds.ratio <- exp(runif(1));\n\t  sum <- sum + hyper(50, 50, 50, odds.ratio);\n\t}\n\tprint(date());\n\tprint(date());\n\t\t \n\t\t \n\n=====\nJason G. Liao\nDepartment of Biometry and Epidemiology\nMedical University of South Carolina\n135 Rutledge Ave., STE 1148, Charleston, SC 29425\nphone (843) 876-1114, fax (843) 876-1126\n\nhttp://www.geocities.com/jg_liao/index.html\n\n__________________________________________________\nDo You Yahoo!?\nMake international calls for as low as $.04/minute with Yahoo! Messenger\nhttp://phonecard.yahoo.com/",
+      "body_snippet": "I am interested in knowing the speed of R on Mac OS X. Can anyone run\nthe following code? It runs on a Pentium III 600 MH with 57 seconds.\nPlease indicate the hardware configration. Thanks in advance.",
+      "thread_id": "thread-e7e9bc5dbe36",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-b509d6191b22",
+      "message_id": "<200107262020.NAA77172@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-26T13:19:16-07:00",
+      "subject": "[R-SIG-Mac]how fast is R on Mac",
+      "subject_clean": "how fast is R on Mac",
+      "in_reply_to": "<20010726191926.19918.qmail@web10508.mail.yahoo.com>",
+      "references": [],
+      "body_plain": "I am assuming you want the difference between the two date()\n(before and after) returned.\n\nThis is on a single-processor 733 Mhz G4.\n\nR-1.3.0 Carbon running natively in OS X: 32 seconds\nR-1.3.0 Darwin: 35 seconds\nR-2.0.0 Darwin: 34 seconds\n\nThis suggests that the two implementations have about the\nsame speed, and that they are about twice as fast as a PIII/600\n(which happens to be equal to the Steve Jobs Demo Factor).\n\n\nOn Thursday, July 26, 2001, at 12:19 PM, Jason Liao wrote:\n\n> I am interested in knowing the speed of R on Mac OS X. Can anyone run\n> the following code? It runs on a Pentium III 600 MH with 57 seconds.\n> Please indicate the hardware configration. Thanks in advance.\n>\n> Jason Liao\n>\n>    hyper <- function(n1,n2,m1,psi)\n>    {\n>       mode.compute <- function()\n> \t  {\n> \t     a <- psi - 1;\n> \t\t b <- (m1+n1+2)*psi + n2-m1 ;\n> \t\t b <- -b;\n> \t\t c <- psi*(n1+1)*(m1+1);\n> \t\t q <- b + sign(b)*sqrt(b*b-4*a*c);\n> \t\t q <- -q/2;\n> \t\t\n> \t\t return(c/q);\n> \t  }\t\n> \t\n>       N <- n1+n2;\t\n>       l <- max(0, m1-n2);\n> \t  u <- min(n1, m1);\n>\n> \t  mode <- mode.compute()\n>\n> \t  return(mode);\n>     }\t\n> \t\n> \tprint(date());\n> \tsum <- 0;\n> \tfor(i in 1:100000)\n> \t{\n> \t  odds.ratio <- exp(runif(1));\n> \t  sum <- sum + hyper(50, 50, 50, odds.ratio);\n> \t}\n> \tprint(date());\n> \tprint(date());\n> \t\t\n> \t\t\n>\n> =====\n> Jason G. Liao\n> Department of Biometry and Epidemiology\n> Medical University of South Carolina\n> 135 Rutledge Ave., STE 1148, Charleston, SC 29425\n> phone (843) 876-1114, fax (843) 876-1126\n>\n> http://www.geocities.com/jg_liao/index.html\n>\n> __________________________________________________\n> Do You Yahoo!?\n> Make international calls for as low as $.04/minute with Yahoo! Messenger\n> http://phonecard.yahoo.com/\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "I am assuming you want the difference between the two date()\n(before and after) returned.\n\nThis is on a single-processor 733 Mhz G4.\n\nR-1.3.0 Carbon running natively in OS X: 32 seconds\nR-1.3.0 Darwin",
+      "thread_id": "thread-e7e9bc5dbe36",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-b509d6191b22",
+      "message_id": "<200107262020.NAA77172@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-26T13:19:16-07:00",
+      "subject": "[R-SIG-Mac]how fast is R on Mac",
+      "subject_clean": "how fast is R on Mac",
+      "in_reply_to": "<20010726191926.19918.qmail@web10508.mail.yahoo.com>",
+      "references": [],
+      "body_plain": "I am assuming you want the difference between the two date()\n(before and after) returned.\n\nThis is on a single-processor 733 Mhz G4.\n\nR-1.3.0 Carbon running natively in OS X: 32 seconds\nR-1.3.0 Darwin: 35 seconds\nR-2.0.0 Darwin: 34 seconds\n\nThis suggests that the two implementations have about the\nsame speed, and that they are about twice as fast as a PIII/600\n(which happens to be equal to the Steve Jobs Demo Factor).\n\n\nOn Thursday, July 26, 2001, at 12:19 PM, Jason Liao wrote:\n\n> I am interested in knowing the speed of R on Mac OS X. Can anyone run\n> the following code? It runs on a Pentium III 600 MH with 57 seconds.\n> Please indicate the hardware configration. Thanks in advance.\n>\n> Jason Liao\n>\n>    hyper <- function(n1,n2,m1,psi)\n>    {\n>       mode.compute <- function()\n> \t  {\n> \t     a <- psi - 1;\n> \t\t b <- (m1+n1+2)*psi + n2-m1 ;\n> \t\t b <- -b;\n> \t\t c <- psi*(n1+1)*(m1+1);\n> \t\t q <- b + sign(b)*sqrt(b*b-4*a*c);\n> \t\t q <- -q/2;\n> \t\t\n> \t\t return(c/q);\n> \t  }\t\n> \t\n>       N <- n1+n2;\t\n>       l <- max(0, m1-n2);\n> \t  u <- min(n1, m1);\n>\n> \t  mode <- mode.compute()\n>\n> \t  return(mode);\n>     }\t\n> \t\n> \tprint(date());\n> \tsum <- 0;\n> \tfor(i in 1:100000)\n> \t{\n> \t  odds.ratio <- exp(runif(1));\n> \t  sum <- sum + hyper(50, 50, 50, odds.ratio);\n> \t}\n> \tprint(date());\n> \tprint(date());\n> \t\t\n> \t\t\n>\n> =====\n> Jason G. Liao\n> Department of Biometry and Epidemiology\n> Medical University of South Carolina\n> 135 Rutledge Ave., STE 1148, Charleston, SC 29425\n> phone (843) 876-1114, fax (843) 876-1126\n>\n> http://www.geocities.com/jg_liao/index.html\n>\n> __________________________________________________\n> Do You Yahoo!?\n> Make international calls for as low as $.04/minute with Yahoo! Messenger\n> http://phonecard.yahoo.com/\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "I am assuming you want the difference between the two date()\n(before and after) returned.\n\nThis is on a single-processor 733 Mhz G4.\n\nR-1.3.0 Carbon running natively in OS X: 32 seconds\nR-1.3.0 Darwin",
+      "thread_id": "thread-e7e9bc5dbe36",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-d843243b685c",
+      "message_id": "<p05100304b786306eee9b@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "7d8b6f6b0be33863977585caaf9f22b0178ad0d94c5b6d1dc8ac0b8e71fbe3f1",
+      "date": "2001-07-26T13:45:15-07:00",
+      "subject": "[R-SIG-Mac]how fast is R on Mac",
+      "subject_clean": "how fast is R on Mac",
+      "in_reply_to": "<20010726191926.19918.qmail@web10508.mail.yahoo.com>",
+      "references": [
+        "<20010726191926.19918.qmail@web10508.mail.yahoo.com>"
+      ],
+      "body_plain": "About 34 seconds on a 400 MHz G3, R 1.2.2, OS 9.1\n(not OS X, I can probably test that later today or tomorrow with R 1.2.3)\n\n-Don\n\n>\tprint(date());\n[1] \"Thu Jul 26 13:37:06 2001\"\n>\tsum <- 0;\n>\tfor(i in 1:100000)\n+\t{\n+\t  odds.ratio <- exp(runif(1));\n+\t  sum <- sum + hyper(50, 50, 50, odds.ratio);\n+\t}\n>\tprint(date());\n[1] \"Thu Jul 26 13:37:40 2001\"\n>\tprint(date());\n[1] \"Thu Jul 26 13:37:40 2001\"\n>\n\n\nAt 12:19 PM -0700 7/26/01, Jason Liao wrote:\n>I am interested in knowing the speed of R on Mac OS X. Can anyone run\n>the following code? It runs on a Pentium III 600 MH with 57 seconds.\n>Please indicate the hardware configration. Thanks in advance.\n>\n>Jason Liao\n>\n>    hyper <- function(n1,n2,m1,psi)\n>    {\n>       mode.compute <- function()\n>\t  {\n>\t     a <- psi - 1;\n>\t\tb <- (m1+n1+2)*psi + n2-m1 ;\n>\t\tb <- -b;\n>\t\tc <- psi*(n1+1)*(m1+1);\n>\t\tq <- b + sign(b)*sqrt(b*b-4*a*c);\n>\t\tq <- -q/2;\n>\n>\t\treturn(c/q);\n>\t  }\n>\t \n>       N <- n1+n2;\t \n>       l <- max(0, m1-n2);\n>\t  u <- min(n1, m1);\n>\n>\t  mode <- mode.compute()\n>     \n>\t  return(mode);\n>     }\t \n>\n>\tprint(date());\n>\tsum <- 0;\n>\tfor(i in 1:100000)\n>\t{\n>\t  odds.ratio <- exp(runif(1));\n>\t  sum <- sum + hyper(50, 50, 50, odds.ratio);\n>\t}\n>\tprint(date());\n>\tprint(date());\n>\n>\n>\n>=====\n>Jason G. Liao\n>Department of Biometry and Epidemiology\n>Medical University of South Carolina\n>135 Rutledge Ave., STE 1148, Charleston, SC 29425\n>phone (843) 876-1114, fax (843) 876-1126\n>\n>http://www.geocities.com/jg_liao/index.html\n>\n>__________________________________________________\n>Do You Yahoo!?\n>Make international calls for as low as $.04/minute with Yahoo! Messenger\n>http://phonecard.yahoo.com/\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA\n--------------------------------------",
+      "body_snippet": "About 34 seconds on a 400 MHz G3, R 1.2.2, OS 9.1\n(not OS X, I can probably test that later today or tomorrow with R 1.2.3)\n\n-Don\n\n>\tprint(date());\n[1] \"Thu Jul 26 13:37:06 2001\"\n>\tsum <- 0;\n>\tfor(i i",
+      "thread_id": "thread-e7e9bc5dbe36",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-d843243b685c",
+      "message_id": "<p05100304b786306eee9b@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "7d8b6f6b0be33863977585caaf9f22b0178ad0d94c5b6d1dc8ac0b8e71fbe3f1",
+      "date": "2001-07-26T13:45:15-07:00",
+      "subject": "[R-SIG-Mac]how fast is R on Mac",
+      "subject_clean": "how fast is R on Mac",
+      "in_reply_to": "<20010726191926.19918.qmail@web10508.mail.yahoo.com>",
+      "references": [
+        "<20010726191926.19918.qmail@web10508.mail.yahoo.com>"
+      ],
+      "body_plain": "About 34 seconds on a 400 MHz G3, R 1.2.2, OS 9.1\n(not OS X, I can probably test that later today or tomorrow with R 1.2.3)\n\n-Don\n\n>\tprint(date());\n[1] \"Thu Jul 26 13:37:06 2001\"\n>\tsum <- 0;\n>\tfor(i in 1:100000)\n+\t{\n+\t  odds.ratio <- exp(runif(1));\n+\t  sum <- sum + hyper(50, 50, 50, odds.ratio);\n+\t}\n>\tprint(date());\n[1] \"Thu Jul 26 13:37:40 2001\"\n>\tprint(date());\n[1] \"Thu Jul 26 13:37:40 2001\"\n>\n\n\nAt 12:19 PM -0700 7/26/01, Jason Liao wrote:\n>I am interested in knowing the speed of R on Mac OS X. Can anyone run\n>the following code? It runs on a Pentium III 600 MH with 57 seconds.\n>Please indicate the hardware configration. Thanks in advance.\n>\n>Jason Liao\n>\n>    hyper <- function(n1,n2,m1,psi)\n>    {\n>       mode.compute <- function()\n>\t  {\n>\t     a <- psi - 1;\n>\t\tb <- (m1+n1+2)*psi + n2-m1 ;\n>\t\tb <- -b;\n>\t\tc <- psi*(n1+1)*(m1+1);\n>\t\tq <- b + sign(b)*sqrt(b*b-4*a*c);\n>\t\tq <- -q/2;\n>\n>\t\treturn(c/q);\n>\t  }\n>\t \n>       N <- n1+n2;\t \n>       l <- max(0, m1-n2);\n>\t  u <- min(n1, m1);\n>\n>\t  mode <- mode.compute()\n>     \n>\t  return(mode);\n>     }\t \n>\n>\tprint(date());\n>\tsum <- 0;\n>\tfor(i in 1:100000)\n>\t{\n>\t  odds.ratio <- exp(runif(1));\n>\t  sum <- sum + hyper(50, 50, 50, odds.ratio);\n>\t}\n>\tprint(date());\n>\tprint(date());\n>\n>\n>\n>=====\n>Jason G. Liao\n>Department of Biometry and Epidemiology\n>Medical University of South Carolina\n>135 Rutledge Ave., STE 1148, Charleston, SC 29425\n>phone (843) 876-1114, fax (843) 876-1126\n>\n>http://www.geocities.com/jg_liao/index.html\n>\n>__________________________________________________\n>Do You Yahoo!?\n>Make international calls for as low as $.04/minute with Yahoo! Messenger\n>http://phonecard.yahoo.com/\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA\n--------------------------------------",
+      "body_snippet": "About 34 seconds on a 400 MHz G3, R 1.2.2, OS 9.1\n(not OS X, I can probably test that later today or tomorrow with R 1.2.3)\n\n-Don\n\n>\tprint(date());\n[1] \"Thu Jul 26 13:37:06 2001\"\n>\tsum <- 0;\n>\tfor(i i",
+      "thread_id": "thread-e7e9bc5dbe36",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-b56ca261380c",
+      "message_id": "<200107262128.OAA88156@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-26T14:27:41-07:00",
+      "subject": "[R-SIG-Mac]speed test",
+      "subject_clean": "speed test",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Don MacQueen wants to know why his 400Mhz G3 is as fast as my\n733 MHz G4. Good question, easy answer. The speeds below are\nall on a single processor 733 MHz G4, with the standard R-1.3.0.\n\nCarbon running in OS 9.2 -- 21secs\nCarbon running in Classic in OS X -- 23 secs\nCarbon running natively in OS X -- 32 secs\nDarwin running natively (vanilla) in OS X -- 35 secs\n\nApple obviously stiil has a lot of work to do before 10.1. But even the\nOS X versions leave the PIII in the dust. Wait until I get my dual 800\nMHz machine.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Don MacQueen wants to know why his 400Mhz G3 is as fast as my\n733 MHz G4. Good question, easy answer. The speeds below are\nall on a single processor 733 MHz G4, with the standard R-1.3.0.\n\nCarbon runn",
+      "thread_id": "thread-b56ca261380c",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-b56ca261380c",
+      "message_id": "<200107262128.OAA88156@pine.frazmtn.com>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2001-07-26T14:27:41-07:00",
+      "subject": "[R-SIG-Mac]speed test",
+      "subject_clean": "speed test",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Don MacQueen wants to know why his 400Mhz G3 is as fast as my\n733 MHz G4. Good question, easy answer. The speeds below are\nall on a single processor 733 MHz G4, with the standard R-1.3.0.\n\nCarbon running in OS 9.2 -- 21secs\nCarbon running in Classic in OS X -- 23 secs\nCarbon running natively in OS X -- 32 secs\nDarwin running natively (vanilla) in OS X -- 35 secs\n\nApple obviously stiil has a lot of work to do before 10.1. But even the\nOS X versions leave the PIII in the dust. Wait until I get my dual 800\nMHz machine.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Don MacQueen wants to know why his 400Mhz G3 is as fast as my\n733 MHz G4. Good question, easy answer. The speeds below are\nall on a single processor 733 MHz G4, with the standard R-1.3.0.\n\nCarbon runn",
+      "thread_id": "thread-b56ca261380c",
+      "thread_depth": 0,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-e4b72c37a9a1",
+      "message_id": "<p05101000b7877963361b@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "7d8b6f6b0be33863977585caaf9f22b0178ad0d94c5b6d1dc8ac0b8e71fbe3f1",
+      "date": "2001-07-27T13:11:16-07:00",
+      "subject": "[R-SIG-Mac]speed test",
+      "subject_clean": "speed test",
+      "in_reply_to": "<200107262128.OAA88156@pine.frazmtn.com>",
+      "references": [
+        "<200107262128.OAA88156@pine.frazmtn.com>"
+      ],
+      "body_plain": "Too which I can now add\n\nR 1.3.0 Darwin running in an XFree86 X11 context in OS X, 400 MHz G3 -- 48 secs\nR 1.2.2 Carbon running in OS 9.2, 400 MHz G3 -- 34 secs (as reported yesterday)\n\nRe-enforcing the conclusion that OS X 10.0.4 is slow compared to OS 9.x\n\n-Don\n\nAt 2:27 PM -0700 7/26/01, Jan de Leeuw wrote:\n>Don MacQueen wants to know why his 400Mhz G3 is as fast as my\n>733 MHz G4. Good question, easy answer. The speeds below are\n>all on a single processor 733 MHz G4, with the standard R-1.3.0.\n>\n>Carbon running in OS 9.2 -- 21secs\n>Carbon running in Classic in OS X -- 23 secs\n>Carbon running natively in OS X -- 32 secs\n>Darwin running natively (vanilla) in OS X -- 35 secs\n>\n>Apple obviously stiil has a lot of work to do before 10.1. But even the\n>OS X versions leave the PIII in the dust. Wait until I get my dual 800\n>MHz machine.\n>===\n>Jan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n>US mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\n>phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\n>homepage: http://www.stat.ucla.edu/~deleeuw\n>========================================================\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n>========================================================\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA\n--------------------------------------",
+      "body_snippet": "Too which I can now add\n\nR 1.3.0 Darwin running in an XFree86 X11 context in OS X, 400 MHz G3 -- 48 secs\nR 1.2.2 Carbon running in OS 9.2, 400 MHz G3 -- 34 secs (as reported yesterday)\n\nRe-enforcing t",
+      "thread_id": "thread-b56ca261380c",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-e4b72c37a9a1",
+      "message_id": "<p05101000b7877963361b@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "7d8b6f6b0be33863977585caaf9f22b0178ad0d94c5b6d1dc8ac0b8e71fbe3f1",
+      "date": "2001-07-27T13:11:16-07:00",
+      "subject": "[R-SIG-Mac]speed test",
+      "subject_clean": "speed test",
+      "in_reply_to": "<200107262128.OAA88156@pine.frazmtn.com>",
+      "references": [
+        "<200107262128.OAA88156@pine.frazmtn.com>"
+      ],
+      "body_plain": "Too which I can now add\n\nR 1.3.0 Darwin running in an XFree86 X11 context in OS X, 400 MHz G3 -- 48 secs\nR 1.2.2 Carbon running in OS 9.2, 400 MHz G3 -- 34 secs (as reported yesterday)\n\nRe-enforcing the conclusion that OS X 10.0.4 is slow compared to OS 9.x\n\n-Don\n\nAt 2:27 PM -0700 7/26/01, Jan de Leeuw wrote:\n>Don MacQueen wants to know why his 400Mhz G3 is as fast as my\n>733 MHz G4. Good question, easy answer. The speeds below are\n>all on a single processor 733 MHz G4, with the standard R-1.3.0.\n>\n>Carbon running in OS 9.2 -- 21secs\n>Carbon running in Classic in OS X -- 23 secs\n>Carbon running natively in OS X -- 32 secs\n>Darwin running natively (vanilla) in OS X -- 35 secs\n>\n>Apple obviously stiil has a lot of work to do before 10.1. But even the\n>OS X versions leave the PIII in the dust. Wait until I get my dual 800\n>MHz machine.\n>===\n>Jan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n>US mail: 9432 Boulter Hall, Box 951554, Los Angeles, CA 90095-1554\n>phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\n>homepage: http://www.stat.ucla.edu/~deleeuw\n>========================================================\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n>========================================================\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA\n--------------------------------------",
+      "body_snippet": "Too which I can now add\n\nR 1.3.0 Darwin running in an XFree86 X11 context in OS X, 400 MHz G3 -- 48 secs\nR 1.2.2 Carbon running in OS 9.2, 400 MHz G3 -- 34 secs (as reported yesterday)\n\nRe-enforcing t",
+      "thread_id": "thread-b56ca261380c",
+      "thread_depth": 1,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-ad3e61d4f684",
+      "message_id": "<20010727201936.3472.qmail@web10505.mail.yahoo.com>",
+      "from_name": "Jason Liao",
+      "from_email_hash": "dd7971a2432fd8766458f3919096da6d81d92cfa594f85c684b2b9a9ff09f600",
+      "date": "2001-07-27T13:19:36-07:00",
+      "subject": "[R-SIG-Mac]speed test",
+      "subject_clean": "speed test",
+      "in_reply_to": "<p05101000b7877963361b@[128.115.153.6]>",
+      "references": [],
+      "body_plain": "I would like to add that Bill Oliver got 31 seconds on his Dell\nDimension Pentium III 600 MHz,256 MB RAM running Windows 2000 and R\nversion 1.3. My result was done on R 1.3, Pentium III 600 MHz running\nWin 98.I tried also on a Pentium III 700 Mhs labtop running WIN Me and\nI got 49 seconds. So opertaing system seems to have a significant\nimpact.\n\nJason\n\n=====\nJason G. Liao\nDepartment of Biometry and Epidemiology\nMedical University of South Carolina\n135 Rutledge Ave., STE 1148, Charleston, SC 29425\nphone (843) 876-1114, fax (843) 876-1126\n\nhttp://www.geocities.com/jg_liao/index.html\n\n__________________________________________________\nDo You Yahoo!?\nMake international calls for as low as $.04/minute with Yahoo! Messenger\nhttp://phonecard.yahoo.com/",
+      "body_snippet": "I would like to add that Bill Oliver got 31 seconds on his Dell\nDimension Pentium III 600 MHz,256 MB RAM running Windows 2000 and R\nversion 1.3. My result was done on R 1.3, Pentium III 600 MHz runnin",
+      "thread_id": "thread-b56ca261380c",
+      "thread_depth": 2,
+      "month": "2001-07"
+    },
+    {
+      "id": "msg-ad3e61d4f684",
+      "message_id": "<20010727201936.3472.qmail@web10505.mail.yahoo.com>",
+      "from_name": "Jason Liao",
+      "from_email_hash": "dd7971a2432fd8766458f3919096da6d81d92cfa594f85c684b2b9a9ff09f600",
+      "date": "2001-07-27T13:19:36-07:00",
+      "subject": "[R-SIG-Mac]speed test",
+      "subject_clean": "speed test",
+      "in_reply_to": "<p05101000b7877963361b@[128.115.153.6]>",
+      "references": [],
+      "body_plain": "I would like to add that Bill Oliver got 31 seconds on his Dell\nDimension Pentium III 600 MHz,256 MB RAM running Windows 2000 and R\nversion 1.3. My result was done on R 1.3, Pentium III 600 MHz running\nWin 98.I tried also on a Pentium III 700 Mhs labtop running WIN Me and\nI got 49 seconds. So opertaing system seems to have a significant\nimpact.\n\nJason\n\n=====\nJason G. Liao\nDepartment of Biometry and Epidemiology\nMedical University of South Carolina\n135 Rutledge Ave., STE 1148, Charleston, SC 29425\nphone (843) 876-1114, fax (843) 876-1126\n\nhttp://www.geocities.com/jg_liao/index.html\n\n__________________________________________________\nDo You Yahoo!?\nMake international calls for as low as $.04/minute with Yahoo! Messenger\nhttp://phonecard.yahoo.com/",
+      "body_snippet": "I would like to add that Bill Oliver got 31 seconds on his Dell\nDimension Pentium III 600 MHz,256 MB RAM running Windows 2000 and R\nversion 1.3. My result was done on R 1.3, Pentium III 600 MHz runnin",
+      "thread_id": "thread-b56ca261380c",
+      "thread_depth": 2,
+      "month": "2001-07"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-02251a4997e1",
+      "subject": "Carbon versions double files",
+      "message_count": 1,
+      "participants": [
+        "Peter Paul Sint"
+      ],
+      "started": "2001-07-13T13:40:16+02:00",
+      "last_reply": "2001-07-13T13:40:16+02:00",
+      "root_message_id": "msg-02251a4997e1"
+    },
+    {
+      "id": "thread-02251a4997e1",
+      "subject": "Carbon versions double files",
+      "message_count": 1,
+      "participants": [
+        "Peter Paul Sint"
+      ],
+      "started": "2001-07-13T13:40:16+02:00",
+      "last_reply": "2001-07-13T13:40:16+02:00",
+      "root_message_id": "msg-02251a4997e1"
+    },
+    {
+      "id": "thread-6d59bdd4942b",
+      "subject": "plot hidden grid lines",
+      "message_count": 1,
+      "participants": [
+        "Peter Paul Sint"
+      ],
+      "started": "2001-07-13T14:30:05+02:00",
+      "last_reply": "2001-07-13T14:30:05+02:00",
+      "root_message_id": "msg-6d59bdd4942b"
+    },
+    {
+      "id": "thread-6d59bdd4942b",
+      "subject": "plot hidden grid lines",
+      "message_count": 1,
+      "participants": [
+        "Peter Paul Sint"
+      ],
+      "started": "2001-07-13T14:30:05+02:00",
+      "last_reply": "2001-07-13T14:30:05+02:00",
+      "root_message_id": "msg-6d59bdd4942b"
+    },
+    {
+      "id": "thread-5296dda8c507",
+      "subject": "plot hidden grid lines 2",
+      "message_count": 1,
+      "participants": [
+        "Peter Paul Sint"
+      ],
+      "started": "2001-07-13T15:43:43+02:00",
+      "last_reply": "2001-07-13T15:43:43+02:00",
+      "root_message_id": "msg-5296dda8c507"
+    },
+    {
+      "id": "thread-5296dda8c507",
+      "subject": "plot hidden grid lines 2",
+      "message_count": 1,
+      "participants": [
+        "Peter Paul Sint"
+      ],
+      "started": "2001-07-13T15:43:43+02:00",
+      "last_reply": "2001-07-13T15:43:43+02:00",
+      "root_message_id": "msg-5296dda8c507"
+    },
+    {
+      "id": "thread-a5d15f6c4a1b",
+      "subject": "Which version should I use?",
+      "message_count": 1,
+      "participants": [
+        "Phillip N Price"
+      ],
+      "started": "2001-07-17T18:03:39-07:00",
+      "last_reply": "2001-07-17T18:03:39-07:00",
+      "root_message_id": "msg-a5d15f6c4a1b"
+    },
+    {
+      "id": "thread-a5d15f6c4a1b",
+      "subject": "Which version should I use?",
+      "message_count": 7,
+      "participants": [
+        "Don MacQueen",
+        "Jan de Leeuw",
+        "Phillip N Price",
+        "jago@mclink.it"
+      ],
+      "started": "2001-07-17T18:03:39-07:00",
+      "last_reply": "2001-07-19T00:30:50+02:00",
+      "root_message_id": "msg-a5d15f6c4a1b"
+    },
+    {
+      "id": "thread-91fbb0bf91ba",
+      "subject": "two OSX/Darwin events of interest to R",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2001-07-24T07:46:34-07:00",
+      "last_reply": "2001-07-24T07:46:34-07:00",
+      "root_message_id": "msg-91fbb0bf91ba"
+    },
+    {
+      "id": "thread-91fbb0bf91ba",
+      "subject": "two OSX/Darwin events of interest to R",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2001-07-24T07:46:34-07:00",
+      "last_reply": "2001-07-24T07:46:34-07:00",
+      "root_message_id": "msg-91fbb0bf91ba"
+    },
+    {
+      "id": "thread-6931779c8a4a",
+      "subject": "cocoa darwin and all that..",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2001-07-25T10:19:48-07:00",
+      "last_reply": "2001-07-25T10:19:48-07:00",
+      "root_message_id": "msg-6931779c8a4a"
+    },
+    {
+      "id": "thread-6931779c8a4a",
+      "subject": "cocoa darwin and all that..",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2001-07-25T10:19:48-07:00",
+      "last_reply": "2001-07-25T10:19:48-07:00",
+      "root_message_id": "msg-6931779c8a4a"
+    },
+    {
+      "id": "thread-39438c39e8ad",
+      "subject": "lapackLib module fix",
+      "message_count": 1,
+      "participants": [
+        "Stefano"
+      ],
+      "started": "2001-07-25T16:20:52+02:00",
+      "last_reply": "2001-07-25T16:20:52+02:00",
+      "root_message_id": "msg-39438c39e8ad"
+    },
+    {
+      "id": "thread-39438c39e8ad",
+      "subject": "lapackLib module fix",
+      "message_count": 1,
+      "participants": [
+        "Stefano"
+      ],
+      "started": "2001-07-25T16:20:52+02:00",
+      "last_reply": "2001-07-25T16:20:52+02:00",
+      "root_message_id": "msg-39438c39e8ad"
+    },
+    {
+      "id": "thread-d023f78bd1cb",
+      "subject": "current development status (carbon R)",
+      "message_count": 1,
+      "participants": [
+        "Stefano"
+      ],
+      "started": "2001-07-25T16:21:06+02:00",
+      "last_reply": "2001-07-25T16:21:06+02:00",
+      "root_message_id": "msg-d023f78bd1cb"
+    },
+    {
+      "id": "thread-d023f78bd1cb",
+      "subject": "current development status (carbon R)",
+      "message_count": 1,
+      "participants": [
+        "Stefano"
+      ],
+      "started": "2001-07-25T16:21:06+02:00",
+      "last_reply": "2001-07-25T16:21:06+02:00",
+      "root_message_id": "msg-d023f78bd1cb"
+    },
+    {
+      "id": "thread-e7e9bc5dbe36",
+      "subject": "how fast is R on Mac",
+      "message_count": 5,
+      "participants": [
+        "Don MacQueen",
+        "Jan de Leeuw",
+        "Jason Liao"
+      ],
+      "started": "2001-07-26T12:19:26-07:00",
+      "last_reply": "2001-07-26T13:45:15-07:00",
+      "root_message_id": "msg-e7e9bc5dbe36"
+    },
+    {
+      "id": "thread-e7e9bc5dbe36",
+      "subject": "how fast is R on Mac",
+      "message_count": 1,
+      "participants": [
+        "Jason Liao"
+      ],
+      "started": "2001-07-26T12:19:26-07:00",
+      "last_reply": "2001-07-26T12:19:26-07:00",
+      "root_message_id": "msg-e7e9bc5dbe36"
+    },
+    {
+      "id": "thread-b56ca261380c",
+      "subject": "speed test",
+      "message_count": 5,
+      "participants": [
+        "Don MacQueen",
+        "Jan de Leeuw",
+        "Jason Liao"
+      ],
+      "started": "2001-07-26T14:27:41-07:00",
+      "last_reply": "2001-07-27T13:19:36-07:00",
+      "root_message_id": "msg-b56ca261380c"
+    },
+    {
+      "id": "thread-b56ca261380c",
+      "subject": "speed test",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2001-07-26T14:27:41-07:00",
+      "last_reply": "2001-07-26T14:27:41-07:00",
+      "root_message_id": "msg-b56ca261380c"
+    }
+  ]
+}

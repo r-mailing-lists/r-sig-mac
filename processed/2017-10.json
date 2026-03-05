@@ -1,0 +1,998 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2017-10",
+  "messages": [
+    {
+      "id": "msg-537554335f3d",
+      "message_id": "<ACD1644AA6C67E4FBD0C350625508EC8366E2721@FHSDB4H16-2.csu.mcmaster.ca>",
+      "from_name": "Fox, John",
+      "from_email_hash": "26b3c2bfbc5587a1119fc93e98ed6834f6847804a317ae5707e7442251474735",
+      "date": "2017-10-03T17:03:23Z",
+      "subject": "[R-SIG-Mac] Rcmdr start-up issue",
+      "subject_clean": "Rcmdr start-up issue",
+      "in_reply_to": "<25450_1507047458_v93GHaG4011614_09980FC0-F3A9-44E1-B76F-319379B0EF67@atsu.edu>",
+      "references": [
+        "<25450_1507047458_v93GHaG4011614_09980FC0-F3A9-44E1-B76F-319379B0EF67@atsu.edu>"
+      ],
+      "body_plain": "Dear Robert,\n\nThe most common Rcmdr problem on macOS is failure to install XQuartz, which is required by the tcltk package. If you haven't installed XQuartz, then start there, and remember to reboot after the XQuartz installation: <https://www.xquartz.org/>. For more details, please see the Rcmdr installation notes for macOS at <http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html>. You should be able to use the Rcmdr from R.app, a terminal window, or RStudio.\n\nOn the other hand, if you *have* installed XQuartz and rebooted, and the problem still occurs, then see whether you can load and use the tcltk package directly, without the Rcmdr; try, e.g. (from ?TkWidgets),\n\n\tlibrary(tcltk)\n\ttt <- tktoplevel()\n\tlabel.widget <- tklabel(tt, text = \"Hello, World!\")\n\tbutton.widget <- tkbutton(tt, text = \"Push\",command = function()cat(\"OW!\\n\"))\n\ttkpack(label.widget, button.widget)\n\nFinally, your setup is very similar to mine -- that is, I haven't yet upgraded my Mac to R 3.4.2 (which I don't think is built yet for macOS) but all my R packages are up-to-date. An exception is that I haven't yet installed the latest version of Xcode, which I'll do now to see what happens. It's unclear to me from your message whether the Rcmdr package worked before you installed the newest Xcode.\n\nI hope this helps,\n John\n\n--------------------------------------\nJohn Fox, Professor Emeritus\nMcMaster University\nHamilton, Ontario, Canada\nWeb: socserv.mcmaster.ca/jfox\n\n\n\n> -----Original Message-----\n> From: R-SIG-Mac [mailto:r-sig-mac-bounces at r-project.org] On Behalf Of\n> Robert Baer\n> Sent: Saturday, September 23, 2017 10:25 AM\n> To: r-sig-mac at r-project.org\n> Subject: [R-SIG-Mac] Rcmdr start-up issue\n> \n> I seem to be having a problem starting Rcmdr:\n> \n> > library(Rcmdr)\n> Loading required package: splines\n> Loading required package: RcmdrMisc\n> Loading required package: car\n> Loading required package: sandwich\n> Loading required package: effects\n> Loading required package: carData\n> \n> Attaching package: ?carData?\n> \n> The following objects are masked from ?package:car?:\n> \n>     Guyer, UN, Vocab\n> \n> lattice theme set by effectsTheme()\n> See ?effectsTheme for details.\n> Error: package or namespace load failed for ?Rcmdr?:\n>  package ?tcltk? does not have a namespace\n> >\n> \n> I tried first from within RStudio, then from R itself. Same outcome.\n> Reinstalling Rcmdr, tcltk or tcltk2 package did not seem to help.\n> \n> I?m brand new to mac, so I may be missing something basic.  On the other\n> hand I should confess to just having just ?updated? Xcode.\n> \n> > R.Version()\n> $platform\n> [1] \"x86_64-apple-darwin15.6.0\"\n> \n> $arch\n> [1] \"x86_64\"\n> \n> $os\n> [1] \"darwin15.6.0\"\n> \n> $system\n> [1] \"x86_64, darwin15.6.0\"\n> \n> $status\n> [1] \"\"\n> \n> $major\n> [1] \"3\"\n> \n> $minor\n> [1] \"4.1\"\n> \n> $year\n> [1] \"2017\"\n> \n> $month\n> [1] \"06\"\n> \n> $day\n> [1] \"30\"\n> \n> $`svn rev`\n> [1] \"72865\"\n> \n> $language\n> [1] \"R\"\n> \n> $version.string\n> [1] \"R version 3.4.1 (2017-06-30)\"\n> \n> $nickname\n> [1] \"Single Candle\"\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Dear Robert,\n\nThe most common Rcmdr problem on macOS is failure to install XQuartz, which is required by the tcltk package. If you haven't installed XQuartz, then start there, and remember to reboot a",
+      "thread_id": "thread-537554335f3d",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-5e1c4ce8ada5",
+      "message_id": "<F72145BA-7AE3-4D88-945C-3B5B4E96D9B0@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-03T10:33:31-07:00",
+      "subject": "[R-SIG-Mac] Quartz output font is disabled in R version 3.4.1 (2017-06-30)?",
+      "subject_clean": "Quartz output font is disabled in R version 3.4.1 (2017-06-30)?",
+      "in_reply_to": "<023F94AB-42DE-48E3-9DE8-61AA25BED9CF@ed.ac.uk>",
+      "references": [
+        "<023F94AB-42DE-48E3-9DE8-61AA25BED9CF@ed.ac.uk>"
+      ],
+      "body_plain": "As soon as you \"click\" the override box the greyed out numbers should become black and you will be able to change their values. \n\nSent from my iPhone\n\n> On Sep 7, 2017, at 9:07 AM, BATES Timothy <tim.bates at ed.ac.uk> wrote:\n> \n> Seems like in R.app that accompanies  R version 3.4.1 (2017-06-30), the preference to set an output -font  for graphics is disabled?\n> <Screenshot 2017-09-07 17.04.02.png>\n> The University of Edinburgh is a charitable body, registered in\n> Scotland, with registration number SC005336.\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "As soon as you \"click\" the override box the greyed out numbers should become black and you will be able to change their values. \n\nSent from my iPhone\n\n> On Sep 7, 2017, at 9:07 AM, BATES Timothy <tim.",
+      "thread_id": "thread-5e1c4ce8ada5",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-a0c44bc42860",
+      "message_id": "<CAJ=0CtDmFB_kg_aGN=98dW+KfAPGgMuTdN6VSusBNjLfgX+meA@mail.gmail.com>",
+      "from_name": "Adrian Dușa",
+      "from_email_hash": "0adf325a6f5cc3417b78ab9f04c87fd96893831035070b13aabdf34b83338b0f",
+      "date": "2017-10-03T23:39:19+03:00",
+      "subject": "[R-SIG-Mac] Quartz output font is disabled in R version 3.4.1 (2017-06-30)?",
+      "subject_clean": "Quartz output font is disabled in R version 3.4.1 (2017-06-30)?",
+      "in_reply_to": "<F72145BA-7AE3-4D88-945C-3B5B4E96D9B0@comcast.net>",
+      "references": [
+        "<023F94AB-42DE-48E3-9DE8-61AA25BED9CF@ed.ac.uk>",
+        "<F72145BA-7AE3-4D88-945C-3B5B4E96D9B0@comcast.net>"
+      ],
+      "body_plain": "I think the question is related to the font (in the lower half), not to the\nwidth / height / DPI in the upper half of the dialog.\nJust checked, and it is not related to R 3.4.1 since I still have R 3.3.3\nand can observe the same thing.\n\nI hope it helps,\nAdrian\n\nOn Tue, Oct 3, 2017 at 8:33 PM, David Winsemius <dwinsemius at comcast.net>\nwrote:\n\n> As soon as you \"click\" the override box the greyed out numbers should\n> become black and you will be able to change their values.\n>\n> Sent from my iPhone\n>\n> > On Sep 7, 2017, at 9:07 AM, BATES Timothy <tim.bates at ed.ac.uk> wrote:\n> >\n> > Seems like in R.app that accompanies  R version 3.4.1 (2017-06-30), the\n> preference to set an output -font  for graphics is disabled?\n> > <Screenshot 2017-09-07 17.04.02.png>\n> > The University of Edinburgh is a charitable body, registered in\n> > Scotland, with registration number SC005336.\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n\n-- \nAdrian Dusa\nUniversity of Bucharest\nRomanian Social Data Archive\nSoseaua Panduri nr. 90-92\n050663 Bucharest sector 5\nRomania\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I think the question is related to the font (in the lower half), not to the\nwidth / height / DPI in the upper half of the dialog.\nJust checked, and it is not related to R 3.4.1 since I still have R 3.",
+      "thread_id": "thread-5e1c4ce8ada5",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-f29d456ebc52",
+      "message_id": "<D5F9A3F5.7A2D%jfox@mcmaster.ca>",
+      "from_name": "Fox, John",
+      "from_email_hash": "26b3c2bfbc5587a1119fc93e98ed6834f6847804a317ae5707e7442251474735",
+      "date": "2017-10-04T00:35:13Z",
+      "subject": "[R-SIG-Mac] Rcmdr start-up issue",
+      "subject_clean": "Rcmdr start-up issue",
+      "in_reply_to": "<10158_1507050221_v93H3ehF007390_ACD1644AA6C67E4FBD0C350625508EC8366E2721@FHSDB4H16-2.csu.mcmaster.ca>",
+      "references": [
+        "<25450_1507047458_v93GHaG4011614_09980FC0-F3A9-44E1-B76F-319379B0EF67@atsu.edu>",
+        "<10158_1507050221_v93H3ehF007390_ACD1644AA6C67E4FBD0C350625508EC8366E2721@FHSDB4H16-2.csu.mcmaster.ca>"
+      ],
+      "body_plain": "Dear Robert,\n\nAs a brief addendum to my previous message, I?ve now installed the newest\nversion of Xcode, and I still have no trouble using the Rcmdr package.\n\nI did get the following message when I initially loaded the Rcmdr package:\n?Agreeing to the Xcode/iOS license requires admin privileges, please run\n?sudo xcodebuild -license? and then retry this command.? But the Rcmdr\nloaded properly both before *and* after I followed the instruction in the\nmessage.\n\nBest,\n John\n\n-------------------------------------\nJohn Fox, Professor Emeritus\nMcMaster University\nHamilton, Ontario, Canada\nWeb: http://socserv.mcmaster.ca/jfox/\n\n\n\n\nOn 2017-10-03, 1:03 PM, \"R-SIG-Mac on behalf of Fox, John\"\n<r-sig-mac-bounces at r-project.org on behalf of jfox at mcmaster.ca> wrote:\n\n>Dear Robert,\n>\n>The most common Rcmdr problem on macOS is failure to install XQuartz,\n>which is required by the tcltk package. If you haven't installed XQuartz,\n>then start there, and remember to reboot after the XQuartz installation:\n><https://www.xquartz.org/>. For more details, please see the Rcmdr\n>installation notes for macOS at\n><http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html\n>>. You should be able to use the Rcmdr from R.app, a terminal window, or\n>>RStudio.\n>\n>On the other hand, if you *have* installed XQuartz and rebooted, and the\n>problem still occurs, then see whether you can load and use the tcltk\n>package directly, without the Rcmdr; try, e.g. (from ?TkWidgets),\n>\n>\tlibrary(tcltk)\n>\ttt <- tktoplevel()\n>\tlabel.widget <- tklabel(tt, text = \"Hello, World!\")\n>\tbutton.widget <- tkbutton(tt, text = \"Push\",command =\n>function()cat(\"OW!\\n\"))\n>\ttkpack(label.widget, button.widget)\n>\n>Finally, your setup is very similar to mine -- that is, I haven't yet\n>upgraded my Mac to R 3.4.2 (which I don't think is built yet for macOS)\n>but all my R packages are up-to-date. An exception is that I haven't yet\n>installed the latest version of Xcode, which I'll do now to see what\n>happens. It's unclear to me from your message whether the Rcmdr package\n>worked before you installed the newest Xcode.\n>\n>I hope this helps,\n> John\n>\n>--------------------------------------\n>John Fox, Professor Emeritus\n>McMaster University\n>Hamilton, Ontario, Canada\n>Web: socserv.mcmaster.ca/jfox\n>\n>\n>\n>> -----Original Message-----\n>> From: R-SIG-Mac [mailto:r-sig-mac-bounces at r-project.org] On Behalf Of\n>> Robert Baer\n>> Sent: Saturday, September 23, 2017 10:25 AM\n>> To: r-sig-mac at r-project.org\n>> Subject: [R-SIG-Mac] Rcmdr start-up issue\n>> \n>> I seem to be having a problem starting Rcmdr:\n>> \n>> > library(Rcmdr)\n>> Loading required package: splines\n>> Loading required package: RcmdrMisc\n>> Loading required package: car\n>> Loading required package: sandwich\n>> Loading required package: effects\n>> Loading required package: carData\n>> \n>> Attaching package: ?carData?\n>> \n>> The following objects are masked from ?package:car?:\n>> \n>>     Guyer, UN, Vocab\n>> \n>> lattice theme set by effectsTheme()\n>> See ?effectsTheme for details.\n>> Error: package or namespace load failed for ?Rcmdr?:\n>>  package ?tcltk? does not have a namespace\n>> >\n>> \n>> I tried first from within RStudio, then from R itself. Same outcome.\n>> Reinstalling Rcmdr, tcltk or tcltk2 package did not seem to help.\n>> \n>> I?m brand new to mac, so I may be missing something basic.  On the other\n>> hand I should confess to just having just ?updated? Xcode.\n>> \n>> > R.Version()\n>> $platform\n>> [1] \"x86_64-apple-darwin15.6.0\"\n>> \n>> $arch\n>> [1] \"x86_64\"\n>> \n>> $os\n>> [1] \"darwin15.6.0\"\n>> \n>> $system\n>> [1] \"x86_64, darwin15.6.0\"\n>> \n>> $status\n>> [1] \"\"\n>> \n>> $major\n>> [1] \"3\"\n>> \n>> $minor\n>> [1] \"4.1\"\n>> \n>> $year\n>> [1] \"2017\"\n>> \n>> $month\n>> [1] \"06\"\n>> \n>> $day\n>> [1] \"30\"\n>> \n>> $`svn rev`\n>> [1] \"72865\"\n>> \n>> $language\n>> [1] \"R\"\n>> \n>> $version.string\n>> [1] \"R version 3.4.1 (2017-06-30)\"\n>> \n>> $nickname\n>> [1] \"Single Candle\"\n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Dear Robert,\n\nAs a brief addendum to my previous message, I?ve now installed the newest\nversion of Xcode, and I still have no trouble using the Rcmdr package.\n\nI did get the following message when I i",
+      "thread_id": "thread-f29d456ebc52",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-6d4435d7d506",
+      "message_id": "<016D2EA7-AA91-44F1-9FC5-6C0EFB5FDD2D@gmail.com>",
+      "from_name": "Tim Bates",
+      "from_email_hash": "906d407a729647cc91c4e43ce28d4fcaa3d8c31102184befaff986e86fb70998",
+      "date": "2017-10-04T07:33:01+01:00",
+      "subject": "[R-SIG-Mac] Quartz output font is disabled in R version 3.4.1 (2017-06-30)?",
+      "subject_clean": "Quartz output font is disabled in R version 3.4.1 (2017-06-30)?",
+      "in_reply_to": "<CAJ=0CtDmFB_kg_aGN=98dW+KfAPGgMuTdN6VSusBNjLfgX+meA@mail.gmail.com>",
+      "references": [
+        "<023F94AB-42DE-48E3-9DE8-61AA25BED9CF@ed.ac.uk>",
+        "<F72145BA-7AE3-4D88-945C-3B5B4E96D9B0@comcast.net>",
+        "<CAJ=0CtDmFB_kg_aGN=98dW+KfAPGgMuTdN6VSusBNjLfgX+meA@mail.gmail.com>"
+      ],
+      "body_plain": "Adrian is correct: the bug is that the font box is always disabled.\n\n> On 3 Oct 2017, at 9:39 pm, Adrian Du?a <dusa.adrian at unibuc.ro> wrote:\n> I think the question is related to the font (in the lower half), not to the\n> width / height / DPI in the upper half of the dialog.\n> Just checked, and it is not related to R 3.4.1 since I still have R 3.3.3\n> and can observe the same thing.\n> \n>> As soon as you \"click\" the override box the greyed out numbers should\n>> become black and you will be able to change their values.\n> \nOn Sep 7, 2017, at 9:07 AM, BATES Timothy <tim.bates at ed.ac.uk> wrote:\n>> In R.app  the preference to set an output -font  for graphics is disabled.\n>> (R version 3.4.1 (2017-06-30),\n\nmy list of things I?d pay to get fixed includes:\n1. Custom Clang throwing undefined exception instead of error message\n2. No approved dmg installer for new toolchain.\n3. Font family and size fields disabled in prefs:Quartz\n4. Bottom Tool-tips bar too small now: Should be the same height as the console font.\n5. Window resizing throwing warnings about deprecated functions.\n6. Default directory, CRAN, and save on quit settings forgotten (reset) from time to time.\n7. Using desktop folder throws warnings on Sierra\nobjc[13440]: Class FIFinderSyncExtensionHost is implemented in both /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit (0x7fffb2988a70) and /System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride (0x116fcecd8). One of the two will be used. Which one is undefined.\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Adrian is correct: the bug is that the font box is always disabled.\n\n> On 3 Oct 2017, at 9:39 pm, Adrian Du?a <dusa.adrian at unibuc.ro> wrote:\n> I think the question is related to the font (in the lo",
+      "thread_id": "thread-5e1c4ce8ada5",
+      "thread_depth": 2,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-3b87472eeaa7",
+      "message_id": "<fc23dc32-65ce-0fde-a463-75b4f278225b@atsu.edu>",
+      "from_name": "Robert Baer",
+      "from_email_hash": "ddd5677bd41ce9ccb8239fe4a8cc1ce533091d0e3a66b906fbf82801b2b76509",
+      "date": "2017-10-04T09:08:45-05:00",
+      "subject": "[R-SIG-Mac] Rcmdr start-up issue",
+      "subject_clean": "Rcmdr start-up issue",
+      "in_reply_to": "<D5F9A3F5.7A2D%jfox@mcmaster.ca>",
+      "references": [
+        "<25450_1507047458_v93GHaG4011614_09980FC0-F3A9-44E1-B76F-319379B0EF67@atsu.edu>",
+        "<10158_1507050221_v93H3ehF007390_ACD1644AA6C67E4FBD0C350625508EC8366E2721@FHSDB4H16-2.csu.mcmaster.ca>",
+        "<D5F9A3F5.7A2D%jfox@mcmaster.ca>"
+      ],
+      "body_plain": "Thanks so much for taking the time to respond. ? I followed the Xcode \ninstructions in your first paragraph and? instructions and everything is \nworking now as expected.? Not sure what happened before.? As of last \nyear, more that half my students now live in the Mac world, so it seems \nI need to up my skill level.\n\nEnjoyed the little tcltk exercise/test you supplied.??? Thanks again.\n\nSincerely,\n\nRob\n\n\nOn 10/3/2017 7:35 PM, Fox, John wrote:\n> Dear Robert,\n>\n> As a brief addendum to my previous message, I?ve now installed the newest\n> version of Xcode, and I still have no trouble using the Rcmdr package.\n>\n> I did get the following message when I initially loaded the Rcmdr package:\n> ?Agreeing to the Xcode/iOS license requires admin privileges, please run\n> ?sudo xcodebuild -license? and then retry this command.? But the Rcmdr\n> loaded properly both before *and* after I followed the instruction in the\n> message.\n>\n> Best,\n>   John\n>\n> -------------------------------------\n> John Fox, Professor Emeritus\n> McMaster University\n> Hamilton, Ontario, Canada\n> Web: http://socserv.mcmaster.ca/jfox/\n>\n>\n>\n>\n> On 2017-10-03, 1:03 PM, \"R-SIG-Mac on behalf of Fox, John\"\n> <r-sig-mac-bounces at r-project.org on behalf of jfox at mcmaster.ca> wrote:\n>\n>> Dear Robert,\n>>\n>> The most common Rcmdr problem on macOS is failure to install XQuartz,\n>> which is required by the tcltk package. If you haven't installed XQuartz,\n>> then start there, and remember to reboot after the XQuartz installation:\n>> <https://www.xquartz.org/>. For more details, please see the Rcmdr\n>> installation notes for macOS at\n>> <http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html\n>>> . You should be able to use the Rcmdr from R.app, a terminal window, or\n>>> RStudio.\n>> On the other hand, if you *have* installed XQuartz and rebooted, and the\n>> problem still occurs, then see whether you can load and use the tcltk\n>> package directly, without the Rcmdr; try, e.g. (from ?TkWidgets),\n>>\n>> \tlibrary(tcltk)\n>> \ttt <- tktoplevel()\n>> \tlabel.widget <- tklabel(tt, text = \"Hello, World!\")\n>> \tbutton.widget <- tkbutton(tt, text = \"Push\",command =\n>> function()cat(\"OW!\\n\"))\n>> \ttkpack(label.widget, button.widget)\n>>\n>> Finally, your setup is very similar to mine -- that is, I haven't yet\n>> upgraded my Mac to R 3.4.2 (which I don't think is built yet for macOS)\n>> but all my R packages are up-to-date. An exception is that I haven't yet\n>> installed the latest version of Xcode, which I'll do now to see what\n>> happens. It's unclear to me from your message whether the Rcmdr package\n>> worked before you installed the newest Xcode.\n>>\n>> I hope this helps,\n>> John\n>>\n>> --------------------------------------\n>> John Fox, Professor Emeritus\n>> McMaster University\n>> Hamilton, Ontario, Canada\n>> Web: socserv.mcmaster.ca/jfox\n>>\n>>\n>>\n>>> -----Original Message-----\n>>> From: R-SIG-Mac [mailto:r-sig-mac-bounces at r-project.org] On Behalf Of\n>>> Robert Baer\n>>> Sent: Saturday, September 23, 2017 10:25 AM\n>>> To: r-sig-mac at r-project.org\n>>> Subject: [R-SIG-Mac] Rcmdr start-up issue\n>>>\n>>> I seem to be having a problem starting Rcmdr:\n>>>\n>>>> library(Rcmdr)\n>>> Loading required package: splines\n>>> Loading required package: RcmdrMisc\n>>> Loading required package: car\n>>> Loading required package: sandwich\n>>> Loading required package: effects\n>>> Loading required package: carData\n>>>\n>>> Attaching package: ?carData?\n>>>\n>>> The following objects are masked from ?package:car?:\n>>>\n>>>      Guyer, UN, Vocab\n>>>\n>>> lattice theme set by effectsTheme()\n>>> See ?effectsTheme for details.\n>>> Error: package or namespace load failed for ?Rcmdr?:\n>>>   package ?tcltk? does not have a namespace\n>>> I tried first from within RStudio, then from R itself. Same outcome.\n>>> Reinstalling Rcmdr, tcltk or tcltk2 package did not seem to help.\n>>>\n>>> I?m brand new to mac, so I may be missing something basic.  On the other\n>>> hand I should confess to just having just ?updated? Xcode.\n>>>\n>>>> R.Version()\n>>> $platform\n>>> [1] \"x86_64-apple-darwin15.6.0\"\n>>>\n>>> $arch\n>>> [1] \"x86_64\"\n>>>\n>>> $os\n>>> [1] \"darwin15.6.0\"\n>>>\n>>> $system\n>>> [1] \"x86_64, darwin15.6.0\"\n>>>\n>>> $status\n>>> [1] \"\"\n>>>\n>>> $major\n>>> [1] \"3\"\n>>>\n>>> $minor\n>>> [1] \"4.1\"\n>>>\n>>> $year\n>>> [1] \"2017\"\n>>>\n>>> $month\n>>> [1] \"06\"\n>>>\n>>> $day\n>>> [1] \"30\"\n>>>\n>>> $`svn rev`\n>>> [1] \"72865\"\n>>>\n>>> $language\n>>> [1] \"R\"\n>>>\n>>> $version.string\n>>> [1] \"R version 3.4.1 (2017-06-30)\"\n>>>\n>>> $nickname\n>>> [1] \"Single Candle\"\n>>>\n>>>\n>>> \t[[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \n\n\n--\nRobert W. Baer, Ph.D.\nProfessor of Physiology\nKirksville College of Osteopathic Medicine\nA T Still University of Health Sciences\n800 W. Jefferson St\nKirksville, MO 63501\n660-626-2321 Department\n660-626-2965 FAX",
+      "body_snippet": "Thanks so much for taking the time to respond. ? I followed the Xcode \ninstructions in your first paragraph and? instructions and everything is \nworking now as expected.? Not sure what happened before",
+      "thread_id": "thread-f29d456ebc52",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-7f68f57a7a3b",
+      "message_id": "<ACD1644AA6C67E4FBD0C350625508EC8366E5CB9@FHSDB4H16-2.csu.mcmaster.ca>",
+      "from_name": "Fox, John",
+      "from_email_hash": "26b3c2bfbc5587a1119fc93e98ed6834f6847804a317ae5707e7442251474735",
+      "date": "2017-10-04T15:26:00Z",
+      "subject": "[R-SIG-Mac] Rcmdr start-up issue",
+      "subject_clean": "Rcmdr start-up issue",
+      "in_reply_to": "<fc23dc32-65ce-0fde-a463-75b4f278225b@atsu.edu>",
+      "references": [
+        "<25450_1507047458_v93GHaG4011614_09980FC0-F3A9-44E1-B76F-319379B0EF67@atsu.edu>",
+        "<10158_1507050221_v93H3ehF007390_ACD1644AA6C67E4FBD0C350625508EC8366E2721@FHSDB4H16-2.csu.mcmaster.ca>",
+        "<D5F9A3F5.7A2D%jfox@mcmaster.ca>",
+        "<fc23dc32-65ce-0fde-a463-75b4f278225b@atsu.edu>"
+      ],
+      "body_plain": "Dear Robert,\n\nIf I understand you correctly, you had to agree to the Xcode license in order to get the tcltk and Rcmdr packages to work. That wasn't my experience. Is it possible that you did something else, like rebooting your computer after installing XQuartz?\n\nThe reason I ask is that I want to understand what went wrong in case someone else has a similar problem in future.\n\nBest,\n John\n\n> -----Original Message-----\n> From: Robert Baer [mailto:rbaer at atsu.edu]\n> Sent: Wednesday, October 4, 2017 10:09 AM\n> To: Fox, John <jfox at mcmaster.ca>\n> Cc: r-sig-mac at r-project.org\n> Subject: Re: [R-SIG-Mac] Rcmdr start-up issue\n> \n> Thanks so much for taking the time to respond. ? I followed the Xcode\n> instructions in your first paragraph and? instructions and everything is working\n> now as expected.? Not sure what happened before.? As of last year, more that\n> half my students now live in the Mac world, so it seems I need to up my skill\n> level.\n> \n> Enjoyed the little tcltk exercise/test you supplied.??? Thanks again.\n> \n> Sincerely,\n> \n> Rob\n> \n> \n> On 10/3/2017 7:35 PM, Fox, John wrote:\n> > Dear Robert,\n> >\n> > As a brief addendum to my previous message, I?ve now installed the\n> > newest version of Xcode, and I still have no trouble using the Rcmdr package.\n> >\n> > I did get the following message when I initially loaded the Rcmdr package:\n> > ?Agreeing to the Xcode/iOS license requires admin privileges, please\n> > run ?sudo xcodebuild -license? and then retry this command.? But the\n> > Rcmdr loaded properly both before *and* after I followed the\n> > instruction in the message.\n> >\n> > Best,\n> >   John\n> >\n> > -------------------------------------\n> > John Fox, Professor Emeritus\n> > McMaster University\n> > Hamilton, Ontario, Canada\n> > Web: http://socserv.mcmaster.ca/jfox/\n> >\n> >\n> >\n> >\n> > On 2017-10-03, 1:03 PM, \"R-SIG-Mac on behalf of Fox, John\"\n> > <r-sig-mac-bounces at r-project.org on behalf of jfox at mcmaster.ca> wrote:\n> >\n> >> Dear Robert,\n> >>\n> >> The most common Rcmdr problem on macOS is failure to install XQuartz,\n> >> which is required by the tcltk package. If you haven't installed\n> >> XQuartz, then start there, and remember to reboot after the XQuartz\n> installation:\n> >> <https://www.xquartz.org/>. For more details, please see the Rcmdr\n> >> installation notes for macOS at\n> >> <http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes\n> >> .html\n> >>> . You should be able to use the Rcmdr from R.app, a terminal window,\n> >>> or RStudio.\n> >> On the other hand, if you *have* installed XQuartz and rebooted, and\n> >> the problem still occurs, then see whether you can load and use the\n> >> tcltk package directly, without the Rcmdr; try, e.g. (from\n> >> ?TkWidgets),\n> >>\n> >> \tlibrary(tcltk)\n> >> \ttt <- tktoplevel()\n> >> \tlabel.widget <- tklabel(tt, text = \"Hello, World!\")\n> >> \tbutton.widget <- tkbutton(tt, text = \"Push\",command =\n> >> function()cat(\"OW!\\n\"))\n> >> \ttkpack(label.widget, button.widget)\n> >>\n> >> Finally, your setup is very similar to mine -- that is, I haven't yet\n> >> upgraded my Mac to R 3.4.2 (which I don't think is built yet for\n> >> macOS) but all my R packages are up-to-date. An exception is that I\n> >> haven't yet installed the latest version of Xcode, which I'll do now\n> >> to see what happens. It's unclear to me from your message whether the\n> >> Rcmdr package worked before you installed the newest Xcode.\n> >>\n> >> I hope this helps,\n> >> John\n> >>\n> >> --------------------------------------\n> >> John Fox, Professor Emeritus\n> >> McMaster University\n> >> Hamilton, Ontario, Canada\n> >> Web: socserv.mcmaster.ca/jfox\n> >>\n> >>\n> >>\n> >>> -----Original Message-----\n> >>> From: R-SIG-Mac [mailto:r-sig-mac-bounces at r-project.org] On Behalf\n> >>> Of Robert Baer\n> >>> Sent: Saturday, September 23, 2017 10:25 AM\n> >>> To: r-sig-mac at r-project.org\n> >>> Subject: [R-SIG-Mac] Rcmdr start-up issue\n> >>>\n> >>> I seem to be having a problem starting Rcmdr:\n> >>>\n> >>>> library(Rcmdr)\n> >>> Loading required package: splines\n> >>> Loading required package: RcmdrMisc\n> >>> Loading required package: car\n> >>> Loading required package: sandwich\n> >>> Loading required package: effects\n> >>> Loading required package: carData\n> >>>\n> >>> Attaching package: ?carData?\n> >>>\n> >>> The following objects are masked from ?package:car?:\n> >>>\n> >>>      Guyer, UN, Vocab\n> >>>\n> >>> lattice theme set by effectsTheme()\n> >>> See ?effectsTheme for details.\n> >>> Error: package or namespace load failed for ?Rcmdr?:\n> >>>   package ?tcltk? does not have a namespace I tried first from\n> >>> within RStudio, then from R itself. Same outcome.\n> >>> Reinstalling Rcmdr, tcltk or tcltk2 package did not seem to help.\n> >>>\n> >>> I?m brand new to mac, so I may be missing something basic.  On the\n> >>> other hand I should confess to just having just ?updated? Xcode.\n> >>>\n> >>>> R.Version()\n> >>> $platform\n> >>> [1] \"x86_64-apple-darwin15.6.0\"\n> >>>\n> >>> $arch\n> >>> [1] \"x86_64\"\n> >>>\n> >>> $os\n> >>> [1] \"darwin15.6.0\"\n> >>>\n> >>> $system\n> >>> [1] \"x86_64, darwin15.6.0\"\n> >>>\n> >>> $status\n> >>> [1] \"\"\n> >>>\n> >>> $major\n> >>> [1] \"3\"\n> >>>\n> >>> $minor\n> >>> [1] \"4.1\"\n> >>>\n> >>> $year\n> >>> [1] \"2017\"\n> >>>\n> >>> $month\n> >>> [1] \"06\"\n> >>>\n> >>> $day\n> >>> [1] \"30\"\n> >>>\n> >>> $`svn rev`\n> >>> [1] \"72865\"\n> >>>\n> >>> $language\n> >>> [1] \"R\"\n> >>>\n> >>> $version.string\n> >>> [1] \"R version 3.4.1 (2017-06-30)\"\n> >>>\n> >>> $nickname\n> >>> [1] \"Single Candle\"\n> >>>\n> >>>\n> >>> \t[[alternative HTML version deleted]]\n> >>>\n> >>> _______________________________________________\n> >>> R-SIG-Mac mailing list\n> >>> R-SIG-Mac at r-project.org\n> >>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> --\n> \n> \n> --\n> Robert W. Baer, Ph.D.\n> Professor of Physiology\n> Kirksville College of Osteopathic Medicine A T Still University of Health\n> Sciences\n> 800 W. Jefferson St\n> Kirksville, MO 63501\n> 660-626-2321 Department\n> 660-626-2965 FAX",
+      "body_snippet": "Dear Robert,\n\nIf I understand you correctly, you had to agree to the Xcode license in order to get the tcltk and Rcmdr packages to work. That wasn't my experience. Is it possible that you did somethin",
+      "thread_id": "thread-f29d456ebc52",
+      "thread_depth": 2,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-4bf52287559e",
+      "message_id": "<02c19d88-3328-8a82-6ded-6ca931e315b4@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2017-10-05T08:17:25+01:00",
+      "subject": "[R-SIG-Mac] R 3.4.2 on High Sierra (10.13)",
+      "subject_clean": "R 3.4.2 on High Sierra (10.13)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "[Repeating for convenient reference a comment in an earlier thread.]\n\nR 3.4.2 was in code freeze when High Sierra as released, and so there \nwas no opportunity to make and test workarounds for undocumented changes \nto the latter.\n\nR will be unable to find the system timezone on High Sierra (confirmed \nwith the CRAN 3.4.2 release):\n\n > Sys.timezone()\n[1] NA\n > .leap.seconds\n  [1] \"1972-07-01 GMT\" \"1973-01-01 GMT\" \"1974-01-01 GMT\" \"1975-01-01 GMT\"\n  [5] \"1976-01-01 GMT\" \"1977-01-01 GMT\" \"1978-01-01 GMT\" \"1979-01-01 GMT\"\n  [9] \"1980-01-01 GMT\" \"1981-07-01 GMT\" \"1982-07-01 GMT\" \"1983-07-01 GMT\"\n[13] \"1985-07-01 GMT\" \"1988-01-01 GMT\" \"1990-01-01 GMT\" \"1991-01-01 GMT\"\n[17] \"1992-07-01 GMT\" \"1993-07-01 GMT\" \"1994-07-01 GMT\" \"1996-01-01 GMT\"\n[21] \"1997-07-01 GMT\" \"1999-01-01 GMT\" \"2006-01-01 GMT\" \"2009-01-01 GMT\"\n[25] \"2012-07-01 GMT\" \"2015-07-01 GMT\" \"2017-01-01 GMT\"\nWarning message:\nIn as.POSIXlt.POSIXct(x, tz) : unknown timezone 'default/Europe/London'\n\n\nPerhaps the best workaround is to use R-patched from \nhttp://r.research.att.com/ .  However, in almost all cases a workaround \nis to set TZ, either outside the session (not so easy for R.app) or at \nthe beginning of the session by e.g.\n\nSys.setenv(TZ = \"Europe/London\")\n\n(where the correct value will be obvious from running the code above).\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "[Repeating for convenient reference a comment in an earlier thread.]\n\nR 3.4.2 was in code freeze when High Sierra as released, and so there \nwas no opportunity to make and test workarounds for undocum",
+      "thread_id": "thread-4bf52287559e",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-e01ba8b35cf9",
+      "message_id": "<7825B0A7-BA12-4086-95B2-B7586E9FBD9F@atsu.edu>",
+      "from_name": "Robert Baer",
+      "from_email_hash": "ddd5677bd41ce9ccb8239fe4a8cc1ce533091d0e3a66b906fbf82801b2b76509",
+      "date": "2017-10-08T11:42:38-05:00",
+      "subject": "[R-SIG-Mac] Rcmdr start-up issue",
+      "subject_clean": "Rcmdr start-up issue",
+      "in_reply_to": "<ACD1644AA6C67E4FBD0C350625508EC8366E5CB9@FHSDB4H16-2.csu.mcmaster.ca>",
+      "references": [
+        "<25450_1507047458_v93GHaG4011614_09980FC0-F3A9-44E1-B76F-319379B0EF67@atsu.edu>",
+        "<10158_1507050221_v93H3ehF007390_ACD1644AA6C67E4FBD0C350625508EC8366E2721@FHSDB4H16-2.csu.mcmaster.ca>",
+        "<D5F9A3F5.7A2D%jfox@mcmaster.ca>",
+        "<fc23dc32-65ce-0fde-a463-75b4f278225b@atsu.edu>",
+        "<ACD1644AA6C67E4FBD0C350625508EC8366E5CB9@FHSDB4H16-2.csu.mcmaster.ca>"
+      ],
+      "body_plain": "> On Oct 4, 2017, at 10:26 AM, Fox, John <jfox at mcmaster.ca> wrote:\n> \n> Dear Robert,\n> \n> If I understand you correctly, you had to agree to the Xcode license in order to get the tcltk and Rcmdr packages to work. That wasn't my experience. Is it possible that you did something else, like rebooting your computer after installing XQuartz?\n> \n> The reason I ask is that I want to understand what went wrong in case someone else has a similar problem in future.\n> \n> Best,\n> John\n\nUnfortunately, I can?t remember the details very clearly.  My memory is that I chose the XQuartz link from the CRAN page and installed, but I don?t remember if I rebooted for sure.  It is possible that I did not.  I also do not specifically remember if I did a license agreement step although I imagine I did.  \n\n I have done some cookbook homebrew and pip incantations on this machine that I suppose could contribute to a ?my fault? situation here.  \n\nThanks again for your help and I?ll be eves dropping on this list going forward to see if it is newbie  (lack of) skills that was my downfall or something more real.\n\nRob\n\n> \n>> -----Original Message-----\n>> From: Robert Baer [mailto:rbaer at atsu.edu]\n>> Sent: Wednesday, October 4, 2017 10:09 AM\n>> To: Fox, John <jfox at mcmaster.ca>\n>> Cc: r-sig-mac at r-project.org\n>> Subject: Re: [R-SIG-Mac] Rcmdr start-up issue\n>> \n>> Thanks so much for taking the time to respond.   I followed the Xcode\n>> instructions in your first paragraph and  instructions and everything is working\n>> now as expected.  Not sure what happened before.  As of last year, more that\n>> half my students now live in the Mac world, so it seems I need to up my skill\n>> level.\n>> \n>> Enjoyed the little tcltk exercise/test you supplied.    Thanks again.\n>> \n>> Sincerely,\n>> \n>> Rob\n>> \n>> \n>> On 10/3/2017 7:35 PM, Fox, John wrote:\n>>> Dear Robert,\n>>> \n>>> As a brief addendum to my previous message, I?ve now installed the\n>>> newest version of Xcode, and I still have no trouble using the Rcmdr package.\n>>> \n>>> I did get the following message when I initially loaded the Rcmdr package:\n>>> ?Agreeing to the Xcode/iOS license requires admin privileges, please\n>>> run ?sudo xcodebuild -license? and then retry this command.? But the\n>>> Rcmdr loaded properly both before *and* after I followed the\n>>> instruction in the message.\n>>> \n>>> Best,\n>>>  John\n>>> \n>>> -------------------------------------\n>>> John Fox, Professor Emeritus\n>>> McMaster University\n>>> Hamilton, Ontario, Canada\n>>> Web: http://socserv.mcmaster.ca/jfox/\n>>> \n>>> \n>>> \n>>> \n>>> On 2017-10-03, 1:03 PM, \"R-SIG-Mac on behalf of Fox, John\"\n>>> <r-sig-mac-bounces at r-project.org on behalf of jfox at mcmaster.ca> wrote:\n>>> \n>>>> Dear Robert,\n>>>> \n>>>> The most common Rcmdr problem on macOS is failure to install XQuartz,\n>>>> which is required by the tcltk package. If you haven't installed\n>>>> XQuartz, then start there, and remember to reboot after the XQuartz\n>> installation:\n>>>> <https://www.xquartz.org/>. For more details, please see the Rcmdr\n>>>> installation notes for macOS at\n>>>> <http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes\n>>>> .html\n>>>>> . You should be able to use the Rcmdr from R.app, a terminal window,\n>>>>> or RStudio.\n>>>> On the other hand, if you *have* installed XQuartz and rebooted, and\n>>>> the problem still occurs, then see whether you can load and use the\n>>>> tcltk package directly, without the Rcmdr; try, e.g. (from\n>>>> ?TkWidgets),\n>>>> \n>>>> \tlibrary(tcltk)\n>>>> \ttt <- tktoplevel()\n>>>> \tlabel.widget <- tklabel(tt, text = \"Hello, World!\")\n>>>> \tbutton.widget <- tkbutton(tt, text = \"Push\",command =\n>>>> function()cat(\"OW!\\n\"))\n>>>> \ttkpack(label.widget, button.widget)\n>>>> \n>>>> Finally, your setup is very similar to mine -- that is, I haven't yet\n>>>> upgraded my Mac to R 3.4.2 (which I don't think is built yet for\n>>>> macOS) but all my R packages are up-to-date. An exception is that I\n>>>> haven't yet installed the latest version of Xcode, which I'll do now\n>>>> to see what happens. It's unclear to me from your message whether the\n>>>> Rcmdr package worked before you installed the newest Xcode.\n>>>> \n>>>> I hope this helps,\n>>>> John\n>>>> \n>>>> --------------------------------------\n>>>> John Fox, Professor Emeritus\n>>>> McMaster University\n>>>> Hamilton, Ontario, Canada\n>>>> Web: socserv.mcmaster.ca/jfox\n>>>> \n>>>> \n>>>> \n>>>>> -----Original Message-----\n>>>>> From: R-SIG-Mac [mailto:r-sig-mac-bounces at r-project.org] On Behalf\n>>>>> Of Robert Baer\n>>>>> Sent: Saturday, September 23, 2017 10:25 AM\n>>>>> To: r-sig-mac at r-project.org\n>>>>> Subject: [R-SIG-Mac] Rcmdr start-up issue\n>>>>> \n>>>>> I seem to be having a problem starting Rcmdr:\n>>>>> \n>>>>>> library(Rcmdr)\n>>>>> Loading required package: splines\n>>>>> Loading required package: RcmdrMisc\n>>>>> Loading required package: car\n>>>>> Loading required package: sandwich\n>>>>> Loading required package: effects\n>>>>> Loading required package: carData\n>>>>> \n>>>>> Attaching package: ?carData?\n>>>>> \n>>>>> The following objects are masked from ?package:car?:\n>>>>> \n>>>>>     Guyer, UN, Vocab\n>>>>> \n>>>>> lattice theme set by effectsTheme()\n>>>>> See ?effectsTheme for details.\n>>>>> Error: package or namespace load failed for ?Rcmdr?:\n>>>>>  package ?tcltk? does not have a namespace I tried first from\n>>>>> within RStudio, then from R itself. Same outcome.\n>>>>> Reinstalling Rcmdr, tcltk or tcltk2 package did not seem to help.\n>>>>> \n>>>>> I?m brand new to mac, so I may be missing something basic.  On the\n>>>>> other hand I should confess to just having just ?updated? Xcode.\n>>>>> \n>>>>>> R.Version()\n>>>>> $platform\n>>>>> [1] \"x86_64-apple-darwin15.6.0\"\n>>>>> \n>>>>> $arch\n>>>>> [1] \"x86_64\"\n>>>>> \n>>>>> $os\n>>>>> [1] \"darwin15.6.0\"\n>>>>> \n>>>>> $system\n>>>>> [1] \"x86_64, darwin15.6.0\"\n>>>>> \n>>>>> $status\n>>>>> [1] \"\"\n>>>>> \n>>>>> $major\n>>>>> [1] \"3\"\n>>>>> \n>>>>> $minor\n>>>>> [1] \"4.1\"\n>>>>> \n>>>>> $year\n>>>>> [1] \"2017\"\n>>>>> \n>>>>> $month\n>>>>> [1] \"06\"\n>>>>> \n>>>>> $day\n>>>>> [1] \"30\"\n>>>>> \n>>>>> $`svn rev`\n>>>>> [1] \"72865\"\n>>>>> \n>>>>> $language\n>>>>> [1] \"R\"\n>>>>> \n>>>>> $version.string\n>>>>> [1] \"R version 3.4.1 (2017-06-30)\"\n>>>>> \n>>>>> $nickname\n>>>>> [1] \"Single Candle\"\n>>>>> \n>>>>> \n>>>>> \t[[alternative HTML version deleted]]\n>>>>> \n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> --\n>> \n>> \n>> --\n>> Robert W. Baer, Ph.D.\n>> Professor of Physiology\n>> Kirksville College of Osteopathic Medicine A T Still University of Health\n>> Sciences\n>> 800 W. Jefferson St\n>> Kirksville, MO 63501\n>> 660-626-2321 Department\n>> 660-626-2965 FAX\n>",
+      "body_snippet": "> On Oct 4, 2017, at 10:26 AM, Fox, John <jfox at mcmaster.ca> wrote:\n> \n> Dear Robert,\n> \n> If I understand you correctly, you had to agree to the Xcode license in order to get the tcltk and Rcmdr pa",
+      "thread_id": "thread-f29d456ebc52",
+      "thread_depth": 3,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-737995eb26e3",
+      "message_id": "<CA+dpOJ=SATqS7fJV=1zqWM4v4Xs9d6Vqn1PCRK54nqK+DFMHwA@mail.gmail.com>",
+      "from_name": "Christofer Bogaso",
+      "from_email_hash": "94494191170f349151c3e1bde090e6754a900331a7aa0f79aada4c207f2bcfdf",
+      "date": "2017-10-10T23:28:06+05:30",
+      "subject": "[R-SIG-Mac] Executing iOS system code within R",
+      "subject_clean": "Executing iOS system code within R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi again,\n\nI need to execute few line of system codes for iOS from R. Basically\nthat execution involves (as an example) :\n\n1. Change the Working directory first\n2. Execute some task (e.g.deleting a file)\n3. Then go back to original folder/directory\n\nI am aware of system() function which can be used here. However it\nlooks that system() function executes iOS code one-by-one i.e. after I\nexecute system('cd .....') for #1 above, that changed directory is not\npassed for #2 and so on.\n\nIs there any way where I can run a chain on iOS code as-a-whole using R.\n\nYour help will be highly appreciated.\n\nThanks for your time.",
+      "body_snippet": "Hi again,\n\nI need to execute few line of system codes for iOS from R. Basically\nthat execution involves (as an example) :\n\n1. Change the Working directory first\n2. Execute some task (e.g.deleting a fi",
+      "thread_id": "thread-737995eb26e3",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-aebf8772a8f3",
+      "message_id": "<CANQ3A2NH0PrDDecxq=mo7jP1uejSYmrVWf5Uqo46FH2T75hxeg@mail.gmail.com>",
+      "from_name": "elijah wright",
+      "from_email_hash": "3ec681c84ce60aeb6a06d8ce3e75ce6ee8f8227317045dc71a424ccac0c66620",
+      "date": "2017-10-10T13:03:47-05:00",
+      "subject": "[R-SIG-Mac] Executing iOS system code within R",
+      "subject_clean": "Executing iOS system code within R",
+      "in_reply_to": "<CA+dpOJ=SATqS7fJV=1zqWM4v4Xs9d6Vqn1PCRK54nqK+DFMHwA@mail.gmail.com>",
+      "references": [
+        "<CA+dpOJ=SATqS7fJV=1zqWM4v4Xs9d6Vqn1PCRK54nqK+DFMHwA@mail.gmail.com>"
+      ],
+      "body_plain": "Did you mean macOS?  I am not aware of anything that can run both R\nand iOS code - if there's some fancy thing out there that can, i would\nlike to know about that.  ;-)\n\n--e\n\n\nOn Tue, Oct 10, 2017 at 12:58 PM, Christofer Bogaso\n<bogaso.christofer at gmail.com> wrote:\n> Hi again,\n>\n> I need to execute few line of system codes for iOS from R. Basically\n> that execution involves (as an example) :\n>\n> 1. Change the Working directory first\n> 2. Execute some task (e.g.deleting a file)\n> 3. Then go back to original folder/directory\n>\n> I am aware of system() function which can be used here. However it\n> looks that system() function executes iOS code one-by-one i.e. after I\n> execute system('cd .....') for #1 above, that changed directory is not\n> passed for #2 and so on.\n>\n> Is there any way where I can run a chain on iOS code as-a-whole using R.\n>\n> Your help will be highly appreciated.\n>\n> Thanks for your time.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Did you mean macOS?  I am not aware of anything that can run both R\nand iOS code - if there's some fancy thing out there that can, i would\nlike to know about that.  ;-)\n\n--e\n\n\nOn Tue, Oct 10, 2017 at ",
+      "thread_id": "thread-737995eb26e3",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-ef7b9664c850",
+      "message_id": "<CA+dpOJmVMjbNY4kbBOdBE6SyHBxX-0MakkXHb5K3vZzoAiTtfA@mail.gmail.com>",
+      "from_name": "Christofer Bogaso",
+      "from_email_hash": "94494191170f349151c3e1bde090e6754a900331a7aa0f79aada4c207f2bcfdf",
+      "date": "2017-10-10T23:35:26+05:30",
+      "subject": "[R-SIG-Mac] Executing iOS system code within R",
+      "subject_clean": "Executing iOS system code within R",
+      "in_reply_to": "<CANQ3A2NH0PrDDecxq=mo7jP1uejSYmrVWf5Uqo46FH2T75hxeg@mail.gmail.com>",
+      "references": [
+        "<CA+dpOJ=SATqS7fJV=1zqWM4v4Xs9d6Vqn1PCRK54nqK+DFMHwA@mail.gmail.com>",
+        "<CANQ3A2NH0PrDDecxq=mo7jP1uejSYmrVWf5Uqo46FH2T75hxeg@mail.gmail.com>"
+      ],
+      "body_plain": "Yes macOS - High Sierra\n\nOn Tue, Oct 10, 2017 at 11:33 PM, elijah wright <elw at stderr.org> wrote:\n> Did you mean macOS?  I am not aware of anything that can run both R\n> and iOS code - if there's some fancy thing out there that can, i would\n> like to know about that.  ;-)\n>\n> --e\n>\n>\n> On Tue, Oct 10, 2017 at 12:58 PM, Christofer Bogaso\n> <bogaso.christofer at gmail.com> wrote:\n>> Hi again,\n>>\n>> I need to execute few line of system codes for iOS from R. Basically\n>> that execution involves (as an example) :\n>>\n>> 1. Change the Working directory first\n>> 2. Execute some task (e.g.deleting a file)\n>> 3. Then go back to original folder/directory\n>>\n>> I am aware of system() function which can be used here. However it\n>> looks that system() function executes iOS code one-by-one i.e. after I\n>> execute system('cd .....') for #1 above, that changed directory is not\n>> passed for #2 and so on.\n>>\n>> Is there any way where I can run a chain on iOS code as-a-whole using R.\n>>\n>> Your help will be highly appreciated.\n>>\n>> Thanks for your time.\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Yes macOS - High Sierra\n\nOn Tue, Oct 10, 2017 at 11:33 PM, elijah wright <elw at stderr.org> wrote:\n> Did you mean macOS?  I am not aware of anything that can run both R\n> and iOS code - if there's so",
+      "thread_id": "thread-737995eb26e3",
+      "thread_depth": 2,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-23a169502d61",
+      "message_id": "<F3125B50-F8B2-4C8D-A72F-CC8E16D55A8E@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "1c0c26ffdc63f8bcd27163d1af93be76a2c5ad37789d7759468aa44285929e74",
+      "date": "2017-10-10T14:15:18-04:00",
+      "subject": "[R-SIG-Mac] Executing iOS system code within R",
+      "subject_clean": "Executing iOS system code within R",
+      "in_reply_to": "<CA+dpOJmVMjbNY4kbBOdBE6SyHBxX-0MakkXHb5K3vZzoAiTtfA@mail.gmail.com>",
+      "references": [
+        "<CA+dpOJ=SATqS7fJV=1zqWM4v4Xs9d6Vqn1PCRK54nqK+DFMHwA@mail.gmail.com>",
+        "<CANQ3A2NH0PrDDecxq=mo7jP1uejSYmrVWf5Uqo46FH2T75hxeg@mail.gmail.com>",
+        "<CA+dpOJmVMjbNY4kbBOdBE6SyHBxX-0MakkXHb5K3vZzoAiTtfA@mail.gmail.com>"
+      ],
+      "body_plain": "I was kind of wondering that myself...given the frequent prior discussions here regarding running R on iOS... :-)\n\nMy recommendation would be to use R's built in file/folder/path related functionality, such as:\n\n  ?getwd (which includes ?setwd)\n\n  ?list.files\n\n  ?file.info\n\n  ?files\n\nand other related functions listed under the \"See Also\" sections of those help pages.\n\nYou can use getwd() to store the current working directory in a vector, execute whatever system() level commands you need to, then restore the current working directory to the original:\n\n  CurrDir <- getwd()\n\n  system(YourSystemLevelCallsHere)\n\n  setwd(CurrDir)\n\n\n\nRegards,\n\nMarc Schwartz\n\n\n\n> On Oct 10, 2017, at 2:05 PM, Christofer Bogaso <bogaso.christofer at gmail.com> wrote:\n> \n> Yes macOS - High Sierra\n> \n> On Tue, Oct 10, 2017 at 11:33 PM, elijah wright <elw at stderr.org> wrote:\n>> Did you mean macOS?  I am not aware of anything that can run both R\n>> and iOS code - if there's some fancy thing out there that can, i would\n>> like to know about that.  ;-)\n>> \n>> --e\n>> \n>> \n>> On Tue, Oct 10, 2017 at 12:58 PM, Christofer Bogaso\n>> <bogaso.christofer at gmail.com> wrote:\n>>> Hi again,\n>>> \n>>> I need to execute few line of system codes for iOS from R. Basically\n>>> that execution involves (as an example) :\n>>> \n>>> 1. Change the Working directory first\n>>> 2. Execute some task (e.g.deleting a file)\n>>> 3. Then go back to original folder/directory\n>>> \n>>> I am aware of system() function which can be used here. However it\n>>> looks that system() function executes iOS code one-by-one i.e. after I\n>>> execute system('cd .....') for #1 above, that changed directory is not\n>>> passed for #2 and so on.\n>>> \n>>> Is there any way where I can run a chain on iOS code as-a-whole using R.\n>>> \n>>> Your help will be highly appreciated.\n>>> \n>>> Thanks for your time.\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I was kind of wondering that myself...given the frequent prior discussions here regarding running R on iOS... :-)\n\nMy recommendation would be to use R's built in file/folder/path related functionality",
+      "thread_id": "thread-737995eb26e3",
+      "thread_depth": 3,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-87ad69190862",
+      "message_id": "<CANQ3A2N+SMXc6YTm_E-N5SVMhu9w+y8QaTQ4=oTC_Ffkx95NGw@mail.gmail.com>",
+      "from_name": "elijah wright",
+      "from_email_hash": "3ec681c84ce60aeb6a06d8ce3e75ce6ee8f8227317045dc71a424ccac0c66620",
+      "date": "2017-10-10T13:16:57-05:00",
+      "subject": "[R-SIG-Mac] Executing iOS system code within R",
+      "subject_clean": "Executing iOS system code within R",
+      "in_reply_to": "<CA+dpOJ=SATqS7fJV=1zqWM4v4Xs9d6Vqn1PCRK54nqK+DFMHwA@mail.gmail.com>",
+      "references": [
+        "<CA+dpOJ=SATqS7fJV=1zqWM4v4Xs9d6Vqn1PCRK54nqK+DFMHwA@mail.gmail.com>"
+      ],
+      "body_plain": "something like:\n\nsystem(\"PWD=`pwd`; cd TARGETDIR; ./runme.sh; cd $PWD') will do basically this.\n\nEvery time you run the system call it should be spawning a new shell\nwith a fresh environment.\n\n--e\n\n\nOn Tue, Oct 10, 2017 at 12:58 PM, Christofer Bogaso\n<bogaso.christofer at gmail.com> wrote:\n> Hi again,\n>\n> I need to execute few line of system codes for iOS from R. Basically\n> that execution involves (as an example) :\n>\n> 1. Change the Working directory first\n> 2. Execute some task (e.g.deleting a file)\n> 3. Then go back to original folder/directory\n>\n> I am aware of system() function which can be used here. However it\n> looks that system() function executes iOS code one-by-one i.e. after I\n> execute system('cd .....') for #1 above, that changed directory is not\n> passed for #2 and so on.\n>\n> Is there any way where I can run a chain on iOS code as-a-whole using R.\n>\n> Your help will be highly appreciated.\n>\n> Thanks for your time.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "something like:\n\nsystem(\"PWD=`pwd`; cd TARGETDIR; ./runme.sh; cd $PWD') will do basically this.\n\nEvery time you run the system call it should be spawning a new shell\nwith a fresh environment.\n\n--e\n\n\nO",
+      "thread_id": "thread-737995eb26e3",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-7cb16953bcb6",
+      "message_id": "<CA+dpOJk2opjqieduUSOJVW2FPaLNeCVhk09es9yCX_E9LE7bHA@mail.gmail.com>",
+      "from_name": "Christofer Bogaso",
+      "from_email_hash": "94494191170f349151c3e1bde090e6754a900331a7aa0f79aada4c207f2bcfdf",
+      "date": "2017-10-10T23:51:41+05:30",
+      "subject": "[R-SIG-Mac] Executing iOS system code within R",
+      "subject_clean": "Executing iOS system code within R",
+      "in_reply_to": "<CANQ3A2N+SMXc6YTm_E-N5SVMhu9w+y8QaTQ4=oTC_Ffkx95NGw@mail.gmail.com>",
+      "references": [
+        "<CA+dpOJ=SATqS7fJV=1zqWM4v4Xs9d6Vqn1PCRK54nqK+DFMHwA@mail.gmail.com>",
+        "<CANQ3A2N+SMXc6YTm_E-N5SVMhu9w+y8QaTQ4=oTC_Ffkx95NGw@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Elijah, your suggestion is perfect - basically, I need to use ';'\nas separator between multiple lines of iOS code. Thanks for this\npointer.\n\nOn Tue, Oct 10, 2017 at 11:46 PM, elijah wright <elw at stderr.org> wrote:\n> something like:\n>\n> system(\"PWD=`pwd`; cd TARGETDIR; ./runme.sh; cd $PWD') will do basically this.\n>\n> Every time you run the system call it should be spawning a new shell\n> with a fresh environment.\n>\n> --e\n>\n>\n> On Tue, Oct 10, 2017 at 12:58 PM, Christofer Bogaso\n> <bogaso.christofer at gmail.com> wrote:\n>> Hi again,\n>>\n>> I need to execute few line of system codes for iOS from R. Basically\n>> that execution involves (as an example) :\n>>\n>> 1. Change the Working directory first\n>> 2. Execute some task (e.g.deleting a file)\n>> 3. Then go back to original folder/directory\n>>\n>> I am aware of system() function which can be used here. However it\n>> looks that system() function executes iOS code one-by-one i.e. after I\n>> execute system('cd .....') for #1 above, that changed directory is not\n>> passed for #2 and so on.\n>>\n>> Is there any way where I can run a chain on iOS code as-a-whole using R.\n>>\n>> Your help will be highly appreciated.\n>>\n>> Thanks for your time.\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Hi Elijah, your suggestion is perfect - basically, I need to use ';'\nas separator between multiple lines of iOS code. Thanks for this\npointer.\n\nOn Tue, Oct 10, 2017 at 11:46 PM, elijah wright <elw at ",
+      "thread_id": "thread-737995eb26e3",
+      "thread_depth": 2,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-4fb7f41103b2",
+      "message_id": "<0327ff28-1a75-505f-e7e0-6e89e9284f8e@yahoo.fr>",
+      "from_name": "Marc Girondot",
+      "from_email_hash": "a1c8818b8da8277fd591196f737ed24d30c7272b95090ca0fb47541b6cc55908",
+      "date": "2017-10-14T17:01:43+02:00",
+      "subject": "[R-SIG-Mac] Install rJava produce an error",
+      "subject_clean": "Install rJava produce an error",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I would be most interested to get a solution for my problem in rJava \ninstall.\n\nR 3.4.2\n\nMacOSx 10.12.6, Sierra\n\nXcode 9.\n\nIf I install the rJava package, I get this error:\n\n#######\n\n > install.packages(\"rJava\")\nessai de l'URL 'https://cran.r-project.org/src/contrib/rJava_0.9-9.tar.gz'\nContent type 'application/x-gzip' length 660454 bytes (644 KB)\n==================================================\ndownloaded 644 KB\n\n* installing *source* package ?rJava? ...\n\n####### many lines\n\nclang -o libjri.jnilib Rengine.o jri.o Rcallbacks.o Rinit.o globals.o \nrjava.o? -dynamiclib -framework JavaVM -fopenmp -L/usr/local/lib \n-F/Library/Frameworks/R.framework/.. -framework R -lpcre -llzma -lbz2 \n-lz -licucore -lm -liconv\nclang: error: unsupported option '-fopenmp'\nmake[2]: *** [libjri.jnilib] Error 1\nmake[1]: *** [src/JRI.jar] Error 2\nmake: *** [jri] Error 2\nERROR: compilation failed for package ?rJava?\n\n#######\n\nclang does not understand the option -fopenmp\n\nThis version of clang comes with xCode 9:\nApple LLVM version 9.0.0 (clang-900.0.37)\nTarget: x86_64-apple-darwin16.7.0\nThread model: posix\nInstalledDir: \n/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n\nThen I install clang 5.0.0\n\nclang version 5.0.0 (tags/RELEASE_500/final)\nTarget: x86_64-apple-darwin16.7.0\nThread model: posix\nInstalledDir: /usr/local/opt/llvm/bin\n\nThis time, the error is:\n\n#######\n\nclang -o libjri.jnilib Rengine.o jri.o Rcallbacks.o Rinit.o globals.o \nrjava.o? -dynamiclib -framework JavaVM -fopenmp -L/usr/local/lib \n-F/Library/Frameworks/R.framework/.. -framework R -lpcre -llzma -lbz2 \n-lz -licucore -lm -liconv\nld: library not found for -lomp\nclang-5.0: error: linker command failed with exit code 1 (use -v to see \ninvocation)\n\n#######\n\nHas someone a solution to compile rJava ?\n\nThanks\n\nMarc",
+      "body_snippet": "I would be most interested to get a solution for my problem in rJava \ninstall.\n\nR 3.4.2\n\nMacOSx 10.12.6, Sierra\n\nXcode 9.\n\nIf I install the rJava package, I get this error:\n\n#######\n\n > install.packag",
+      "thread_id": "thread-4fb7f41103b2",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-250a1741648c",
+      "message_id": "<52640b55-38ff-3b85-ef6c-4a50fa1babba@yahoo.fr>",
+      "from_name": "Marc Girondot",
+      "from_email_hash": "a1c8818b8da8277fd591196f737ed24d30c7272b95090ca0fb47541b6cc55908",
+      "date": "2017-10-15T10:37:45+02:00",
+      "subject": "[R-SIG-Mac] Install rJava produce an error",
+      "subject_clean": "Install rJava produce an error",
+      "in_reply_to": "<0327ff28-1a75-505f-e7e0-6e89e9284f8e@yahoo.fr>",
+      "references": [
+        "<0327ff28-1a75-505f-e7e0-6e89e9284f8e@yahoo.fr>"
+      ],
+      "body_plain": "The temporary solution was to load the compiled version of the package:\nhttps://cran.r-project.org/bin/macosx/el-capitan/contrib/3.4/rJava_0.9-9.tgz\n\nUncompress with double-click,\n\nand replace the rJava (from previous installation) folder with this new \none in:\n > .libPaths()\n[1] \"/Library/Frameworks/R.framework/Versions/3.4/Resources/library\"\n\nIt is not very elegant but until now it works.\n\nMarc\n\nLe 14/10/2017 ? 17:01, Marc Girondot via R-SIG-Mac a ?crit?:\n> I would be most interested to get a solution for my problem in rJava \n> install.\n>\n> R 3.4.2\n>\n> MacOSx 10.12.6, Sierra\n>\n> Xcode 9.\n>\n> If I install the rJava package, I get this error:\n>\n> #######\n>\n> > install.packages(\"rJava\")\n> essai de l'URL \n> 'https://cran.r-project.org/src/contrib/rJava_0.9-9.tar.gz'\n> Content type 'application/x-gzip' length 660454 bytes (644 KB)\n> ==================================================\n> downloaded 644 KB\n>\n> * installing *source* package ?rJava? ...\n>\n> ####### many lines\n>\n> clang -o libjri.jnilib Rengine.o jri.o Rcallbacks.o Rinit.o globals.o \n> rjava.o? -dynamiclib -framework JavaVM -fopenmp -L/usr/local/lib \n> -F/Library/Frameworks/R.framework/.. -framework R -lpcre -llzma -lbz2 \n> -lz -licucore -lm -liconv\n> clang: error: unsupported option '-fopenmp'\n> make[2]: *** [libjri.jnilib] Error 1\n> make[1]: *** [src/JRI.jar] Error 2\n> make: *** [jri] Error 2\n> ERROR: compilation failed for package ?rJava?\n>\n> #######\n>\n> clang does not understand the option -fopenmp\n>\n> This version of clang comes with xCode 9:\n> Apple LLVM version 9.0.0 (clang-900.0.37)\n> Target: x86_64-apple-darwin16.7.0\n> Thread model: posix\n> InstalledDir: \n> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n>\n> Then I install clang 5.0.0\n>\n> clang version 5.0.0 (tags/RELEASE_500/final)\n> Target: x86_64-apple-darwin16.7.0\n> Thread model: posix\n> InstalledDir: /usr/local/opt/llvm/bin\n>\n> This time, the error is:\n>\n> #######\n>\n> clang -o libjri.jnilib Rengine.o jri.o Rcallbacks.o Rinit.o globals.o \n> rjava.o? -dynamiclib -framework JavaVM -fopenmp -L/usr/local/lib \n> -F/Library/Frameworks/R.framework/.. -framework R -lpcre -llzma -lbz2 \n> -lz -licucore -lm -liconv\n> ld: library not found for -lomp\n> clang-5.0: error: linker command failed with exit code 1 (use -v to \n> see invocation)\n>\n> #######\n>\n> Has someone a solution to compile rJava ?\n>\n> Thanks\n>\n> Marc\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "The temporary solution was to load the compiled version of the package:\nhttps://cran.r-project.org/bin/macosx/el-capitan/contrib/3.4/rJava_0.9-9.tgz\n\nUncompress with double-click,\n\nand replace the rJa",
+      "thread_id": "thread-4fb7f41103b2",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-2621f97748f0",
+      "message_id": "<98CC6F26-6463-403C-B4AA-192E7CAA84FE@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "8f243e58be1e290c1d2f5c6d16b8f004df4464a2f0fc0abeddb4f48a10a82e91",
+      "date": "2017-10-15T15:43:03Z",
+      "subject": "[R-SIG-Mac] Install rJava produce an error",
+      "subject_clean": "Install rJava produce an error",
+      "in_reply_to": "<0327ff28-1a75-505f-e7e0-6e89e9284f8e@yahoo.fr>",
+      "references": [
+        "<0327ff28-1a75-505f-e7e0-6e89e9284f8e@yahoo.fr>"
+      ],
+      "body_plain": "Greetings and Salutations Marc, \n\nThe ?-fopenmp? issue indicates you are using Xcode?s clang compiler that does _not_ support OpenMP as Apple has yet to enable it in their fork of the llvm project. As of R 3.4.0, the macOS binary of _R_ uses a custom toolchain that explicitly supports OpenMP. The downside of this approach is the custom toolchain does _not_ ship with the R binary. As a result, you will need to obtain the necessary clang4 binary from http://r.research.att.com/libs/ and modify your local ~/.R/Makevars appropriately to point to this new compiler. \n\nTo simplify the process, I?ve created an installer that automatically puts the clang4 binary in the correct place and sets up the relevant paths for ~/.R/Makevars. \n\nThis installer can be found here:\n\nhttps://uofi.box.com/v/r-macos-clang-pkg\n\nThe source code used to create the installer is publically available here:\n\nhttps://github.com/coatless/r-macos-clang \n\nThe latest version of the installer is developer signed thanks to a financial contribution by Professor Timothy Bates (http://www.ed.ac.uk/profile/timothy-bates) of the University of Edinburgh that allowed me to join the Apple Developer program. \n\nIf you are interested in learning more about enabling OpenMP on macOS for R, you may wish to check out:\n\nhttp://thecoatlessprofessor.com/programming/openmp-in-r-on-os-x/\n\nSincerely,\n\nJJB\n\nOn 10/14/17, 10:01 AM, \"R-SIG-Mac on behalf of Marc Girondot via R-SIG-Mac\" <r-sig-mac-bounces at r-project.org on behalf of r-sig-mac at r-project.org> wrote:\n\n    I would be most interested to get a solution for my problem in rJava \n    install.\n    \n    R 3.4.2\n    \n    MacOSx 10.12.6, Sierra\n    \n    Xcode 9.\n    \n    If I install the rJava package, I get this error:\n    \n    #######\n    \n     > install.packages(\"rJava\")\n    essai de l'URL 'https://cran.r-project.org/src/contrib/rJava_0.9-9.tar.gz'\n    Content type 'application/x-gzip' length 660454 bytes (644 KB)\n    ==================================================\n    downloaded 644 KB\n    \n    * installing *source* package ?rJava? ...\n    \n    ####### many lines\n    \n    clang -o libjri.jnilib Rengine.o jri.o Rcallbacks.o Rinit.o globals.o \n    rjava.o  -dynamiclib -framework JavaVM -fopenmp -L/usr/local/lib \n    -F/Library/Frameworks/R.framework/.. -framework R -lpcre -llzma -lbz2 \n    -lz -licucore -lm -liconv\n    clang: error: unsupported option '-fopenmp'\n    make[2]: *** [libjri.jnilib] Error 1\n    make[1]: *** [src/JRI.jar] Error 2\n    make: *** [jri] Error 2\n    ERROR: compilation failed for package ?rJava?\n    \n    #######\n    \n    clang does not understand the option -fopenmp\n    \n    This version of clang comes with xCode 9:\n    Apple LLVM version 9.0.0 (clang-900.0.37)\n    Target: x86_64-apple-darwin16.7.0\n    Thread model: posix\n    InstalledDir: \n    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n    \n    Then I install clang 5.0.0\n    \n    clang version 5.0.0 (tags/RELEASE_500/final)\n    Target: x86_64-apple-darwin16.7.0\n    Thread model: posix\n    InstalledDir: /usr/local/opt/llvm/bin\n    \n    This time, the error is:\n    \n    #######\n    \n    clang -o libjri.jnilib Rengine.o jri.o Rcallbacks.o Rinit.o globals.o \n    rjava.o  -dynamiclib -framework JavaVM -fopenmp -L/usr/local/lib \n    -F/Library/Frameworks/R.framework/.. -framework R -lpcre -llzma -lbz2 \n    -lz -licucore -lm -liconv\n    ld: library not found for -lomp\n    clang-5.0: error: linker command failed with exit code 1 (use -v to see \n    invocation)\n    \n    #######\n    \n    Has someone a solution to compile rJava ?\n    \n    Thanks\n    \n    Marc\n    \n    _______________________________________________\n    R-SIG-Mac mailing list\n    R-SIG-Mac at r-project.org\n    https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Greetings and Salutations Marc, \n\nThe ?-fopenmp? issue indicates you are using Xcode?s clang compiler that does _not_ support OpenMP as Apple has yet to enable it in their fork of the llvm project. As",
+      "thread_id": "thread-4fb7f41103b2",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-ce2f541351be",
+      "message_id": "<CABcx46A686YOYd_5n9x_PW8qKg_vjYXZKapkJ56O5i89364Mfg@mail.gmail.com>",
+      "from_name": "John",
+      "from_email_hash": "2bcb4bd23fa0ee9086a5d1918a6fd1eb9f3491b482dfd97c44fe2f2095897cd5",
+      "date": "2017-10-16T09:34:00Z",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\n   I tried to install Cairo graphics\n\nhttps://www.cairographics.org/download/\n\n   and I need to install Macports.\n\n   I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\nport install cairo\", but it did not respond. I haven't seen any file name\nor app called Macports, but one file called \"port\" which is located at\n\nloca/bin/port\"\n\n   How should I do it?\n\n   Thanks,\n\nJohn\n*******\n\nLast login: Sun Oct 15 02:52:49 on console\nJohns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\nMacPorts 2.4.2\nEntering shell mode... (\"help\" for help, \"quit\" to quit)\n[Users/john] > sudo port install cairo\nError: Unrecognized action \"port sudo\"\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\n   I tried to install Cairo graphics\n\nhttps://www.cairographics.org/download/\n\n   and I need to install Macports.\n\n   I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\nport ",
+      "thread_id": "thread-ce2f541351be",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-af08e88bd93c",
+      "message_id": "<9496DBA0-6CEE-4DF4-955D-9ABB4703C48D@krugs.de>",
+      "from_name": "Rainer Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2017-10-17T10:43:49+02:00",
+      "subject": "[R-SIG-Mac] homebrew install High Sierra - tcl-tk support",
+      "subject_clean": "homebrew install High Sierra - tcl-tk support",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi\n\nOne question about home-brew installation:\n\nAfter upgrading to High Sierra (and update to R 3.4.2), I don?t get tcl-tk support in R.\n\nI get the following error:\n\n\t> library(tcltk)\n\tError: package or namespace load failed for ?tcltk?:\n\t .onLoad failed in loadNamespace() for 'tcltk', details:\n\t  call: fun(libname, pkgname)\n\t  error: Tcl/Tk support is not available on this system\n\tIn addition: Warning message:\n\tS3 methods ?as.character.tclObj?, ?as.character.tclVar?, ?as.double.tclObj?, ?as.integer.tclObj?, ?as.logical.tclObj?, ?as.raw.tclObj?, ?print.tclObj?, ?[[.tclArray?, ?[[<-.tclArray?, ?$.tclArray?, ?$<-.tclArray?, ?names.tclArray?, ?names<-.tclArray?, ?length.tclArray?, ?length<-.tclArray?, ?tclObj.tclVar?, ?tclObj<-.tclVar?, ?tclvalue.default?, ?tclvalue.tclObj?, ?tclvalue.tclVar?, ?tclvalue<-.default?, ?tclvalue<-.tclVar?, ?close.tkProgressBar? were declared in NAMESPACE but not found\n\t>\n\n\nIs this a problem on my side, or is there a problem with R & homebrew & High Sierra & tcl-tk?\n\nThanks,\n\nRainer\n\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nUniversity of Z?rich\n\nCell:       +41 (0)78 630 66 57\nemail:      Rainer at krugs.de\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 488 bytes\nDesc: Message signed with OpenPGP\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20171017/272a135d/attachment.sig>",
+      "body_snippet": "Hi\n\nOne question about home-brew installation:\n\nAfter upgrading to High Sierra (and update to R 3.4.2), I don?t get tcl-tk support in R.\n\nI get the following error:\n\n\t> library(tcltk)\n\tError: package ",
+      "thread_id": "thread-af08e88bd93c",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-5f1c52e4922f",
+      "message_id": "<DD1BA4CF-399C-4DB9-9CB3-5FD6DDBF1171@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-17T07:56:14-07:00",
+      "subject": "[R-SIG-Mac] homebrew install High Sierra - tcl-tk support",
+      "subject_clean": "homebrew install High Sierra - tcl-tk support",
+      "in_reply_to": "<9496DBA0-6CEE-4DF4-955D-9ABB4703C48D@krugs.de>",
+      "references": [
+        "<9496DBA0-6CEE-4DF4-955D-9ABB4703C48D@krugs.de>"
+      ],
+      "body_plain": "> On Oct 17, 2017, at 1:43 AM, Rainer Krug <Rainer at krugs.de> wrote:\n> \n> Hi\n> \n> One question about home-brew installation:\n> \n> After upgrading to High Sierra (and update to R 3.4.2), I don?t get tcl-tk support in R.\n> \n> I get the following error:\n> \n> \t> library(tcltk)\n> \tError: package or namespace load failed for ?tcltk?:\n> \t .onLoad failed in loadNamespace() for 'tcltk', details:\n> \t  call: fun(libname, pkgname)\n> \t  error: Tcl/Tk support is not available on this system\n> \tIn addition: Warning message:\n> \tS3 methods ?as.character.tclObj?, ?as.character.tclVar?, ?as.double.tclObj?, ?as.integer.tclObj?, ?as.logical.tclObj?, ?as.raw.tclObj?, ?print.tclObj?, ?[[.tclArray?, ?[[<-.tclArray?, ?$.tclArray?, ?$<-.tclArray?, ?names.tclArray?, ?names<-.tclArray?, ?length.tclArray?, ?length<-.tclArray?, ?tclObj.tclVar?, ?tclObj<-.tclVar?, ?tclvalue.default?, ?tclvalue.tclObj?, ?tclvalue.tclVar?, ?tclvalue<-.default?, ?tclvalue<-.tclVar?, ?close.tkProgressBar? were declared in NAMESPACE but not found\n> \n> \n> Is this a problem on my side, or is there a problem with R & homebrew & High Sierra & tcl-tk?\n\nCaveat. I know almost nothing about homebrew other than its function and the fact that users of it often have problems with installing R properly. The CRAN page for the Mac R 3.4.2 fork says:\n\n-------begin-------\nContains R 3.4.2 framework, R.app GUI 1.70 in 64-bit for Intel Macs, Tcl/Tk 8.6.6 X11 libraries and Texinfo 5.2. The latter two components are optional and can be ommitted when choosing \"custom install\", they are only needed if you want to use the tcltk R package or build package documentation from sources.\n\nContains R 3.4.2 framework, R.app GUI 1.70 in 64-bit for Intel Macs, Tcl/Tk 8.6.6 X11 libraries and Texinfo 5.2. The latter two components are optional and can be ommitted when choosing \"custom install\", they are only needed if you want to use the tcltk R package or build package documentation from sources.\n-----end----\n\nSo it makes me wonder if you need to add the correct versions of the underlying system packages in a manner that your homebrew installation can find them. (the 3.3 fork uses a differnt version of Tcl/Tk.) \n\n-- \nDavid.\n\n> \n> Thanks,\n> \n> Rainer\n> \n> \n> --\n> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> \n> University of Z?rich\n> \n> Cell:       +41 (0)78 630 66 57\n> email:      Rainer at krugs.de\n> Skype:      RMkrug\n> \n> PGP: 0x0F52F982\n> \n> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law",
+      "body_snippet": "> On Oct 17, 2017, at 1:43 AM, Rainer Krug <Rainer at krugs.de> wrote:\n> \n> Hi\n> \n> One question about home-brew installation:\n> \n> After upgrading to High Sierra (and update to R 3.4.2), I don?t get ",
+      "thread_id": "thread-af08e88bd93c",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-316c3a41c964",
+      "message_id": "<0A8D2480-B1CA-4531-8DE8-29CA7FB9B330@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-17T08:18:14-07:00",
+      "subject": "[R-SIG-Mac] homebrew install High Sierra - tcl-tk support",
+      "subject_clean": "homebrew install High Sierra - tcl-tk support",
+      "in_reply_to": "<DD1BA4CF-399C-4DB9-9CB3-5FD6DDBF1171@comcast.net>",
+      "references": [
+        "<9496DBA0-6CEE-4DF4-955D-9ABB4703C48D@krugs.de>",
+        "<DD1BA4CF-399C-4DB9-9CB3-5FD6DDBF1171@comcast.net>"
+      ],
+      "body_plain": "> On Oct 17, 2017, at 7:56 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n>> \n>> On Oct 17, 2017, at 1:43 AM, Rainer Krug <Rainer at krugs.de> wrote:\n>> \n>> Hi\n>> \n>> One question about home-brew installation:\n>> \n>> After upgrading to High Sierra (and update to R 3.4.2), I don?t get tcl-tk support in R.\n>> \n>> I get the following error:\n>> \n>> \t> library(tcltk)\n>> \tError: package or namespace load failed for ?tcltk?:\n>> \t .onLoad failed in loadNamespace() for 'tcltk', details:\n>> \t  call: fun(libname, pkgname)\n>> \t  error: Tcl/Tk support is not available on this system\n>> \tIn addition: Warning message:\n>> \tS3 methods ?as.character.tclObj?, ?as.character.tclVar?, ?as.double.tclObj?, ?as.integer.tclObj?, ?as.logical.tclObj?, ?as.raw.tclObj?, ?print.tclObj?, ?[[.tclArray?, ?[[<-.tclArray?, ?$.tclArray?, ?$<-.tclArray?, ?names.tclArray?, ?names<-.tclArray?, ?length.tclArray?, ?length<-.tclArray?, ?tclObj.tclVar?, ?tclObj<-.tclVar?, ?tclvalue.default?, ?tclvalue.tclObj?, ?tclvalue.tclVar?, ?tclvalue<-.default?, ?tclvalue<-.tclVar?, ?close.tkProgressBar? were declared in NAMESPACE but not found\n>> \n>> \n>> Is this a problem on my side, or is there a problem with R & homebrew & High Sierra & tcl-tk?\n> \n> Caveat. I know almost nothing about homebrew other than its function and the fact that users of it often have problems with installing R properly. The CRAN page for the Mac R 3.4.2 fork says:\n> \n> -------begin-------\n> Contains R 3.4.2 framework, R.app GUI 1.70 in 64-bit for Intel Macs, Tcl/Tk 8.6.6 X11 libraries and Texinfo 5.2. The latter two components are optional and can be ommitted when choosing \"custom install\", they are only needed if you want to use the tcltk R package or build package documentation from sources.\n\nI intended that the next sentence be here (and wan't intending two copies of those sentences):\n\nNote: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your OS X to a new major version.\n\n> -----end----\n> \n> So it makes me wonder if you need to add the correct versions of the underlying system packages in a manner that your homebrew installation can find them. (the 3.3 fork uses a differnt version of Tcl/Tk.) \n> \n> -- \n> David.\n> \n>> \n>> Thanks,\n>> \n>> Rainer\n>> \n>> \n>> --\n>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>> \n>> University of Z?rich\n>> \n>> Cell:       +41 (0)78 630 66 57\n>> email:      Rainer at krugs.de\n>> Skype:      RMkrug\n>> \n>> PGP: 0x0F52F982\n>> \n>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> David Winsemius\n> Alameda, CA, USA\n> \n> 'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law",
+      "body_snippet": "> On Oct 17, 2017, at 7:56 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n>> \n>> On Oct 17, 2017, at 1:43 AM, Rainer Krug <Rainer at krugs.de> wrote:\n>> \n>> Hi\n>> \n>> One question about hom",
+      "thread_id": "thread-af08e88bd93c",
+      "thread_depth": 2,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-2440351f8afd",
+      "message_id": "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+      "from_name": "John",
+      "from_email_hash": "2bcb4bd23fa0ee9086a5d1918a6fd1eb9f3491b482dfd97c44fe2f2095897cd5",
+      "date": "2017-10-17T17:36:53-07:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\n   I tried to install Cairo graphics\n\nhttps://www.cairographics.org/download/\n\n   and I need to install Macports.\n\n   I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\nport install cairo\", but it did not respond. I haven't seen any file name\nor app called Macports, but one file called \"port\" which is located at\n\nloca/bin/port\"\n\n   How should I do it?\n\n   Thanks,\n\nJohn\n*******\n\nLast login: Sun Oct 15 02:52:49 on console\nJohns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\nMacPorts 2.4.2\nEntering shell mode... (\"help\" for help, \"quit\" to quit)\n[Users/john] > sudo port install cairo\nError: Unrecognized action \"port sudo\"\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\n   I tried to install Cairo graphics\n\nhttps://www.cairographics.org/download/\n\n   and I need to install Macports.\n\n   I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\nport ",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-58079e15e039",
+      "message_id": "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+      "from_name": "Rainer Krug",
+      "from_email_hash": "73f1dc60a1e52df927261a26a7690dde97cf997cebf8ef49209c2cd69b2757ab",
+      "date": "2017-10-18T08:58:49+02:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>"
+      ],
+      "body_plain": "This is related to Macports and not to R - please post your question on their mailing list. If it would be about errors installing R, that would be different.\n\nCheers,\n\nRainer\n \n\n> On 18 Oct 2017, at 02:36, John <miaojpm at gmail.com> wrote:\n> \n> Hi,\n> \n>   I tried to install Cairo graphics\n> \n> https://www.cairographics.org/download/\n> \n>   and I need to install Macports.\n> \n>   I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\n> port install cairo\", but it did not respond. I haven't seen any file name\n> or app called Macports, but one file called \"port\" which is located at\n> \n> loca/bin/port\"\n> \n>   How should I do it?\n> \n>   Thanks,\n> \n> John\n> *******\n> \n> Last login: Sun Oct 15 02:52:49 on console\n> Johns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\n> MacPorts 2.4.2\n> Entering shell mode... (\"help\" for help, \"quit\" to quit)\n> [Users/john] > sudo port install cairo\n> Error: Unrecognized action \"port sudo\"\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nUniversity of Z?rich\n\nCell:       +41 (0)78 630 66 57\nemail:      Rainer at krugs.de\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "This is related to Macports and not to R - please post your question on their mailing list. If it would be about errors installing R, that would be different.\n\nCheers,\n\nRainer\n \n\n> On 18 Oct 2017, at ",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-90fc7e2d2f37",
+      "message_id": "<789B12DB-CA5E-499C-A89B-789CA66C554A@krugs.de>",
+      "from_name": "Rainer Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2017-10-18T09:09:56+02:00",
+      "subject": "[R-SIG-Mac] homebrew install High Sierra - tcl-tk support",
+      "subject_clean": "homebrew install High Sierra - tcl-tk support",
+      "in_reply_to": "<0A8D2480-B1CA-4531-8DE8-29CA7FB9B330@comcast.net>",
+      "references": [
+        "<9496DBA0-6CEE-4DF4-955D-9ABB4703C48D@krugs.de>",
+        "<DD1BA4CF-399C-4DB9-9CB3-5FD6DDBF1171@comcast.net>",
+        "<0A8D2480-B1CA-4531-8DE8-29CA7FB9B330@comcast.net>"
+      ],
+      "body_plain": "> On 17 Oct 2017, at 17:18, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n>> \n>> On Oct 17, 2017, at 7:56 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n>> \n>>> \n>>> On Oct 17, 2017, at 1:43 AM, Rainer Krug <Rainer at krugs.de> wrote:\n>>> \n>>> Hi\n>>> \n>>> One question about home-brew installation:\n>>> \n>>> After upgrading to High Sierra (and update to R 3.4.2), I don?t get tcl-tk support in R.\n>>> \n>>> I get the following error:\n>>> \n>>> \t> library(tcltk)\n>>> \tError: package or namespace load failed for ?tcltk?:\n>>> \t .onLoad failed in loadNamespace() for 'tcltk', details:\n>>> \t  call: fun(libname, pkgname)\n>>> \t  error: Tcl/Tk support is not available on this system\n>>> \tIn addition: Warning message:\n>>> \tS3 methods ?as.character.tclObj?, ?as.character.tclVar?, ?as.double.tclObj?, ?as.integer.tclObj?, ?as.logical.tclObj?, ?as.raw.tclObj?, ?print.tclObj?, ?[[.tclArray?, ?[[<-.tclArray?, ?$.tclArray?, ?$<-.tclArray?, ?names.tclArray?, ?names<-.tclArray?, ?length.tclArray?, ?length<-.tclArray?, ?tclObj.tclVar?, ?tclObj<-.tclVar?, ?tclvalue.default?, ?tclvalue.tclObj?, ?tclvalue.tclVar?, ?tclvalue<-.default?, ?tclvalue<-.tclVar?, ?close.tkProgressBar? were declared in NAMESPACE but not found\n>>> \n>>> \n>>> Is this a problem on my side, or is there a problem with R & homebrew & High Sierra & tcl-tk?\n>> \n>> Caveat. I know almost nothing about homebrew other than its function and the fact that users of it often have problems with installing R properly. The CRAN page for the Mac R 3.4.2 fork says:\n>> \n>> -------begin-------\n>> Contains R 3.4.2 framework, R.app GUI 1.70 in 64-bit for Intel Macs, Tcl/Tk 8.6.6 X11 libraries and Texinfo 5.2. The latter two components are optional and can be ommitted when choosing \"custom install\", they are only needed if you want to use the tcltk R package or build package documentation from sources.\n> \n> I intended that the next sentence be here (and wan't intending two copies of those sentences):\n> \n> Note: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your OS X to a new major version.\n> \n>> -----end----\n>> \n>> So it makes me wonder if you need to add the correct versions of the underlying system packages in a manner that your homebrew installation can find them. (the 3.3 fork uses a differnt version of Tcl/Tk.)\n\nThanks David - but no luck. Still the same problems - even after installing quartz again.\n\nCheers,\n\nRainer\n\n>> \n>> --\n>> David.\n>> \n>>> \n>>> Thanks,\n>>> \n>>> Rainer\n>>> \n>>> \n>>> --\n>>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>>> \n>>> University of Z?rich\n>>> \n>>> Cell:       +41 (0)78 630 66 57\n>>> email:      Rainer at krugs.de\n>>> Skype:      RMkrug\n>>> \n>>> PGP: 0x0F52F982\n>>> \n>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> David Winsemius\n>> Alameda, CA, USA\n>> \n>> 'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>\n> \n> David Winsemius\n> Alameda, CA, USA\n> \n> 'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nUniversity of Z?rich\n\nCell:       +41 (0)78 630 66 57\nemail:      Rainer at krugs.de\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n\n\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20171018/8b8c7f12/attachment-0001.html>\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 488 bytes\nDesc: Message signed with OpenPGP\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20171018/8b8c7f12/attachment-0001.sig>",
+      "body_snippet": "> On 17 Oct 2017, at 17:18, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n>> \n>> On Oct 17, 2017, at 7:56 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n>> \n>>> \n>>> On Oct 17, 2017, a",
+      "thread_id": "thread-af08e88bd93c",
+      "thread_depth": 3,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-73ea2e7ce92b",
+      "message_id": "<051C29C9-5693-466C-89B8-CF7488F6A522@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-18T08:10:10-07:00",
+      "subject": "[R-SIG-Mac] homebrew install High Sierra - tcl-tk support",
+      "subject_clean": "homebrew install High Sierra - tcl-tk support",
+      "in_reply_to": "<789B12DB-CA5E-499C-A89B-789CA66C554A@krugs.de>",
+      "references": [
+        "<9496DBA0-6CEE-4DF4-955D-9ABB4703C48D@krugs.de>",
+        "<DD1BA4CF-399C-4DB9-9CB3-5FD6DDBF1171@comcast.net>",
+        "<0A8D2480-B1CA-4531-8DE8-29CA7FB9B330@comcast.net>",
+        "<789B12DB-CA5E-499C-A89B-789CA66C554A@krugs.de>"
+      ],
+      "body_plain": "> On Oct 18, 2017, at 12:09 AM, Rainer Krug <Rainer at krugs.de> wrote:\n> \n> \n> \n>> On 17 Oct 2017, at 17:18, David Winsemius <dwinsemius at comcast.net> wrote:\n>> \n>>> \n>>> On Oct 17, 2017, at 7:56 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n>>> \n>>>> \n>>>> On Oct 17, 2017, at 1:43 AM, Rainer Krug <Rainer at krugs.de> wrote:\n>>>> \n>>>> Hi\n>>>> \n>>>> One question about home-brew installation:\n>>>> \n>>>> After upgrading to High Sierra (and update to R 3.4.2), I don?t get tcl-tk support in R.\n>>>> \n>>>> I get the following error:\n>>>> \n>>>> \t> library(tcltk)\n>>>> \tError: package or namespace load failed for ?tcltk?:\n>>>> \t .onLoad failed in loadNamespace() for 'tcltk', details:\n>>>> \t  call: fun(libname, pkgname)\n>>>> \t  error: Tcl/Tk support is not available on this system\n>>>> \tIn addition: Warning message:\n>>>> \tS3 methods ?as.character.tclObj?, ?as.character.tclVar?, ?as.double.tclObj?, ?as.integer.tclObj?, ?as.logical.tclObj?, ?as.raw.tclObj?, ?print.tclObj?, ?[[.tclArray?, ?[[<-.tclArray?, ?$.tclArray?, ?$<-.tclArray?, ?names.tclArray?, ?names<-.tclArray?, ?length.tclArray?, ?length<-.tclArray?, ?tclObj.tclVar?, ?tclObj<-.tclVar?, ?tclvalue.default?, ?tclvalue.tclObj?, ?tclvalue.tclVar?, ?tclvalue<-.default?, ?tclvalue<-.tclVar?, ?close.tkProgressBar? were declared in NAMESPACE but not found\n>>>> \n>>>> \n>>>> Is this a problem on my side, or is there a problem with R & homebrew & High Sierra & tcl-tk?\n>>> \n>>> Caveat. I know almost nothing about homebrew other than its function and the fact that users of it often have problems with installing R properly. The CRAN page for the Mac R 3.4.2 fork says:\n>>> \n>>> -------begin-------\n>>> Contains R 3.4.2 framework, R.app GUI 1.70 in 64-bit for Intel Macs, Tcl/Tk 8.6.6 X11 libraries and Texinfo 5.2. The latter two components are optional and can be ommitted when choosing \"custom install\", they are only needed if you want to use the tcltk R package or build package documentation from sources.\n>> \n>> I intended that the next sentence be here (and wan't intending two copies of those sentences):\n>> \n>> Note: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your OS X to a new major version.\n>> \n>>> -----end----\n>>> \n>>> So it makes me wonder if you need to add the correct versions of the underlying system packages in a manner that your homebrew installation can find them. (the 3.3 fork uses a differnt version of Tcl/Tk.) \n> \n> Thanks David - but no luck. Still the same problems - even after installing quartz again.\n\n\nI was not sure whether the  list of items included: \"Intel Macs, Tcl/Tk 8.6.6 X11 libraries and Texinfo 5.2\" was missing a comma between 8.6.6 and X11 libraries or conversely  that TCL/Tk 8.6.6 was supposed to indicate a particular version of Quartz. Looking at the various webpages for those two packages, I don't see any change in XQuartz' version numbers whereas there has been quite a bit of updating of TCL/Tk.\n\n-- \nDavid.",
+      "body_snippet": "> On Oct 18, 2017, at 12:09 AM, Rainer Krug <Rainer at krugs.de> wrote:\n> \n> \n> \n>> On 17 Oct 2017, at 17:18, David Winsemius <dwinsemius at comcast.net> wrote:\n>> \n>>> \n>>> On Oct 17, 2017, at 7:56 A",
+      "thread_id": "thread-af08e88bd93c",
+      "thread_depth": 4,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-1e3a584fb9e3",
+      "message_id": "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-18T08:17:58-07:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>"
+      ],
+      "body_plain": "> On Oct 17, 2017, at 11:58 PM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> \n> This is related to Macports and not to R - please post your question on their mailing list. If it would be about errors installing R, that would be different.\n> \n\nI think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version of cairo, probably the most recent one. \n\nhttp://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n\nScroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root. \n\ncurl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\nsudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n\n\nThe Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n\n-- \nDavid.\n\n> Cheers,\n> \n> Rainer\n> \n> \n>> On 18 Oct 2017, at 02:36, John <miaojpm at gmail.com> wrote:\n>> \n>> Hi,\n>> \n>>  I tried to install Cairo graphics\n>> \n>> https://www.cairographics.org/download/\n>> \n>>  and I need to install Macports.\n>> \n>>  I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\n>> port install cairo\", but it did not respond. I haven't seen any file name\n>> or app called Macports, but one file called \"port\" which is located at\n>> \n>> loca/bin/port\"\n>> \n>>  How should I do it?\n>> \n>>  Thanks,\n>> \n>> John\n>> *******\n>> \n>> Last login: Sun Oct 15 02:52:49 on console\n>> Johns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\n>> MacPorts 2.4.2\n>> Entering shell mode... (\"help\" for help, \"quit\" to quit)\n>> [Users/john] > sudo port install cairo\n>> Error: Unrecognized action \"port sudo\"\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> --\n> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> \n> University of Z?rich\n> \n> Cell:       +41 (0)78 630 66 57\n> email:      Rainer at krugs.de\n> Skype:      RMkrug\n> \n> PGP: 0x0F52F982\n> \n> \n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law",
+      "body_snippet": "> On Oct 17, 2017, at 11:58 PM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> \n> This is related to Macports and not to R - please post your question on their mailing list. If it would be about err",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 2,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-fda507c5052f",
+      "message_id": "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+      "from_name": "Rainer Krug",
+      "from_email_hash": "73f1dc60a1e52df927261a26a7690dde97cf997cebf8ef49209c2cd69b2757ab",
+      "date": "2017-10-18T17:40:48+02:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>"
+      ],
+      "body_plain": "> On 18 Oct 2017, at 17:17, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n>> \n>> On Oct 17, 2017, at 11:58 PM, Rainer Krug <rainer_krug at icloud.com <mailto:rainer_krug at icloud.com>> wrote:\n>> \n>> This is related to Macports and not to R - please post your question on their mailing list. If it would be about errors installing R, that would be different.\n>> \n> \n> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ <http://r.research.att.com/libs/> and get the appropriate version of cairo, probably the most recent one. \n> \n> http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz <http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz>\n> \n> Scroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root. \n> \n> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz <http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz>\n> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n> \n> \n> The Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n\nUsing homebrew (and as far as I know Macports as well) works without major problems. The problem start when you mix standard installations / homebrew / Macports. This results in problems. \n\nSo: each of the approaches has it?s own pros and cons - it is only that homebrew and Macports are not officially supported by the R team.\n\nCheers,\n\nRainer\n\n\n> \n> -- \n> David.\n> \n>> Cheers,\n>> \n>> Rainer\n>> \n>> \n>>> On 18 Oct 2017, at 02:36, John <miaojpm at gmail.com> wrote:\n>>> \n>>> Hi,\n>>> \n>>> I tried to install Cairo graphics\n>>> \n>>> https://www.cairographics.org/download/\n>>> \n>>> and I need to install Macports.\n>>> \n>>> I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\n>>> port install cairo\", but it did not respond. I haven't seen any file name\n>>> or app called Macports, but one file called \"port\" which is located at\n>>> \n>>> loca/bin/port\"\n>>> \n>>> How should I do it?\n>>> \n>>> Thanks,\n>>> \n>>> John\n>>> *******\n>>> \n>>> Last login: Sun Oct 15 02:52:49 on console\n>>> Johns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\n>>> MacPorts 2.4.2\n>>> Entering shell mode... (\"help\" for help, \"quit\" to quit)\n>>> [Users/john] > sudo port install cairo\n>>> Error: Unrecognized action \"port sudo\"\n>>> \n>>> \t[[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> --\n>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>> \n>> University of Z?rich\n>> \n>> Cell:       +41 (0)78 630 66 57\n>> email:      Rainer at krugs.de\n>> Skype:      RMkrug\n>> \n>> PGP: 0x0F52F982\n>> \n>> \n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>\n> \n> David Winsemius\n> Alameda, CA, USA\n> \n> 'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nUniversity of Z?rich\n\nCell:       +41 (0)78 630 66 57\nemail:      Rainer at krugs.de\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "> On 18 Oct 2017, at 17:17, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n>> \n>> On Oct 17, 2017, at 11:58 PM, Rainer Krug <rainer_krug at icloud.com <mailto:rainer_krug at icloud.com>> wrote:",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 3,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-6726cafb03f9",
+      "message_id": "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-18T09:54:53-07:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>"
+      ],
+      "body_plain": "> On Oct 18, 2017, at 8:40 AM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> \n> \n> \n>> On 18 Oct 2017, at 17:17, David Winsemius <dwinsemius at comcast.net> wrote:\n>> \n>>> \n>>> On Oct 17, 2017, at 11:58 PM, Rainer Krug <rainer_krug at icloud.com> wrote:\n>>> \n>>> This is related to Macports and not to R - please post your question on their mailing list. If it would be about errors installing R, that would be different.\n>>> \n>> \n>> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version of cairo, probably the most recent one. \n>> \n>> http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n>> \n>> Scroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root. \n>> \n>> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n>> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n>> \n>> \n>> The Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n> \n> Using homebrew (and as far as I know Macports as well) works without major problems. The problem start when you mix standard installations / homebrew / Macports. This results in problems. \n\nThe fact that the original poster had obviously not used MacPorts (and perhaps did not even know what it was) suggests that the appropriate reply should be to discourage him from using it and offer a strategy with greater likelihood of success in combination with the more typical installation method for the Mac R fork.\n\n> \n> So: each of the approaches has it?s own pros and cons - it is only that homebrew and Macports are not officially supported by the R team.\n\nOne of the cons is that both homebrew and MacPorts requires a greater knowledge of the Unix under-pinnings of MacOS. If a poster is asking how to install MacPorts, it suggests that he don't already have such skills and perhaps doesn't even have the motivation to acquire them. (Your earlier response suggested that posting in R-SIG-Mac was the wrong way to do acquire such skills and I agree. Appears the poster has not yet developed the habit of reading supporting online documentation. He certainly did not do so regarding R-SIG-Mac. My opinion: A person who chooses not to read or heed online documentation should be actively discouraged from using either MacPorts of homebrew.) \n\nBest;\nDavid.\n\n\n> \n> Cheers,\n> \n> Rainer\n> \n> \n>> \n>> -- \n>> David.\n>> \n>>> Cheers,\n>>> \n>>> Rainer\n>>> \n>>> \n>>>> On 18 Oct 2017, at 02:36, John <miaojpm at gmail.com> wrote:\n>>>> \n>>>> Hi,\n>>>> \n>>>> I tried to install Cairo graphics\n>>>> \n>>>> https://www.cairographics.org/download/\n>>>> \n>>>> and I need to install Macports.\n>>>> \n>>>> I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\n>>>> port install cairo\", but it did not respond. I haven't seen any file name\n>>>> or app called Macports, but one file called \"port\" which is located at\n>>>> \n>>>> loca/bin/port\"\n>>>> \n>>>> How should I do it?\n>>>> \n>>>> Thanks,\n>>>> \n>>>> John\n>>>> *******\n>>>> \n>>>> Last login: Sun Oct 15 02:52:49 on console\n>>>> Johns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\n>>>> MacPorts 2.4.2\n>>>> Entering shell mode... (\"help\" for help, \"quit\" to quit)\n>>>> [Users/john] > sudo port install cairo\n>>>> Error: Unrecognized action \"port sudo\"\n>>>> \n>>>> \t[[alternative HTML version deleted]]\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> --\n>>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>>> \n>>> University of Z?rich\n>>> \n>>> Cell:       +41 (0)78 630 66 57\n>>> email:      Rainer at krugs.de\n>>> Skype:      RMkrug\n>>> \n>>> PGP: 0x0F52F982\n>>> \n>>> \n>>> \n>>> \n>>> \t[[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> David Winsemius\n>> Alameda, CA, USA\n>> \n>> 'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n> \n> --\n> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> \n> University of Z?rich\n> \n> Cell:       +41 (0)78 630 66 57\n> email:      Rainer at krugs.de\n> Skype:      RMkrug\n> \n> PGP: 0x0F52F982\n> \n> \n> \n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law",
+      "body_snippet": "> On Oct 18, 2017, at 8:40 AM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> \n> \n> \n>> On 18 Oct 2017, at 17:17, David Winsemius <dwinsemius at comcast.net> wrote:\n>> \n>>> \n>>> On Oct 17, 2017, at ",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 4,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-19f071633d79",
+      "message_id": "<CABcx46D8-2QhiTFdhk8Hq0w8-0V0z7U5aUjzBXKbPadzeoHvSg@mail.gmail.com>",
+      "from_name": "John",
+      "from_email_hash": "2bcb4bd23fa0ee9086a5d1918a6fd1eb9f3491b482dfd97c44fe2f2095897cd5",
+      "date": "2017-10-18T18:09:49-07:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+        "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>"
+      ],
+      "body_plain": "Thanks, David and Rainer.\n\nWhere should I type them? On RStudio command line?\n\ncurl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\nsudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n\n\nI got this after typing in RStudio command line\n> curl -O\nhttp://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\nError: unexpected symbol in \"curl -O http\"\n\n\nJ\n\n2017-10-18 9:54 GMT-07:00 David Winsemius <dwinsemius at comcast.net>:\n\n>\n> > On Oct 18, 2017, at 8:40 AM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> >\n> >\n> >\n> >> On 18 Oct 2017, at 17:17, David Winsemius <dwinsemius at comcast.net>\n> wrote:\n> >>\n> >>>\n> >>> On Oct 17, 2017, at 11:58 PM, Rainer Krug <rainer_krug at icloud.com>\n> wrote:\n> >>>\n> >>> This is related to Macports and not to R - please post your question\n> on their mailing list. If it would be about errors installing R, that would\n> be different.\n> >>>\n> >>\n> >> I think using MacPorts might actually be the \"error\" that needs\n> correction. I would suggest an alternate strategy. Go to\n> http://r.research.att.com/libs/ and get the appropriate version of cairo,\n> probably the most recent one.\n> >>\n> >> http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n> >>\n> >> Scroll down to the bottom of that page and an appropriate modification\n> of the two lines for unpacking to the root.\n> >>\n> >> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-\n> x86_64.tar.gz\n> >> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n> >>\n> >>\n> >> The Mac version of R does not do well with either MacPorts or homebrew\n> installation of required system packages because those package managers put\n> them in loaction that are not recognized by the static build that is the\n> default.\n> >\n> > Using homebrew (and as far as I know Macports as well) works without\n> major problems. The problem start when you mix standard installations /\n> homebrew / Macports. This results in problems.\n>\n> The fact that the original poster had obviously not used MacPorts (and\n> perhaps did not even know what it was) suggests that the appropriate reply\n> should be to discourage him from using it and offer a strategy with greater\n> likelihood of success in combination with the more typical installation\n> method for the Mac R fork.\n>\n> >\n> > So: each of the approaches has it?s own pros and cons - it is only that\n> homebrew and Macports are not officially supported by the R team.\n>\n> One of the cons is that both homebrew and MacPorts requires a greater\n> knowledge of the Unix under-pinnings of MacOS. If a poster is asking how to\n> install MacPorts, it suggests that he don't already have such skills and\n> perhaps doesn't even have the motivation to acquire them. (Your earlier\n> response suggested that posting in R-SIG-Mac was the wrong way to do\n> acquire such skills and I agree. Appears the poster has not yet developed\n> the habit of reading supporting online documentation. He certainly did not\n> do so regarding R-SIG-Mac. My opinion: A person who chooses not to read or\n> heed online documentation should be actively discouraged from using either\n> MacPorts of homebrew.)\n>\n> Best;\n> David.\n>\n>\n> >\n> > Cheers,\n> >\n> > Rainer\n> >\n> >\n> >>\n> >> --\n> >> David.\n> >>\n> >>> Cheers,\n> >>>\n> >>> Rainer\n> >>>\n> >>>\n> >>>> On 18 Oct 2017, at 02:36, John <miaojpm at gmail.com> wrote:\n> >>>>\n> >>>> Hi,\n> >>>>\n> >>>> I tried to install Cairo graphics\n> >>>>\n> >>>> https://www.cairographics.org/download/\n> >>>>\n> >>>> and I need to install Macports.\n> >>>>\n> >>>> I tried to install Macports on my Mac OS Sierra 10.12.6, and type\n> \"sudo\n> >>>> port install cairo\", but it did not respond. I haven't seen any file\n> name\n> >>>> or app called Macports, but one file called \"port\" which is located at\n> >>>>\n> >>>> loca/bin/port\"\n> >>>>\n> >>>> How should I do it?\n> >>>>\n> >>>> Thanks,\n> >>>>\n> >>>> John\n> >>>> *******\n> >>>>\n> >>>> Last login: Sun Oct 15 02:52:49 on console\n> >>>> Johns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\n> >>>> MacPorts 2.4.2\n> >>>> Entering shell mode... (\"help\" for help, \"quit\" to quit)\n> >>>> [Users/john] > sudo port install cairo\n> >>>> Error: Unrecognized action \"port sudo\"\n> >>>>\n> >>>>    [[alternative HTML version deleted]]\n> >>>>\n> >>>> _______________________________________________\n> >>>> R-SIG-Mac mailing list\n> >>>> R-SIG-Mac at r-project.org\n> >>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>>\n> >>> --\n> >>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation\n> Biology, UCT), Dipl. Phys. (Germany)\n> >>>\n> >>> University of Z?rich\n> >>>\n> >>> Cell:       +41 (0)78 630 66 57\n> >>> email:      Rainer at krugs.de\n> >>> Skype:      RMkrug\n> >>>\n> >>> PGP: 0x0F52F982\n> >>>\n> >>>\n> >>>\n> >>>\n> >>>     [[alternative HTML version deleted]]\n> >>>\n> >>> _______________________________________________\n> >>> R-SIG-Mac mailing list\n> >>> R-SIG-Mac at r-project.org\n> >>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>\n> >> David Winsemius\n> >> Alameda, CA, USA\n> >>\n> >> 'Any technology distinguishable from magic is insufficiently\n> advanced.'   -Gehm's Corollary to Clarke's Third Law\n> >\n> > --\n> > Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation\n> Biology, UCT), Dipl. Phys. (Germany)\n> >\n> > University of Z?rich\n> >\n> > Cell:       +41 (0)78 630 66 57\n> > email:      Rainer at krugs.de\n> > Skype:      RMkrug\n> >\n> > PGP: 0x0F52F982\n> >\n> >\n> >\n>\n> David Winsemius\n> Alameda, CA, USA\n>\n> 'Any technology distinguishable from magic is insufficiently advanced.'\n>  -Gehm's Corollary to Clarke's Third Law\n>\n>\n>\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks, David and Rainer.\n\nWhere should I type them? On RStudio command line?\n\ncurl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\nsudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 5,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-5e87cae37c05",
+      "message_id": "<16CC7250-45EC-4715-BB4B-98FA31664C24@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-18T19:39:00-07:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<CABcx46D8-2QhiTFdhk8Hq0w8-0V0z7U5aUjzBXKbPadzeoHvSg@mail.gmail.com>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+        "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+        "<CABcx46D8-2QhiTFdhk8Hq0w8-0V0z7U5aUjzBXKbPadzeoHvSg@mail.gmail.com>"
+      ],
+      "body_plain": "> On Oct 18, 2017, at 6:09 PM, John <miaojpm at gmail.com> wrote:\n> \n> Thanks, David and Rainer. \n> \n> Where should I type them? On RStudio command line?  \n> \n> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n\nThose are Unix system functions, not R or RStudio functions. Do some reading regarding Unix bash and the MacOS Terminal.app\n\n-- \nDavid.\n> \n> \n> I got this after typing in RStudio command line\n> > curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n> Error: unexpected symbol in \"curl -O http\"\n> \n> \n> J\n> \n> 2017-10-18 9:54 GMT-07:00 David Winsemius <dwinsemius at comcast.net>:\n> \n> > On Oct 18, 2017, at 8:40 AM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> >\n> >\n> >\n> >> On 18 Oct 2017, at 17:17, David Winsemius <dwinsemius at comcast.net> wrote:\n> >>\n> >>>\n> >>> On Oct 17, 2017, at 11:58 PM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> >>>\n> >>> This is related to Macports and not to R - please post your question on their mailing list. If it would be about errors installing R, that would be different.\n> >>>\n> >>\n> >> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version of cairo, probably the most recent one.\n> >>\n> >> http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n> >>\n> >> Scroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root.\n> >>\n> >> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n> >> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n> >>\n> >>\n> >> The Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n> >\n> > Using homebrew (and as far as I know Macports as well) works without major problems. The problem start when you mix standard installations / homebrew / Macports. This results in problems.\n> \n> The fact that the original poster had obviously not used MacPorts (and perhaps did not even know what it was) suggests that the appropriate reply should be to discourage him from using it and offer a strategy with greater likelihood of success in combination with the more typical installation method for the Mac R fork.\n> \n> >\n> > So: each of the approaches has it?s own pros and cons - it is only that homebrew and Macports are not officially supported by the R team.\n> \n> One of the cons is that both homebrew and MacPorts requires a greater knowledge of the Unix under-pinnings of MacOS. If a poster is asking how to install MacPorts, it suggests that he don't already have such skills and perhaps doesn't even have the motivation to acquire them. (Your earlier response suggested that posting in R-SIG-Mac was the wrong way to do acquire such skills and I agree. Appears the poster has not yet developed the habit of reading supporting online documentation. He certainly did not do so regarding R-SIG-Mac. My opinion: A person who chooses not to read or heed online documentation should be actively discouraged from using either MacPorts of homebrew.)\n> \n> Best;\n> David.\n> \n> \n> >\n> > Cheers,\n> >\n> > Rainer\n> >\n> >\n> >>\n> >> --\n> >> David.\n> >>\n> >>> Cheers,\n> >>>\n> >>> Rainer\n> >>>\n> >>>\n> >>>> On 18 Oct 2017, at 02:36, John <miaojpm at gmail.com> wrote:\n> >>>>\n> >>>> Hi,\n> >>>>\n> >>>> I tried to install Cairo graphics\n> >>>>\n> >>>> https://www.cairographics.org/download/\n> >>>>\n> >>>> and I need to install Macports.\n> >>>>\n> >>>> I tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\n> >>>> port install cairo\", but it did not respond. I haven't seen any file name\n> >>>> or app called Macports, but one file called \"port\" which is located at\n> >>>>\n> >>>> loca/bin/port\"\n> >>>>\n> >>>> How should I do it?\n> >>>>\n> >>>> Thanks,\n> >>>>\n> >>>> John\n> >>>> *******\n> >>>>\n> >>>> Last login: Sun Oct 15 02:52:49 on console\n> >>>> Johns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\n> >>>> MacPorts 2.4.2\n> >>>> Entering shell mode... (\"help\" for help, \"quit\" to quit)\n> >>>> [Users/john] > sudo port install cairo\n> >>>> Error: Unrecognized action \"port sudo\"\n> >>>>\n> >>>>    [[alternative HTML version deleted]]\n> >>>>\n> >>>> _______________________________________________\n> >>>> R-SIG-Mac mailing list\n> >>>> R-SIG-Mac at r-project.org\n> >>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>>\n> >>> --\n> >>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> >>>\n> >>> University of Z?rich\n> >>>\n> >>> Cell:       +41 (0)78 630 66 57\n> >>> email:      Rainer at krugs.de\n> >>> Skype:      RMkrug\n> >>>\n> >>> PGP: 0x0F52F982\n> >>>\n> >>>\n> >>>\n> >>>\n> >>>     [[alternative HTML version deleted]]\n> >>>\n> >>> _______________________________________________\n> >>> R-SIG-Mac mailing list\n> >>> R-SIG-Mac at r-project.org\n> >>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>\n> >> David Winsemius\n> >> Alameda, CA, USA\n> >>\n> >> 'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n> >\n> > --\n> > Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> >\n> > University of Z?rich\n> >\n> > Cell:       +41 (0)78 630 66 57\n> > email:      Rainer at krugs.de\n> > Skype:      RMkrug\n> >\n> > PGP: 0x0F52F982\n> >\n> >\n> >\n> \n> David Winsemius\n> Alameda, CA, USA\n> \n> 'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n> \n> \n> \n> \n> \n> \n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law",
+      "body_snippet": "> On Oct 18, 2017, at 6:09 PM, John <miaojpm at gmail.com> wrote:\n> \n> Thanks, David and Rainer. \n> \n> Where should I type them? On RStudio command line?  \n> \n> curl -O http://r.research.att.com/libs/",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 6,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-f619799b5108",
+      "message_id": "<39B7993A-6C3F-438F-8925-C06AB5EE1B3D@dal.ca>",
+      "from_name": "Daniel Kelley",
+      "from_email_hash": "976f301884d4d58c6b2af6c5982be6bb4fd8533ac94e65c352f5ac1765103a7e",
+      "date": "2017-10-19T08:45:03Z",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<16CC7250-45EC-4715-BB4B-98FA31664C24@comcast.net>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+        "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+        "<CABcx46D8-2QhiTFdhk8Hq0w8-0V0z7U5aUjzBXKbPadzeoHvSg@mail.gmail.com>",
+        "<16CC7250-45EC-4715-BB4B-98FA31664C24@comcast.net>"
+      ],
+      "body_plain": "John,\n\nYou could spin your wheels for a long time on this, because it seems that you lack some basic information, not related to R.  You best plan might be to drop consideration of R for a few weeks, to brush up on the basics. But, if just need to get R working for some particular one-off task, your should consider finding someone local you can help you in-person, in exchange for a coffee / beer / lunch.\n\nDan Kelley\n\n\n\n\n\n\nOn Oct 18, 2017, at 11:39 PM, David Winsemius <dwinsemius at comcast.net<mailto:dwinsemius at comcast.net>> wrote:\n\n\nOn Oct 18, 2017, at 6:09 PM, John <miaojpm at gmail.com<mailto:miaojpm at gmail.com>> wrote:\n\nThanks, David and Rainer.\n\nWhere should I type them? On RStudio command line?\n\ncurl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\nsudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n\nThose are Unix system functions, not R or RStudio functions. Do some reading regarding Unix bash and the MacOS Terminal.app\n\n--\nDavid.\n\n\nI got this after typing in RStudio command line\ncurl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\nError: unexpected symbol in \"curl -O http\"\n\n\nJ\n\n2017-10-18 9:54 GMT-07:00 David Winsemius <dwinsemius at comcast.net<mailto:dwinsemius at comcast.net>>:\n\nOn Oct 18, 2017, at 8:40 AM, Rainer Krug <rainer_krug at icloud.com<mailto:rainer_krug at icloud.com>> wrote:\n\n\n\nOn 18 Oct 2017, at 17:17, David Winsemius <dwinsemius at comcast.net<mailto:dwinsemius at comcast.net>> wrote:\n\n\nOn Oct 17, 2017, at 11:58 PM, Rainer Krug <rainer_krug at icloud.com<mailto:rainer_krug at icloud.com>> wrote:\n\nThis is related to Macports and not to R - please post your question on their mailing list. If it would be about errors installing R, that would be different.\n\n\nI think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version of cairo, probably the most recent one.\n\nhttp://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n\nScroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root.\n\ncurl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\nsudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n\n\nThe Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n\nUsing homebrew (and as far as I know Macports as well) works without major problems. The problem start when you mix standard installations / homebrew / Macports. This results in problems.\n\nThe fact that the original poster had obviously not used MacPorts (and perhaps did not even know what it was) suggests that the appropriate reply should be to discourage him from using it and offer a strategy with greater likelihood of success in combination with the more typical installation method for the Mac R fork.\n\n\nSo: each of the approaches has it?s own pros and cons - it is only that homebrew and Macports are not officially supported by the R team.\n\nOne of the cons is that both homebrew and MacPorts requires a greater knowledge of the Unix under-pinnings of MacOS. If a poster is asking how to install MacPorts, it suggests that he don't already have such skills and perhaps doesn't even have the motivation to acquire them. (Your earlier response suggested that posting in R-SIG-Mac was the wrong way to do acquire such skills and I agree. Appears the poster has not yet developed the habit of reading supporting online documentation. He certainly did not do so regarding R-SIG-Mac. My opinion: A person who chooses not to read or heed online documentation should be actively discouraged from using either MacPorts of homebrew.)\n\nBest;\nDavid.\n\n\n\nCheers,\n\nRainer\n\n\n\n--\nDavid.\n\nCheers,\n\nRainer\n\n\nOn 18 Oct 2017, at 02:36, John <miaojpm at gmail.com<mailto:miaojpm at gmail.com>> wrote:\n\nHi,\n\nI tried to install Cairo graphics\n\nhttps://www.cairographics.org/download/\n\nand I need to install Macports.\n\nI tried to install Macports on my Mac OS Sierra 10.12.6, and type \"sudo\nport install cairo\", but it did not respond. I haven't seen any file name\nor app called Macports, but one file called \"port\" which is located at\n\nloca/bin/port\"\n\nHow should I do it?\n\nThanks,\n\nJohn\n*******\n\nLast login: Sun Oct 15 02:52:49 on console\nJohns-MacBook-Pro:~ john$ /opt/local/bin/port ; exit;\nMacPorts 2.4.2\nEntering shell mode... (\"help\" for help, \"quit\" to quit)\n[Users/john] > sudo port install cairo\nError: Unrecognized action \"port sudo\"\n\n  [[alternative HTML version deleted]]\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nUniversity of Z?rich\n\nCell:       +41 (0)78 630 66 57\nemail:      Rainer at krugs.de<mailto:Rainer at krugs.de>\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n\n\n\n\n   [[alternative HTML version deleted]]\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nUniversity of Z?rich\n\nCell:       +41 (0)78 630 66 57\nemail:      Rainer at krugs.de<mailto:Rainer at krugs.de>\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n\n\n\n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n\n\n\n\n\n\n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "John,\n\nYou could spin your wheels for a long time on this, because it seems that you lack some basic information, not related to R.  You best plan might be to drop consideration of R for a few weeks, ",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 7,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-d2612f676bdb",
+      "message_id": "<deefc210-d0c1-edd3-ddc6-74e789bda191@atsu.edu>",
+      "from_name": "Robert Baer",
+      "from_email_hash": "ddd5677bd41ce9ccb8239fe4a8cc1ce533091d0e3a66b906fbf82801b2b76509",
+      "date": "2017-10-19T13:25:36-05:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+        "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>"
+      ],
+      "body_plain": "-- snip --\n\n>>> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version of cairo, probably the most recent one.\n>>>\n>>> http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n>>>\n>>> Scroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root.\n>>>\n>>> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n>>> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\nEven though its not my question, I appreciate the specific \nrecommendations on best practices for move ahead.\n\n>>>\n>>> The Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n>> Using homebrew (and as far as I know Macports as well) works without major problems. The problem start when you mix standard installations / homebrew / Macports. This results in problems.\n> The fact that the original poster had obviously not used MacPorts (and perhaps did not even know what it was) suggests that the appropriate reply should be to discourage him from using it and offer a strategy with greater likelihood of success in combination with the more typical installation method for the Mac R fork.\nI? am brand new to this list, but have been using R since about 2000.? \nThe reason I'm here is to translate Mac-speak like \"homebrew\" and \n\"MacPorts\" into grounded advice that lets me use R as effectively on my \nnew Mac as my Windows and Linux machines.? I appreciate John's \npredicament and this approach to answering his question is highly \ninformative to me as I lurk and learn.?? Thanks from this newbie Mac user.\n\n-- \n\n\n--\nRobert W. Baer, Ph.D.\nProfessor of Physiology\nKirksville College of Osteopathic Medicine\nA T Still University of Health Sciences\n800 W. Jefferson St\nKirksville, MO 63501\n660-626-2321 Department\n660-626-2965 FAX",
+      "body_snippet": "-- snip --\n\n>>> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 5,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-9ba51a4d5f86",
+      "message_id": "<149806ED-92C3-47DC-9184-1F2980090A96@icloud.com>",
+      "from_name": "Rainer Krug",
+      "from_email_hash": "73f1dc60a1e52df927261a26a7690dde97cf997cebf8ef49209c2cd69b2757ab",
+      "date": "2017-10-20T08:33:50+02:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<deefc210-d0c1-edd3-ddc6-74e789bda191@atsu.edu>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+        "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+        "<deefc210-d0c1-edd3-ddc6-74e789bda191@atsu.edu>"
+      ],
+      "body_plain": "> On 19 Oct 2017, at 20:25, Robert Baer <rbaer at atsu.edu> wrote:\n> \n> \n> -- snip --\n> \n>>>> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version of cairo, probably the most recent one.\n>>>> \n>>>> http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n>>>> \n>>>> Scroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root.\n>>>> \n>>>> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n>>>> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n> Even though its not my question, I appreciate the specific recommendations on best practices for move ahead.\n> \n>>>> \n>>>> The Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n>>> Using homebrew (and as far as I know Macports as well) works without major problems. The problem start when you mix standard installations / homebrew / Macports. This results in problems.\n>> The fact that the original poster had obviously not used MacPorts (and perhaps did not even know what it was) suggests that the appropriate reply should be to discourage him from using it and offer a strategy with greater likelihood of success in combination with the more typical installation method for the Mac R fork.\n> I  am brand new to this list, but have been using R since about 2000.  The reason I'm here is to translate Mac-speak like \"homebrew\" and \"MacPorts\" into grounded advice that lets me use R as effectively on my new Mac as my Windows and Linux machines. \n\nIf you know your way around in Linux, I would suggest looking into homebrew - it essentially brings the approach of apt (in the case of debian) to a Mac. If not, you might be better off with the official R installers. But all work equally after installed.\n\n\nCheers,\n\nRainer\n\n\n> I appreciate John's predicament and this approach to answering his question is highly informative to me as I lurk and learn.   Thanks from this newbie Mac user.\n> \n> -- \n> \n> \n> --\n> Robert W. Baer, Ph.D.\n> Professor of Physiology\n> Kirksville College of Osteopathic Medicine\n> A T Still University of Health Sciences\n> 800 W. Jefferson St\n> Kirksville, MO 63501\n> 660-626-2321 Department\n> 660-626-2965 FAX\n> \n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nUniversity of Z?rich\n\nCell:       +41 (0)78 630 66 57\nemail:      Rainer at krugs.de\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "> On 19 Oct 2017, at 20:25, Robert Baer <rbaer at atsu.edu> wrote:\n> \n> \n> -- snip --\n> \n>>>> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate s",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 6,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-e772ed721c42",
+      "message_id": "<29E11DE2-2C2D-4FDD-A4C1-0858A3F2FFAD@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-20T08:34:33-07:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<149806ED-92C3-47DC-9184-1F2980090A96@icloud.com>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+        "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+        "<deefc210-d0c1-edd3-ddc6-74e789bda191@atsu.edu>",
+        "<149806ED-92C3-47DC-9184-1F2980090A96@icloud.com>"
+      ],
+      "body_plain": "> On Oct 19, 2017, at 11:33 PM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> \n> \n> \n>> On 19 Oct 2017, at 20:25, Robert Baer <rbaer at atsu.edu> wrote:\n>> \n>> \n>> -- snip --\n>> \n>>>>> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version of cairo, probably the most recent one.\n>>>>> \n>>>>> http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n>>>>> \n>>>>> Scroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root.\n>>>>> \n>>>>> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n>>>>> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n>> Even though its not my question, I appreciate the specific recommendations on best practices for move ahead.\n>> \n>>>>> \n>>>>> The Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n>>>> Using homebrew (and as far as I know Macports as well) works without major problems. The problem start when you mix standard installations / homebrew / Macports. This results in problems.\n>>> The fact that the original poster had obviously not used MacPorts (and perhaps did not even know what it was) suggests that the appropriate reply should be to discourage him from using it and offer a strategy with greater likelihood of success in combination with the more typical installation method for the Mac R fork.\n>> I  am brand new to this list, but have been using R since about 2000.  The reason I'm here is to translate Mac-speak like \"homebrew\" and \"MacPorts\" into grounded advice that lets me use R as effectively on my new Mac as my Windows and Linux machines. \n> \n> If you know your way around in Linux, I would suggest looking into homebrew - it essentially brings the approach of apt (in the case of debian) to a Mac. If not, you might be better off with the official R installers. But all work equally after installed.\n\nDear Rainer;\n\nI think it might be a bit more complicated than \"just use the same installer all the time\", but am not a user of either homebrew or MacPorts so am speaking only from reports I have read in this mailing list and SO. Bob Rudis whom I also respect in such matters has several times made the same suggestion. I think there may need to be supplemental instructions on setting system environment variables and also possibly further changes to Makevars files in some packages being obtained from CRAN or BioC. I have been encouraged by others to switch to homebrew, but have never found a sufficiently complete tutorial that appeared to cover these other issues. If you know of one, Rainer, I think you should share it.\n\nBest;\nDavid.\n> \n> \n> Cheers,\n> \n> Rainer\n> \n> \n>> I appreciate John's predicament and this approach to answering his question is highly informative to me as I lurk and learn.   Thanks from this newbie Mac user.\n>> \n>> -- \n>> \n>> \n>> --\n>> Robert W. Baer, Ph.D.\n>> Professor of Physiology\n>> Kirksville College of Osteopathic Medicine\n>> A T Still University of Health Sciences\n>> 800 W. Jefferson St\n>> Kirksville, MO 63501\n>> 660-626-2321 Department\n>> 660-626-2965 FAX\n>> \n> \n> --\n> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> \n> University of Z?rich\n> \n> Cell:       +41 (0)78 630 66 57\n> email:      Rainer at krugs.de\n> Skype:      RMkrug\n> \n> PGP: 0x0F52F982\n> \n> \n> \n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law",
+      "body_snippet": "> On Oct 19, 2017, at 11:33 PM, Rainer Krug <rainer_krug at icloud.com> wrote:\n> \n> \n> \n>> On 19 Oct 2017, at 20:25, Robert Baer <rbaer at atsu.edu> wrote:\n>> \n>> \n>> -- snip --\n>> \n>>>>> I think usin",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 7,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-087983275d84",
+      "message_id": "<303CD3A3-230A-4D18-A190-E6C2D1160DF3@llnl.gov>",
+      "from_name": "MacQueen, Don",
+      "from_email_hash": "a355feda42ba291cca3ded2b4bd0f5892237f43a1a49bebc63799ce72f20c62e",
+      "date": "2017-10-20T18:02:33Z",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<29E11DE2-2C2D-4FDD-A4C1-0858A3F2FFAD@comcast.net>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+        "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+        "<deefc210-d0c1-edd3-ddc6-74e789bda191@atsu.edu>",
+        "<149806ED-92C3-47DC-9184-1F2980090A96@icloud.com>",
+        "<29E11DE2-2C2D-4FDD-A4C1-0858A3F2FFAD@comcast.net>"
+      ],
+      "body_plain": "The OP's question has inspired an interestingly large number of responses.\n\nOne thing I'm curious about, and I don't think I've seen in the discussion, is why the OP needed to install Cairo graphics with respect to R (otherwise the question was indeed off-topic for R-sig-Mac).\n\nIn summary (and I think this is reasonably consistent with other responses; discussion to support my summary follows):\n\n1)  Use CRAN R, install dependencies needed for extended R capability on the OS as needed, from whatever source you prefer, or whichever is easiest for R to use\n2)  If one chooses to install R using MacPorts or homebrew, be prepared to exercise a greater depth of computer science smarts\n3)  Feel free to install other useful stuff using MacPorts or homebrew, whichever one prefers; there is unlikely to be any conflict with R\n\n\nIn close to 20 years of using R on Mac, I have always been able to use whatever capabilities R offers that I wanted to use, using the R provided on CRAN. Nothing has ever motivated me to install R using MacPorts or homebrew in order to obtain some capability that I couldn't have using CRAN's binary download for Mac. This includes things like access to remote Oracle databases, using various spatial packages built around sp and rgdal, reading and writing MS Office files (both Word and Excel), building simple tcl/tk interfaces, writing my own packages that link to Fortran, and probably more that I don't remember. I see no necessity to install R from MacPorts or homebrew. Of course, if one wishes to for whatever reason, great! And I'm glad that people have wanted to make R available from those package managers.\n\nI do use MacPorts, however, to get useful software such as an X Windows aware version of emacs, ghostscript, and ImageMagick. Indeed, I even have cairo installed using MacPorts, albeit on a 10.11.6 system, not a 10.12.x system like the OP. (It's probably there as a dependency for some other MacPorts package.) From that point of view, the OP's command to install it using MacPorts was correct. I'd need more information to make a guess at why it didn't succeed.\n\nSome R packages do, of course, depend on external libraries not provided with R. One has to install these from somewhere.  For example, the spatial packages need GDAL. In this case, I use the KyngChaos frameworks, but I'm aware that they're also available from MacPorts (and probably homebrew as well). Could I use them instead? Probably; R is pretty good about letting the user specify where dependencies are found.\n\nI do not know what R extended capability depends on installing Cairo graphics on the OS. The X11() graphics device, as provided (I believe), has a version that uses cairo. There is the Cairo R package, but it has a binary version, at least for R on 10.11.x, so there's no need to install Cairo graphics to install the Cairo package.\n\n-Don\n\n--\nDon MacQueen\nLawrence Livermore National Laboratory\n7000 East Ave., L-627\nLivermore, CA 94550\n925-423-1062\nLab cell 925-724-7509\n \n \n\nOn 10/20/17, 8:34 AM, \"R-SIG-Mac on behalf of David Winsemius\" <r-sig-mac-bounces at r-project.org on behalf of dwinsemius at comcast.net> wrote:\n\n    \n    > On Oct 19, 2017, at 11:33 PM, Rainer Krug <rainer_krug at icloud.com> wrote:\n    > \n    > \n    > \n    >> On 19 Oct 2017, at 20:25, Robert Baer <rbaer at atsu.edu> wrote:\n    >> \n    >> \n    >> -- snip --\n    >> \n    >>>>> I think using MacPorts might actually be the \"error\" that needs correction. I would suggest an alternate strategy. Go to http://r.research.att.com/libs/ and get the appropriate version of cairo, probably the most recent one.\n    >>>>> \n    >>>>> http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n    >>>>> \n    >>>>> Scroll down to the bottom of that page and an appropriate modification of the two lines for unpacking to the root.\n    >>>>> \n    >>>>> curl -O http://r.research.att.com/libs/cairo-1.14.2-darwin.13-x86_64.tar.gz\n    >>>>> sudo tar fvxz gmp-4.2.4-darwin8-bin4.tar.gz -C /\n    >> Even though its not my question, I appreciate the specific recommendations on best practices for move ahead.\n    >> \n    >>>>> \n    >>>>> The Mac version of R does not do well with either MacPorts or homebrew installation of required system packages because those package managers put them in loaction that are not recognized by the static build that is the default.\n    >>>> Using homebrew (and as far as I know Macports as well) works without major problems. The problem start when you mix standard installations / homebrew / Macports. This results in problems.\n    >>> The fact that the original poster had obviously not used MacPorts (and perhaps did not even know what it was) suggests that the appropriate reply should be to discourage him from using it and offer a strategy with greater likelihood of success in combination with the more typical installation method for the Mac R fork.\n    >> I  am brand new to this list, but have been using R since about 2000.  The reason I'm here is to translate Mac-speak like \"homebrew\" and \"MacPorts\" into grounded advice that lets me use R as effectively on my new Mac as my Windows and Linux machines. \n    > \n    > If you know your way around in Linux, I would suggest looking into homebrew - it essentially brings the approach of apt (in the case of debian) to a Mac. If not, you might be better off with the official R installers. But all work equally after installed.\n    \n    Dear Rainer;\n    \n    I think it might be a bit more complicated than \"just use the same installer all the time\", but am not a user of either homebrew or MacPorts so am speaking only from reports I have read in this mailing list and SO. Bob Rudis whom I also respect in such matters has several times made the same suggestion. I think there may need to be supplemental instructions on setting system environment variables and also possibly further changes to Makevars files in some packages being obtained from CRAN or BioC. I have been encouraged by others to switch to homebrew, but have never found a sufficiently complete tutorial that appeared to cover these other issues. If you know of one, Rainer, I think you should share it.\n    \n    Best;\n    David.\n    > \n    > \n    > Cheers,\n    > \n    > Rainer\n    > \n    > \n    >> I appreciate John's predicament and this approach to answering his question is highly informative to me as I lurk and learn.   Thanks from this newbie Mac user.\n    >> \n    >> -- \n    >> \n    >> \n    >> --\n    >> Robert W. Baer, Ph.D.\n    >> Professor of Physiology\n    >> Kirksville College of Osteopathic Medicine\n    >> A T Still University of Health Sciences\n    >> 800 W. Jefferson St\n    >> Kirksville, MO 63501\n    >> 660-626-2321 Department\n    >> 660-626-2965 FAX\n    >> \n    > \n    > --\n    > Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n    > \n    > University of Z?rich\n    > \n    > Cell:       +41 (0)78 630 66 57\n    > email:      Rainer at krugs.de\n    > Skype:      RMkrug\n    > \n    > PGP: 0x0F52F982\n    > \n    > \n    > \n    \n    David Winsemius\n    Alameda, CA, USA\n    \n    'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law\n    \n    _______________________________________________\n    R-SIG-Mac mailing list\n    R-SIG-Mac at r-project.org\n    https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "The OP's question has inspired an interestingly large number of responses.\n\nOne thing I'm curious about, and I don't think I've seen in the discussion, is why the OP needed to install Cairo graphics w",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 8,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-4599581fe89a",
+      "message_id": "<2F3BC1B0-331E-4D2E-ACB0-C6CD2621DB3A@mac.com>",
+      "from_name": "美彦 馬場",
+      "from_email_hash": "531421b3679a9135c4a06ea9b9e1574f6e8053c36c7172ce959a7a98a66504a5",
+      "date": "2017-10-21T07:15:13+09:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<303CD3A3-230A-4D18-A190-E6C2D1160DF3@llnl.gov>",
+      "references": [
+        "<CABcx46CEkP7yjX28_QDZYCNQXvd8WPSYhs-bFDq3gwLW-xUsUQ@mail.gmail.com>",
+        "<44333FFC-ACF3-4357-9CD6-77AA81A408F3@icloud.com>",
+        "<C1A167E3-F6A3-448E-904E-60CE5390345F@comcast.net>",
+        "<6012E78A-2A5F-4386-B3CD-233E03554911@icloud.com>",
+        "<698A5164-37AD-470B-B3E3-3F89AC97F599@comcast.net>",
+        "<deefc210-d0c1-edd3-ddc6-74e789bda191@atsu.edu>",
+        "<149806ED-92C3-47DC-9184-1F2980090A96@icloud.com>",
+        "<29E11DE2-2C2D-4FDD-A4C1-0858A3F2FFAD@comcast.net>",
+        "<303CD3A3-230A-4D18-A190-E6C2D1160DF3@llnl.gov>"
+      ],
+      "body_plain": "I do not want to mess this ML with yet another option, but Fink, another package manager for macOS, is also an option.  The main reasons I use Fink is to make sure GIS related CRAN packages (e.g. regal) are linked to Fink installed GIS packages (e.g. gdal).\n\nFink:\n1. allows you to have multiple versions of R (e.g. 3.4, 3.3 and 3.2);\n2.?has a number of CRAN/BioC packages to be stored in /sw/lib/R/3.4/site-library, /sw/lib/R/3.3/site-library and /sw/lib/R/3.2/site-library respectively\n(CRAN/BioC libraries are linked to Fink packages);\n3. allows users to use CRAN (saved in user directory) and Fink installed package; and\n4. does not depend on non-System/Fink installed shared libraries  (so that regal will not be wrongly linked to user-installed gdal)\n\n$ otool -L /sw/lib/R/3.3/site-library/rgdal/libs/rgdal.dylib \n/sw/lib/R/3.3/site-library/rgdal/libs/rgdal.dylib:\n\t/sw/lib/R/3.3/site-library/rgdal/libs/rgdal.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/sw/Library/Frameworks/R.framework/Versions/3.3/Resources/lib/libR.dylib (compatibility version 3.3.0, current version 3.3.1)\n\t/sw/lib/libgdal.20.dylib (compatibility version 22.0.0, current version 22.1.0)\n\t/sw/lib/libproj.9.dylib (compatibility version 11.0.0, current version 11.0.0)\n\t/sw/lib/libintl.8.dylib (compatibility version 10.0.0, current version 10.5.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 1348.1.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 307.4.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1238.0.0)\n\n\n\n> 2017/10/21 3:02?MacQueen, Don <macqueen1 at llnl.gov>????:\n> \n> The OP's question has inspired an interestingly large number of responses.\n> \n> One thing I'm curious about, and I don't think I've seen in the discussion, is why the OP needed to install Cairo graphics with respect to R (otherwise the question was indeed off-topic for R-sig-Mac).\n> \n> In summary (and I think this is reasonably consistent with other responses; discussion to support my summary follows):\n> \n> 1)  Use CRAN R, install dependencies needed for extended R capability on the OS as needed, from whatever source you prefer, or whichever is easiest for R to use\n> 2)  If one chooses to install R using MacPorts or homebrew, be prepared to exercise a greater depth of computer science smarts\n> 3)  Feel free to install other useful stuff using MacPorts or homebrew, whichever one prefers; there is unlikely to be any conflict with R\n>",
+      "body_snippet": "I do not want to mess this ML with yet another option, but Fink, another package manager for macOS, is also an option.  The main reasons I use Fink is to make sure GIS related CRAN packages (e.g. rega",
+      "thread_id": "thread-2440351f8afd",
+      "thread_depth": 9,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-0d1bf5a60c18",
+      "message_id": "<CAJx09AmceTqrDeBw92O3OPqGV7s3hptnYumWvyPLgp-87v05SQ@mail.gmail.com>",
+      "from_name": "clark richards",
+      "from_email_hash": "3f6b875194d2ce0d8ea4bc022aafe61183260a31abb9f3b5b7d80ab966b629d4",
+      "date": "2017-10-21T09:47:38-03:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Interesting discussion, even if it is technically off-topic (i.e. is about\na Macports issue rather than an R issue).\n\nFor myself, I have found instances where I needed to install R through\nnon-standard channels (my choice lately has been homebrew). This was\nlargely related to having the required system tools necessary for a package\ndevelopment environment that permits the compilation of C/fortran code and\nsome system libraries (gdal, etc). As Don and others pointed out many such\ndependencies should be available through the OSX R develop page (forget the\naddress right now ...), I have some older machines for which those\nprecompiled binaries do not install, including a 9 year old Macbook which\nwill run OSX up to ElCapitan but is not compatible with the newer binaries.\nIn that case, in order to have an R and gfortran that played together I had\nto use homebrew as I could not find a binary gfortran that would work for\nmy architecture.\n\nI love working on OSX, though I have often lamented the difficulties in\ngetting a suitable package development environment configured -- at least\ncompared to Windows (just install Rtools.exe) and Linux (everything\nrequired is easily installed from the distro package manager).\n\nClark\n\n\n> Message: 2\n> Date: Fri, 20 Oct 2017 18:02:33 +0000\n> From: \"MacQueen, Don\" <macqueen1 at llnl.gov>\n> To: David Winsemius <dwinsemius at comcast.net>, Rainer Krug\n>         <rainer_krug at icloud.com>\n> Cc: John <miaojpm at gmail.com>, \"r-sig-mac at r-project.org\"\n>         <r-sig-mac at r-project.org>\n> Subject: Re: [R-SIG-Mac] Macports installation problem\n> Message-ID: <303CD3A3-230A-4D18-A190-E6C2D1160DF3 at llnl.gov>\n> Content-Type: text/plain; charset=\"utf-8\"\n>\n> The OP's question has inspired an interestingly large number of responses.\n>\n> One thing I'm curious about, and I don't think I've seen in the\n> discussion, is why the OP needed to install Cairo graphics with respect to\n> R (otherwise the question was indeed off-topic for R-sig-Mac).\n>\n> In summary (and I think this is reasonably consistent with other\n> responses; discussion to support my summary follows):\n>\n> 1)  Use CRAN R, install dependencies needed for extended R capability on\n> the OS as needed, from whatever source you prefer, or whichever is easiest\n> for R to use\n> 2)  If one chooses to install R using MacPorts or homebrew, be prepared to\n> exercise a greater depth of computer science smarts\n> 3)  Feel free to install other useful stuff using MacPorts or homebrew,\n> whichever one prefers; there is unlikely to be any conflict with R\n>\n>\n> In close to 20 years of using R on Mac, I have always been able to use\n> whatever capabilities R offers that I wanted to use, using the R provided\n> on CRAN. Nothing has ever motivated me to install R using MacPorts or\n> homebrew in order to obtain some capability that I couldn't have using\n> CRAN's binary download for Mac. This includes things like access to remote\n> Oracle databases, using various spatial packages built around sp and rgdal,\n> reading and writing MS Office files (both Word and Excel), building simple\n> tcl/tk interfaces, writing my own packages that link to Fortran, and\n> probably more that I don't remember. I see no necessity to install R from\n> MacPorts or homebrew. Of course, if one wishes to for whatever reason,\n> great! And I'm glad that people have wanted to make R available from those\n> package managers.\n>\n> I do use MacPorts, however, to get useful software such as an X Windows\n> aware version of emacs, ghostscript, and ImageMagick. Indeed, I even have\n> cairo installed using MacPorts, albeit on a 10.11.6 system, not a 10.12.x\n> system like the OP. (It's probably there as a dependency for some other\n> MacPorts package.) From that point of view, the OP's command to install it\n> using MacPorts was correct. I'd need more information to make a guess at\n> why it didn't succeed.\n>\n> Some R packages do, of course, depend on external libraries not provided\n> with R. One has to install these from somewhere.  For example, the spatial\n> packages need GDAL. In this case, I use the KyngChaos frameworks, but I'm\n> aware that they're also available from MacPorts (and probably homebrew as\n> well). Could I use them instead? Probably; R is pretty good about letting\n> the user specify where dependencies are found.\n>\n> I do not know what R extended capability depends on installing Cairo\n> graphics on the OS. The X11() graphics device, as provided (I believe), has\n> a version that uses cairo. There is the Cairo R package, but it has a\n> binary version, at least for R on 10.11.x, so there's no need to install\n> Cairo graphics to install the Cairo package.\n>\n> -Don\n>\n> --\n> Don MacQueen\n> Lawrence Livermore National Laboratory\n> 7000 East Ave., L-627\n> Livermore, CA 94550\n> 925-423-1062\n> Lab cell 925-724-7509\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Interesting discussion, even if it is technically off-topic (i.e. is about\na Macports issue rather than an R issue).\n\nFor myself, I have found instances where I needed to install R through\nnon-standar",
+      "thread_id": "thread-0d1bf5a60c18",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-4b12a9c87915",
+      "message_id": "<3DE8BE8C-4516-4153-B4EE-83155564644B@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-10-22T10:31:08-07:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<CAJx09AmceTqrDeBw92O3OPqGV7s3hptnYumWvyPLgp-87v05SQ@mail.gmail.com>",
+      "references": [
+        "<CAJx09AmceTqrDeBw92O3OPqGV7s3hptnYumWvyPLgp-87v05SQ@mail.gmail.com>"
+      ],
+      "body_plain": "> On Oct 21, 2017, at 5:47 AM, clark richards <clark.richards at gmail.com> wrote:\n> \n> Interesting discussion, even if it is technically off-topic (i.e. is about a Macports issue rather than an R issue).\n> \n> For myself, I have found instances where I needed to install R through non-standard channels (my choice lately has been homebrew). This was largely related to having the required system tools necessary for a package development environment that permits the compilation of C/fortran code and some system libraries (gdal, etc). As Don and others pointed out many such dependencies should be available through the OSX R develop page (forget the address right now ...), I have some older machines for which those precompiled binaries do not install, including a 9 year old Macbook which will run OSX up to ElCapitan but is not compatible with the newer binaries. In that case, in order to have an R and gfortran that played together I had to use homebrew as I could not find a binary gfortran that would work for my architecture.\n\nI have two older Macs of roughly the same vintage, both running El Cap. Regarding gfortran for package devel, I wondered if you had noticed that advice at the top of the CRAN Tools page to add some locations to a Makevars file:\n\nhttps://cran.r-project.org/bin/macosx/tools/\n\nI was having difficulties until someone gently reminded me to \"read the manual\".\n\nGDAL (and associated packages) are generally obtained from Kyngchaos and that has been the case for as long as I remember.\n\n-- \nDavid.\n\n\n> \n> I love working on OSX, though I have often lamented the difficulties in getting a suitable package development environment configured -- at least compared to Windows (just install Rtools.exe) and Linux (everything required is easily installed from the distro package manager).\n> \n> Clark\n> \n> \n> Message: 2\n> Date: Fri, 20 Oct 2017 18:02:33 +0000\n> From: \"MacQueen, Don\" <macqueen1 at llnl.gov>\n> To: David Winsemius <dwinsemius at comcast.net>, Rainer Krug\n>         <rainer_krug at icloud.com>\n> Cc: John <miaojpm at gmail.com>, \"r-sig-mac at r-project.org\"\n>         <r-sig-mac at r-project.org>\n> Subject: Re: [R-SIG-Mac] Macports installation problem\n> Message-ID: <303CD3A3-230A-4D18-A190-E6C2D1160DF3 at llnl.gov>\n> Content-Type: text/plain; charset=\"utf-8\"\n> \n> The OP's question has inspired an interestingly large number of responses.\n> \n> One thing I'm curious about, and I don't think I've seen in the discussion, is why the OP needed to install Cairo graphics with respect to R (otherwise the question was indeed off-topic for R-sig-Mac).\n> \n> In summary (and I think this is reasonably consistent with other responses; discussion to support my summary follows):\n> \n> 1)  Use CRAN R, install dependencies needed for extended R capability on the OS as needed, from whatever source you prefer, or whichever is easiest for R to use\n> 2)  If one chooses to install R using MacPorts or homebrew, be prepared to exercise a greater depth of computer science smarts\n> 3)  Feel free to install other useful stuff using MacPorts or homebrew, whichever one prefers; there is unlikely to be any conflict with R\n> \n> \n> In close to 20 years of using R on Mac, I have always been able to use whatever capabilities R offers that I wanted to use, using the R provided on CRAN. Nothing has ever motivated me to install R using MacPorts or homebrew in order to obtain some capability that I couldn't have using CRAN's binary download for Mac. This includes things like access to remote Oracle databases, using various spatial packages built around sp and rgdal, reading and writing MS Office files (both Word and Excel), building simple tcl/tk interfaces, writing my own packages that link to Fortran, and probably more that I don't remember. I see no necessity to install R from MacPorts or homebrew. Of course, if one wishes to for whatever reason, great! And I'm glad that people have wanted to make R available from those package managers.\n> \n> I do use MacPorts, however, to get useful software such as an X Windows aware version of emacs, ghostscript, and ImageMagick. Indeed, I even have cairo installed using MacPorts, albeit on a 10.11.6 system, not a 10.12.x system like the OP. (It's probably there as a dependency for some other MacPorts package.) From that point of view, the OP's command to install it using MacPorts was correct. I'd need more information to make a guess at why it didn't succeed.\n> \n> Some R packages do, of course, depend on external libraries not provided with R. One has to install these from somewhere.  For example, the spatial packages need GDAL. In this case, I use the KyngChaos frameworks, but I'm aware that they're also available from MacPorts (and probably homebrew as well). Could I use them instead? Probably; R is pretty good about letting the user specify where dependencies are found.\n> \n> I do not know what R extended capability depends on installing Cairo graphics on the OS. The X11() graphics device, as provided (I believe), has a version that uses cairo. There is the Cairo R package, but it has a binary version, at least for R on 10.11.x, so there's no need to install Cairo graphics to install the Cairo package.\n> \n> -Don\n> \n> --\n> Don MacQueen\n> Lawrence Livermore National Laboratory\n> 7000 East Ave., L-627\n> Livermore, CA 94550\n> 925-423-1062\n> Lab cell 925-724-7509\n> \n> \n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law",
+      "body_snippet": "> On Oct 21, 2017, at 5:47 AM, clark richards <clark.richards at gmail.com> wrote:\n> \n> Interesting discussion, even if it is technically off-topic (i.e. is about a Macports issue rather than an R iss",
+      "thread_id": "thread-0d1bf5a60c18",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-31d3df526453",
+      "message_id": "<CAJx09AmexR_vDmYPeuf2GSvPKywPSWsMd4VxodcbX8u8Bqz-nA@mail.gmail.com>",
+      "from_name": "clark richards",
+      "from_email_hash": "3f6b875194d2ce0d8ea4bc022aafe61183260a31abb9f3b5b7d80ab966b629d4",
+      "date": "2017-10-23T09:10:27-03:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<3DE8BE8C-4516-4153-B4EE-83155564644B@comcast.net>",
+      "references": [
+        "<CAJx09AmceTqrDeBw92O3OPqGV7s3hptnYumWvyPLgp-87v05SQ@mail.gmail.com>",
+        "<3DE8BE8C-4516-4153-B4EE-83155564644B@comcast.net>"
+      ],
+      "body_plain": "Interesting. Thanks for the \"gentle reminder\". I haven't visited that page\nin some time, because it has been quite awhile since the gfortran-4.2.3\npackages were appropriate, and the bit about the Makevars I think is new\nsince the last time I had to go through setting up a machine.\n\nClark\n\nOn Sun, Oct 22, 2017 at 2:31 PM, David Winsemius <dwinsemius at comcast.net>\nwrote:\n\n>\n> > On Oct 21, 2017, at 5:47 AM, clark richards <clark.richards at gmail.com>\n> wrote:\n> >\n> > Interesting discussion, even if it is technically off-topic (i.e. is\n> about a Macports issue rather than an R issue).\n> >\n> > For myself, I have found instances where I needed to install R through\n> non-standard channels (my choice lately has been homebrew). This was\n> largely related to having the required system tools necessary for a package\n> development environment that permits the compilation of C/fortran code and\n> some system libraries (gdal, etc). As Don and others pointed out many such\n> dependencies should be available through the OSX R develop page (forget the\n> address right now ...), I have some older machines for which those\n> precompiled binaries do not install, including a 9 year old Macbook which\n> will run OSX up to ElCapitan but is not compatible with the newer binaries.\n> In that case, in order to have an R and gfortran that played together I had\n> to use homebrew as I could not find a binary gfortran that would work for\n> my architecture.\n>\n> I have two older Macs of roughly the same vintage, both running El Cap.\n> Regarding gfortran for package devel, I wondered if you had noticed that\n> advice at the top of the CRAN Tools page to add some locations to a\n> Makevars file:\n>\n> https://cran.r-project.org/bin/macosx/tools/\n>\n> I was having difficulties until someone gently reminded me to \"read the\n> manual\".\n>\n> GDAL (and associated packages) are generally obtained from Kyngchaos and\n> that has been the case for as long as I remember.\n>\n> --\n> David.\n>\n>\n> >\n> > I love working on OSX, though I have often lamented the difficulties in\n> getting a suitable package development environment configured -- at least\n> compared to Windows (just install Rtools.exe) and Linux (everything\n> required is easily installed from the distro package manager).\n> >\n> > Clark\n> >\n> >\n> > Message: 2\n> > Date: Fri, 20 Oct 2017 18:02:33 +0000\n> > From: \"MacQueen, Don\" <macqueen1 at llnl.gov>\n> > To: David Winsemius <dwinsemius at comcast.net>, Rainer Krug\n> >         <rainer_krug at icloud.com>\n> > Cc: John <miaojpm at gmail.com>, \"r-sig-mac at r-project.org\"\n> >         <r-sig-mac at r-project.org>\n> > Subject: Re: [R-SIG-Mac] Macports installation problem\n> > Message-ID: <303CD3A3-230A-4D18-A190-E6C2D1160DF3 at llnl.gov>\n> > Content-Type: text/plain; charset=\"utf-8\"\n> >\n> > The OP's question has inspired an interestingly large number of\n> responses.\n> >\n> > One thing I'm curious about, and I don't think I've seen in the\n> discussion, is why the OP needed to install Cairo graphics with respect to\n> R (otherwise the question was indeed off-topic for R-sig-Mac).\n> >\n> > In summary (and I think this is reasonably consistent with other\n> responses; discussion to support my summary follows):\n> >\n> > 1)  Use CRAN R, install dependencies needed for extended R capability on\n> the OS as needed, from whatever source you prefer, or whichever is easiest\n> for R to use\n> > 2)  If one chooses to install R using MacPorts or homebrew, be prepared\n> to exercise a greater depth of computer science smarts\n> > 3)  Feel free to install other useful stuff using MacPorts or homebrew,\n> whichever one prefers; there is unlikely to be any conflict with R\n> >\n> >\n> > In close to 20 years of using R on Mac, I have always been able to use\n> whatever capabilities R offers that I wanted to use, using the R provided\n> on CRAN. Nothing has ever motivated me to install R using MacPorts or\n> homebrew in order to obtain some capability that I couldn't have using\n> CRAN's binary download for Mac. This includes things like access to remote\n> Oracle databases, using various spatial packages built around sp and rgdal,\n> reading and writing MS Office files (both Word and Excel), building simple\n> tcl/tk interfaces, writing my own packages that link to Fortran, and\n> probably more that I don't remember. I see no necessity to install R from\n> MacPorts or homebrew. Of course, if one wishes to for whatever reason,\n> great! And I'm glad that people have wanted to make R available from those\n> package managers.\n> >\n> > I do use MacPorts, however, to get useful software such as an X Windows\n> aware version of emacs, ghostscript, and ImageMagick. Indeed, I even have\n> cairo installed using MacPorts, albeit on a 10.11.6 system, not a 10.12.x\n> system like the OP. (It's probably there as a dependency for some other\n> MacPorts package.) From that point of view, the OP's command to install it\n> using MacPorts was correct. I'd need more information to make a guess at\n> why it didn't succeed.\n> >\n> > Some R packages do, of course, depend on external libraries not provided\n> with R. One has to install these from somewhere.  For example, the spatial\n> packages need GDAL. In this case, I use the KyngChaos frameworks, but I'm\n> aware that they're also available from MacPorts (and probably homebrew as\n> well). Could I use them instead? Probably; R is pretty good about letting\n> the user specify where dependencies are found.\n> >\n> > I do not know what R extended capability depends on installing Cairo\n> graphics on the OS. The X11() graphics device, as provided (I believe), has\n> a version that uses cairo. There is the Cairo R package, but it has a\n> binary version, at least for R on 10.11.x, so there's no need to install\n> Cairo graphics to install the Cairo package.\n> >\n> > -Don\n> >\n> > --\n> > Don MacQueen\n> > Lawrence Livermore National Laboratory\n> > 7000 East Ave., L-627\n> > Livermore, CA 94550\n> > 925-423-1062\n> > Lab cell 925-724-7509\n> >\n> >\n>\n> David Winsemius\n> Alameda, CA, USA\n>\n> 'Any technology distinguishable from magic is insufficiently advanced.'\n>  -Gehm's Corollary to Clarke's Third Law\n>\n>\n>\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Interesting. Thanks for the \"gentle reminder\". I haven't visited that page\nin some time, because it has been quite awhile since the gfortran-4.2.3\npackages were appropriate, and the bit about the Make",
+      "thread_id": "thread-0d1bf5a60c18",
+      "thread_depth": 2,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-cad58c80ec1d",
+      "message_id": "<6ED4194A-C6DF-487D-9C42-C99D1FC3183D@upr.edu>",
+      "from_name": "Jose G Conde Santiago",
+      "from_email_hash": "117d889307ce6383825dae4f34297aa7477679212ebc24f200bc21ca86f1ce24",
+      "date": "2017-10-25T13:18:21-04:00",
+      "subject": "[R-SIG-Mac] ifelse script",
+      "subject_clean": "ifelse script",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello.\n\nI got one new variable computed using ifelse through R Commander. The variable was created without a problem. This was the expression to compute:\n\nifelse(icdfrrcond1 == 1 | icdfrrcond2 == 1 | icdfrrcond3 == 1 | icdfrrcond4  == 1 | icdfrrcond5  == 1 | icdfrrcond6 == 1 | icdfrrcond7 == 1 | icdfrrcond8 == 1 | icdfrrcond9  == 1 | icdfrrcond10  == 1 | icdfrrcond11  == 1 | icdfrrcond12  == 1 | icdfrrcond13 == 1 |  icdfrrcond14  == 1 | icdfrrcond15   == 1 | icdfrrcond16 == 1 | icdfrrcond17  == 1 | icdfrrcond18 == 1 | icdfrrcond19  == 1 | icdfrrcond20  == 1, icdfrischhrtdis <- 1, icdfrischhrtdis <- 0)\n\nThis is the script generated by R Commander:\n\nmortprres0515sle$icdfrischhrtdis <- with(mortprres0515sle, ifelse(icdfrrcond1 ==   1 | icdfrrcond2 == 1 | icdfrrcond3 == 1 | icdfrrcond4  == 1 | icdfrrcond5  == 1 |   icdfrrcond6 == 1 | icdfrrcond7 == 1 | icdfrrcond8 == 1 | icdfrrcond9  == 1 |   icdfrrcond10  == 1 | icdfrrcond11  == 1 | icdfrrcond12  == 1 | icdfrrcond13 == 1   |  icdfrrcond14  == 1 | icdfrrcond15   == 1 | icdfrrcond16 == 1 | icdfrrcond17    == 1 | icdfrrcond18 == 1 | icdfrrcond19  == 1 | icdfrrcond20  == 1,   icdfrischhrtdis <- 1, icdfrischhrtdis <- 0))\n\nWhen I try to run this same script from RStudio or the R console, the script is read, but the variable is not created. Even if I highlight the script in R Commander and ?Submit? it, I get the same problem.\n\nWhat I would like to do is to copy the script and modify it, so I can create 10 additional variables using just one script that I can run directly in R or RStudio.\n\nThanks.\n\nJos?\n   \n\nJos? G. Conde, MD, MPH\nProfessor, School of Medicine\nDirector, CentIT2\nUPR Medical Sciences Campus \n\nTel  (787) 763-9401 Fax (787) 758-5206\n\nEmail: jose.conde1 at upr.edu\n\nURL: http://rcmi.rcm.upr.edu",
+      "body_snippet": "Hello.\n\nI got one new variable computed using ifelse through R Commander. The variable was created without a problem. This was the expression to compute:\n\nifelse(icdfrrcond1 == 1 | icdfrrcond2 == 1 | ",
+      "thread_id": "thread-cad58c80ec1d",
+      "thread_depth": 0,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-6fbf50fe97f4",
+      "message_id": "<1cd80cf3-53d2-9b2e-b88a-672bb195c6ee@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "17e1fcd7901e6a11dc6bc3ede542d46252611499631dfb4199936939fda2e399",
+      "date": "2017-10-25T13:23:43-04:00",
+      "subject": "[R-SIG-Mac] ifelse script",
+      "subject_clean": "ifelse script",
+      "in_reply_to": "<6ED4194A-C6DF-487D-9C42-C99D1FC3183D@upr.edu>",
+      "references": [
+        "<6ED4194A-C6DF-487D-9C42-C99D1FC3183D@upr.edu>"
+      ],
+      "body_plain": "On 25/10/2017 1:18 PM, Jose G Conde Santiago via R-SIG-Mac wrote:\n> Hello.\n> \n> I got one new variable computed using ifelse through R Commander. The variable was created without a problem. This was the expression to compute:\n> \n> ifelse(icdfrrcond1 == 1 | icdfrrcond2 == 1 | icdfrrcond3 == 1 | icdfrrcond4  == 1 | icdfrrcond5  == 1 | icdfrrcond6 == 1 | icdfrrcond7 == 1 | icdfrrcond8 == 1 | icdfrrcond9  == 1 | icdfrrcond10  == 1 | icdfrrcond11  == 1 | icdfrrcond12  == 1 | icdfrrcond13 == 1 |  icdfrrcond14  == 1 | icdfrrcond15   == 1 | icdfrrcond16 == 1 | icdfrrcond17  == 1 | icdfrrcond18 == 1 | icdfrrcond19  == 1 | icdfrrcond20  == 1, icdfrischhrtdis <- 1, icdfrischhrtdis <- 0)\n\nThat's not the way to use ifelse():  it's not a control sequence like \n\"if (cond) ... else ...\", it's a function.  You should write it as\n\nicdfrischhrtdis <- ifelse(icdfrrcond1 == 1 | icdfrrcond2 == 1 | \nicdfrrcond3 == 1 | icdfrrcond4  == 1 | icdfrrcond5  == 1 | icdfrrcond6 \n== 1 | icdfrrcond7 == 1 | icdfrrcond8 == 1 | icdfrrcond9  == 1 | \nicdfrrcond10  == 1 | icdfrrcond11  == 1 | icdfrrcond12  == 1 | \nicdfrrcond13 == 1 |  icdfrrcond14  == 1 | icdfrrcond15   == 1 | \nicdfrrcond16 == 1 | icdfrrcond17  == 1 | icdfrrcond18 == 1 | \nicdfrrcond19  == 1 | icdfrrcond20  == 1, 1, 0)\n\nDuncan Murdoch\n\n> \n> This is the script generated by R Commander:\n> \n> mortprres0515sle$icdfrischhrtdis <- with(mortprres0515sle, ifelse(icdfrrcond1 ==   1 | icdfrrcond2 == 1 | icdfrrcond3 == 1 | icdfrrcond4  == 1 | icdfrrcond5  == 1 |   icdfrrcond6 == 1 | icdfrrcond7 == 1 | icdfrrcond8 == 1 | icdfrrcond9  == 1 |   icdfrrcond10  == 1 | icdfrrcond11  == 1 | icdfrrcond12  == 1 | icdfrrcond13 == 1   |  icdfrrcond14  == 1 | icdfrrcond15   == 1 | icdfrrcond16 == 1 | icdfrrcond17    == 1 | icdfrrcond18 == 1 | icdfrrcond19  == 1 | icdfrrcond20  == 1,   icdfrischhrtdis <- 1, icdfrischhrtdis <- 0))\n> \n> When I try to run this same script from RStudio or the R console, the script is read, but the variable is not created. Even if I highlight the script in R Commander and ?Submit? it, I get the same problem.\n> \n> What I would like to do is to copy the script and modify it, so I can create 10 additional variables using just one script that I can run directly in R or RStudio.\n> \n> Thanks.\n> \n> Jos?\n>     \n> \n> Jos? G. Conde, MD, MPH\n> Professor, School of Medicine\n> Director, CentIT2\n> UPR Medical Sciences Campus\n> \n> Tel  (787) 763-9401 Fax (787) 758-5206\n> \n> Email: jose.conde1 at upr.edu\n> \n> URL: http://rcmi.rcm.upr.edu\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On 25/10/2017 1:18 PM, Jose G Conde Santiago via R-SIG-Mac wrote:\n> Hello.\n> \n> I got one new variable computed using ifelse through R Commander. The variable was created without a problem. This was t",
+      "thread_id": "thread-cad58c80ec1d",
+      "thread_depth": 1,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-6394cd487477",
+      "message_id": "<305DDE8C-534E-45F5-8A8A-7FA3F3DD8824@upr.edu>",
+      "from_name": "Jose G Conde Santiago",
+      "from_email_hash": "117d889307ce6383825dae4f34297aa7477679212ebc24f200bc21ca86f1ce24",
+      "date": "2017-10-25T13:43:50-04:00",
+      "subject": "[R-SIG-Mac] ifelse script",
+      "subject_clean": "ifelse script",
+      "in_reply_to": "<1cd80cf3-53d2-9b2e-b88a-672bb195c6ee@gmail.com>",
+      "references": [
+        "<6ED4194A-C6DF-487D-9C42-C99D1FC3183D@upr.edu>",
+        "<1cd80cf3-53d2-9b2e-b88a-672bb195c6ee@gmail.com>"
+      ],
+      "body_plain": "Thank you, Duncan.\n\nJos?\n\nJos? G. Conde, MD, MPH\nCatedr?tico, Escuela de Medicina\nDirector, CentIT2\nRecinto de Ciencias M?dicas, UPR\n\nTel  (787) 763-9401  Fax (787) 758-5206\n\nCorreo electr?nico: jose.conde1 at upr.edu\n\nURL: http://rcmi.rcm.upr.edu\n\n> On Oct 25, 2017, at 1:23 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> On 25/10/2017 1:18 PM, Jose G Conde Santiago via R-SIG-Mac wrote:\n>> Hello.\n>> I got one new variable computed using ifelse through R Commander. The variable was created without a problem. This was the expression to compute:\n>> ifelse(icdfrrcond1 == 1 | icdfrrcond2 == 1 | icdfrrcond3 == 1 | icdfrrcond4  == 1 | icdfrrcond5  == 1 | icdfrrcond6 == 1 | icdfrrcond7 == 1 | icdfrrcond8 == 1 | icdfrrcond9  == 1 | icdfrrcond10  == 1 | icdfrrcond11  == 1 | icdfrrcond12  == 1 | icdfrrcond13 == 1 |  icdfrrcond14  == 1 | icdfrrcond15   == 1 | icdfrrcond16 == 1 | icdfrrcond17  == 1 | icdfrrcond18 == 1 | icdfrrcond19  == 1 | icdfrrcond20  == 1, icdfrischhrtdis <- 1, icdfrischhrtdis <- 0)\n> \n> That's not the way to use ifelse():  it's not a control sequence like \"if (cond) ... else ...\", it's a function.  You should write it as\n> \n> icdfrischhrtdis <- ifelse(icdfrrcond1 == 1 | icdfrrcond2 == 1 | icdfrrcond3 == 1 | icdfrrcond4  == 1 | icdfrrcond5  == 1 | icdfrrcond6 == 1 | icdfrrcond7 == 1 | icdfrrcond8 == 1 | icdfrrcond9  == 1 | icdfrrcond10  == 1 | icdfrrcond11  == 1 | icdfrrcond12  == 1 | icdfrrcond13 == 1 |  icdfrrcond14  == 1 | icdfrrcond15   == 1 | icdfrrcond16 == 1 | icdfrrcond17  == 1 | icdfrrcond18 == 1 | icdfrrcond19  == 1 | icdfrrcond20  == 1, 1, 0)\n> \n> Duncan Murdoch\n> \n>> This is the script generated by R Commander:\n>> mortprres0515sle$icdfrischhrtdis <- with(mortprres0515sle, ifelse(icdfrrcond1 ==   1 | icdfrrcond2 == 1 | icdfrrcond3 == 1 | icdfrrcond4  == 1 | icdfrrcond5  == 1 |   icdfrrcond6 == 1 | icdfrrcond7 == 1 | icdfrrcond8 == 1 | icdfrrcond9  == 1 |   icdfrrcond10  == 1 | icdfrrcond11  == 1 | icdfrrcond12  == 1 | icdfrrcond13 == 1   |  icdfrrcond14  == 1 | icdfrrcond15   == 1 | icdfrrcond16 == 1 | icdfrrcond17    == 1 | icdfrrcond18 == 1 | icdfrrcond19  == 1 | icdfrrcond20  == 1,   icdfrischhrtdis <- 1, icdfrischhrtdis <- 0))\n>> When I try to run this same script from RStudio or the R console, the script is read, but the variable is not created. Even if I highlight the script in R Commander and ?Submit? it, I get the same problem.\n>> What I would like to do is to copy the script and modify it, so I can create 10 additional variables using just one script that I can run directly in R or RStudio.\n>> Thanks.\n>> Jos?\n>>    Jos? G. Conde, MD, MPH\n>> Professor, School of Medicine\n>> Director, CentIT2\n>> UPR Medical Sciences Campus\n>> Tel  (787) 763-9401 Fax (787) 758-5206\n>> Email: jose.conde1 at upr.edu\n>> URL: http://rcmi.rcm.upr.edu\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Thank you, Duncan.\n\nJos?\n\nJos? G. Conde, MD, MPH\nCatedr?tico, Escuela de Medicina\nDirector, CentIT2\nRecinto de Ciencias M?dicas, UPR\n\nTel  (787) 763-9401  Fax (787) 758-5206\n\nCorreo electr?nico: jose.",
+      "thread_id": "thread-cad58c80ec1d",
+      "thread_depth": 2,
+      "month": "2017-10"
+    },
+    {
+      "id": "msg-639d0bc5eb8b",
+      "message_id": "<8163D31A-C6C2-433E-B2FF-268C50D09743@krugs.de>",
+      "from_name": "Rainer Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2017-10-26T16:52:40+02:00",
+      "subject": "[R-SIG-Mac] Macports installation problem",
+      "subject_clean": "Macports installation problem",
+      "in_reply_to": "<CAJx09AmceTqrDeBw92O3OPqGV7s3hptnYumWvyPLgp-87v05SQ@mail.gmail.com>",
+      "references": [
+        "<CAJx09AmceTqrDeBw92O3OPqGV7s3hptnYumWvyPLgp-87v05SQ@mail.gmail.com>"
+      ],
+      "body_plain": "Very useful discussion, and I think it is relevant for r-sig-macin many regards.\n\nNot the least, it offers new users, whatever background, information on the different options on installing R.\n\nI think it would be a very useful thing to add these installation methods to the CRAN page as they definitely have their merits - specifically when dealing with spatial data and GDAL versions and updates, and consistency of using the same GDAL.\n\nIn contrast to others, I had bad experiences with mixed installations - especially gdal. At the very least, it creates situations, where it is quite difficult to understand which gdal version is used.\n\nI would therefore always recommend to stick to one installation method - MacPorts, homebrew, Fink or standard / frameworks.\n\nUnfortunately, the resources of installing R under homebrew are scattered around - not the least, because there is no home for an ?official? and ?supported? method.\n\nCheers,\n\nRainer\n\n\n> On 21 Oct 2017, at 14:47, clark richards <clark.richards at gmail.com> wrote:\n> \n> Interesting discussion, even if it is technically off-topic (i.e. is about\n> a Macports issue rather than an R issue).\n> \n> For myself, I have found instances where I needed to install R through\n> non-standard channels (my choice lately has been homebrew). This was\n> largely related to having the required system tools necessary for a package\n> development environment that permits the compilation of C/fortran code and\n> some system libraries (gdal, etc). As Don and others pointed out many such\n> dependencies should be available through the OSX R develop page (forget the\n> address right now ...), I have some older machines for which those\n> precompiled binaries do not install, including a 9 year old Macbook which\n> will run OSX up to ElCapitan but is not compatible with the newer binaries.\n> In that case, in order to have an R and gfortran that played together I had\n> to use homebrew as I could not find a binary gfortran that would work for\n> my architecture.\n> \n> I love working on OSX, though I have often lamented the difficulties in\n> getting a suitable package development environment configured -- at least\n> compared to Windows (just install Rtools.exe) and Linux (everything\n> required is easily installed from the distro package manager).\n> \n> Clark\n> \n> \n>> Message: 2\n>> Date: Fri, 20 Oct 2017 18:02:33 +0000\n>> From: \"MacQueen, Don\" <macqueen1 at llnl.gov>\n>> To: David Winsemius <dwinsemius at comcast.net>, Rainer Krug\n>>        <rainer_krug at icloud.com>\n>> Cc: John <miaojpm at gmail.com>, \"r-sig-mac at r-project.org\"\n>>        <r-sig-mac at r-project.org>\n>> Subject: Re: [R-SIG-Mac] Macports installation problem\n>> Message-ID: <303CD3A3-230A-4D18-A190-E6C2D1160DF3 at llnl.gov>\n>> Content-Type: text/plain; charset=\"utf-8\"\n>> \n>> The OP's question has inspired an interestingly large number of responses.\n>> \n>> One thing I'm curious about, and I don't think I've seen in the\n>> discussion, is why the OP needed to install Cairo graphics with respect to\n>> R (otherwise the question was indeed off-topic for R-sig-Mac).\n>> \n>> In summary (and I think this is reasonably consistent with other\n>> responses; discussion to support my summary follows):\n>> \n>> 1)  Use CRAN R, install dependencies needed for extended R capability on\n>> the OS as needed, from whatever source you prefer, or whichever is easiest\n>> for R to use\n>> 2)  If one chooses to install R using MacPorts or homebrew, be prepared to\n>> exercise a greater depth of computer science smarts\n>> 3)  Feel free to install other useful stuff using MacPorts or homebrew,\n>> whichever one prefers; there is unlikely to be any conflict with R\n>> \n>> \n>> In close to 20 years of using R on Mac, I have always been able to use\n>> whatever capabilities R offers that I wanted to use, using the R provided\n>> on CRAN. Nothing has ever motivated me to install R using MacPorts or\n>> homebrew in order to obtain some capability that I couldn't have using\n>> CRAN's binary download for Mac. This includes things like access to remote\n>> Oracle databases, using various spatial packages built around sp and rgdal,\n>> reading and writing MS Office files (both Word and Excel), building simple\n>> tcl/tk interfaces, writing my own packages that link to Fortran, and\n>> probably more that I don't remember. I see no necessity to install R from\n>> MacPorts or homebrew. Of course, if one wishes to for whatever reason,\n>> great! And I'm glad that people have wanted to make R available from those\n>> package managers.\n>> \n>> I do use MacPorts, however, to get useful software such as an X Windows\n>> aware version of emacs, ghostscript, and ImageMagick. Indeed, I even have\n>> cairo installed using MacPorts, albeit on a 10.11.6 system, not a 10.12.x\n>> system like the OP. (It's probably there as a dependency for some other\n>> MacPorts package.) From that point of view, the OP's command to install it\n>> using MacPorts was correct. I'd need more information to make a guess at\n>> why it didn't succeed.\n>> \n>> Some R packages do, of course, depend on external libraries not provided\n>> with R. One has to install these from somewhere.  For example, the spatial\n>> packages need GDAL. In this case, I use the KyngChaos frameworks, but I'm\n>> aware that they're also available from MacPorts (and probably homebrew as\n>> well). Could I use them instead? Probably; R is pretty good about letting\n>> the user specify where dependencies are found.\n>> \n>> I do not know what R extended capability depends on installing Cairo\n>> graphics on the OS. The X11() graphics device, as provided (I believe), has\n>> a version that uses cairo. There is the Cairo R package, but it has a\n>> binary version, at least for R on 10.11.x, so there's no need to install\n>> Cairo graphics to install the Cairo package.\n>> \n>> -Don\n>> \n>> --\n>> Don MacQueen\n>> Lawrence Livermore National Laboratory\n>> 7000 East Ave., L-627\n>> Livermore, CA 94550\n>> 925-423-1062\n>> Lab cell 925-724-7509\n>> \n>> \n>> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nUniversity of Z?rich\n\nCell:       +41 (0)78 630 66 57\nemail:      Rainer at krugs.de\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n\n\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20171026/7c5f8baf/attachment.html>\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 488 bytes\nDesc: Message signed with OpenPGP\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20171026/7c5f8baf/attachment.sig>",
+      "body_snippet": "Very useful discussion, and I think it is relevant for r-sig-macin many regards.\n\nNot the least, it offers new users, whatever background, information on the different options on installing R.\n\nI thin",
+      "thread_id": "thread-0d1bf5a60c18",
+      "thread_depth": 1,
+      "month": "2017-10"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-5e1c4ce8ada5",
+      "subject": "Quartz output font is disabled in R version 3.4.1 (2017-06-30)?",
+      "message_count": 3,
+      "participants": [
+        "Adrian Dușa",
+        "David Winsemius",
+        "Tim Bates"
+      ],
+      "started": "2017-10-03T10:33:31-07:00",
+      "last_reply": "2017-10-04T07:33:01+01:00",
+      "root_message_id": "msg-5e1c4ce8ada5"
+    },
+    {
+      "id": "thread-537554335f3d",
+      "subject": "Rcmdr start-up issue",
+      "message_count": 1,
+      "participants": [
+        "Fox, John"
+      ],
+      "started": "2017-10-03T17:03:23+00:00",
+      "last_reply": "2017-10-03T17:03:23+00:00",
+      "root_message_id": "msg-537554335f3d"
+    },
+    {
+      "id": "thread-f29d456ebc52",
+      "subject": "Rcmdr start-up issue",
+      "message_count": 4,
+      "participants": [
+        "Fox, John",
+        "Robert Baer"
+      ],
+      "started": "2017-10-04T00:35:13+00:00",
+      "last_reply": "2017-10-08T11:42:38-05:00",
+      "root_message_id": "msg-f29d456ebc52"
+    },
+    {
+      "id": "thread-4bf52287559e",
+      "subject": "R 3.4.2 on High Sierra (10.13)",
+      "message_count": 1,
+      "participants": [
+        "Prof Brian Ripley"
+      ],
+      "started": "2017-10-05T08:17:25+01:00",
+      "last_reply": "2017-10-05T08:17:25+01:00",
+      "root_message_id": "msg-4bf52287559e"
+    },
+    {
+      "id": "thread-737995eb26e3",
+      "subject": "Executing iOS system code within R",
+      "message_count": 6,
+      "participants": [
+        "Christofer Bogaso",
+        "Marc Schwartz",
+        "elijah wright"
+      ],
+      "started": "2017-10-10T23:28:06+05:30",
+      "last_reply": "2017-10-10T23:51:41+05:30",
+      "root_message_id": "msg-737995eb26e3"
+    },
+    {
+      "id": "thread-4fb7f41103b2",
+      "subject": "Install rJava produce an error",
+      "message_count": 3,
+      "participants": [
+        "Balamuta, James Joseph",
+        "Marc Girondot"
+      ],
+      "started": "2017-10-14T17:01:43+02:00",
+      "last_reply": "2017-10-15T15:43:03+00:00",
+      "root_message_id": "msg-4fb7f41103b2"
+    },
+    {
+      "id": "thread-ce2f541351be",
+      "subject": "Macports installation problem",
+      "message_count": 1,
+      "participants": [
+        "John"
+      ],
+      "started": "2017-10-16T09:34:00+00:00",
+      "last_reply": "2017-10-16T09:34:00+00:00",
+      "root_message_id": "msg-ce2f541351be"
+    },
+    {
+      "id": "thread-af08e88bd93c",
+      "subject": "homebrew install High Sierra - tcl-tk support",
+      "message_count": 5,
+      "participants": [
+        "David Winsemius",
+        "Rainer Krug"
+      ],
+      "started": "2017-10-17T10:43:49+02:00",
+      "last_reply": "2017-10-18T08:10:10-07:00",
+      "root_message_id": "msg-af08e88bd93c"
+    },
+    {
+      "id": "thread-2440351f8afd",
+      "subject": "Macports installation problem",
+      "message_count": 13,
+      "participants": [
+        "Daniel Kelley",
+        "David Winsemius",
+        "John",
+        "MacQueen, Don",
+        "Rainer Krug",
+        "Robert Baer",
+        "美彦 馬場"
+      ],
+      "started": "2017-10-17T17:36:53-07:00",
+      "last_reply": "2017-10-21T07:15:13+09:00",
+      "root_message_id": "msg-2440351f8afd"
+    },
+    {
+      "id": "thread-0d1bf5a60c18",
+      "subject": "Macports installation problem",
+      "message_count": 4,
+      "participants": [
+        "David Winsemius",
+        "Rainer Krug",
+        "clark richards"
+      ],
+      "started": "2017-10-21T09:47:38-03:00",
+      "last_reply": "2017-10-26T16:52:40+02:00",
+      "root_message_id": "msg-0d1bf5a60c18"
+    },
+    {
+      "id": "thread-cad58c80ec1d",
+      "subject": "ifelse script",
+      "message_count": 3,
+      "participants": [
+        "Duncan Murdoch",
+        "Jose G Conde Santiago"
+      ],
+      "started": "2017-10-25T13:18:21-04:00",
+      "last_reply": "2017-10-25T13:43:50-04:00",
+      "root_message_id": "msg-cad58c80ec1d"
+    }
+  ]
+}

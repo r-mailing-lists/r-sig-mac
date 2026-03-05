@@ -1,0 +1,301 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2022-07",
+  "messages": [
+    {
+      "id": "msg-622ec4380c95",
+      "message_id": "<54636346-7E54-438E-B439-F1FCCB6AA373@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2022-07-01T13:31:21+12:00",
+      "subject": "[R-SIG-Mac]  R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "subject_clean": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "in_reply_to": "<CAABHdMkFQ09=kO8_6uZ6PjaF1qPji_aBmEa9vSVCzZv-mcs6jw@mail.gmail.com>",
+      "references": [
+        "<CAABHdMkFQ09=kO8_6uZ6PjaF1qPji_aBmEa9vSVCzZv-mcs6jw@mail.gmail.com>"
+      ],
+      "body_plain": "Kieran,\n\nthanks, that is rather very odd. I don't have a macOS 12.4 box at hand at the moment so cannot check, but on both Big Sur and on Monterey 12.1 I get\n\n$ spctl -a -vv -t install R-4.2.1-arm64.pkg\nR-4.2.1-arm64.pkg: accepted\nsource=Notarized Developer ID\norigin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n\nIs your Mac enrolled in any custom profiles? (This is usually done to corporate machines which are centrally managed). You can check with\nprofiles status -type enrollment\nThose can override allowed installations.\n\nCheers,\nSimon\n\n\n\n> On 1/07/2022, at 1:10 PM, Kieran Healy <kjhealy at gmail.com> wrote:\n> \n> Hello all,\n> \n> Not sure at what point along the complex signing/ notarization/ checking/\n> installation process things fail, but on an M1 MacBook Pro running Monterey\n> 12.4, with security options set to Allow Apps from the App Store and\n> Identified Developers, I am finding that attempting to install\n> R-4.2.1-arm64.pkg from CRAN fails with the GUI error:\n> \n> ?R-4.2.1-arm64.pkg? cannot be opened because it is from an unidentified\n> developer. macOS cannot verify that this app is free from malware.\n> \n> The SHA-1 is good and when I verify the package with pkgutil\n> --check-signature, everything seems fine too:\n> \n> Package \"R-4.2.1-arm64.pkg\":\n>>   Status: signed by a developer certificate issued by Apple for\n>> distribution\n>>   Notarization: trusted by the Apple notary service\n>>   Signed with a trusted timestamp on: 2022-06-24 10:57:20 +0000\n>>   Certificate Chain:\n>>    1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>>       Expires: 2027-02-01 22:12:15 +0000\n>>       SHA256 Fingerprint:\n>>           B5 E8 8C 9D 46 50 74 03 6E 27 98 AB 8B 38 08 89 84 CF 60 C3 90\n>> C1\n>>           8F 6F 5A 9F 0F D4 9B D8 89 FC\n>> \n>> ------------------------------------------------------------------------\n>>    2. Developer ID Certification Authority\n>>       Expires: 2027-02-01 22:12:15 +0000\n>>       SHA256 Fingerprint:\n>>           7A FC 9D 01 A6 2F 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D\n>> 03\n>>           F2 9C 88 CF B0 B1 BA 63 58 7F\n>> \n>> ------------------------------------------------------------------------\n>>    3. Apple Root CA\n>>       Expires: 2035-02-09 21:40:36 +0000\n>>       SHA256 Fingerprint:\n>>           B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E\n>> 2C\n>>           68 C5 BE 91 B5 A1 10 01 F0 24\n> \n> \n> However, spctl refuses to proceed and gives an error:\n> \n> spctl -a -vv -t install R-4.2.1-arm64.pkg\n>> R-4.2.1-arm64.pkg: rejected\n>> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n> \n> \n> I can of course just tell mac os to go ahead anyway. But I thought I'd\n> report it here just in case it was some more general wrinkle in 12.4 or\n> hiccup in the toolchain somewhere.\n> \n> Kieran\n> \n> --\n> Kieran Healy :: https://kieranhealy.org\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Kieran,\n\nthanks, that is rather very odd. I don't have a macOS 12.4 box at hand at the moment so cannot check, but on both Big Sur and on Monterey 12.1 I get\n\n$ spctl -a -vv -t install R-4.2.1-arm64.p",
+      "thread_id": "thread-622ec4380c95",
+      "thread_depth": 0,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-b8d8673d1c91",
+      "message_id": "<562CBE1E-3964-495E-B766-5AD83D8E328C@luke.fi>",
+      "from_name": "Calboli Federico (LUKE)",
+      "from_email_hash": "349527177093b1be895d6f44673c7682a57e994c716ea44a0fe1fdefb2019db1",
+      "date": "2022-07-01T06:15:26Z",
+      "subject": "[R-SIG-Mac]  R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "subject_clean": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "in_reply_to": "<2C23150A-D9B1-4AE7-AFDF-628E3418756B@gmail.com>",
+      "references": [
+        "<CAABHdMkFQ09=kO8_6uZ6PjaF1qPji_aBmEa9vSVCzZv-mcs6jw@mail.gmail.com>",
+        "<54636346-7E54-438E-B439-F1FCCB6AA373@R-project.org>",
+        "<2C23150A-D9B1-4AE7-AFDF-628E3418756B@gmail.com>"
+      ],
+      "body_plain": "Given the warning, I?d check the SHA of what you have downloaded does actually match the published one, just in case.\n\nI had no problems with my installation, same exact specs as you describe. \n\nCheers\n\nF\n\n\n> On 1. Jul 2022, at 4.51, Kieran Healy <kjhealy at gmail.com> wrote:\n> \n> Hi Simon, \n> \n> Thanks for the quick reply. No custom profiles:\n> \n>> Enrolled via DEP: No\n>> MDM enrollment: No\n> \n> I don?t *think* there?s anything especially unusual about my Mac. I should find some other signed and notarized pkg files to install just to see if they work ...\n> \n> -- \n> Kieran Healy :: https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fkieranhealy.org%2F&amp;data=05%7C01%7Cfederico.calboli%40luke.fi%7C0ae7c81c39364904e96008da5b0438d3%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C637922370942348615%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=kgvvmrP9RsYdmEdpaQ%2Bq6Ud%2BaoHEMR1RAya3x2g%2BS9U%3D&amp;reserved=0\n> \n> \n> \n> \n> \n> \n> \n> \n> \n> \n> \n> \n> \n>> On Jun 30, 2022, at 9:31 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n>> \n>> Kieran,\n>> \n>> thanks, that is rather very odd. I don't have a macOS 12.4 box at hand at the moment so cannot check, but on both Big Sur and on Monterey 12.1 I get\n>> \n>> $ spctl -a -vv -t install R-4.2.1-arm64.pkg\n>> R-4.2.1-arm64.pkg: accepted\n>> source=Notarized Developer ID\n>> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>> \n>> Is your Mac enrolled in any custom profiles? (This is usually done to corporate machines which are centrally managed). You can check with\n>> profiles status -type enrollment\n>> Those can override allowed installations.\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>> \n>>> On 1/07/2022, at 1:10 PM, Kieran Healy <kjhealy at gmail.com> wrote:\n>>> \n>>> Hello all,\n>>> \n>>> Not sure at what point along the complex signing/ notarization/ checking/\n>>> installation process things fail, but on an M1 MacBook Pro running Monterey\n>>> 12.4, with security options set to Allow Apps from the App Store and\n>>> Identified Developers, I am finding that attempting to install\n>>> R-4.2.1-arm64.pkg from CRAN fails with the GUI error:\n>>> \n>>> ?R-4.2.1-arm64.pkg? cannot be opened because it is from an unidentified\n>>> developer. macOS cannot verify that this app is free from malware.\n>>> \n>>> The SHA-1 is good and when I verify the package with pkgutil\n>>> --check-signature, everything seems fine too:\n>>> \n>>> Package \"R-4.2.1-arm64.pkg\":\n>>>> Status: signed by a developer certificate issued by Apple for\n>>>> distribution\n>>>> Notarization: trusted by the Apple notary service\n>>>> Signed with a trusted timestamp on: 2022-06-24 10:57:20 +0000\n>>>> Certificate Chain:\n>>>>  1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>>>>     Expires: 2027-02-01 22:12:15 +0000\n>>>>     SHA256 Fingerprint:\n>>>>         B5 E8 8C 9D 46 50 74 03 6E 27 98 AB 8B 38 08 89 84 CF 60 C3 90\n>>>> C1\n>>>>         8F 6F 5A 9F 0F D4 9B D8 89 FC\n>>>> \n>>>> ------------------------------------------------------------------------\n>>>>  2. Developer ID Certification Authority\n>>>>     Expires: 2027-02-01 22:12:15 +0000\n>>>>     SHA256 Fingerprint:\n>>>>         7A FC 9D 01 A6 2F 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D\n>>>> 03\n>>>>         F2 9C 88 CF B0 B1 BA 63 58 7F\n>>>> \n>>>> ------------------------------------------------------------------------\n>>>>  3. Apple Root CA\n>>>>     Expires: 2035-02-09 21:40:36 +0000\n>>>>     SHA256 Fingerprint:\n>>>>         B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E\n>>>> 2C\n>>>>         68 C5 BE 91 B5 A1 10 01 F0 24\n>>> \n>>> \n>>> However, spctl refuses to proceed and gives an error:\n>>> \n>>> spctl -a -vv -t install R-4.2.1-arm64.pkg\n>>>> R-4.2.1-arm64.pkg: rejected\n>>>> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>>> \n>>> \n>>> I can of course just tell mac os to go ahead anyway. But I thought I'd\n>>> report it here just in case it was some more general wrinkle in 12.4 or\n>>> hiccup in the toolchain somewhere.\n>>> \n>>> Kieran\n>>> \n>>> --\n>>> Kieran Healy :: https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fkieranhealy.org%2F&amp;data=05%7C01%7Cfederico.calboli%40luke.fi%7C0ae7c81c39364904e96008da5b0438d3%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C637922370942348615%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=kgvvmrP9RsYdmEdpaQ%2Bq6Ud%2BaoHEMR1RAya3x2g%2BS9U%3D&amp;reserved=0\n>>> \n>>> \t[[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fstat.ethz.ch%2Fmailman%2Flistinfo%2Fr-sig-mac&amp;data=05%7C01%7Cfederico.calboli%40luke.fi%7C0ae7c81c39364904e96008da5b0438d3%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C637922370942348615%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=0JDfqxhLbPKdIIXb5Ol6UZqy%2FWBY30740Q2yFf9zpV8%3D&amp;reserved=0\n>>> \n>> \n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fstat.ethz.ch%2Fmailman%2Flistinfo%2Fr-sig-mac&amp;data=05%7C01%7Cfederico.calboli%40luke.fi%7C0ae7c81c39364904e96008da5b0438d3%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C637922370942348615%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=0JDfqxhLbPKdIIXb5Ol6UZqy%2FWBY30740Q2yFf9zpV8%3D&amp;reserved=0",
+      "body_snippet": "Given the warning, I?d check the SHA of what you have downloaded does actually match the published one, just in case.\n\nI had no problems with my installation, same exact specs as you describe. \n\nCheer",
+      "thread_id": "thread-b8d8673d1c91",
+      "thread_depth": 0,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-4e248429e9ad",
+      "message_id": "<505C8459-8337-41FC-B1C7-DC32420D0FB6@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2022-07-01T10:05:20+02:00",
+      "subject": "[R-SIG-Mac]  R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "subject_clean": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "in_reply_to": "<54636346-7E54-438E-B439-F1FCCB6AA373@R-project.org>",
+      "references": [
+        "<CAABHdMkFQ09=kO8_6uZ6PjaF1qPji_aBmEa9vSVCzZv-mcs6jw@mail.gmail.com>",
+        "<54636346-7E54-438E-B439-F1FCCB6AA373@R-project.org>"
+      ],
+      "body_plain": "I have a 12.4, but it is intel. Seems happy enough:\n\n$ spctl -a -vv -t install ~/Downloads/R-4.2.1.pkg \n/Users/pd/Downloads/R-4.2.1.pkg: accepted\nsource=Notarized Developer ID\norigin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n\n> On 1 Jul 2022, at 03:31 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> \n> Kieran,\n> \n> thanks, that is rather very odd. I don't have a macOS 12.4 box at hand at the moment so cannot check, but on both Big Sur and on Monterey 12.1 I get\n> \n> $ spctl -a -vv -t install R-4.2.1-arm64.pkg\n> R-4.2.1-arm64.pkg: accepted\n> source=Notarized Developer ID\n> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n> \n> Is your Mac enrolled in any custom profiles? (This is usually done to corporate machines which are centrally managed). You can check with\n> profiles status -type enrollment\n> Those can override allowed installations.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On 1/07/2022, at 1:10 PM, Kieran Healy <kjhealy at gmail.com> wrote:\n>> \n>> Hello all,\n>> \n>> Not sure at what point along the complex signing/ notarization/ checking/\n>> installation process things fail, but on an M1 MacBook Pro running Monterey\n>> 12.4, with security options set to Allow Apps from the App Store and\n>> Identified Developers, I am finding that attempting to install\n>> R-4.2.1-arm64.pkg from CRAN fails with the GUI error:\n>> \n>> ?R-4.2.1-arm64.pkg? cannot be opened because it is from an unidentified\n>> developer. macOS cannot verify that this app is free from malware.\n>> \n>> The SHA-1 is good and when I verify the package with pkgutil\n>> --check-signature, everything seems fine too:\n>> \n>> Package \"R-4.2.1-arm64.pkg\":\n>>>  Status: signed by a developer certificate issued by Apple for\n>>> distribution\n>>>  Notarization: trusted by the Apple notary service\n>>>  Signed with a trusted timestamp on: 2022-06-24 10:57:20 +0000\n>>>  Certificate Chain:\n>>>   1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>>>      Expires: 2027-02-01 22:12:15 +0000\n>>>      SHA256 Fingerprint:\n>>>          B5 E8 8C 9D 46 50 74 03 6E 27 98 AB 8B 38 08 89 84 CF 60 C3 90\n>>> C1\n>>>          8F 6F 5A 9F 0F D4 9B D8 89 FC\n>>> \n>>> ------------------------------------------------------------------------\n>>>   2. Developer ID Certification Authority\n>>>      Expires: 2027-02-01 22:12:15 +0000\n>>>      SHA256 Fingerprint:\n>>>          7A FC 9D 01 A6 2F 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D\n>>> 03\n>>>          F2 9C 88 CF B0 B1 BA 63 58 7F\n>>> \n>>> ------------------------------------------------------------------------\n>>>   3. Apple Root CA\n>>>      Expires: 2035-02-09 21:40:36 +0000\n>>>      SHA256 Fingerprint:\n>>>          B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E\n>>> 2C\n>>>          68 C5 BE 91 B5 A1 10 01 F0 24\n>> \n>> \n>> However, spctl refuses to proceed and gives an error:\n>> \n>> spctl -a -vv -t install R-4.2.1-arm64.pkg\n>>> R-4.2.1-arm64.pkg: rejected\n>>> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>> \n>> \n>> I can of course just tell mac os to go ahead anyway. But I thought I'd\n>> report it here just in case it was some more general wrinkle in 12.4 or\n>> hiccup in the toolchain somewhere.\n>> \n>> Kieran\n>> \n>> --\n>> Kieran Healy :: https://kieranhealy.org\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "I have a 12.4, but it is intel. Seems happy enough:\n\n$ spctl -a -vv -t install ~/Downloads/R-4.2.1.pkg \n/Users/pd/Downloads/R-4.2.1.pkg: accepted\nsource=Notarized Developer ID\norigin=Developer ID Inst",
+      "thread_id": "thread-622ec4380c95",
+      "thread_depth": 1,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-65fb40f6dc0a",
+      "message_id": "<2B67696F-CFE0-4B96-B8C8-CFCAAE4319B5@act.ulaval.ca>",
+      "from_name": "Vincent Goulet",
+      "from_email_hash": "45bec8795c3c1834c77b8fcba129553a5bcdb557e60c16ce9c33f2f4e48addc1",
+      "date": "2022-07-04T15:58:40Z",
+      "subject": "[R-SIG-Mac]  R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "subject_clean": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "in_reply_to": "<505C8459-8337-41FC-B1C7-DC32420D0FB6@gmail.com>",
+      "references": [
+        "<CAABHdMkFQ09=kO8_6uZ6PjaF1qPji_aBmEa9vSVCzZv-mcs6jw@mail.gmail.com>",
+        "<54636346-7E54-438E-B439-F1FCCB6AA373@R-project.org>",
+        "<505C8459-8337-41FC-B1C7-DC32420D0FB6@gmail.com>"
+      ],
+      "body_plain": "For the record, with the exact same setup as the OP (MacBook Pro M1, macOS 12.4, Privacy setup), all good here:\n\n$ spctl -a -vv -t install ~/Downloads/R-4.2.1-arm64.pkg \n/Users/vincent/Downloads/R-4.2.1-arm64.pkg: accepted\nsource=Notarized Developer ID\n\nHTH\n\nVincent Goulet\nProfesseur titulaire\n?cole d'actuariat, Universit? Laval\n\n> Le 1 juill. 2022 ? 04:05, peter dalgaard <pdalgd at gmail.com> a ?crit :\n> \n> I have a 12.4, but it is intel. Seems happy enough:\n> \n> $ spctl -a -vv -t install ~/Downloads/R-4.2.1.pkg \n> /Users/pd/Downloads/R-4.2.1.pkg: accepted\n> source=Notarized Developer ID\n> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n> \n>> On 1 Jul 2022, at 03:31 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> \n>> \n>> Kieran,\n>> \n>> thanks, that is rather very odd. I don't have a macOS 12.4 box at hand at the moment so cannot check, but on both Big Sur and on Monterey 12.1 I get\n>> \n>> $ spctl -a -vv -t install R-4.2.1-arm64.pkg\n>> R-4.2.1-arm64.pkg: accepted\n>> source=Notarized Developer ID\n>> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>> \n>> Is your Mac enrolled in any custom profiles? (This is usually done to corporate machines which are centrally managed). You can check with\n>> profiles status -type enrollment\n>> Those can override allowed installations.\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>> \n>>> On 1/07/2022, at 1:10 PM, Kieran Healy <kjhealy at gmail.com> wrote:\n>>> \n>>> Hello all,\n>>> \n>>> Not sure at what point along the complex signing/ notarization/ checking/\n>>> installation process things fail, but on an M1 MacBook Pro running Monterey\n>>> 12.4, with security options set to Allow Apps from the App Store and\n>>> Identified Developers, I am finding that attempting to install\n>>> R-4.2.1-arm64.pkg from CRAN fails with the GUI error:\n>>> \n>>> ?R-4.2.1-arm64.pkg? cannot be opened because it is from an unidentified\n>>> developer. macOS cannot verify that this app is free from malware.\n>>> \n>>> The SHA-1 is good and when I verify the package with pkgutil\n>>> --check-signature, everything seems fine too:\n>>> \n>>> Package \"R-4.2.1-arm64.pkg\":\n>>>> Status: signed by a developer certificate issued by Apple for\n>>>> distribution\n>>>> Notarization: trusted by the Apple notary service\n>>>> Signed with a trusted timestamp on: 2022-06-24 10:57:20 +0000\n>>>> Certificate Chain:\n>>>>  1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>>>>     Expires: 2027-02-01 22:12:15 +0000\n>>>>     SHA256 Fingerprint:\n>>>>         B5 E8 8C 9D 46 50 74 03 6E 27 98 AB 8B 38 08 89 84 CF 60 C3 90\n>>>> C1\n>>>>         8F 6F 5A 9F 0F D4 9B D8 89 FC\n>>>> \n>>>> ------------------------------------------------------------------------\n>>>>  2. Developer ID Certification Authority\n>>>>     Expires: 2027-02-01 22:12:15 +0000\n>>>>     SHA256 Fingerprint:\n>>>>         7A FC 9D 01 A6 2F 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D\n>>>> 03\n>>>>         F2 9C 88 CF B0 B1 BA 63 58 7F\n>>>> \n>>>> ------------------------------------------------------------------------\n>>>>  3. Apple Root CA\n>>>>     Expires: 2035-02-09 21:40:36 +0000\n>>>>     SHA256 Fingerprint:\n>>>>         B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E\n>>>> 2C\n>>>>         68 C5 BE 91 B5 A1 10 01 F0 24\n>>> \n>>> \n>>> However, spctl refuses to proceed and gives an error:\n>>> \n>>> spctl -a -vv -t install R-4.2.1-arm64.pkg\n>>>> R-4.2.1-arm64.pkg: rejected\n>>>> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>>> \n>>> \n>>> I can of course just tell mac os to go ahead anyway. But I thought I'd\n>>> report it here just in case it was some more general wrinkle in 12.4 or\n>>> hiccup in the toolchain somewhere.\n>>> \n>>> Kieran\n>>> \n>>> --\n>>> Kieran Healy :: https://kieranhealy.org\n>>> \n>>> \t[[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> -- \n> Peter Dalgaard, Professor,\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Office: A 4.23\n> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "For the record, with the exact same setup as the OP (MacBook Pro M1, macOS 12.4, Privacy setup), all good here:\n\n$ spctl -a -vv -t install ~/Downloads/R-4.2.1-arm64.pkg \n/Users/vincent/Downloads/R-4.2",
+      "thread_id": "thread-622ec4380c95",
+      "thread_depth": 2,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-514b6522330f",
+      "message_id": "<cb19c592-ee11-f151-958f-6ba7e4b14a8f@utoronto.ca>",
+      "from_name": "TIMOTHY A DICKINSON",
+      "from_email_hash": "348e3c47522440ed32b0d07fb68b91c85fe5ea2df60308a36af5ac33afee5767",
+      "date": "2022-07-16T17:05:14-04:00",
+      "subject": "[R-SIG-Mac] FinderKit error message on starting up R",
+      "subject_clean": "FinderKit error message on starting up R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi--- running R as per\n\n> R version 4.2.0 (2022-04-22) -- \"Vigorous Calisthenics\"\n> Copyright (C) 2022 The R Foundation for Statistical Computing\n> Platform: x86_64-apple-darwin17.0 (64-bit) [Mac OS 10.14.6]\ni get the following warning when opening R without loading an existing \ndata structure (*.Rdata). would someone please explain how serious this \nis, whether it can be ignored, and (preferably) how it can be resolved? \ni am out of my depths.\n\nthank you, ---tad.\n\n> objc[11335]: Class FIFinderSyncExtensionHost is implemented in both \n> /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit \n> (0x7fff91e4a3f0) and \n> /System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride \n> (0x1067bef50). One of the two will be used. Which one is undefined.\n\n  \n<++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n<Tim Dickinson\n<Senior Curator Emeritus\n<ROM Green Plant Herbarium (TRT)\n<\n<Department of Natural History\n<Royal Ontario Museum\n<100 Queen's Park\n<Toronto ON\n<CANADA M5S 2C6\n<\n<Phone: (416) 782 1607 FAX: (416) 586 7921\n<E-mail: tim.dickinson at utoronto.ca - ORCID ID http://orcid.org/0000-0003-1366-145X\n<URL: http://www.rom.on.ca/en/collections-research/rom-staff/tim-dickinson\n<++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+      "body_snippet": "Hi--- running R as per\n\n> R version 4.2.0 (2022-04-22) -- \"Vigorous Calisthenics\"\n> Copyright (C) 2022 The R Foundation for Statistical Computing\n> Platform: x86_64-apple-darwin17.0 (64-bit) [Mac OS 1",
+      "thread_id": "thread-514b6522330f",
+      "thread_depth": 0,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-69f25f6066f2",
+      "message_id": "<59A719FA-AF0C-4C18-BED5-35BF677DD59B@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2022-07-17T10:19:21+12:00",
+      "subject": "[R-SIG-Mac] FinderKit error message on starting up R",
+      "subject_clean": "FinderKit error message on starting up R",
+      "in_reply_to": "<cb19c592-ee11-f151-958f-6ba7e4b14a8f@utoronto.ca>",
+      "references": [
+        "<cb19c592-ee11-f151-958f-6ba7e4b14a8f@utoronto.ca>"
+      ],
+      "body_plain": "Tim,\n\nit is a benign warning due to two conflicting classes provided in the macOS system itself. You can either ignore it (see R for macOS FAQ 10.4 on disabling stderr forwarding in the R.app GUI)[1] or upgrade your macOS version.\n\nCheers,\nSimon\n\n[1] https://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#I-see-spurious-error-messages-when-starting-R_0021\n\n\n\n> On Jul 17, 2022, at 9:05 AM, TIMOTHY A DICKINSON <tim.dickinson at utoronto.ca> wrote:\n> \n> Hi--- running R as per\n> \n>> R version 4.2.0 (2022-04-22) -- \"Vigorous Calisthenics\"\n>> Copyright (C) 2022 The R Foundation for Statistical Computing\n>> Platform: x86_64-apple-darwin17.0 (64-bit) [Mac OS 10.14.6]\n> i get the following warning when opening R without loading an existing data structure (*.Rdata). would someone please explain how serious this is, whether it can be ignored, and (preferably) how it can be resolved? i am out of my depths.\n> \n> thank you, ---tad.\n> \n>> objc[11335]: Class FIFinderSyncExtensionHost is implemented in both /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit (0x7fff91e4a3f0) and /System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride (0x1067bef50). One of the two will be used. Which one is undefined.\n> \n> <++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n> <Tim Dickinson\n> <Senior Curator Emeritus\n> <ROM Green Plant Herbarium (TRT)\n> <\n> <Department of Natural History\n> <Royal Ontario Museum\n> <100 Queen's Park\n> <Toronto ON\n> <CANADA M5S 2C6\n> <\n> <Phone: (416) 782 1607 FAX: (416) 586 7921\n> <E-mail: tim.dickinson at utoronto.ca - ORCID ID http://orcid.org/0000-0003-1366-145X\n> <URL: http://www.rom.on.ca/en/collections-research/rom-staff/tim-dickinson\n> <++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Tim,\n\nit is a benign warning due to two conflicting classes provided in the macOS system itself. You can either ignore it (see R for macOS FAQ 10.4 on disabling stderr forwarding in the R.app GUI)[1] ",
+      "thread_id": "thread-514b6522330f",
+      "thread_depth": 1,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-8ecb74707391",
+      "message_id": "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>",
+      "from_name": "Andrew Speirs-Bridge",
+      "from_email_hash": "f26e71d43e2f8fd62383220732957b402cf4f6231842c0639961c3f0e3b21834",
+      "date": "2022-07-27T15:38:12+10:00",
+      "subject": "[R-SIG-Mac] Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "subject_clean": "Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nAfter installing R-4.2.1-arm64.pkg I get this error message when I start R:\n\n   - ?R? can?t be opened because Apple cannot check it for malicious\n   software.\n\nMachine details are:\n\n   - macOS Monterey Version 12.4\n   - Macbook Air (M1, 2020)\n\nRegards\n\nAndrew Speirs-Bridge | Client Services and Support\n0415 654 204\nandrew.speirsbridge at healthily.com.au\n\n\nHealthily Pty Ltd\nSuite 2, Level 5, 492, St Kilda Road, Melbourne, 3004.\nm: +61 (0)415 654 204 p: +61 (0)3 9534 7222  f: +61 (0)3 9534 7333\nhttp://healthily.com.au\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20220727/d528edaf/attachment.html>\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: HEALTHILY  26 copy45[21][79].png\nType: image/png\nSize: 10594 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20220727/d528edaf/attachment.png>",
+      "body_snippet": "Hi,\n\nAfter installing R-4.2.1-arm64.pkg I get this error message when I start R:\n\n   - ?R? can?t be opened because Apple cannot check it for malicious\n   software.\n\nMachine details are:\n\n   - macOS Mo",
+      "thread_id": "thread-8ecb74707391",
+      "thread_depth": 0,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-25c285d45573",
+      "message_id": "<27E1F4E0-A973-4C10-A3FC-6AAF629319F2@pbw.id.au>",
+      "from_name": "Peter West",
+      "from_email_hash": "cd2947bad914cd0fcbaedf3a6bf605a963d6d0be681990d7923a2f54f058d7c1",
+      "date": "2022-07-27T15:51:23+10:00",
+      "subject": "[R-SIG-Mac]  Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "subject_clean": "Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "in_reply_to": "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>",
+      "references": [
+        "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>"
+      ],
+      "body_plain": "I just (re-)installed the package on the same configuration. It works for me.\n\n\n?\nPeter West\npbw at pbw.id.au\n?The kingdom of heaven is like leaven that a woman took and hid in three measures of flour, till it was all leavened.?\n\n> On 27 Jul 2022, at 3:38 pm, Andrew Speirs-Bridge <andrew.speirsbridge at healthily.com.au> wrote:\n> \n> Hi,\n> \n> After installing R-4.2.1-arm64.pkg I get this error message when I start R:\n> ?R? can?t be opened because Apple cannot check it for malicious software.\n> Machine details are:\n> macOS Monterey Version 12.4\n> Macbook Air (M1, 2020)\n> Regards\n> \n> Andrew Speirs-Bridge | Client Services and Support\n> 0415 654 204\n> andrew.speirsbridge at healthily.com.au <mailto:andrew.speirsbridge at healthily.com.au>\n> \n> \n> \n> Healthily Pty Ltd\n> Suite 2, Level 5, 492, St Kilda Road, Melbourne, 3004.\n> m: +61 (0)415 654 204 p: +61 (0)3 9534 7222  f: +61 (0)3 9534 7333\n> http://healthily.com.au <http://healthily.com.au/><HEALTHILY  26 copy45[21][79].png>_______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I just (re-)installed the package on the same configuration. It works for me.\n\n\n?\nPeter West\npbw at pbw.id.au\n?The kingdom of heaven is like leaven that a woman took and hid in three measures of flour",
+      "thread_id": "thread-8ecb74707391",
+      "thread_depth": 1,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-01c20cc390c6",
+      "message_id": "<f310ec3d-29dd-0b0f-2922-4a17ff17cf67@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2022-07-27T07:30:57+01:00",
+      "subject": "[R-SIG-Mac]  Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "subject_clean": "Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "in_reply_to": "<27E1F4E0-A973-4C10-A3FC-6AAF629319F2@pbw.id.au>",
+      "references": [
+        "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>",
+        "<27E1F4E0-A973-4C10-A3FC-6AAF629319F2@pbw.id.au>"
+      ],
+      "body_plain": "On 27/07/2022 06:51, Peter West wrote:\n> I just (re-)installed the package on the same configuration. It works for me.\n\nAnd did for me with 12.4 and now 12.5. If the problems were widespread \nwe would have heard immediately after release (now a month ago).\n\nDoes the previous version work for you?  It was not immediately obvious \nwhere to get it from the landing page, but from the pattern of URLs, from\n\nhttps://cran.r-project.org/bin/macosx/big-sur-arm64/base/\n\nPlease see this list's archive for earlier this month for a similar \nissue.  The only suggestion there was a customized macOS.  This looks \nspecific to a few people and the rest of us can only guess what is \nspecific to them.\n\nAs the list's archives show, there are requests to test pre-releases, \nand AFAICS nothing like this was reported before release.  Please do \ntest pre-releases in future.\n\n> \n> ?\n> Peter West\n> pbw at pbw.id.au\n> ?The kingdom of heaven is like leaven that a woman took and hid in three measures of flour, till it was all leavened.?\n> \n>> On 27 Jul 2022, at 3:38 pm, Andrew Speirs-Bridge <andrew.speirsbridge at healthily.com.au> wrote:\n>>\n>> Hi,\n>>\n>> After installing R-4.2.1-arm64.pkg I get this error message when I start R:\n>> ?R? can?t be opened because Apple cannot check it for malicious software.\n>> Machine details are:\n>> macOS Monterey Version 12.4\n>> Macbook Air (M1, 2020)\n>> Regards\n>>\n>> Andrew Speirs-Bridge | Client Services and Support\n>> 0415 654 204\n>> andrew.speirsbridge at healthily.com.au <mailto:andrew.speirsbridge at healthily.com.au>\n>>\n>>\n>>\n>> Healthily Pty Ltd\n>> Suite 2, Level 5, 492, St Kilda Road, Melbourne, 3004.\n>> m: +61 (0)415 654 204 p: +61 (0)3 9534 7222  f: +61 (0)3 9534 7333\n>> http://healthily.com.au <http://healthily.com.au/><HEALTHILY  26 copy45[21][79].png>_______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 27/07/2022 06:51, Peter West wrote:\n> I just (re-)installed the package on the same configuration. It works for me.\n\nAnd did for me with 12.4 and now 12.5. If the problems were widespread \nwe would",
+      "thread_id": "thread-8ecb74707391",
+      "thread_depth": 2,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-f38910745a80",
+      "message_id": "<E31747EA-446A-460D-A243-0362EAA18A62@luke.fi>",
+      "from_name": "Calboli Federico (LUKE)",
+      "from_email_hash": "349527177093b1be895d6f44673c7682a57e994c716ea44a0fe1fdefb2019db1",
+      "date": "2022-07-27T06:54:30Z",
+      "subject": "[R-SIG-Mac]  Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "subject_clean": "Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "in_reply_to": "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>",
+      "references": [
+        "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>"
+      ],
+      "body_plain": "A quick question ? is it your own laptop, or is it owned and managed by your employer?  if the latter, your IT deparment might have the solution.  If the former, I have no iea.\n\nBW\n\nF\n\n> On 27. Jul 2022, at 8.38, Andrew Speirs-Bridge <andrew.speirsbridge at healthily.com.au> wrote:\n> \n> Hi,\n> \n> After installing R-4.2.1-arm64.pkg I get this error message when I start R:\n> \t? ?R? can?t be opened because Apple cannot check it for malicious software.\n> Machine details are:\n> \t? macOS Monterey Version 12.4\n> \t? Macbook Air (M1, 2020)\n> Regards\n> \n> Andrew Speirs-Bridge | Client Services and Support\n> 0415 654 204\n> andrew.speirsbridge at healthily.com.au\n> \n> \n> \n> Healthily Pty Ltd\n> Suite 2, Level 5, 492, St Kilda Road, Melbourne, 3004.\n> m: +61 (0)415 654 204 p: +61 (0)3 9534 7222  f: +61 (0)3 9534 7333\n> http://healthily.com.au\n> <HEALTHILY  26 copy45[21][79].png>_______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "A quick question ? is it your own laptop, or is it owned and managed by your employer?  if the latter, your IT deparment might have the solution.  If the former, I have no iea.\n\nBW\n\nF\n\n> On 27. Jul 20",
+      "thread_id": "thread-8ecb74707391",
+      "thread_depth": 1,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-c886ee7b2ff0",
+      "message_id": "<CANZXyyO=bkyeO21+3Z=6aFG8-Rsnvr-CdCc=a5Duv6Yjj_C06g@mail.gmail.com>",
+      "from_name": "Andrew Speirs-Bridge",
+      "from_email_hash": "f26e71d43e2f8fd62383220732957b402cf4f6231842c0639961c3f0e3b21834",
+      "date": "2022-07-27T17:32:18+10:00",
+      "subject": "[R-SIG-Mac]  Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "subject_clean": "Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "in_reply_to": "<E31747EA-446A-460D-A243-0362EAA18A62@luke.fi>",
+      "references": [
+        "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>",
+        "<E31747EA-446A-460D-A243-0362EAA18A62@luke.fi>"
+      ],
+      "body_plain": "I worked it out:\n https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac\n<https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>\n\nThanks anyway.\n\nAndrew Speirs-Bridge | Client Services and Support\n0415 654 204\nandrew.speirsbridge at healthily.com.au\n\n\nHealthily Pty Ltd\nSuite 2, Level 5, 492, St Kilda Road, Melbourne, 3004.\nm: +61 (0)415 654 204 p: +61 (0)3 9534 7222  f: +61 (0)3 9534 7333\nhttp://healthily.com.au\n\n\nOn Wed, Jul 27, 2022 at 4:54 PM Calboli Federico (LUKE) <\nfederico.calboli at luke.fi> wrote:\n\n> A quick question ? is it your own laptop, or is it owned and managed by\n> your employer?  if the latter, your IT deparment might have the solution.\n> If the former, I have no iea.\n>\n> BW\n>\n> F\n>\n> > On 27. Jul 2022, at 8.38, Andrew Speirs-Bridge <\n> andrew.speirsbridge at healthily.com.au> wrote:\n> >\n> > Hi,\n> >\n> > After installing R-4.2.1-arm64.pkg I get this error message when I start\n> R:\n> >       ? ?R? can?t be opened because Apple cannot check it for malicious\n> software.\n> > Machine details are:\n> >       ? macOS Monterey Version 12.4\n> >       ? Macbook Air (M1, 2020)\n> > Regards\n> >\n> > Andrew Speirs-Bridge | Client Services and Support\n> > 0415 654 204\n> > andrew.speirsbridge at healthily.com.au\n> >\n> >\n> >\n> > Healthily Pty Ltd\n> > Suite 2, Level 5, 492, St Kilda Road, Melbourne, 3004.\n> > m: +61 (0)415 654 204 p: +61 (0)3 9534 7222  f: +61 (0)3 9534 7333\n> > http://healthily.com.au\n> > <HEALTHILY  26\n> copy45[21][79].png>_______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20220727/795bfa8b/attachment-0001.html>\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: HEALTHILY  26 copy45[21][79].png\nType: image/png\nSize: 10594 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20220727/795bfa8b/attachment-0001.png>",
+      "body_snippet": "I worked it out:\n https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac\n<https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>\n\nThanks anyway.\n\nAndrew Speirs-Bridge | Client Servi",
+      "thread_id": "thread-8ecb74707391",
+      "thread_depth": 2,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-d54327f43412",
+      "message_id": "<8C501466-13A5-4500-BA33-105DD0A11C1C@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2022-07-27T20:22:24+12:00",
+      "subject": "[R-SIG-Mac]  Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "subject_clean": "Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "in_reply_to": "<CANZXyyO=bkyeO21+3Z=6aFG8-Rsnvr-CdCc=a5Duv6Yjj_C06g@mail.gmail.com>",
+      "references": [
+        "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>",
+        "<E31747EA-446A-460D-A243-0362EAA18A62@luke.fi>",
+        "<CANZXyyO=bkyeO21+3Z=6aFG8-Rsnvr-CdCc=a5Duv6Yjj_C06g@mail.gmail.com>"
+      ],
+      "body_plain": "That link is to instructions how to circumvent the check, however, the CRAN R releases are notarized by Apple (i.e. they have been checked by Apple for malicious software), so unless you are sure that you definitely have a release from us circumventing it only enables possible attackers to install illegitimate software on your Mac. So I would strongly recommend following the instruction on the CRAN page to verify the signature of the downloaded package before overriding the Apple security measures.\n\nCheers,\nSimon\n\n\n\n\n> On Jul 27, 2022, at 7:32 PM, Andrew Speirs-Bridge <andrew.speirsbridge at healthily.com.au> wrote:\n> \n> I worked it out:?https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac <https://support.apple.com/en-gb/guide/mac-help/mchleab3a043/mac>\n> \n> Thanks anyway.\n> \n> Andrew Speirs-Bridge | Client Services and Support\n> 0415 654 204\n> andrew.speirsbridge at healthily.com.au <mailto:andrew.speirsbridge at healthily.com.au>\n> \n> \n> \n> Healthily Pty Ltd\n> Suite 2, Level 5, 492, St Kilda Road, Melbourne, 3004.\n> m: +61 (0)415 654 204 p: +61 (0)3 9534 7222  f: +61 (0)3 9534 7333\n> http://healthily.com.au <http://healthily.com.au/>\n> \n> On Wed, Jul 27, 2022 at 4:54 PM Calboli Federico (LUKE) <federico.calboli at luke.fi <mailto:federico.calboli at luke.fi>> wrote:\n> A quick question ? is it your own laptop, or is it owned and managed by your employer?  if the latter, your IT deparment might have the solution.  If the former, I have no iea.\n> \n> BW\n> \n> F\n> \n> > On 27. Jul 2022, at 8.38, Andrew Speirs-Bridge <andrew.speirsbridge at healthily.com.au <mailto:andrew.speirsbridge at healthily.com.au>> wrote:\n> > \n> > Hi,\n> > \n> > After installing R-4.2.1-arm64.pkg I get this error message when I start R:\n> >       ? ?R? can?t be opened because Apple cannot check it for malicious software.\n> > Machine details are:\n> >       ? macOS Monterey Version 12.4\n> >       ? Macbook Air (M1, 2020)\n> > Regards\n> > \n> > Andrew Speirs-Bridge | Client Services and Support\n> > 0415 654 204\n> > andrew.speirsbridge at healthily.com.au <mailto:andrew.speirsbridge at healthily.com.au>\n> > \n> > \n> > \n> > Healthily Pty Ltd\n> > Suite 2, Level 5, 492, St Kilda Road, Melbourne, 3004.\n> > m: +61 (0)415 654 204 p: +61 (0)3 9534 7222  f: +61 (0)3 9534 7333\n> > http://healthily.com.au <http://healthily.com.au/>\n> > <HEALTHILY  26 copy45[21][79].png>_______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>\n> \n> <HEALTHILY  26 copy45[21][79].png>_______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "That link is to instructions how to circumvent the check, however, the CRAN R releases are notarized by Apple (i.e. they have been checked by Apple for malicious software), so unless you are sure that",
+      "thread_id": "thread-8ecb74707391",
+      "thread_depth": 3,
+      "month": "2022-07"
+    },
+    {
+      "id": "msg-a592eeb0a99b",
+      "message_id": "<EBB325A0-3A2F-41DB-9755-5BEB04F7E324@brookes.ac.uk>",
+      "from_name": "Lindsay Foreman",
+      "from_email_hash": "8b9167e82ed41a748d4ba7067097219a68ca765bda1d30920a84a922980efb24",
+      "date": "2022-07-27T14:25:24+02:00",
+      "subject": "[R-SIG-Mac] PLEASE REMOVE FROM LIST",
+      "subject_clean": "PLEASE REMOVE FROM LIST",
+      "in_reply_to": "<E31747EA-446A-460D-A243-0362EAA18A62@luke.fi>",
+      "references": [
+        "<CANZXyyO8ERDHCgJ1FiVftFRZwK6vtftz5Fyf2J7NsbFOvKUnOw@mail.gmail.com>",
+        "<E31747EA-446A-460D-A243-0362EAA18A62@luke.fi>"
+      ],
+      "body_plain": "> On 27 Jul 2022, at 08:54, Calboli Federico (LUKE) <federico.calboli at luke.fi> wrote:\n> \n>> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "> On 27 Jul 2022, at 08:54, Calboli Federico (LUKE) <federico.calboli at luke.fi> wrote:\n> \n>> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n\n\t[[alternative HTML version deleted]]",
+      "thread_id": "thread-8ecb74707391",
+      "thread_depth": 2,
+      "month": "2022-07"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-b8d8673d1c91",
+      "subject": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "message_count": 1,
+      "participants": [
+        "Calboli Federico (LUKE)"
+      ],
+      "started": "2022-07-01T06:15:26+00:00",
+      "last_reply": "2022-07-01T06:15:26+00:00",
+      "root_message_id": "msg-b8d8673d1c91"
+    },
+    {
+      "id": "thread-622ec4380c95",
+      "subject": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
+      "message_count": 3,
+      "participants": [
+        "Simon Urbanek",
+        "Vincent Goulet",
+        "peter dalgaard"
+      ],
+      "started": "2022-07-01T13:31:21+12:00",
+      "last_reply": "2022-07-04T15:58:40+00:00",
+      "root_message_id": "msg-622ec4380c95"
+    },
+    {
+      "id": "thread-514b6522330f",
+      "subject": "FinderKit error message on starting up R",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "TIMOTHY A DICKINSON"
+      ],
+      "started": "2022-07-16T17:05:14-04:00",
+      "last_reply": "2022-07-17T10:19:21+12:00",
+      "root_message_id": "msg-514b6522330f"
+    },
+    {
+      "id": "thread-8ecb74707391",
+      "subject": "Get this error message after install \"“R” can’t be opened because Apple cannot check it for malicious software.\"",
+      "message_count": 7,
+      "participants": [
+        "Andrew Speirs-Bridge",
+        "Calboli Federico (LUKE)",
+        "Lindsay Foreman",
+        "Peter West",
+        "Prof Brian Ripley",
+        "Simon Urbanek"
+      ],
+      "started": "2022-07-27T15:38:12+10:00",
+      "last_reply": "2022-07-27T14:25:24+02:00",
+      "root_message_id": "msg-8ecb74707391"
+    }
+  ]
+}

@@ -1,0 +1,1182 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2009-08",
+  "messages": [
+    {
+      "id": "msg-2658c2da8d1d",
+      "message_id": "<55A1FEED-31F6-45A4-AAAE-13828AD0CF24@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2009-08-02T10:20:31-04:00",
+      "subject": "[R-SIG-Mac] A question I'm sure I should be able to answer myself",
+      "subject_clean": "A question I'm sure I should be able to answer myself",
+      "in_reply_to": "<0067B77F-8E62-46AB-B5F1-16DD86A99072@lagrange.edu>",
+      "references": [
+        "<0067B77F-8E62-46AB-B5F1-16DD86A99072@lagrange.edu>"
+      ],
+      "body_plain": "I am not a regular user of that facility and cannot see that it has  \nmuch value over the facilities available in the console. Nontheless, I  \ncan replicate the error, but not the hang behavior on a relatively  \ncurrent 64 bit R installation run from the 64 bit GUI:\n\n > dput(data2)\nstructure(list(Id02 = structure(c(1L, 2L, 3L, 3L), .Label = c(\"1.a\",\n\"2.b\", \"3.d\"), class = \"factor\"), Area = c(10, 2, 3, 5)), .Names =  \nc(\"Id02\",\n\"Area\"), row.names = c(NA, -4L), class = \"data.frame\")\n\n > edit(data2)\n# choosing the \"+\" icon in the edit window results in this message in  \nthe GUI console window\nError in edit.data.frame(data2) :\n   SET_VECTOR_ELT() can only be applied to a 'list', not a 'character'\n\n > sessionInfo()\nR version 2.9.1 Patched (2009-07-04 r48897)\nx86_64-apple-darwin9.7.0\n\nlocale:\nen_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] splines   stats     graphics  grDevices utils     datasets   \nmethods   base\n\nother attached packages:\n[1] fortunes_1.3-6  MASS_7.2-46     chron_2.3-30    Design_2.1-2     \nsurvival_2.35-4 Hmisc_3.5-2\n\nloaded via a namespace (and not attached):\n[1] cluster_1.12.0  grid_2.9.1      lattice_0.17-25 tools_2.9.1\n\n-- \nDavid Winsemius\n\nOn Jul 29, 2009, at 5:53 PM, Tracy Lightcap wrote:\n\n> Friends:\n>\n> Here's what's happening. I load an environment with some of my  \n> datafiles then invoke edit on one of them for test purposes.\n>\n> > edit (pub09)\n>\n> Here's the file structure:\n>\n> > str(pub09)\n> 'data.frame':\t50 obs. of  15 variables:\n> $ id        : int  1 2 3 4 5 6 7 8 9 10 ...\n> $ state     : Factor w/ 50 levels \"AK\",\"AL\",\"AR\",..: 2 1 4 3 5 6 7 8  \n> 9 10 ...\n> $ drug07    : num  0.537 0.185 0.733 0.666 0.948 0.406 0.375 1 0.686  \n> 0.408 ...\n> $ percapin06: int  26940 33257 27849 24829 34555 34437 44266 34123  \n> 32021 27988 ...\n> $ file06    : int  213284 24213 268126 210265 3287378 189415 407979  \n> 25034 1390031 360332 ...\n> $ gjjudges06: int  144 44 171 115 1922 150 180 24 554 197 ...\n> $ csi06     : num  39.8 32 49.6 49.4 59.5 ...\n> $ pop06     : int  4590 677 6166 2809 36250 4766 3496 853 18058  \n> 9342 ...\n> $ berkson06 : int  9 15 9 12 16 6 15 4 15 0 ...\n> $ ifin05    : int  3 4 1 3 2 2 4 4 2 1 ...\n> $ stafin05  : num  0.66 0.93 0.19 0.64 0.42 0.5 0.92 0.9 0.51 0.29 ...\n> $ pro05     : num  0.34 0.44 0.7 0.4 0.88 0.41 0.56 0.55 0.92 0.39 ...\n> $ work06    : num  1481 550 1568 1828 1710 ...\n> $ lpop06    : num  3.66 2.83 3.79 3.45 4.56 ...\n> $ newpro05  : num  34 44 70 40 88 41 56 55 92 39 ...\n>\n> I can add/delete rows using the icons with no problems in the  \n> editor. Attempting to add columns with the icons, however, results  \n> in this error message:\n>\n> Error in edit.data.frame(pub09)  :\n> SET_VECTOR_ELT() can only be applied to a 'list', not a 'character'\n>\n> Then R shows the beach ball and never resolves the difficulty. And  \n> it shows further strangeness: if the edit window is over the  \n> console, all text in the console below is erased. I end up having to  \n> force quit every time.\n>\n> This is only a bother; the datafile isn't affected nor the  \n> environment. Besides, I usually work on my data in a spreadsheet,  \n> then import. Still, if the editor is to be used for classes, I need  \n> to find out why this is happening. I'm guessing it is due to  \n> character strings in the datafile, but I can't be sure of that given  \n> the circumstances.\n>\n> Model: MacBookPro2,2, BootROM MBP22.00A5.B07, 2 processors, Intel  \n> Core 2 Duo, 2.33 GHz, 2 GB\n> R:  R 2.9.1 GUI 1.28 Tiger build 32-bit (5444)\n>\n> Hope I've given enough data to make the problem clear.\n>\n> Tracy Lightcap\n> Professor and Chair\n> Department of Political Science\n> LaGrange College\n> 601 Broad St.\n> LaGrange  GA  30240-2999\n> (O) tlightcap at lagrange.edu (H) altlamp at mindspring.com\n> 706.880.8226\n> www.lagrange.edu/academics/political-science/faculty/tlightcap.aspx\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius, MD\nHeritage Laboratories\nWest Hartford, CT",
+      "body_snippet": "I am not a regular user of that facility and cannot see that it has  \nmuch value over the facilities available in the console. Nontheless, I  \ncan replicate the error, but not the hang behavior on a r",
+      "thread_id": "thread-2658c2da8d1d",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-dcb5d7e8ae0c",
+      "message_id": "<1706F276-5A8F-47AD-A53D-AF9189BDD554@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-02T10:36:17-04:00",
+      "subject": "[R-SIG-Mac] A question I'm sure I should be able to answer myself",
+      "subject_clean": "A question I'm sure I should be able to answer myself",
+      "in_reply_to": "<55A1FEED-31F6-45A4-AAAE-13828AD0CF24@comcast.net>",
+      "references": [
+        "<0067B77F-8E62-46AB-B5F1-16DD86A99072@lagrange.edu>",
+        "<55A1FEED-31F6-45A4-AAAE-13828AD0CF24@comcast.net>"
+      ],
+      "body_plain": "David,\n\nthis was fixed in the recent GUI as the thread you replied to says.  \nPlease update your GUI to 5450 or later.\n\nCheers,\nSimon\n\n\nOn Aug 2, 2009, at 10:20 AM, David Winsemius wrote:\n\n> I am not a regular user of that facility and cannot see that it has  \n> much value over the facilities available in the console. Nontheless,  \n> I can replicate the error, but not the hang behavior on a relatively  \n> current 64 bit R installation run from the 64 bit GUI:\n>\n> > dput(data2)\n> structure(list(Id02 = structure(c(1L, 2L, 3L, 3L), .Label = c(\"1.a\",\n> \"2.b\", \"3.d\"), class = \"factor\"), Area = c(10, 2, 3, 5)), .Names =  \n> c(\"Id02\",\n> \"Area\"), row.names = c(NA, -4L), class = \"data.frame\")\n>\n> > edit(data2)\n> # choosing the \"+\" icon in the edit window results in this message  \n> in the GUI console window\n> Error in edit.data.frame(data2) :\n>  SET_VECTOR_ELT() can only be applied to a 'list', not a 'character'\n>\n> > sessionInfo()\n> R version 2.9.1 Patched (2009-07-04 r48897)\n> x86_64-apple-darwin9.7.0\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] splines   stats     graphics  grDevices utils     datasets   \n> methods   base\n>\n> other attached packages:\n> [1] fortunes_1.3-6  MASS_7.2-46     chron_2.3-30    Design_2.1-2     \n> survival_2.35-4 Hmisc_3.5-2\n>\n> loaded via a namespace (and not attached):\n> [1] cluster_1.12.0  grid_2.9.1      lattice_0.17-25 tools_2.9.1\n>\n> -- \n> David Winsemius\n>\n> On Jul 29, 2009, at 5:53 PM, Tracy Lightcap wrote:\n>\n>> Friends:\n>>\n>> Here's what's happening. I load an environment with some of my  \n>> datafiles then invoke edit on one of them for test purposes.\n>>\n>> > edit (pub09)\n>>\n>> Here's the file structure:\n>>\n>> > str(pub09)\n>> 'data.frame':\t50 obs. of  15 variables:\n>> $ id        : int  1 2 3 4 5 6 7 8 9 10 ...\n>> $ state     : Factor w/ 50 levels \"AK\",\"AL\",\"AR\",..: 2 1 4 3 5 6 7  \n>> 8 9 10 ...\n>> $ drug07    : num  0.537 0.185 0.733 0.666 0.948 0.406 0.375 1  \n>> 0.686 0.408 ...\n>> $ percapin06: int  26940 33257 27849 24829 34555 34437 44266 34123  \n>> 32021 27988 ...\n>> $ file06    : int  213284 24213 268126 210265 3287378 189415 407979  \n>> 25034 1390031 360332 ...\n>> $ gjjudges06: int  144 44 171 115 1922 150 180 24 554 197 ...\n>> $ csi06     : num  39.8 32 49.6 49.4 59.5 ...\n>> $ pop06     : int  4590 677 6166 2809 36250 4766 3496 853 18058  \n>> 9342 ...\n>> $ berkson06 : int  9 15 9 12 16 6 15 4 15 0 ...\n>> $ ifin05    : int  3 4 1 3 2 2 4 4 2 1 ...\n>> $ stafin05  : num  0.66 0.93 0.19 0.64 0.42 0.5 0.92 0.9 0.51  \n>> 0.29 ...\n>> $ pro05     : num  0.34 0.44 0.7 0.4 0.88 0.41 0.56 0.55 0.92  \n>> 0.39 ...\n>> $ work06    : num  1481 550 1568 1828 1710 ...\n>> $ lpop06    : num  3.66 2.83 3.79 3.45 4.56 ...\n>> $ newpro05  : num  34 44 70 40 88 41 56 55 92 39 ...\n>>\n>> I can add/delete rows using the icons with no problems in the  \n>> editor. Attempting to add columns with the icons, however, results  \n>> in this error message:\n>>\n>> Error in edit.data.frame(pub09)  :\n>> SET_VECTOR_ELT() can only be applied to a 'list', not a 'character'\n>>\n>> Then R shows the beach ball and never resolves the difficulty. And  \n>> it shows further strangeness: if the edit window is over the  \n>> console, all text in the console below is erased. I end up having  \n>> to force quit every time.\n>>\n>> This is only a bother; the datafile isn't affected nor the  \n>> environment. Besides, I usually work on my data in a spreadsheet,  \n>> then import. Still, if the editor is to be used for classes, I need  \n>> to find out why this is happening. I'm guessing it is due to  \n>> character strings in the datafile, but I can't be sure of that  \n>> given the circumstances.\n>>\n>> Model: MacBookPro2,2, BootROM MBP22.00A5.B07, 2 processors, Intel  \n>> Core 2 Duo, 2.33 GHz, 2 GB\n>> R:  R 2.9.1 GUI 1.28 Tiger build 32-bit (5444)\n>>\n>> Hope I've given enough data to make the problem clear.\n>>\n>> Tracy Lightcap\n>> Professor and Chair\n>> Department of Political Science\n>> LaGrange College\n>> 601 Broad St.\n>> LaGrange  GA  30240-2999\n>> (O) tlightcap at lagrange.edu (H) altlamp at mindspring.com\n>> 706.880.8226\n>> www.lagrange.edu/academics/political-science/faculty/tlightcap.aspx\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> David Winsemius, MD\n> Heritage Laboratories\n> West Hartford, CT\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "David,\n\nthis was fixed in the recent GUI as the thread you replied to says.  \nPlease update your GUI to 5450 or later.\n\nCheers,\nSimon\n\n\nOn Aug 2, 2009, at 10:20 AM, David Winsemius wrote:\n\n> I am not ",
+      "thread_id": "thread-2658c2da8d1d",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-5db34171635b",
+      "message_id": "<36BC1589-D149-4E09-ACD7-2197E9E38C88@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2009-08-02T12:10:05-04:00",
+      "subject": "[R-SIG-Mac] A question I'm sure I should be able to answer myself",
+      "subject_clean": "A question I'm sure I should be able to answer myself",
+      "in_reply_to": "<1706F276-5A8F-47AD-A53D-AF9189BDD554@r-project.org>",
+      "references": [
+        "<0067B77F-8E62-46AB-B5F1-16DD86A99072@lagrange.edu>",
+        "<55A1FEED-31F6-45A4-AAAE-13828AD0CF24@comcast.net>",
+        "<1706F276-5A8F-47AD-A53D-AF9189BDD554@r-project.org>"
+      ],
+      "body_plain": "Thanks. It does indeed fix the problem that I did not know existed.  \nMay I inquire what is really happening? The help page for utils:: edit  \nsuggests to me that the dataframe is being sent to \"vi\" ( == \"vim\" on  \nmy installation),  but that certainly does not look like a vim window.\n\n-- \nDavid.\n\nOn Aug 2, 2009, at 10:36 AM, Simon Urbanek wrote:\n\n> David,\n>\n> this was fixed in the recent GUI as the thread you replied to says.  \n> Please update your GUI to 5450 or later.\n>\n> Cheers,\n> Simon\n>\n>\n> On Aug 2, 2009, at 10:20 AM, David Winsemius wrote:\n>\n>> I am not a regular user of that facility and cannot see that it has  \n>> much value over the facilities available in the console.  \n>> Nontheless, I can replicate the error, but not the hang behavior on  \n>> a relatively current 64 bit R installation run from the 64 bit GUI:\n>>\n>> > dput(data2)\n>> structure(list(Id02 = structure(c(1L, 2L, 3L, 3L), .Label = c(\"1.a\",\n>> \"2.b\", \"3.d\"), class = \"factor\"), Area = c(10, 2, 3, 5)), .Names =  \n>> c(\"Id02\",\n>> \"Area\"), row.names = c(NA, -4L), class = \"data.frame\")\n>>\n>> > edit(data2)\n>> # choosing the \"+\" icon in the edit window results in this message  \n>> in the GUI console window\n>> Error in edit.data.frame(data2) :\n>> SET_VECTOR_ELT() can only be applied to a 'list', not a 'character'\n>>\n>> > sessionInfo()\n>> R version 2.9.1 Patched (2009-07-04 r48897)\n>> x86_64-apple-darwin9.7.0\n>>\n>> locale:\n>> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>>\n>> attached base packages:\n>> [1] splines   stats     graphics  grDevices utils     datasets   \n>> methods   base\n>>\n>> other attached packages:\n>> [1] fortunes_1.3-6  MASS_7.2-46     chron_2.3-30    Design_2.1-2     \n>> survival_2.35-4 Hmisc_3.5-2\n>>\n>> loaded via a namespace (and not attached):\n>> [1] cluster_1.12.0  grid_2.9.1      lattice_0.17-25 tools_2.9.1\n>>\n>> -- \n>> David Winsemius\n>>\n>> On Jul 29, 2009, at 5:53 PM, Tracy Lightcap wrote:\n>>\n>>> Friends:\n>>>\n>>> Here's what's happening. I load an environment with some of my  \n>>> datafiles then invoke edit on one of them for test purposes.\n>>>\n>>> > edit (pub09)\n>>>\n>>> Here's the file structure:\n>>>\n>>> > str(pub09)\n>>> 'data.frame':\t50 obs. of  15 variables:\n>>> $ id        : int  1 2 3 4 5 6 7 8 9 10 ...\n>>> $ state     : Factor w/ 50 levels \"AK\",\"AL\",\"AR\",..: 2 1 4 3 5 6 7  \n>>> 8 9 10 ...\n>>> $ drug07    : num  0.537 0.185 0.733 0.666 0.948 0.406 0.375 1  \n>>> 0.686 0.408 ...\n>>> $ percapin06: int  26940 33257 27849 24829 34555 34437 44266 34123  \n>>> 32021 27988 ...\n>>> $ file06    : int  213284 24213 268126 210265 3287378 189415  \n>>> 407979 25034 1390031 360332 ...\n>>> $ gjjudges06: int  144 44 171 115 1922 150 180 24 554 197 ...\n>>> $ csi06     : num  39.8 32 49.6 49.4 59.5 ...\n>>> $ pop06     : int  4590 677 6166 2809 36250 4766 3496 853 18058  \n>>> 9342 ...\n>>> $ berkson06 : int  9 15 9 12 16 6 15 4 15 0 ...\n>>> $ ifin05    : int  3 4 1 3 2 2 4 4 2 1 ...\n>>> $ stafin05  : num  0.66 0.93 0.19 0.64 0.42 0.5 0.92 0.9 0.51  \n>>> 0.29 ...\n>>> $ pro05     : num  0.34 0.44 0.7 0.4 0.88 0.41 0.56 0.55 0.92  \n>>> 0.39 ...\n>>> $ work06    : num  1481 550 1568 1828 1710 ...\n>>> $ lpop06    : num  3.66 2.83 3.79 3.45 4.56 ...\n>>> $ newpro05  : num  34 44 70 40 88 41 56 55 92 39 ...\n>>>\n>>> I can add/delete rows using the icons with no problems in the  \n>>> editor. Attempting to add columns with the icons, however, results  \n>>> in this error message:\n>>>\n>>> Error in edit.data.frame(pub09)  :\n>>> SET_VECTOR_ELT() can only be applied to a 'list', not a 'character'\n>>>\n>>> Then R shows the beach ball and never resolves the difficulty. And  \n>>> it shows further strangeness: if the edit window is over the  \n>>> console, all text in the console below is erased. I end up having  \n>>> to force quit every time.\n>>>\n>>> This is only a bother; the datafile isn't affected nor the  \n>>> environment. Besides, I usually work on my data in a spreadsheet,  \n>>> then import. Still, if the editor is to be used for classes, I  \n>>> need to find out why this is happening. I'm guessing it is due to  \n>>> character strings in the datafile, but I can't be sure of that  \n>>> given the circumstances.\n>>>\n>>> Model: MacBookPro2,2, BootROM MBP22.00A5.B07, 2 processors, Intel  \n>>> Core 2 Duo, 2.33 GHz, 2 GB\n>>> R:  R 2.9.1 GUI 1.28 Tiger build 32-bit (5444)\n>>>\n>>> Hope I've given enough data to make the problem clear.\n>>>\n>>> Tracy Lightcap\n>>> Professor and Chair\n>>> Department of Political Science\n>>> LaGrange College\n>>> 601 Broad St.\n>>> LaGrange  GA  30240-2999\n>>> (O) tlightcap at lagrange.edu (H) altlamp at mindspring.com\n>>> 706.880.8226\n>>> www.lagrange.edu/academics/political-science/faculty/tlightcap.aspx\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> David Winsemius, MD\n>> Heritage Laboratories\n>> West Hartford, CT\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>\n\nDavid Winsemius, MD\nHeritage Laboratories\nWest Hartford, CT",
+      "body_snippet": "Thanks. It does indeed fix the problem that I did not know existed.  \nMay I inquire what is really happening? The help page for utils:: edit  \nsuggests to me that the dataframe is being sent to \"vi\" (",
+      "thread_id": "thread-2658c2da8d1d",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-6d9245839814",
+      "message_id": "<00109A21-9675-4E8F-AD86-A8D7AEEBE1BE@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-02T12:36:10-04:00",
+      "subject": "[R-SIG-Mac] A question I'm sure I should be able to answer myself",
+      "subject_clean": "A question I'm sure I should be able to answer myself",
+      "in_reply_to": "<36BC1589-D149-4E09-ACD7-2197E9E38C88@comcast.net>",
+      "references": [
+        "<0067B77F-8E62-46AB-B5F1-16DD86A99072@lagrange.edu>",
+        "<55A1FEED-31F6-45A4-AAAE-13828AD0CF24@comcast.net>",
+        "<1706F276-5A8F-47AD-A53D-AF9189BDD554@r-project.org>",
+        "<36BC1589-D149-4E09-ACD7-2197E9E38C88@comcast.net>"
+      ],
+      "body_plain": "On Aug 2, 2009, at 12:10 , David Winsemius wrote:\n\n> Thanks. It does indeed fix the problem that I did not know existed.  \n> May I inquire what is really happening? The help page for utils::  \n> edit suggests to me that the dataframe is being sent to \"vi\" ( ==  \n> \"vim\" on my installation),  but that certainly does not look like a  \n> vim window.\n>\n\nedit is a generic function (see the doc) - in your case you want to  \nread rather ?edit.data.frame which is implemented differently  \ndepending on the GUI used allowing a spreadsheet-like interface.\n\nCheers,\nSimon\n\n@Tracy: what you were probably looking for is the fix() function\n\n>\n> On Aug 2, 2009, at 10:36 AM, Simon Urbanek wrote:\n>\n>> David,\n>>\n>> this was fixed in the recent GUI as the thread you replied to says.  \n>> Please update your GUI to 5450 or later.\n>>\n>> Cheers,\n>> Simon\n>>\n>>\n>> On Aug 2, 2009, at 10:20 AM, David Winsemius wrote:\n>>\n>>> I am not a regular user of that facility and cannot see that it  \n>>> has much value over the facilities available in the console.  \n>>> Nontheless, I can replicate the error, but not the hang behavior  \n>>> on a relatively current 64 bit R installation run from the 64 bit  \n>>> GUI:\n>>>\n>>> > dput(data2)\n>>> structure(list(Id02 = structure(c(1L, 2L, 3L, 3L), .Label = c(\"1.a\",\n>>> \"2.b\", \"3.d\"), class = \"factor\"), Area = c(10, 2, 3, 5)), .Names =  \n>>> c(\"Id02\",\n>>> \"Area\"), row.names = c(NA, -4L), class = \"data.frame\")\n>>>\n>>> > edit(data2)\n>>> # choosing the \"+\" icon in the edit window results in this message  \n>>> in the GUI console window\n>>> Error in edit.data.frame(data2) :\n>>> SET_VECTOR_ELT() can only be applied to a 'list', not a 'character'\n>>>\n>>> > sessionInfo()\n>>> R version 2.9.1 Patched (2009-07-04 r48897)\n>>> x86_64-apple-darwin9.7.0\n>>>\n>>> locale:\n>>> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>>>\n>>> attached base packages:\n>>> [1] splines   stats     graphics  grDevices utils     datasets   \n>>> methods   base\n>>>\n>>> other attached packages:\n>>> [1] fortunes_1.3-6  MASS_7.2-46     chron_2.3-30     \n>>> Design_2.1-2    survival_2.35-4 Hmisc_3.5-2\n>>>\n>>> loaded via a namespace (and not attached):\n>>> [1] cluster_1.12.0  grid_2.9.1      lattice_0.17-25 tools_2.9.1\n>>>\n>>> -- \n>>> David Winsemius\n>>>\n>>> On Jul 29, 2009, at 5:53 PM, Tracy Lightcap wrote:\n>>>\n>>>> Friends:\n>>>>\n>>>> Here's what's happening. I load an environment with some of my  \n>>>> datafiles then invoke edit on one of them for test purposes.\n>>>>\n>>>> > edit (pub09)\n>>>>\n>>>> Here's the file structure:\n>>>>\n>>>> > str(pub09)\n>>>> 'data.frame':\t50 obs. of  15 variables:\n>>>> $ id        : int  1 2 3 4 5 6 7 8 9 10 ...\n>>>> $ state     : Factor w/ 50 levels \"AK\",\"AL\",\"AR\",..: 2 1 4 3 5 6  \n>>>> 7 8 9 10 ...\n>>>> $ drug07    : num  0.537 0.185 0.733 0.666 0.948 0.406 0.375 1  \n>>>> 0.686 0.408 ...\n>>>> $ percapin06: int  26940 33257 27849 24829 34555 34437 44266  \n>>>> 34123 32021 27988 ...\n>>>> $ file06    : int  213284 24213 268126 210265 3287378 189415  \n>>>> 407979 25034 1390031 360332 ...\n>>>> $ gjjudges06: int  144 44 171 115 1922 150 180 24 554 197 ...\n>>>> $ csi06     : num  39.8 32 49.6 49.4 59.5 ...\n>>>> $ pop06     : int  4590 677 6166 2809 36250 4766 3496 853 18058  \n>>>> 9342 ...\n>>>> $ berkson06 : int  9 15 9 12 16 6 15 4 15 0 ...\n>>>> $ ifin05    : int  3 4 1 3 2 2 4 4 2 1 ...\n>>>> $ stafin05  : num  0.66 0.93 0.19 0.64 0.42 0.5 0.92 0.9 0.51  \n>>>> 0.29 ...\n>>>> $ pro05     : num  0.34 0.44 0.7 0.4 0.88 0.41 0.56 0.55 0.92  \n>>>> 0.39 ...\n>>>> $ work06    : num  1481 550 1568 1828 1710 ...\n>>>> $ lpop06    : num  3.66 2.83 3.79 3.45 4.56 ...\n>>>> $ newpro05  : num  34 44 70 40 88 41 56 55 92 39 ...\n>>>>\n>>>> I can add/delete rows using the icons with no problems in the  \n>>>> editor. Attempting to add columns with the icons, however,  \n>>>> results in this error message:\n>>>>\n>>>> Error in edit.data.frame(pub09)  :\n>>>> SET_VECTOR_ELT() can only be applied to a 'list', not a 'character'\n>>>>\n>>>> Then R shows the beach ball and never resolves the difficulty.  \n>>>> And it shows further strangeness: if the edit window is over the  \n>>>> console, all text in the console below is erased. I end up having  \n>>>> to force quit every time.\n>>>>\n>>>> This is only a bother; the datafile isn't affected nor the  \n>>>> environment. Besides, I usually work on my data in a spreadsheet,  \n>>>> then import. Still, if the editor is to be used for classes, I  \n>>>> need to find out why this is happening. I'm guessing it is due to  \n>>>> character strings in the datafile, but I can't be sure of that  \n>>>> given the circumstances.\n>>>>\n>>>> Model: MacBookPro2,2, BootROM MBP22.00A5.B07, 2 processors, Intel  \n>>>> Core 2 Duo, 2.33 GHz, 2 GB\n>>>> R:  R 2.9.1 GUI 1.28 Tiger build 32-bit (5444)\n>>>>\n>>>> Hope I've given enough data to make the problem clear.\n>>>>\n>>>> Tracy Lightcap\n>>>> Professor and Chair\n>>>> Department of Political Science\n>>>> LaGrange College\n>>>> 601 Broad St.\n>>>> LaGrange  GA  30240-2999\n>>>> (O) tlightcap at lagrange.edu (H) altlamp at mindspring.com\n>>>> 706.880.8226\n>>>> www.lagrange.edu/academics/political-science/faculty/tlightcap.aspx\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at stat.math.ethz.ch\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>> David Winsemius, MD\n>>> Heritage Laboratories\n>>> West Hartford, CT\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>>\n>>\n>\n> David Winsemius, MD\n> Heritage Laboratories\n> West Hartford, CT\n>\n>",
+      "body_snippet": "On Aug 2, 2009, at 12:10 , David Winsemius wrote:\n\n> Thanks. It does indeed fix the problem that I did not know existed.  \n> May I inquire what is really happening? The help page for utils::  \n> edit ",
+      "thread_id": "thread-2658c2da8d1d",
+      "thread_depth": 3,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-a940001293c1",
+      "message_id": "<3509B7DD-A147-4412-A928-6E2C4087C9F8@anne-skoeries.de>",
+      "from_name": "Anne Skoeries",
+      "from_email_hash": "9ede305f20b1b23b44fcbdba6342c06e0e621adc4a3b41f6ea3561c8597e78cd",
+      "date": "2009-08-05T14:17:50+02:00",
+      "subject": "[R-SIG-Mac] R crashes with \"caught segfault\" under Mac OS X",
+      "subject_clean": "R crashes with \"caught segfault\" under Mac OS X",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hallo there,\n\nI'm developing under Mac OS X.\nI'm generating a plot out of a tcl/tk-application. The plot is shown  \nas expected in a Quartz-window in front of the tcl/tk-window but the  \nfocus strangely remains on the X11 application (tcl/tk-window).  If I  \nclose the Quartz-Window by clicking on the red \"close-button\" directly  \nwithout changing the focus by clicking the Quartz-window, R crashes  \nwith the following error-messages shown below.\n\nMy questions:\n1. Is there a way to prevent the crash?\n2. Is it possible to change the focus automatically to the Quartz- \nwindow? If not, is there a way to show the plot within a tcl/tk-window  \nand completely abstain from a Quartz-window?\n\nCode:\ntt <- tktoplevel()\nbuta <- tkbutton(tt, text = \"ajcc0\", command = function()  \n{barplot(height = mat, names.arg=namen)})\ntkgrid(buta)\n\nerror message:\n*** caught segfault ***\naddress 0xc5f003f3, cause 'memory not mapped'\n\nPossible actions:\n1: abort (with core dump, if enabled)\n2: normal R exit\n3: exit R without saving workspace\n4: exit R saving workspace\nerror in background error handler:\nout of stack space (infinite loop?)\n     while executing\n\"::tcl::Bgerror {out of stack space (infinite loop?)} {-code 1 -level  \n0 -errorcode NONE -errorinfo {out of stack space (infinite loop?)\n     while execu...\"\n\nSessionInfo:\nR version 2.9.1 (2009-06-26)\ni386-apple-darwin8.11.1\n\nlocale:\nde_DE.UTF-8/de_DE.UTF-8/C/C/de_DE.UTF-8/de_DE.UTF-8\n\nattached base packages:\n[1] tcltk     stats     graphics  grDevices utils     datasets   \nmethods   base\n\nThanks,\n--\nAnne Skoeries",
+      "body_snippet": "Hallo there,\n\nI'm developing under Mac OS X.\nI'm generating a plot out of a tcl/tk-application. The plot is shown  \nas expected in a Quartz-window in front of the tcl/tk-window but the  \nfocus strange",
+      "thread_id": "thread-a940001293c1",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-881b9294e971",
+      "message_id": "<BAY111-W4605EBC0B87C68B2ED5F7BD00A0@phx.gbl>",
+      "from_name": "Vladimir Torres",
+      "from_email_hash": "8bd2d4ed16d74fbb09babd0f0c07db17ddc6b2234f53cf3e48ede24f9f71a2f0",
+      "date": "2009-08-05T21:23:48-05:00",
+      "subject": "[R-SIG-Mac] Error in loading gdata in R",
+      "subject_clean": "Error in loading gdata in R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090805/f6c230dc/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090805/f6c230dc/attachment.pl>",
+      "thread_id": "thread-881b9294e971",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-ae126fc12301",
+      "message_id": "<3625.137.111.57.71.1249526471.squirrel@65.99.229.10>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "2c82e49cec3a0e6d46b74506949217eb854acf022855b79b114564c976a5593f",
+      "date": "2009-08-06T02:41:11Z",
+      "subject": "[R-SIG-Mac] Error in loading gdata in R",
+      "subject_clean": "Error in loading gdata in R",
+      "in_reply_to": "<BAY111-W4605EBC0B87C68B2ED5F7BD00A0@phx.gbl>",
+      "references": [
+        "<BAY111-W4605EBC0B87C68B2ED5F7BD00A0@phx.gbl>"
+      ],
+      "body_plain": "Install the package gtools. In future, when installing a package ask for\nall packages it depends on to be installed.\n\nKen\n\nOn Thu, August 6, 2009 2:23 am, Vladimir Torres wrote:\n>\n> Dear Members:\n>\n> I have installed the R package called gdata and it appears in the R\n> package manager of the R Console. The problem is when I try to load it,\n> then I get the following error:\n>\n>> library(gdata)\n> Error in loadNamespace(i[[1L]], c(lib.loc, .libPaths())) :\n>   there is no package called 'gtools'\n> Error: package/namespace load failed for 'gdata'\n>\n> It seems there is something missing in the configuration, but I am not\n> sure what is. I would appreciate any support.\n>\n> Best wishes,\n>\n> Vladimir Torres Torres\n> Geologist - Palynologist\n> Colombia\n>\n> _________________________________________________________________\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Install the package gtools. In future, when installing a package ask for\nall packages it depends on to be installed.\n\nKen\n\nOn Thu, August 6, 2009 2:23 am, Vladimir Torres wrote:\n>\n> Dear Members:\n>\n> ",
+      "thread_id": "thread-881b9294e971",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-ba38dd18f023",
+      "message_id": "<C6A06DEE.718F%dds@stowers.org>",
+      "from_name": "Stranathan, Dan",
+      "from_email_hash": "14cb494f168b0fb68d3d2190c5219e318cfe2546edcafe3fdff3dcd7d2b629f0",
+      "date": "2009-08-06T11:24:30-05:00",
+      "subject": "[R-SIG-Mac] Package Installer of R 2.9.1 (64 bit)?",
+      "subject_clean": "Package Installer of R 2.9.1 (64 bit)?",
+      "in_reply_to": "<mailman.23.1249552806.17039.r-sig-mac@stat.math.ethz.ch>",
+      "references": [],
+      "body_plain": "Hello all\n\n\nFirst post here. Warning: I'm an IT sys admin, not a programmer or developer. I'm a tad confused on the 32 bit vs. 64 bit versions of R for Mac OS X (x86). Looking for some clarification.\n\nI'm looking for a current (stable) 64bit version of R to run on a 2009 Intel Serve. I will be using it with Bioconductor. My users will be running R from the command line or X11 via SSH primarily (i.e.; not from the Aqua console GUI). Even though I may not need to use a 64bit version of the R GUI, Id like to have it installed just in case.\n\nI see that there is a .pkg  installer for R 2.9.1 available as a .dmg, but it appears to be a 32bit. Is there not a 64 bit version available in a .pkg installer format as well? If not, do I need to compile a 64bit version from source? I'm curious as to why there isn't a 64 bit version in .pkg format.\n\nLooking around the 'Net, I did find what appears to be a 64 bit version of R, but its a little older version  - 2.9.0 (Its under the \"Leopard Build\" section on this page: http://r.research.att.com/ ) I'm curious as to why there is a 64 bit version of 2.9.0 (app & GUI) available, but there isn't one available for 2.9.1.\n\nI know this has been discussed in the past, but I just want to clarify. I have seen posts in this list back in June/July 2009. At that time there was a discussion of installing R 2.9.1 64 bit app and then retro-fitting it with a stand-alone version of the 64 bit GUI. Is this still the best way to do this? Or has someone put together an installer with the 64 bit app (2.9.1) and a 64 bit version of the GUI?\n\nMy goal is to get the most recent version of R (64 bit) installed. If I have to compile/install R from source that's fine, but Id like to make the process as painless as possible.\n\nAny words of wisdom would be appreciated.\n\n\nThank you!\n\n-Dan",
+      "body_snippet": "Hello all\n\n\nFirst post here. Warning: I'm an IT sys admin, not a programmer or developer. I'm a tad confused on the 32 bit vs. 64 bit versions of R for Mac OS X (x86). Looking for some clarification.\n",
+      "thread_id": "thread-ba38dd18f023",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-8b2a3268636b",
+      "message_id": "<330707AD-3144-40D2-80A4-C237555BD92D@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-06T13:34:11-04:00",
+      "subject": "[R-SIG-Mac] Package Installer of R 2.9.1 (64 bit)?",
+      "subject_clean": "Package Installer of R 2.9.1 (64 bit)?",
+      "in_reply_to": "<C6A06DEE.718F%dds@stowers.org>",
+      "references": [
+        "<C6A06DEE.718F%dds@stowers.org>"
+      ],
+      "body_plain": "On Aug 6, 2009, at 12:24 , Stranathan, Dan wrote:\n\n> Hello all\n>\n>\n> First post here. Warning: I'm an IT sys admin, not a programmer or  \n> developer. I'm a tad confused on the 32 bit vs. 64 bit versions of R  \n> for Mac OS X (x86). Looking for some clarification.\n>\n> I'm looking for a current (stable) 64bit version of R to run on a  \n> 2009 Intel Serve. I will be using it with Bioconductor. My users  \n> will be running R from the command line or X11 via SSH primarily  \n> (i.e.; not from the Aqua console GUI). Even though I may not need to  \n> use a 64bit version of the R GUI, Id like to have it installed just  \n> in case.\n>\n> I see that there is a .pkg  installer for R 2.9.1 available as  \n> a .dmg, but it appears to be a 32bit. Is there not a 64 bit version  \n> available in a .pkg installer format as well?\n\nCurrently, no, but you can install the 2.9.0 one and update to 2.9.1  \nusing nightly the tarball from\nhttp://r.research.att.com/\n\n\n> If not, do I need to compile a 64bit version from source?\n\nNo\n\n\n> I'm curious as to why there isn't a 64 bit version in .pkg format.\n>\n\nThe new PackageMaker in Leopard is incompatible with the old one used  \nto build the installation packages for Tiger. Also there are issues  \nwith the way it collects the resources to be installed, so it doesn't  \nwork properly in automated environments. The bottom line is that  \nthe .pkg for 2.9.0 was created manually and I didn't have the time to  \ndo that same for 2.9.1 (too many conferences etc.).\n\n\n> Looking around the 'Net, I did find what appears to be a 64 bit  \n> version of R, but its a little older version  - 2.9.0 (Its under the  \n> \"Leopard Build\" section on this page: http://r.research.att.com/ )  \n> I'm curious as to why there is a 64 bit version of 2.9.0 (app & GUI)  \n> available, but there isn't one available for 2.9.1.\n>\n\nYes, there is:\nas of today: R 2.9.1 Patched (2009-08-05)\nhttp://r.research.att.com/R-2.9-branch-leopard-universal.tar.gz\n\n(just unpack using sudo tar fxz R-2.9-branch-leopard-universal.tar.gz - \nC / )\n\nCorresponding 64-bit GUI:\nhttp://r.research.att.com/R-GUI-5455-2.9-leopard-Leopard64.dmg\n\nCorresponding 32-bit GUI:\nhttp://r.research.att.com/R-GUI-5455-2.9-leopard-Leopard.dmg\n\n\n> I know this has been discussed in the past, but I just want to  \n> clarify. I have seen posts in this list back in June/July 2009. At  \n> that time there was a discussion of installing R 2.9.1 64 bit app  \n> and then retro-fitting it with a stand-alone version of the 64 bit  \n> GUI. Is this still the best way to do this? Or has someone put  \n> together an installer with the 64 bit app (2.9.1) and a 64 bit  \n> version of the GUI?\n>\n\nNot yet. The easiest is probably to install the 2.9.0 package and then  \nunpack the tar ball to update it. The GUI didn't change from 2.9.0 to  \n2.9.1, but there was a fix few days ago, so just take the most recent  \nand you're set.\n\nCheers,\nSimon\n\n\n> My goal is to get the most recent version of R (64 bit) installed.  \n> If I have to compile/install R from source that's fine, but Id like  \n> to make the process as painless as possible.\n>\n> Any words of wisdom would be appreciated.\n>\n>\n> Thank you!\n>\n> -Dan\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "On Aug 6, 2009, at 12:24 , Stranathan, Dan wrote:\n\n> Hello all\n>\n>\n> First post here. Warning: I'm an IT sys admin, not a programmer or  \n> developer. I'm a tad confused on the 32 bit vs. 64 bit versi",
+      "thread_id": "thread-ba38dd18f023",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-6f63d6a04887",
+      "message_id": "<4A80A7D4.2060601@xen.net>",
+      "from_name": "[Ricardo Rodriguez] Your XEN ICT Team",
+      "from_email_hash": "f7e51f7878af6eb090140834c83da629015b53505ed879c391b5749da71f70bb",
+      "date": "2009-08-11T01:05:56+02:00",
+      "subject": "[R-SIG-Mac] [R] NotePad++ Syntax file",
+      "subject_clean": "NotePad++ Syntax file",
+      "in_reply_to": "<333786.90996.qm@web38403.mail.mud.yahoo.com>",
+      "references": [
+        "<333786.90996.qm@web38403.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "John Kane wrote:\n> No but have you had a look at Tinn-R  http://www.sciviews.org/Tinn-R/. \n\nAny similar option for Mac OS X?\n\nPlease, accept my excuses for cross posting, but I think this message \ncould/should also be addressed to the R-SigMAC list. Thanks!\n\nBest,\n\nRicardo\n\n-- \nRicardo Rodr?guez\nYour XEN ICT Team",
+      "body_snippet": "John Kane wrote:\n> No but have you had a look at Tinn-R  http://www.sciviews.org/Tinn-R/. \n\nAny similar option for Mac OS X?\n\nPlease, accept my excuses for cross posting, but I think this message \ncou",
+      "thread_id": "thread-6f63d6a04887",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-4bb9c564d42c",
+      "message_id": "<23205C90-6654-4ECF-915F-6340C6B18C3F@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-10T20:54:51-04:00",
+      "subject": "[R-SIG-Mac] [R] NotePad++ Syntax file",
+      "subject_clean": "NotePad++ Syntax file",
+      "in_reply_to": "<4A80A7D4.2060601@xen.net>",
+      "references": [
+        "<333786.90996.qm@web38403.mail.mud.yahoo.com>",
+        "<4A80A7D4.2060601@xen.net>"
+      ],
+      "body_plain": "On Aug 10, 2009, at 7:05 PM, [Ricardo Rodriguez] Your XEN ICT Team  \nwrote:\n\n>\n>\n> John Kane wrote:\n>> No but have you had a look at Tinn-R  http://www.sciviews.org/Tinn- \n>> R/.\n>\n> Any similar option for Mac OS X?\n>\n> Please, accept my excuses for cross posting, but I think this  \n> message could/should also be addressed to the R-SigMAC list. Thanks!\n>\n\nEhm - when you really have to cross-post, you should retain enough  \ninformation so it's clear what the thread is all about. What you  \nposted here is just plain spam without any content ... not helpful to  \nanyone ...\n\nCheers,\nSimon",
+      "body_snippet": "On Aug 10, 2009, at 7:05 PM, [Ricardo Rodriguez] Your XEN ICT Team  \nwrote:\n\n>\n>\n> John Kane wrote:\n>> No but have you had a look at Tinn-R  http://www.sciviews.org/Tinn- \n>> R/.\n>\n> Any similar optio",
+      "thread_id": "thread-6f63d6a04887",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-9c8ef8ee4da1",
+      "message_id": "<4A813A35.8090102@xen.net>",
+      "from_name": "[Ricardo Rodriguez] Your XEN ICT Team",
+      "from_email_hash": "f7e51f7878af6eb090140834c83da629015b53505ed879c391b5749da71f70bb",
+      "date": "2009-08-11T11:30:29+02:00",
+      "subject": "[R-SIG-Mac] [R] NotePad++ Syntax file",
+      "subject_clean": "NotePad++ Syntax file",
+      "in_reply_to": "<23205C90-6654-4ECF-915F-6340C6B18C3F@r-project.org>",
+      "references": [
+        "<333786.90996.qm@web38403.mail.mud.yahoo.com>",
+        "<4A80A7D4.2060601@xen.net>",
+        "<23205C90-6654-4ECF-915F-6340C6B18C3F@r-project.org>"
+      ],
+      "body_plain": "Sorry, Simon, and thanks for your answer.\n\nSimon Urbanek wrote:\n> \n> On Aug 10, 2009, at 7:05 PM, [Ricardo Rodriguez] Your XEN ICT Team wrote:\n> \n>>\n>>\n>> John Kane wrote:\n>>> No but have you had a look at Tinn-R  http://www.sciviews.org/Tinn-R/.\n>>\n>> Any similar option for Mac OS X?\n>>\n>> Please, accept my excuses for cross posting, but I think this message \n>> could/should also be addressed to the R-SigMAC list. Thanks!\n>>\n> \n> Ehm - when you really have to cross-post, you should retain enough \n> information so it's clear what the thread is all about. What you posted \n> here is just plain spam without any content ... not helpful to anyone ...\n> \n> Cheers,\n> Simon\n> \n> \n> \n\nHere the original post...\n\n\nJohn Kane wrote:\n > No but have you had a look at Tinn-R  http://www.sciviews.org/Tinn-R/.\n >\n > --- On Mon, 8/10/09, Farley, Robert <FarleyR at metro.net> wrote:\n >\n >> From: Farley, Robert <FarleyR at metro.net>\n >> Subject: [R] NotePad++ Syntax file\n >> To: \"'r-help at r-project.org'\" <r-help at r-project.org>\n >> Received: Monday, August 10, 2009, 6:37 PM\n >>\n >>\n >> Does anyone have an R Syntax Highlighting file\n >> {userDefineLang.xml} for NotePad++??  I've started one,\n >> but I'm not so happy with it.\n >>\n >>\n >>\n >>\n >> Robert Farley\n >> Metro\n >> 1 Gateway Plaza\n >> Mail Stop 99-23-7\n >> Los Angeles, CA 90012-2952\n >> Voice: (213)922-2532\n >> Fax:    (213)922-2868\n >> www.Metro.net\n\n-- \nRicardo Rodr?guez\nYour XEN ICT Team",
+      "body_snippet": "Sorry, Simon, and thanks for your answer.\n\nSimon Urbanek wrote:\n> \n> On Aug 10, 2009, at 7:05 PM, [Ricardo Rodriguez] Your XEN ICT Team wrote:\n> \n>>\n>>\n>> John Kane wrote:\n>>> No but have you had a lo",
+      "thread_id": "thread-6f63d6a04887",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-f979a7892110",
+      "message_id": "<e1fc21b0908141744s2588d194se31650e1e1bd0879@mail.gmail.com>",
+      "from_name": "Peter Cowan",
+      "from_email_hash": "4b166531fb5de7387543aad1ea9ea4759f3242c2c6b933facd117f75522efad1",
+      "date": "2009-08-14T17:44:51-07:00",
+      "subject": "[R-SIG-Mac] Nightly dmg builds",
+      "subject_clean": "Nightly dmg builds",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The night build page <http://R.research.att.com/>, conveniently\ninclude a dmg build of R-devel (2.10).   However, I notice that the\ncurrent dmg, is from a revision 48594, which is May I believe.  Would\nit be possible have a more recent revision package as a dmg?\n\nAlso, what is the preferred method of installing the tar.gz files?  I\nwas unclear how to use them in a fashion that would allow me to use\nRswitch to switch versions.\n\nThanks for the time and resources it takes to provide the nightly builds!\n\nPeter",
+      "body_snippet": "The night build page <http://R.research.att.com/>, conveniently\ninclude a dmg build of R-devel (2.10).   However, I notice that the\ncurrent dmg, is from a revision 48594, which is May I believe.  Woul",
+      "thread_id": "thread-f979a7892110",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-3257471ea728",
+      "message_id": "<0211B3EF-8DD8-4EB9-8A74-5378A116EE2E@gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2009-08-16T21:24:11-04:00",
+      "subject": "[R-SIG-Mac] Nightly dmg builds",
+      "subject_clean": "Nightly dmg builds",
+      "in_reply_to": "<e1fc21b0908141744s2588d194se31650e1e1bd0879@mail.gmail.com>",
+      "references": [
+        "<e1fc21b0908141744s2588d194se31650e1e1bd0879@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Peter,\n\nOn Aug 14, 2009, at 8:44 PM, Peter Cowan wrote:\n\n> The night build page <http://R.research.att.com/>, conveniently\n> include a dmg build of R-devel (2.10).   However, I notice that the\n> current dmg, is from a revision 48594, which is May I believe.  Would\n> it be possible have a more recent revision package as a dmg?\n>\n> Also, what is the preferred method of installing the tar.gz files?  I\n> was unclear how to use them in a fashion that would allow me to use\n> Rswitch to switch versions.\n\nJust follow the instructions listed below that downloads table:\n\n\"\"\"Alternatively you can use the tar-ball (*.tar.gz) which must be  \nunpacked in the root (e.g. tar fvxz R*.tar.gz -C /)\"\"\"\n\nSo. assuming you d/l this:\n\nhttp://r.research.att.com/R-devel-leopard-universal.tar.gz\n\nOpen up your terminal and cd into your ~/Downloads folder (assuming  \nthat's where it was d/l'd). Then call this:\n\ntar fvxz R-devel-leopard-universal.tar.gz -C /\n\nR will be installed in the correct place (ie: /Library/Frameworks/ \nR.framework/Versions/2.10). Unpacking like this at first switches the  \nsymlink to point to the 2.10 install (I'm pretty sure). You can then  \nuse RSwitch as normal to jump back and forth between 2.9 and 2.10.\n\nHope that helps,\n\n-steve\n\n--\nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n  | Memorial Sloan-Kettering Cancer Center\n  | Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi Peter,\n\nOn Aug 14, 2009, at 8:44 PM, Peter Cowan wrote:\n\n> The night build page <http://R.research.att.com/>, conveniently\n> include a dmg build of R-devel (2.10).   However, I notice that the\n> cu",
+      "thread_id": "thread-f979a7892110",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-108e7eb7f2dd",
+      "message_id": "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+      "from_name": "Benilton Carvalho",
+      "from_email_hash": "d8cff7ac2a4ccbeef33498c39f0a354aeb121d52ba3c79e0effdaca9ea990794",
+      "date": "2009-08-19T14:14:24-03:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI was hoping to be to able to compile R-2.9.1 from the source as I've  \nalways done.\n\n'./configure' always worked nice, but now it fails to find 'iconv',  \nwhich is installed:\n\nbcarvalh$ which iconv\n/usr/bin/iconv\n\nbcarvalh$ iconv --version\niconv (GNU libiconv 1.11)\nCopyright (C) 2000-2006 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There  \nis NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR  \nPURPOSE.\nWritten by Bruno Haible.\n\n\nHere's what I get with ./configure\n\nchecking iconv.h usability... yes\nchecking iconv.h presence... yes\nchecking for iconv.h... yes\nchecking for iconv... no\nchecking for iconvlist... no\nconfigure: error: --with-iconv=yes (default) and a suitable iconv is  \nnot available\n\n\nI'm running Mac OS X 10.5.8... any ideas on what I may be missing? Or  \nsuggestions on what to report in order to try to find the source of  \nthe problem?\n\nThank you very much,\n\nbenilton",
+      "body_snippet": "Hi,\n\nI was hoping to be to able to compile R-2.9.1 from the source as I've  \nalways done.\n\n'./configure' always worked nice, but now it fails to find 'iconv',  \nwhich is installed:\n\nbcarvalh$ which ic",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-d0211340aeb5",
+      "message_id": "<alpine.LFD.2.00.0908191827470.17346@gannet.stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2009-08-19T18:32:18+01:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+      "references": [
+        "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>"
+      ],
+      "body_plain": "Why not try to compile R-patched, aka 2.9.2 RC?\n\nIt works for me on Mac OS X, but then 2.9.1 did too?\n\n\nOn Wed, 19 Aug 2009, Benilton Carvalho wrote:\n\n> Hi,\n>\n> I was hoping to be to able to compile R-2.9.1 from the source as I've always \n> done.\n>\n> './configure' always worked nice, but now it fails to find 'iconv', which is \n> installed:\n\nBut is libiconv?  It is the C function that it is not finding, not the \nexecutable.  (It might be part of Xcode: both my Macs have Xcode 3.1.2 \non, so I can't tell.)  E.g.\n\ntystie% otool -L ~/R/R-patched/lib/i386/libR.dylib | grep iconv\n \t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\n\n> bcarvalh$ which iconv\n> /usr/bin/iconv\n>\n> bcarvalh$ iconv --version\n> iconv (GNU libiconv 1.11)\n> Copyright (C) 2000-2006 Free Software Foundation, Inc.\n> This is free software; see the source for copying conditions.  There is NO\n> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n> Written by Bruno Haible.\n>\n>\n> Here's what I get with ./configure\n>\n> checking iconv.h usability... yes\n> checking iconv.h presence... yes\n> checking for iconv.h... yes\n> checking for iconv... no\n> checking for iconvlist... no\n> configure: error: --with-iconv=yes (default) and a suitable iconv is not \n> available\n>\n>\n> I'm running Mac OS X 10.5.8... any ideas on what I may be missing? Or \n> suggestions on what to report in order to try to find the source of the \n> problem?\n>\n> Thank you very much,\n>\n> benilton\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "Why not try to compile R-patched, aka 2.9.2 RC?\n\nIt works for me on Mac OS X, but then 2.9.1 did too?\n\n\nOn Wed, 19 Aug 2009, Benilton Carvalho wrote:\n\n> Hi,\n>\n> I was hoping to be to able to compile R",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-a4bf6f431b08",
+      "message_id": "<7761FDAA-1800-496A-96C2-A8F6C8B2E13F@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2009-08-19T10:36:48-07:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+      "references": [
+        "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>"
+      ],
+      "body_plain": "if you do\n\n > cd /usr/lib\n > nm libiconv.dylib | grep iconvlist\n\ndo you see\n\n00000000000158d0 T _libiconvlist\n\nOn Aug 19, 2009, at 10:14 , Benilton Carvalho wrote:\n\n> Hi,\n>\n> I was hoping to be to able to compile R-2.9.1 from the source as  \n> I've always done.\n>\n> './configure' always worked nice, but now it fails to find 'iconv',  \n> which is installed:\n>\n> bcarvalh$ which iconv\n> /usr/bin/iconv\n>\n> bcarvalh$ iconv --version\n> iconv (GNU libiconv 1.11)\n> Copyright (C) 2000-2006 Free Software Foundation, Inc.\n> This is free software; see the source for copying conditions.  There  \n> is NO\n> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR  \n> PURPOSE.\n> Written by Bruno Haible.\n>\n>\n> Here's what I get with ./configure\n>\n> checking iconv.h usability... yes\n> checking iconv.h presence... yes\n> checking for iconv.h... yes\n> checking for iconv... no\n> checking for iconvlist... no\n> configure: error: --with-iconv=yes (default) and a suitable iconv is  \n> not available\n>\n>\n> I'm running Mac OS X 10.5.8... any ideas on what I may be missing?  \n> Or suggestions on what to report in order to try to find the source  \n> of the problem?\n>\n> Thank you very much,\n>\n> benilton\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nDirector: UCLA Center for Environmental Statistics (CES);\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware;\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n-------------------------------------------------------------------------------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "if you do\n\n > cd /usr/lib\n > nm libiconv.dylib | grep iconvlist\n\ndo you see\n\n00000000000158d0 T _libiconvlist\n\nOn Aug 19, 2009, at 10:14 , Benilton Carvalho wrote:\n\n> Hi,\n>\n> I was hoping to be to abl",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-74449cbd7009",
+      "message_id": "<DFFE1680-A8E2-443E-866F-1D0A7D2B9ACA@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-19T14:06:14-04:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+      "references": [
+        "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>"
+      ],
+      "body_plain": "On Aug 19, 2009, at 13:14 , Benilton Carvalho wrote:\n\n> Hi,\n>\n> I was hoping to be to able to compile R-2.9.1 from the source as  \n> I've always done.\n>\n> './configure' always worked nice, but now it fails to find 'iconv',  \n> which is installed:\n>\n> bcarvalh$ which iconv\n> /usr/bin/iconv\n>\n> bcarvalh$ iconv --version\n> iconv (GNU libiconv 1.11)\n> Copyright (C) 2000-2006 Free Software Foundation, Inc.\n> This is free software; see the source for copying conditions.  There  \n> is NO\n> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR  \n> PURPOSE.\n> Written by Bruno Haible.\n>\n>\n> Here's what I get with ./configure\n>\n> checking iconv.h usability... yes\n> checking iconv.h presence... yes\n> checking for iconv.h... yes\n> checking for iconv... no\n> checking for iconvlist... no\n> configure: error: --with-iconv=yes (default) and a suitable iconv is  \n> not available\n>\n>\n> I'm running Mac OS X 10.5.8... any ideas on what I may be missing?  \n> Or suggestions on what to report in order to try to find the source  \n> of the problem?\n>\n\nChances are that you may have some broken 3rd party iconv - do you  \nhave any custom stuff in /usr/local, /sw or similar hiding places? The  \nright thing to report is config.log since that contains the reason why  \nthe iconv tests failed ...\n\nCheers,\nSimon",
+      "body_snippet": "On Aug 19, 2009, at 13:14 , Benilton Carvalho wrote:\n\n> Hi,\n>\n> I was hoping to be to able to compile R-2.9.1 from the source as  \n> I've always done.\n>\n> './configure' always worked nice, but now it ",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-731a9881fd93",
+      "message_id": "<CA05DFAF-D66F-4270-8849-8870D4FDB4AE@jhsph.edu>",
+      "from_name": "Benilton Carvalho",
+      "from_email_hash": "d8cff7ac2a4ccbeef33498c39f0a354aeb121d52ba3c79e0effdaca9ea990794",
+      "date": "2009-08-19T15:13:51-03:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": "<alpine.LFD.2.00.0908191827470.17346@gannet.stats.ox.ac.uk>",
+      "references": [
+        "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+        "<alpine.LFD.2.00.0908191827470.17346@gannet.stats.ox.ac.uk>"
+      ],
+      "body_plain": "I just tried R-patched and the same problem happens.\n\nlibiconv is available too:\n\nbcarvalh$ ls -l /usr/lib/libiconv*\nlrwxr-xr-x  1 root  wheel       16 Feb 21  2008 /usr/lib/libiconv. \n2.4.0.dylib -> libiconv.2.dylib\n-rw-r--r--  1 root  wheel  4147008 Nov 24  2007 /usr/lib/libiconv. \n2.dylib\nlrwxr-xr-x  1 root  wheel       20 Feb 21  2008 /usr/lib/ \nlibiconv.dylib -> libiconv.2.4.0.dylib\n-rw-r--r--  1 root  wheel      795 Feb 19  2008 /usr/lib/libiconv.la\n\nOn R-2.8.1, which I compiled from the source a while back, here's what  \nI get:\n\nbcarvalh$ otool -L ~/bin/R-2.8.1/lib/libR.dylib | grep iconv\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current  \nversion 7.0.0)\n\nAnd I also have Xcode 3.1.2.\n\nThank you very much for your attention and time,\n\nb\n\nOn Aug 19, 2009, at 2:32 PM, Prof Brian Ripley wrote:\n\n> Why not try to compile R-patched, aka 2.9.2 RC?\n>\n> It works for me on Mac OS X, but then 2.9.1 did too?\n>\n>\n> On Wed, 19 Aug 2009, Benilton Carvalho wrote:\n>\n>> Hi,\n>>\n>> I was hoping to be to able to compile R-2.9.1 from the source as  \n>> I've always\n>> done.\n>>\n>> './configure' always worked nice, but now it fails to find 'iconv',  \n>> which is\n>> installed:\n>\n> But is libiconv?  It is the C function that it is not finding, not the\n> executable.  (It might be part of Xcode: both my Macs have Xcode 3.1.2\n> on, so I can't tell.)  E.g.\n>\n> tystie% otool -L ~/R/R-patched/lib/i386/libR.dylib | grep iconv\n>        /usr/lib/libiconv.2.dylib (compatibility version 7.0.0,  \n> current version 7.0.0)\n>\n>\n>> bcarvalh$ which iconv\n>> /usr/bin/iconv\n>>\n>> bcarvalh$ iconv --version\n>> iconv (GNU libiconv 1.11)\n>> Copyright (C) 2000-2006 Free Software Foundation, Inc.\n>> This is free software; see the source for copying conditions.   \n>> There is NO\n>> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR  \n>> PURPOSE.\n>> Written by Bruno Haible.\n>>\n>>\n>> Here's what I get with ./configure\n>>\n>> checking iconv.h usability... yes\n>> checking iconv.h presence... yes\n>> checking for iconv.h... yes\n>> checking for iconv... no\n>> checking for iconvlist... no\n>> configure: error: --with-iconv=yes (default) and a suitable iconv  \n>> is not\n>> available\n>>\n>>\n>> I'm running Mac OS X 10.5.8... any ideas on what I may be missing? Or\n>> suggestions on what to report in order to try to find the source of  \n>> the\n>> problem?\n>>\n>> Thank you very much,\n>>\n>> benilton\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> --\n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "I just tried R-patched and the same problem happens.\n\nlibiconv is available too:\n\nbcarvalh$ ls -l /usr/lib/libiconv*\nlrwxr-xr-x  1 root  wheel       16 Feb 21  2008 /usr/lib/libiconv. \n2.4.0.dylib -> ",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-8781006410fa",
+      "message_id": "<348240DD-70CE-493B-988E-873DF209162C@jhsph.edu>",
+      "from_name": "Benilton Carvalho",
+      "from_email_hash": "d8cff7ac2a4ccbeef33498c39f0a354aeb121d52ba3c79e0effdaca9ea990794",
+      "date": "2009-08-19T15:14:57-03:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": "<7761FDAA-1800-496A-96C2-A8F6C8B2E13F@stat.ucla.edu>",
+      "references": [
+        "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+        "<7761FDAA-1800-496A-96C2-A8F6C8B2E13F@stat.ucla.edu>"
+      ],
+      "body_plain": "I get:\n\nbcarvalh$ nm libiconv.dylib | grep iconvlist\n0000baef T _iconvlist\n0000bc9f T _libiconvlist\n\nb\n\nOn Aug 19, 2009, at 2:36 PM, Jan de Leeuw wrote:\n\n> if you do\n>\n>> cd /usr/lib\n>> nm libiconv.dylib | grep iconvlist\n>\n> do you see\n>\n> 00000000000158d0 T _libiconvlist\n>\n> On Aug 19, 2009, at 10:14 , Benilton Carvalho wrote:\n>\n>> Hi,\n>>\n>> I was hoping to be to able to compile R-2.9.1 from the source as\n>> I've always done.\n>>\n>> './configure' always worked nice, but now it fails to find 'iconv',\n>> which is installed:\n>>\n>> bcarvalh$ which iconv\n>> /usr/bin/iconv\n>>\n>> bcarvalh$ iconv --version\n>> iconv (GNU libiconv 1.11)\n>> Copyright (C) 2000-2006 Free Software Foundation, Inc.\n>> This is free software; see the source for copying conditions.  There\n>> is NO\n>> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR\n>> PURPOSE.\n>> Written by Bruno Haible.\n>>\n>>\n>> Here's what I get with ./configure\n>>\n>> checking iconv.h usability... yes\n>> checking iconv.h presence... yes\n>> checking for iconv.h... yes\n>> checking for iconv... no\n>> checking for iconvlist... no\n>> configure: error: --with-iconv=yes (default) and a suitable iconv is\n>> not available\n>>\n>>\n>> I'm running Mac OS X 10.5.8... any ideas on what I may be missing?\n>> Or suggestions on what to report in order to try to find the source\n>> of the problem?\n>>\n>> Thank you very much,\n>>\n>> benilton\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of\n> Statistics;\n> Director: UCLA Center for Environmental Statistics (CES);\n> Editor: Journal of Multivariate Analysis, Journal of Statistical\n> Software;\n> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n> 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n> .mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\n> homepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n>\n> -------------------------------------------------------------------------------------------------\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n>\n> -------------------------------------------------------------------------------------------------\n>\n>\n>\n>\n>",
+      "body_snippet": "I get:\n\nbcarvalh$ nm libiconv.dylib | grep iconvlist\n0000baef T _iconvlist\n0000bc9f T _libiconvlist\n\nb\n\nOn Aug 19, 2009, at 2:36 PM, Jan de Leeuw wrote:\n\n> if you do\n>\n>> cd /usr/lib\n>> nm libiconv.dy",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-217d37818447",
+      "message_id": "<5D79E2AC-553C-4A54-ADC3-122281FC5D31@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2009-08-19T11:17:23-07:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": "<348240DD-70CE-493B-988E-873DF209162C@jhsph.edu>",
+      "references": [
+        "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+        "<7761FDAA-1800-496A-96C2-A8F6C8B2E13F@stat.ucla.edu>",
+        "<348240DD-70CE-493B-988E-873DF209162C@jhsph.edu>"
+      ],
+      "body_plain": "That's OK then. You must be picking up another libiconv from\nsomewhere.\n\nOn Aug 19, 2009, at 11:14 , Benilton Carvalho wrote:\n\n> I get:\n>\n> bcarvalh$ nm libiconv.dylib | grep iconvlist\n> 0000baef T _iconvlist\n> 0000bc9f T _libiconvlist\n>\n> b\n>\n> On Aug 19, 2009, at 2:36 PM, Jan de Leeuw wrote:\n>\n>> if you do\n>>\n>>> cd /usr/lib\n>>> nm libiconv.dylib | grep iconvlist\n>>\n>> do you see\n>>\n>> 00000000000158d0 T _libiconvlist\n>>\n>> On Aug 19, 2009, at 10:14 , Benilton Carvalho wrote:\n>>\n>>> Hi,\n>>>\n>>> I was hoping to be to able to compile R-2.9.1 from the source as\n>>> I've always done.\n>>>\n>>> './configure' always worked nice, but now it fails to find 'iconv',\n>>> which is installed:\n>>>\n>>> bcarvalh$ which iconv\n>>> /usr/bin/iconv\n>>>\n>>> bcarvalh$ iconv --version\n>>> iconv (GNU libiconv 1.11)\n>>> Copyright (C) 2000-2006 Free Software Foundation, Inc.\n>>> This is free software; see the source for copying conditions.  There\n>>> is NO\n>>> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR\n>>> PURPOSE.\n>>> Written by Bruno Haible.\n>>>\n>>>\n>>> Here's what I get with ./configure\n>>>\n>>> checking iconv.h usability... yes\n>>> checking iconv.h presence... yes\n>>> checking for iconv.h... yes\n>>> checking for iconv... no\n>>> checking for iconvlist... no\n>>> configure: error: --with-iconv=yes (default) and a suitable iconv is\n>>> not available\n>>>\n>>>\n>>> I'm running Mac OS X 10.5.8... any ideas on what I may be missing?\n>>> Or suggestions on what to report in order to try to find the source\n>>> of the problem?\n>>>\n>>> Thank you very much,\n>>>\n>>> benilton\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>\n>> ===\n>> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of\n>> Statistics;\n>> Director: UCLA Center for Environmental Statistics (CES);\n>> Editor: Journal of Multivariate Analysis, Journal of Statistical\n>> Software;\n>> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n>> 90095-1554\n>> phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n>> .mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\n>> homepages: http://gifi.stat.ucla.edu ++++++ http:// \n>> www.cuddyvalley.org\n>>\n>> -------------------------------------------------------------------------------------------------\n>>          No matter where you go, there you are. --- Buckaroo Banzai\n>>                   http://gifi.stat.ucla.edu/sounds/nomatter.au\n>>\n>> -------------------------------------------------------------------------------------------------\n>>\n>>\n>>\n>>\n>>\n>\n>\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nDirector: UCLA Center for Environmental Statistics (CES);\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware;\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n-------------------------------------------------------------------------------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "That's OK then. You must be picking up another libiconv from\nsomewhere.\n\nOn Aug 19, 2009, at 11:14 , Benilton Carvalho wrote:\n\n> I get:\n>\n> bcarvalh$ nm libiconv.dylib | grep iconvlist\n> 0000baef T _i",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 3,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-b341003843bf",
+      "message_id": "<4A2EDE46-3B54-40E1-95D5-1043CDFCB290@jhsph.edu>",
+      "from_name": "Benilton Carvalho",
+      "from_email_hash": "d8cff7ac2a4ccbeef33498c39f0a354aeb121d52ba3c79e0effdaca9ea990794",
+      "date": "2009-08-19T15:50:08-03:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": "<DFFE1680-A8E2-443E-866F-1D0A7D2B9ACA@r-project.org>",
+      "references": [
+        "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+        "<DFFE1680-A8E2-443E-866F-1D0A7D2B9ACA@r-project.org>"
+      ],
+      "body_plain": "Hi,\n\nI didn't expect to have anything outside standard locations... but  \nlooking at config.log, I noticed it was looking for libiconv in /usr/ \nlocal/lib (strange... but I do have libiconv* files there - I can't  \nexplain how).\n\nSetting CPPFLAGS and LIBS correctly fixed the problem.\n\nThank you very much,\n\nb\n\nOn Aug 19, 2009, at 3:06 PM, Simon Urbanek wrote:\n\n>\n> On Aug 19, 2009, at 13:14 , Benilton Carvalho wrote:\n>\n>> Hi,\n>>\n>> I was hoping to be to able to compile R-2.9.1 from the source as\n>> I've always done.\n>>\n>> './configure' always worked nice, but now it fails to find 'iconv',\n>> which is installed:\n>>\n>> bcarvalh$ which iconv\n>> /usr/bin/iconv\n>>\n>> bcarvalh$ iconv --version\n>> iconv (GNU libiconv 1.11)\n>> Copyright (C) 2000-2006 Free Software Foundation, Inc.\n>> This is free software; see the source for copying conditions.  There\n>> is NO\n>> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR\n>> PURPOSE.\n>> Written by Bruno Haible.\n>>\n>>\n>> Here's what I get with ./configure\n>>\n>> checking iconv.h usability... yes\n>> checking iconv.h presence... yes\n>> checking for iconv.h... yes\n>> checking for iconv... no\n>> checking for iconvlist... no\n>> configure: error: --with-iconv=yes (default) and a suitable iconv is\n>> not available\n>>\n>>\n>> I'm running Mac OS X 10.5.8... any ideas on what I may be missing?\n>> Or suggestions on what to report in order to try to find the source\n>> of the problem?\n>>\n>\n> Chances are that you may have some broken 3rd party iconv - do you\n> have any custom stuff in /usr/local, /sw or similar hiding places? The\n> right thing to report is config.log since that contains the reason why\n> the iconv tests failed ...\n>\n> Cheers,\n> Simon\n>\n>",
+      "body_snippet": "Hi,\n\nI didn't expect to have anything outside standard locations... but  \nlooking at config.log, I noticed it was looking for libiconv in /usr/ \nlocal/lib (strange... but I do have libiconv* files the",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-4becc0cfb0fa",
+      "message_id": "<D2722722-B2E5-4265-9AB6-151725A9E4D7@jhsph.edu>",
+      "from_name": "Benilton Carvalho",
+      "from_email_hash": "d8cff7ac2a4ccbeef33498c39f0a354aeb121d52ba3c79e0effdaca9ea990794",
+      "date": "2009-08-19T15:55:09-03:00",
+      "subject": "[R-SIG-Mac] Compiling R-2.9.1 from the source",
+      "subject_clean": "Compiling R-2.9.1 from the source",
+      "in_reply_to": "<4A2EDE46-3B54-40E1-95D5-1043CDFCB290@jhsph.edu>",
+      "references": [
+        "<E697ECE7-7075-4129-BB53-BEC1A78091FF@jhsph.edu>",
+        "<DFFE1680-A8E2-443E-866F-1D0A7D2B9ACA@r-project.org>",
+        "<4A2EDE46-3B54-40E1-95D5-1043CDFCB290@jhsph.edu>"
+      ],
+      "body_plain": "meant to say LDFLAGS, not LIBS... thanks again, b\n\nOn Aug 19, 2009, at 3:50 PM, Benilton Carvalho wrote:\n\n> Hi,\n>\n> I didn't expect to have anything outside standard locations... but\n> looking at config.log, I noticed it was looking for libiconv in /usr/\n> local/lib (strange... but I do have libiconv* files there - I can't\n> explain how).\n>\n> Setting CPPFLAGS and LIBS correctly fixed the problem.\n>\n> Thank you very much,\n>\n> b\n>\n> On Aug 19, 2009, at 3:06 PM, Simon Urbanek wrote:\n>\n>>\n>> On Aug 19, 2009, at 13:14 , Benilton Carvalho wrote:\n>>\n>>> Hi,\n>>>\n>>> I was hoping to be to able to compile R-2.9.1 from the source as\n>>> I've always done.\n>>>\n>>> './configure' always worked nice, but now it fails to find 'iconv',\n>>> which is installed:\n>>>\n>>> bcarvalh$ which iconv\n>>> /usr/bin/iconv\n>>>\n>>> bcarvalh$ iconv --version\n>>> iconv (GNU libiconv 1.11)\n>>> Copyright (C) 2000-2006 Free Software Foundation, Inc.\n>>> This is free software; see the source for copying conditions.  There\n>>> is NO\n>>> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR\n>>> PURPOSE.\n>>> Written by Bruno Haible.\n>>>\n>>>\n>>> Here's what I get with ./configure\n>>>\n>>> checking iconv.h usability... yes\n>>> checking iconv.h presence... yes\n>>> checking for iconv.h... yes\n>>> checking for iconv... no\n>>> checking for iconvlist... no\n>>> configure: error: --with-iconv=yes (default) and a suitable iconv is\n>>> not available\n>>>\n>>>\n>>> I'm running Mac OS X 10.5.8... any ideas on what I may be missing?\n>>> Or suggestions on what to report in order to try to find the source\n>>> of the problem?\n>>>\n>>\n>> Chances are that you may have some broken 3rd party iconv - do you\n>> have any custom stuff in /usr/local, /sw or similar hiding places?  \n>> The\n>> right thing to report is config.log since that contains the reason  \n>> why\n>> the iconv tests failed ...\n>>\n>> Cheers,\n>> Simon\n>>\n>>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "meant to say LDFLAGS, not LIBS... thanks again, b\n\nOn Aug 19, 2009, at 3:50 PM, Benilton Carvalho wrote:\n\n> Hi,\n>\n> I didn't expect to have anything outside standard locations... but\n> looking at conf",
+      "thread_id": "thread-108e7eb7f2dd",
+      "thread_depth": 3,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-60ab619bb1a0",
+      "message_id": "<707844D0-016E-4AC4-9EB8-D9FF030CF7D9@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2009-08-20T17:52:45-04:00",
+      "subject": "[R-SIG-Mac] R64 GUI hangs from Package Manager when accessing PDF files",
+      "subject_clean": "R64 GUI hangs from Package Manager when accessing PDF files",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Is there an option to specify or change the default pdf viewer that  \nwould prevent un-breakable hangs after choosing a link in a menu of  \nhelp files that happens to be a PDF file?\n\nExample: upon highlighting the mboost package line in Package Manager  \nand then selecting \"package\" in the lower window, the GUI hangs and R  \nneeds to be <Force-quit.>\n\n > sessionInfo()\nR version 2.9.1 Patched (2009-07-04 r48897)\nx86_64-apple-darwin9.7.0\n\nlocale:\nen_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nPrior to posting I downloaded the most recent 64bit GUI and still get  \na hang, albeit now with several pages of error messages. I can only  \nsee the last page of errors which all say (a Grab copy):\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: pastedGraphic.jpg\nType: image/jpeg\nSize: 18608 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090820/a7030549/attachment-0002.jpg>\n-------------- next part --------------\n\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: R-error-msg.jpg\nType: image/jpeg\nSize: 18608 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090820/a7030549/attachment-0003.jpg>\n-------------- next part --------------\n\n\n\nAnd if the mail server scrubs both those jpg and tiff files, I can  \nprovide a transcript if it would help, or the copied Problem report,  \nor a log file (if you tell me where to find it).\n\n\n-- \nDavid Winsemius, MD\nHeritage Laboratories\nWest Hartford, CT",
+      "body_snippet": "Is there an option to specify or change the default pdf viewer that  \nwould prevent un-breakable hangs after choosing a link in a menu of  \nhelp files that happens to be a PDF file?\n\nExample: upon hig",
+      "thread_id": "thread-60ab619bb1a0",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-f3d825bfd3fd",
+      "message_id": "<A105E7BD-54B0-43C4-A46C-30668E5C2404@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2009-08-20T18:01:22-04:00",
+      "subject": "[R-SIG-Mac] R64 GUI hangs from Package Manager when accessing PDF files",
+      "subject_clean": "R64 GUI hangs from Package Manager when accessing PDF files",
+      "in_reply_to": "<707844D0-016E-4AC4-9EB8-D9FF030CF7D9@comcast.net>",
+      "references": [
+        "<707844D0-016E-4AC4-9EB8-D9FF030CF7D9@comcast.net>"
+      ],
+      "body_plain": "On Aug 20, 2009, at 5:52 PM, David Winsemius wrote:\n\n> <R-error-msg.jpg>\n\nUnreadable, albeit not scrubbed:. transcribed:\n\nR(2298,0x7fff70281700) malloc: *** error for object 0x118fe5e00:  \nincorrect checksum for freed object -\nobject was probably modified after being freed.\n***. set a breakpoint in malloc_error_break to debug.\n\nDavid Winsemius, MD\nHeritage Laboratories\nWest Hartford, CT",
+      "body_snippet": "On Aug 20, 2009, at 5:52 PM, David Winsemius wrote:\n\n> <R-error-msg.jpg>\n\nUnreadable, albeit not scrubbed:. transcribed:\n\nR(2298,0x7fff70281700) malloc: *** error for object 0x118fe5e00:  \nincorrect c",
+      "thread_id": "thread-60ab619bb1a0",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-5543d4dd4350",
+      "message_id": "<4A8E444E.4080609@gmail.com>",
+      "from_name": "Szilard",
+      "from_email_hash": "d7114d9f981cc647e38d123dbda35d7720d4bf25840a122a7ab4f07b03b25cc7",
+      "date": "2009-08-20T23:53:02-07:00",
+      "subject": "[R-SIG-Mac] package compilation problems",
+      "subject_clean": "package compilation problems",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi:\n\nI've created a small package containing some C code. It checks and\ninstalls on Linux, but on Mac I get the following error:\n\n** arch - i386\ngcc -arch i386 -std=gnu99\n-I/Library/Frameworks/R.framework/Resources/include\n-I/Library/Frameworks/R.framework/Resources/include/i386\n-I/usr/local/include    -fPIC  -g -O2 -c levenshtein.c -o levenshtein.o\ngcc -arch i386 -std=gnu99 -dynamiclib -Wl,-headerpad_max_install_names\n-mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n-multiply_defined suppress -L/usr/local/lib -o drztools.so levenshtein.o\n-F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n-Wl,CoreFoundation\nld warning: duplicate dylib /usr/local/lib/libgcc_s.1.dylib\n** arch - ppc\ngcc -arch ppc -std=gnu99\n-I/Library/Frameworks/R.framework/Resources/include\n-I/Library/Frameworks/R.framework/Resources/include/ppc\n-I/usr/local/include    -fPIC  -g -O2 -c levenshtein.c -o levenshtein.o\ngcc -arch ppc -std=gnu99 -dynamiclib -Wl,-headerpad_max_install_names\n-mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n-multiply_defined suppress -L/usr/local/lib -o drztools.so levenshtein.o\n-F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n-Wl,CoreFoundation\nld: in /usr/local/lib/libiconv.2.dylib, file is not of required architecture\ncollect2: ld returned 1 exit status\n\nI have:\nMac OS 10.5\nR version 2.9.1 i386-apple-darwin8.11.1 (from binary image)\nXcode 3.1.3 Developer Tools\n\nIt's the first time I'm trying to build/install a package from source on\n Mac.\n\n(On the other hand R CMD SHLIB compiles the C code and calling it from R\nalso works on the Mac.)\n\nAny help would be appreciated,\nSzilard",
+      "body_snippet": "Hi:\n\nI've created a small package containing some C code. It checks and\ninstalls on Linux, but on Mac I get the following error:\n\n** arch - i386\ngcc -arch i386 -std=gnu99\n-I/Library/Frameworks/R.frame",
+      "thread_id": "thread-5543d4dd4350",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-e4f06908cd29",
+      "message_id": "<alpine.LFD.2.00.0908210800450.27433@gannet.stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2009-08-21T08:06:10+01:00",
+      "subject": "[R-SIG-Mac] package compilation problems",
+      "subject_clean": "package compilation problems",
+      "in_reply_to": "<4A8E444E.4080609@gmail.com>",
+      "references": [
+        "<4A8E444E.4080609@gmail.com>"
+      ],
+      "body_plain": "Something has put /usr/local/lib/libiconv.2.dylib on your system, and \nit is not universal.  You should not need it: there is a system copy \nin /usr/lib.\n\nYou are going to need to investigate this for yourself -- it is not an \nR issue and I've no idea what might have put libiconv there.\n\nAlso note the R CMD INSTALL option\n\n       --no-multiarch\tbuild only the main architecture\n\nwhich would have worked around this.\n\nOn Thu, 20 Aug 2009, Szilard wrote:\n\n> Hi:\n>\n> I've created a small package containing some C code. It checks and\n> installs on Linux, but on Mac I get the following error:\n>\n> ** arch - i386\n> gcc -arch i386 -std=gnu99\n> -I/Library/Frameworks/R.framework/Resources/include\n> -I/Library/Frameworks/R.framework/Resources/include/i386\n> -I/usr/local/include    -fPIC  -g -O2 -c levenshtein.c -o levenshtein.o\n> gcc -arch i386 -std=gnu99 -dynamiclib -Wl,-headerpad_max_install_names\n> -mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n> -multiply_defined suppress -L/usr/local/lib -o drztools.so levenshtein.o\n> -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n> -Wl,CoreFoundation\n> ld warning: duplicate dylib /usr/local/lib/libgcc_s.1.dylib\n> ** arch - ppc\n> gcc -arch ppc -std=gnu99\n> -I/Library/Frameworks/R.framework/Resources/include\n> -I/Library/Frameworks/R.framework/Resources/include/ppc\n> -I/usr/local/include    -fPIC  -g -O2 -c levenshtein.c -o levenshtein.o\n> gcc -arch ppc -std=gnu99 -dynamiclib -Wl,-headerpad_max_install_names\n> -mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n> -multiply_defined suppress -L/usr/local/lib -o drztools.so levenshtein.o\n> -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n> -Wl,CoreFoundation\n> ld: in /usr/local/lib/libiconv.2.dylib, file is not of required architecture\n> collect2: ld returned 1 exit status\n>\n> I have:\n> Mac OS 10.5\n> R version 2.9.1 i386-apple-darwin8.11.1 (from binary image)\n> Xcode 3.1.3 Developer Tools\n>\n> It's the first time I'm trying to build/install a package from source on\n> Mac.\n>\n> (On the other hand R CMD SHLIB compiles the C code and calling it from R\n> also works on the Mac.)\n>\n> Any help would be appreciated,\n> Szilard\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "Something has put /usr/local/lib/libiconv.2.dylib on your system, and \nit is not universal.  You should not need it: there is a system copy \nin /usr/lib.\n\nYou are going to need to investigate this for",
+      "thread_id": "thread-5543d4dd4350",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-dd3fbe1d6650",
+      "message_id": "<4A8E5091.4010501@gmail.com>",
+      "from_name": "Szilard",
+      "from_email_hash": "d7114d9f981cc647e38d123dbda35d7720d4bf25840a122a7ab4f07b03b25cc7",
+      "date": "2009-08-21T00:45:21-07:00",
+      "subject": "[R-SIG-Mac] package compilation problems",
+      "subject_clean": "package compilation problems",
+      "in_reply_to": "<alpine.LFD.2.00.0908210800450.27433@gannet.stats.ox.ac.uk>",
+      "references": [
+        "<4A8E444E.4080609@gmail.com>",
+        "<alpine.LFD.2.00.0908210800450.27433@gannet.stats.ox.ac.uk>"
+      ],
+      "body_plain": "Thanks a lot, both suggestions helped!\n\n(--no-multiarch helped immediately with installation, while cleaning up\n/usr/local/lib/libiconv* fixed all the remaining problems).\n\nThanks a lot,\nSzilard\n\n\nProf Brian Ripley wrote:\n> Something has put /usr/local/lib/libiconv.2.dylib on your system, and it\n> is not universal.  You should not need it: there is a system copy in\n> /usr/lib.\n> \n> You are going to need to investigate this for yourself -- it is not an R\n> issue and I've no idea what might have put libiconv there.\n> \n> Also note the R CMD INSTALL option\n> \n>       --no-multiarch    build only the main architecture\n> \n> which would have worked around this.\n> \n> On Thu, 20 Aug 2009, Szilard wrote:\n> \n>> Hi:\n>>\n>> I've created a small package containing some C code. It checks and\n>> installs on Linux, but on Mac I get the following error:\n>>\n>> ** arch - i386\n>> gcc -arch i386 -std=gnu99\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/Library/Frameworks/R.framework/Resources/include/i386\n>> -I/usr/local/include    -fPIC  -g -O2 -c levenshtein.c -o levenshtein.o\n>> gcc -arch i386 -std=gnu99 -dynamiclib -Wl,-headerpad_max_install_names\n>> -mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n>> -multiply_defined suppress -L/usr/local/lib -o drztools.so levenshtein.o\n>> -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n>> -Wl,CoreFoundation\n>> ld warning: duplicate dylib /usr/local/lib/libgcc_s.1.dylib\n>> ** arch - ppc\n>> gcc -arch ppc -std=gnu99\n>> -I/Library/Frameworks/R.framework/Resources/include\n>> -I/Library/Frameworks/R.framework/Resources/include/ppc\n>> -I/usr/local/include    -fPIC  -g -O2 -c levenshtein.c -o levenshtein.o\n>> gcc -arch ppc -std=gnu99 -dynamiclib -Wl,-headerpad_max_install_names\n>> -mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n>> -multiply_defined suppress -L/usr/local/lib -o drztools.so levenshtein.o\n>> -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n>> -Wl,CoreFoundation\n>> ld: in /usr/local/lib/libiconv.2.dylib, file is not of required\n>> architecture\n>> collect2: ld returned 1 exit status\n>>\n>> I have:\n>> Mac OS 10.5\n>> R version 2.9.1 i386-apple-darwin8.11.1 (from binary image)\n>> Xcode 3.1.3 Developer Tools\n>>\n>> It's the first time I'm trying to build/install a package from source on\n>> Mac.\n>>\n>> (On the other hand R CMD SHLIB compiles the C code and calling it from R\n>> also works on the Mac.)\n>>\n>> Any help would be appreciated,\n>> Szilard\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>",
+      "body_snippet": "Thanks a lot, both suggestions helped!\n\n(--no-multiarch helped immediately with installation, while cleaning up\n/usr/local/lib/libiconv* fixed all the remaining problems).\n\nThanks a lot,\nSzilard\n\n\nPro",
+      "thread_id": "thread-5543d4dd4350",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-73048a5be498",
+      "message_id": "<9A2AD8E4-25C0-4F4C-9F7E-1E7EF9BB1321@gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2009-08-21T11:31:35-04:00",
+      "subject": "[R-SIG-Mac] Problem with multicore/doMC/foreach combo on Leopard",
+      "subject_clean": "Problem with multicore/doMC/foreach combo on Leopard",
+      "in_reply_to": "<148DFC58-2154-4F99-B77A-FF1143D7F09B@gmail.com>",
+      "references": [
+        "<148DFC58-2154-4F99-B77A-FF1143D7F09B@gmail.com>"
+      ],
+      "body_plain": "Hi,\n\nI just wanted to post a follow up on this issue. It seems that someone  \nnotified Steve Weston of my problems shortly after I sent this email  \nto the list and he was kind enough to exchange a few words with me off  \nlist (thanks to both of you!).\n\nIt looks as if this problem w/ the doMC backend was coming from my  \nhaving been sourcing the \"/Applications/R.app/Contents/Resources/GUI- \ntools.R\" file in my ~/.Rprofile in order to get some functionality  \nlike quartz.save(..) when running from terminal (I don't really use  \nR.app all that often).\n\nI just wanted to let folks (and google) know that this problem hasn't  \npopped up for me since I've stopped sourcing that file. I actually got  \nthe idea to source that file off some message in this list a while  \nago, so perhaps putting this message out there will help anyone who  \nmight find themselves in a similar situation I landed in.\n\nThanks for the help,\n\n-steve\n\nOn Jul 28, 2009, at 5:50 PM, Steve Lianoglou wrote:\n\n> Hi all,\n>\n> I'm posting this here first because (i) this might be a problem  \n> specific to macs, and (ii) Simon is the maintainer of the multicore  \n> package.\n>\n> I'm using the doMC package to use the multicore library as a backend  \n> for the foreach library.\n>\n> Every now and again  I'm getting mess-load of these errors when I  \n> run a new \"multicore task\" via:\n>\n> foreach ( ... ) %dopar% {\n>   ...\n> }\n>\n> That look like so:\n>\n> === Error ===\n>\n> *** caught segfault ***\n> address 0x1c86b7d80, cause 'memory not mapped'\n> The process has forked and you cannot use this CoreFoundation  \n> functionality safely. You MUST exec().\n> Break on  \n> __THE_PROCESS_HAS_FORKED_AND_YOU_CANNOT_USE_THIS_COREFOUNDATION_FUNCTIONALITY___YOU_MUST_EXEC__ \n> () to debug.\n> The process has forked and you cannot use this CoreFoundation  \n> functionality safely. You MUST exec().\n> Break on  \n> __THE_PROCESS_HAS_FORKED_AND_YOU_CANNOT_USE_THIS_COREFOUNDATION_FUNCTIONALITY___YOU_MUST_EXEC__ \n> () to debug.\n>\n> ==========\n>\n> I'm guessing it might be mac specific due to (i) reference to  \n> CoreFoundation, and (ii) this answer given by Scott Lahteine in this  \n> thread:\n> http://discussions.apple.com/thread.jspa?threadID=1209537&tstart=0\n>\n> Which I'm pasting here:\n>\n> ======\n> This is caused by programs that use the fork() or daemon() function  \n> in combination with higher-level APIs. In Leopard you cannot use the  \n> CoreFoundation (CF...) APIs on the child side of a fork() without  \n> following it with an exec*() function. This has always been true,  \n> but Leopard is much more stingy about this kind of thing.\n>\n> To solve this issue, uninstall all third-party drivers and system  \n> customizers, then reinstall them with the latest versions, and make  \n> sure those versions have been updated for Leopard. Any drivers and  \n> background software that use CF but haven't been updated for Leopard  \n> will continue to output these messages, even though they may  \n> function fine.\n> ======\n>\n> Does this suggest that the multicore package needs some updating for  \n> leapord, or am I barking up the wrong tree? I don't see (nor would  \n> have expected to see) any calls to CoreFoundation specific API's in  \n> the multicore::fork.c file, so I'm not sure what's up since neither  \n> doMC or foreach have any C code in them.\n>\n> I'm running OS X.5.7 and 64-bit R 2.9.1. sessionInfo() is pasted below\n>\n> I'll ask again in the main R-help if that's more appropriate.\n>\n> Thanks,\n>\n> -steve\n>\n> > sessionInfo()\n> R version 2.9.1 Patched (2009-06-28 r48863)\n> x86_64-apple-darwin9.7.0\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] doMC_1.1.1      multicore_0.1-3 foreach_1.2.1   codetools_0.2-2\n> [5] iterators_1.0.1\n>\n> --\n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n>  |  Memorial Sloan-Kettering Cancer Center\n>  |  Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>\n\n--\nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n   |  Memorial Sloan-Kettering Cancer Center\n   |  Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nI just wanted to post a follow up on this issue. It seems that someone  \nnotified Steve Weston of my problems shortly after I sent this email  \nto the list and he was kind enough to exchange a fe",
+      "thread_id": "thread-73048a5be498",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-6c45e9380e87",
+      "message_id": "<1B8003B1-6ADC-48E3-B4AD-C3CB75302BFF@anne-skoeries.de>",
+      "from_name": "Anne Skoeries",
+      "from_email_hash": "9ede305f20b1b23b44fcbdba6342c06e0e621adc4a3b41f6ea3561c8597e78cd",
+      "date": "2009-08-25T11:44:42+02:00",
+      "subject": "[R-SIG-Mac] Copy & Paste from tktext on a Mac",
+      "subject_clean": "Copy & Paste from tktext on a Mac",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090825/b0bb1490/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090825/b0bb1490/attachment.pl>",
+      "thread_id": "thread-6c45e9380e87",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-96ceeab19c05",
+      "message_id": "<F74D981A-B2EA-42BB-A79A-D5637D5F6F05@ualberta.ca>",
+      "from_name": "Peter Dixon",
+      "from_email_hash": "b0fbf47df0c49340fede71d75b4b44298cd4a5b96634eb00271f48df4cfff820",
+      "date": "2009-08-26T07:05:39-06:00",
+      "subject": "[R-SIG-Mac] built-in editor bug?",
+      "subject_clean": "built-in editor bug?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090826/3b067299/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090826/3b067299/attachment.pl>",
+      "thread_id": "thread-96ceeab19c05",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-3324dbc4df11",
+      "message_id": "<A448456D-83A3-4159-8C40-5146BAC4C9D8@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-26T10:19:42-04:00",
+      "subject": "[R-SIG-Mac] Copy & Paste from tktext on a Mac",
+      "subject_clean": "Copy & Paste from tktext on a Mac",
+      "in_reply_to": "<1B8003B1-6ADC-48E3-B4AD-C3CB75302BFF@anne-skoeries.de>",
+      "references": [
+        "<1B8003B1-6ADC-48E3-B4AD-C3CB75302BFF@anne-skoeries.de>"
+      ],
+      "body_plain": "On Aug 25, 2009, at 5:44 , Anne Skoeries wrote:\n\n> Hi there,\n>\n> a text window is supposed to map the shortcuts for copying and pasting\n> (<Ctrl-C>, <Ctrl-V>) automatically.\n> I'm working under Mac OS X and my text window doesn't really map these\n> functions automatically - it works fine under Windows. I know that\n> under Mac OS one would use <Command-c> to copy the text but this won't\n> work either.\n> Is there an easy way to map copy&paste functions to a text window\n> under Mac OS X? Because if I try to map a copy-function to my\n> textwindow it doesn't work with <Command-c> but once I try a different\n> shortcut for example <Control-e> it works just fine.\n>\n\nThe Tcl/Tk toolkit runs under X11 so this is really a function of your  \nX11. Once you select the text you can use the shortcuts defined for  \nX11 so in a stock Apple X11 on both 10.4.1 and 10.5.8 <Cmd><C> works  \njust fine. You failed to show any relevant code so I can only guess  \nwhat you mean so I use this:\n\nlibrary(tcltk)\ntt<-tktoplevel()\nt<-tktext(tt)\ntkpack(t)\n\nCheers,\nSimon\n\n\n\n> Session Info:\n> R version 2.9.1 (2009-06-26)\n> i386-apple-darwin8.11.1\n>\n> locale:\n> de_DE.UTF-8/de_DE.UTF-8/C/C/de_DE.UTF-8/de_DE.UTF-8\n>\n> attached base packages:\n> [1] tcltk     stats     graphics  grDevices utils     datasets\n> methods   base\n>\n> other attached packages:\n> [1] tkrplot_0.0-18 rpart_3.1-44   relimp_1.0-1\n>\n> Thanks so much!\n> --\n> Anne Skoeries\n>\n>\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "On Aug 25, 2009, at 5:44 , Anne Skoeries wrote:\n\n> Hi there,\n>\n> a text window is supposed to map the shortcuts for copying and pasting\n> (<Ctrl-C>, <Ctrl-V>) automatically.\n> I'm working under Mac OS",
+      "thread_id": "thread-6c45e9380e87",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-298eb990ef67",
+      "message_id": "<D1A3C5B5-BBF4-4087-8460-518E693C90AA@anne-skoeries.de>",
+      "from_name": "Anne Skoeries",
+      "from_email_hash": "9ede305f20b1b23b44fcbdba6342c06e0e621adc4a3b41f6ea3561c8597e78cd",
+      "date": "2009-08-26T16:59:05+02:00",
+      "subject": "[R-SIG-Mac] Copy & Paste from tktext on a Mac",
+      "subject_clean": "Copy & Paste from tktext on a Mac",
+      "in_reply_to": "<A448456D-83A3-4159-8C40-5146BAC4C9D8@r-project.org>",
+      "references": [
+        "<1B8003B1-6ADC-48E3-B4AD-C3CB75302BFF@anne-skoeries.de>",
+        "<A448456D-83A3-4159-8C40-5146BAC4C9D8@r-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\nthanks, I finally got it.\nI was doing the exact same thing like you did, but it just didn't work.\nYour e-mail brought me to the idea to update my X11. I was still  \nworking under version 2.1.6 and copy&paste in a tktext-window didn't  \nwork with this version. Updating to the latest release (X11 2.4.0) and  \nselecting the checkbox \"activate clipboard\" under settings was the  \nright way to make it work!\n\nThanks so much, Anne\n>\n> On Aug 25, 2009, at 5:44 , Anne Skoeries wrote:\n>\n>> Hi there,\n>>\n>> a text window is supposed to map the shortcuts for copying and  \n>> pasting\n>> (<Ctrl-C>, <Ctrl-V>) automatically.\n>> I'm working under Mac OS X and my text window doesn't really map  \n>> these\n>> functions automatically - it works fine under Windows. I know that\n>> under Mac OS one would use <Command-c> to copy the text but this  \n>> won't\n>> work either.\n>> Is there an easy way to map copy&paste functions to a text window\n>> under Mac OS X? Because if I try to map a copy-function to my\n>> textwindow it doesn't work with <Command-c> but once I try a  \n>> different\n>> shortcut for example <Control-e> it works just fine.\n>>\n>\n> The Tcl/Tk toolkit runs under X11 so this is really a function of  \n> your X11. Once you select the text you can use the shortcuts defined  \n> for X11 so in a stock Apple X11 on both 10.4.1 and 10.5.8 <Cmd><C>  \n> works just fine. You failed to show any relevant code so I can only  \n> guess what you mean so I use this:\n>\n> library(tcltk)\n> tt<-tktoplevel()\n> t<-tktext(tt)\n> tkpack(t)\n>\n> Cheers,\n> Simon\n>\n>\n>\n>> Session Info:\n>> R version 2.9.1 (2009-06-26)\n>> i386-apple-darwin8.11.1\n>>\n>> locale:\n>> de_DE.UTF-8/de_DE.UTF-8/C/C/de_DE.UTF-8/de_DE.UTF-8\n>>\n>> attached base packages:\n>> [1] tcltk     stats     graphics  grDevices utils     datasets\n>> methods   base\n>>\n>> other attached packages:\n>> [1] tkrplot_0.0-18 rpart_3.1-44   relimp_1.0-1\n>>\n>> Thanks so much!\n>> --\n>> Anne Skoeries\n>>\n>>\n>>\n>>\n>> \t[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>",
+      "body_snippet": "Hi Simon,\n\nthanks, I finally got it.\nI was doing the exact same thing like you did, but it just didn't work.\nYour e-mail brought me to the idea to update my X11. I was still  \nworking under version 2.",
+      "thread_id": "thread-6c45e9380e87",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-3fe97d4eb815",
+      "message_id": "<C98BEFB5-1882-4B4B-B8A9-37F557AF7339@googlemail.com>",
+      "from_name": "Martin Batholdy",
+      "from_email_hash": "57605b0d784bab519fd53d94f11bdc3e647351a53cd2c5e2cdf3eb0528ee83fb",
+      "date": "2009-08-26T21:15:24+02:00",
+      "subject": "[R-SIG-Mac] write.table in batch mode",
+      "subject_clean": "write.table in batch mode",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "hi,\n\nI try to execute a R-script with terminal.\n\nI use the following line;\nR --vanilla --slave < \"/path/script.R\"\n\nEverything works fine, except that the write.table() command within  \nthe script is not executed.\n\nWhen I execute the script via the app the script saves some numbers to  \na file.\nWhen I execute the script via terminal nothing is saved.\n\n\n\ncan someone help me on this?",
+      "body_snippet": "hi,\n\nI try to execute a R-script with terminal.\n\nI use the following line;\nR --vanilla --slave < \"/path/script.R\"\n\nEverything works fine, except that the write.table() command within  \nthe script is n",
+      "thread_id": "thread-3fe97d4eb815",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-cddc62840624",
+      "message_id": "<7A5443C1-9697-4555-B832-7EA953CDCF65@googlemail.com>",
+      "from_name": "Martin Batholdy",
+      "from_email_hash": "57605b0d784bab519fd53d94f11bdc3e647351a53cd2c5e2cdf3eb0528ee83fb",
+      "date": "2009-08-26T21:23:21+02:00",
+      "subject": "[R-SIG-Mac] write.table in batch mode",
+      "subject_clean": "write.table in batch mode",
+      "in_reply_to": "<C98BEFB5-1882-4B4B-B8A9-37F557AF7339@googlemail.com>",
+      "references": [
+        "<C98BEFB5-1882-4B4B-B8A9-37F557AF7339@googlemail.com>"
+      ],
+      "body_plain": "ok, I am sorry.\n\nThe file was created and saved\nbut not at the place I thought it would be.\n\nAll is working now.\n\n\nSorry for bothering.\n\n\n\n\nAm 26.08.2009 um 21:15 schrieb Martin Batholdy:\n\n> hi,\n>\n> I try to execute a R-script with terminal.\n>\n> I use the following line;\n> R --vanilla --slave < \"/path/script.R\"\n>\n> Everything works fine, except that the write.table() command within  \n> the script is not executed.\n>\n> When I execute the script via the app the script saves some numbers  \n> to a file.\n> When I execute the script via terminal nothing is saved.\n>\n>\n>\n> can someone help me on this?",
+      "body_snippet": "ok, I am sorry.\n\nThe file was created and saved\nbut not at the place I thought it would be.\n\nAll is working now.\n\n\nSorry for bothering.\n\n\n\n\nAm 26.08.2009 um 21:15 schrieb Martin Batholdy:\n\n> hi,\n>\n> I",
+      "thread_id": "thread-3fe97d4eb815",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-7655da962848",
+      "message_id": "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "1c0c26ffdc63f8bcd27163d1af93be76a2c5ad37789d7759468aa44285929e74",
+      "date": "2009-08-27T06:52:36-05:00",
+      "subject": "[R-SIG-Mac] OT: Snow Leopard and Application Compatibility",
+      "subject_clean": "OT: Snow Leopard and Application Compatibility",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "http://snowleopard.wikidot.com/\n\n\nAll,\n\nAbove is the link to a web site that is being updated with information  \non potential application compatibility issues with Snow Leopard (SL).  \nCuriously, R is listed there...with an \"Unknown Status\".\n\nOur copy of SL should arrive tomorrow.\n\nBefore updating, you should review this list to see if there are any  \npotential issues with programs that you are using and SL.\n\nIf there are, you may have to wait to upgrade the OS until an  \napplication is updated to be compatible. I have to wait until PGP (my  \nwhole disk encryption program) is updated, which supposedly will be  \nsoon according to their tech support folks.\n\nRegards,\n\nMarc Schwartz",
+      "body_snippet": "http://snowleopard.wikidot.com/\n\n\nAll,\n\nAbove is the link to a web site that is being updated with information  \non potential application compatibility issues with Snow Leopard (SL).  \nCuriously, R is",
+      "thread_id": "thread-7655da962848",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-2086a12e283a",
+      "message_id": "<alpine.LFD.2.00.0908271312280.32667@gannet.stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2009-08-27T13:20:45+01:00",
+      "subject": "[R-SIG-Mac] OT: Snow Leopard and Application Compatibility",
+      "subject_clean": "OT: Snow Leopard and Application Compatibility",
+      "in_reply_to": "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>",
+      "references": [
+        "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>"
+      ],
+      "body_plain": "There are list members with access to the developer pre-release \n'seeds', and I have seen 'Mac OS X 10.6' in one report (with a \ncorresponding sessionInfo() output). So it seems very likely there is \nno problem with R, and most likely none with with R.app.\n\n(We are deferring upgrading until our sysadmins are back from holiday \nabsences.)\n\nOn Thu, 27 Aug 2009, Marc Schwartz wrote:\n\n> http://snowleopard.wikidot.com/\n>\n>\n> All,\n>\n> Above is the link to a web site that is being updated with information on \n> potential application compatibility issues with Snow Leopard (SL). Curiously, \n> R is listed there...with an \"Unknown Status\".\n>\n> Our copy of SL should arrive tomorrow.\n>\n> Before updating, you should review this list to see if there are any \n> potential issues with programs that you are using and SL.\n>\n> If there are, you may have to wait to upgrade the OS until an application is \n> updated to be compatible. I have to wait until PGP (my whole disk encryption \n> program) is updated, which supposedly will be soon according to their tech \n> support folks.\n>\n> Regards,\n>\n> Marc Schwartz\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "There are list members with access to the developer pre-release \n'seeds', and I have seen 'Mac OS X 10.6' in one report (with a \ncorresponding sessionInfo() output). So it seems very likely there is \n",
+      "thread_id": "thread-7655da962848",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-867cc81810fe",
+      "message_id": "<92E0B2DD-C635-4DF0-98F1-9E620FFC645F@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-27T08:33:19-04:00",
+      "subject": "[R-SIG-Mac] OT: Snow Leopard and Application Compatibility",
+      "subject_clean": "OT: Snow Leopard and Application Compatibility",
+      "in_reply_to": "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>",
+      "references": [
+        "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>"
+      ],
+      "body_plain": "On Aug 27, 2009, at 7:52 , Marc Schwartz wrote:\n\n> http://snowleopard.wikidot.com/\n>\n>\n> All,\n>\n> Above is the link to a web site that is being updated with  \n> information on potential application compatibility issues with Snow  \n> Leopard (SL). Curiously, R is listed there...with an \"Unknown Status\".\n>\n\nSomeone apparently didn't even try - of course R is fully compatible  \nwith SL (and this was mentioned even here on the list). As for source  \ncompilation the only possible issue is that X11 headers/libs may have  \nto be specified at configure time.\n\nApple was kind to provide us with a seed so we can take advantage of  \nthe new technologies in SL.\n\nCheers,\nSimon\n\n\n> Our copy of SL should arrive tomorrow.\n>\n> Before updating, you should review this list to see if there are any  \n> potential issues with programs that you are using and SL.\n>\n> If there are, you may have to wait to upgrade the OS until an  \n> application is updated to be compatible. I have to wait until PGP  \n> (my whole disk encryption program) is updated, which supposedly will  \n> be soon according to their tech support folks.\n>\n> Regards,\n>\n> Marc Schwartz\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "On Aug 27, 2009, at 7:52 , Marc Schwartz wrote:\n\n> http://snowleopard.wikidot.com/\n>\n>\n> All,\n>\n> Above is the link to a web site that is being updated with  \n> information on potential application co",
+      "thread_id": "thread-7655da962848",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-88cd8146a3aa",
+      "message_id": "<EFEDCB12-1661-4CA8-9BDD-120A6C6FD426@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-27T10:36:25-04:00",
+      "subject": "[R-SIG-Mac] Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "subject_clean": "Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "in_reply_to": "<AA8F328F-16DA-4470-A038-930CC5D19925@r-project.org>",
+      "references": [
+        "<F1204FFE7AA6E248A1BC6AB7C732F14902FB4396@W3ZKHAS05.zkh.umcg.intra>",
+        "<AA8F328F-16DA-4470-A038-930CC5D19925@r-project.org>"
+      ],
+      "body_plain": "It's been a while since this thread, but I could finally lay hands on  \na Nehalem to test, so I thought I'll share some tidbits.\n\nMy worries turned out to be true and Nehalems are not as fast with R  \nas the synthetic benchmarks would make you think. The results are a  \nmixed bag, but in overall R benchmarks a 2.26GHz 8-core Nehalem is  \nsomewhat slower (MASS 16.89s, R bench 20.4s) than a 2.66GHz quad-core  \nHarpertown (MASS 18.8s, R bench 16.8s) and considerably slower than  \n2.8GHZ 8-core Harpertown (MASS 16.04s, R bench 15.2s). This is mainly  \ndue to the fast that most tasks cannon use the excessive cores and  \nindividual cores are running at lower frequencies.\n\nSome partial results are startling - for example \"2800x2800 cross- \nproduct matrix (b = a' * a)\" test literally kills Nehalems (0.64s for  \n2.8GHz and 1.02s for 2.66GHz Harpertown and 4.67s(!!) for the  \nNehalem). There are outliers in the other direction as well, but not  \nas surprising: \"FFT over 2,400,000 random values\" is 0.64s for Nehalem  \nand 0.93s/1.8s for Harpertowns.\n\nThe tests used are from http://r.research.att.com/benchmarks\n(R 2.9.2 release was used but admittedly the OS version varied)\nClearly, benchmarks never tell the full story and there may be uses  \nthat take advantage of the one or another architecture, but the bottom  \nline is that Nehalems are not universally faster, so don't throuw your  \nHarpertowns out just yet ;).\n\nI expect a 2.66GHz Nehalem to test soon and will post the update.\n\nIf you have any experiences to share, please feel free to chip in.\n\nCheers,\nSimon\n\nPS: I have also looked at 32-bit vs 64-bit and it's an equally mixed  \nbag - some tasks are considerably slower in 64-bit others considerably  \nfaster, so no clear answer there, either.\n\nOn Mar 24, 2009, at 16:01 , Simon Urbanek wrote:\n\n>\n> On Mar 24, 2009, at 14:55 , Booman, M wrote:\n>\n>> Dear all,\n>>\n>> I am going to purchase a Power Mac (a new one, with Nehalem  \n>> processor) for my R-based microarray analyses. I use mainly  \n>> Bioconductor packages, and a typical dataset would consist of 50  \n>> microarrays with 40,000 datapoints each. To make the right choice  \n>> of processor and memory, I have a few questions:\n>>\n>\n> I don't use BioC [you may want to ask on the BioC list instead (or  \n> hopefully some BioC users will chip in)], so my recommendations may  \n> be based on slightly different problems.\n>\n>\n>> - would the current version of R benefit from the 8 cores in the  \n>> new Intel Xeon Nehalem 8-core Mac Pro? So would an 8-core 2.26GHz  \n>> machine be better than a 4-core 2.93GHz?\n>\n> Unfortunately I cannot comment on Nehalems, but in general with  \n> Xeons you do feel quite a difference in the clock speed, so I  \n> wouldn't trade 2.93GHz for 2.26GHz regardless of the CPU generation.  \n> It is true that pre-Nehalem Mac Pros cannot feed 8 cores, so you  \n> want go for the new Mac Pros, but I wouldn't even think about the  \n> 2.26GHz option. Some benchmarks suggest that the 2.26 Nehalem can  \n> still compete favorably if a lot of memory/io is involved, but it  \n> was not very convincing and I cannot tell first hand.\n>\n>\n>> Or can R only use one core (in which case the 4-core 2.93GHZ  \n>> machine would be better)?\n>>\n>\n> R can use multiple cores in many ways - through BLAS (default in R  \n> for Mac OS X), vector op parallelization (Luke's pnmath) or explicit  \n> parallelization such as forking (multicore) or parallel processes  \n> (snow). The amount of parallelization achievable depends heavily on  \n> your applications. I use routinely all cores, but then I'm usually  \n> modeling my problems that way.\n>\n>\n>> - If R does not benefot from multiple cores yet, is there anything  \n>> known about whether Snow Leopard might make a difference in this?\n>>\n>\n> I cannot comment on ongoing work details due to DNA associated with  \n> Snow Leopard, but technically from the Apple announcements you can  \n> deduce that the only possible improvements directly related to R can  \n> be achieved in the implicit parallelization which is essentially the  \n> pnmath path. There is not much more you can do in R save for a re- \n> write of the methods you want to deal with.\n>\n> In fact, the hope is rather that the packages for R start using  \n> parallelization more effectively, but that's not something Snow  \n> Leopard alone can change.\n>\n>\n>> - To determine if my first priority should be processor speed or  \n>> RAM, on which does R rely more heavily?\n>>\n>\n> In my line of work (which is not bioinf, though) RAM turned to be  \n> more important, because the drop off when you run out of memory is  \n> sudden and devastatingly huge. With CPUs you'll have to wait a bit  \n> longer, but the difference is directly proportional to the CPU speed  \n> you get, so it is never as bad as running out of wired RAM. (BTW: in  \n> general you don't want to buy RAM from Apple - as much as I like  \n> Apple, there are compatible RAM sets at a fraction of the cost of  \n> what Apple charges, especially for Mac Pros - but there is always  \n> the 1st generation issue *).\n>\n>\n>> - The new chipset has 3 memory channels (forgive me if I word this  \n>> wrong, as you may have noticed I am no computer tech) so it can  \n>> read 6Gb RAM faster than it can read 8Gb of RAM; so for a program  \n>> that relies more on RAM speed than RAM quantity it is recommended  \n>> to use 6Gb instead of 8 for better performance (or any multiple of  \n>> 3). Which is more important for R, RAM speed or RAM quantity?\n>>\n>\n> 6GB is very little RAM, so I don't think that's an option ;) - but  \n> yes, you should care about the size first. The channels and timings  \n> only define how you populate the slots. Note that the 4-core Nehalem  \n> has only 4 slots, so it's not very expandable - I'd definitely get a  \n> 8-core old one with 16GB RAM or more rather than something that can  \n> take only 8GB ...\n>\n>\n>> (I am not sure if it helps to know, but previously I used a  \n>> Powermac G5 quadcore (sadly I forgot which processor speed but it  \n>> was the standard G5 quadcore) with 4 Gb RAM for datasets of 30-40  \n>> microarrays of 18,000 datapoints each, and analysis was OK except  \n>> for some memory errors in a script that used permutation analysis;  \n>> but it wasn't very fast.)\n>>\n>\n> I would keep an eye on the RAM expansibility - even if you buy less  \n> RAM now, a ceiling of 8GB is very low. It may turn out that larger  \n> DIMMs will become available, but 16GB for the future is not enough,  \n> either. As with all 1st generation products the prices will go down  \n> a lot over time, so you may plan to upgrade later. Another piece  \n> worth considering is that you can always update RAM easily, but CPU  \n> upgrade is much more difficult.\n>\n> Cheers,\n> Simon\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "It's been a while since this thread, but I could finally lay hands on  \na Nehalem to test, so I thought I'll share some tidbits.\n\nMy worries turned out to be true and Nehalems are not as fast with R  ",
+      "thread_id": "thread-88cd8146a3aa",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-fc20dd2c99a2",
+      "message_id": "<E91F55BF-E2E8-4FE4-AC60-2E8B6147F3E4@gmail.com>",
+      "from_name": "John C. Tull",
+      "from_email_hash": "f76d57afafd5350f0d673559a54175ba6927a1f9ce5ecd29d870d105ce7042ba",
+      "date": "2009-08-27T08:16:59-07:00",
+      "subject": "[R-SIG-Mac] Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "subject_clean": "Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "in_reply_to": "<EFEDCB12-1661-4CA8-9BDD-120A6C6FD426@r-project.org>",
+      "references": [
+        "<F1204FFE7AA6E248A1BC6AB7C732F14902FB4396@W3ZKHAS05.zkh.umcg.intra>",
+        "<AA8F328F-16DA-4470-A038-930CC5D19925@r-project.org>",
+        "<EFEDCB12-1661-4CA8-9BDD-120A6C6FD426@r-project.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090827/8282e4fd/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20090827/8282e4fd/attachment.pl>",
+      "thread_id": "thread-88cd8146a3aa",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-4ae99f236dc3",
+      "message_id": "<3ACD8B51-FE0C-4DFF-A1CE-B6B22272E625@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-27T11:27:54-04:00",
+      "subject": "[R-SIG-Mac] Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "subject_clean": "Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "in_reply_to": "<E91F55BF-E2E8-4FE4-AC60-2E8B6147F3E4@gmail.com>",
+      "references": [
+        "<F1204FFE7AA6E248A1BC6AB7C732F14902FB4396@W3ZKHAS05.zkh.umcg.intra>",
+        "<AA8F328F-16DA-4470-A038-930CC5D19925@r-project.org>",
+        "<EFEDCB12-1661-4CA8-9BDD-120A6C6FD426@r-project.org>",
+        "<E91F55BF-E2E8-4FE4-AC60-2E8B6147F3E4@gmail.com>"
+      ],
+      "body_plain": "On Aug 27, 2009, at 11:16 , John C. Tull wrote:\n\n> On Aug 27, 2009, at 7:36 AM, Simon Urbanek wrote:\n>\n>> The tests used are from http://r.research.att.com/benchmarks\n>> (R 2.9.2 release was used but admittedly the OS version varied)\n>> Clearly, benchmarks never tell the full story and there may be uses  \n>> that take advantage of the one or another architecture, but the  \n>> bottom line is that Nehalems are not universally faster, so don't  \n>> throuw your Harpertowns out just yet ;).\n>\n> What was the memory configuration for these test systems? I would  \n> expect any differences there could account for significant variation  \n> as well.\n>\n\nYes, you're right, but they are roughly comparable (Nehalem 12GB,  \nHarpertown 2.8GHZ 10GB, Harpertown 2.66GHz 16GB). The test should not  \nbe reaching their limits - I was also running the 2.66 Harpertown with  \nonly 1GB of RAM with no big differences ...\n\nCheers,\nSimon",
+      "body_snippet": "On Aug 27, 2009, at 11:16 , John C. Tull wrote:\n\n> On Aug 27, 2009, at 7:36 AM, Simon Urbanek wrote:\n>\n>> The tests used are from http://r.research.att.com/benchmarks\n>> (R 2.9.2 release was used but ",
+      "thread_id": "thread-88cd8146a3aa",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-f5504f0b941e",
+      "message_id": "<EC7A6E94-11AB-4B53-82D6-B059F4526816@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2009-08-27T08:43:06-07:00",
+      "subject": "[R-SIG-Mac] OT: Snow Leopard and Application Compatibility",
+      "subject_clean": "OT: Snow Leopard and Application Compatibility",
+      "in_reply_to": "<alpine.LFD.2.00.0908271312280.32667@gannet.stats.ox.ac.uk>",
+      "references": [
+        "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>",
+        "<alpine.LFD.2.00.0908271312280.32667@gannet.stats.ox.ac.uk>"
+      ],
+      "body_plain": "I have been using SL for over a year. Compiling and running a x86-84  \nbit R\ncan be done without problems. There are about 600 packages in my R  \ninstall,\nall build and run without problems. I don't know about R.app, though.  \nI do\nfind that R on SL, with suitable optimization flags, feels quite a bit  \nfaster.\n\nOn Aug 27, 2009, at 05:20 , Prof Brian Ripley wrote:\n\n> There are list members with access to the developer pre-release  \n> 'seeds', and I have seen 'Mac OS X 10.6' in one report (with a  \n> corresponding sessionInfo() output). So it seems very likely there  \n> is no problem with R, and most likely none with with R.app.\n>\n> (We are deferring upgrading until our sysadmins are back from  \n> holiday absences.)\n>\n> On Thu, 27 Aug 2009, Marc Schwartz wrote:\n>\n>> http://snowleopard.wikidot.com/\n>>\n>>\n>> All,\n>>\n>> Above is the link to a web site that is being updated with  \n>> information on potential application compatibility issues with Snow  \n>> Leopard (SL). Curiously, R is listed there...with an \"Unknown  \n>> Status\".\n>>\n>> Our copy of SL should arrive tomorrow.\n>>\n>> Before updating, you should review this list to see if there are  \n>> any potential issues with programs that you are using and SL.\n>>\n>> If there are, you may have to wait to upgrade the OS until an  \n>> application is updated to be compatible. I have to wait until PGP  \n>> (my whole disk encryption program) is updated, which supposedly  \n>> will be soon according to their tech support folks.\n>>\n>> Regards,\n>>\n>> Marc Schwartz\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nDirector: UCLA Center for Environmental Statistics (CES);\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware;\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n-------------------------------------------------------------------------------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "I have been using SL for over a year. Compiling and running a x86-84  \nbit R\ncan be done without problems. There are about 600 packages in my R  \ninstall,\nall build and run without problems. I don't k",
+      "thread_id": "thread-7655da962848",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-f7c84cecc00b",
+      "message_id": "<5AD48E31-984D-43B3-B87D-BC2FE6C5FF00@gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2009-08-27T11:50:26-04:00",
+      "subject": "[R-SIG-Mac] OT: Snow Leopard and Application Compatibility",
+      "subject_clean": "OT: Snow Leopard and Application Compatibility",
+      "in_reply_to": "<EC7A6E94-11AB-4B53-82D6-B059F4526816@stat.ucla.edu>",
+      "references": [
+        "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>",
+        "<alpine.LFD.2.00.0908271312280.32667@gannet.stats.ox.ac.uk>",
+        "<EC7A6E94-11AB-4B53-82D6-B059F4526816@stat.ucla.edu>"
+      ],
+      "body_plain": "Hi,\n\nOn Aug 27, 2009, at 11:43 AM, Jan de Leeuw wrote:\n\n> I have been using SL for over a year. Compiling and running a x86-84  \n> bit R\n> can be done without problems. There are about 600 packages in my R  \n> install,\n> all build and run without problems. I don't know about R.app,  \n> though. I do\n> find that R on SL, with suitable optimization flags, feels quite a  \n> bit faster.\n\nWould you mind sharing what optimization flags those might be? :-)\n\nIn one of your previous posts you mention that you configure R for  \nsource compilation via this command:\n\nconfigure --with-aqua --with-blas='\\''-framework vecLib'\\'' --with- \nlapack --prefix=/usr/local/R --disable-R-framework --with-readline -- \nwith-cairo --enable-memory-profiling --enable-R-shlib --x-includes=/ \nusr/X11R6/include --x-libraries=/usr/X11R6/lib --build=x86_64-apple- \ndarwin10 --host=x86_64-apple-darwin10 --target=x86_64-apple-darwin10\n\nI'm not sure I see any optimization flags there (aside from specifying  \ndarwin10 (for snow leopard, I reckon?)), but is all that you mean?\n\nThanks,\n-steve\n\n>\n> On Aug 27, 2009, at 05:20 , Prof Brian Ripley wrote:\n>\n>> There are list members with access to the developer pre-release  \n>> 'seeds', and I have seen 'Mac OS X 10.6' in one report (with a  \n>> corresponding sessionInfo() output). So it seems very likely there  \n>> is no problem with R, and most likely none with with R.app.\n>>\n>> (We are deferring upgrading until our sysadmins are back from  \n>> holiday absences.)\n>>\n>> On Thu, 27 Aug 2009, Marc Schwartz wrote:\n>>\n>>> http://snowleopard.wikidot.com/\n>>>\n>>>\n>>> All,\n>>>\n>>> Above is the link to a web site that is being updated with  \n>>> information on potential application compatibility issues with  \n>>> Snow Leopard (SL). Curiously, R is listed there...with an \"Unknown  \n>>> Status\".\n>>>\n>>> Our copy of SL should arrive tomorrow.\n>>>\n>>> Before updating, you should review this list to see if there are  \n>>> any potential issues with programs that you are using and SL.\n>>>\n>>> If there are, you may have to wait to upgrade the OS until an  \n>>> application is updated to be compatible. I have to wait until PGP  \n>>> (my whole disk encryption program) is updated, which supposedly  \n>>> will be soon according to their tech support folks.\n>>>\n>>> Regards,\n>>>\n>>> Marc Schwartz\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> -- \n>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \n> Statistics;\n> Director: UCLA Center for Environmental Statistics (CES);\n> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n> Software;\n> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n> 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n> .mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\n> homepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n> -------------------------------------------------------------------------------------------------\n>          No matter where you go, there you are. --- Buckaroo Banzai\n>                   http://gifi.stat.ucla.edu/sounds/nomatter.au\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n--\nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n   |  Memorial Sloan-Kettering Cancer Center\n   |  Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Aug 27, 2009, at 11:43 AM, Jan de Leeuw wrote:\n\n> I have been using SL for over a year. Compiling and running a x86-84  \n> bit R\n> can be done without problems. There are about 600 packages in",
+      "thread_id": "thread-7655da962848",
+      "thread_depth": 3,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-f83977324b17",
+      "message_id": "<B3BD844E-AEC3-4171-AF1A-94C9E3491CC6@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2009-08-27T09:07:24-07:00",
+      "subject": "[R-SIG-Mac] OT: Snow Leopard and Application Compatibility",
+      "subject_clean": "OT: Snow Leopard and Application Compatibility",
+      "in_reply_to": "<5AD48E31-984D-43B3-B87D-BC2FE6C5FF00@gmail.com>",
+      "references": [
+        "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>",
+        "<alpine.LFD.2.00.0908271312280.32667@gannet.stats.ox.ac.uk>",
+        "<EC7A6E94-11AB-4B53-82D6-B059F4526816@stat.ucla.edu>",
+        "<5AD48E31-984D-43B3-B87D-BC2FE6C5FF00@gmail.com>"
+      ],
+      "body_plain": "\"-m64 -O3 -fopenmp -mtune=native\" for C and C++ and FORTRAN\n\nyes, SL is darwin 10\n\ndeleeuw at cuddyvalley:~/ > uname -a\nDarwin cuddyvalley.org 10.0.0 Darwin Kernel Version 10.0.0: Fri Jul 31  \n22:47:34 PDT 2009; root:xnu-1456.1.25~1/RELEASE_I386 i386\n\nnote: no ppc or i386 in the R build. if i buy a book i don't\nbuy additional copies in finnish and urdu, especially since those\nare languages i can't read.\n\nOn Aug 27, 2009, at 08:50 , Steve Lianoglou wrote:\n\n> Hi,\n>\n> On Aug 27, 2009, at 11:43 AM, Jan de Leeuw wrote:\n>\n>> I have been using SL for over a year. Compiling and running a  \n>> x86-84 bit R\n>> can be done without problems. There are about 600 packages in my R  \n>> install,\n>> all build and run without problems. I don't know about R.app,  \n>> though. I do\n>> find that R on SL, with suitable optimization flags, feels quite a  \n>> bit faster.\n>\n> Would you mind sharing what optimization flags those might be? :-)\n>\n> In one of your previous posts you mention that you configure R for  \n> source compilation via this command:\n>\n> configure --with-aqua --with-blas='\\''-framework vecLib'\\'' --with- \n> lapack --prefix=/usr/local/R --disable-R-framework --with-readline -- \n> with-cairo --enable-memory-profiling --enable-R-shlib --x-includes=/ \n> usr/X11R6/include --x-libraries=/usr/X11R6/lib --build=x86_64-apple- \n> darwin10 --host=x86_64-apple-darwin10 --target=x86_64-apple-darwin10\n>\n> I'm not sure I see any optimization flags there (aside from  \n> specifying darwin10 (for snow leopard, I reckon?)), but is all that  \n> you mean?\n>\n> Thanks,\n> -steve\n>\n>>\n>> On Aug 27, 2009, at 05:20 , Prof Brian Ripley wrote:\n>>\n>>> There are list members with access to the developer pre-release  \n>>> 'seeds', and I have seen 'Mac OS X 10.6' in one report (with a  \n>>> corresponding sessionInfo() output). So it seems very likely there  \n>>> is no problem with R, and most likely none with with R.app.\n>>>\n>>> (We are deferring upgrading until our sysadmins are back from  \n>>> holiday absences.)\n>>>\n>>> On Thu, 27 Aug 2009, Marc Schwartz wrote:\n>>>\n>>>> http://snowleopard.wikidot.com/\n>>>>\n>>>>\n>>>> All,\n>>>>\n>>>> Above is the link to a web site that is being updated with  \n>>>> information on potential application compatibility issues with  \n>>>> Snow Leopard (SL). Curiously, R is listed there...with an  \n>>>> \"Unknown Status\".\n>>>>\n>>>> Our copy of SL should arrive tomorrow.\n>>>>\n>>>> Before updating, you should review this list to see if there are  \n>>>> any potential issues with programs that you are using and SL.\n>>>>\n>>>> If there are, you may have to wait to upgrade the OS until an  \n>>>> application is updated to be compatible. I have to wait until PGP  \n>>>> (my whole disk encryption program) is updated, which supposedly  \n>>>> will be soon according to their tech support folks.\n>>>>\n>>>> Regards,\n>>>>\n>>>> Marc Schwartz\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at stat.math.ethz.ch\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>> -- \n>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>\n>> ===\n>> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \n>> Statistics;\n>> Director: UCLA Center for Environmental Statistics (CES);\n>> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n>> Software;\n>> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n>> 90095-1554\n>> phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n>> .mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\n>> homepages: http://gifi.stat.ucla.edu ++++++ http:// \n>> www.cuddyvalley.org\n>> -------------------------------------------------------------------------------------------------\n>>         No matter where you go, there you are. --- Buckaroo Banzai\n>>                  http://gifi.stat.ucla.edu/sounds/nomatter.au\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> --\n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n>  |  Memorial Sloan-Kettering Cancer Center\n>  |  Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>\n>\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nDirector: UCLA Center for Environmental Statistics (CES);\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware;\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n-------------------------------------------------------------------------------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "\"-m64 -O3 -fopenmp -mtune=native\" for C and C++ and FORTRAN\n\nyes, SL is darwin 10\n\ndeleeuw at cuddyvalley:~/ > uname -a\nDarwin cuddyvalley.org 10.0.0 Darwin Kernel Version 10.0.0: Fri Jul 31  \n22:47:3",
+      "thread_id": "thread-7655da962848",
+      "thread_depth": 4,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-b2da75ec0e72",
+      "message_id": "<4EB45676-3FA3-4A40-A40D-F4A95F4D263C@metrumrg.com>",
+      "from_name": "Bill Knebel",
+      "from_email_hash": "62cf1ef03fcdeeec1a1a5ae97b58693adf40dbf71fff162fc5b1bcaacc6ff9c2",
+      "date": "2009-08-27T14:13:02-04:00",
+      "subject": "[R-SIG-Mac] multiple R versions in a multi-user environment",
+      "subject_clean": "multiple R versions in a multi-user environment",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "We run R in a multiuser environment (Mac OSx Leopard Server utilizing R \n+ESS over an ssh connection) that requires us to keep multiple  \nversions of R (R-2.7.2 and higher) available on the same machine.   I  \nhave successfully installed multiple R versions using the binaries for  \nMac OSX  and deleting the relevant Receipt before installing the newer  \nversion of R.  My problem occurs when allowing individuals to run  \ndifferent versions of R. I would like to be able to allow users to run  \nany verison that is currently installed.  The Rswitch gui works nicely  \nif I want to make a global switch (for all individuals) from one  \nversion of R to another.  The Mac OSx FAQ recommends not to hardcode  \nthe shell scripts to start R to a specific version (FAQ 12.15). Am I  \nbetter off building R from source for each version we need and  \nbypassing the Frameworks approach for R used by the binaries or is the  \na \"safe\" approach to use the binaries and utilize hardcoded shell  \nscripts to point to a given version of R?  (I have created some shell  \nscripts (hacked from those provided) that allows me to start either  \nR-2.6.1 or R-2.7.2 but the Mac OSX R FAQ recommends against this  \napproach.) If there is somewhere else I should be reading, I would  \nappreciate a pointer and I would be happy to review.\n\nThanks for any help.\n\nBill",
+      "body_snippet": "We run R in a multiuser environment (Mac OSx Leopard Server utilizing R \n+ESS over an ssh connection) that requires us to keep multiple  \nversions of R (R-2.7.2 and higher) available on the same machi",
+      "thread_id": "thread-b2da75ec0e72",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-313419ecccf2",
+      "message_id": "<31244FB1-B9A2-4D3D-9F1C-C05DC0618F81@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2009-08-27T11:34:29-07:00",
+      "subject": "[R-SIG-Mac] multiple R versions in a multi-user environment",
+      "subject_clean": "multiple R versions in a multi-user environment",
+      "in_reply_to": "<4EB45676-3FA3-4A40-A40D-F4A95F4D263C@metrumrg.com>",
+      "references": [
+        "<4EB45676-3FA3-4A40-A40D-F4A95F4D263C@metrumrg.com>"
+      ],
+      "body_plain": "Since you do not use R.app I think you would be better off not to use  \nthe Framework with the Current\nsoft link, install different R's in /usr/local or similar, use  \nappropriate prefixes in configure, and (minimally)\nhack the  startup scripts. Updating packages from source, or R's from  \nsvn, will not be a problem then.\nSince it's the same machine throughout, you don't need universal  \nbuilds either.\n\nOn Aug 27, 2009, at 11:13 , Bill Knebel wrote:\n\n> We run R in a multiuser environment (Mac OSx Leopard Server  \n> utilizing R+ESS over an ssh connection) that requires us to keep  \n> multiple versions of R (R-2.7.2 and higher) available on the same  \n> machine.   I have successfully installed multiple R versions using  \n> the binaries for Mac OSX  and deleting the relevant Receipt before  \n> installing the newer version of R.  My problem occurs when allowing  \n> individuals to run different versions of R. I would like to be able  \n> to allow users to run any verison that is currently installed.  The  \n> Rswitch gui works nicely if I want to make a global switch (for all  \n> individuals) from one version of R to another.  The Mac OSx FAQ  \n> recommends not to hardcode the shell scripts to start R to a  \n> specific version (FAQ 12.15). Am I better off building R from source  \n> for each version we need and bypassing the Frameworks approach for R  \n> used by the binaries or is the a \"safe\" approach to use the binaries  \n> and utilize hardcoded shell scripts to point to a given version of  \n> R?  (I have created some shell scripts (hacked from those provided)  \n> that allows me to start either R-2.6.1 or R-2.7.2 but the Mac OSX R  \n> FAQ recommends against this approach.) If there is somewhere else I  \n> should be reading, I would appreciate a pointer and I would be happy  \n> to review.\n>\n> Thanks for any help.\n>\n> Bill\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nDirector: UCLA Center for Environmental Statistics (CES);\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware;\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n-------------------------------------------------------------------------------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "Since you do not use R.app I think you would be better off not to use  \nthe Framework with the Current\nsoft link, install different R's in /usr/local or similar, use  \nappropriate prefixes in configur",
+      "thread_id": "thread-b2da75ec0e72",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-64c64c79025a",
+      "message_id": "<F2709543-4FD7-44F4-A4A5-A4F817E62B8C@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2009-08-27T14:48:41-04:00",
+      "subject": "[R-SIG-Mac] multiple R versions in a multi-user environment",
+      "subject_clean": "multiple R versions in a multi-user environment",
+      "in_reply_to": "<4EB45676-3FA3-4A40-A40D-F4A95F4D263C@metrumrg.com>",
+      "references": [
+        "<4EB45676-3FA3-4A40-A40D-F4A95F4D263C@metrumrg.com>"
+      ],
+      "body_plain": "On Aug 27, 2009, at 14:13 , Bill Knebel wrote:\n\n> We run R in a multiuser environment (Mac OSx Leopard Server  \n> utilizing R+ESS over an ssh connection) that requires us to keep  \n> multiple versions of R (R-2.7.2 and higher) available on the same  \n> machine.   I have successfully installed multiple R versions using  \n> the binaries for Mac OSX  and deleting the relevant Receipt before  \n> installing the newer version of R.  My problem occurs when allowing  \n> individuals to run different versions of R. I would like to be able  \n> to allow users to run any verison that is currently installed.  The  \n> Rswitch gui works nicely if I want to make a global switch (for all  \n> individuals) from one version of R to another.  The Mac OSx FAQ  \n> recommends not to hardcode the shell scripts to start R to a  \n> specific version (FAQ 12.15). Am I better off building R from source  \n> for each version we need and bypassing the Frameworks approach for R  \n> used by the binaries or is the a \"safe\" approach to use the binaries  \n> and utilize hardcoded shell scripts to point to a given version of  \n> R?  (I have created some shell scripts (hacked from those provided)  \n> that allows me to start either R-2.6.1 or R-2.7.2 but the Mac OSX R  \n> FAQ recommends against this approach.)\n\n\nThe FAQ clearly describes the issues so you're free to use it if those  \ndon't apply to your setup or they are not critical to you. The whole  \npoint of the FAQ entry is so you can make an informed decision about  \nwhether it's ok for you to use it that way or not.\n\nCheers,\nSimon\n\n\n> If there is somewhere else I should be reading, I would appreciate a  \n> pointer and I would be happy to review.\n>\n> Thanks for any help.\n>\n> Bill\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "On Aug 27, 2009, at 14:13 , Bill Knebel wrote:\n\n> We run R in a multiuser environment (Mac OSx Leopard Server  \n> utilizing R+ESS over an ssh connection) that requires us to keep  \n> multiple versions",
+      "thread_id": "thread-b2da75ec0e72",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-03c6de415a6b",
+      "message_id": "<F90615A5-966B-4F7D-893F-14F0477C7BDC@anu.edu.au>",
+      "from_name": "John Maindonald",
+      "from_email_hash": "2de8ee602ec487e8ae8c715c88cb2320b0ddc4a3428764e445cf26eb69ef92c5",
+      "date": "2009-08-28T10:26:29+10:00",
+      "subject": "[R-SIG-Mac] OT: Snow Leopard and Application Compatibility",
+      "subject_clean": "OT: Snow Leopard and Application Compatibility",
+      "in_reply_to": "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>",
+      "references": [
+        "<2F6D3F82-58C5-426E-AEF7-F15A341A0730@me.com>"
+      ],
+      "body_plain": "R (version 2.9.2) is now listed as OK.\n\nJohn Maindonald             email: john.maindonald at anu.edu.au\nphone : +61 2 (6125)3473    fax  : +61 2(6125)5549\nCentre for Mathematics & Its Applications, Room 1194,\nJohn Dedman Mathematical Sciences Building (Building 27)\nAustralian National University, Canberra ACT 0200.\n\n\nOn 27/08/2009, at 9:52 PM, Marc Schwartz wrote:\n\n> http://snowleopard.wikidot.com/\n>\n>\n> All,\n>\n> Above is the link to a web site that is being updated with  \n> information on potential application compatibility issues with Snow  \n> Leopard (SL). Curiously, R is listed there...with an \"Unknown Status\".\n>\n> Our copy of SL should arrive tomorrow.\n>\n> Before updating, you should review this list to see if there are any  \n> potential issues with programs that you are using and SL.\n>\n> If there are, you may have to wait to upgrade the OS until an  \n> application is updated to be compatible. I have to wait until PGP  \n> (my whole disk encryption program) is updated, which supposedly will  \n> be soon according to their tech support folks.\n>\n> Regards,\n>\n> Marc Schwartz\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "R (version 2.9.2) is now listed as OK.\n\nJohn Maindonald             email: john.maindonald at anu.edu.au\nphone : +61 2 (6125)3473    fax  : +61 2(6125)5549\nCentre for Mathematics & Its Applications, R",
+      "thread_id": "thread-7655da962848",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-2e829087a70f",
+      "message_id": "<6731304c0908301527y11e10ad3mb59c3a55b8c88138@mail.gmail.com>",
+      "from_name": "Max Kuhn",
+      "from_email_hash": "3588dfda283917c3772455ab1c0353851f9d1c038018811529c94e046489b5cb",
+      "date": "2009-08-30T18:27:35-04:00",
+      "subject": "[R-SIG-Mac] Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "subject_clean": "Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "in_reply_to": "<3ACD8B51-FE0C-4DFF-A1CE-B6B22272E625@r-project.org>",
+      "references": [
+        "<F1204FFE7AA6E248A1BC6AB7C732F14902FB4396@W3ZKHAS05.zkh.umcg.intra>",
+        "<AA8F328F-16DA-4470-A038-930CC5D19925@r-project.org>",
+        "<EFEDCB12-1661-4CA8-9BDD-120A6C6FD426@r-project.org>",
+        "<E91F55BF-E2E8-4FE4-AC60-2E8B6147F3E4@gmail.com>",
+        "<3ACD8B51-FE0C-4DFF-A1CE-B6B22272E625@r-project.org>"
+      ],
+      "body_plain": "I've been doing consistent time benchmarks across a range of computers\n(no Nehalems yet). A few of these are OS X related and might be of\ninterest.\n\nThe test systems:\n\nA. MacPro: Dual Quad core 2.8 GHz, 32 GB RAM. Running either OS X\n10.5.6, 10.6 or Slackware 12.2\nB. MacBook Pro:  Intel Core 2 Duo 2.4 GHz, 4 GB RAM OS X 10.5.6\n\nAll using R 2.9.0 with at least 3 replicates per benchmark.\n\nThe benchmarks were:\n\n1. RMA: RMA normalize 57 hgu133plus2 microarrays. The time quoted is\njust to normalize (not to read the files in).\n\nThe summary in minutes:\n\n                                    group mean   sd\n              MacBook Pro 2.4 GHz Leopard 1.02 0.01\n MacBook Pro 2.4 GHz Leopard Snow Leopard 1.09 0.35\n                     MacPro 2.8 GHz Linux 1.26 0.06\n                   MacPro 2.8 GHz Leopard 0.89 0.13\n\nThere was one outlier with Snow Leopard. Without it:\n\n                                    group mean   sd\n              MacBook Pro 2.4 GHz Leopard 1.02 0.01\n MacBook Pro 2.4 GHz Leopard Snow Leopard 0.95 0.01\n                     MacPro 2.8 GHz Linux 1.26 0.06\n                   MacPro 2.8 GHz Leopard 0.89 0.13\n\n2 .Kernels: fit a support vector machine and a relevance vector\nmachine to 1,500 samples with 1,000 variables. Times for each model\nare separated out.\n\nFor ksvm:\n\n                                    group mean   sd\n              MacBook Pro 2.4 GHz Leopard 0.22 0.01\n MacBook Pro 2.4 GHz Leopard Snow Leopard 0.19 0.01\n                     MacPro 2.8 GHz Linux 0.27 0.01\n                   MacPro 2.8 GHz Leopard 0.26 0.05\n\n\nFor rvm:\n\n                                    group mean   sd\n              MacBook Pro 2.4 GHz Leopard 0.71 0.01\n MacBook Pro 2.4 GHz Leopard Snow Leopard 0.60 0.01\n                     MacPro 2.8 GHz Linux 2.24 0.53\n                   MacPro 2.8 GHz Leopard 0.46 0.05\n\nI have no idea what happened with the Linux runs.\n\n3. RandomForest: fit a randomForest model with 1,500 samples with\n1,000 variables with the 5,000 trees and mtry = 100. The timings also\ninclude the variable importance calculations.\n\nThe rows with >1 node was using a parallel randomforest via the nws package:\n\n                                    group  mean   sd\n              MacBook Pro 2.4 GHz Leopard 22.31 0.15\n    MacBook Pro 2.4 GHz Leopard (2 nodes) 12.72 0.27\n    MacBook Pro 2.4 GHz Leopard (5 nodes) 13.51   NA\n MacBook Pro 2.4 GHz Leopard Snow Leopard 21.47 0.81\n                     MacPro 2.8 GHz Linux 17.28 0.05\n           MacPro 2.8 GHz Linux (5 nodes)  4.61 0.26\n                   MacPro 2.8 GHz Leopard 17.42 0.07\n         MacPro 2.8 GHz Leopard (5 nodes)  3.87 0.03\n\nSo, basically, Snow Leopard does slightly better but not much (I think\nthis was expected). I'll be testing more on the Mac Pros soon. The\ncode is pretty basic, but I'll be happy to send it to anyone who wants\na head-on comparison.\n\nMax",
+      "body_snippet": "I've been doing consistent time benchmarks across a range of computers\n(no Nehalems yet). A few of these are OS X related and might be of\ninterest.\n\nThe test systems:\n\nA. MacPro: Dual Quad core 2.8 GH",
+      "thread_id": "thread-88cd8146a3aa",
+      "thread_depth": 3,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-60ec99cea4a7",
+      "message_id": "<DD3E20EA-6D38-451F-B2FF-0990ACB6EA2A@fhcrc.org>",
+      "from_name": "Matthew Fero",
+      "from_email_hash": "2c1d02dfcd77faf50dbdde2f9d966dafa7201ab64a919aedef38e270294e639f",
+      "date": "2009-08-31T09:10:11-07:00",
+      "subject": "[R-SIG-Mac] Multiple threads on MacPro",
+      "subject_clean": "Multiple threads on MacPro",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I'm wondering what is the best way is to take advantage of the  \nmultiple CPUs on a MacPro?  For example, does someone have suggestions  \non how to setup and use parApply functions, in the snow package, on a  \nmulti-core Mac?\n\nThanks,\n\nMatthew",
+      "body_snippet": "I'm wondering what is the best way is to take advantage of the  \nmultiple CPUs on a MacPro?  For example, does someone have suggestions  \non how to setup and use parApply functions, in the snow packag",
+      "thread_id": "thread-60ec99cea4a7",
+      "thread_depth": 0,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-f33ca33e8edf",
+      "message_id": "<510FD97D-DA94-402B-BB8C-CF1EAA218D5F@gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2009-08-31T12:13:48-04:00",
+      "subject": "[R-SIG-Mac] Multiple threads on MacPro",
+      "subject_clean": "Multiple threads on MacPro",
+      "in_reply_to": "<DD3E20EA-6D38-451F-B2FF-0990ACB6EA2A@fhcrc.org>",
+      "references": [
+        "<DD3E20EA-6D38-451F-B2FF-0990ACB6EA2A@fhcrc.org>"
+      ],
+      "body_plain": "Hi,\n\nOn Aug 31, 2009, at 12:10 PM, Matthew Fero wrote:\n\n> I'm wondering what is the best way is to take advantage of the  \n> multiple CPUs on a MacPro?  For example, does someone have  \n> suggestions on how to setup and use parApply functions, in the snow  \n> package, on a multi-core Mac?\n\nI don't know if it's the best, but lately I like using the foreach  \npackage with the multicore backend\n\n  * http://cran.r-project.org/web/packages/foreach/index.html\n  * http://cran.r-project.org/web/packages/doMC/index.html\n  * http://cran.r-project.org/web/packages/multicore/\n\n-steve\n\n--\nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n   |  Memorial Sloan-Kettering Cancer Center\n   |  Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Aug 31, 2009, at 12:10 PM, Matthew Fero wrote:\n\n> I'm wondering what is the best way is to take advantage of the  \n> multiple CPUs on a MacPro?  For example, does someone have  \n> suggestions ",
+      "thread_id": "thread-60ec99cea4a7",
+      "thread_depth": 1,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-1a28666b8a66",
+      "message_id": "<6731304c0908310922s5389983bo378d8bdfc074d9e3@mail.gmail.com>",
+      "from_name": "Max Kuhn",
+      "from_email_hash": "3588dfda283917c3772455ab1c0353851f9d1c038018811529c94e046489b5cb",
+      "date": "2009-08-31T12:22:25-04:00",
+      "subject": "[R-SIG-Mac] Multiple threads on MacPro",
+      "subject_clean": "Multiple threads on MacPro",
+      "in_reply_to": "<510FD97D-DA94-402B-BB8C-CF1EAA218D5F@gmail.com>",
+      "references": [
+        "<DD3E20EA-6D38-451F-B2FF-0990ACB6EA2A@fhcrc.org>",
+        "<510FD97D-DA94-402B-BB8C-CF1EAA218D5F@gmail.com>"
+      ],
+      "body_plain": "You might want to take a look at Dirk's course notes:\n\n   dirk.eddelbuettel.com/papers/bocDec2008introHPCwithR.pdf\n\nto understand what R can do in general. I use nws and Rpmi (via the\nsnow package). I haven't tried the multicore package yet.\n\nYou have the required libraries for mpi, so you might want to start\nthere. The snow package is pretty easy to used, as is foreach.\n\nMax\n\n\nOn Mon, Aug 31, 2009 at 12:13 PM, Steve\nLianoglou<mailinglist.honeypot at gmail.com> wrote:\n> Hi,\n>\n> On Aug 31, 2009, at 12:10 PM, Matthew Fero wrote:\n>\n>> I'm wondering what is the best way is to take advantage of the multiple\n>> CPUs on a MacPro? ?For example, does someone have suggestions on how to\n>> setup and use parApply functions, in the snow package, on a multi-core Mac?\n>\n> I don't know if it's the best, but lately I like using the foreach package\n> with the multicore backend\n>\n> ?* http://cran.r-project.org/web/packages/foreach/index.html\n> ?* http://cran.r-project.org/web/packages/doMC/index.html\n> ?* http://cran.r-project.org/web/packages/multicore/\n>\n> -steve\n>\n> --\n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n> ?| ?Memorial Sloan-Kettering Cancer Center\n> ?| ?Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n\n-- \n\nMax",
+      "body_snippet": "You might want to take a look at Dirk's course notes:\n\n   dirk.eddelbuettel.com/papers/bocDec2008introHPCwithR.pdf\n\nto understand what R can do in general. I use nws and Rpmi (via the\nsnow package). I",
+      "thread_id": "thread-60ec99cea4a7",
+      "thread_depth": 2,
+      "month": "2009-08"
+    },
+    {
+      "id": "msg-ca6d3c3d4b78",
+      "message_id": "<6731304c0908310923m224be639va9a9769f1624f76b@mail.gmail.com>",
+      "from_name": "Max Kuhn",
+      "from_email_hash": "3588dfda283917c3772455ab1c0353851f9d1c038018811529c94e046489b5cb",
+      "date": "2009-08-31T12:23:34-04:00",
+      "subject": "[R-SIG-Mac] Multiple threads on MacPro",
+      "subject_clean": "Multiple threads on MacPro",
+      "in_reply_to": "<6731304c0908310922s5389983bo378d8bdfc074d9e3@mail.gmail.com>",
+      "references": [
+        "<DD3E20EA-6D38-451F-B2FF-0990ACB6EA2A@fhcrc.org>",
+        "<510FD97D-DA94-402B-BB8C-CF1EAA218D5F@gmail.com>",
+        "<6731304c0908310922s5389983bo378d8bdfc074d9e3@mail.gmail.com>"
+      ],
+      "body_plain": "I also forgot about this:\n\n  http://www.jstatsoft.org/v31/i01\n\nMax\n\nOn Mon, Aug 31, 2009 at 12:22 PM, Max Kuhn<mxkuhn at gmail.com> wrote:\n> You might want to take a look at Dirk's course notes:\n>\n> ? dirk.eddelbuettel.com/papers/bocDec2008introHPCwithR.pdf\n>\n> to understand what R can do in general. I use nws and Rpmi (via the\n> snow package). I haven't tried the multicore package yet.\n>\n> You have the required libraries for mpi, so you might want to start\n> there. The snow package is pretty easy to used, as is foreach.\n>\n> Max\n>\n>\n> On Mon, Aug 31, 2009 at 12:13 PM, Steve\n> Lianoglou<mailinglist.honeypot at gmail.com> wrote:\n>> Hi,\n>>\n>> On Aug 31, 2009, at 12:10 PM, Matthew Fero wrote:\n>>\n>>> I'm wondering what is the best way is to take advantage of the multiple\n>>> CPUs on a MacPro? ?For example, does someone have suggestions on how to\n>>> setup and use parApply functions, in the snow package, on a multi-core Mac?\n>>\n>> I don't know if it's the best, but lately I like using the foreach package\n>> with the multicore backend\n>>\n>> ?* http://cran.r-project.org/web/packages/foreach/index.html\n>> ?* http://cran.r-project.org/web/packages/doMC/index.html\n>> ?* http://cran.r-project.org/web/packages/multicore/\n>>\n>> -steve\n>>\n>> --\n>> Steve Lianoglou\n>> Graduate Student: Computational Systems Biology\n>> ?| ?Memorial Sloan-Kettering Cancer Center\n>> ?| ?Weill Medical College of Cornell University\n>> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n>\n> --\n>\n> Max\n>\n\n\n\n-- \n\nMax",
+      "body_snippet": "I also forgot about this:\n\n  http://www.jstatsoft.org/v31/i01\n\nMax\n\nOn Mon, Aug 31, 2009 at 12:22 PM, Max Kuhn<mxkuhn at gmail.com> wrote:\n> You might want to take a look at Dirk's course notes:\n>\n> ?",
+      "thread_id": "thread-60ec99cea4a7",
+      "thread_depth": 3,
+      "month": "2009-08"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-2658c2da8d1d",
+      "subject": "A question I'm sure I should be able to answer myself",
+      "message_count": 4,
+      "participants": [
+        "David Winsemius",
+        "Simon Urbanek"
+      ],
+      "started": "2009-08-02T10:20:31-04:00",
+      "last_reply": "2009-08-02T12:36:10-04:00",
+      "root_message_id": "msg-2658c2da8d1d"
+    },
+    {
+      "id": "thread-a940001293c1",
+      "subject": "R crashes with \"caught segfault\" under Mac OS X",
+      "message_count": 1,
+      "participants": [
+        "Anne Skoeries"
+      ],
+      "started": "2009-08-05T14:17:50+02:00",
+      "last_reply": "2009-08-05T14:17:50+02:00",
+      "root_message_id": "msg-a940001293c1"
+    },
+    {
+      "id": "thread-881b9294e971",
+      "subject": "Error in loading gdata in R",
+      "message_count": 2,
+      "participants": [
+        "Ken Beath",
+        "Vladimir Torres"
+      ],
+      "started": "2009-08-05T21:23:48-05:00",
+      "last_reply": "2009-08-06T02:41:11+00:00",
+      "root_message_id": "msg-881b9294e971"
+    },
+    {
+      "id": "thread-ba38dd18f023",
+      "subject": "Package Installer of R 2.9.1 (64 bit)?",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "Stranathan, Dan"
+      ],
+      "started": "2009-08-06T11:24:30-05:00",
+      "last_reply": "2009-08-06T13:34:11-04:00",
+      "root_message_id": "msg-ba38dd18f023"
+    },
+    {
+      "id": "thread-6f63d6a04887",
+      "subject": "NotePad++ Syntax file",
+      "message_count": 3,
+      "participants": [
+        "Simon Urbanek",
+        "[Ricardo Rodriguez] Your XEN ICT Team"
+      ],
+      "started": "2009-08-11T01:05:56+02:00",
+      "last_reply": "2009-08-11T11:30:29+02:00",
+      "root_message_id": "msg-6f63d6a04887"
+    },
+    {
+      "id": "thread-f979a7892110",
+      "subject": "Nightly dmg builds",
+      "message_count": 2,
+      "participants": [
+        "Peter Cowan",
+        "Steve Lianoglou"
+      ],
+      "started": "2009-08-14T17:44:51-07:00",
+      "last_reply": "2009-08-16T21:24:11-04:00",
+      "root_message_id": "msg-f979a7892110"
+    },
+    {
+      "id": "thread-108e7eb7f2dd",
+      "subject": "Compiling R-2.9.1 from the source",
+      "message_count": 9,
+      "participants": [
+        "Benilton Carvalho",
+        "Jan de Leeuw",
+        "Prof Brian Ripley",
+        "Simon Urbanek"
+      ],
+      "started": "2009-08-19T14:14:24-03:00",
+      "last_reply": "2009-08-19T15:55:09-03:00",
+      "root_message_id": "msg-108e7eb7f2dd"
+    },
+    {
+      "id": "thread-60ab619bb1a0",
+      "subject": "R64 GUI hangs from Package Manager when accessing PDF files",
+      "message_count": 2,
+      "participants": [
+        "David Winsemius"
+      ],
+      "started": "2009-08-20T17:52:45-04:00",
+      "last_reply": "2009-08-20T18:01:22-04:00",
+      "root_message_id": "msg-60ab619bb1a0"
+    },
+    {
+      "id": "thread-5543d4dd4350",
+      "subject": "package compilation problems",
+      "message_count": 3,
+      "participants": [
+        "Prof Brian Ripley",
+        "Szilard"
+      ],
+      "started": "2009-08-20T23:53:02-07:00",
+      "last_reply": "2009-08-21T00:45:21-07:00",
+      "root_message_id": "msg-5543d4dd4350"
+    },
+    {
+      "id": "thread-73048a5be498",
+      "subject": "Problem with multicore/doMC/foreach combo on Leopard",
+      "message_count": 1,
+      "participants": [
+        "Steve Lianoglou"
+      ],
+      "started": "2009-08-21T11:31:35-04:00",
+      "last_reply": "2009-08-21T11:31:35-04:00",
+      "root_message_id": "msg-73048a5be498"
+    },
+    {
+      "id": "thread-6c45e9380e87",
+      "subject": "Copy & Paste from tktext on a Mac",
+      "message_count": 3,
+      "participants": [
+        "Anne Skoeries",
+        "Simon Urbanek"
+      ],
+      "started": "2009-08-25T11:44:42+02:00",
+      "last_reply": "2009-08-26T16:59:05+02:00",
+      "root_message_id": "msg-6c45e9380e87"
+    },
+    {
+      "id": "thread-96ceeab19c05",
+      "subject": "built-in editor bug?",
+      "message_count": 1,
+      "participants": [
+        "Peter Dixon"
+      ],
+      "started": "2009-08-26T07:05:39-06:00",
+      "last_reply": "2009-08-26T07:05:39-06:00",
+      "root_message_id": "msg-96ceeab19c05"
+    },
+    {
+      "id": "thread-3fe97d4eb815",
+      "subject": "write.table in batch mode",
+      "message_count": 2,
+      "participants": [
+        "Martin Batholdy"
+      ],
+      "started": "2009-08-26T21:15:24+02:00",
+      "last_reply": "2009-08-26T21:23:21+02:00",
+      "root_message_id": "msg-3fe97d4eb815"
+    },
+    {
+      "id": "thread-7655da962848",
+      "subject": "OT: Snow Leopard and Application Compatibility",
+      "message_count": 7,
+      "participants": [
+        "Jan de Leeuw",
+        "John Maindonald",
+        "Marc Schwartz",
+        "Prof Brian Ripley",
+        "Simon Urbanek",
+        "Steve Lianoglou"
+      ],
+      "started": "2009-08-27T06:52:36-05:00",
+      "last_reply": "2009-08-28T10:26:29+10:00",
+      "root_message_id": "msg-7655da962848"
+    },
+    {
+      "id": "thread-88cd8146a3aa",
+      "subject": "Nehalem performance [Was: Is R more heavy on memory or processor?]",
+      "message_count": 4,
+      "participants": [
+        "John C. Tull",
+        "Max Kuhn",
+        "Simon Urbanek"
+      ],
+      "started": "2009-08-27T10:36:25-04:00",
+      "last_reply": "2009-08-30T18:27:35-04:00",
+      "root_message_id": "msg-88cd8146a3aa"
+    },
+    {
+      "id": "thread-b2da75ec0e72",
+      "subject": "multiple R versions in a multi-user environment",
+      "message_count": 3,
+      "participants": [
+        "Bill Knebel",
+        "Jan de Leeuw",
+        "Simon Urbanek"
+      ],
+      "started": "2009-08-27T14:13:02-04:00",
+      "last_reply": "2009-08-27T14:48:41-04:00",
+      "root_message_id": "msg-b2da75ec0e72"
+    },
+    {
+      "id": "thread-60ec99cea4a7",
+      "subject": "Multiple threads on MacPro",
+      "message_count": 4,
+      "participants": [
+        "Matthew Fero",
+        "Max Kuhn",
+        "Steve Lianoglou"
+      ],
+      "started": "2009-08-31T09:10:11-07:00",
+      "last_reply": "2009-08-31T12:23:34-04:00",
+      "root_message_id": "msg-60ec99cea4a7"
+    }
+  ]
+}

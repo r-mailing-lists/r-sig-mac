@@ -1,0 +1,575 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2023-03",
+  "messages": [
+    {
+      "id": "msg-ac721a3b2c11",
+      "message_id": "<CAAAvQD+K+1A+ipuHj3h-jbN7g9j_rpNp2cwA-O=dPJ0Zf8GfkA@mail.gmail.com>",
+      "from_name": "Andrea Apolloni",
+      "from_email_hash": "37aee8c58ac86da1c0aeb61dfd9897423bea5056dce5bd4530d82f28368e8ba6",
+      "date": "2023-03-13T19:26:07+01:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear all I had the bad idea ,\n3 weeks ago to install the new Mac OS Ventura 13.2.0 on my laptop\nI've instlalled the latest version of XCode (14.2) and CommandLine Tools\n\nSince then I can not use RCPP, Nimble and Rstan on my laptop\ntypical errror\nError: Failed to create the shared library. Run 'printErrors()' to see the\ncompilation errors.\n\nand using printErrors()\n\n<built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\nmake: *** [dynamicRegistrations_03_13_19_21_32.o] Error 1\n\nversion of R 4.2.2\nThanks in advance for all your help\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear all I had the bad idea ,\n3 weeks ago to install the new Mac OS Ventura 13.2.0 on my laptop\nI've instlalled the latest version of XCode (14.2) and CommandLine Tools\n\nSince then I can not use RCPP,",
+      "thread_id": "thread-ac721a3b2c11",
+      "thread_depth": 0,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-4ae60e1ecba4",
+      "message_id": "<D535D180-7926-4BA3-B022-F46AC1F273A3@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2023-03-14T08:02:55+13:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<CAAAvQD+K+1A+ipuHj3h-jbN7g9j_rpNp2cwA-O=dPJ0Zf8GfkA@mail.gmail.com>",
+      "references": [
+        "<CAAAvQD+K+1A+ipuHj3h-jbN7g9j_rpNp2cwA-O=dPJ0Zf8GfkA@mail.gmail.com>"
+      ],
+      "body_plain": "Andrea,\n\nMake sure you don't have any outdated tools or flags overrides (e.g. in ~/.R). If it doubt clean /usr/local and uninstall Homebrew. The error suggests your are using compilers that don't support your system.\n\nIf you cleaned out those and still needs help, please post the full output of the installation and provide full sessionInfo() output.\n\nCheers,\nSimon\n\n\n> On Mar 14, 2023, at 7:26 AM, Andrea Apolloni <abu.apolloni at gmail.com> wrote:\n> \n> Dear all I had the bad idea ,\n> 3 weeks ago to install the new Mac OS Ventura 13.2.0 on my laptop\n> I've instlalled the latest version of XCode (14.2) and CommandLine Tools\n> \n> Since then I can not use RCPP, Nimble and Rstan on my laptop\n> typical errror\n> Error: Failed to create the shared library. Run 'printErrors()' to see the\n> compilation errors.\n> \n> and using printErrors()\n> \n> <built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n> make: *** [dynamicRegistrations_03_13_19_21_32.o] Error 1\n> \n> version of R 4.2.2\n> Thanks in advance for all your help\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Andrea,\n\nMake sure you don't have any outdated tools or flags overrides (e.g. in ~/.R). If it doubt clean /usr/local and uninstall Homebrew. The error suggests your are using compilers that don't supp",
+      "thread_id": "thread-ac721a3b2c11",
+      "thread_depth": 1,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-8d770558be3f",
+      "message_id": "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>",
+      "from_name": "Michael Hall",
+      "from_email_hash": "f92c71cce2e1171ac7797c9e23f22c42146cac22cf4bd8f1b28f80c904833e17",
+      "date": "2023-03-14T06:52:08-05:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "> On Mar 14, 2023, at 6:00 AM, r-sig-mac-request at r-project.org wrote:\n> \n> [R-SIG-Mac] R , RCPP unsing MACOS ventura\n\nGoogle shows others have had the issue.\n\nSuggestions include...\n\nUninstall and reinstall command line tools.\n\n??\n\n...following the wisdom of the \"homebrew doctor\" solves it, i.e. remove and reinstall:\n\nsudo rm -rf /Library/Developer/CommandLineTools\nsudo xcode-select ?install\n\n???\n\n\nRebuild with export SYSTEM_VERSION_COMPAT=1 \n\nSearched with?\n<built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "> On Mar 14, 2023, at 6:00 AM, r-sig-mac-request at r-project.org wrote:\n> \n> [R-SIG-Mac] R , RCPP unsing MACOS ventura\n\nGoogle shows others have had the issue.\n\nSuggestions include...\n\nUninstall and ",
+      "thread_id": "thread-8d770558be3f",
+      "thread_depth": 0,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-4ccb2209f569",
+      "message_id": "<AS4PR07MB84572D824BCC5AFEA539340891BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>",
+      "from_name": "Calboli Federico (LUKE)",
+      "from_email_hash": "349527177093b1be895d6f44673c7682a57e994c716ea44a0fe1fdefb2019db1",
+      "date": "2023-03-14T12:40:23Z",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>",
+      "references": [
+        "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>",
+        "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>"
+      ],
+      "body_plain": "I know that posting a makevars is somehow iffy, but I installed GCC with homebrew and my\n\n~/.R/Makevars\n\nReads\n\nCC=/opt/homebrew/bin/gcc-12 -fopenmp\nCXX=/opt/homebrew/bin/g++-12 -fopenmp\nCXX11=/opt/homebrew/bin/g++-12 -fopenmp\nCXX14=/opt/homebrew/bin/g++-12 -fopenmp\nCXX17=/opt/homebrew/bin/g++-12 -fopenmp\nFLIBS=-L/opt/homebrew/opt/gfortran/lib\nF77=/opt/homebrew/bin/gfortran\nFC=/opt/R/arm64/gfortran/bin/gfortran -mtune=native\nFLIBS=-L/opt/R/arm64/gfortran/lib/gcc/aarch64-apple-darwin20.6.0/12.0.1 -L/opt/R/arm64/gfortran/lib -lgfortran -lemutls_w -lm\nCFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion\nCPPFLAGS=-I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include\nCXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion\n\nI installed the command line tools with\n\nxcode-select --install\n\nand I installed gcc with homebrew. It works:\n\n> library(Rcpp)\n> evalCpp( \"1+1\")\n[1] 2\n\n\nFederico Calboli\nTutkija\nGenomiikka ja jalostus\nLuonnonvarakeskus\n\nFrom: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Michael Hall <mik3hall at gmail.com>\nDate: Tuesday, 14. March 2023 at 13.52\nTo: r-sig-mac <r-sig-mac at r-project.org>\nSubject: Re: [R-SIG-Mac] R , RCPP unsing MACOS ventura\n\n\n> On Mar 14, 2023, at 6:00 AM, r-sig-mac-request at r-project.org wrote:\n>\n> [R-SIG-Mac] R , RCPP unsing MACOS ventura\n\nGoogle shows others have had the issue.\n\nSuggestions include...\n\nUninstall and reinstall command line tools.\n\n??\n\n...following the wisdom of the \"homebrew doctor\" solves it, i.e. remove and reinstall:\n\nsudo rm -rf /Library/Developer/CommandLineTools\nsudo xcode-select ?install\n\n???\n\n\nRebuild with export SYSTEM_VERSION_COMPAT=1\n\nSearched with?\n<built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n\n\n\n\n        [[alternative HTML version deleted]]\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org\nhttps://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fstat.ethz.ch%2Fmailman%2Flistinfo%2Fr-sig-mac&data=05%7C01%7Cfederico.calboli%40luke.fi%7C75b8009fdd674305fe6e08db2482a20b%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C638143915704206799%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=Qmk8swZn4qLly5xUijaWduaiS4veju3YLhclw95pH7U%3D&reserved=0\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I know that posting a makevars is somehow iffy, but I installed GCC with homebrew and my\n\n~/.R/Makevars\n\nReads\n\nCC=/opt/homebrew/bin/gcc-12 -fopenmp\nCXX=/opt/homebrew/bin/g++-12 -fopenmp\nCXX11=/opt/ho",
+      "thread_id": "thread-8d770558be3f",
+      "thread_depth": 1,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-6169865033b7",
+      "message_id": "<653E535C-F7FA-4382-974C-3A953E273C35@gmail.com>",
+      "from_name": "Michael Hall",
+      "from_email_hash": "f92c71cce2e1171ac7797c9e23f22c42146cac22cf4bd8f1b28f80c904833e17",
+      "date": "2023-03-14T07:51:55-05:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<AS4PR07MB84572D824BCC5AFEA539340891BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>",
+      "references": [
+        "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>",
+        "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>",
+        "<AS4PR07MB84572D824BCC5AFEA539340891BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>"
+      ],
+      "body_plain": "> On Mar 14, 2023, at 7:40 AM, Calboli Federico (LUKE) <federico.calboli at luke.fi> wrote:\n> \n> I know that posting a makevars is somehow iffy, but I installed GCC with homebrew and my\n>  \n> ~/.R/Makevars\n>  \n\nIt sounds like it is worth a try. However, I?m not sure it?s clear your OS and other versions match the original posters?\n\nDid you build for the same issue?\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "> On Mar 14, 2023, at 7:40 AM, Calboli Federico (LUKE) <federico.calboli at luke.fi> wrote:\n> \n> I know that posting a makevars is somehow iffy, but I installed GCC with homebrew and my\n>  \n> ~/.R/Mak",
+      "thread_id": "thread-8d770558be3f",
+      "thread_depth": 2,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-1e26f0d7b02d",
+      "message_id": "<AS4PR07MB8457E1C0F53FD2FFCD92469291BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>",
+      "from_name": "Calboli Federico (LUKE)",
+      "from_email_hash": "349527177093b1be895d6f44673c7682a57e994c716ea44a0fe1fdefb2019db1",
+      "date": "2023-03-14T13:18:07Z",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<653E535C-F7FA-4382-974C-3A953E273C35@gmail.com>",
+      "references": [
+        "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>",
+        "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>",
+        "<AS4PR07MB84572D824BCC5AFEA539340891BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>",
+        "<653E535C-F7FA-4382-974C-3A953E273C35@gmail.com>"
+      ],
+      "body_plain": "It sounds like it is worth a try. However, I?m not sure it?s clear your OS and other versions match the original posters?\n\nMy bad, I?m on MacOS 13.2.1 arm64, with the latest XCode CLT\n\nDid you build for the same issue?\n\nI actually do not use Rcpp, I was just curious to know whether it works on my machine or not.  Apparently it does.\n\n\n\nFederico Calboli\nTutkija\nGenomiikka ja jalostus\nLuonnonvarakeskus\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "It sounds like it is worth a try. However, I?m not sure it?s clear your OS and other versions match the original posters?\n\nMy bad, I?m on MacOS 13.2.1 arm64, with the latest XCode CLT\n\nDid you build f",
+      "thread_id": "thread-8d770558be3f",
+      "thread_depth": 3,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-49e9f931d7e9",
+      "message_id": "<E3449EC7-07CB-4E75-B368-B5493A7137D7@gmail.com>",
+      "from_name": "Michael Hall",
+      "from_email_hash": "f92c71cce2e1171ac7797c9e23f22c42146cac22cf4bd8f1b28f80c904833e17",
+      "date": "2023-03-14T12:01:32-05:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<mailman.14911.449.1678799916.1527.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.14911.449.1678799916.1527.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "> \n> I actually do not use Rcpp, I was just curious to know whether it works on my machine or not.  Apparently it does.\n> \n\n\nMe either. Fwiw.      \n\nxcode-select --version\nxcode-select version 2396.\n\nAlso Ventura 13.2.1\n\n> library(Rcpp)\n> evalCpp( \"1+1\")\n[1] 2\n    ::sprintf(buff, \"%02x\", from);\n      ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h:188:1: note: 'sprintf' has been explicitly marked deprecated here\n__deprecated_msg(\"This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.\")\n^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:215:48: note: expanded from macro '__deprecated_msg'\n        #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))\n                                                      ^\n1 warning generated.\n>",
+      "body_snippet": "> \n> I actually do not use Rcpp, I was just curious to know whether it works on my machine or not.  Apparently it does.\n> \n\n\nMe either. Fwiw.      \n\nxcode-select --version\nxcode-select version 2396.\n\n",
+      "thread_id": "thread-49e9f931d7e9",
+      "thread_depth": 0,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-0a33769cdf57",
+      "message_id": "<AS4PR07MB845748E320254488492A386F91BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>",
+      "from_name": "Calboli Federico (LUKE)",
+      "from_email_hash": "349527177093b1be895d6f44673c7682a57e994c716ea44a0fe1fdefb2019db1",
+      "date": "2023-03-14T18:26:24Z",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<E3449EC7-07CB-4E75-B368-B5493A7137D7@gmail.com>",
+      "references": [
+        "<mailman.14911.449.1678799916.1527.r-sig-mac@r-project.org>",
+        "<E3449EC7-07CB-4E75-B368-B5493A7137D7@gmail.com>"
+      ],
+      "body_plain": "First off apologies for the horrible quoting from me, I have been forced to move from Mail.app to Outlook and nothing works as it should.\n\nI understand the XCode tool are needed to install homebrew, but after that they are not the focus ? my R makevars calls the gcc I installed with homebrew, not the one supplied by XCode (which does not have fortran, hence my use of the Homebrew gcc).\n\n\nFederico Calboli\nTutkija\nGenomiikka ja jalostus\nLuonnonvarakeskus\n\n\n\n>\n> I actually do not use Rcpp, I was just curious to know whether it works on my machine or not.  Apparently it does.\n>\n\n\nMe either. Fwiw.\n\nxcode-select --version\nxcode-select version 2396.\n\nAlso Ventura 13.2.1\n\n> library(Rcpp)\n> evalCpp( \"1+1\")\n[1] 2\n    ::sprintf(buff, \"%02x\", from);\n      ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h:188:1: note: 'sprintf' has been explicitly marked deprecated here\n__deprecated_msg(\"This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.\")\n^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:215:48: note: expanded from macro '__deprecated_msg'\n        #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))\n                                                      ^\n1 warning generated.\n>\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org\nhttps://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fstat.ethz.ch%2Fmailman%2Flistinfo%2Fr-sig-mac&data=05%7C01%7Cfederico.calboli%40luke.fi%7C8e5586946cd54b94cd7808db24ade8a1%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C638144101597319575%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=5l9Xe5xlggU4O3UJwRpIt62sbdZJMmsRoRnkufM2MzY%3D&reserved=0\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "First off apologies for the horrible quoting from me, I have been forced to move from Mail.app to Outlook and nothing works as it should.\n\nI understand the XCode tool are needed to install homebrew, b",
+      "thread_id": "thread-49e9f931d7e9",
+      "thread_depth": 1,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-c3f4936ab0de",
+      "message_id": "<19782AE4-5EC8-4B13-B01F-342FFDE7077E@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2023-03-15T09:32:32+13:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>",
+      "references": [
+        "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>",
+        "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>"
+      ],
+      "body_plain": "If that is the case, can you actually post what the issue is? The original post had no details and did not follow up when asked for details. When googling the issue seems to arise in Homebrew, not the Apple tools so as I noted removing Homebrew should work.\n\nCheers,\nSimon\n\n\n\n> On 15/03/2023, at 12:52 AM, Michael Hall <mik3hall at gmail.com> wrote:\n> \n> \n> \n>> On Mar 14, 2023, at 6:00 AM, r-sig-mac-request at r-project.org wrote:\n>> \n>> [R-SIG-Mac] R , RCPP unsing MACOS ventura\n> \n> Google shows others have had the issue.\n> \n> Suggestions include...\n> \n> Uninstall and reinstall command line tools.\n> \n> ??\n> \n> ...following the wisdom of the \"homebrew doctor\" solves it, i.e. remove and reinstall:\n> \n> sudo rm -rf /Library/Developer/CommandLineTools\n> sudo xcode-select ?install\n> \n> ???\n> \n> \n> Rebuild with export SYSTEM_VERSION_COMPAT=1 \n> \n> Searched with?\n> <built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n> \n> \n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "If that is the case, can you actually post what the issue is? The original post had no details and did not follow up when asked for details. When googling the issue seems to arise in Homebrew, not the",
+      "thread_id": "thread-8d770558be3f",
+      "thread_depth": 1,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-be54a70dd64d",
+      "message_id": "<B11958CC-4C9E-455D-8A0F-6AA89DBC28B3@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2023-03-15T09:39:12+13:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<AS4PR07MB845748E320254488492A386F91BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>",
+      "references": [
+        "<mailman.14911.449.1678799916.1527.r-sig-mac@r-project.org>",
+        "<E3449EC7-07CB-4E75-B368-B5493A7137D7@gmail.com>",
+        "<AS4PR07MB845748E320254488492A386F91BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>"
+      ],
+      "body_plain": "Federico,\n\ngiven that Homebrew is likely the cause for the mess, advising to install a custom installation seems like a very bad idea. It is likely very dependent on the versions of the tools from Homebrew which is what breaks. Therefore I would strongly advise against it (unless you know what you are doing, but then if you do - you know how to fix it).\n\nSo to the list readers - please do NOT follow the advice for custom flags unless you know what it does and how to maintain it. If you use custom tools (which is fine for experts), you are likely to have problems down the road since such installations are not maintained by Apple and will break and will need fixing.\n\nCheers,\nSimon\n  \n\n\n\n> On 15/03/2023, at 7:26 AM, Calboli Federico (LUKE) <federico.calboli at luke.fi> wrote:\n> \n> First off apologies for the horrible quoting from me, I have been forced to move from Mail.app to Outlook and nothing works as it should.\n> \n> I understand the XCode tool are needed to install homebrew, but after that they are not the focus ? my R makevars calls the gcc I installed with homebrew, not the one supplied by XCode (which does not have fortran, hence my use of the Homebrew gcc).\n> \n> \n> Federico Calboli\n> Tutkija\n> Genomiikka ja jalostus\n> Luonnonvarakeskus\n> \n> \n> \n>> \n>> I actually do not use Rcpp, I was just curious to know whether it works on my machine or not.  Apparently it does.\n>> \n> \n> \n> Me either. Fwiw.\n> \n> xcode-select --version\n> xcode-select version 2396.\n> \n> Also Ventura 13.2.1\n> \n>> library(Rcpp)\n>> evalCpp( \"1+1\")\n> [1] 2\n>    ::sprintf(buff, \"%02x\", from);\n>      ^\n> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h:188:1: note: 'sprintf' has been explicitly marked deprecated here\n> __deprecated_msg(\"This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.\")\n> ^\n> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:215:48: note: expanded from macro '__deprecated_msg'\n>        #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))\n>                                                      ^\n> 1 warning generated.\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fstat.ethz.ch%2Fmailman%2Flistinfo%2Fr-sig-mac&data=05%7C01%7Cfederico.calboli%40luke.fi%7C8e5586946cd54b94cd7808db24ade8a1%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C638144101597319575%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=5l9Xe5xlggU4O3UJwRpIt62sbdZJMmsRoRnkufM2MzY%3D&reserved=0\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Federico,\n\ngiven that Homebrew is likely the cause for the mess, advising to install a custom installation seems like a very bad idea. It is likely very dependent on the versions of the tools from Hom",
+      "thread_id": "thread-49e9f931d7e9",
+      "thread_depth": 2,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-a08a681dae7d",
+      "message_id": "<DDFFA70F-08AA-4175-B954-55554F257A1E@gmail.com>",
+      "from_name": "Michael Hall",
+      "from_email_hash": "f92c71cce2e1171ac7797c9e23f22c42146cac22cf4bd8f1b28f80c904833e17",
+      "date": "2023-03-14T15:45:49-05:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<19782AE4-5EC8-4B13-B01F-342FFDE7077E@R-project.org>",
+      "references": [
+        "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>",
+        "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>",
+        "<19782AE4-5EC8-4B13-B01F-342FFDE7077E@R-project.org>"
+      ],
+      "body_plain": "> On Mar 14, 2023, at 3:32 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> If that is the case, can you actually post what the issue is? The original post had no details and did not follow up when asked for details. When googling the issue seems to arise in Homebrew, not the Apple tools so as I noted removing Homebrew should work.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On 15/03/2023, at 12:52 AM, Michael Hall <mik3hall at gmail.com> wrote:\n>> \n>> \n>> \n>>> On Mar 14, 2023, at 6:00 AM, r-sig-mac-request at r-project.org wrote:\n>>> \n>>> [R-SIG-Mac] R , RCPP unsing MACOS ventura\n>> \n>> Google shows others have had the issue.\n>> \n>> Suggestions include...\n>> \n>> Uninstall and reinstall command line tools.\n>> \n>> ??\n>> \n>> ...following the wisdom of the \"homebrew doctor\" solves it, i.e. remove and reinstall:\n>> \n>> sudo rm -rf /Library/Developer/CommandLineTools\n>> sudo xcode-select ?install\n>> \n>> ???\n>> \n>> \n>> Rebuild with export SYSTEM_VERSION_COMPAT=1 \n>> \n>> Searched with?\n>> <built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n\nThe general suggestion seemed to be for some reason to remove and reinstall the command line tools. The example I posted was one where it was the home-brew doctor that made that suggestion. Not that homebrew itself was the problem.\n\nThe \n>> <built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n\nSeemed to be what the underlying issue was? and was what I searched on",
+      "body_snippet": "> On Mar 14, 2023, at 3:32 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> If that is the case, can you actually post what the issue is? The original post had no details and did not fol",
+      "thread_id": "thread-8d770558be3f",
+      "thread_depth": 2,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-1aed21fa62b6",
+      "message_id": "<B407A4E6-7BC0-4A31-B701-2F2FB23A6CD5@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2023-03-15T09:50:25+13:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<DDFFA70F-08AA-4175-B954-55554F257A1E@gmail.com>",
+      "references": [
+        "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>",
+        "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>",
+        "<19782AE4-5EC8-4B13-B01F-342FFDE7077E@R-project.org>",
+        "<DDFFA70F-08AA-4175-B954-55554F257A1E@gmail.com>"
+      ],
+      "body_plain": "Well, what I saw in the searches what that it was a problem with Homebrew tools breaking on that flag. Again, it's all speculation, because no one posted the actual issue ... so it's anyone's guess what this is all about until someone actually posts the details I asked for - I don't see that problem myself, but I don't use Homebrew (at least not on the default PATH).\n\nCheers,\nSimon\n\n\n> On 15/03/2023, at 9:45 AM, Michael Hall <mik3hall at gmail.com> wrote:\n> \n> \n> \n>> On Mar 14, 2023, at 3:32 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n>> \n>> If that is the case, can you actually post what the issue is? The original post had no details and did not follow up when asked for details. When googling the issue seems to arise in Homebrew, not the Apple tools so as I noted removing Homebrew should work.\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>> \n>>> On 15/03/2023, at 12:52 AM, Michael Hall <mik3hall at gmail.com> wrote:\n>>> \n>>> \n>>> \n>>>> On Mar 14, 2023, at 6:00 AM, r-sig-mac-request at r-project.org wrote:\n>>>> \n>>>> [R-SIG-Mac] R , RCPP unsing MACOS ventura\n>>> \n>>> Google shows others have had the issue.\n>>> \n>>> Suggestions include...\n>>> \n>>> Uninstall and reinstall command line tools.\n>>> \n>>> ??\n>>> \n>>> ...following the wisdom of the \"homebrew doctor\" solves it, i.e. remove and reinstall:\n>>> \n>>> sudo rm -rf /Library/Developer/CommandLineTools\n>>> sudo xcode-select ?install\n>>> \n>>> ???\n>>> \n>>> \n>>> Rebuild with export SYSTEM_VERSION_COMPAT=1 \n>>> \n>>> Searched with?\n>>> <built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n> \n> The general suggestion seemed to be for some reason to remove and reinstall the command line tools. The example I posted was one where it was the home-brew doctor that made that suggestion. Not that homebrew itself was the problem.\n> \n> The \n>>> <built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n> \n> Seemed to be what the underlying issue was? and was what I searched on\n>",
+      "body_snippet": "Well, what I saw in the searches what that it was a problem with Homebrew tools breaking on that flag. Again, it's all speculation, because no one posted the actual issue ... so it's anyone's guess wh",
+      "thread_id": "thread-8d770558be3f",
+      "thread_depth": 3,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-7f4e5b4774b9",
+      "message_id": "<AS4PR07MB84570C45C518AEF30A845F9791BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>",
+      "from_name": "Calboli Federico (LUKE)",
+      "from_email_hash": "349527177093b1be895d6f44673c7682a57e994c716ea44a0fe1fdefb2019db1",
+      "date": "2023-03-14T21:05:45Z",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<B11958CC-4C9E-455D-8A0F-6AA89DBC28B3@R-project.org>",
+      "references": [
+        "<mailman.14911.449.1678799916.1527.r-sig-mac@r-project.org>",
+        "<E3449EC7-07CB-4E75-B368-B5493A7137D7@gmail.com>",
+        "<AS4PR07MB845748E320254488492A386F91BE9@AS4PR07MB8457.eurprd07.prod.outlook.com>",
+        "<B11958CC-4C9E-455D-8A0F-6AA89DBC28B3@R-project.org>"
+      ],
+      "body_plain": "Simon,\n\nYes, sure, I need to keep an eye on the GCC version from HB, because when it changes the makevars breaks. Otherwise I never really had issues, but I am happy to break stuff, and fix it.\n\n\n\nFederico Calboli\nTutkija\nGenomiikka ja jalostus\nLuonnonvarakeskus\n\nFederico,\n\ngiven that Homebrew is likely the cause for the mess, advising to install a custom installation seems like a very bad idea. It is likely very dependent on the versions of the tools from Homebrew which is what breaks. Therefore I would strongly advise against it (unless you know what you are doing, but then if you do - you know how to fix it).\n\nSo to the list readers - please do NOT follow the advice for custom flags unless you know what it does and how to maintain it. If you use custom tools (which is fine for experts), you are likely to have problems down the road since such installations are not maintained by Apple and will break and will need fixing.\n\nCheers,\nSimon\n\n\n\n\n> On 15/03/2023, at 7:26 AM, Calboli Federico (LUKE) <federico.calboli at luke.fi> wrote:\n>\n> First off apologies for the horrible quoting from me, I have been forced to move from Mail.app to Outlook and nothing works as it should.\n>\n> I understand the XCode tool are needed to install homebrew, but after that they are not the focus ? my R makevars calls the gcc I installed with homebrew, not the one supplied by XCode (which does not have fortran, hence my use of the Homebrew gcc).\n>\n>\n> Federico Calboli\n> Tutkija\n> Genomiikka ja jalostus\n> Luonnonvarakeskus\n>\n>\n>\n>>\n>> I actually do not use Rcpp, I was just curious to know whether it works on my machine or not.  Apparently it does.\n>>\n>\n>\n> Me either. Fwiw.\n>\n> xcode-select --version\n> xcode-select version 2396.\n>\n> Also Ventura 13.2.1\n>\n>> library(Rcpp)\n>> evalCpp( \"1+1\")\n> [1] 2\n>    ::sprintf(buff, \"%02x\", from);\n>      ^\n> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h:188:1: note: 'sprintf' has been explicitly marked deprecated here\n> __deprecated_msg(\"This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of sprintf(3), it is highly recommended that you use snprintf(3) instead.\")\n> ^\n> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:215:48: note: expanded from macro '__deprecated_msg'\n>        #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))\n>                                                      ^\n> 1 warning generated.\n>>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fstat.ethz.ch%2Fmailman%2Flistinfo%2Fr-sig-mac&data=05%7C01%7Cfederico.calboli%40luke.fi%7C97fbccf72ee641fad83408db24cc312d%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C638144231646298662%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=lJcMNU18F%2BsBAujzmb%2FumwJhbWwEQncjy%2BcD52J5V50%3D&reserved=0\n>\n>        [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fstat.ethz.ch%2Fmailman%2Flistinfo%2Fr-sig-mac&data=05%7C01%7Cfederico.calboli%40luke.fi%7C97fbccf72ee641fad83408db24cc312d%7C7c14dfa4c0fc47259f0476a443deb095%7C0%7C0%7C638144231646298662%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=lJcMNU18F%2BsBAujzmb%2FumwJhbWwEQncjy%2BcD52J5V50%3D&reserved=0\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Simon,\n\nYes, sure, I need to keep an eye on the GCC version from HB, because when it changes the makevars breaks. Otherwise I never really had issues, but I am happy to break stuff, and fix it.\n\n\n\nFed",
+      "thread_id": "thread-49e9f931d7e9",
+      "thread_depth": 3,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-b22af409fc6f",
+      "message_id": "<A55F6A11-1F3D-449C-B5AD-AA32371D7685@gmail.com>",
+      "from_name": "Michael Hall",
+      "from_email_hash": "f92c71cce2e1171ac7797c9e23f22c42146cac22cf4bd8f1b28f80c904833e17",
+      "date": "2023-03-14T16:46:10-05:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<B407A4E6-7BC0-4A31-B701-2F2FB23A6CD5@R-project.org>",
+      "references": [
+        "<mailman.14908.3.1678791602.50561.r-sig-mac@r-project.org>",
+        "<91043D1B-A2E6-4F84-B40B-E7875BAB54D5@gmail.com>",
+        "<19782AE4-5EC8-4B13-B01F-342FFDE7077E@R-project.org>",
+        "<DDFFA70F-08AA-4175-B954-55554F257A1E@gmail.com>",
+        "<B407A4E6-7BC0-4A31-B701-2F2FB23A6CD5@R-project.org>"
+      ],
+      "body_plain": "> On Mar 14, 2023, at 3:50 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Well, what I saw in the searches what that it was a problem with Homebrew tools breaking on that flag. Again, it's all speculation, because no one posted the actual issue ... so it's anyone's guess what this is all about until someone actually posts the details I asked for - I don't see that problem myself, but I don't use Homebrew (at least not on the default PATH).\n> \n> Cheers,\n> Simon\n\nAs you said earlier.\n\n> The error suggests your are using compilers that don't support your system.\n\nIt doesn?t seem to recognize a 13.2 system. This could well be because it is trying to use a homebrew gcc that isn?t playing well with the Xcode command line tools.\n\nThe xcode-select -version that I showed earlier was supposed to indicate what version of the command line tools you are using no matter with what Xcode.app although I?m not sure exactly how you are supposed to correspond the CLT version to the OS one.\n\ngcc ?version should I think tell you if you have a homebrew or Apple one.\n\nIf homebrew is the culprit following the homebrew suggestion of uninstalling and reinstalling CLT would still seem to me to be worth the attempt.\n\nIf something is hardcoded in PATH messing up search orders that would be a different issue. \n\nUninstalling homebrew as I think you suggested seems to be throwing out the baby, the bath water and the kitchen sink. There should be a less drastic solution.",
+      "body_snippet": "> On Mar 14, 2023, at 3:50 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Well, what I saw in the searches what that it was a problem with Homebrew tools breaking on that flag. Again, ",
+      "thread_id": "thread-8d770558be3f",
+      "thread_depth": 4,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-d15129b5c74d",
+      "message_id": "<CAAAvQDJ3oeA63hnFsTk7r4zHdqYSNmrJnj42hNey_XZi+i96Pw@mail.gmail.com>",
+      "from_name": "Andrea Apolloni",
+      "from_email_hash": "37aee8c58ac86da1c0aeb61dfd9897423bea5056dce5bd4530d82f28368e8ba6",
+      "date": "2023-03-15T15:58:46+01:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<D535D180-7926-4BA3-B022-F46AC1F273A3@R-project.org>",
+      "references": [
+        "<CAAAvQD+K+1A+ipuHj3h-jbN7g9j_rpNp2cwA-O=dPJ0Zf8GfkA@mail.gmail.com>",
+        "<D535D180-7926-4BA3-B022-F46AC1F273A3@R-project.org>"
+      ],
+      "body_plain": "Dear Simon , dearl all\nthank you for your feedback\n\nOn Mon, Mar 13, 2023 at 8:02?PM Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n\n> Andrea,\n>\n> Make sure you don't have any outdated tools or flags overrides (e.g. in\n> ~/.R).\n\nI'm not sure how to do it (sorry). I'm going with the second option\n\n\n> If it doubt clean /usr/local and uninstall Homebrew.\n\n\n\n> The error suggests your are using compilers that don't support your system.\n>\nI think that one of the problem relies on Xcode and command line taht are\nnot updated for the new version of Macos Ventura 13.2.1. In particular if I\nfollwo the procedure from\nhttps://cran.r-project.org/bin/macosx/\nand install the gfortran compiler\nhttps://github.com/fxcoudert/gfortran-for-macOS/releases/tag/12.2-ventura\n\nthere isn't an updated compiler for  the version mac os Ventura 13.2.1 for\nintel\nDo you know any compiler I can use alternatively?\nThank you for all teh discussion\nBests\nAndrea\n\n>\n> If you cleaned out those and still needs help, please post the full output\n> of the installation and provide full sessionInfo() output.\n>\n> Cheers,\n> Simon\n>\n>\n> > On Mar 14, 2023, at 7:26 AM, Andrea Apolloni <abu.apolloni at gmail.com>\n> wrote:\n> >\n> > Dear all I had the bad idea ,\n> > 3 weeks ago to install the new Mac OS Ventura 13.2.0 on my laptop\n> > I've instlalled the latest version of XCode (14.2) and CommandLine Tools\n> >\n> > Since then I can not use RCPP, Nimble and Rstan on my laptop\n> > typical errror\n> > Error: Failed to create the shared library. Run 'printErrors()' to see\n> the\n> > compilation errors.\n> >\n> > and using printErrors()\n> >\n> > <built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n> > make: *** [dynamicRegistrations_03_13_19_21_32.o] Error 1\n> >\n> > version of R 4.2.2\n> > Thanks in advance for all your help\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear Simon , dearl all\nthank you for your feedback\n\nOn Mon, Mar 13, 2023 at 8:02?PM Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n\n> Andrea,\n>\n> Make sure you don't have any outdated tools or ",
+      "thread_id": "thread-ac721a3b2c11",
+      "thread_depth": 2,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-b311a0bd02e4",
+      "message_id": "<CAAAvQDJvbqmK0DrhXmJ5xbYdOYy+xjMxUDdQP=-RD4BiKt7GdQ@mail.gmail.com>",
+      "from_name": "Andrea Apolloni",
+      "from_email_hash": "37aee8c58ac86da1c0aeb61dfd9897423bea5056dce5bd4530d82f28368e8ba6",
+      "date": "2023-03-15T17:48:21+01:00",
+      "subject": "[R-SIG-Mac] R , RCPP unsing MACOS ventura",
+      "subject_clean": "R , RCPP unsing MACOS ventura",
+      "in_reply_to": "<CAAAvQDJ3oeA63hnFsTk7r4zHdqYSNmrJnj42hNey_XZi+i96Pw@mail.gmail.com>",
+      "references": [
+        "<CAAAvQD+K+1A+ipuHj3h-jbN7g9j_rpNp2cwA-O=dPJ0Zf8GfkA@mail.gmail.com>",
+        "<D535D180-7926-4BA3-B022-F46AC1F273A3@R-project.org>",
+        "<CAAAvQDJ3oeA63hnFsTk7r4zHdqYSNmrJnj42hNey_XZi+i96Pw@mail.gmail.com>"
+      ],
+      "body_plain": "Dear all,\nI'ma happy to inform that the procedure suggested by Simon. worked . thanks\na lot\n\nOn Wed, Mar 15, 2023 at 3:58?PM Andrea Apolloni <abu.apolloni at gmail.com>\nwrote:\n\n> Dear Simon , dearl all\n> thank you for your feedback\n>\n> On Mon, Mar 13, 2023 at 8:02?PM Simon Urbanek <simon.urbanek at r-project.org>\n> wrote:\n>\n>> Andrea,\n>>\n>> Make sure you don't have any outdated tools or flags overrides (e.g. in\n>> ~/.R).\n>\n> I'm not sure how to do it (sorry). I'm going with the second option\n>\n>\n>> If it doubt clean /usr/local and uninstall Homebrew.\n>\n>\n>\n>> The error suggests your are using compilers that don't support your\n>> system.\n>>\n> I think that one of the problem relies on Xcode and command line taht are\n> not updated for the new version of Macos Ventura 13.2.1. In particular if I\n> follwo the procedure from\n> https://cran.r-project.org/bin/macosx/\n> and install the gfortran compiler\n> https://github.com/fxcoudert/gfortran-for-macOS/releases/tag/12.2-ventura\n>\n> there isn't an updated compiler for  the version mac os Ventura 13.2.1 for\n> intel\n> Do you know any compiler I can use alternatively?\n> Thank you for all teh discussion\n> Bests\n> Andrea\n>\n>>\n>> If you cleaned out those and still needs help, please post the full\n>> output of the installation and provide full sessionInfo() output.\n>>\n>> Cheers,\n>> Simon\n>>\n>>\n>> > On Mar 14, 2023, at 7:26 AM, Andrea Apolloni <abu.apolloni at gmail.com>\n>> wrote:\n>> >\n>> > Dear all I had the bad idea ,\n>> > 3 weeks ago to install the new Mac OS Ventura 13.2.0 on my laptop\n>> > I've instlalled the latest version of XCode (14.2) and CommandLine Tools\n>> >\n>> > Since then I can not use RCPP, Nimble and Rstan on my laptop\n>> > typical errror\n>> > Error: Failed to create the shared library. Run 'printErrors()' to see\n>> the\n>> > compilation errors.\n>> >\n>> > and using printErrors()\n>> >\n>> > <built-in>: error: unknown value ?13.2.0? of ?-mmacosx-version-min?\n>> > make: *** [dynamicRegistrations_03_13_19_21_32.o] Error 1\n>> >\n>> > version of R 4.2.2\n>> > Thanks in advance for all your help\n>> >\n>> >       [[alternative HTML version deleted]]\n>> >\n>> > _______________________________________________\n>> > R-SIG-Mac mailing list\n>> > R-SIG-Mac at r-project.org\n>> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> >\n>>\n>>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear all,\nI'ma happy to inform that the procedure suggested by Simon. worked . thanks\na lot\n\nOn Wed, Mar 15, 2023 at 3:58?PM Andrea Apolloni <abu.apolloni at gmail.com>\nwrote:\n\n> Dear Simon , dearl al",
+      "thread_id": "thread-ac721a3b2c11",
+      "thread_depth": 3,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-8cc2374358ff",
+      "message_id": "<2321998B-52D6-40D5-9D0D-A6172EDD54D7@gmail.com>",
+      "from_name": "Gilberto Camara",
+      "from_email_hash": "6f36678742286512daca61c61146bf7b46200acda50a1a27383d1c3ef47f7624",
+      "date": "2023-03-18T15:02:08-03:00",
+      "subject": "[R-SIG-Mac] Help on reducing size of shared libraries on MacOS on CRAN",
+      "subject_clean": "Help on reducing size of shared libraries on MacOS on CRAN",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear R-SIG-MAC members\n\nWe are the developers of R package sits and would like to ask for your help in solving a problem with library size on R macOS binaries. \n\nBefore submission to CRAN, version 1.3.0 of sits (https://cran.r-project.org/web/packages/sits/index.html) has been tested in various environments, including Ubuntu, Fedora, CRAN winbuilder (all flavors). We have tested sits-1.3.0 on r-release-mac-x86_64 and r-release-macos-arm64 with the following configurations:\n\n- r-release-macos-x86_64: R 4.2.2, MacMini 3.2GHz, 6 cores, 32 MB RAM, macOS Ventura 3.2.1, Apple clang version 14.0.3 (clang-1403.0.22.14.1).\n\n- r-release-macos-arm64: R 4.2.2, MacBookAir, chip ARM M1, 8 cores, 16 MB RAM, macOS Monterrey 12.6,  Apple clang version 14.0.0 (clang-1400.0.29.201). \n\nIn our configuration of r-release-macos-x86_64, the installed size is 3.8 MB, and the libs directory size is 436 KB. On r-release-macos-arm64, the installed size is 5.4 MB and the libs directory size is 1.6 MB. \n\nThe current CRAN check on sits version 1.3.0 reports a NOTE on r-release-macos-arm64 and r-oldrel-macos-arm64, with an installation size of 7.3Mb with the libs directory size reported as 4.8Mb. CRAN is using Apple clang version 13.0.0 ((clang-1300.0.29.30) on r-release-macos-arm64 and Apple clang version 12.0.0 (clang-1200.0.32.29) on r-oldrel-macos-arm64. \n\nThere is a 3.2 MB difference in size between what CRAN reports and what we obtain in our tests for r-release-macos-arm64. We would appreciate your guidance on how to address this problem and, if possible, point to a reliable way to reduce package size in macOS. \n\nNote that our package links to RCpp and RCppArmadillo.\n\nOur current Makevars configuration is given below\n==========================================\n# suggestion by Dirk Eddelbuettel\nSHLIB_CXXLDFLAGS = -Wlto,-S -shared\nSHLIB_CXX11LDFLAGS = -Wlto,-S -shared\nSHLIB_CXX14LDFLAGS = -Wlto,-S -shared\nSHLIB_FCLDFLAGS = -Wlto,-S -shared\nSHLIB_LDFLAGS = -Wlto,-S -shared\n\n## suggestion by Dirk Eddelbuettel\nPKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)\nPKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)\n\nstrippedLib: $(SHLIB)\n\t\tif test -e \"/usr/bin/strip\" & test -e \"/bin/uname\" & [[ `uname` == \"Linux\" ]] ; then /usr/bin/strip --strip-debug $(SHLIB); fi\n\nclean:\n\trm -f $(OBJECTS)\n\n.phony: strippedLib clean\n===========================================\n\nAny help would be much appreciated. \n\nBest regards\nGilberto\n============================\nProf Dr Gilberto Camara\nSenior Researcher\nNational Institute for Space Research (INPE), Brazil\nhttps://gilbertocamara.org/\n=============================",
+      "body_snippet": "Dear R-SIG-MAC members\n\nWe are the developers of R package sits and would like to ask for your help in solving a problem with library size on R macOS binaries. \n\nBefore submission to CRAN, version 1.3",
+      "thread_id": "thread-8cc2374358ff",
+      "thread_depth": 0,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-9d934523e0ab",
+      "message_id": "<3E442374-56B1-464A-A8DF-2524226A76F4@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2023-03-19T10:19:59+13:00",
+      "subject": "[R-SIG-Mac]  Help on reducing size of shared libraries on MacOS on CRAN",
+      "subject_clean": "Help on reducing size of shared libraries on MacOS on CRAN",
+      "in_reply_to": "<2321998B-52D6-40D5-9D0D-A6172EDD54D7@gmail.com>",
+      "references": [
+        "<2321998B-52D6-40D5-9D0D-A6172EDD54D7@gmail.com>"
+      ],
+      "body_plain": "Gilberto,\n\nPlease note that size checks are not really relevant for binary packages - it is normal for binaries to be large as they may include static libraries (e.g., rgdal has 273Mb). Also note that 4.8Mb is rather small for a library since it also includes debugging symbols (CRAN packages are built with --dsym to make debugging easier) - so is there a particular reason you are concerned about the size? You can always remove the debugging symbols (libs/*.dsym) on your machine if you have issues with size.\n\nCheers,\nSimon\n\n\n> On 19/03/2023, at 07:02, Gilberto Camara <gilberto.camara.inpe at gmail.com> wrote:\n> \n> Dear R-SIG-MAC members\n> \n> We are the developers of R package sits and would like to ask for your help in solving a problem with library size on R macOS binaries. \n> \n> Before submission to CRAN, version 1.3.0 of sits (https://cran.r-project.org/web/packages/sits/index.html) has been tested in various environments, including Ubuntu, Fedora, CRAN winbuilder (all flavors). We have tested sits-1.3.0 on r-release-mac-x86_64 and r-release-macos-arm64 with the following configurations:\n> \n> - r-release-macos-x86_64: R 4.2.2, MacMini 3.2GHz, 6 cores, 32 MB RAM, macOS Ventura 3.2.1, Apple clang version 14.0.3 (clang-1403.0.22.14.1).\n> \n> - r-release-macos-arm64: R 4.2.2, MacBookAir, chip ARM M1, 8 cores, 16 MB RAM, macOS Monterrey 12.6,  Apple clang version 14.0.0 (clang-1400.0.29.201). \n> \n> In our configuration of r-release-macos-x86_64, the installed size is 3.8 MB, and the libs directory size is 436 KB. On r-release-macos-arm64, the installed size is 5.4 MB and the libs directory size is 1.6 MB. \n> \n> The current CRAN check on sits version 1.3.0 reports a NOTE on r-release-macos-arm64 and r-oldrel-macos-arm64, with an installation size of 7.3Mb with the libs directory size reported as 4.8Mb. CRAN is using Apple clang version 13.0.0 ((clang-1300.0.29.30) on r-release-macos-arm64 and Apple clang version 12.0.0 (clang-1200.0.32.29) on r-oldrel-macos-arm64. \n> \n> There is a 3.2 MB difference in size between what CRAN reports and what we obtain in our tests for r-release-macos-arm64. We would appreciate your guidance on how to address this problem and, if possible, point to a reliable way to reduce package size in macOS. \n> \n> Note that our package links to RCpp and RCppArmadillo.\n> \n> Our current Makevars configuration is given below\n> ==========================================\n> # suggestion by Dirk Eddelbuettel\n> SHLIB_CXXLDFLAGS = -Wlto,-S -shared\n> SHLIB_CXX11LDFLAGS = -Wlto,-S -shared\n> SHLIB_CXX14LDFLAGS = -Wlto,-S -shared\n> SHLIB_FCLDFLAGS = -Wlto,-S -shared\n> SHLIB_LDFLAGS = -Wlto,-S -shared\n> \n> ## suggestion by Dirk Eddelbuettel\n> PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)\n> PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)\n> \n> strippedLib: $(SHLIB)\n> \t\tif test -e \"/usr/bin/strip\" & test -e \"/bin/uname\" & [[ `uname` == \"Linux\" ]] ; then /usr/bin/strip --strip-debug $(SHLIB); fi\n> \n> clean:\n> \trm -f $(OBJECTS)\n> \n> .phony: strippedLib clean\n> ===========================================\n> \n> Any help would be much appreciated. \n> \n> Best regards\n> Gilberto\n> ============================\n> Prof Dr Gilberto Camara\n> Senior Researcher\n> National Institute for Space Research (INPE), Brazil\n> https://gilbertocamara.org/\n> =============================\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Gilberto,\n\nPlease note that size checks are not really relevant for binary packages - it is normal for binaries to be large as they may include static libraries (e.g., rgdal has 273Mb). Also note that",
+      "thread_id": "thread-8cc2374358ff",
+      "thread_depth": 1,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-964f6d14788c",
+      "message_id": "<2458203A-76CE-44C1-98C6-EABB4FA2AE71@gmail.com>",
+      "from_name": "Gilberto Camara",
+      "from_email_hash": "6f36678742286512daca61c61146bf7b46200acda50a1a27383d1c3ef47f7624",
+      "date": "2023-03-18T18:27:43-03:00",
+      "subject": "[R-SIG-Mac]  Help on reducing size of shared libraries on MacOS on CRAN",
+      "subject_clean": "Help on reducing size of shared libraries on MacOS on CRAN",
+      "in_reply_to": "<3E442374-56B1-464A-A8DF-2524226A76F4@R-project.org>",
+      "references": [
+        "<2321998B-52D6-40D5-9D0D-A6172EDD54D7@gmail.com>",
+        "<3E442374-56B1-464A-A8DF-2524226A76F4@R-project.org>"
+      ],
+      "body_plain": "Hi Simon\n\nMany thanks for your quick response.  \n\nMy concern has to do with the CRAN Repository Policies, which state: \"Maintainers will be asked to update packages which show any warnings or significant notes?. Since the concept of what are ?significant notes\" is not clearly defined, it is natural that maintainers would like their packages to be free of any NOTE.\n\nThat said, your explanation is quite helpful and informative.\n\nBest regards\nGilberto\n\n============================\nProf Dr Gilberto Camara\nSenior Researcher\nNational Institute for Space Research (INPE), Brazil\nhttps://gilbertocamara.org/\n=============================\n\n\n\n\n> On 18 Mar 2023, at 18:19, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Gilberto,\n> \n> Please note that size checks are not really relevant for binary packages - it is normal for binaries to be large as they may include static libraries (e.g., rgdal has 273Mb). Also note that 4.8Mb is rather small for a library since it also includes debugging symbols (CRAN packages are built with --dsym to make debugging easier) - so is there a particular reason you are concerned about the size? You can always remove the debugging symbols (libs/*.dsym) on your machine if you have issues with size.\n> \n> Cheers,\n> Simon\n> \n> \n>> On 19/03/2023, at 07:02, Gilberto Camara <gilberto.camara.inpe at gmail.com> wrote:\n>> \n>> Dear R-SIG-MAC members\n>> \n>> We are the developers of R package sits and would like to ask for your help in solving a problem with library size on R macOS binaries. \n>> \n>> Before submission to CRAN, version 1.3.0 of sits (https://cran.r-project.org/web/packages/sits/index.html) has been tested in various environments, including Ubuntu, Fedora, CRAN winbuilder (all flavors). We have tested sits-1.3.0 on r-release-mac-x86_64 and r-release-macos-arm64 with the following configurations:\n>> \n>> - r-release-macos-x86_64: R 4.2.2, MacMini 3.2GHz, 6 cores, 32 MB RAM, macOS Ventura 3.2.1, Apple clang version 14.0.3 (clang-1403.0.22.14.1).\n>> \n>> - r-release-macos-arm64: R 4.2.2, MacBookAir, chip ARM M1, 8 cores, 16 MB RAM, macOS Monterrey 12.6,  Apple clang version 14.0.0 (clang-1400.0.29.201). \n>> \n>> In our configuration of r-release-macos-x86_64, the installed size is 3.8 MB, and the libs directory size is 436 KB. On r-release-macos-arm64, the installed size is 5.4 MB and the libs directory size is 1.6 MB. \n>> \n>> The current CRAN check on sits version 1.3.0 reports a NOTE on r-release-macos-arm64 and r-oldrel-macos-arm64, with an installation size of 7.3Mb with the libs directory size reported as 4.8Mb. CRAN is using Apple clang version 13.0.0 ((clang-1300.0.29.30) on r-release-macos-arm64 and Apple clang version 12.0.0 (clang-1200.0.32.29) on r-oldrel-macos-arm64. \n>> \n>> There is a 3.2 MB difference in size between what CRAN reports and what we obtain in our tests for r-release-macos-arm64. We would appreciate your guidance on how to address this problem and, if possible, point to a reliable way to reduce package size in macOS. \n>> \n>> Note that our package links to RCpp and RCppArmadillo.\n>> \n>> Our current Makevars configuration is given below\n>> ==========================================\n>> # suggestion by Dirk Eddelbuettel\n>> SHLIB_CXXLDFLAGS = -Wlto,-S -shared\n>> SHLIB_CXX11LDFLAGS = -Wlto,-S -shared\n>> SHLIB_CXX14LDFLAGS = -Wlto,-S -shared\n>> SHLIB_FCLDFLAGS = -Wlto,-S -shared\n>> SHLIB_LDFLAGS = -Wlto,-S -shared\n>> \n>> ## suggestion by Dirk Eddelbuettel\n>> PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)\n>> PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)\n>> \n>> strippedLib: $(SHLIB)\n>> if test -e \"/usr/bin/strip\" & test -e \"/bin/uname\" & [[ `uname` == \"Linux\" ]] ; then /usr/bin/strip --strip-debug $(SHLIB); fi\n>> \n>> clean:\n>> rm -f $(OBJECTS)\n>> \n>> .phony: strippedLib clean\n>> ===========================================\n>> \n>> Any help would be much appreciated. \n>> \n>> Best regards\n>> Gilberto\n>> ============================\n>> Prof Dr Gilberto Camara\n>> Senior Researcher\n>> National Institute for Space Research (INPE), Brazil\n>> https://gilbertocamara.org/\n>> =============================\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>",
+      "body_snippet": "Hi Simon\n\nMany thanks for your quick response.  \n\nMy concern has to do with the CRAN Repository Policies, which state: \"Maintainers will be asked to update packages which show any warnings or signific",
+      "thread_id": "thread-8cc2374358ff",
+      "thread_depth": 2,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-0f59a1fac5a3",
+      "message_id": "<00D8612F-AFC3-4DBF-B338-287EB83A3DFF@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "04fa6d0c3897d7401f735ea1444a11e9ef8fce794f6ed7b871e5a56f2d21cdfe",
+      "date": "2023-03-19T12:10:25+11:00",
+      "subject": "[R-SIG-Mac]  Help on reducing size of shared libraries on MacOS on CRAN",
+      "subject_clean": "Help on reducing size of shared libraries on MacOS on CRAN",
+      "in_reply_to": "<2458203A-76CE-44C1-98C6-EABB4FA2AE71@gmail.com>",
+      "references": [
+        "<2321998B-52D6-40D5-9D0D-A6172EDD54D7@gmail.com>",
+        "<3E442374-56B1-464A-A8DF-2524226A76F4@R-project.org>",
+        "<2458203A-76CE-44C1-98C6-EABB4FA2AE71@gmail.com>"
+      ],
+      "body_plain": "A random sample of packages linking to Rcpp shows that many have NOTEs for installed package size.\n\nI would avoid using special compiler flags, as this is something that may cause problems in the future.\n\nKen\n\n> On 19 Mar 2023, at 8:27 am, Gilberto Camara <gilberto.camara.inpe at gmail.com> wrote:\n> \n> Hi Simon\n> \n> Many thanks for your quick response.  \n> \n> My concern has to do with the CRAN Repository Policies, which state: \"Maintainers will be asked to update packages which show any warnings or significant notes?. Since the concept of what are ?significant notes\" is not clearly defined, it is natural that maintainers would like their packages to be free of any NOTE.\n> \n> That said, your explanation is quite helpful and informative.\n> \n> Best regards\n> Gilberto\n> \n> ============================\n> Prof Dr Gilberto Camara\n> Senior Researcher\n> National Institute for Space Research (INPE), Brazil\n> https://gilbertocamara.org/\n> =============================\n> \n> \n> \n> \n>> On 18 Mar 2023, at 18:19, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n>> \n>> Gilberto,\n>> \n>> Please note that size checks are not really relevant for binary packages - it is normal for binaries to be large as they may include static libraries (e.g., rgdal has 273Mb). Also note that 4.8Mb is rather small for a library since it also includes debugging symbols (CRAN packages are built with --dsym to make debugging easier) - so is there a particular reason you are concerned about the size? You can always remove the debugging symbols (libs/*.dsym) on your machine if you have issues with size.\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>>> On 19/03/2023, at 07:02, Gilberto Camara <gilberto.camara.inpe at gmail.com> wrote:\n>>> \n>>> Dear R-SIG-MAC members\n>>> \n>>> We are the developers of R package sits and would like to ask for your help in solving a problem with library size on R macOS binaries. \n>>> \n>>> Before submission to CRAN, version 1.3.0 of sits (https://cran.r-project.org/web/packages/sits/index.html) has been tested in various environments, including Ubuntu, Fedora, CRAN winbuilder (all flavors). We have tested sits-1.3.0 on r-release-mac-x86_64 and r-release-macos-arm64 with the following configurations:\n>>> \n>>> - r-release-macos-x86_64: R 4.2.2, MacMini 3.2GHz, 6 cores, 32 MB RAM, macOS Ventura 3.2.1, Apple clang version 14.0.3 (clang-1403.0.22.14.1).\n>>> \n>>> - r-release-macos-arm64: R 4.2.2, MacBookAir, chip ARM M1, 8 cores, 16 MB RAM, macOS Monterrey 12.6,  Apple clang version 14.0.0 (clang-1400.0.29.201). \n>>> \n>>> In our configuration of r-release-macos-x86_64, the installed size is 3.8 MB, and the libs directory size is 436 KB. On r-release-macos-arm64, the installed size is 5.4 MB and the libs directory size is 1.6 MB. \n>>> \n>>> The current CRAN check on sits version 1.3.0 reports a NOTE on r-release-macos-arm64 and r-oldrel-macos-arm64, with an installation size of 7.3Mb with the libs directory size reported as 4.8Mb. CRAN is using Apple clang version 13.0.0 ((clang-1300.0.29.30) on r-release-macos-arm64 and Apple clang version 12.0.0 (clang-1200.0.32.29) on r-oldrel-macos-arm64. \n>>> \n>>> There is a 3.2 MB difference in size between what CRAN reports and what we obtain in our tests for r-release-macos-arm64. We would appreciate your guidance on how to address this problem and, if possible, point to a reliable way to reduce package size in macOS. \n>>> \n>>> Note that our package links to RCpp and RCppArmadillo.\n>>> \n>>> Our current Makevars configuration is given below\n>>> ==========================================\n>>> # suggestion by Dirk Eddelbuettel\n>>> SHLIB_CXXLDFLAGS = -Wlto,-S -shared\n>>> SHLIB_CXX11LDFLAGS = -Wlto,-S -shared\n>>> SHLIB_CXX14LDFLAGS = -Wlto,-S -shared\n>>> SHLIB_FCLDFLAGS = -Wlto,-S -shared\n>>> SHLIB_LDFLAGS = -Wlto,-S -shared\n>>> \n>>> ## suggestion by Dirk Eddelbuettel\n>>> PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)\n>>> PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)\n>>> \n>>> strippedLib: $(SHLIB)\n>>> if test -e \"/usr/bin/strip\" & test -e \"/bin/uname\" & [[ `uname` == \"Linux\" ]] ; then /usr/bin/strip --strip-debug $(SHLIB); fi\n>>> \n>>> clean:\n>>> rm -f $(OBJECTS)\n>>> \n>>> .phony: strippedLib clean\n>>> ===========================================\n>>> \n>>> Any help would be much appreciated. \n>>> \n>>> Best regards\n>>> Gilberto\n>>> ============================\n>>> Prof Dr Gilberto Camara\n>>> Senior Researcher\n>>> National Institute for Space Research (INPE), Brazil\n>>> https://gilbertocamara.org/\n>>> =============================\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "A random sample of packages linking to Rcpp shows that many have NOTEs for installed package size.\n\nI would avoid using special compiler flags, as this is something that may cause problems in the futu",
+      "thread_id": "thread-8cc2374358ff",
+      "thread_depth": 3,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-879b7a8adf94",
+      "message_id": "<DM6PR11MB4739D0464BA63FF6174CD7FCEB849@DM6PR11MB4739.namprd11.prod.outlook.com>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2023-03-24T08:04:25Z",
+      "subject": "[R-SIG-Mac] New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "subject_clean": "New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "All,\n\nHope all is well.\n\nAbout a month or so back, we revisited the **unofficial** macOS R compilation toolchain setup wizard with a focus on making it more maintainable without an Apple developer subscription. The result is the new {macrtools} R package. You can learn more about it here:\n\nGitHub: https://github.com/coatless-mac/macrtools\nDocumentation: https://mac.thecoatlessprofessor.com/macrtools/\nVideo walkthrough: https://www.youtube.com/watch?v=_fckF0fefXQ\n\nThe package setups the required components for the macOS R compilation toolchain on both Intel-based and Arm-based macs with just the issuance in R of:\n\nmacrtools::macos_rtools_install()\n\nThis will attempt to install:\n\n  *   Xcode CLI\n  *   gfortran\n  *   R Development binaries\n\nWe?re grateful for the early testing feedback from both Bob Rudis and Adam H Sparks related to ARM-based macs and Simon Urbanek?s help with unpacking binaries as well as the install user prompt best practices note. (Note: This is not an endorsement from Simon or CRAN. This is an **unofficial** project to support macOS users who are not familiar with command-line tools.)\n\nWe hope this improves the experience in setting up the compilation toolchain and lowers the barrier of entry for using packages like RStan and RcppArmadillo.\n\nBest,\nJJB\n---\nJames J Balamuta, Ph.D.\nVisiting Assistant Professor\nDepartment of Statistics\nOffice of the CIO ? Innovation Scholar and Advisor\nUniversity of Illinois Urbana-Champaign\n\n\"The greatest value of a picture is when it forces us to notice what we never expected to see.\"\n~ John Tukey\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "All,\n\nHope all is well.\n\nAbout a month or so back, we revisited the **unofficial** macOS R compilation toolchain setup wizard with a focus on making it more maintainable without an Apple developer sub",
+      "thread_id": "thread-879b7a8adf94",
+      "thread_depth": 0,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-cc47fe7dcaee",
+      "message_id": "<CAJ=0CtAYTHAjxwfVZ2J0i0ZhFM5iS+MdQs_Y0zw2SL9XEswhNA@mail.gmail.com>",
+      "from_name": "Adrian Dușa",
+      "from_email_hash": "e33a2b333bf33e5a02ad875b1f10006293adb45d47f464e4612f6967fd8d8ce5",
+      "date": "2023-03-24T01:23:51-07:00",
+      "subject": "[R-SIG-Mac] New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "subject_clean": "New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "in_reply_to": "<DM6PR11MB4739D0464BA63FF6174CD7FCEB849@DM6PR11MB4739.namprd11.prod.outlook.com>",
+      "references": [
+        "<DM6PR11MB4739D0464BA63FF6174CD7FCEB849@DM6PR11MB4739.namprd11.prod.outlook.com>"
+      ],
+      "body_plain": "Just went through the commands, on a new MacBook Pro with M2 Max, MacOS\nVentura 13.2.1\nI already had Xcode CLI installed, and the gfortran installation went well\nuntil it stopped at the icu binary:\n\nDownloading binary:\nhttps://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz\n...\ntrying URL '\nhttps://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz\n'\nContent type 'application/octet-stream' length 11923364 bytes (11.4 MB)\n=====================\ndownloaded 4.9 MB\n\nError in utils::download.file(url, save_location, quiet = !verbose) :\n  download from '\nhttps://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz'\nfailed\nIn addition: Warning messages:\n1: In utils::download.file(url, save_location, quiet = !verbose) :\n  downloaded length 5095370 != reported length 11923364\n2: In utils::download.file(url, save_location, quiet = !verbose) :\n  URL '\nhttps://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz':\nTimeout of 60 seconds was reached\n\nNot sure if it helps, but still reporting.\n\nBest wishes,\nAdrian\n\nOn 24 Mar 2023 at 10:04:25, \"Balamuta, James Joseph\" <balamut2 at illinois.edu>\nwrote:\n\n> All,\n>\n> Hope all is well.\n>\n> About a month or so back, we revisited the **unofficial** macOS R\n> compilation toolchain setup wizard with a focus on making it more\n> maintainable without an Apple developer subscription. The result is the new\n> {macrtools} R package. You can learn more about it here:\n>\n> GitHub: https://github.com/coatless-mac/macrtools\n> Documentation: https://mac.thecoatlessprofessor.com/macrtools/\n> Video walkthrough: https://www.youtube.com/watch?v=_fckF0fefXQ\n>\n> The package setups the required components for the macOS R compilation\n> toolchain on both Intel-based and Arm-based macs with just the issuance in\n> R of:\n>\n> macrtools::macos_rtools_install()\n>\n> This will attempt to install:\n>\n>  *   Xcode CLI\n>  *   gfortran\n>  *   R Development binaries\n>\n> We?re grateful for the early testing feedback from both Bob Rudis and Adam\n> H Sparks related to ARM-based macs and Simon Urbanek?s help with unpacking\n> binaries as well as the install user prompt best practices note. (Note:\n> This is not an endorsement from Simon or CRAN. This is an **unofficial**\n> project to support macOS users who are not familiar with command-line\n> tools.)\n>\n> We hope this improves the experience in setting up the compilation\n> toolchain and lowers the barrier of entry for using packages like RStan and\n> RcppArmadillo.\n>\n> Best,\n> JJB\n> ---\n> James J Balamuta, Ph.D.\n> Visiting Assistant Professor\n> Department of Statistics\n> Office of the CIO ? Innovation Scholar and Advisor\n> University of Illinois Urbana-Champaign\n>\n> \"The greatest value of a picture is when it forces us to notice what we\n> never expected to see.\"\n> ~ John Tukey\n>\n>\n> [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nAdrian Dusa\nUniversity of Bucharest\nRomanian Social Data Archive\nSoseaua Panduri nr. 90-92\n050663 Bucharest sector 5\nRomania\nhttps://adriandusa.eu\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Just went through the commands, on a new MacBook Pro with M2 Max, MacOS\nVentura 13.2.1\nI already had Xcode CLI installed, and the gfortran installation went well\nuntil it stopped at the icu binary:\n\nD",
+      "thread_id": "thread-879b7a8adf94",
+      "thread_depth": 1,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-e0c44a95d3f7",
+      "message_id": "<DM6PR11MB4739020537191020A9F1BA60EB849@DM6PR11MB4739.namprd11.prod.outlook.com>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2023-03-24T08:37:19Z",
+      "subject": "[R-SIG-Mac] New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "subject_clean": "New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "in_reply_to": "<CAJ=0CtAYTHAjxwfVZ2J0i0ZhFM5iS+MdQs_Y0zw2SL9XEswhNA@mail.gmail.com>",
+      "references": [
+        "<DM6PR11MB4739D0464BA63FF6174CD7FCEB849@DM6PR11MB4739.namprd11.prod.outlook.com>",
+        "<CAJ=0CtAYTHAjxwfVZ2J0i0ZhFM5iS+MdQs_Y0zw2SL9XEswhNA@mail.gmail.com>"
+      ],
+      "body_plain": "Adrian,\n\nThanks! Unfortunately, this is a hiccup with the download portion of the R Developer binaries [1] from the {recipes} system on CRAN [2]. It looks like the system might have been in mid-update or we overloaded it with download requests. Ewk! I?ll try to see if we can meter the requests with a .1 second delay or so.\n\nIf you re-run in a few moments the installation command:\n\nmacrtools::macos_rtools_install()\n\nOnly the development binaries from the {recipes} system will be installed. (Xcode CLI and gfortran will be skipped as they are now both installed and configured.) These binaries are mainly if you want to compiled R from source.\n\nBest,\n\nJJB\n\n[1]: https://mac.r-project.org/bin/\n[2]: https://github.com/R-macos/recipes\n\nFrom: Adrian Du?a <dusa.adrian at unibuc.ro>\nDate: Friday, March 24, 2023 at 1:23 AM\nTo: Balamuta, James Joseph <balamut2 at illinois.edu>\nCc: r-sig-mac at r-project.org <r-sig-mac at r-project.org>\nSubject: Re: [R-SIG-Mac] New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs\nJust went through the commands, on a new MacBook Pro with M2 Max, MacOS Ventura 13.2.1\nI already had Xcode CLI installed, and the gfortran installation went well until it stopped at the icu binary:\n\nDownloading binary:  https://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz<https://urldefense.com/v3/__https:/mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgKYrgDfM$> ...\ntrying URL 'https://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz<https://urldefense.com/v3/__https:/mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgKYrgDfM$>'\nContent type 'application/octet-stream' length 11923364 bytes (11.4 MB)\n=====================\ndownloaded 4.9 MB\n\nError in utils::download.file(url, save_location, quiet = !verbose) :\n  download from 'https://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz<https://urldefense.com/v3/__https:/mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgKYrgDfM$>' failed\nIn addition: Warning messages:\n1: In utils::download.file(url, save_location, quiet = !verbose) :\n  downloaded length 5095370 != reported length 11923364\n2: In utils::download.file(url, save_location, quiet = !verbose) :\n  URL 'https://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz<https://urldefense.com/v3/__https:/mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgKYrgDfM$>': Timeout of 60 seconds was reached\n\nNot sure if it helps, but still reporting.\n\nBest wishes,\nAdrian\n\nOn 24 Mar 2023 at 10:04:25, \"Balamuta, James Joseph\" <balamut2 at illinois.edu<mailto:balamut2 at illinois.edu>> wrote:\nAll,\n\nHope all is well.\n\nAbout a month or so back, we revisited the **unofficial** macOS R compilation toolchain setup wizard with a focus on making it more maintainable without an Apple developer subscription. The result is the new {macrtools} R package. You can learn more about it here:\n\nGitHub: https://github.com/coatless-mac/macrtools<https://urldefense.com/v3/__https:/github.com/coatless-mac/macrtools__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgIYJRnkw$>\nDocumentation: https://mac.thecoatlessprofessor.com/macrtools/<https://urldefense.com/v3/__https:/mac.thecoatlessprofessor.com/macrtools/__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgEHZj8Q8$>\nVideo walkthrough: https://www.youtube.com/watch?v=_fckF0fefXQ<https://urldefense.com/v3/__https:/www.youtube.com/watch?v=_fckF0fefXQ__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgluEy5Rk$>\n\nThe package setups the required components for the macOS R compilation toolchain on both Intel-based and Arm-based macs with just the issuance in R of:\n\nmacrtools::macos_rtools_install()\n\nThis will attempt to install:\n\n *   Xcode CLI\n *   gfortran\n *   R Development binaries\n\nWe?re grateful for the early testing feedback from both Bob Rudis and Adam H Sparks related to ARM-based macs and Simon Urbanek?s help with unpacking binaries as well as the install user prompt best practices note. (Note: This is not an endorsement from Simon or CRAN. This is an **unofficial** project to support macOS users who are not familiar with command-line tools.)\n\nWe hope this improves the experience in setting up the compilation toolchain and lowers the barrier of entry for using packages like RStan and RcppArmadillo.\n\nBest,\nJJB\n---\nJames J Balamuta, Ph.D.\nVisiting Assistant Professor\nDepartment of Statistics\nOffice of the CIO ? Innovation Scholar and Advisor\nUniversity of Illinois Urbana-Champaign\n\n\"The greatest value of a picture is when it forces us to notice what we never expected to see.\"\n~ John Tukey\n\n\n[[alternative HTML version deleted]]\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mg_jUCVdk$>\n\n\n--\nAdrian Dusa\nUniversity of Bucharest\nRomanian Social Data Archive\nSoseaua Panduri nr. 90-92\n050663 Bucharest sector 5\nRomania\nhttps://adriandusa.eu<https://urldefense.com/v3/__https:/adriandusa.eu__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgjfu2SXk$>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Adrian,\n\nThanks! Unfortunately, this is a hiccup with the download portion of the R Developer binaries [1] from the {recipes} system on CRAN [2]. It looks like the system might have been in mid-update",
+      "thread_id": "thread-879b7a8adf94",
+      "thread_depth": 2,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-ab424485e77f",
+      "message_id": "<CAJ=0CtBYYJdc7wr65_Z6uLxgim2vdDQbyotFpv+689N2_UQqig@mail.gmail.com>",
+      "from_name": "Adrian Dușa",
+      "from_email_hash": "e33a2b333bf33e5a02ad875b1f10006293adb45d47f464e4612f6967fd8d8ce5",
+      "date": "2023-03-25T08:59:08-07:00",
+      "subject": "[R-SIG-Mac] New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "subject_clean": "New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "in_reply_to": "<DM6PR11MB4739020537191020A9F1BA60EB849@DM6PR11MB4739.namprd11.prod.outlook.com>",
+      "references": [
+        "<DM6PR11MB4739D0464BA63FF6174CD7FCEB849@DM6PR11MB4739.namprd11.prod.outlook.com>",
+        "<CAJ=0CtAYTHAjxwfVZ2J0i0ZhFM5iS+MdQs_Y0zw2SL9XEswhNA@mail.gmail.com>",
+        "<DM6PR11MB4739020537191020A9F1BA60EB849@DM6PR11MB4739.namprd11.prod.outlook.com>"
+      ],
+      "body_plain": "Congratulations!\nXcode CLI, Gfortran, and R developer binaries have been installed\nsuccessfully.\n\nI suppose everything is now alright.\n\nBest,\nAdrian\n\nOn 24 Mar 2023 at 10:37:19, \"Balamuta, James Joseph\" <balamut2 at illinois.edu>\nwrote:\n\n> Adrian,\n>\n>\n>\n> Thanks! Unfortunately, this is a hiccup with the download portion of the R\n> Developer binaries [1] from the {recipes} system on CRAN [2]. It looks like\n> the system might have been in mid-update or we overloaded it with download\n> requests. Ewk! I?ll try to see if we can meter the requests with a .1\n> second delay or so.\n>\n>\n>\n> If you re-run in a few moments the installation command:\n>\n>\n>\n> macrtools::macos_rtools_install()\n>\n>\n>\n> Only the development binaries from the {recipes} system will be installed.\n> (Xcode CLI and gfortran will be skipped as they are now both installed and\n> configured.) These binaries are mainly if you want to compiled R from\n> source.\n>\n>\n>\n> Best,\n>\n>\n>\n> JJB\n>\n>\n>\n> [1]: https://mac.r-project.org/bin/\n>\n> [2]: https://github.com/R-macos/recipes\n>\n>\n>\n> *From: *Adrian Du?a <dusa.adrian at unibuc.ro>\n> *Date: *Friday, March 24, 2023 at 1:23 AM\n> *To: *Balamuta, James Joseph <balamut2 at illinois.edu>\n> *Cc: *r-sig-mac at r-project.org <r-sig-mac at r-project.org>\n> *Subject: *Re: [R-SIG-Mac] New {macrtools} package to help setup compiled\n> code environments on Intel and ARM-based macs\n>\n> Just went through the commands, on a new MacBook Pro with M2 Max, MacOS\n> Ventura 13.2.1\n>\n> I already had Xcode CLI installed, and the gfortran installation went well\n> until it stopped at the icu binary:\n>\n>\n>\n> Downloading binary:\n> https://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz\n> <https://urldefense.com/v3/__https:/mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgKYrgDfM$>\n> ...\n>\n> trying URL '\n> https://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz\n> <https://urldefense.com/v3/__https:/mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgKYrgDfM$>\n> '\n>\n> Content type 'application/octet-stream' length 11923364 bytes (11.4 MB)\n>\n> =====================\n>\n> downloaded 4.9 MB\n>\n>\n>\n> Error in utils::download.file(url, save_location, quiet = !verbose) :\n>\n>   download from '\n> https://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz\n> <https://urldefense.com/v3/__https:/mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgKYrgDfM$>'\n> failed\n>\n> In addition: Warning messages:\n>\n> 1: In utils::download.file(url, save_location, quiet = !verbose) :\n>\n>   downloaded length 5095370 != reported length 11923364\n>\n> 2: In utils::download.file(url, save_location, quiet = !verbose) :\n>\n>   URL '\n> https://mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz\n> <https://urldefense.com/v3/__https:/mac.R-project.org/bin/darwin20/arm64/icu-71.1-darwin.20-arm64.tar.xz__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgKYrgDfM$>':\n> Timeout of 60 seconds was reached\n>\n>\n>\n> Not sure if it helps, but still reporting.\n>\n>\n>\n> Best wishes,\n>\n> Adrian\n>\n>\n>\n> On 24 Mar 2023 at 10:04:25, \"Balamuta, James Joseph\" <\n> balamut2 at illinois.edu> wrote:\n>\n> All,\n>\n> Hope all is well.\n>\n> About a month or so back, we revisited the **unofficial** macOS R\n> compilation toolchain setup wizard with a focus on making it more\n> maintainable without an Apple developer subscription. The result is the new\n> {macrtools} R package. You can learn more about it here:\n>\n> GitHub: https://github.com/coatless-mac/macrtools\n> <https://urldefense.com/v3/__https:/github.com/coatless-mac/macrtools__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgIYJRnkw$>\n> Documentation: https://mac.thecoatlessprofessor.com/macrtools/\n> <https://urldefense.com/v3/__https:/mac.thecoatlessprofessor.com/macrtools/__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgEHZj8Q8$>\n> Video walkthrough: https://www.youtube.com/watch?v=_fckF0fefXQ\n> <https://urldefense.com/v3/__https:/www.youtube.com/watch?v=_fckF0fefXQ__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgluEy5Rk$>\n>\n> The package setups the required components for the macOS R compilation\n> toolchain on both Intel-based and Arm-based macs with just the issuance in\n> R of:\n>\n> macrtools::macos_rtools_install()\n>\n> This will attempt to install:\n>\n>  *   Xcode CLI\n>  *   gfortran\n>  *   R Development binaries\n>\n> We?re grateful for the early testing feedback from both Bob Rudis and Adam\n> H Sparks related to ARM-based macs and Simon Urbanek?s help with unpacking\n> binaries as well as the install user prompt best practices note. (Note:\n> This is not an endorsement from Simon or CRAN. This is an **unofficial**\n> project to support macOS users who are not familiar with command-line\n> tools.)\n>\n> We hope this improves the experience in setting up the compilation\n> toolchain and lowers the barrier of entry for using packages like RStan and\n> RcppArmadillo.\n>\n> Best,\n> JJB\n> ---\n> James J Balamuta, Ph.D.\n> Visiting Assistant Professor\n> Department of Statistics\n> Office of the CIO ? Innovation Scholar and Advisor\n> University of Illinois Urbana-Champaign\n>\n> \"The greatest value of a picture is when it forces us to notice what we\n> never expected to see.\"\n> ~ John Tukey\n>\n>\n> [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> <https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mg_jUCVdk$>\n>\n>\n>\n>\n> --\n>\n> Adrian Dusa\n> University of Bucharest\n> Romanian Social Data Archive\n> Soseaua Panduri nr. 90-92\n> 050663 Bucharest sector 5\n> Romania\n>\n> https://adriandusa.eu\n> <https://urldefense.com/v3/__https:/adriandusa.eu__;!!DZ3fjg!9LMgelsxLau-BxmqYfTzEgA5QxjuoqHFp02eITeYGSW7nC7z5UaC3sVUyHrNEViohimWHrssIYGDOTdLx7mgjfu2SXk$>\n>\n\n\n-- \nAdrian Dusa\nUniversity of Bucharest\nRomanian Social Data Archive\nSoseaua Panduri nr. 90-92\n050663 Bucharest sector 5\nRomania\nhttps://adriandusa.eu\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Congratulations!\nXcode CLI, Gfortran, and R developer binaries have been installed\nsuccessfully.\n\nI suppose everything is now alright.\n\nBest,\nAdrian\n\nOn 24 Mar 2023 at 10:37:19, \"Balamuta, James Josep",
+      "thread_id": "thread-879b7a8adf94",
+      "thread_depth": 3,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-30de944c57af",
+      "message_id": "<CAJM+MTcWFJkzr54Ct6Jn5K1FT7V80RhPSZjR4ZK0-+na2DDzAQ@mail.gmail.com>",
+      "from_name": "Nicolas Conrad",
+      "from_email_hash": "a4363921602a470e0fc668e778584d1138ba811e41898580929e7f415bdf837e",
+      "date": "2023-03-26T16:18:26-07:00",
+      "subject": "[R-SIG-Mac] R installation error",
+      "subject_clean": "R installation error",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI am trying to install R on my Mac (Intel chip) and I keep getting this\nerror message:\n\nThe install failed. (The Installer encountered an error that caused the\ninstallation to fail. Contact the software manufacturer for assistance. An\nunexpected error occurred while moving files to the final destination.)\n\n\nI was wondering if you knew anything I could try to fix this error.\n\n\nThanks,\n\nNicolas\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello,\n\nI am trying to install R on my Mac (Intel chip) and I keep getting this\nerror message:\n\nThe install failed. (The Installer encountered an error that caused the\ninstallation to fail. Contact th",
+      "thread_id": "thread-30de944c57af",
+      "thread_depth": 0,
+      "month": "2023-03"
+    },
+    {
+      "id": "msg-cc5c504f448a",
+      "message_id": "<8AB75B3B-7EC0-4B58-925E-38645348511A@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2023-03-27T20:11:50+13:00",
+      "subject": "[R-SIG-Mac] R installation error",
+      "subject_clean": "R installation error",
+      "in_reply_to": "<CAJM+MTcWFJkzr54Ct6Jn5K1FT7V80RhPSZjR4ZK0-+na2DDzAQ@mail.gmail.com>",
+      "references": [
+        "<CAJM+MTcWFJkzr54Ct6Jn5K1FT7V80RhPSZjR4ZK0-+na2DDzAQ@mail.gmail.com>"
+      ],
+      "body_plain": "Nicolas,\n\nwe can't tell unless you post the error log and you didn't even tell us your macOS version, but in recent versions security settings prevent the installation from the Downloads folder, so make sure you move it away from there to some safe location (home, Desktop or /tmp). Otherwise, supply details and post the log.\n\nCheers,\nSimon\n \n\n> \n> On Mar 27, 2023, at 12:18 PM, Nicolas Conrad via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hello,\n> \n> I am trying to install R on my Mac (Intel chip) and I keep getting this\n> error message:\n> \n> The install failed. (The Installer encountered an error that caused the\n> installation to fail. Contact the software manufacturer for assistance. An\n> unexpected error occurred while moving files to the final destination.)\n> \n> \n> I was wondering if you knew anything I could try to fix this error.\n> \n> \n> Thanks,\n> \n> Nicolas\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Nicolas,\n\nwe can't tell unless you post the error log and you didn't even tell us your macOS version, but in recent versions security settings prevent the installation from the Downloads folder, so ma",
+      "thread_id": "thread-30de944c57af",
+      "thread_depth": 1,
+      "month": "2023-03"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-ac721a3b2c11",
+      "subject": "R , RCPP unsing MACOS ventura",
+      "message_count": 4,
+      "participants": [
+        "Andrea Apolloni",
+        "Simon Urbanek"
+      ],
+      "started": "2023-03-13T19:26:07+01:00",
+      "last_reply": "2023-03-15T17:48:21+01:00",
+      "root_message_id": "msg-ac721a3b2c11"
+    },
+    {
+      "id": "thread-8d770558be3f",
+      "subject": "R , RCPP unsing MACOS ventura",
+      "message_count": 8,
+      "participants": [
+        "Calboli Federico (LUKE)",
+        "Michael Hall",
+        "Simon Urbanek"
+      ],
+      "started": "2023-03-14T06:52:08-05:00",
+      "last_reply": "2023-03-14T16:46:10-05:00",
+      "root_message_id": "msg-8d770558be3f"
+    },
+    {
+      "id": "thread-49e9f931d7e9",
+      "subject": "R , RCPP unsing MACOS ventura",
+      "message_count": 4,
+      "participants": [
+        "Calboli Federico (LUKE)",
+        "Michael Hall",
+        "Simon Urbanek"
+      ],
+      "started": "2023-03-14T12:01:32-05:00",
+      "last_reply": "2023-03-14T21:05:45+00:00",
+      "root_message_id": "msg-49e9f931d7e9"
+    },
+    {
+      "id": "thread-8cc2374358ff",
+      "subject": "Help on reducing size of shared libraries on MacOS on CRAN",
+      "message_count": 4,
+      "participants": [
+        "Gilberto Camara",
+        "Ken Beath",
+        "Simon Urbanek"
+      ],
+      "started": "2023-03-18T15:02:08-03:00",
+      "last_reply": "2023-03-19T12:10:25+11:00",
+      "root_message_id": "msg-8cc2374358ff"
+    },
+    {
+      "id": "thread-879b7a8adf94",
+      "subject": "New {macrtools} package to help setup compiled code environments on Intel and ARM-based macs",
+      "message_count": 4,
+      "participants": [
+        "Adrian Dușa",
+        "Balamuta, James Joseph"
+      ],
+      "started": "2023-03-24T08:04:25+00:00",
+      "last_reply": "2023-03-25T08:59:08-07:00",
+      "root_message_id": "msg-879b7a8adf94"
+    },
+    {
+      "id": "thread-30de944c57af",
+      "subject": "R installation error",
+      "message_count": 2,
+      "participants": [
+        "Nicolas Conrad",
+        "Simon Urbanek"
+      ],
+      "started": "2023-03-26T16:18:26-07:00",
+      "last_reply": "2023-03-27T20:11:50+13:00",
+      "root_message_id": "msg-30de944c57af"
+    }
+  ]
+}

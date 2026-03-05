@@ -1,0 +1,804 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2016-05",
+  "messages": [
+    {
+      "id": "msg-a086a503d116",
+      "message_id": "<6DDA89CF-4B13-4CBE-B12C-3EB1C4458328@ckblack.org>",
+      "from_name": "Chris Black",
+      "from_email_hash": "4743fc51472a1dc54e879a4f3b31f05cc9fca2b2eeb1bc99c2df644d4c374faf",
+      "date": "2016-05-05T13:43:38-05:00",
+      "subject": "[R-SIG-Mac] Intermittent plotting failures on new Quartz window",
+      "subject_clean": "Intermittent plotting failures on new Quartz window",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi, all. I?m getting some puzzling, intermittent plot failures that seem to occur only when I?m in an interactive session, arranging plots with very different drawing speeds, and only when Quartz needs to open a new window before plotting. \n\nI posted a longer version of this at https://gist.github.com/infotroph/c68fc7a3f8594473361f87e2a348ddf9, but here?s a minimal example:\n\nset.seed(34565)\nlibrary(ggplot2)\nlibrary(gridExtra)\nlibrary(grid)\n\np1 = ggplot(diamonds, aes(x, price))+geom_point() \np2 = ggplot(mtcars, aes(wt, mpg))+geom_point()\n\ngraphics.off()\npp=arrangeGrob(p1, p2)\ngrid.draw(pp)\n\nExpected result: New graphics window containing a two-panel plot with diamonds on the top and cars on the bottom.\nObserved result: Usually (~80% of the time?), a new graphics window with the top panel incompletely drawn (usually just axes with no points or panel grid), and the bottom panel as expected. Rarely (~20%?), the complete plot as expected. \n\nI can modulate the success rate somewhat by putting different lengths of Sys.sleep() in between the arrangeGrob and grid.draw calls, and I can guarantee success by calling dev.new() before arrangeGrob. See the above-linked Gist for details and for session info from a few other folks ? thus far only the Quartz users can reproduce it, hence my starting with this list. \n\nSession info:\n\nR for 3.2.4 GUI 1.67 Mavericks build (7152)\nR version 3.2.4 (2016-03-10)\nPlatform: x86_64-apple-darwin13.4.0 (64-bit)\nRunning under: OS X 10.11.3 (El Capitan)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] grid      stats     graphics  grDevices utils     datasets  methods  \n[8] base     \n\nother attached packages:\n[1] gridExtra_2.2.1 ggplot2_2.1.0  \n\nloaded via a namespace (and not attached):\n[1] labeling_0.3     colorspace_1.2-6 scales_0.4.0     plyr_1.8.3      \n[5] tools_3.2.4      gtable_0.2.0     Rcpp_0.12.4      munsell_0.4.3",
+      "body_snippet": "Hi, all. I?m getting some puzzling, intermittent plot failures that seem to occur only when I?m in an interactive session, arranging plots with very different drawing speeds, and only when Quartz need",
+      "thread_id": "thread-a086a503d116",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-14747b0b010d",
+      "message_id": "<FCE03872-D0EB-46C7-81F1-8C7E641BD5B6@gmail.com>",
+      "from_name": "Charles DiMaggio",
+      "from_email_hash": "1281fe8aab57a2a185275e4b54ee169100ca5a0b7c531c9519f82ff2721b49b8",
+      "date": "2016-05-05T18:16:17-04:00",
+      "subject": "[R-SIG-Mac] R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "subject_clean": "R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Been a while, but wanted to close the page on a previous post describing R hanging on readRDS() and load() for largish (say 500MB or larger) files. Tried again with recent release (3.3.0).  Am able to read in large files under El Cap.  While the file is reading in, I get a disconcerting spinning pinwheel of death and a check under Force Quit reports R is not responding.  But if I wait it out, it eventually reads in.  Odd.  But I can live with it.\n\nCheers\n\nCharles\n\n\n\n\n\n\nCharles DiMaggio, PhD, MPH\nProfessor of Surgery and Population Health\nDirector of Injury Research\nDepartment of Surgery\nNew York University School of Medicine\n462 First Avenue, NBV 15\nNew York, NY 10016-9196\nCharles.Dimaggio at nyumc.org\nOffice: 212.263.3202\nMobile: 516.308.6426 \n\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Been a while, but wanted to close the page on a previous post describing R hanging on readRDS() and load() for largish (say 500MB or larger) files. Tried again with recent release (3.3.0).  Am able to",
+      "thread_id": "thread-14747b0b010d",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-d703c0763803",
+      "message_id": "<CAG2OMvtj9S=LmwEsus1-gfZqRcwBvKdeZhZbm11-=NY+=oGQ_A@mail.gmail.com>",
+      "from_name": "Brandon Hurr",
+      "from_email_hash": "07b11f2be5f0cfa7ad22b7f575e38fba30509e5949ec628b2289c829b60f4491",
+      "date": "2016-05-05T15:49:41-07:00",
+      "subject": "[R-SIG-Mac] R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "subject_clean": "R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "in_reply_to": "<FCE03872-D0EB-46C7-81F1-8C7E641BD5B6@gmail.com>",
+      "references": [
+        "<FCE03872-D0EB-46C7-81F1-8C7E641BD5B6@gmail.com>"
+      ],
+      "body_plain": "You might be interested in the speed wars that are happening in the\nfile reading/writing space currently.\n\nMatt Dowle/Arun Srinivasan's data.table and Hadley Wickham/Wes\nMcKinney's Feather have made huge speed advances in reading/writing\nlarge datasets from disks (mostly csv).\n\nData Table fread()/fwrite():\nhttps://github.com/Rdatatable/data.table\nhttps://stackoverflow.com/questions/35763574/fastest-way-to-read-in-100-000-dat-gz-files\nhttp://blog.h2o.ai/2016/04/fast-csv-writing-for-r/\n\n\nFeather read_feather()/write_feather()\nhttps://github.com/wesm/feather\n\nI don't often have big datasets (10s of MBs) so I don't see the\nbenefits of these much, but you might.\n\nHTH,\nB\n\nOn Thu, May 5, 2016 at 3:16 PM, Charles DiMaggio\n<charles.dimaggio at gmail.com> wrote:\n> Been a while, but wanted to close the page on a previous post describing R hanging on readRDS() and load() for largish (say 500MB or larger) files. Tried again with recent release (3.3.0).  Am able to read in large files under El Cap.  While the file is reading in, I get a disconcerting spinning pinwheel of death and a check under Force Quit reports R is not responding.  But if I wait it out, it eventually reads in.  Odd.  But I can live with it.\n>\n> Cheers\n>\n> Charles\n>\n>\n>\n>\n>\n>\n> Charles DiMaggio, PhD, MPH\n> Professor of Surgery and Population Health\n> Director of Injury Research\n> Department of Surgery\n> New York University School of Medicine\n> 462 First Avenue, NBV 15\n> New York, NY 10016-9196\n> Charles.Dimaggio at nyumc.org\n> Office: 212.263.3202\n> Mobile: 516.308.6426\n>\n>\n>\n>\n>\n>\n>         [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "You might be interested in the speed wars that are happening in the\nfile reading/writing space currently.\n\nMatt Dowle/Arun Srinivasan's data.table and Hadley Wickham/Wes\nMcKinney's Feather have made h",
+      "thread_id": "thread-14747b0b010d",
+      "thread_depth": 1,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-6b4778caa509",
+      "message_id": "<f662b753a05d433383e95a4ba1f4bf49@witthoft.com>",
+      "from_name": "cgw at witthoft.com",
+      "from_email_hash": "46059b0be5760bc07259f96f443adddcd097b886e9ed809445e75f4116431a78",
+      "date": "2016-05-06T11:30:52Z",
+      "subject": "[R-SIG-Mac] Hangs Reading Large Files",
+      "subject_clean": "Hangs Reading Large Files",
+      "in_reply_to": "<mailman.17.1462528803.4394.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.17.1462528803.4394.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "When an executable is performing a processor-intensive task without any\n\"hooks\" for interrupts,  the \"not responding\"  status is normal, as is\nthe pinwheel -- which is doing what it's supposed to; it's just that\nnone of us like it when it spins for too long. \n\nMessage: 2\nDate: Thu, 5 May 2016 18:16:17 -0400\nFrom: Charles DiMaggio <charles.dimaggio at gmail.com>\nTo: r-sig-mac at r-project.org\nSubject: [R-SIG-Mac] R 3.2.2 Hangs Reading Files in El Capitan\n    [Solved]\nMessage-ID: <FCE03872-D0EB-46C7-81F1-8C7E641BD5B6 at gmail.com>\nContent-Type: text/plain; charset=\"UTF-8\"\n\nBeen a while, but wanted to close the page on a previous post describing\nR hanging on readRDS() and load() for largish (say 500MB or larger)\nfiles. Tried again with recent release (3.3.0).  Am able to read in\nlarge files under El Cap.  While the file is reading in, I get a\ndisconcerting spinning pinwheel of death and a check under Force Quit\nreports R is not responding.  But if I wait it out, it eventually reads\nin.  Odd.  But I can live with it.\n\nCheers\n\nCharles\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "When an executable is performing a processor-intensive task without any\n\"hooks\" for interrupts,  the \"not responding\"  status is normal, as is\nthe pinwheel -- which is doing what it's supposed to; it'",
+      "thread_id": "thread-6b4778caa509",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-a89fbf262ca8",
+      "message_id": "<80C1A71D-6C7D-44C3-B2CA-73CFE6A487A1@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-06T09:07:21-04:00",
+      "subject": "[R-SIG-Mac] R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "subject_clean": "R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "in_reply_to": "<CAG2OMvtj9S=LmwEsus1-gfZqRcwBvKdeZhZbm11-=NY+=oGQ_A@mail.gmail.com>",
+      "references": [
+        "<FCE03872-D0EB-46C7-81F1-8C7E641BD5B6@gmail.com>",
+        "<CAG2OMvtj9S=LmwEsus1-gfZqRcwBvKdeZhZbm11-=NY+=oGQ_A@mail.gmail.com>"
+      ],
+      "body_plain": "Brandon,\nnote that the post was about RDS which is more efficient than all the options you list (in particular when not compressed). General advice is to avoid strings. Numeric vectors are several orders of magnitude faster than strings to load/save.\nCheers,\nSimon\n\n\n> On May 5, 2016, at 6:49 PM, Brandon Hurr <bhive01 at gmail.com> wrote:\n> \n> You might be interested in the speed wars that are happening in the\n> file reading/writing space currently.\n> \n> Matt Dowle/Arun Srinivasan's data.table and Hadley Wickham/Wes\n> McKinney's Feather have made huge speed advances in reading/writing\n> large datasets from disks (mostly csv).\n> \n> Data Table fread()/fwrite():\n> https://github.com/Rdatatable/data.table\n> https://stackoverflow.com/questions/35763574/fastest-way-to-read-in-100-000-dat-gz-files\n> http://blog.h2o.ai/2016/04/fast-csv-writing-for-r/\n> \n> \n> Feather read_feather()/write_feather()\n> https://github.com/wesm/feather\n> \n> I don't often have big datasets (10s of MBs) so I don't see the\n> benefits of these much, but you might.\n> \n> HTH,\n> B\n> \n> On Thu, May 5, 2016 at 3:16 PM, Charles DiMaggio\n> <charles.dimaggio at gmail.com> wrote:\n>> Been a while, but wanted to close the page on a previous post describing R hanging on readRDS() and load() for largish (say 500MB or larger) files. Tried again with recent release (3.3.0).  Am able to read in large files under El Cap.  While the file is reading in, I get a disconcerting spinning pinwheel of death and a check under Force Quit reports R is not responding.  But if I wait it out, it eventually reads in.  Odd.  But I can live with it.\n>> \n>> Cheers\n>> \n>> Charles\n>> \n>> \n>> \n>> \n>> \n>> \n>> Charles DiMaggio, PhD, MPH\n>> Professor of Surgery and Population Health\n>> Director of Injury Research\n>> Department of Surgery\n>> New York University School of Medicine\n>> 462 First Avenue, NBV 15\n>> New York, NY 10016-9196\n>> Charles.Dimaggio at nyumc.org\n>> Office: 212.263.3202\n>> Mobile: 516.308.6426\n>> \n>> \n>> \n>> \n>> \n>> \n>>        [[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Brandon,\nnote that the post was about RDS which is more efficient than all the options you list (in particular when not compressed). General advice is to avoid strings. Numeric vectors are several ord",
+      "thread_id": "thread-14747b0b010d",
+      "thread_depth": 2,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-7050cfef9a65",
+      "message_id": "<CAG2OMvunw14Yu97P4=aDb6uftRjtjEqY7ZZO80B3V5jYeyNebQ@mail.gmail.com>",
+      "from_name": "Brandon Hurr",
+      "from_email_hash": "07b11f2be5f0cfa7ad22b7f575e38fba30509e5949ec628b2289c829b60f4491",
+      "date": "2016-05-06T15:03:46-07:00",
+      "subject": "[R-SIG-Mac] R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "subject_clean": "R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "in_reply_to": "<80C1A71D-6C7D-44C3-B2CA-73CFE6A487A1@r-project.org>",
+      "references": [
+        "<FCE03872-D0EB-46C7-81F1-8C7E641BD5B6@gmail.com>",
+        "<CAG2OMvtj9S=LmwEsus1-gfZqRcwBvKdeZhZbm11-=NY+=oGQ_A@mail.gmail.com>",
+        "<80C1A71D-6C7D-44C3-B2CA-73CFE6A487A1@r-project.org>"
+      ],
+      "body_plain": "Simon,\n\nAbsolutely was about RDS, but R is all about choices and the\nunderlying issue was time to read in data which fread and feather are\nquite fast at. I assume when you say efficient you are referring to\ndisk space?\n\nI put together a script to look at this further with and without\ncompression*. If speed is a priority over disk space then Feather and\ndata.table (CSV) are good options**. CSV is portable to any system and\nfeather can be used by python/Julia. RDS/RDA saves a lot of space and,\nbut are slower to write and read due to compression.\n\nI hope that's helpful to those thinking about their priorities for\nfile IO in R.\n\nBrandon\n\n* http://rpubs.com/bhive01/fileioinr\n**  writing a CSV with data.table is freaky fast if you can get OpenMP\nworking on your machine\nhttps://github.com/Rdatatable/data.table/issues/1692 Reading that same\nCSV is comparable to RDS.\n\n\nOn Fri, May 6, 2016 at 6:07 AM, Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n> Brandon,\n> note that the post was about RDS which is more efficient than all the options you list (in particular when not compressed). General advice is to avoid strings. Numeric vectors are several orders of magnitude faster than strings to load/save.\n> Cheers,\n> Simon\n>\n>\n>> On May 5, 2016, at 6:49 PM, Brandon Hurr <bhive01 at gmail.com> wrote:\n>>\n>> You might be interested in the speed wars that are happening in the\n>> file reading/writing space currently.\n>>\n>> Matt Dowle/Arun Srinivasan's data.table and Hadley Wickham/Wes\n>> McKinney's Feather have made huge speed advances in reading/writing\n>> large datasets from disks (mostly csv).\n>>\n>> Data Table fread()/fwrite():\n>> https://github.com/Rdatatable/data.table\n>> https://stackoverflow.com/questions/35763574/fastest-way-to-read-in-100-000-dat-gz-files\n>> http://blog.h2o.ai/2016/04/fast-csv-writing-for-r/\n>>\n>>\n>> Feather read_feather()/write_feather()\n>> https://github.com/wesm/feather\n>>\n>> I don't often have big datasets (10s of MBs) so I don't see the\n>> benefits of these much, but you might.\n>>\n>> HTH,\n>> B\n>>\n>> On Thu, May 5, 2016 at 3:16 PM, Charles DiMaggio\n>> <charles.dimaggio at gmail.com> wrote:\n>>> Been a while, but wanted to close the page on a previous post describing R hanging on readRDS() and load() for largish (say 500MB or larger) files. Tried again with recent release (3.3.0).  Am able to read in large files under El Cap.  While the file is reading in, I get a disconcerting spinning pinwheel of death and a check under Force Quit reports R is not responding.  But if I wait it out, it eventually reads in.  Odd.  But I can live with it.\n>>>\n>>> Cheers\n>>>\n>>> Charles\n>>>\n>>>\n>>>\n>>>\n>>>\n>>>\n>>> Charles DiMaggio, PhD, MPH\n>>> Professor of Surgery and Population Health\n>>> Director of Injury Research\n>>> Department of Surgery\n>>> New York University School of Medicine\n>>> 462 First Avenue, NBV 15\n>>> New York, NY 10016-9196\n>>> Charles.Dimaggio at nyumc.org\n>>> Office: 212.263.3202\n>>> Mobile: 516.308.6426\n>>>\n>>>\n>>>\n>>>\n>>>\n>>>\n>>>        [[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>",
+      "body_snippet": "Simon,\n\nAbsolutely was about RDS, but R is all about choices and the\nunderlying issue was time to read in data which fread and feather are\nquite fast at. I assume when you say efficient you are referr",
+      "thread_id": "thread-14747b0b010d",
+      "thread_depth": 3,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-f62313f7a083",
+      "message_id": "<CF7229DA-C268-4C68-A82A-85A04B3550C0@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-06T21:01:47-04:00",
+      "subject": "[R-SIG-Mac] R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "subject_clean": "R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "in_reply_to": "<CAG2OMvunw14Yu97P4=aDb6uftRjtjEqY7ZZO80B3V5jYeyNebQ@mail.gmail.com>",
+      "references": [
+        "<FCE03872-D0EB-46C7-81F1-8C7E641BD5B6@gmail.com>",
+        "<CAG2OMvtj9S=LmwEsus1-gfZqRcwBvKdeZhZbm11-=NY+=oGQ_A@mail.gmail.com>",
+        "<80C1A71D-6C7D-44C3-B2CA-73CFE6A487A1@r-project.org>",
+        "<CAG2OMvunw14Yu97P4=aDb6uftRjtjEqY7ZZO80B3V5jYeyNebQ@mail.gmail.com>"
+      ],
+      "body_plain": "On May 6, 2016, at 6:03 PM, Brandon Hurr <bhive01 at gmail.com> wrote:\n\n> Simon,\n> \n> Absolutely was about RDS, but R is all about choices and the\n> underlying issue was time to read in data which fread and feather are\n> quite fast at. I assume when you say efficient you are referring to\n> disk space?\n> \n\nNo, parsing data is always slower than native formats. Really fastest is readBin (and similar direct I/O approaches), followed by feather and RDS (the only reason RDS is not the fastest is that there is an extra copy in-memory) -- unless you have slow disk, of course.\n\n\n> I put together a script to look at this further with and without\n> compression*. If speed is a priority over disk space then Feather and\n> data.table (CSV) are good options**. CSV is portable to any system and\n> feather can be used by python/Julia. RDS/RDA saves a lot of space and,\n> but are slower to write and read due to compression.\n> \n\nThat's why I said uncompressed RDS [compress=FALSE] - you compress only if you want to save space, not speed :).\n\nFWIW according to our benchmarks iotools is the fastest for reading CSV if you want to get into that arena, but that's whole another story - my point was that the question was NOT about CSV or anything parsed - and neither about writing - which is why this is getting really OT.\n\nCheers,\nSimon\n\n\n\n> I hope that's helpful to those thinking about their priorities for\n> file IO in R.\n> \n> Brandon\n> \n> * http://rpubs.com/bhive01/fileioinr\n> **  writing a CSV with data.table is freaky fast if you can get OpenMP\n> working on your machine\n> https://github.com/Rdatatable/data.table/issues/1692 Reading that same\n> CSV is comparable to RDS.\n> \n> \n> On Fri, May 6, 2016 at 6:07 AM, Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n>> Brandon,\n>> note that the post was about RDS which is more efficient than all the options you list (in particular when not compressed). General advice is to avoid strings. Numeric vectors are several orders of magnitude faster than strings to load/save.\n>> Cheers,\n>> Simon\n>> \n>> \n>>> On May 5, 2016, at 6:49 PM, Brandon Hurr <bhive01 at gmail.com> wrote:\n>>> \n>>> You might be interested in the speed wars that are happening in the\n>>> file reading/writing space currently.\n>>> \n>>> Matt Dowle/Arun Srinivasan's data.table and Hadley Wickham/Wes\n>>> McKinney's Feather have made huge speed advances in reading/writing\n>>> large datasets from disks (mostly csv).\n>>> \n>>> Data Table fread()/fwrite():\n>>> https://github.com/Rdatatable/data.table\n>>> https://stackoverflow.com/questions/35763574/fastest-way-to-read-in-100-000-dat-gz-files\n>>> http://blog.h2o.ai/2016/04/fast-csv-writing-for-r/\n>>> \n>>> \n>>> Feather read_feather()/write_feather()\n>>> https://github.com/wesm/feather\n>>> \n>>> I don't often have big datasets (10s of MBs) so I don't see the\n>>> benefits of these much, but you might.\n>>> \n>>> HTH,\n>>> B\n>>> \n>>> On Thu, May 5, 2016 at 3:16 PM, Charles DiMaggio\n>>> <charles.dimaggio at gmail.com> wrote:\n>>>> Been a while, but wanted to close the page on a previous post describing R hanging on readRDS() and load() for largish (say 500MB or larger) files. Tried again with recent release (3.3.0).  Am able to read in large files under El Cap.  While the file is reading in, I get a disconcerting spinning pinwheel of death and a check under Force Quit reports R is not responding.  But if I wait it out, it eventually reads in.  Odd.  But I can live with it.\n>>>> \n>>>> Cheers\n>>>> \n>>>> Charles\n>>>> \n>>>> \n>>>> \n>>>> \n>>>> \n>>>> \n>>>> Charles DiMaggio, PhD, MPH\n>>>> Professor of Surgery and Population Health\n>>>> Director of Injury Research\n>>>> Department of Surgery\n>>>> New York University School of Medicine\n>>>> 462 First Avenue, NBV 15\n>>>> New York, NY 10016-9196\n>>>> Charles.Dimaggio at nyumc.org\n>>>> Office: 212.263.3202\n>>>> Mobile: 516.308.6426\n>>>> \n>>>> \n>>>> \n>>>> \n>>>> \n>>>> \n>>>>       [[alternative HTML version deleted]]\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>",
+      "body_snippet": "On May 6, 2016, at 6:03 PM, Brandon Hurr <bhive01 at gmail.com> wrote:\n\n> Simon,\n> \n> Absolutely was about RDS, but R is all about choices and the\n> underlying issue was time to read in data which fre",
+      "thread_id": "thread-14747b0b010d",
+      "thread_depth": 4,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-c5278520a73e",
+      "message_id": "<AA53AC4F-5C25-48A9-A730-AA806BBC5525@gmail.com>",
+      "from_name": "Charles DiMaggio",
+      "from_email_hash": "1281fe8aab57a2a185275e4b54ee169100ca5a0b7c531c9519f82ff2721b49b8",
+      "date": "2016-05-07T09:59:16-04:00",
+      "subject": "[R-SIG-Mac] R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "subject_clean": "R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "in_reply_to": "<CF7229DA-C268-4C68-A82A-85A04B3550C0@r-project.org>",
+      "references": [
+        "<FCE03872-D0EB-46C7-81F1-8C7E641BD5B6@gmail.com>",
+        "<CAG2OMvtj9S=LmwEsus1-gfZqRcwBvKdeZhZbm11-=NY+=oGQ_A@mail.gmail.com>",
+        "<80C1A71D-6C7D-44C3-B2CA-73CFE6A487A1@r-project.org>",
+        "<CAG2OMvunw14Yu97P4=aDb6uftRjtjEqY7ZZO80B3V5jYeyNebQ@mail.gmail.com>",
+        "<CF7229DA-C268-4C68-A82A-85A04B3550C0@r-project.org>"
+      ],
+      "body_plain": "Glad the post elicited some discussion.  Haven?t played with feather.  I?ve used data.table and it is indeed appreciably faster than base approaches for getting big csv?s into R.  I also find dplyr (with say MonetDB) to be a solution for out-of-memory approaches to large data sets. But, for native R files, I?ve found RDS to be fastest.  \n\n\nCheers\n\nCharles\n\n\n\n\n\n\nOn May 6, 2016, at 9:01 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n\n> \n> On May 6, 2016, at 6:03 PM, Brandon Hurr <bhive01 at gmail.com> wrote:\n> \n>> Simon,\n>> \n>> Absolutely was about RDS, but R is all about choices and the\n>> underlying issue was time to read in data which fread and feather are\n>> quite fast at. I assume when you say efficient you are referring to\n>> disk space?\n>> \n> \n> No, parsing data is always slower than native formats. Really fastest is readBin (and similar direct I/O approaches), followed by feather and RDS (the only reason RDS is not the fastest is that there is an extra copy in-memory) -- unless you have slow disk, of course.\n> \n> \n>> I put together a script to look at this further with and without\n>> compression*. If speed is a priority over disk space then Feather and\n>> data.table (CSV) are good options**. CSV is portable to any system and\n>> feather can be used by python/Julia. RDS/RDA saves a lot of space and,\n>> but are slower to write and read due to compression.\n>> \n> \n> That's why I said uncompressed RDS [compress=FALSE] - you compress only if you want to save space, not speed :).\n> \n> FWIW according to our benchmarks iotools is the fastest for reading CSV if you want to get into that arena, but that's whole another story - my point was that the question was NOT about CSV or anything parsed - and neither about writing - which is why this is getting really OT.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> I hope that's helpful to those thinking about their priorities for\n>> file IO in R.\n>> \n>> Brandon\n>> \n>> * http://rpubs.com/bhive01/fileioinr\n>> **  writing a CSV with data.table is freaky fast if you can get OpenMP\n>> working on your machine\n>> https://github.com/Rdatatable/data.table/issues/1692 Reading that same\n>> CSV is comparable to RDS.\n>> \n>> \n>> On Fri, May 6, 2016 at 6:07 AM, Simon Urbanek\n>> <simon.urbanek at r-project.org> wrote:\n>>> Brandon,\n>>> note that the post was about RDS which is more efficient than all the options you list (in particular when not compressed). General advice is to avoid strings. Numeric vectors are several orders of magnitude faster than strings to load/save.\n>>> Cheers,\n>>> Simon\n>>> \n>>> \n>>>> On May 5, 2016, at 6:49 PM, Brandon Hurr <bhive01 at gmail.com> wrote:\n>>>> \n>>>> You might be interested in the speed wars that are happening in the\n>>>> file reading/writing space currently.\n>>>> \n>>>> Matt Dowle/Arun Srinivasan's data.table and Hadley Wickham/Wes\n>>>> McKinney's Feather have made huge speed advances in reading/writing\n>>>> large datasets from disks (mostly csv).\n>>>> \n>>>> Data Table fread()/fwrite():\n>>>> https://github.com/Rdatatable/data.table\n>>>> https://stackoverflow.com/questions/35763574/fastest-way-to-read-in-100-000-dat-gz-files\n>>>> http://blog.h2o.ai/2016/04/fast-csv-writing-for-r/\n>>>> \n>>>> \n>>>> Feather read_feather()/write_feather()\n>>>> https://github.com/wesm/feather\n>>>> \n>>>> I don't often have big datasets (10s of MBs) so I don't see the\n>>>> benefits of these much, but you might.\n>>>> \n>>>> HTH,\n>>>> B\n>>>> \n>>>> On Thu, May 5, 2016 at 3:16 PM, Charles DiMaggio\n>>>> <charles.dimaggio at gmail.com> wrote:\n>>>>> Been a while, but wanted to close the page on a previous post describing R hanging on readRDS() and load() for largish (say 500MB or larger) files. Tried again with recent release (3.3.0).  Am able to read in large files under El Cap.  While the file is reading in, I get a disconcerting spinning pinwheel of death and a check under Force Quit reports R is not responding.  But if I wait it out, it eventually reads in.  Odd.  But I can live with it.\n>>>>> \n>>>>> Cheers\n>>>>> \n>>>>> Charles\n>>>>> \n>>>>> \n>>>>> \n>>>>> \n>>>>> \n>>>>> \n>>>>> Charles DiMaggio, PhD, MPH\n>>>>> Professor of Surgery and Population Health\n>>>>> Director of Injury Research\n>>>>> Department of Surgery\n>>>>> New York University School of Medicine\n>>>>> 462 First Avenue, NBV 15\n>>>>> New York, NY 10016-9196\n>>>>> Charles.Dimaggio at nyumc.org\n>>>>> Office: 212.263.3202\n>>>>> Mobile: 516.308.6426\n>>>>> \n>>>>> \n>>>>> \n>>>>> \n>>>>> \n>>>>> \n>>>>>      [[alternative HTML version deleted]]\n>>>>> \n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>> \n> \n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Glad the post elicited some discussion.  Haven?t played with feather.  I?ve used data.table and it is indeed appreciably faster than base approaches for getting big csv?s into R.  I also find dplyr (w",
+      "thread_id": "thread-14747b0b010d",
+      "thread_depth": 5,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-024bbf4d94e3",
+      "message_id": "<5730DBEA.8060903@oracle.com>",
+      "from_name": "Mick Jordan",
+      "from_email_hash": "feb63e9606e328cfda1c6e0e46b57dd09a64817b2987a50a4f83d6933f88b2d2",
+      "date": "2016-05-09T11:50:18-07:00",
+      "subject": "[R-SIG-Mac] third party installer",
+      "subject_clean": "third party installer",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "What third party installer is used for the standard Mac OS X build? \nLooking at the following I can't figure out where lzma is coming from. I \nam using MacPorts (on El Cap) which puts lzma in /opt/local/include.\n\nMick Jordan\n\n$ head /Library/Frameworks/R.framework/Resources/etc/Makeconf\n# etc/Makeconf.  Generated from Makeconf.in by configure.\n#\n# ${R_HOME}/etc/Makeconf\n#\n# R was configured using the following call\n# (not including env. vars and site configuration)\n# configure  'CC=clang' 'CXX=clang++' 'OBJC=clang' 'F77=gfortran-4.8' 'FC=gfortran-4.8' 'CFLAGS=-Wall -mtune=core2 -g -O2' 'CXXFLAGS=-Wall -mtune=core2 -g -O2' 'OBJCFLAGS=-Wall -mtune=core2 -g -O2' 'FCFLAGS=-Wall -g -O2' 'F77FLAGS=-Wall -g -O2' '--with-system-zlib' '--enable-memory-profiling' 'CPPFLAGS=-I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include' '--x-libraries=/opt/X11/lib' '--x-includes=/usr/local/include' '--enable-R-framework'",
+      "body_snippet": "What third party installer is used for the standard Mac OS X build? \nLooking at the following I can't figure out where lzma is coming from. I \nam using MacPorts (on El Cap) which puts lzma in /opt/loc",
+      "thread_id": "thread-024bbf4d94e3",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-c87c5586387a",
+      "message_id": "<D76CB12C-0098-4608-A081-711AE098F69A@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-09T16:04:33-04:00",
+      "subject": "[R-SIG-Mac] third party installer",
+      "subject_clean": "third party installer",
+      "in_reply_to": "<5730DBEA.8060903@oracle.com>",
+      "references": [
+        "<5730DBEA.8060903@oracle.com>"
+      ],
+      "body_plain": "On May 9, 2016, at 2:50 PM, Mick Jordan <mick.jordan at oracle.com> wrote:\n\n> What third party installer is used for the standard Mac OS X build? Looking at the following I can't figure out where lzma is coming from. I am using MacPorts (on El Cap) which puts lzma in /opt/local/include.\n> \n\n\nNo 3rd party, only static libs used on CRAN, i.e., what is in\nhttp://r.research.att.com/libs/\n\nCheers,\nSimon\n\n\n> Mick Jordan\n> \n> $ head /Library/Frameworks/R.framework/Resources/etc/Makeconf\n> # etc/Makeconf.  Generated from Makeconf.in by configure.\n> #\n> # ${R_HOME}/etc/Makeconf\n> #\n> # R was configured using the following call\n> # (not including env. vars and site configuration)\n> # configure  'CC=clang' 'CXX=clang++' 'OBJC=clang' 'F77=gfortran-4.8' 'FC=gfortran-4.8' 'CFLAGS=-Wall -mtune=core2 -g -O2' 'CXXFLAGS=-Wall -mtune=core2 -g -O2' 'OBJCFLAGS=-Wall -mtune=core2 -g -O2' 'FCFLAGS=-Wall -g -O2' 'F77FLAGS=-Wall -g -O2' '--with-system-zlib' '--enable-memory-profiling' 'CPPFLAGS=-I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include' '--x-libraries=/opt/X11/lib' '--x-includes=/usr/local/include' '--enable-R-framework'\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On May 9, 2016, at 2:50 PM, Mick Jordan <mick.jordan at oracle.com> wrote:\n\n> What third party installer is used for the standard Mac OS X build? Looking at the following I can't figure out where lzma",
+      "thread_id": "thread-024bbf4d94e3",
+      "thread_depth": 1,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-e3de4e9ff84b",
+      "message_id": "<BBB4234C-12F3-432B-83B5-0A640179E0B2@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2016-05-09T13:19:37-07:00",
+      "subject": "[R-SIG-Mac] third party installer",
+      "subject_clean": "third party installer",
+      "in_reply_to": "<D76CB12C-0098-4608-A081-711AE098F69A@r-project.org>",
+      "references": [
+        "<5730DBEA.8060903@oracle.com>",
+        "<D76CB12C-0098-4608-A081-711AE098F69A@r-project.org>"
+      ],
+      "body_plain": "> On May 9, 2016, at 1:04 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> \n> On May 9, 2016, at 2:50 PM, Mick Jordan <mick.jordan at oracle.com> wrote:\n> \n>> What third party installer is used for the standard Mac OS X build? Looking at the following I can't figure out where lzma is coming from. I am using MacPorts (on El Cap) which puts lzma in /opt/local/include.\n>> \n> \n> \n> No 3rd party, only static libs used on CRAN, i.e., what is in\n> http://r.research.att.com/libs/\n\nIt wasn't obvious where lzma was being derived in any of those sources, so I made my best efforts and decided it was probably from xz-5.2.1.tar.bz2\n\nWas my searching correct?\n\n-- \nDavid.\n\n> \n> Cheers,\n> Simon\n> \n> \n>> Mick Jordan\n>> \n>> $ head /Library/Frameworks/R.framework/Resources/etc/Makeconf\n>> # etc/Makeconf.  Generated from Makeconf.in by configure.\n>> #\n>> # ${R_HOME}/etc/Makeconf\n>> #\n>> # R was configured using the following call\n>> # (not including env. vars and site configuration)\n>> # configure  'CC=clang' 'CXX=clang++' 'OBJC=clang' 'F77=gfortran-4.8' 'FC=gfortran-4.8' 'CFLAGS=-Wall -mtune=core2 -g -O2' 'CXXFLAGS=-Wall -mtune=core2 -g -O2' 'OBJCFLAGS=-Wall -mtune=core2 -g -O2' 'FCFLAGS=-Wall -g -O2' 'F77FLAGS=-Wall -g -O2' '--with-system-zlib' '--enable-memory-profiling' 'CPPFLAGS=-I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include' '--x-libraries=/opt/X11/lib' '--x-includes=/usr/local/include' '--enable-R-framework'\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA",
+      "body_snippet": "> On May 9, 2016, at 1:04 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> \n> On May 9, 2016, at 2:50 PM, Mick Jordan <mick.jordan at oracle.com> wrote:\n> \n>> What third party installer ",
+      "thread_id": "thread-024bbf4d94e3",
+      "thread_depth": 2,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-71d0e4c02e2b",
+      "message_id": "<9A2A7071-6128-4AD5-9F05-786C395DE382@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2016-05-09T14:08:26-07:00",
+      "subject": "[R-SIG-Mac] third party installer",
+      "subject_clean": "third party installer",
+      "in_reply_to": "<BBB4234C-12F3-432B-83B5-0A640179E0B2@comcast.net>",
+      "references": [
+        "<5730DBEA.8060903@oracle.com>",
+        "<D76CB12C-0098-4608-A081-711AE098F69A@r-project.org>",
+        "<BBB4234C-12F3-432B-83B5-0A640179E0B2@comcast.net>"
+      ],
+      "body_plain": "> On May 9, 2016, at 1:19 PM, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n> \n>> On May 9, 2016, at 1:04 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> \n>> \n>> On May 9, 2016, at 2:50 PM, Mick Jordan <mick.jordan at oracle.com> wrote:\n>> \n>>> What third party installer is used for the standard Mac OS X build? Looking at the following I can't figure out where lzma is coming from. I am using MacPorts (on El Cap) which puts lzma in /opt/local/include.\n>>> \n>> \n>> \n>> No 3rd party, only static libs used on CRAN, i.e., what is in\n>> http://r.research.att.com/libs/\n> \n> It wasn't obvious where lzma was being derived in any of those sources, so I made my best efforts and decided it was probably from xz-5.2.1.tar.bz2\n> \n> Was my searching correct?\n> \n\nAs a followup can anyone suggest how I should  address (or whether I should even worry about) the error reported when I follow the installation advice for that package on that page:\n\n$ curl -O http://r.research.att.com/libs/xz-5.2.1-darwin.13-x86_64.tar.gz\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n100  617k  100  617k    0     0   352k      0  0:00:01  0:00:01 --:--:--  352k\ndavid-winsemiuss-mac-pro:~ davidwinsemius$ sudo tar fvxz xz-5.2.1-darwin.13-x86_64.tar.gz -C /\nPassword:\nx usr/: Can't set user=0/group=0 for usrCan't update time for usr\nx usr/local/\nx usr/local/bin/\nx usr/local/include/\nx usr/local/lib/\nx usr/local/share/\nx usr/local/share/doc/\nx usr/local/share/man/\nx usr/local/share/man/man1/\nx usr/local/share/man/man1/lzcat.1\nx usr/local/share/man/man1/lzcmp.1\nx usr/local/share/man/man1/lzdiff.1\nx usr/local/share/man/man1/lzegrep.1\nx usr/local/share/man/man1/lzfgrep.1\nx usr/local/share/man/man1/lzgrep.1\nx usr/local/share/man/man1/lzless.1\nx usr/local/share/man/man1/lzma.1\nx usr/local/share/man/man1/lzmadec.1\nx usr/local/share/man/man1/lzmainfo.1\nx usr/local/share/man/man1/lzmore.1\nx usr/local/share/man/man1/unlzma.1\nx usr/local/share/man/man1/unxz.1\nx usr/local/share/man/man1/xz.1\nx usr/local/share/man/man1/xzcat.1\nx usr/local/share/man/man1/xzcmp.1\nx usr/local/share/man/man1/xzdec.1\nx usr/local/share/man/man1/xzdiff.1\nx usr/local/share/man/man1/xzegrep.1\nx usr/local/share/man/man1/xzfgrep.1\nx usr/local/share/man/man1/xzgrep.1\nx usr/local/share/man/man1/xzless.1\nx usr/local/share/man/man1/xzmore.1\nx usr/local/share/doc/xz/\nx usr/local/share/doc/xz/AUTHORS\nx usr/local/share/doc/xz/COPYING\nx usr/local/share/doc/xz/COPYING.GPLv2\nx usr/local/share/doc/xz/examples/\nx usr/local/share/doc/xz/examples_old/\nx usr/local/share/doc/xz/faq.txt\nx usr/local/share/doc/xz/history.txt\nx usr/local/share/doc/xz/lzma-file-format.txt\nx usr/local/share/doc/xz/NEWS\nx usr/local/share/doc/xz/README\nx usr/local/share/doc/xz/THANKS\nx usr/local/share/doc/xz/TODO\nx usr/local/share/doc/xz/xz-file-format.txt\nx usr/local/share/doc/xz/examples_old/xz_pipe_comp.c\nx usr/local/share/doc/xz/examples_old/xz_pipe_decomp.c\nx usr/local/share/doc/xz/examples/00_README.txt\nx usr/local/share/doc/xz/examples/01_compress_easy.c\nx usr/local/share/doc/xz/examples/02_decompress.c\nx usr/local/share/doc/xz/examples/03_compress_custom.c\nx usr/local/share/doc/xz/examples/04_compress_easy_mt.c\nx usr/local/share/doc/xz/examples/Makefile\nx usr/local/lib/liblzma.a\nx usr/local/lib/liblzma.la\nx usr/local/lib/pkgconfig/\nx usr/local/lib/pkgconfig/liblzma.pc\nx usr/local/include/lzma/\nx usr/local/include/lzma.h\nx usr/local/include/lzma/base.h\nx usr/local/include/lzma/bcj.h\nx usr/local/include/lzma/block.h\nx usr/local/include/lzma/check.h\nx usr/local/include/lzma/container.h\nx usr/local/include/lzma/delta.h\nx usr/local/include/lzma/filter.h\nx usr/local/include/lzma/hardware.h\nx usr/local/include/lzma/index.h\nx usr/local/include/lzma/index_hash.h\nx usr/local/include/lzma/lzma12.h\nx usr/local/include/lzma/stream_flags.h\nx usr/local/include/lzma/version.h\nx usr/local/include/lzma/vli.h\nx usr/local/bin/lzcat\nx usr/local/bin/lzcmp\nx usr/local/bin/lzdiff\nx usr/local/bin/lzegrep\nx usr/local/bin/lzfgrep\nx usr/local/bin/lzgrep\nx usr/local/bin/lzless\nx usr/local/bin/lzma\nx usr/local/bin/lzmadec\nx usr/local/bin/lzmainfo\nx usr/local/bin/lzmore\nx usr/local/bin/unlzma\nx usr/local/bin/unxz\nx usr/local/bin/xz\nx usr/local/bin/xzcat\nx usr/local/bin/xzcmp\nx usr/local/bin/xzdec\nx usr/local/bin/xzdiff\nx usr/local/bin/xzegrep\nx usr/local/bin/xzfgrep\nx usr/local/bin/xzgrep\nx usr/local/bin/xzless\nx usr/local/bin/xzmore\ntar: Error exit delayed from previous errors.\n\nSystem Version:\tOS X 10.11.4 (15E65)\n  Kernel Version:\tDarwin 15.4.0\n\nModel Name:\tMac Pro\n  Model Identifier:\tMacPro3,1\n  Processor Name:\tQuad-Core Intel Xeon\n  Processor Speed:\t2.8 GHz\n  Number of Processors:\t2\n  Total Number of Cores:\t8\n  L2 Cache (per Processor):\t12 MB\n  Memory:\t32 GB\n\n(This is probably not really necessary from a current R session;)\nR version 3.3.0 RC (2016-05-01 r70572) -- \"Supposedly Educational\"\nCopyright (C) 2016 The R Foundation for Statistical Computing\nPlatform: x86_64-apple-darwin13.4.0 (64-bit)\n\n--snipped a bunch of pkg loading information\n\n[R.app GUI 1.68 (7201) x86_64-apple-darwin13.4.0]\n\n-- \nDavid.\n\n> -- \n> David.\n> \n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>>> Mick Jordan\n>>> \n>>> $ head /Library/Frameworks/R.framework/Resources/etc/Makeconf\n>>> # etc/Makeconf.  Generated from Makeconf.in by configure.\n>>> #\n>>> # ${R_HOME}/etc/Makeconf\n>>> #\n>>> # R was configured using the following call\n>>> # (not including env. vars and site configuration)\n>>> # configure  'CC=clang' 'CXX=clang++' 'OBJC=clang' 'F77=gfortran-4.8' 'FC=gfortran-4.8' 'CFLAGS=-Wall -mtune=core2 -g -O2' 'CXXFLAGS=-Wall -mtune=core2 -g -O2' 'OBJCFLAGS=-Wall -mtune=core2 -g -O2' 'FCFLAGS=-Wall -g -O2' 'F77FLAGS=-Wall -g -O2' '--with-system-zlib' '--enable-memory-profiling' 'CPPFLAGS=-I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include' '--x-libraries=/opt/X11/lib' '--x-includes=/usr/local/include' '--enable-R-framework'\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> David Winsemius\n> Alameda, CA, USA\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA",
+      "body_snippet": "> On May 9, 2016, at 1:19 PM, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n> \n>> On May 9, 2016, at 1:04 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> \n>> \n>> On May 9, 2016, a",
+      "thread_id": "thread-024bbf4d94e3",
+      "thread_depth": 3,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-96c89ee65e6e",
+      "message_id": "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+      "from_name": "Daniel Kelley",
+      "from_email_hash": "976f301884d4d58c6b2af6c5982be6bb4fd8533ac94e65c352f5ac1765103a7e",
+      "date": "2016-05-10T14:36:22Z",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "On OSX, I find that inverse projections yield segmentation faults with the newly-released R (version 3.3.0). This works with both rgdal 1.1-8 and also with 1.1-9 (released yesterday).\n\nBelow my signature line is a transcript, within which it is shown that the forward projection from lon=lat=0 yields x=y=0 as expected, but that trying to do the inverse projection with x=y=0 yields a segmentation fault. I?ve put in a sessionInfo() to show the machine type, etc.\n\nI note that aitoff also fails. I?ve not tested the full suite of projections.\n\nNOTE: this test works fine with R-3.2.1.\n\nDan E. Kelley, Professor  and Graduate Coordinator\nOceanography Department, Dalhousie University\nPO BOX 15000\nHalifax, NS B3H 4R2\nphone:(902)494-1694 fax:(?)-3877 Dan.Kelley at Dal.CA  \nhttp://oceanography.dal.ca/person/Kelley_Dan.html\n\n\n$ R --no-save < wintri.R\n\nR version 3.3.0 (2016-05-03) -- \"Supposedly Educational\"\nCopyright (C) 2016 The R Foundation for Statistical Computing\nPlatform: x86_64-apple-darwin13.4.0 (64-bit)\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n> sessionInfo()\nR version 3.3.0 (2016-05-03)\nPlatform: x86_64-apple-darwin13.4.0 (64-bit)\nRunning under: OS X 10.11.5 (El Capitan)\n\nlocale:\n[1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n> library(rgdal)\nLoading required package: sp\nrgdal: version: 1.1-9, (SVN revision 617M)\n Geospatial Data Abstraction Library extensions to R successfully loaded\n Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25\n Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/gdal\n Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]\n Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj\n Linking to sp version: 1.2-3 \n> lon <- 0\n> lat <- 0\n> proj <- \"+proj=wintri\"\n> xy <- rgdal::project(cbind(lon, lat), proj=proj)\n> print(xy)\n     lon lat\n[1,]   0   0\n> rgdal::project(xy, proj=proj, inv=TRUE)\n\n *** caught segfault ***\naddress 0x0, cause 'memory not mapped'\n\nTraceback:\n 1: .Call(\"project_inv\", as.integer(nc), as.double(xy[, 1]), as.double(xy[,     2]), proj, as.logical(use_ob_tran), PACKAGE = \"rgdal\")\n 2: rgdal::project(xy, proj = proj, inv = TRUE)\nAn irrecoverable exception occurred. R is aborting now ...\nSegmentation fault: 11",
+      "body_snippet": "On OSX, I find that inverse projections yield segmentation faults with the newly-released R (version 3.3.0). This works with both rgdal 1.1-8 and also with 1.1-9 (released yesterday).\n\nBelow my signat",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-6c5e310d0136",
+      "message_id": "<912355A5-D0B8-49D1-AF5F-14B16D05D5B0@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2016-05-10T09:55:35-07:00",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "in_reply_to": "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+      "references": [
+        "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>"
+      ],
+      "body_plain": "> On May 10, 2016, at 7:36 AM, Daniel Kelley <Dan.Kelley at Dal.Ca> wrote:\n> \n> On OSX, I find that inverse projections yield segmentation faults with the newly-released R (version 3.3.0). This works with both rgdal 1.1-8 and also with 1.1-9 (released yesterday).\n> \n> Below my signature line is a transcript, within which it is shown that the forward projection from lon=lat=0 yields x=y=0 as expected, but that trying to do the inverse projection with x=y=0 yields a segmentation fault. I?ve put in a sessionInfo() to show the machine type, etc.\n> \n> I note that aitoff also fails. I?ve not tested the full suite of projections.\n> \n> NOTE: this test works fine with R-3.2.1.\n> \n> Dan E. Kelley, Professor  and Graduate Coordinator\n> Oceanography Department, Dalhousie University\n> PO BOX 15000\n> Halifax, NS B3H 4R2\n> phone:(902)494-1694 fax:(?)-3877 Dan.Kelley at Dal.CA  \n> http://oceanography.dal.ca/person/Kelley_Dan.html\n> \n> \n> $ R --no-save < wintri.R\n> \n> R version 3.3.0 (2016-05-03) -- \"Supposedly Educational\"\n> Copyright (C) 2016 The R Foundation for Statistical Computing\n> Platform: x86_64-apple-darwin13.4.0 (64-bit)\n> \n> R is free software and comes with ABSOLUTELY NO WARRANTY.\n> You are welcome to redistribute it under certain conditions.\n> Type 'license()' or 'licence()' for distribution details.\n> \n>  Natural language support but running in an English locale\n> \n> R is a collaborative project with many contributors.\n> Type 'contributors()' for more information and\n> 'citation()' on how to cite R or R packages in publications.\n> \n> Type 'demo()' for some demos, 'help()' for on-line help, or\n> 'help.start()' for an HTML browser interface to help.\n> Type 'q()' to quit R.\n> \n>> sessionInfo()\n> R version 3.3.0 (2016-05-03)\n> Platform: x86_64-apple-darwin13.4.0 (64-bit)\n> Running under: OS X 10.11.5 (El Capitan)\n> \n> locale:\n> [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> library(rgdal)\n> Loading required package: sp\n> rgdal: version: 1.1-9, (SVN revision 617M)\n> Geospatial Data Abstraction Library extensions to R successfully loaded\n> Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25\n> Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/gdal\n> Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]\n> Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj\n> Linking to sp version: 1.2-3 \n>> lon <- 0\n>> lat <- 0\n>> proj <- \"+proj=wintri\"\n>> xy <- rgdal::project(cbind(lon, lat), proj=proj)\n>> print(xy)\n>     lon lat\n> [1,]   0   0\n>> rgdal::project(xy, proj=proj, inv=TRUE)\n> \n> *** caught segfault ***\n> address 0x0, cause 'memory not mapped'\n> \n> Traceback:\n> 1: .Call(\"project_inv\", as.integer(nc), as.double(xy[, 1]), as.double(xy[,     2]), proj, as.logical(use_ob_tran), PACKAGE = \"rgdal\")\n> 2: rgdal::project(xy, proj = proj, inv = TRUE)\n> An irrecoverable exception occurred. R is aborting now ...\n> Segmentation fault: 11\n\nI was using slightly out of date versions of the R packages. With rgdal 1.1-8 and sp 1.2-3 there was no segfault. I thought that the difference might be due to the fact that I'm using a later version of PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492].  However, \"updating\" to rgdal 1.1-9 now produces the same segfault.\n\n\n-- \n\nDavid Winsemius\nAlameda, CA, USA",
+      "body_snippet": "> On May 10, 2016, at 7:36 AM, Daniel Kelley <Dan.Kelley at Dal.Ca> wrote:\n> \n> On OSX, I find that inverse projections yield segmentation faults with the newly-released R (version 3.3.0). This works ",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 1,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-5e0002f1ad51",
+      "message_id": "<loom.20160511T123111-786@post.gmane.org>",
+      "from_name": "Roger Bivand",
+      "from_email_hash": "a0c87926e9477aa221755cc93bdef47227c3563fd707e66ae49044467663d168",
+      "date": "2016-05-11T10:44:08Z",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0,\trgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0,\trgdal 1.1-9)",
+      "in_reply_to": null,
+      "references": [
+        "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+        "<912355A5-D0B8-49D1-AF5F-14B16D05D5B0@comcast.net>"
+      ],
+      "body_plain": "David Winsemius <dwinsemius <at> comcast.net> writes:\n\n> \n> \n> > On May 10, 2016, at 7:36 AM, Daniel Kelley <Dan.Kelley <at> Dal.Ca> wrote:\n> > \n> > On OSX, I find that inverse projections yield segmentation faults with\nthe newly-released R (version\n> 3.3.0). This works with both rgdal 1.1-8 and also with 1.1-9 (released\nyesterday).\n> > \n\n...\n\n\n> >> rgdal::project(xy, proj=proj, inv=TRUE)\n> > \n> > *** caught segfault ***\n> > address 0x0, cause 'memory not mapped'\n> > \n> > Traceback:\n> > 1: .Call(\"project_inv\", as.integer(nc), as.double(xy[, 1]),\nas.double(xy[,     2]), proj,\n> as.logical(use_ob_tran), PACKAGE = \"rgdal\")\n> > 2: rgdal::project(xy, proj = proj, inv = TRUE)\n> > An irrecoverable exception occurred. R is aborting now ...\n> > Segmentation fault: 11\n> \n\nThis appears to affect 1.1-9 on OSX. As rgdal maintainer, obviously I'd like\nto resolve this, but have mo access to OSX hardware at all. I'm assuming\nthat the rgdal version is installed as binary from CRAN (thanks to Simon for\nproviding the binary package!).\n\nDo we know whether the OSX version matters?\n\nDo we know that the same rgdal version 1.1-9 installed from source suffers\nfrom the same problem; if it does, is 1.1-8 free of the problem (as with the\nCRAN binary)?\n\nThere may be a user-facing work-around - use spTransform (or rawTransform())\nrather than project(), but I cannot check it myself:\n\nxy <- rawTransform(\"+proj=longlat\", \"+proj=wintri\", n=1L, x=0, y=0)\nrawTransform(\"+proj=wintri\", \"+proj=longlat\", n=1L, x=xy[[1]][1], y=xy[[2]][1])\n\nThis is using different functions in the PROJ.4 library.\n\nIf anyone could provide gdb or similar output of a backtrace, that would be\nvery helpful.\n\nRoger\n\n> I was using slightly out of date versions of the R packages. With rgdal\n1.1-8 and sp 1.2-3 there was no\n> segfault. I thought that the difference might be due to the fact that I'm\nusing a later version of PROJ.4\n> runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492].  However,\n\"updating\" to rgdal 1.1-9 now\n> produces the same segfault.\n>",
+      "body_snippet": "David Winsemius <dwinsemius <at> comcast.net> writes:\n\n> \n> \n> > On May 10, 2016, at 7:36 AM, Daniel Kelley <Dan.Kelley <at> Dal.Ca> wrote:\n> > \n> > On OSX, I find that inverse projections yield segme",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 2,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-2e8dd7b26d8a",
+      "message_id": "<54A04088-BD9F-4457-994C-494F4781DA0A@dal.ca>",
+      "from_name": "Daniel Kelley",
+      "from_email_hash": "976f301884d4d58c6b2af6c5982be6bb4fd8533ac94e65c352f5ac1765103a7e",
+      "date": "2016-05-11T11:25:26Z",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "in_reply_to": "<loom.20160511T123111-786@post.gmane.org>",
+      "references": [
+        "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+        "<912355A5-D0B8-49D1-AF5F-14B16D05D5B0@comcast.net>",
+        "<loom.20160511T123111-786@post.gmane.org>"
+      ],
+      "body_plain": "I apologize for not providing sufficient information in my original posting.  Below I am putting, in markdown notation, the test results with two setups.  I think the key thing is that R 3.3.0 is linking with an old version of proj (4.8.0) whereas R 3.2.1 was linking with a new version (4.9.1).\n\n\n# Test 1 with R 3.2.1 (works)\n\n    R version 3.2.1 (2015-06-18) -- \"World-Famous Astronaut\"\n    Copyright (C) 2015 The R Foundation for Statistical Computing\n    Platform: x86_64-apple-darwin10.8.0 (64-bit)\n    \n    R is free software and comes with ABSOLUTELY NO WARRANTY.\n    You are welcome to redistribute it under certain conditions.\n    Type 'license()' or 'licence()' for distribution details.\n    \n      Natural language support but running in an English locale\n    \n    R is a collaborative project with many contributors.\n    Type 'contributors()' for more information and\n    'citation()' on how to cite R or R packages in publications.\n    \n    Type 'demo()' for some demos, 'help()' for on-line help, or\n    'help.start()' for an HTML browser interface to help.\n    Type 'q()' to quit R.\n    \n    > sessionInfo()\n    R version 3.2.1 (2015-06-18)\n    Platform: x86_64-apple-darwin10.8.0 (64-bit)\n    Running under: OS X 10.11.5 (unknown)\n    \n    locale:\n    [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n    \n    attached base packages:\n    [1] stats     graphics  grDevices utils     datasets  methods   base     \n    > library(rgdal)\n    Loading required package: sp\n    rgdal: version: 0.9-3, (SVN revision 530)\n     Geospatial Data Abstraction Library extensions to R successfully loaded\n     Loaded GDAL runtime: GDAL 1.11.2, released 2015/02/10\n     Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/gdal\n     Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]\n     Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/proj\n     Linking to sp version: 1.1-0 \n    > lon <- 0\n    > lat <- 0\n    > proj <- \"+proj=wintri\"\n    > xy <- rgdal::project(cbind(lon, lat), proj=proj)\n    > print(xy)\n         [,1] [,2]\n    [1,]    0    0\n    > rgdal::project(xy, proj=proj, inv=TRUE)\n         [,1] [,2]\n    [1,]    0    0\n    > \n    > \n\n\n\n\n# Test 2 with R 3.3.0 (seg-faults)\n\n\n    R version 3.3.0 (2016-05-03) -- \"Supposedly Educational\"\n    Copyright (C) 2016 The R Foundation for Statistical Computing\n    Platform: x86_64-apple-darwin13.4.0 (64-bit)\n    \n    R is free software and comes with ABSOLUTELY NO WARRANTY.\n    You are welcome to redistribute it under certain conditions.\n    Type 'license()' or 'licence()' for distribution details.\n    \n      Natural language support but running in an English locale\n    \n    R is a collaborative project with many contributors.\n    Type 'contributors()' for more information and\n    'citation()' on how to cite R or R packages in publications.\n    \n    Type 'demo()' for some demos, 'help()' for on-line help, or\n    'help.start()' for an HTML browser interface to help.\n    Type 'q()' to quit R.\n    \n    > sessionInfo()\n    R version 3.3.0 (2016-05-03)\n    Platform: x86_64-apple-darwin13.4.0 (64-bit)\n    Running under: OS X 10.11.5 (El Capitan)\n    \n    locale:\n    [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n    \n    attached base packages:\n    [1] stats     graphics  grDevices utils     datasets  methods   base     \n    > library(rgdal)\n    Loading required package: sp\n    rgdal: version: 1.1-9, (SVN revision 617M)\n     Geospatial Data Abstraction Library extensions to R successfully loaded\n     Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25\n     Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/gdal\n     Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]\n     Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj\n     Linking to sp version: 1.2-3 \n    > lon <- 0\n    > lat <- 0\n    > proj <- \"+proj=wintri\"\n    > xy <- rgdal::project(cbind(lon, lat), proj=proj)\n    > print(xy)\n         lon lat\n    [1,]   0   0\n    > rgdal::project(xy, proj=proj, inv=TRUE)\n    \n     *** caught segfault ***\n    address 0x0, cause 'memory not mapped'\n    \n    Traceback:\n     1: .Call(\"project_inv\", as.integer(nc), as.double(xy[, 1]), as.double(xy[,     2]), proj, as.logical(use_ob_tran), PACKAGE = \"rgdal\")\n     2: rgdal::project(xy, proj = proj, inv = TRUE)\n    An irrecoverable exception occurred. R is aborting now ...",
+      "body_snippet": "I apologize for not providing sufficient information in my original posting.  Below I am putting, in markdown notation, the test results with two setups.  I think the key thing is that R 3.3.0 is link",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 3,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-42cd0a407813",
+      "message_id": "<FC1BA37B-5791-4D07-9CCB-A2B802A48230@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-11T09:41:39-04:00",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "in_reply_to": "<loom.20160511T123111-786@post.gmane.org>",
+      "references": [
+        "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+        "<912355A5-D0B8-49D1-AF5F-14B16D05D5B0@comcast.net>",
+        "<loom.20160511T123111-786@post.gmane.org>"
+      ],
+      "body_plain": "> rgdal::project(xy, proj=proj, inv=TRUE)\nProcess 6803 stopped\n* thread #1: tid = 0xc72bb10, 0x0000000000000000, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x0)\n    frame #0: 0x0000000000000000\nerror: memory read failed for 0x0\n(lldb) bt\n* thread #1: tid = 0xc72bb10, 0x0000000000000000, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x0)\n  * frame #0: 0x0000000000000000\n    frame #1: 0x00000001068a2657 rgdal.so`pj_inv(xy=(x = 0, y = 0), P=0x000000010070ac10) + 215 at pj_inv.c:22\n    frame #2: 0x0000000106011f2b rgdal.so`project_inv(n=<unavailable>, x=0x0000000105db1d28, y=0x0000000105db1c68, projarg=<unavailable>, ob_tran=<unavailable>) + 251 at projectit.cpp:300\n    frame #3: 0x000000010007b827 libR.dylib`do_dotcall(call=0x0000000105b632b0, op=<unavailable>, args=<unavailable>, env=<unavailable>) + 327 at dotcode.c:1251\n    frame #4: 0x00000001000a8e4c libR.dylib`Rf_eval(e=0x0000000105b632b0, rho=0x0000000105b7a408) + 988 at eval.c:713\n\nI'll look into the PROJ4 version issue as well and keep you posted.\n\nCheers,\nSimon\n\n\nOn May 11, 2016, at 6:44 AM, Roger Bivand <Roger.Bivand at nhh.no> wrote:\n\n> David Winsemius <dwinsemius <at> comcast.net> writes:\n> \n>> \n>> \n>>> On May 10, 2016, at 7:36 AM, Daniel Kelley <Dan.Kelley <at> Dal.Ca> wrote:\n>>> \n>>> On OSX, I find that inverse projections yield segmentation faults with\n> the newly-released R (version\n>> 3.3.0). This works with both rgdal 1.1-8 and also with 1.1-9 (released\n> yesterday).\n>>> \n> \n> ...\n> \n> \n>>>> rgdal::project(xy, proj=proj, inv=TRUE)\n>>> \n>>> *** caught segfault ***\n>>> address 0x0, cause 'memory not mapped'\n>>> \n>>> Traceback:\n>>> 1: .Call(\"project_inv\", as.integer(nc), as.double(xy[, 1]),\n> as.double(xy[,     2]), proj,\n>> as.logical(use_ob_tran), PACKAGE = \"rgdal\")\n>>> 2: rgdal::project(xy, proj = proj, inv = TRUE)\n>>> An irrecoverable exception occurred. R is aborting now ...\n>>> Segmentation fault: 11\n>> \n> \n> This appears to affect 1.1-9 on OSX. As rgdal maintainer, obviously I'd like\n> to resolve this, but have mo access to OSX hardware at all. I'm assuming\n> that the rgdal version is installed as binary from CRAN (thanks to Simon for\n> providing the binary package!).\n> \n> Do we know whether the OSX version matters?\n> \n> Do we know that the same rgdal version 1.1-9 installed from source suffers\n> from the same problem; if it does, is 1.1-8 free of the problem (as with the\n> CRAN binary)?\n> \n> There may be a user-facing work-around - use spTransform (or rawTransform())\n> rather than project(), but I cannot check it myself:\n> \n> xy <- rawTransform(\"+proj=longlat\", \"+proj=wintri\", n=1L, x=0, y=0)\n> rawTransform(\"+proj=wintri\", \"+proj=longlat\", n=1L, x=xy[[1]][1], y=xy[[2]][1])\n> \n> This is using different functions in the PROJ.4 library.\n> \n> If anyone could provide gdb or similar output of a backtrace, that would be\n> very helpful.\n> \n> Roger\n> \n>> I was using slightly out of date versions of the R packages. With rgdal\n> 1.1-8 and sp 1.2-3 there was no\n>> segfault. I thought that the difference might be due to the fact that I'm\n> using a later version of PROJ.4\n>> runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492].  However,\n> \"updating\" to rgdal 1.1-9 now\n>> produces the same segfault.\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "> rgdal::project(xy, proj=proj, inv=TRUE)\nProcess 6803 stopped\n* thread #1: tid = 0xc72bb10, 0x0000000000000000, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x0)\n   ",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 3,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-553602479642",
+      "message_id": "<09A2871F-BA03-41AE-979C-04BDCE718AFF@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-11T10:00:40-04:00",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "in_reply_to": "<54A04088-BD9F-4457-994C-494F4781DA0A@dal.ca>",
+      "references": [
+        "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+        "<912355A5-D0B8-49D1-AF5F-14B16D05D5B0@comcast.net>",
+        "<loom.20160511T123111-786@post.gmane.org>",
+        "<54A04088-BD9F-4457-994C-494F4781DA0A@dal.ca>"
+      ],
+      "body_plain": "Thanks, that was the correct hint - updating PROJ4 to 4.9.1 seems to fix the issue. The new binary is now up - until all mirrors sync up please use the main Mac server:\ninstall.packages(\"rgdal\",,\"http://r.research.att.com\")\n\nRoger, can you, please, add a corresponding regression test to rgdal so a failure like the one below would be picked up on check?\n\nThanks,\nSimon\n\n\nOn May 11, 2016, at 7:25 AM, Daniel Kelley <Dan.Kelley at Dal.Ca> wrote:\n\n> I apologize for not providing sufficient information in my original posting.  Below I am putting, in markdown notation, the test results with two setups.  I think the key thing is that R 3.3.0 is linking with an old version of proj (4.8.0) whereas R 3.2.1 was linking with a new version (4.9.1).\n> \n> \n> # Test 1 with R 3.2.1 (works)\n> \n>    R version 3.2.1 (2015-06-18) -- \"World-Famous Astronaut\"\n>    Copyright (C) 2015 The R Foundation for Statistical Computing\n>    Platform: x86_64-apple-darwin10.8.0 (64-bit)\n> \n>    R is free software and comes with ABSOLUTELY NO WARRANTY.\n>    You are welcome to redistribute it under certain conditions.\n>    Type 'license()' or 'licence()' for distribution details.\n> \n>      Natural language support but running in an English locale\n> \n>    R is a collaborative project with many contributors.\n>    Type 'contributors()' for more information and\n>    'citation()' on how to cite R or R packages in publications.\n> \n>    Type 'demo()' for some demos, 'help()' for on-line help, or\n>    'help.start()' for an HTML browser interface to help.\n>    Type 'q()' to quit R.\n> \n>> sessionInfo()\n>    R version 3.2.1 (2015-06-18)\n>    Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>    Running under: OS X 10.11.5 (unknown)\n> \n>    locale:\n>    [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n> \n>    attached base packages:\n>    [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> library(rgdal)\n>    Loading required package: sp\n>    rgdal: version: 0.9-3, (SVN revision 530)\n>     Geospatial Data Abstraction Library extensions to R successfully loaded\n>     Loaded GDAL runtime: GDAL 1.11.2, released 2015/02/10\n>     Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/gdal\n>     Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]\n>     Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/proj\n>     Linking to sp version: 1.1-0 \n>> lon <- 0\n>> lat <- 0\n>> proj <- \"+proj=wintri\"\n>> xy <- rgdal::project(cbind(lon, lat), proj=proj)\n>> print(xy)\n>         [,1] [,2]\n>    [1,]    0    0\n>> rgdal::project(xy, proj=proj, inv=TRUE)\n>         [,1] [,2]\n>    [1,]    0    0\n>> \n>> \n> \n> \n> \n> \n> # Test 2 with R 3.3.0 (seg-faults)\n> \n> \n>    R version 3.3.0 (2016-05-03) -- \"Supposedly Educational\"\n>    Copyright (C) 2016 The R Foundation for Statistical Computing\n>    Platform: x86_64-apple-darwin13.4.0 (64-bit)\n> \n>    R is free software and comes with ABSOLUTELY NO WARRANTY.\n>    You are welcome to redistribute it under certain conditions.\n>    Type 'license()' or 'licence()' for distribution details.\n> \n>      Natural language support but running in an English locale\n> \n>    R is a collaborative project with many contributors.\n>    Type 'contributors()' for more information and\n>    'citation()' on how to cite R or R packages in publications.\n> \n>    Type 'demo()' for some demos, 'help()' for on-line help, or\n>    'help.start()' for an HTML browser interface to help.\n>    Type 'q()' to quit R.\n> \n>> sessionInfo()\n>    R version 3.3.0 (2016-05-03)\n>    Platform: x86_64-apple-darwin13.4.0 (64-bit)\n>    Running under: OS X 10.11.5 (El Capitan)\n> \n>    locale:\n>    [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n> \n>    attached base packages:\n>    [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> library(rgdal)\n>    Loading required package: sp\n>    rgdal: version: 1.1-9, (SVN revision 617M)\n>     Geospatial Data Abstraction Library extensions to R successfully loaded\n>     Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25\n>     Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/gdal\n>     Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]\n>     Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj\n>     Linking to sp version: 1.2-3 \n>> lon <- 0\n>> lat <- 0\n>> proj <- \"+proj=wintri\"\n>> xy <- rgdal::project(cbind(lon, lat), proj=proj)\n>> print(xy)\n>         lon lat\n>    [1,]   0   0\n>> rgdal::project(xy, proj=proj, inv=TRUE)\n> \n>     *** caught segfault ***\n>    address 0x0, cause 'memory not mapped'\n> \n>    Traceback:\n>     1: .Call(\"project_inv\", as.integer(nc), as.double(xy[, 1]), as.double(xy[,     2]), proj, as.logical(use_ob_tran), PACKAGE = \"rgdal\")\n>     2: rgdal::project(xy, proj = proj, inv = TRUE)\n>    An irrecoverable exception occurred. R is aborting now ...\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Thanks, that was the correct hint - updating PROJ4 to 4.9.1 seems to fix the issue. The new binary is now up - until all mirrors sync up please use the main Mac server:\ninstall.packages(\"rgdal\",,\"http",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 4,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-93c9715fa77f",
+      "message_id": "<6CAF0369-70D0-4771-9ED8-2585A076154F@dal.ca>",
+      "from_name": "Daniel Kelley",
+      "from_email_hash": "976f301884d4d58c6b2af6c5982be6bb4fd8533ac94e65c352f5ac1765103a7e",
+      "date": "2016-05-11T14:12:44Z",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "in_reply_to": "<09A2871F-BA03-41AE-979C-04BDCE718AFF@r-project.org>",
+      "references": [
+        "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+        "<912355A5-D0B8-49D1-AF5F-14B16D05D5B0@comcast.net>",
+        "<loom.20160511T123111-786@post.gmane.org>",
+        "<54A04088-BD9F-4457-994C-494F4781DA0A@dal.ca>",
+        "<09A2871F-BA03-41AE-979C-04BDCE718AFF@r-project.org>"
+      ],
+      "body_plain": "This is fantastic ? thanks, Simon and Roger! Users of the ?oce? package (which uses rgdal for map-projection calculations) will be very grateful.\n\nDan.\n\nDan E. Kelley, Professor  and Graduate Coordinator\nOceanography Department, Dalhousie University\nPO BOX 15000\nHalifax, NS B3H 4R2\nphone:(902)494-1694 fax:(?)-3877 Dan.Kelley at Dal.CA  \nhttp://oceanography.dal.ca/person/Kelley_Dan.html",
+      "body_snippet": "This is fantastic ? thanks, Simon and Roger! Users of the ?oce? package (which uses rgdal for map-projection calculations) will be very grateful.\n\nDan.\n\nDan E. Kelley, Professor  and Graduate Coordina",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 5,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-2dc6d7b980f4",
+      "message_id": "<alpine.LFD.2.20.1605111719400.3376@reclus.nhh.no>",
+      "from_name": "Roger Bivand",
+      "from_email_hash": "a0c87926e9477aa221755cc93bdef47227c3563fd707e66ae49044467663d168",
+      "date": "2016-05-11T17:21:25+02:00",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "in_reply_to": "<09A2871F-BA03-41AE-979C-04BDCE718AFF@r-project.org>",
+      "references": [
+        "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+        "<912355A5-D0B8-49D1-AF5F-14B16D05D5B0@comcast.net>",
+        "<loom.20160511T123111-786@post.gmane.org>",
+        "<54A04088-BD9F-4457-994C-494F4781DA0A@dal.ca>",
+        "<09A2871F-BA03-41AE-979C-04BDCE718AFF@r-project.org>"
+      ],
+      "body_plain": "On Wed, 11 May 2016, Simon Urbanek wrote:\n\n> Thanks, that was the correct hint - updating PROJ4 to 4.9.1 seems to fix \n> the issue. The new binary is now up - until all mirrors sync up please \n> use the main Mac server:\n> install.packages(\"rgdal\",,\"http://r.research.att.com\")\n>\n> Roger, can you, please, add a corresponding regression test to rgdal so \n> a failure like the one below would be picked up on check?\n\nYes, of course, and thank you for resolving this so fast. The next release \nwill also have extra protection contributed by Barry Rowlingson (still \ntesting).\n\nRoger\n\n>\n> Thanks,\n> Simon\n>\n>\n> On May 11, 2016, at 7:25 AM, Daniel Kelley <Dan.Kelley at Dal.Ca> wrote:\n>\n>> I apologize for not providing sufficient information in my original posting.  Below I am putting, in markdown notation, the test results with two setups.  I think the key thing is that R 3.3.0 is linking with an old version of proj (4.8.0) whereas R 3.2.1 was linking with a new version (4.9.1).\n>>\n>>\n>> # Test 1 with R 3.2.1 (works)\n>>\n>>    R version 3.2.1 (2015-06-18) -- \"World-Famous Astronaut\"\n>>    Copyright (C) 2015 The R Foundation for Statistical Computing\n>>    Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>\n>>    R is free software and comes with ABSOLUTELY NO WARRANTY.\n>>    You are welcome to redistribute it under certain conditions.\n>>    Type 'license()' or 'licence()' for distribution details.\n>>\n>>      Natural language support but running in an English locale\n>>\n>>    R is a collaborative project with many contributors.\n>>    Type 'contributors()' for more information and\n>>    'citation()' on how to cite R or R packages in publications.\n>>\n>>    Type 'demo()' for some demos, 'help()' for on-line help, or\n>>    'help.start()' for an HTML browser interface to help.\n>>    Type 'q()' to quit R.\n>>\n>>> sessionInfo()\n>>    R version 3.2.1 (2015-06-18)\n>>    Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>    Running under: OS X 10.11.5 (unknown)\n>>\n>>    locale:\n>>    [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n>>\n>>    attached base packages:\n>>    [1] stats     graphics  grDevices utils     datasets  methods   base\n>>> library(rgdal)\n>>    Loading required package: sp\n>>    rgdal: version: 0.9-3, (SVN revision 530)\n>>     Geospatial Data Abstraction Library extensions to R successfully loaded\n>>     Loaded GDAL runtime: GDAL 1.11.2, released 2015/02/10\n>>     Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/gdal\n>>     Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]\n>>     Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/proj\n>>     Linking to sp version: 1.1-0\n>>> lon <- 0\n>>> lat <- 0\n>>> proj <- \"+proj=wintri\"\n>>> xy <- rgdal::project(cbind(lon, lat), proj=proj)\n>>> print(xy)\n>>         [,1] [,2]\n>>    [1,]    0    0\n>>> rgdal::project(xy, proj=proj, inv=TRUE)\n>>         [,1] [,2]\n>>    [1,]    0    0\n>>>\n>>>\n>>\n>>\n>>\n>>\n>> # Test 2 with R 3.3.0 (seg-faults)\n>>\n>>\n>>    R version 3.3.0 (2016-05-03) -- \"Supposedly Educational\"\n>>    Copyright (C) 2016 The R Foundation for Statistical Computing\n>>    Platform: x86_64-apple-darwin13.4.0 (64-bit)\n>>\n>>    R is free software and comes with ABSOLUTELY NO WARRANTY.\n>>    You are welcome to redistribute it under certain conditions.\n>>    Type 'license()' or 'licence()' for distribution details.\n>>\n>>      Natural language support but running in an English locale\n>>\n>>    R is a collaborative project with many contributors.\n>>    Type 'contributors()' for more information and\n>>    'citation()' on how to cite R or R packages in publications.\n>>\n>>    Type 'demo()' for some demos, 'help()' for on-line help, or\n>>    'help.start()' for an HTML browser interface to help.\n>>    Type 'q()' to quit R.\n>>\n>>> sessionInfo()\n>>    R version 3.3.0 (2016-05-03)\n>>    Platform: x86_64-apple-darwin13.4.0 (64-bit)\n>>    Running under: OS X 10.11.5 (El Capitan)\n>>\n>>    locale:\n>>    [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n>>\n>>    attached base packages:\n>>    [1] stats     graphics  grDevices utils     datasets  methods   base\n>>> library(rgdal)\n>>    Loading required package: sp\n>>    rgdal: version: 1.1-9, (SVN revision 617M)\n>>     Geospatial Data Abstraction Library extensions to R successfully loaded\n>>     Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25\n>>     Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/gdal\n>>     Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]\n>>     Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj\n>>     Linking to sp version: 1.2-3\n>>> lon <- 0\n>>> lat <- 0\n>>> proj <- \"+proj=wintri\"\n>>> xy <- rgdal::project(cbind(lon, lat), proj=proj)\n>>> print(xy)\n>>         lon lat\n>>    [1,]   0   0\n>>> rgdal::project(xy, proj=proj, inv=TRUE)\n>>\n>>     *** caught segfault ***\n>>    address 0x0, cause 'memory not mapped'\n>>\n>>    Traceback:\n>>     1: .Call(\"project_inv\", as.integer(nc), as.double(xy[, 1]), as.double(xy[,     2]), proj, as.logical(use_ob_tran), PACKAGE = \"rgdal\")\n>>     2: rgdal::project(xy, proj = proj, inv = TRUE)\n>>    An irrecoverable exception occurred. R is aborting now ...\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n\n-- \nRoger Bivand\nDepartment of Economics, Norwegian School of Economics,\nHelleveien 30, N-5045 Bergen, Norway.\nvoice: +47 55 95 93 55; fax +47 55 95 91 00\ne-mail: Roger.Bivand at nhh.no\nhttp://orcid.org/0000-0003-2392-6140\nhttps://scholar.google.no/citations?user=AWeghB0AAAAJ&hl=en\nhttp://depsy.org/person/434412",
+      "body_snippet": "On Wed, 11 May 2016, Simon Urbanek wrote:\n\n> Thanks, that was the correct hint - updating PROJ4 to 4.9.1 seems to fix \n> the issue. The new binary is now up - until all mirrors sync up please \n> use t",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 5,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-40361166f3a4",
+      "message_id": "<alpine.LFD.2.20.1605112303500.10839@reclus.nhh.no>",
+      "from_name": "Roger Bivand",
+      "from_email_hash": "a0c87926e9477aa221755cc93bdef47227c3563fd707e66ae49044467663d168",
+      "date": "2016-05-11T23:09:49+02:00",
+      "subject": "[R-SIG-Mac] rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "subject_clean": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "in_reply_to": "<alpine.LFD.2.20.1605111719400.3376@reclus.nhh.no>",
+      "references": [
+        "<ED8A23C9-E6ED-404C-AD90-8D952C02A11F@dal.ca>",
+        "<912355A5-D0B8-49D1-AF5F-14B16D05D5B0@comcast.net>",
+        "<loom.20160511T123111-786@post.gmane.org>",
+        "<54A04088-BD9F-4457-994C-494F4781DA0A@dal.ca>",
+        "<09A2871F-BA03-41AE-979C-04BDCE718AFF@r-project.org>",
+        "<alpine.LFD.2.20.1605111719400.3376@reclus.nhh.no>"
+      ],
+      "body_plain": "On Wed, 11 May 2016, Roger Bivand wrote:\n\n> On Wed, 11 May 2016, Simon Urbanek wrote:\n>\n>>  Thanks, that was the correct hint - updating PROJ4 to 4.9.1 seems to fix\n>>  the issue. The new binary is now up - until all mirrors sync up please use\n>>  the main Mac server:\n>>  install.packages(\"rgdal\",,\"http://r.research.att.com\")\n>>\n>>  Roger, can you, please, add a corresponding regression test to rgdal so a\n>>  failure like the one below would be picked up on check?\n>\n> Yes, of course, and thank you for resolving this so fast. The next release \n> will also have extra protection contributed by Barry Rowlingson (still \n> testing).\n\nrgdal_1.1-10 submitted to CRAN with additional tests which reproduce the \nissue (as far as I can tell without being able to check directly), and \nwith a fix by Barry Rowlingson for another problem identified while trying \nto add the tests. In addition, project() now has an added argument \nlegacy=, which if TRUE will use PROJ.4 pj_fwd() and pj_inv(), or if FALSE \nwill use pj_transform() (on Windows 32-bit it will always use \npj_transform()).\n\nThe sources are committed to R-Forge.\n\nAnyone able to test this version is very welcome to try it out.\n\nRoger\n\n>\n> Roger\n>\n>>\n>>  Thanks,\n>>  Simon\n>> \n>>\n>>  On May 11, 2016, at 7:25 AM, Daniel Kelley <Dan.Kelley at Dal.Ca> wrote:\n>> \n>> >  I apologize for not providing sufficient information in my original \n>> >  posting.  Below I am putting, in markdown notation, the test results \n>> >  with two setups.  I think the key thing is that R 3.3.0 is linking with \n>> >  an old version of proj (4.8.0) whereas R 3.2.1 was linking with a new \n>> >  version (4.9.1).\n>> > \n>> > \n>> >  # Test 1 with R 3.2.1 (works)\n>> > \n>> >     R version 3.2.1 (2015-06-18) -- \"World-Famous Astronaut\"\n>> >     Copyright (C) 2015 The R Foundation for Statistical Computing\n>> >     Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>> > \n>> >     R is free software and comes with ABSOLUTELY NO WARRANTY.\n>> >     You are welcome to redistribute it under certain conditions.\n>> >     Type 'license()' or 'licence()' for distribution details.\n>> > \n>> >       Natural language support but running in an English locale\n>> > \n>> >     R is a collaborative project with many contributors.\n>> >     Type 'contributors()' for more information and\n>> >     'citation()' on how to cite R or R packages in publications.\n>> > \n>> >     Type 'demo()' for some demos, 'help()' for on-line help, or\n>> >     'help.start()' for an HTML browser interface to help.\n>> >     Type 'q()' to quit R.\n>> > \n>> > >  sessionInfo()\n>> >     R version 3.2.1 (2015-06-18)\n>> >     Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>> >     Running under: OS X 10.11.5 (unknown)\n>> > \n>> >     locale:\n>> >     [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n>> > \n>> >     attached base packages:\n>> >     [1] stats     graphics  grDevices utils     datasets  methods   base\n>> > >  library(rgdal)\n>> >     Loading required package: sp\n>> >     rgdal: version: 0.9-3, (SVN revision 530)\n>> >      Geospatial Data Abstraction Library extensions to R successfully \n>> >      loaded\n>> >      Loaded GDAL runtime: GDAL 1.11.2, released 2015/02/10\n>> >      Path to GDAL shared files: \n>> >      /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/gdal\n>> >      Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]\n>> >      Path to PROJ.4 shared files: \n>> >      /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/proj\n>> >      Linking to sp version: 1.1-0\n>> > >  lon <- 0\n>> > >  lat <- 0\n>> > >  proj <- \"+proj=wintri\"\n>> > >  xy <- rgdal::project(cbind(lon, lat), proj=proj)\n>> > >  print(xy)\n>> >          [,1] [,2]\n>> >     [1,]    0    0\n>> > >  rgdal::project(xy, proj=proj, inv=TRUE)\n>> >          [,1] [,2]\n>> >     [1,]    0    0\n>> > > \n>> > > \n>> > \n>> > \n>> > \n>> > \n>> >  # Test 2 with R 3.3.0 (seg-faults)\n>> > \n>> > \n>> >     R version 3.3.0 (2016-05-03) -- \"Supposedly Educational\"\n>> >     Copyright (C) 2016 The R Foundation for Statistical Computing\n>> >     Platform: x86_64-apple-darwin13.4.0 (64-bit)\n>> > \n>> >     R is free software and comes with ABSOLUTELY NO WARRANTY.\n>> >     You are welcome to redistribute it under certain conditions.\n>> >     Type 'license()' or 'licence()' for distribution details.\n>> > \n>> >       Natural language support but running in an English locale\n>> > \n>> >     R is a collaborative project with many contributors.\n>> >     Type 'contributors()' for more information and\n>> >     'citation()' on how to cite R or R packages in publications.\n>> > \n>> >     Type 'demo()' for some demos, 'help()' for on-line help, or\n>> >     'help.start()' for an HTML browser interface to help.\n>> >     Type 'q()' to quit R.\n>> > \n>> > >  sessionInfo()\n>> >     R version 3.3.0 (2016-05-03)\n>> >     Platform: x86_64-apple-darwin13.4.0 (64-bit)\n>> >     Running under: OS X 10.11.5 (El Capitan)\n>> > \n>> >     locale:\n>> >     [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n>> > \n>> >     attached base packages:\n>> >     [1] stats     graphics  grDevices utils     datasets  methods   base\n>> > >  library(rgdal)\n>> >     Loading required package: sp\n>> >     rgdal: version: 1.1-9, (SVN revision 617M)\n>> >      Geospatial Data Abstraction Library extensions to R successfully \n>> >      loaded\n>> >      Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25\n>> >      Path to GDAL shared files: \n>> >      /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/gdal\n>> >      Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]\n>> >      Path to PROJ.4 shared files: \n>> >      /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj\n>> >      Linking to sp version: 1.2-3\n>> > >  lon <- 0\n>> > >  lat <- 0\n>> > >  proj <- \"+proj=wintri\"\n>> > >  xy <- rgdal::project(cbind(lon, lat), proj=proj)\n>> > >  print(xy)\n>> >          lon lat\n>> >     [1,]   0   0\n>> > >  rgdal::project(xy, proj=proj, inv=TRUE)\n>> > \n>> >     *** caught segfault ***\n>> >     address 0x0, cause 'memory not mapped'\n>> > \n>> >     Traceback:\n>> >      1: .Call(\"project_inv\", as.integer(nc), as.double(xy[, 1]), \n>> >      as.double(xy[,     2]), proj, as.logical(use_ob_tran), PACKAGE = \n>> >      \"rgdal\")\n>> >      2: rgdal::project(xy, proj = proj, inv = TRUE)\n>> >     An irrecoverable exception occurred. R is aborting now ...\n>> > \n>> >  _______________________________________________\n>> >  R-SIG-Mac mailing list\n>> >  R-SIG-Mac at r-project.org\n>> >  https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> > \n>> \n>> \n>\n>\n\n-- \nRoger Bivand\nDepartment of Economics, Norwegian School of Economics,\nHelleveien 30, N-5045 Bergen, Norway.\nvoice: +47 55 95 93 55; fax +47 55 95 91 00\ne-mail: Roger.Bivand at nhh.no\nhttp://orcid.org/0000-0003-2392-6140\nhttps://scholar.google.no/citations?user=AWeghB0AAAAJ&hl=en\nhttp://depsy.org/person/434412",
+      "body_snippet": "On Wed, 11 May 2016, Roger Bivand wrote:\n\n> On Wed, 11 May 2016, Simon Urbanek wrote:\n>\n>>  Thanks, that was the correct hint - updating PROJ4 to 4.9.1 seems to fix\n>>  the issue. The new binary is no",
+      "thread_id": "thread-96c89ee65e6e",
+      "thread_depth": 6,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-8047cc9cc66a",
+      "message_id": "<loom.20160512T193036-333@post.gmane.org>",
+      "from_name": "Steph Peacock",
+      "from_email_hash": "f0b1334aa002b03bd4d7ad389aec622a8e74e665d15a4db68d376b19666597d3",
+      "date": "2016-05-12T17:40:20Z",
+      "subject": "[R-SIG-Mac] R.app GUI under El Capitan: No response or \"CGContextGetCTM: invalid context 0x0\"",
+      "subject_clean": "R.app GUI under El Capitan: No response or \"CGContextGetCTM: invalid context 0x0\"",
+      "in_reply_to": null,
+      "references": [
+        "<f34367ebb35c4c9585d6ebab13a0b353@BADWLRZ-SW13MB2.ads.mwn.de>",
+        "<F19071CA-00DC-4DF6-B066-7FA56328A75D@gmail.com>",
+        "<D26AA501.104F7%ali.uenlue@tum.de>"
+      ],
+      "body_plain": "I have also been having this problem when saving plots for months -\nextremely frustrating. Seems to freeze regularly, especially if I try to\nnavigate to a different folder when saving. \n\nI seem to get the same lack of response sometimes when saving a workspace\nfile.  This occurs almost every time if I select Workspace -> Save\nWorkspace, and on occasion when using the command line save.image(). Was any\nsolution found? \n\nSee also\nhttp://r.789695.n4.nabble.com/R-G-GUI-freezes-saving-plot-td4718731.html \n\nHappy to provide details on request.",
+      "body_snippet": "I have also been having this problem when saving plots for months -\nextremely frustrating. Seems to freeze regularly, especially if I try to\nnavigate to a different folder when saving. \n\nI seem to get",
+      "thread_id": "thread-8047cc9cc66a",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-595e34d13b33",
+      "message_id": "<BE57B471-B482-41A8-88E5-3F515385A41C@ed.ac.uk>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "b2996a63ff96f739f191ae217a24b03b8a8e15e2be1b89418855d7b9bb0489ae",
+      "date": "2016-05-20T13:08:18+01:00",
+      "subject": "[R-SIG-Mac] UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "subject_clean": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Like most of us I am sure, I use the tab completion system a lot, not just to complete object names, but to pick from the drop-list created when one hits tab after a $ sign.\n\nCurrent situation to get to  \"object$part1$level2? the user currently has to type:\n1. \"obj?\" (completed to \"object\")\n2. Type \"$?\" and pick part1\n3. Type \"$?\" and pick level2\n\nSuggestion: make a second \"tab\" press fill in the $-sign. That would reduce the above to:\n1. \"obj?\" (completed to \"object\")\n2. Type \"? ?\" and pick part1\n3. Type \"? ?\" and pick level2\n\nMUCH quicker, as the dollar sign involves lifting finger off tab key, hitting (for English) shift-4 (a two hand operation, or an awkward one-hand stretch), then moving back to the tab key.\n\nUsers of the @ accessor  might feel left out - perhaps give them shift-tab :-)\n\nPS: Still be nice bump up the font size in the bottom tool-tip bar, if only back to the old physical height (or perhaps just re-use the RStudio tool-tip completion system)\n-- \nThe University of Edinburgh is a charitable body, registered in\nScotland, with registration number SC005336.",
+      "body_snippet": "Like most of us I am sure, I use the tab completion system a lot, not just to complete object names, but to pick from the drop-list created when one hits tab after a $ sign.\n\nCurrent situation to get ",
+      "thread_id": "thread-595e34d13b33",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-ca0e9c14ed7c",
+      "message_id": "<15C65BC1-1046-4C0F-AF71-F70DDFDB39E3@gmail.com>",
+      "from_name": "Michael Margolis",
+      "from_email_hash": "aff67a4d98a195558455990b203f9c9389393ba96a6fc36317d8b7cab7a52611",
+      "date": "2016-05-20T08:07:12-05:00",
+      "subject": "[R-SIG-Mac] GUI bug",
+      "subject_clean": "GUI bug",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The following message has been generated when I uncollapse a function in the GUI editor (that is, click the little triangle next to to a line number where I have previously hidden the function contents). This started when I upgraded to 3.3.0. It is sporadic, and has not yet been associated with any real problem.\n\n2016-05-20 07:59:37.369 R[4066:3108487] *** RController: caught ObjC exception while processing system events. Update to the latest GUI version and consider reporting this properly (see FAQ) if it persists and is not known. \n*** reason: *** -[__NSArrayM objectAtIndex:]: index 18446744073709551615 beyond bounds [0 .. 205]\n*** name: NSRangeException, info: (null)\n*** Version: R 3.3.0 (70573) R.app R 3.3.0 GUI 1.68 Mavericks build\nConsider saving your work soon in case this develops into a problem.",
+      "body_snippet": "The following message has been generated when I uncollapse a function in the GUI editor (that is, click the little triangle next to to a line number where I have previously hidden the function content",
+      "thread_id": "thread-ca0e9c14ed7c",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-68ca5fd35c6b",
+      "message_id": "<EADD7A2C-FECF-4164-93E6-AF4D88246592@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-23T19:59:26-04:00",
+      "subject": "[R-SIG-Mac] UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "subject_clean": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "in_reply_to": "<BE57B471-B482-41A8-88E5-3F515385A41C@ed.ac.uk>",
+      "references": [
+        "<BE57B471-B482-41A8-88E5-3F515385A41C@ed.ac.uk>"
+      ],
+      "body_plain": "Tim,\n\nbut how should be determine that you want $? If it's a matrix, maybe you want [ ... if it's a function maybe you want ( ... it looks like a hornet's nest to me, but if you provide logic, we may be able to code it up ;)\n\nCheers,\nSimon\n\n\nOn May 20, 2016, at 8:08 AM, Timothy Bates <tim.bates at ed.ac.uk> wrote:\n\n> \n> Like most of us I am sure, I use the tab completion system a lot, not just to complete object names, but to pick from the drop-list created when one hits tab after a $ sign.\n> \n> Current situation to get to  \"object$part1$level2? the user currently has to type:\n> 1. \"obj?\" (completed to \"object\")\n> 2. Type \"$?\" and pick part1\n> 3. Type \"$?\" and pick level2\n> \n> Suggestion: make a second \"tab\" press fill in the $-sign. That would reduce the above to:\n> 1. \"obj?\" (completed to \"object\")\n> 2. Type \"? ?\" and pick part1\n> 3. Type \"? ?\" and pick level2\n> \n> MUCH quicker, as the dollar sign involves lifting finger off tab key, hitting (for English) shift-4 (a two hand operation, or an awkward one-hand stretch), then moving back to the tab key.\n> \n> Users of the @ accessor  might feel left out - perhaps give them shift-tab :-)\n> \n> PS: Still be nice bump up the font size in the bottom tool-tip bar, if only back to the old physical height (or perhaps just re-use the RStudio tool-tip completion system)\n> -- \n> The University of Edinburgh is a charitable body, registered in\n> Scotland, with registration number SC005336.\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Tim,\n\nbut how should be determine that you want $? If it's a matrix, maybe you want [ ... if it's a function maybe you want ( ... it looks like a hornet's nest to me, but if you provide logic, we may ",
+      "thread_id": "thread-595e34d13b33",
+      "thread_depth": 1,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-faa68b24c974",
+      "message_id": "<5A5A30F5-0F19-46E6-96D0-DEEAAD11031C@ed.ac.uk>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "b2996a63ff96f739f191ae217a24b03b8a8e15e2be1b89418855d7b9bb0489ae",
+      "date": "2016-05-24T21:09:01+01:00",
+      "subject": "[R-SIG-Mac] UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "subject_clean": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "in_reply_to": "<EADD7A2C-FECF-4164-93E6-AF4D88246592@r-project.org>",
+      "references": [
+        "<BE57B471-B482-41A8-88E5-3F515385A41C@ed.ac.uk>",
+        "<EADD7A2C-FECF-4164-93E6-AF4D88246592@r-project.org>"
+      ],
+      "body_plain": "On 24 May 2016, at 12:59 am, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> how should be determine that you want $? If it's a matrix, maybe you want [ ... if it's a function maybe you want ( ... it looks like a hornet's nest to me, but if you provide logic, we may be able to code it up ;)\n> Cheers, Simon\n\nHi Simon,\n\nMy logic is as follows:\n\n1. When a name is already complete, when the user pushes tab again, they are expecting ?more? name completion, i.e.,  they want to access a $ or @ sub-component. Currently, nothing happens, and the user feels ?thwarted?? like the typing ?Simon\" but then having to type a space and a tab to get \"Urbanek\" :-)\n\n2. Most object components are $ indexed rather than @ indexed), so $ is the best guess.\n\nBased on this, a simple logic of \"append $ if the current name is a valid name\" would be an advance in many cases. I can?t see a downside.\n\nA smarter logic would call .DollarNames() on the current word and if it found $ items, then append the $ and display the dropdown, if not, beep.\n\nRe ?why not offer mtcars[] instead of mtcars$?? or adding the round brackets to a function, I think the answer is that while perhaps an appropriately smart version of rcompgen could support this, users are expecting tab completion to complete names and in R, that means a complete addressable name for an object component.\n\nSo I think that having tab add a $ accessor would seem natural, whereas having one tab complete the name, and the next one add brackets would not.\n\nCurrently, I find that the mental context switch from completing a name to accessing or filling in parameters is sufficiently ?different? that typing the bracket ending seems natural, and it?s nice that R.app gives us the closing bracket for free.\n\nCheers, tim\n\nhttps://stat.ethz.ch/R-manual/R-devel/library/utils/html/rcompgen.html\n\nPS: Indeed, a type-aware completion system would be great (as you imply). I enjoy the feature in RStudio now where valid completions are given, for instance, within a square bracket context. i.e., mtcars[1,?] gives a drop down of column names - much easier than running names() in the terminal to remember what is what.\n\n\n> \n> On May 20, 2016, at 8:08 AM, Timothy Bates <tim.bates at ed.ac.uk> wrote:\n>> Like most of us I am sure, I use the tab completion system a lot, not just to complete object names, but to pick from the drop-list created when one hits tab after a $ sign.\n>> \n>> Current situation to get to  \"object$part1$level2? the user currently has to type:\n>> 1. \"obj?\" (completed to \"object\")\n>> 2. Type \"$?\" and pick part1\n>> 3. Type \"$?\" and pick level2\n>> \n>> Suggestion: make a second \"tab\" press fill in the $-sign. That would reduce the above to:\n>> 1. \"obj?\" (completed to \"object\")\n>> 2. Type \"? ?\" and pick part1\n>> 3. Type \"? ?\" and pick level2\n>> \n>> MUCH quicker, as the dollar sign involves lifting finger off tab key, hitting (for English) shift-4 (a two hand operation, or an awkward one-hand stretch), then moving back to the tab key.\n>> \n>> Users of the @ accessor  might feel left out - perhaps give them shift-tab :-)\n>> \n>> PS: Still be nice bump up the font size in the bottom tool-tip bar, if only back to the old physical height (or perhaps just re-use the RStudio tool-tip completion system)\n\n\n-- \nThe University of Edinburgh is a charitable body, registered in\nScotland, with registration number SC005336.",
+      "body_snippet": "On 24 May 2016, at 12:59 am, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> how should be determine that you want $? If it's a matrix, maybe you want [ ... if it's a function maybe you want (",
+      "thread_id": "thread-595e34d13b33",
+      "thread_depth": 2,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-aa4cf37a766b",
+      "message_id": "<DE828AD6-05FA-4874-917C-6B21D8845185@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-24T17:08:03-04:00",
+      "subject": "[R-SIG-Mac] UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "subject_clean": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "in_reply_to": "<5A5A30F5-0F19-46E6-96D0-DEEAAD11031C@ed.ac.uk>",
+      "references": [
+        "<BE57B471-B482-41A8-88E5-3F515385A41C@ed.ac.uk>",
+        "<EADD7A2C-FECF-4164-93E6-AF4D88246592@r-project.org>",
+        "<5A5A30F5-0F19-46E6-96D0-DEEAAD11031C@ed.ac.uk>"
+      ],
+      "body_plain": "> On May 24, 2016, at 4:09 PM, Timothy Bates <tim.bates at ed.ac.uk> wrote:\n> \n> \n> On 24 May 2016, at 12:59 am, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> how should be determine that you want $? If it's a matrix, maybe you want [ ... if it's a function maybe you want ( ... it looks like a hornet's nest to me, but if you provide logic, we may be able to code it up ;)\n>> Cheers, Simon\n> \n> Hi Simon,\n> \n> My logic is as follows:\n> \n> 1. When a name is already complete, when the user pushes tab again, they are expecting ?more? name completion, i.e.,  they want to access a $ or @ sub-component.\n\n\nThat seems like a very strong assumption and my point questioning that assumption. For a lot of objects $ makes no sense which is why I'm reluctant to add $ unconditionally. Really, it only makes sense for lists (and some subclasses) - anything else gets a bit dodgy (it works for some but not others).\n\nThat said, I suppose one possible approach would be to catch any completion that yields just the items itself and if that happens attempt a completion with $ appended and see what it yields. If it yields anything additional, return that result instead. You can test whether you like that by using something like the following:\n\n\nadd.fn(\"rcompgen.completion\", function (x)\n{\n    comp <- function(x) {\n         utils:::.assignLinebuffer(x)\n         utils:::.assignEnd(nchar(x))\n         utils:::.guessTokenFromLine()\n         utils:::.completeToken()\n         utils:::.CompletionEnv[[\"comps\"]]\n    }\n    res <- unique(comp(x))\n    if (nzchar(x) && identical(res, x) && !identical(substr(x, nchar(x), nchar(x) + 1L), \"$\")) {\n       rc <- comp(paste0(x, \"$\"))\n       if (!identical(substr(rc, nchar(rc), nchar(rc) + 1L), \"$\")) res <- rc\n    }\n    res\n})\n\nObviously, you can eve spin that further and carry on with @ if $ doesn't work.\n\nCheers,\nSimon\n\n\n\n\n\n> Currently, nothing happens, and the user feels ?thwarted?? like the typing ?Simon\" but then having to type a space and a tab to get \"Urbanek\" :-)\n> \n> 2. Most object components are $ indexed rather than @ indexed), so $ is the best guess.\n> \n> Based on this, a simple logic of \"append $ if the current name is a valid name\" would be an advance in many cases. I can?t see a downside.\n> \n> A smarter logic would call .DollarNames() on the current word and if it found $ items, then append the $ and display the dropdown, if not, beep.\n> \n> Re ?why not offer mtcars[] instead of mtcars$?? or adding the round brackets to a function, I think the answer is that while perhaps an appropriately smart version of rcompgen could support this, users are expecting tab completion to complete names and in R, that means a complete addressable name for an object component.\n> \n> So I think that having tab add a $ accessor would seem natural, whereas having one tab complete the name, and the next one add brackets would not.\n> \n> Currently, I find that the mental context switch from completing a name to accessing or filling in parameters is sufficiently ?different? that typing the bracket ending seems natural, and it?s nice that R.app gives us the closing bracket for free.\n> \n> Cheers, tim\n> \n> https://stat.ethz.ch/R-manual/R-devel/library/utils/html/rcompgen.html\n> \n> PS: Indeed, a type-aware completion system would be great (as you imply). I enjoy the feature in RStudio now where valid completions are given, for instance, within a square bracket context. i.e., mtcars[1,?] gives a drop down of column names - much easier than running names() in the terminal to remember what is what.\n> \n> \n>> \n>> On May 20, 2016, at 8:08 AM, Timothy Bates <tim.bates at ed.ac.uk> wrote:\n>>> Like most of us I am sure, I use the tab completion system a lot, not just to complete object names, but to pick from the drop-list created when one hits tab after a $ sign.\n>>> \n>>> Current situation to get to  \"object$part1$level2? the user currently has to type:\n>>> 1. \"obj?\" (completed to \"object\")\n>>> 2. Type \"$?\" and pick part1\n>>> 3. Type \"$?\" and pick level2\n>>> \n>>> Suggestion: make a second \"tab\" press fill in the $-sign. That would reduce the above to:\n>>> 1. \"obj?\" (completed to \"object\")\n>>> 2. Type \"? ?\" and pick part1\n>>> 3. Type \"? ?\" and pick level2\n>>> \n>>> MUCH quicker, as the dollar sign involves lifting finger off tab key, hitting (for English) shift-4 (a two hand operation, or an awkward one-hand stretch), then moving back to the tab key.\n>>> \n>>> Users of the @ accessor  might feel left out - perhaps give them shift-tab :-)\n>>> \n>>> PS: Still be nice bump up the font size in the bottom tool-tip bar, if only back to the old physical height (or perhaps just re-use the RStudio tool-tip completion system)\n> \n> \n> -- \n> The University of Edinburgh is a charitable body, registered in\n> Scotland, with registration number SC005336.\n>",
+      "body_snippet": "> On May 24, 2016, at 4:09 PM, Timothy Bates <tim.bates at ed.ac.uk> wrote:\n> \n> \n> On 24 May 2016, at 12:59 am, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> how should be determine that y",
+      "thread_id": "thread-595e34d13b33",
+      "thread_depth": 3,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-2371e658158b",
+      "message_id": "<7f7b840d8d67049da053ad35886f2560@witthoft.com>",
+      "from_name": "cgw at witthoft.com",
+      "from_email_hash": "46059b0be5760bc07259f96f443adddcd097b886e9ed809445e75f4116431a78",
+      "date": "2016-05-25T07:51:06-04:00",
+      "subject": "[R-SIG-Mac] UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "subject_clean": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "in_reply_to": "<mailman.19.1464170402.26424.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.19.1464170402.26424.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "I have to agree with Simon here that \"best guess\" will only lead to pain\nin many cases.  \n\nThe best solution, albeit the most painful for Simon :-( , is to have a\nPreferences pane where the user can specify what a tab does, i.e.\n\"nothing\", \" $\", \"@\" , \"$first_named_list_item\", and so on.   But even\nthen, what if there are objects  \"foo\"  and \"foolish\" in your workspace?\n You want to write  \"foo$bar\" , but which gets precedence when you enter\na tab?  \"foo$bar\" or \"foolish\" ?\n\n[Tim wrote...]\n1. When a name is already complete, when the user pushes tab again, they\nare expecting ?more? name completion, i.e.,  they want to access a $ or\n@ sub-component. Currently, nothing happens, and the user feels\n?thwarted?? like the typing ?Simon\" but then having to type a space and\na tab to get \"Urbanek\" :-)\n\n2. Most object components are $ indexed rather than @ indexed), so $ is\nthe best guess.\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I have to agree with Simon here that \"best guess\" will only lead to pain\nin many cases.  \n\nThe best solution, albeit the most painful for Simon :-( , is to have a\nPreferences pane where the user can s",
+      "thread_id": "thread-2371e658158b",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-e9c393e77116",
+      "message_id": "<F1C13980-DB46-4DAC-8AAB-CA5780A7E62E@gmail.com>",
+      "from_name": "Jeffrey Agyapong",
+      "from_email_hash": "c1628c4aa5be66dcb840be867a573c24b2ca32b5e55a430adc9b0e27815220d8",
+      "date": "2016-05-26T09:21:29Z",
+      "subject": "[R-SIG-Mac] Command lines for R on Macintosh",
+      "subject_clean": "Command lines for R on Macintosh",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I recently installed R.3.3.0 on mac and I seem to have problems with the command lines. The command lines for windows seems to be different from that for Macintosh. For example I tried the following commands and didn?t work;\n> getwd()\n[1] \"/Users/Dimples\"\n> setwd(\"/Users/Dimples/Jeff\")\nError in setwd(\"/Users/Dimples/Jeff\") : cannot change working directory\n> setwd(\"/Users/Dimples/Desktop/R/Jeff\")\nError in setwd(\"/Users/Dimples/Desktop/R/Jeff\") : \n  cannot change working directory\n> setwd(\"/Users/Dimples/JeffR\")\nError in setwd(\"/Users/Dimples/JeffR\") : cannot change working directory\n> setwd(\"/Untitled/Users/Dimples/Desktop/R/JeffRR\")\nError in setwd(\"/Untitled/Users/Dimples/Desktop/R/JeffRR\") : \n  cannot change working directory\n> setwd(\"/Users/Dimples/Desktop/R/JeffRR\")\nError in setwd(\"/Users/Dimples/Desktop/R/JeffRR\") : \n  cannot change working directory\n> setwd(\"/Users/Dimples/Desktop/JeffRR\")\nError in setwd(\"/Users/Dimples/Desktop/JeffRR\") : \n  cannot change working directory\n> setwd(\"/Users/Dimples/Desktop/JeffRR\")\nError in setwd(\"/Users/Dimples/Desktop/JeffRR\") : \n  cannot change working directory\n Can I receive any help with which app I can use to run CRAN R on macintosh or how to run R app on macintosh.\n\nBest regards,\nJeff",
+      "body_snippet": "I recently installed R.3.3.0 on mac and I seem to have problems with the command lines. The command lines for windows seems to be different from that for Macintosh. For example I tried the following c",
+      "thread_id": "thread-e9c393e77116",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-31f494149799",
+      "message_id": "<FA4BE30A-DB30-4154-BE2A-CBB83F2416E2@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-30T16:59:23-04:00",
+      "subject": "[R-SIG-Mac] Intermittent plotting failures on new Quartz window",
+      "subject_clean": "Intermittent plotting failures on new Quartz window",
+      "in_reply_to": "<3BE45281-70CD-4FDE-8678-06C5BA6A32C0@igb.illinois.edu>",
+      "references": [
+        "<3BE45281-70CD-4FDE-8678-06C5BA6A32C0@igb.illinois.edu>"
+      ],
+      "body_plain": "I though I read this before - yes, it looks like a timing issue that has to do with OS X providing windows asynchronously, so the drawing space is not ready yet while R is already plotting so the plot is incomplete. R doesn't know that so it doesn't redraw unless you resize the plot or play the history (cmd-left/right) -- the fact that the history shows the full plot proves that this is not something on the R side (since the display list is complete), but rather the initial rendering doesn't have a window to draw into. I didn't find any API for Quartz to know when the window is actually ready. This only affects creating a new window and plotting into it before it's ready. Once the window is shown, everything works as expected - so you're probably better of using plot.new() first before you start creating the grobs.\n\nCheers,\nSimon\n\n\nOn Apr 30, 2016, at 5:21 PM, Chris Black <black11 at igb.illinois.edu> wrote:\n\n> Hi, all. I?m getting some puzzling, intermittent plot failures that seem to occur only when I?m in an interactive session, arranging plots with very different drawing speeds, and only when Quartz needs to open a new window before plotting. \n> \n> I posted a longer version of this at https://gist.github.com/infotroph/c68fc7a3f8594473361f87e2a348ddf9, but here?s a minimal example:\n> \n> set.seed(34565)\n> library(ggplot2)\n> library(gridExtra)\n> library(grid)\n> \n> p1 = ggplot(diamonds, aes(x, price))+geom_point() \n> p2 = ggplot(mtcars, aes(wt, mpg))+geom_point()\n> \n> graphics.off()\n> pp=arrangeGrob(p1, p2)\n> grid.draw(pp)\n> \n> Expected result: New graphics window containing a two-panel plot with diamonds on the top and cars on the bottom.\n> Observed result: Usually (~80% of the time?), a new graphics window with the top panel incompletely drawn (usually just axes with no points or panel grid), and the bottom panel as expected. Rarely (~20%?), the complete plot as expected. \n> \n> I can modulate the success rate somewhat by putting different lengths of Sys.sleep() in between the arrangeGrob and grid.draw calls, and I can guarantee success by calling dev.new() before arrangeGrob. See the above-linked Gist for details and for session info from a few other folks ? thus far only the Quartz users can reproduce it, hence my starting with this list. \n> \n> Session info:\n> \n> R for 3.2.4 GUI 1.67 Mavericks build (7152)\n> R version 3.2.4 (2016-03-10)\n> Platform: x86_64-apple-darwin13.4.0 (64-bit)\n> Running under: OS X 10.11.3 (El Capitan)\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] grid      stats     graphics  grDevices utils     datasets  methods  \n> [8] base     \n> \n> other attached packages:\n> [1] gridExtra_2.2.1 ggplot2_2.1.0  \n> \n> loaded via a namespace (and not attached):\n> [1] labeling_0.3     colorspace_1.2-6 scales_0.4.0     plyr_1.8.3      \n> [5] tools_3.2.4      gtable_0.2.0     Rcpp_0.12.4      munsell_0.4.3   \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I though I read this before - yes, it looks like a timing issue that has to do with OS X providing windows asynchronously, so the drawing space is not ready yet while R is already plotting so the plot",
+      "thread_id": "thread-31f494149799",
+      "thread_depth": 0,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-21465279bad3",
+      "message_id": "<37390CF5-D2E1-48FA-9B07-FF62A8383F6F@ed.ac.uk>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "b2996a63ff96f739f191ae217a24b03b8a8e15e2be1b89418855d7b9bb0489ae",
+      "date": "2016-05-31T09:12:28+01:00",
+      "subject": "[R-SIG-Mac] UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "subject_clean": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "in_reply_to": "<7f7b840d8d67049da053ad35886f2560@witthoft.com>",
+      "references": [
+        "<mailman.19.1464170402.26424.r-sig-mac@r-project.org>",
+        "<7f7b840d8d67049da053ad35886f2560@witthoft.com>"
+      ],
+      "body_plain": "Hi all,\nSimon send code that would essentially allow users to customise the behavior in a very R-ish way. Perhaps someone could even release a package R.app.options to contain functions like this.\n\nCode copied below: I can?t get it to work as add.fn doesn?t exist for me: no doubt soluble, as Simon says it?s loaded as part of the GUI-tools.\n\nWhile there are a good many things I?d like in the R.app, I realise this is all stuff to create and maintain, so not requesting new preference pane items. So having this as custom code in a package to be launched at  startup would suffice.\n\nre what to do about foo?> when foo$part and foolish both exist. My request was that the tab only do something when the current behavior does nothing. Alternatively, a hierarchial menu would solve this also:\n\nfoo$part\n     foolish\n     tile\n\nA bundle storing options and executing a custom add.fn(\"rcompgen.completion\", function (x)  would allow flexibility over some of these choice.\n\ncheers,\nt\n\n> \"foo\"  and \"foolish\" in your workspace?\n> You want to write  \"foo$bar\" , but which gets precedence when you enter\n> a tab?  \"foo$bar\" or \"foolish? ?\n\n> On 25 May 2016, at 12:51 pm, <cgw at witthoft.com> <cgw at witthoft.com> wrote:\n> I have to agree with Simon here that \"best guess\" will only lead to pain\n> in many cases.  \n> \n> The best solution, albeit the most painful for Simon :-( , is to have a\n> Preferences pane where the user can specify what a tab does, i.e.\n> \"nothing\", \" $\", \"@\" , \"$first_named_list_item\", and so on.   But even\n> then, what if there are objects  \"foo\"  and \"foolish\" in your workspace?\n> You want to write  \"foo$bar\" , but which gets precedence when you enter\n> a tab?  \"foo$bar\" or \"foolish\" ?\n> \n> [Tim wrote...]\n> 1. When a name is already complete, when the user pushes tab again, they\n> are expecting ?more? name completion, i.e.,  they want to access a $ or\n> @ sub-component. Currently, nothing happens, and the user feels\n> ?thwarted?? like the typing ?Simon\" but then having to type a space and\n> a tab to get \"Urbanek\" :-)\n> \n> 2. Most object components are $ indexed rather than @ indexed), so $ is\n> the best guess.\n\nOn 24 May 2016, at 10:08 pm, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> That seems like a very strong assumption and my point questioning that assumption. For a lot of objects $ makes no sense which is why I'm reluctant to add $ unconditionally. Really, it only makes sense for lists (and some subclasses) - anything else gets a bit dodgy (it works for some but not others).\n> \n> That said, I suppose one possible approach would be to catch any completion that yields just the items itself and if that happens attempt a completion with $ appended and see what it yields. If it yields anything additional, return that result instead. You can test whether you like that by using something like the following:\n> \n# add.fn is part of the GUI-tools which are automatically loaded when the R.app GUI starts\n# and rcompgen.completion what the GUI uses to call the completion code.\n\nadd.fn(\"rcompgen.completion\", function (x) {\n comp <- function(x) {\n      utils:::.assignLinebuffer(x)\n      utils:::.assignEnd(nchar(x))\n      utils:::.guessTokenFromLine()\n      utils:::.completeToken()\n      utils:::.CompletionEnv[[\"comps\"]]\n }\n res <- unique(comp(x))\n if (nzchar(x) && identical(res, x) && !identical(substr(x, nchar(x), nchar(x) + 1L), \"$\")) {\n    rc <- comp(paste0(x, \"$\"))\n    if (!identical(substr(rc, nchar(rc), nchar(rc) + 1L), \"$\")) res <- rc\n }\n res\n})\n\n# Obviously, you can eve spin that further and carry on with @ if $ doesn't work.\n\n\n-- \nThe University of Edinburgh is a charitable body, registered in\nScotland, with registration number SC005336.",
+      "body_snippet": "Hi all,\nSimon send code that would essentially allow users to customise the behavior in a very R-ish way. Perhaps someone could even release a package R.app.options to contain functions like this.\n\nCo",
+      "thread_id": "thread-2371e658158b",
+      "thread_depth": 1,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-c487e0b642af",
+      "message_id": "<71DF5907-26C0-4F4F-8197-973CA7F5C14E@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "d2573f0c0a474184a9d96c815fc6bf37ff7c6392082069d810139c562d5a6f71",
+      "date": "2016-05-31T10:13:01+02:00",
+      "subject": "[R-SIG-Mac] Command lines for R on Macintosh",
+      "subject_clean": "Command lines for R on Macintosh",
+      "in_reply_to": "<F1C13980-DB46-4DAC-8AAB-CA5780A7E62E@gmail.com>",
+      "references": [
+        "<F1C13980-DB46-4DAC-8AAB-CA5780A7E62E@gmail.com>"
+      ],
+      "body_plain": "I don't see a problem with that:\n\nPeters-iMac:~ pd$ r-release-branch/BUILD-dist/bin/R\n\nR version 3.3.0 Patched (2016-05-26 r70684) -- \"Supposedly Educational\"\nCopyright (C) 2016 The R Foundation for Statistical Computing\nPlatform: x86_64-apple-darwin13.4.0/x86_64 (64-bit)\n[....]\n> getwd()\n[1] \"/Users/pd\"\n> setwd(\"/Users/pd/tmp\")\n> getwd()\n[1] \"/Users/pd/tmp\"\n\nSuspecting a permission issue on your turf: Do you have nonstandard umask setting, can the owner of the R process (which you start how?) read your files, etc.\n\n-pd \n\n> On 26 May 2016, at 11:21 , Jeffrey Agyapong <jephrey14 at gmail.com> wrote:\n> \n> I recently installed R.3.3.0 on mac and I seem to have problems with the command lines. The command lines for windows seems to be different from that for Macintosh. For example I tried the following commands and didn?t work;\n>> getwd()\n> [1] \"/Users/Dimples\"\n>> setwd(\"/Users/Dimples/Jeff\")\n> Error in setwd(\"/Users/Dimples/Jeff\") : cannot change working directory\n>> setwd(\"/Users/Dimples/Desktop/R/Jeff\")\n> Error in setwd(\"/Users/Dimples/Desktop/R/Jeff\") : \n>  cannot change working directory\n>> setwd(\"/Users/Dimples/JeffR\")\n> Error in setwd(\"/Users/Dimples/JeffR\") : cannot change working directory\n>> setwd(\"/Untitled/Users/Dimples/Desktop/R/JeffRR\")\n> Error in setwd(\"/Untitled/Users/Dimples/Desktop/R/JeffRR\") : \n>  cannot change working directory\n>> setwd(\"/Users/Dimples/Desktop/R/JeffRR\")\n> Error in setwd(\"/Users/Dimples/Desktop/R/JeffRR\") : \n>  cannot change working directory\n>> setwd(\"/Users/Dimples/Desktop/JeffRR\")\n> Error in setwd(\"/Users/Dimples/Desktop/JeffRR\") : \n>  cannot change working directory\n>> setwd(\"/Users/Dimples/Desktop/JeffRR\")\n> Error in setwd(\"/Users/Dimples/Desktop/JeffRR\") : \n>  cannot change working directory\n> Can I receive any help with which app I can use to run CRAN R on macintosh or how to run R app on macintosh.\n> \n> Best regards,\n> Jeff\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "I don't see a problem with that:\n\nPeters-iMac:~ pd$ r-release-branch/BUILD-dist/bin/R\n\nR version 3.3.0 Patched (2016-05-26 r70684) -- \"Supposedly Educational\"\nCopyright (C) 2016 The R Foundation for S",
+      "thread_id": "thread-e9c393e77116",
+      "thread_depth": 1,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-3ea96caa10fd",
+      "message_id": "<63ECA1CD-7873-4592-93F1-B4778108C790@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-05-31T09:01:09-04:00",
+      "subject": "[R-SIG-Mac] UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "subject_clean": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "in_reply_to": "<37390CF5-D2E1-48FA-9B07-FF62A8383F6F@ed.ac.uk>",
+      "references": [
+        "<mailman.19.1464170402.26424.r-sig-mac@r-project.org>",
+        "<7f7b840d8d67049da053ad35886f2560@witthoft.com>",
+        "<37390CF5-D2E1-48FA-9B07-FF62A8383F6F@ed.ac.uk>"
+      ],
+      "body_plain": "If you don't see add.fn(), then use this instead which is equivalent:\n\nRGUI = as.environment(\"tools:RGUI\")\nRGUI$rcompgen.completion <- function (x) {\ncomp <- function(x) {\n     utils:::.assignLinebuffer(x)\n     utils:::.assignEnd(nchar(x))\n     utils:::.guessTokenFromLine()\n     utils:::.completeToken()\n     utils:::.CompletionEnv[[\"comps\"]]\n}\nres <- unique(comp(x))\nif (nzchar(x) && identical(res, x) && !identical(substr(x, nchar(x), nchar(x) + 1L), \"$\")) {\n   rc <- comp(paste0(x, \"$\"))\n   if (!identical(substr(rc, nchar(rc), nchar(rc) + 1L), \"$\")) res <- rc\n}\nres\n}\n\nCheers,\nSimon\n\n\n\n> On May 31, 2016, at 4:12 AM, Timothy Bates <tim.bates at ed.ac.uk> wrote:\n> \n> Hi all,\n> Simon send code that would essentially allow users to customise the behavior in a very R-ish way. Perhaps someone could even release a package R.app.options to contain functions like this.\n> \n> Code copied below: I can?t get it to work as add.fn doesn?t exist for me: no doubt soluble, as Simon says it?s loaded as part of the GUI-tools.\n> \n> While there are a good many things I?d like in the R.app, I realise this is all stuff to create and maintain, so not requesting new preference pane items. So having this as custom code in a package to be launched at  startup would suffice.\n> \n> re what to do about foo?> when foo$part and foolish both exist. My request was that the tab only do something when the current behavior does nothing. Alternatively, a hierarchial menu would solve this also:\n> \n> foo$part\n>     foolish\n>     tile\n> \n> A bundle storing options and executing a custom add.fn(\"rcompgen.completion\", function (x)  would allow flexibility over some of these choice.\n> \n> cheers,\n> t\n> \n>> \"foo\"  and \"foolish\" in your workspace?\n>> You want to write  \"foo$bar\" , but which gets precedence when you enter\n>> a tab?  \"foo$bar\" or \"foolish? ?\n> \n>> On 25 May 2016, at 12:51 pm, <cgw at witthoft.com> <cgw at witthoft.com> wrote:\n>> I have to agree with Simon here that \"best guess\" will only lead to pain\n>> in many cases.  \n>> \n>> The best solution, albeit the most painful for Simon :-( , is to have a\n>> Preferences pane where the user can specify what a tab does, i.e.\n>> \"nothing\", \" $\", \"@\" , \"$first_named_list_item\", and so on.   But even\n>> then, what if there are objects  \"foo\"  and \"foolish\" in your workspace?\n>> You want to write  \"foo$bar\" , but which gets precedence when you enter\n>> a tab?  \"foo$bar\" or \"foolish\" ?\n>> \n>> [Tim wrote...]\n>> 1. When a name is already complete, when the user pushes tab again, they\n>> are expecting ?more? name completion, i.e.,  they want to access a $ or\n>> @ sub-component. Currently, nothing happens, and the user feels\n>> ?thwarted?? like the typing ?Simon\" but then having to type a space and\n>> a tab to get \"Urbanek\" :-)\n>> \n>> 2. Most object components are $ indexed rather than @ indexed), so $ is\n>> the best guess.\n> \n> On 24 May 2016, at 10:08 pm, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> That seems like a very strong assumption and my point questioning that assumption. For a lot of objects $ makes no sense which is why I'm reluctant to add $ unconditionally. Really, it only makes sense for lists (and some subclasses) - anything else gets a bit dodgy (it works for some but not others).\n>> \n>> That said, I suppose one possible approach would be to catch any completion that yields just the items itself and if that happens attempt a completion with $ appended and see what it yields. If it yields anything additional, return that result instead. You can test whether you like that by using something like the following:\n>> \n> # add.fn is part of the GUI-tools which are automatically loaded when the R.app GUI starts\n> # and rcompgen.completion what the GUI uses to call the completion code.\n> \n> add.fn(\"rcompgen.completion\", function (x) {\n> comp <- function(x) {\n>      utils:::.assignLinebuffer(x)\n>      utils:::.assignEnd(nchar(x))\n>      utils:::.guessTokenFromLine()\n>      utils:::.completeToken()\n>      utils:::.CompletionEnv[[\"comps\"]]\n> }\n> res <- unique(comp(x))\n> if (nzchar(x) && identical(res, x) && !identical(substr(x, nchar(x), nchar(x) + 1L), \"$\")) {\n>    rc <- comp(paste0(x, \"$\"))\n>    if (!identical(substr(rc, nchar(rc), nchar(rc) + 1L), \"$\")) res <- rc\n> }\n> res\n> })\n> \n> # Obviously, you can eve spin that further and carry on with @ if $ doesn't work.\n> \n> \n> -- \n> The University of Edinburgh is a charitable body, registered in\n> Scotland, with registration number SC005336.\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "If you don't see add.fn(), then use this instead which is equivalent:\n\nRGUI = as.environment(\"tools:RGUI\")\nRGUI$rcompgen.completion <- function (x) {\ncomp <- function(x) {\n     utils:::.assignLinebuff",
+      "thread_id": "thread-2371e658158b",
+      "thread_depth": 2,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-ef5e3e7d75cd",
+      "message_id": "<151E3AF4-5622-4395-9DCE-C2219A362B2F@gmail.com>",
+      "from_name": "Charles DiMaggio",
+      "from_email_hash": "1281fe8aab57a2a185275e4b54ee169100ca5a0b7c531c9519f82ff2721b49b8",
+      "date": "2016-05-31T09:08:23-04:00",
+      "subject": "[R-SIG-Mac] Hangs Reading Large Files",
+      "subject_clean": "Hangs Reading Large Files",
+      "in_reply_to": "<f662b753a05d433383e95a4ba1f4bf49@witthoft.com>",
+      "references": [
+        "<mailman.17.1462528803.4394.r-sig-mac@r-project.org>",
+        "<f662b753a05d433383e95a4ba1f4bf49@witthoft.com>"
+      ],
+      "body_plain": "Thank for that. Makes sense.  Odd thing is I never noticed this behavior before El Cap.  In Mavericks, would see the small grey spinning progress indicator which was much more reassuring that things were as they should be.\n\nCheers\n\nCharles\n\n\nCharles DiMaggio, PhD, MPH\nProfessor of Surgery and Population Health\nDirector of Injury Research\nNew York University School of Medicine\nDivision of Trauma, Emergency Surgery and Surgical Critical Care\nBellevue Hospital Center\n462 First Avenue, NBV 15\nNew York, NY 10016-9196\nCharles.Dimaggio at nyumc.org\nOffice: 212.263.3202\nDirect: 516.308.6426\n\n> On May 6, 2016, at 7:30 AM, cgw at witthoft.com wrote:\n> \n> When an executable is performing a processor-intensive task without any\n> \"hooks\" for interrupts,  the \"not responding\"  status is normal, as is\n> the pinwheel -- which is doing what it's supposed to; it's just that\n> none of us like it when it spins for too long. \n> \n> Message: 2\n> Date: Thu, 5 May 2016 18:16:17 -0400\n> From: Charles DiMaggio <charles.dimaggio at gmail.com>\n> To: r-sig-mac at r-project.org\n> Subject: [R-SIG-Mac] R 3.2.2 Hangs Reading Files in El Capitan\n>    [Solved]\n> Message-ID: <FCE03872-D0EB-46C7-81F1-8C7E641BD5B6 at gmail.com>\n> Content-Type: text/plain; charset=\"UTF-8\"\n> \n> Been a while, but wanted to close the page on a previous post describing\n> R hanging on readRDS() and load() for largish (say 500MB or larger)\n> files. Tried again with recent release (3.3.0).  Am able to read in\n> large files under El Cap.  While the file is reading in, I get a\n> disconcerting spinning pinwheel of death and a check under Force Quit\n> reports R is not responding.  But if I wait it out, it eventually reads\n> in.  Odd.  But I can live with it.\n> \n> Cheers\n> \n> Charles\n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thank for that. Makes sense.  Odd thing is I never noticed this behavior before El Cap.  In Mavericks, would see the small grey spinning progress indicator which was much more reassuring that things w",
+      "thread_id": "thread-6b4778caa509",
+      "thread_depth": 1,
+      "month": "2016-05"
+    },
+    {
+      "id": "msg-7a6b6a87011b",
+      "message_id": "<825165D7-B10C-4A2D-A4D2-DBED87363A6D@ed.ac.uk>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "b2996a63ff96f739f191ae217a24b03b8a8e15e2be1b89418855d7b9bb0489ae",
+      "date": "2016-05-31T14:08:29+01:00",
+      "subject": "[R-SIG-Mac] UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "subject_clean": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "in_reply_to": "<63ECA1CD-7873-4592-93F1-B4778108C790@r-project.org>",
+      "references": [
+        "<mailman.19.1464170402.26424.r-sig-mac@r-project.org>",
+        "<7f7b840d8d67049da053ad35886f2560@witthoft.com>",
+        "<37390CF5-D2E1-48FA-9B07-FF62A8383F6F@ed.ac.uk>",
+        "<63ECA1CD-7873-4592-93F1-B4778108C790@r-project.org>"
+      ],
+      "body_plain": "smokin? - thanks Simon. Nice to learn a new trick too!\n\nand I must say, felt great when \"mtcars ?? yielded this, without having to hit $ !\n\n\n\n\n> On 31 May 2016, at 2:01 pm, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> If you don't see add.fn(), then use this instead which is equivalent:\n> \n> RGUI = as.environment(\"tools:RGUI\")\n> RGUI$rcompgen.completion <- function (x) {\n> comp <- function(x) {\n>     utils:::.assignLinebuffer(x)\n>     utils:::.assignEnd(nchar(x))\n>     utils:::.guessTokenFromLine()\n>     utils:::.completeToken()\n>     utils:::.CompletionEnv[[\"comps\"]]\n> }\n> res <- unique(comp(x))\n> if (nzchar(x) && identical(res, x) && !identical(substr(x, nchar(x), nchar(x) + 1L), \"$\")) {\n>   rc <- comp(paste0(x, \"$\"))\n>   if (!identical(substr(rc, nchar(rc), nchar(rc) + 1L), \"$\")) res <- rc\n> }\n> res\n> }\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On May 31, 2016, at 4:12 AM, Timothy Bates <tim.bates at ed.ac.uk> wrote:\n>> \n>> Hi all,\n>> Simon send code that would essentially allow users to customise the behavior in a very R-ish way. Perhaps someone could even release a package R.app.options to contain functions like this.\n>> \n>> Code copied below: I can?t get it to work as add.fn doesn?t exist for me: no doubt soluble, as Simon says it?s loaded as part of the GUI-tools.\n>> \n>> While there are a good many things I?d like in the R.app, I realise this is all stuff to create and maintain, so not requesting new preference pane items. So having this as custom code in a package to be launched at  startup would suffice.\n>> \n>> re what to do about foo?> when foo$part and foolish both exist. My request was that the tab only do something when the current behavior does nothing. Alternatively, a hierarchial menu would solve this also:\n>> \n>> foo$part\n>>    foolish\n>>    tile\n>> \n>> A bundle storing options and executing a custom add.fn(\"rcompgen.completion\", function (x)  would allow flexibility over some of these choice.\n>> \n>> cheers,\n>> t\n>> \n>>> \"foo\"  and \"foolish\" in your workspace?\n>>> You want to write  \"foo$bar\" , but which gets precedence when you enter\n>>> a tab?  \"foo$bar\" or \"foolish? ?\n>> \n>>> On 25 May 2016, at 12:51 pm, <cgw at witthoft.com> <cgw at witthoft.com> wrote:\n>>> I have to agree with Simon here that \"best guess\" will only lead to pain\n>>> in many cases.  \n>>> \n>>> The best solution, albeit the most painful for Simon :-( , is to have a\n>>> Preferences pane where the user can specify what a tab does, i.e.\n>>> \"nothing\", \" $\", \"@\" , \"$first_named_list_item\", and so on.   But even\n>>> then, what if there are objects  \"foo\"  and \"foolish\" in your workspace?\n>>> You want to write  \"foo$bar\" , but which gets precedence when you enter\n>>> a tab?  \"foo$bar\" or \"foolish\" ?\n>>> \n>>> [Tim wrote...]\n>>> 1. When a name is already complete, when the user pushes tab again, they\n>>> are expecting ?more? name completion, i.e.,  they want to access a $ or\n>>> @ sub-component. Currently, nothing happens, and the user feels\n>>> ?thwarted?? like the typing ?Simon\" but then having to type a space and\n>>> a tab to get \"Urbanek\" :-)\n>>> \n>>> 2. Most object components are $ indexed rather than @ indexed), so $ is\n>>> the best guess.\n>> \n>> On 24 May 2016, at 10:08 pm, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>>> That seems like a very strong assumption and my point questioning that assumption. For a lot of objects $ makes no sense which is why I'm reluctant to add $ unconditionally. Really, it only makes sense for lists (and some subclasses) - anything else gets a bit dodgy (it works for some but not others).\n>>> \n>>> That said, I suppose one possible approach would be to catch any completion that yields just the items itself and if that happens attempt a completion with $ appended and see what it yields. If it yields anything additional, return that result instead. You can test whether you like that by using something like the following:\n>>> \n>> # add.fn is part of the GUI-tools which are automatically loaded when the R.app GUI starts\n>> # and rcompgen.completion what the GUI uses to call the completion code.\n>> \n>> add.fn(\"rcompgen.completion\", function (x) {\n>> comp <- function(x) {\n>>     utils:::.assignLinebuffer(x)\n>>     utils:::.assignEnd(nchar(x))\n>>     utils:::.guessTokenFromLine()\n>>     utils:::.completeToken()\n>>     utils:::.CompletionEnv[[\"comps\"]]\n>> }\n>> res <- unique(comp(x))\n>> if (nzchar(x) && identical(res, x) && !identical(substr(x, nchar(x), nchar(x) + 1L), \"$\")) {\n>>   rc <- comp(paste0(x, \"$\"))\n>>   if (!identical(substr(rc, nchar(rc), nchar(rc) + 1L), \"$\")) res <- rc\n>> }\n>> res\n>> })\n>> \n>> # Obviously, you can eve spin that further and carry on with @ if $ doesn't work.\n>> \n>> \n>> -- \n>> The University of Edinburgh is a charitable body, registered in\n>> Scotland, with registration number SC005336.\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20160531/5ac7085d/attachment-0001.html>\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: Screenshot 2016-05-31 14.04.55.png\nType: image/png\nSize: 35116 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20160531/5ac7085d/attachment-0001.png>\n-------------- next part --------------\nAn embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20160531/5ac7085d/attachment-0001.pl>",
+      "body_snippet": "smokin? - thanks Simon. Nice to learn a new trick too!\n\nand I must say, felt great when \"mtcars ?? yielded this, without having to hit $ !\n\n\n\n\n> On 31 May 2016, at 2:01 pm, Simon Urbanek <simon.urbane",
+      "thread_id": "thread-2371e658158b",
+      "thread_depth": 3,
+      "month": "2016-05"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-a086a503d116",
+      "subject": "Intermittent plotting failures on new Quartz window",
+      "message_count": 1,
+      "participants": [
+        "Chris Black"
+      ],
+      "started": "2016-05-05T13:43:38-05:00",
+      "last_reply": "2016-05-05T13:43:38-05:00",
+      "root_message_id": "msg-a086a503d116"
+    },
+    {
+      "id": "thread-14747b0b010d",
+      "subject": "R 3.2.2 Hangs Reading Files in El Capitan [Solved]",
+      "message_count": 6,
+      "participants": [
+        "Brandon Hurr",
+        "Charles DiMaggio",
+        "Simon Urbanek"
+      ],
+      "started": "2016-05-05T18:16:17-04:00",
+      "last_reply": "2016-05-07T09:59:16-04:00",
+      "root_message_id": "msg-14747b0b010d"
+    },
+    {
+      "id": "thread-6b4778caa509",
+      "subject": "Hangs Reading Large Files",
+      "message_count": 2,
+      "participants": [
+        "Charles DiMaggio",
+        "cgw at witthoft.com"
+      ],
+      "started": "2016-05-06T11:30:52+00:00",
+      "last_reply": "2016-05-31T09:08:23-04:00",
+      "root_message_id": "msg-6b4778caa509"
+    },
+    {
+      "id": "thread-024bbf4d94e3",
+      "subject": "third party installer",
+      "message_count": 4,
+      "participants": [
+        "David Winsemius",
+        "Mick Jordan",
+        "Simon Urbanek"
+      ],
+      "started": "2016-05-09T11:50:18-07:00",
+      "last_reply": "2016-05-09T14:08:26-07:00",
+      "root_message_id": "msg-024bbf4d94e3"
+    },
+    {
+      "id": "thread-96c89ee65e6e",
+      "subject": "rgdal problem with wintri projection (OSX, R-3.3.0, rgdal 1.1-9)",
+      "message_count": 9,
+      "participants": [
+        "Daniel Kelley",
+        "David Winsemius",
+        "Roger Bivand",
+        "Simon Urbanek"
+      ],
+      "started": "2016-05-10T14:36:22+00:00",
+      "last_reply": "2016-05-11T23:09:49+02:00",
+      "root_message_id": "msg-96c89ee65e6e"
+    },
+    {
+      "id": "thread-8047cc9cc66a",
+      "subject": "R.app GUI under El Capitan: No response or \"CGContextGetCTM: invalid context 0x0\"",
+      "message_count": 1,
+      "participants": [
+        "Steph Peacock"
+      ],
+      "started": "2016-05-12T17:40:20+00:00",
+      "last_reply": "2016-05-12T17:40:20+00:00",
+      "root_message_id": "msg-8047cc9cc66a"
+    },
+    {
+      "id": "thread-ca0e9c14ed7c",
+      "subject": "GUI bug",
+      "message_count": 1,
+      "participants": [
+        "Michael Margolis"
+      ],
+      "started": "2016-05-20T08:07:12-05:00",
+      "last_reply": "2016-05-20T08:07:12-05:00",
+      "root_message_id": "msg-ca0e9c14ed7c"
+    },
+    {
+      "id": "thread-595e34d13b33",
+      "subject": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "message_count": 4,
+      "participants": [
+        "Simon Urbanek",
+        "Timothy Bates"
+      ],
+      "started": "2016-05-20T13:08:18+01:00",
+      "last_reply": "2016-05-24T17:08:03-04:00",
+      "root_message_id": "msg-595e34d13b33"
+    },
+    {
+      "id": "thread-2371e658158b",
+      "subject": "UI suggestion: allow a tab with no more suggestions to fill in \"$\"",
+      "message_count": 4,
+      "participants": [
+        "Simon Urbanek",
+        "Timothy Bates",
+        "cgw at witthoft.com"
+      ],
+      "started": "2016-05-25T07:51:06-04:00",
+      "last_reply": "2016-05-31T14:08:29+01:00",
+      "root_message_id": "msg-2371e658158b"
+    },
+    {
+      "id": "thread-e9c393e77116",
+      "subject": "Command lines for R on Macintosh",
+      "message_count": 2,
+      "participants": [
+        "Jeffrey Agyapong",
+        "peter dalgaard"
+      ],
+      "started": "2016-05-26T09:21:29+00:00",
+      "last_reply": "2016-05-31T10:13:01+02:00",
+      "root_message_id": "msg-e9c393e77116"
+    },
+    {
+      "id": "thread-31f494149799",
+      "subject": "Intermittent plotting failures on new Quartz window",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2016-05-30T16:59:23-04:00",
+      "last_reply": "2016-05-30T16:59:23-04:00",
+      "root_message_id": "msg-31f494149799"
+    }
+  ]
+}

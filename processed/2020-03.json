@@ -1,0 +1,945 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2020-03",
+  "messages": [
+    {
+      "id": "msg-e29d258a5777",
+      "message_id": "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+      "from_name": "Patrick Schratz",
+      "from_email_hash": "9c03185aaf0a0b1b753db873449831551e168a67af213835be56a195b2a81504",
+      "date": "2020-03-01T15:31:37+01:00",
+      "subject": "[R-SIG-Mac] R-latest.pkg link returning a 403 Forbidden error",
+      "subject_clean": "R-latest.pkg link returning a 403 Forbidden error",
+      "in_reply_to": "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>"
+      ],
+      "body_plain": "I am not sure who has maintenance access to all the links shown by Bobs checker but they are dead since almost two weeks now.\n\nAppreciated if someone could take this on - in the end it is the official resource for getting the R 3.6 branch for Mac (if one wants to avoid the GUI components).\n\nAlso the dead and outdated Rswitch links (last updated in 2011) do not add a professional look to the site. One could link Bobs Switch app to enhance the experience for R users on macOS:?https://rud.is/rswitch/\n\n\nOn 26. Feb 2020, 15:00 +0100, Bob Rudis <bob at rud.is>, wrote:\n> Just a list FYI I'm keeping the status site up (https://rud.is/mac-r-project-links/) but since the current, remaining broken links aren't getting fixed I'm disabling Pushover notifications to me so I won't be able to proactively notify here if more links go bad.\n>\n> > On Feb 21, 2020, at 11:02, Bob Rudis <bob at rud.is> wrote:\n> >\n> > Hey Simon (et al),\n> >\n> > I setup a 2x daily link checker job for mac.r-project.org. It outputs tabular results to https://rud.is/mac-r-project-links/ (timestamp at top is when the job ran). One table is for HTTP HEAD results and the other is for HTTPS HEAD results since the server doesn't auto-upgrade HTTP to HTTPS which could mean different status codes depending the underlying config.\n> >\n> > It's also configured to send me a pushover notification for anything but 200 return status code an I'll post here or privately when you give me the go-ahead to do that (since it cld take a bit to fix the below :-).\n> >\n> > Right now, the following links have non-200 status codes:\n> >\n> > - 404 http://mac.r-project.org/mavericks/R-3.4-branch/R-3.4-branch-mavericks-signed.pkg\n> > - 404 http://mac.r-project.org/RSwitch-1.1.dmg\n> > - 404 http://mac.r-project.org/RSwitch-1.2.tar.gz\n> > - 404 http://mac.r-project.org/RSwitch-1.1.tar.gz\n> > - 403 http://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz\n> >\n> > Lemme know if I can do any more monitoring/alerting for the site.\n> >\n> > -boB\n> >\n> > > On Feb 21, 2020, at 09:12, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n> > >\n> > > Simon, sorry I was wrong with the version.\n> > > In fact, I am getting a 403 with the R-3.6 branch. Other branches work fine.\n> > >\n> > > curl -Osv http://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz ? I\n> > > * Trying 184.172.231.50...\n> > > * TCP_NODELAY set\n> > > * Connected to mac.r-project.org (184.172.231.50) port 80 (#0)\n> > > > GET /el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz HTTP/1.1\n> > > > Host: mac.r-project.org\n> > > > User-Agent: curl/7.64.1\n> > > > Accept: */*\n> > > >\n> > > < HTTP/1.1 403 Forbidden\n> > > < Date: Fri, 21 Feb 2020 14:08:51 GMT\n> > > < Server: Apache\n> > > < Content-Length: 266\n> > > < Content-Type: text/html; charset=iso-8859-1\n> > > <\n> > > { [266 bytes data]\n> > > * Connection #0 to host mac.r-project.org left intact\n> > > * Closing connection 0\n> > >\n> > > Can anyone reproduce this or is this really on my side? If you, any hints on resolving this?\n> > > On 20. Feb 2020, 20:36 +0100, Simon Urbanek <simon.urbanek at r-project.org>, wrote:\n> > > > Patrick,\n> > > >\n> > > > it works just fine for me:\n> > > >\n> > > > $ curl -s -v -o /dev/null https://mac.r-project.org/bin/macosx/R-latest.pkg\n> > > > * Trying 184.172.231.50...\n> > > > * TCP_NODELAY set\n> > > > * Connected to mac.r-project.org (184.172.231.50) port 443 (#0)\n> > > > * ALPN, offering h2\n> > > > * ALPN, offering http/1.1\n> > > > * Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH\n> > > > * successfully set certificate verify locations:\n> > > > [...]\n> > > > * SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256\n> > > > * ALPN, server accepted to use http/1.1\n> > > > * Server certificate:\n> > > > * subject: CN=mac.r-project.org\n> > > > * start date: Jan 26 18:55:18 2020 GMT\n> > > > * expire date: Apr 25 18:55:18 2020 GMT\n> > > > * subjectAltName: host \"mac.r-project.org\" matched cert's \"mac.r-project.org\"\n> > > > * issuer: C=US; O=Let's Encrypt; CN=Let's Encrypt Authority X3\n> > > > * SSL certificate verify ok.\n> > > > > GET /bin/macosx/R-latest.pkg HTTP/1.1\n> > > > > Host: mac.r-project.org\n> > > > > User-Agent: curl/7.54.0\n> > > > > Accept: */*\n> > > > >\n> > > > < HTTP/1.1 200 OK\n> > > > < Date: Thu, 20 Feb 2020 19:31:51 GMT\n> > > > < Server: Apache\n> > > > < Last-Modified: Sun, 15 Dec 2019 14:09:32 GMT\n> > > > < ETag: \"4d4a72f-599bea4d7df00\"\n> > > > < Accept-Ranges: bytes\n> > > > < Content-Length: 81045295\n> > > > <\n> > > >\n> > > > Please make sure you clear your caches and try directly without proxies.\n> > > >\n> > > > Cheers,\n> > > > Simon\n> > > >\n> > > >\n> > > >\n> > > > > On 20/02/2020, at 9:41 PM, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n> > > > >\n> > > > > @Simon\n> > > > >\n> > > > > As of today the link still returns a 403 - other R versions work.\n> > > > > Could you have a look? Especially because the Travis CI runner by Jim relies on it, this is somewhat pressing.\n> > > > >\n> > > > > Thanks.\n> > > > > On 18. Feb 2020, 07:43 +0100, Matthias Krawutschke <krawutschke at uni-potsdam.de>, wrote:\n> > > > > > Dear Simon,\n> > > > > >\n> > > > > > thank you so much.\n> > > > > > If I want to download the latest R-package with this link - i?ve got the cryptic signs in the window, but not the file ?\n> > > > > >\n> > > > > > Best regars?.\n> > > > > >\n> > > > > >\n> > > > > >\n> > > > > > Matthias Krawutschke, Dipl. Inf.\n> > > > > >\n> > > > > > Universit?t Potsdam\n> > > > > > ZIM - Zentrum f?r Informationstechnologie und Medienmanagement\n> > > > > > Team High-Performance-Computing on Cluster - Environment\n> > > > > >\n> > > > > > Campus Am Neuen Palais: Am Neuen Palais 10 | 14469 Potsdam\n> > > > > > Tel: +49 331 977-4444, Fax: +49 331 977-1750\n> > > > > >\n> > > > > > Internet: https://www.uni-potsdam.de/de/zim/angebote-loesungen/hpc.html\n> > > > > >\n> > > > > >\n> > > > > > -----Urspr?ngliche Nachricht-----\n> > > > > > Von: R-SIG-Mac <r-sig-mac-bounces at r-project.org> Im Auftrag von Simon Urbanek\n> > > > > > Gesendet: Freitag, 14. Februar 2020 19:15\n> > > > > > An: Jim Hester <james.hester at rstudio.com>\n> > > > > > Cc: r-sig-mac at r-project.org\n> > > > > > Betreff: Re: [R-SIG-Mac] R-latest.pkg link returning a 403 Forbidden error\n> > > > > >\n> > > > > > Thanks, should be fixed now (adding index removed symlink following permission).\n> > > > > > Simon\n> > > > > >\n> > > > > >\n> > > > > > > On Feb 15, 2020, at 4:50 AM, Jim Hester <james.hester at rstudio.com> wrote:\n> > > > > > >\n> > > > > > > The link https://mac.r-project.org/bin/macosx/R-latest.pkg which\n> > > > > > > previously served the latest version of R is now returning a 403. Is\n> > > > > > > this an intentional change, or is it an unintentional? This link is\n> > > > > > > used by the Travis-CI build scripts for macOS, so if the link is no\n> > > > > > > longer valid we will need to update the script.\n> > > > > > >\n> > > > > > > Thanks,\n> > > > > > >\n> > > > > > > Jim\n> > > > > > >\n> > > > > >\n> > > > > > _______________________________________________\n> > > > > > R-SIG-Mac mailing list\n> > > > > > R-SIG-Mac at r-project.org\n> > > > > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > > > > >\n> > > > > > _______________________________________________\n> > > > > > R-SIG-Mac mailing list\n> > > > > > R-SIG-Mac at r-project.org\n> > > > > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > > > >\n> > > > > [[alternative HTML version deleted]]\n> > > > >\n> > > > > _______________________________________________\n> > > > > R-SIG-Mac mailing list\n> > > > > R-SIG-Mac at r-project.org\n> > > > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > > >\n> > >\n> > > [[alternative HTML version deleted]]\n> > >\n> > > _______________________________________________\n> > > R-SIG-Mac mailing list\n> > > R-SIG-Mac at r-project.org\n> > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I am not sure who has maintenance access to all the links shown by Bobs checker but they are dead since almost two weeks now.\n\nAppreciated if someone could take this on - in the end it is the official",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-8f3b0b5be243",
+      "message_id": "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-02T11:53:07+13:00",
+      "subject": "[R-SIG-Mac] R-latest.pkg link returning a 403 Forbidden error",
+      "subject_clean": "R-latest.pkg link returning a 403 Forbidden error",
+      "in_reply_to": "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+        "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>"
+      ],
+      "body_plain": "Patrick,\n\nthose links are dead for years now so nothing surprising - the binaries got lost in a server crash many years ago, so checking them is actually somewhat pointless.\n\nAlso note that some of them are not valid - not all builds are signed.\n\nThat said, I have removed those that are not recoverable and added a link to Bob's page (we talked about it for a while with Bob).\n\nBob, in your checks, can you, please, reduce it to valid checks, i.e. those that are actually expected to work? It seems to confuse people ;).\n\nThanks,\nSimon\n\n\n\n> On 2/03/2020, at 3:31 AM, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n> \n> I am not sure who has maintenance access to all the links shown by Bobs checker but they are dead since almost two weeks now.\n> \n> Appreciated if someone could take this on - in the end it is the official resource for getting the R 3.6 branch for Mac (if one wants to avoid the GUI components).\n> \n> Also the dead and outdated Rswitch links (last updated in 2011) do not add a professional look to the site. One could link Bobs Switch app to enhance the experience for R users on macOS: https://rud.is/rswitch/\n> \n> \n> On 26. Feb 2020, 15:00 +0100, Bob Rudis <bob at rud.is>, wrote:\n>> Just a list FYI I'm keeping the status site up (https://rud.is/mac-r-project-links/) but since the current, remaining broken links aren't getting fixed I'm disabling Pushover notifications to me so I won't be able to proactively notify here if more links go bad.\n>> \n>>> On Feb 21, 2020, at 11:02, Bob Rudis <bob at rud.is> wrote:\n>>> \n>>> Hey Simon (et al),\n>>> \n>>> I setup a 2x daily link checker job for mac.r-project.org. It outputs tabular results to https://rud.is/mac-r-project-links/ (timestamp at top is when the job ran). One table is for HTTP HEAD results and the other is for HTTPS HEAD results since the server doesn't auto-upgrade HTTP to HTTPS which could mean different status codes depending the underlying config.\n>>> \n>>> It's also configured to send me a pushover notification for anything but 200 return status code an I'll post here or privately when you give me the go-ahead to do that (since it cld take a bit to fix the below :-).\n>>> \n>>> Right now, the following links have non-200 status codes:\n>>> \n>>> - 404 http://mac.r-project.org/mavericks/R-3.4-branch/R-3.4-branch-mavericks-signed.pkg\n>>> - 404 http://mac.r-project.org/RSwitch-1.1.dmg\n>>> - 404 http://mac.r-project.org/RSwitch-1.2.tar.gz\n>>> - 404 http://mac.r-project.org/RSwitch-1.1.tar.gz\n>>> - 403 http://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz\n>>> \n>>> Lemme know if I can do any more monitoring/alerting for the site.\n>>> \n>>> -boB\n>>> \n>>>> On Feb 21, 2020, at 09:12, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n>>>> \n>>>> Simon, sorry I was wrong with the version.\n>>>> In fact, I am getting a 403 with the R-3.6 branch. Other branches work fine.\n>>>> \n>>>> curl -Osv http://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz ? I\n>>>> * Trying 184.172.231.50...\n>>>> * TCP_NODELAY set\n>>>> * Connected to mac.r-project.org (184.172.231.50) port 80 (#0)\n>>>>> GET /el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz HTTP/1.1\n>>>>> Host: mac.r-project.org\n>>>>> User-Agent: curl/7.64.1\n>>>>> Accept: */*\n>>>>> \n>>>> < HTTP/1.1 403 Forbidden\n>>>> < Date: Fri, 21 Feb 2020 14:08:51 GMT\n>>>> < Server: Apache\n>>>> < Content-Length: 266\n>>>> < Content-Type: text/html; charset=iso-8859-1\n>>>> <\n>>>> { [266 bytes data]\n>>>> * Connection #0 to host mac.r-project.org left intact\n>>>> * Closing connection 0\n>>>> \n>>>> Can anyone reproduce this or is this really on my side? If you, any hints on resolving this?\n>>>> On 20. Feb 2020, 20:36 +0100, Simon Urbanek <simon.urbanek at r-project.org>, wrote:\n>>>>> Patrick,\n>>>>> \n>>>>> it works just fine for me:\n>>>>> \n>>>>> $ curl -s -v -o /dev/null https://mac.r-project.org/bin/macosx/R-latest.pkg\n>>>>> * Trying 184.172.231.50...\n>>>>> * TCP_NODELAY set\n>>>>> * Connected to mac.r-project.org (184.172.231.50) port 443 (#0)\n>>>>> * ALPN, offering h2\n>>>>> * ALPN, offering http/1.1\n>>>>> * Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH\n>>>>> * successfully set certificate verify locations:\n>>>>> [...]\n>>>>> * SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256\n>>>>> * ALPN, server accepted to use http/1.1\n>>>>> * Server certificate:\n>>>>> * subject: CN=mac.r-project.org\n>>>>> * start date: Jan 26 18:55:18 2020 GMT\n>>>>> * expire date: Apr 25 18:55:18 2020 GMT\n>>>>> * subjectAltName: host \"mac.r-project.org\" matched cert's \"mac.r-project.org\"\n>>>>> * issuer: C=US; O=Let's Encrypt; CN=Let's Encrypt Authority X3\n>>>>> * SSL certificate verify ok.\n>>>>>> GET /bin/macosx/R-latest.pkg HTTP/1.1\n>>>>>> Host: mac.r-project.org\n>>>>>> User-Agent: curl/7.54.0\n>>>>>> Accept: */*\n>>>>>> \n>>>>> < HTTP/1.1 200 OK\n>>>>> < Date: Thu, 20 Feb 2020 19:31:51 GMT\n>>>>> < Server: Apache\n>>>>> < Last-Modified: Sun, 15 Dec 2019 14:09:32 GMT\n>>>>> < ETag: \"4d4a72f-599bea4d7df00\"\n>>>>> < Accept-Ranges: bytes\n>>>>> < Content-Length: 81045295\n>>>>> <\n>>>>> \n>>>>> Please make sure you clear your caches and try directly without proxies.\n>>>>> \n>>>>> Cheers,\n>>>>> Simon\n>>>>> \n>>>>> \n>>>>> \n>>>>>> On 20/02/2020, at 9:41 PM, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n>>>>>> \n>>>>>> @Simon\n>>>>>> \n>>>>>> As of today the link still returns a 403 - other R versions work.\n>>>>>> Could you have a look? Especially because the Travis CI runner by Jim relies on it, this is somewhat pressing.\n>>>>>> \n>>>>>> Thanks.\n>>>>>> On 18. Feb 2020, 07:43 +0100, Matthias Krawutschke <krawutschke at uni-potsdam.de>, wrote:\n>>>>>>> Dear Simon,\n>>>>>>> \n>>>>>>> thank you so much.\n>>>>>>> If I want to download the latest R-package with this link - i?ve got the cryptic signs in the window, but not the file ?\n>>>>>>> \n>>>>>>> Best regars?.\n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> Matthias Krawutschke, Dipl. Inf.\n>>>>>>> \n>>>>>>> Universit?t Potsdam\n>>>>>>> ZIM - Zentrum f?r Informationstechnologie und Medienmanagement\n>>>>>>> Team High-Performance-Computing on Cluster - Environment\n>>>>>>> \n>>>>>>> Campus Am Neuen Palais: Am Neuen Palais 10 | 14469 Potsdam\n>>>>>>> Tel: +49 331 977-4444, Fax: +49 331 977-1750\n>>>>>>> \n>>>>>>> Internet: https://www.uni-potsdam.de/de/zim/angebote-loesungen/hpc.html\n>>>>>>> \n>>>>>>> \n>>>>>>> -----Urspr?ngliche Nachricht-----\n>>>>>>> Von: R-SIG-Mac <r-sig-mac-bounces at r-project.org> Im Auftrag von Simon Urbanek\n>>>>>>> Gesendet: Freitag, 14. Februar 2020 19:15\n>>>>>>> An: Jim Hester <james.hester at rstudio.com>\n>>>>>>> Cc: r-sig-mac at r-project.org\n>>>>>>> Betreff: Re: [R-SIG-Mac] R-latest.pkg link returning a 403 Forbidden error\n>>>>>>> \n>>>>>>> Thanks, should be fixed now (adding index removed symlink following permission).\n>>>>>>> Simon\n>>>>>>> \n>>>>>>> \n>>>>>>>> On Feb 15, 2020, at 4:50 AM, Jim Hester <james.hester at rstudio.com> wrote:\n>>>>>>>> \n>>>>>>>> The link https://mac.r-project.org/bin/macosx/R-latest.pkg which\n>>>>>>>> previously served the latest version of R is now returning a 403. Is\n>>>>>>>> this an intentional change, or is it an unintentional? This link is\n>>>>>>>> used by the Travis-CI build scripts for macOS, so if the link is no\n>>>>>>>> longer valid we will need to update the script.\n>>>>>>>> \n>>>>>>>> Thanks,\n>>>>>>>> \n>>>>>>>> Jim\n>>>>>>>> \n>>>>>>> \n>>>>>>> _______________________________________________\n>>>>>>> R-SIG-Mac mailing list\n>>>>>>> R-SIG-Mac at r-project.org\n>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>>> \n>>>>>>> _______________________________________________\n>>>>>>> R-SIG-Mac mailing list\n>>>>>>> R-SIG-Mac at r-project.org\n>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>> \n>>>>>> [[alternative HTML version deleted]]\n>>>>>> \n>>>>>> _______________________________________________\n>>>>>> R-SIG-Mac mailing list\n>>>>>> R-SIG-Mac at r-project.org\n>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>> \n>>>> \n>>>> [[alternative HTML version deleted]]\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Patrick,\n\nthose links are dead for years now so nothing surprising - the binaries got lost in a server crash many years ago, so checking them is actually somewhat pointless.\n\nAlso note that some of th",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-ee3d155ee345",
+      "message_id": "<86006EE4-8466-453D-841D-8EDDDAC672B2@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-02T12:05:00+13:00",
+      "subject": "[R-SIG-Mac] R-latest.pkg link returning a 403 Forbidden error",
+      "subject_clean": "R-latest.pkg link returning a 403 Forbidden error",
+      "in_reply_to": "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+        "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+        "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>"
+      ],
+      "body_plain": "Also I'd like to clarify some things - the mac.R-project.org page is a *developer* page, so it is not intended for end users. It is provided for developers that want to test pre-releases and their packages. The content is *not* expected to be stable in any way shape or form*.\n\nThe mac.R-project.org server also provides a primary mirror of the official CRAN Mac master binary content in /bin/macosx. The CRAN content *is* expected to be stable and that is what this thread was originally about. However, some people then confused the developer page with CRAN - they are not the same!\n\nCheers,\nSimon\n\n* - that said, I do appreciate reports to me if something is amiss, since there are instances where I can fix things - but please think before reporting such things (e.g. if R-devel is broken and thus there is no binary, that's not something you need to report as that is expected).\n\n\n> On 2/03/2020, at 11:53 AM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Patrick,\n> \n> those links are dead for years now so nothing surprising - the binaries got lost in a server crash many years ago, so checking them is actually somewhat pointless.\n> \n> Also note that some of them are not valid - not all builds are signed.\n> \n> That said, I have removed those that are not recoverable and added a link to Bob's page (we talked about it for a while with Bob).\n> \n> Bob, in your checks, can you, please, reduce it to valid checks, i.e. those that are actually expected to work? It seems to confuse people ;).\n> \n> Thanks,\n> Simon\n> \n> \n> \n>> On 2/03/2020, at 3:31 AM, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n>> \n>> I am not sure who has maintenance access to all the links shown by Bobs checker but they are dead since almost two weeks now.\n>> \n>> Appreciated if someone could take this on - in the end it is the official resource for getting the R 3.6 branch for Mac (if one wants to avoid the GUI components).\n>> \n>> Also the dead and outdated Rswitch links (last updated in 2011) do not add a professional look to the site. One could link Bobs Switch app to enhance the experience for R users on macOS: https://rud.is/rswitch/\n>> \n>> \n>> On 26. Feb 2020, 15:00 +0100, Bob Rudis <bob at rud.is>, wrote:\n>>> Just a list FYI I'm keeping the status site up (https://rud.is/mac-r-project-links/) but since the current, remaining broken links aren't getting fixed I'm disabling Pushover notifications to me so I won't be able to proactively notify here if more links go bad.\n>>> \n>>>> On Feb 21, 2020, at 11:02, Bob Rudis <bob at rud.is> wrote:\n>>>> \n>>>> Hey Simon (et al),\n>>>> \n>>>> I setup a 2x daily link checker job for mac.r-project.org. It outputs tabular results to https://rud.is/mac-r-project-links/ (timestamp at top is when the job ran). One table is for HTTP HEAD results and the other is for HTTPS HEAD results since the server doesn't auto-upgrade HTTP to HTTPS which could mean different status codes depending the underlying config.\n>>>> \n>>>> It's also configured to send me a pushover notification for anything but 200 return status code an I'll post here or privately when you give me the go-ahead to do that (since it cld take a bit to fix the below :-).\n>>>> \n>>>> Right now, the following links have non-200 status codes:\n>>>> \n>>>> - 404 http://mac.r-project.org/mavericks/R-3.4-branch/R-3.4-branch-mavericks-signed.pkg\n>>>> - 404 http://mac.r-project.org/RSwitch-1.1.dmg\n>>>> - 404 http://mac.r-project.org/RSwitch-1.2.tar.gz\n>>>> - 404 http://mac.r-project.org/RSwitch-1.1.tar.gz\n>>>> - 403 http://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz\n>>>> \n>>>> Lemme know if I can do any more monitoring/alerting for the site.\n>>>> \n>>>> -boB\n>>>> \n>>>>> On Feb 21, 2020, at 09:12, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n>>>>> \n>>>>> Simon, sorry I was wrong with the version.\n>>>>> In fact, I am getting a 403 with the R-3.6 branch. Other branches work fine.\n>>>>> \n>>>>> curl -Osv http://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz ? I\n>>>>> * Trying 184.172.231.50...\n>>>>> * TCP_NODELAY set\n>>>>> * Connected to mac.r-project.org (184.172.231.50) port 80 (#0)\n>>>>>> GET /el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz HTTP/1.1\n>>>>>> Host: mac.r-project.org\n>>>>>> User-Agent: curl/7.64.1\n>>>>>> Accept: */*\n>>>>>> \n>>>>> < HTTP/1.1 403 Forbidden\n>>>>> < Date: Fri, 21 Feb 2020 14:08:51 GMT\n>>>>> < Server: Apache\n>>>>> < Content-Length: 266\n>>>>> < Content-Type: text/html; charset=iso-8859-1\n>>>>> <\n>>>>> { [266 bytes data]\n>>>>> * Connection #0 to host mac.r-project.org left intact\n>>>>> * Closing connection 0\n>>>>> \n>>>>> Can anyone reproduce this or is this really on my side? If you, any hints on resolving this?\n>>>>> On 20. Feb 2020, 20:36 +0100, Simon Urbanek <simon.urbanek at r-project.org>, wrote:\n>>>>>> Patrick,\n>>>>>> \n>>>>>> it works just fine for me:\n>>>>>> \n>>>>>> $ curl -s -v -o /dev/null https://mac.r-project.org/bin/macosx/R-latest.pkg\n>>>>>> * Trying 184.172.231.50...\n>>>>>> * TCP_NODELAY set\n>>>>>> * Connected to mac.r-project.org (184.172.231.50) port 443 (#0)\n>>>>>> * ALPN, offering h2\n>>>>>> * ALPN, offering http/1.1\n>>>>>> * Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH\n>>>>>> * successfully set certificate verify locations:\n>>>>>> [...]\n>>>>>> * SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256\n>>>>>> * ALPN, server accepted to use http/1.1\n>>>>>> * Server certificate:\n>>>>>> * subject: CN=mac.r-project.org\n>>>>>> * start date: Jan 26 18:55:18 2020 GMT\n>>>>>> * expire date: Apr 25 18:55:18 2020 GMT\n>>>>>> * subjectAltName: host \"mac.r-project.org\" matched cert's \"mac.r-project.org\"\n>>>>>> * issuer: C=US; O=Let's Encrypt; CN=Let's Encrypt Authority X3\n>>>>>> * SSL certificate verify ok.\n>>>>>>> GET /bin/macosx/R-latest.pkg HTTP/1.1\n>>>>>>> Host: mac.r-project.org\n>>>>>>> User-Agent: curl/7.54.0\n>>>>>>> Accept: */*\n>>>>>>> \n>>>>>> < HTTP/1.1 200 OK\n>>>>>> < Date: Thu, 20 Feb 2020 19:31:51 GMT\n>>>>>> < Server: Apache\n>>>>>> < Last-Modified: Sun, 15 Dec 2019 14:09:32 GMT\n>>>>>> < ETag: \"4d4a72f-599bea4d7df00\"\n>>>>>> < Accept-Ranges: bytes\n>>>>>> < Content-Length: 81045295\n>>>>>> <\n>>>>>> \n>>>>>> Please make sure you clear your caches and try directly without proxies.\n>>>>>> \n>>>>>> Cheers,\n>>>>>> Simon\n>>>>>> \n>>>>>> \n>>>>>> \n>>>>>>> On 20/02/2020, at 9:41 PM, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n>>>>>>> \n>>>>>>> @Simon\n>>>>>>> \n>>>>>>> As of today the link still returns a 403 - other R versions work.\n>>>>>>> Could you have a look? Especially because the Travis CI runner by Jim relies on it, this is somewhat pressing.\n>>>>>>> \n>>>>>>> Thanks.\n>>>>>>> On 18. Feb 2020, 07:43 +0100, Matthias Krawutschke <krawutschke at uni-potsdam.de>, wrote:\n>>>>>>>> Dear Simon,\n>>>>>>>> \n>>>>>>>> thank you so much.\n>>>>>>>> If I want to download the latest R-package with this link - i?ve got the cryptic signs in the window, but not the file ?\n>>>>>>>> \n>>>>>>>> Best regars?.\n>>>>>>>> \n>>>>>>>> \n>>>>>>>> \n>>>>>>>> Matthias Krawutschke, Dipl. Inf.\n>>>>>>>> \n>>>>>>>> Universit?t Potsdam\n>>>>>>>> ZIM - Zentrum f?r Informationstechnologie und Medienmanagement\n>>>>>>>> Team High-Performance-Computing on Cluster - Environment\n>>>>>>>> \n>>>>>>>> Campus Am Neuen Palais: Am Neuen Palais 10 | 14469 Potsdam\n>>>>>>>> Tel: +49 331 977-4444, Fax: +49 331 977-1750\n>>>>>>>> \n>>>>>>>> Internet: https://www.uni-potsdam.de/de/zim/angebote-loesungen/hpc.html\n>>>>>>>> \n>>>>>>>> \n>>>>>>>> -----Urspr?ngliche Nachricht-----\n>>>>>>>> Von: R-SIG-Mac <r-sig-mac-bounces at r-project.org> Im Auftrag von Simon Urbanek\n>>>>>>>> Gesendet: Freitag, 14. Februar 2020 19:15\n>>>>>>>> An: Jim Hester <james.hester at rstudio.com>\n>>>>>>>> Cc: r-sig-mac at r-project.org\n>>>>>>>> Betreff: Re: [R-SIG-Mac] R-latest.pkg link returning a 403 Forbidden error\n>>>>>>>> \n>>>>>>>> Thanks, should be fixed now (adding index removed symlink following permission).\n>>>>>>>> Simon\n>>>>>>>> \n>>>>>>>> \n>>>>>>>>> On Feb 15, 2020, at 4:50 AM, Jim Hester <james.hester at rstudio.com> wrote:\n>>>>>>>>> \n>>>>>>>>> The link https://mac.r-project.org/bin/macosx/R-latest.pkg which\n>>>>>>>>> previously served the latest version of R is now returning a 403. Is\n>>>>>>>>> this an intentional change, or is it an unintentional? This link is\n>>>>>>>>> used by the Travis-CI build scripts for macOS, so if the link is no\n>>>>>>>>> longer valid we will need to update the script.\n>>>>>>>>> \n>>>>>>>>> Thanks,\n>>>>>>>>> \n>>>>>>>>> Jim\n>>>>>>>>> \n>>>>>>>> \n>>>>>>>> _______________________________________________\n>>>>>>>> R-SIG-Mac mailing list\n>>>>>>>> R-SIG-Mac at r-project.org\n>>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>>>> \n>>>>>>>> _______________________________________________\n>>>>>>>> R-SIG-Mac mailing list\n>>>>>>>> R-SIG-Mac at r-project.org\n>>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>>> \n>>>>>>> [[alternative HTML version deleted]]\n>>>>>>> \n>>>>>>> _______________________________________________\n>>>>>>> R-SIG-Mac mailing list\n>>>>>>> R-SIG-Mac at r-project.org\n>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>> \n>>>>> \n>>>>> [[alternative HTML version deleted]]\n>>>>> \n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Also I'd like to clarify some things - the mac.R-project.org page is a *developer* page, so it is not intended for end users. It is provided for developers that want to test pre-releases and their pac",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 2,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-2ea378986d87",
+      "message_id": "<006a5514-819e-4b4b-a269-2ca62991150c@Spark>",
+      "from_name": "Patrick Schratz",
+      "from_email_hash": "9c03185aaf0a0b1b753db873449831551e168a67af213835be56a195b2a81504",
+      "date": "2020-03-02T18:43:51+01:00",
+      "subject": "[R-SIG-Mac] R-latest.pkg link returning a 403 Forbidden error",
+      "subject_clean": "R-latest.pkg link returning a 403 Forbidden error",
+      "in_reply_to": "<86006EE4-8466-453D-841D-8EDDDAC672B2@R-project.org>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+        "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+        "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>",
+        "<86006EE4-8466-453D-841D-8EDDDAC672B2@R-project.org>"
+      ],
+      "body_plain": "Thanks Simon.\nI am aware that this site is targeted to ?developers? though I?d argue ?end users? would also search for previous R releases and land at?mac.R-project.org and not necessarily jump away because they are no ?devs?.\nAlso the URL does not make it obvious that its for devs only. There is only one hint in the title of the page. Just pointing this out as hints for possible improvements, not as a personal critic.\n\nAlso on?mac.R-project.org?there is no link whom to contact / who is responsible for the content.\nI am just pointing out that there is room for improvement which could help lots of people out there :)\n\nSorry for going off-topic - I?ll start a separate one dedicated to possible improvements of that page.\n\nPlease tell me in case I am wrong that R-sig-mac is the correct place to do so. I?ve seen no other reference/link/forum mentioning where to put feedback for this effort/site.\n\nThanks for all your efforts!\nCheers, Patrick\n\nOn 2. Mar 2020, 00:42 +0100, Simon Urbanek <simon.urbanek at r-project.org>, wrote:\n> Also I'd like to clarify some things - the mac.R-project.org page is a *developer* page, so it is not intended for end users. It is provided for developers that want to test pre-releases and their packages. The content is *not* expected to be stable in any way shape or form*.\n>\n> The mac.R-project.org server also provides a primary mirror of the official CRAN Mac master binary content in /bin/macosx. The CRAN content *is* expected to be stable and that is what this thread was originally about. However, some people then confused the developer page with CRAN - they are not the same!\n>\n> Cheers,\n> Simon\n>\n> * - that said, I do appreciate reports to me if something is amiss, since there are instances where I can fix things - but please think before reporting such things (e.g. if R-devel is broken and thus there is no binary, that's not something you need to report as that is expected).\n>\n>\n> > On 2/03/2020, at 11:53 AM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> >\n> > Patrick,\n> >\n> > those links are dead for years now so nothing surprising - the binaries got lost in a server crash many years ago, so checking them is actually somewhat pointless.\n> >\n> > Also note that some of them are not valid - not all builds are signed.\n> >\n> > That said, I have removed those that are not recoverable and added a link to Bob's page (we talked about it for a while with Bob).\n> >\n> > Bob, in your checks, can you, please, reduce it to valid checks, i.e. those that are actually expected to work? It seems to confuse people ;).\n> >\n> > Thanks,\n> > Simon\n> >\n> >\n> >\n> > > On 2/03/2020, at 3:31 AM, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n> > >\n> > > I am not sure who has maintenance access to all the links shown by Bobs checker but they are dead since almost two weeks now.\n> > >\n> > > Appreciated if someone could take this on - in the end it is the official resource for getting the R 3.6 branch for Mac (if one wants to avoid the GUI components).\n> > >\n> > > Also the dead and outdated Rswitch links (last updated in 2011) do not add a professional look to the site. One could link Bobs Switch app to enhance the experience for R users on macOS: https://rud.is/rswitch/\n> > >\n> > >\n> > > On 26. Feb 2020, 15:00 +0100, Bob Rudis <bob at rud.is>, wrote:\n> > > > Just a list FYI I'm keeping the status site up (https://rud.is/mac-r-project-links/) but since the current, remaining broken links aren't getting fixed I'm disabling Pushover notifications to me so I won't be able to proactively notify here if more links go bad.\n> > > >\n> > > > > On Feb 21, 2020, at 11:02, Bob Rudis <bob at rud.is> wrote:\n> > > > >\n> > > > > Hey Simon (et al),\n> > > > >\n> > > > > I setup a 2x daily link checker job for mac.r-project.org. It outputs tabular results to https://rud.is/mac-r-project-links/ (timestamp at top is when the job ran). One table is for HTTP HEAD results and the other is for HTTPS HEAD results since the server doesn't auto-upgrade HTTP to HTTPS which could mean different status codes depending the underlying config.\n> > > > >\n> > > > > It's also configured to send me a pushover notification for anything but 200 return status code an I'll post here or privately when you give me the go-ahead to do that (since it cld take a bit to fix the below :-).\n> > > > >\n> > > > > Right now, the following links have non-200 status codes:\n> > > > >\n> > > > > - 404 http://mac.r-project.org/mavericks/R-3.4-branch/R-3.4-branch-mavericks-signed.pkg\n> > > > > - 404 http://mac.r-project.org/RSwitch-1.1.dmg\n> > > > > - 404 http://mac.r-project.org/RSwitch-1.2.tar.gz\n> > > > > - 404 http://mac.r-project.org/RSwitch-1.1.tar.gz\n> > > > > - 403 http://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz\n> > > > >\n> > > > > Lemme know if I can do any more monitoring/alerting for the site.\n> > > > >\n> > > > > -boB\n> > > > >\n> > > > > > On Feb 21, 2020, at 09:12, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n> > > > > >\n> > > > > > Simon, sorry I was wrong with the version.\n> > > > > > In fact, I am getting a 403 with the R-3.6 branch. Other branches work fine.\n> > > > > >\n> > > > > > curl -Osv http://mac.r-project.org/el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz ? I\n> > > > > > * Trying 184.172.231.50...\n> > > > > > * TCP_NODELAY set\n> > > > > > * Connected to mac.r-project.org (184.172.231.50) port 80 (#0)\n> > > > > > > GET /el-capitan/R-3.6-branch/R-3.6-branch-el-capitan-sa-x86_64.tar.gz HTTP/1.1\n> > > > > > > Host: mac.r-project.org\n> > > > > > > User-Agent: curl/7.64.1\n> > > > > > > Accept: */*\n> > > > > > >\n> > > > > > < HTTP/1.1 403 Forbidden\n> > > > > > < Date: Fri, 21 Feb 2020 14:08:51 GMT\n> > > > > > < Server: Apache\n> > > > > > < Content-Length: 266\n> > > > > > < Content-Type: text/html; charset=iso-8859-1\n> > > > > > <\n> > > > > > { [266 bytes data]\n> > > > > > * Connection #0 to host mac.r-project.org left intact\n> > > > > > * Closing connection 0\n> > > > > >\n> > > > > > Can anyone reproduce this or is this really on my side? If you, any hints on resolving this?\n> > > > > > On 20. Feb 2020, 20:36 +0100, Simon Urbanek <simon.urbanek at r-project.org>, wrote:\n> > > > > > > Patrick,\n> > > > > > >\n> > > > > > > it works just fine for me:\n> > > > > > >\n> > > > > > > $ curl -s -v -o /dev/null https://mac.r-project.org/bin/macosx/R-latest.pkg\n> > > > > > > * Trying 184.172.231.50...\n> > > > > > > * TCP_NODELAY set\n> > > > > > > * Connected to mac.r-project.org (184.172.231.50) port 443 (#0)\n> > > > > > > * ALPN, offering h2\n> > > > > > > * ALPN, offering http/1.1\n> > > > > > > * Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH\n> > > > > > > * successfully set certificate verify locations:\n> > > > > > > [...]\n> > > > > > > * SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256\n> > > > > > > * ALPN, server accepted to use http/1.1\n> > > > > > > * Server certificate:\n> > > > > > > * subject: CN=mac.r-project.org\n> > > > > > > * start date: Jan 26 18:55:18 2020 GMT\n> > > > > > > * expire date: Apr 25 18:55:18 2020 GMT\n> > > > > > > * subjectAltName: host \"mac.r-project.org\" matched cert's \"mac.r-project.org\"\n> > > > > > > * issuer: C=US; O=Let's Encrypt; CN=Let's Encrypt Authority X3\n> > > > > > > * SSL certificate verify ok.\n> > > > > > > > GET /bin/macosx/R-latest.pkg HTTP/1.1\n> > > > > > > > Host: mac.r-project.org\n> > > > > > > > User-Agent: curl/7.54.0\n> > > > > > > > Accept: */*\n> > > > > > > >\n> > > > > > > < HTTP/1.1 200 OK\n> > > > > > > < Date: Thu, 20 Feb 2020 19:31:51 GMT\n> > > > > > > < Server: Apache\n> > > > > > > < Last-Modified: Sun, 15 Dec 2019 14:09:32 GMT\n> > > > > > > < ETag: \"4d4a72f-599bea4d7df00\"\n> > > > > > > < Accept-Ranges: bytes\n> > > > > > > < Content-Length: 81045295\n> > > > > > > <\n> > > > > > >\n> > > > > > > Please make sure you clear your caches and try directly without proxies.\n> > > > > > >\n> > > > > > > Cheers,\n> > > > > > > Simon\n> > > > > > >\n> > > > > > >\n> > > > > > >\n> > > > > > > > On 20/02/2020, at 9:41 PM, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n> > > > > > > >\n> > > > > > > > @Simon\n> > > > > > > >\n> > > > > > > > As of today the link still returns a 403 - other R versions work.\n> > > > > > > > Could you have a look? Especially because the Travis CI runner by Jim relies on it, this is somewhat pressing.\n> > > > > > > >\n> > > > > > > > Thanks.\n> > > > > > > > On 18. Feb 2020, 07:43 +0100, Matthias Krawutschke <krawutschke at uni-potsdam.de>, wrote:\n> > > > > > > > > Dear Simon,\n> > > > > > > > >\n> > > > > > > > > thank you so much.\n> > > > > > > > > If I want to download the latest R-package with this link - i?ve got the cryptic signs in the window, but not the file ?\n> > > > > > > > >\n> > > > > > > > > Best regars?.\n> > > > > > > > >\n> > > > > > > > >\n> > > > > > > > >\n> > > > > > > > > Matthias Krawutschke, Dipl. Inf.\n> > > > > > > > >\n> > > > > > > > > Universit?t Potsdam\n> > > > > > > > > ZIM - Zentrum f?r Informationstechnologie und Medienmanagement\n> > > > > > > > > Team High-Performance-Computing on Cluster - Environment\n> > > > > > > > >\n> > > > > > > > > Campus Am Neuen Palais: Am Neuen Palais 10 | 14469 Potsdam\n> > > > > > > > > Tel: +49 331 977-4444, Fax: +49 331 977-1750\n> > > > > > > > >\n> > > > > > > > > Internet: https://www.uni-potsdam.de/de/zim/angebote-loesungen/hpc.html\n> > > > > > > > >\n> > > > > > > > >\n> > > > > > > > > -----Urspr?ngliche Nachricht-----\n> > > > > > > > > Von: R-SIG-Mac <r-sig-mac-bounces at r-project.org> Im Auftrag von Simon Urbanek\n> > > > > > > > > Gesendet: Freitag, 14. Februar 2020 19:15\n> > > > > > > > > An: Jim Hester <james.hester at rstudio.com>\n> > > > > > > > > Cc: r-sig-mac at r-project.org\n> > > > > > > > > Betreff: Re: [R-SIG-Mac] R-latest.pkg link returning a 403 Forbidden error\n> > > > > > > > >\n> > > > > > > > > Thanks, should be fixed now (adding index removed symlink following permission).\n> > > > > > > > > Simon\n> > > > > > > > >\n> > > > > > > > >\n> > > > > > > > > > On Feb 15, 2020, at 4:50 AM, Jim Hester <james.hester at rstudio.com> wrote:\n> > > > > > > > > >\n> > > > > > > > > > The link https://mac.r-project.org/bin/macosx/R-latest.pkg which\n> > > > > > > > > > previously served the latest version of R is now returning a 403. Is\n> > > > > > > > > > this an intentional change, or is it an unintentional? This link is\n> > > > > > > > > > used by the Travis-CI build scripts for macOS, so if the link is no\n> > > > > > > > > > longer valid we will need to update the script.\n> > > > > > > > > >\n> > > > > > > > > > Thanks,\n> > > > > > > > > >\n> > > > > > > > > > Jim\n> > > > > > > > > >\n> > > > > > > > >\n> > > > > > > > > _______________________________________________\n> > > > > > > > > R-SIG-Mac mailing list\n> > > > > > > > > R-SIG-Mac at r-project.org\n> > > > > > > > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > > > > > > > >\n> > > > > > > > > _______________________________________________\n> > > > > > > > > R-SIG-Mac mailing list\n> > > > > > > > > R-SIG-Mac at r-project.org\n> > > > > > > > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > > > > > > >\n> > > > > > > > [[alternative HTML version deleted]]\n> > > > > > > >\n> > > > > > > > _______________________________________________\n> > > > > > > > R-SIG-Mac mailing list\n> > > > > > > > R-SIG-Mac at r-project.org\n> > > > > > > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > > > > > >\n> > > > > >\n> > > > > > [[alternative HTML version deleted]]\n> > > > > >\n> > > > > > _______________________________________________\n> > > > > > R-SIG-Mac mailing list\n> > > > > > R-SIG-Mac at r-project.org\n> > > > > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > > > >\n> > > >\n> > >\n> > > [[alternative HTML version deleted]]\n> > >\n> > > _______________________________________________\n> > > R-SIG-Mac mailing list\n> > > R-SIG-Mac at r-project.org\n> > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks Simon.\nI am aware that this site is targeted to ?developers? though I?d argue ?end users? would also search for previous R releases and land at?mac.R-project.org and not necessarily jump away b",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 3,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-08b9172c8a9d",
+      "message_id": "<11492c17-3337-6cb5-bf53-263b4c0a2893@rgzm.de>",
+      "from_name": "Ivan Calandra",
+      "from_email_hash": "a8a3ec78323fb00a764f9471ee38a32dc63b1130f52f2a30059edfe639cf238b",
+      "date": "2020-03-04T09:08:46+01:00",
+      "subject": "[R-SIG-Mac] colors from RGui in RStudio",
+      "subject_clean": "colors from RGui in RStudio",
+      "in_reply_to": "<006a5514-819e-4b4b-a269-2ca62991150c@Spark>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+        "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+        "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>",
+        "<86006EE4-8466-453D-841D-8EDDDAC672B2@R-project.org>",
+        "<006a5514-819e-4b4b-a269-2ca62991150c@Spark>"
+      ],
+      "body_plain": "Dear Mac useRs,\n\nWhen I was still working on Mac, I used to love the RGui, partly because\nof the color codes. Now that I work on Windows, I use R through RStudio\nbut cannot find a color theme that gives the same colors as the Mac\nRGui. I am not very familiar with CSS styles so I don't think I can\ncreate one myself.\n\nBut I thought the Mac CSS style might be available somewhere, and that I\ncould use it in RStudio.\n\nThank you in advance.\nBest,\nIvan\n\n--\nDr. Ivan Calandra\nTraCEr, laboratory for Traceology and Controlled Experiments\nMONREPOS Archaeological Research Centre and\nMuseum for Human Behavioural Evolution\nSchloss Monrepos\n56567 Neuwied, Germany\n+49 (0) 2631 9772-243\nhttps://www.researchgate.net/profile/Ivan_Calandra",
+      "body_snippet": "Dear Mac useRs,\n\nWhen I was still working on Mac, I used to love the RGui, partly because\nof the color codes. Now that I work on Windows, I use R through RStudio\nbut cannot find a color theme that giv",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 4,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-8389c2776c50",
+      "message_id": "<cbd116ee-7f49-1e80-6270-79d29622ed31@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2020-03-04T05:49:23-05:00",
+      "subject": "[R-SIG-Mac] colors from RGui in RStudio",
+      "subject_clean": "colors from RGui in RStudio",
+      "in_reply_to": "<11492c17-3337-6cb5-bf53-263b4c0a2893@rgzm.de>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+        "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+        "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>",
+        "<86006EE4-8466-453D-841D-8EDDDAC672B2@R-project.org>",
+        "<006a5514-819e-4b4b-a269-2ca62991150c@Spark>",
+        "<11492c17-3337-6cb5-bf53-263b4c0a2893@rgzm.de>"
+      ],
+      "body_plain": "On 04/03/2020 3:08 a.m., Ivan Calandra wrote:\n> Dear Mac useRs,\n> \n> When I was still working on Mac, I used to love the RGui, partly because\n> of the color codes. Now that I work on Windows, I use R through RStudio\n> but cannot find a color theme that gives the same colors as the Mac\n> RGui. I am not very familiar with CSS styles so I don't think I can\n> create one myself.\n> \n> But I thought the Mac CSS style might be available somewhere, and that I\n> could use it in RStudio.\n> \n\nThe Mac R.app sources are available from \nhttps://cran.r-project.org/bin/macosx/Mac-GUI-1.70.tar.gz.  However, I \ndon't understand Cocoa apps enough to know where to look for the default \ncolors.\n\nDuncan Murdoch",
+      "body_snippet": "On 04/03/2020 3:08 a.m., Ivan Calandra wrote:\n> Dear Mac useRs,\n> \n> When I was still working on Mac, I used to love the RGui, partly because\n> of the color codes. Now that I work on Windows, I use R ",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 5,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-88598f202423",
+      "message_id": "<066201C9-980F-47F6-8A70-27D334E5ECA6@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-05T11:15:44+13:00",
+      "subject": "[R-SIG-Mac] colors from RGui in RStudio",
+      "subject_clean": "colors from RGui in RStudio",
+      "in_reply_to": "<cbd116ee-7f49-1e80-6270-79d29622ed31@gmail.com>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+        "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+        "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>",
+        "<86006EE4-8466-453D-841D-8EDDDAC672B2@R-project.org>",
+        "<006a5514-819e-4b4b-a269-2ca62991150c@Spark>",
+        "<11492c17-3337-6cb5-bf53-263b4c0a2893@rgzm.de>",
+        "<cbd116ee-7f49-1e80-6270-79d29622ed31@gmail.com>"
+      ],
+      "body_plain": "Mac-GUI$ grep -i colorWith *.m | grep -v //\nFoldingSignTextAttachmentCell.m:\t[[col colorWithAlphaComponent:0.6f] setFill];\nNoodleLineNumberView.m:\t\tnormalBackgroundColor = [[NSColor colorWithCalibratedWhite: 0.95 alpha: 1.0] retain];\nNoodleLineNumberView.m:\t\tfoldedBackgroundColor = [[NSColor colorWithCalibratedWhite: 0.85 alpha: 1.0] retain];\nNoodleLineNumberView.m:\t\treturn [NSColor colorWithCalibratedWhite:0.42 alpha:1.0];\nRController.m:\t\t[NSColor redColor], [NSColor grayColor], [NSColor purpleColor], [NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f], nil];\nRController.m:\t[attr setObject:[Preferences unarchivedObjectForKey:selectionColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]] forKey:NSBackgroundColorAttributeName];\nRScriptEditorTextView.m:\telse shColorNormal=[NSColor colorWithDeviceRed:0.025 green:0.085 blue:0.600 alpha:1.0];\nRScriptEditorTextView.m:\telse shColorString=[NSColor colorWithDeviceRed:0.690 green:0.075 blue:0.000 alpha:1.0];\nRScriptEditorTextView.m:\telse shColorNumber=[NSColor colorWithDeviceRed:0.020 green:0.320 blue:0.095 alpha:1.0];\nRScriptEditorTextView.m:\telse shColorKeyword=[NSColor colorWithDeviceRed:0.765 green:0.535 blue:0.035 alpha:1.0];\nRScriptEditorTextView.m:\telse shColorComment=[NSColor colorWithDeviceRed:0.312 green:0.309 blue:0.309 alpha:1.0];\nRScriptEditorTextView.m:\telse shColorIdentifier=[NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:1.0];\nRScriptEditorTextView.m:\tif (!c) c=[NSColor colorWithDeviceRed:0.71f green:0.835f blue:1.0f alpha:1.0f];\nRScriptEditorTextView.m:\telse shColorBackground=[NSColor colorWithDeviceRed:1.0 green:1.0 blue:1.0 alpha:1.0];\nRScriptEditorTextView.m:\telse shColorCurrentLine=[NSColor colorWithDeviceRed:0.9 green:0.9 blue:0.9 alpha:0.8];\nRTextView.m:\t\t\tframeColor = [Preferences unarchivedObjectForKey:selectionColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]];\nRTextView.m:\t\t\tframeColor = [Preferences unarchivedObjectForKey:editorSelectionBackgroundColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]];\nRTextView.m:\t\tbgColor = [frameColor colorWithAlphaComponent:0.4];\n\n\n\n> On 4/03/2020, at 11:49 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> On 04/03/2020 3:08 a.m., Ivan Calandra wrote:\n>> Dear Mac useRs,\n>> When I was still working on Mac, I used to love the RGui, partly because\n>> of the color codes. Now that I work on Windows, I use R through RStudio\n>> but cannot find a color theme that gives the same colors as the Mac\n>> RGui. I am not very familiar with CSS styles so I don't think I can\n>> create one myself.\n>> But I thought the Mac CSS style might be available somewhere, and that I\n>> could use it in RStudio.\n> \n> The Mac R.app sources are available from https://cran.r-project.org/bin/macosx/Mac-GUI-1.70.tar.gz.  However, I don't understand Cocoa apps enough to know where to look for the default colors.\n> \n> Duncan Murdoch\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Mac-GUI$ grep -i colorWith *.m | grep -v //\nFoldingSignTextAttachmentCell.m:\t[[col colorWithAlphaComponent:0.6f] setFill];\nNoodleLineNumberView.m:\t\tnormalBackgroundColor = [[NSColor colorWithCalibrate",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 6,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-52f41ca31797",
+      "message_id": "<60d58e3f-d4c2-699a-ba37-c5f7e6ff122c@rgzm.de>",
+      "from_name": "Ivan Calandra",
+      "from_email_hash": "a8a3ec78323fb00a764f9471ee38a32dc63b1130f52f2a30059edfe639cf238b",
+      "date": "2020-03-05T08:36:31+01:00",
+      "subject": "[R-SIG-Mac] colors from RGui in RStudio",
+      "subject_clean": "colors from RGui in RStudio",
+      "in_reply_to": "<066201C9-980F-47F6-8A70-27D334E5ECA6@R-project.org>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+        "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+        "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>",
+        "<86006EE4-8466-453D-841D-8EDDDAC672B2@R-project.org>",
+        "<006a5514-819e-4b4b-a269-2ca62991150c@Spark>",
+        "<11492c17-3337-6cb5-bf53-263b4c0a2893@rgzm.de>",
+        "<cbd116ee-7f49-1e80-6270-79d29622ed31@gmail.com>",
+        "<066201C9-980F-47F6-8A70-27D334E5ECA6@R-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\nI do not know how I should use that...?\nAny more hint?\n\nThanks!\nIvan\n\n--\nDr. Ivan Calandra\nTraCEr, laboratory for Traceology and Controlled Experiments\nMONREPOS Archaeological Research Centre and\nMuseum for Human Behavioural Evolution\nSchloss Monrepos\n56567 Neuwied, Germany\n+49 (0) 2631 9772-243\nhttps://www.researchgate.net/profile/Ivan_Calandra\n\nOn 04/03/2020 23:15, Simon Urbanek wrote:\n> Mac-GUI$ grep -i colorWith *.m | grep -v //\n> FoldingSignTextAttachmentCell.m:\t[[col colorWithAlphaComponent:0.6f] setFill];\n> NoodleLineNumberView.m:\t\tnormalBackgroundColor = [[NSColor colorWithCalibratedWhite: 0.95 alpha: 1.0] retain];\n> NoodleLineNumberView.m:\t\tfoldedBackgroundColor = [[NSColor colorWithCalibratedWhite: 0.85 alpha: 1.0] retain];\n> NoodleLineNumberView.m:\t\treturn [NSColor colorWithCalibratedWhite:0.42 alpha:1.0];\n> RController.m:\t\t[NSColor redColor], [NSColor grayColor], [NSColor purpleColor], [NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f], nil];\n> RController.m:\t[attr setObject:[Preferences unarchivedObjectForKey:selectionColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]] forKey:NSBackgroundColorAttributeName];\n> RScriptEditorTextView.m:\telse shColorNormal=[NSColor colorWithDeviceRed:0.025 green:0.085 blue:0.600 alpha:1.0];\n> RScriptEditorTextView.m:\telse shColorString=[NSColor colorWithDeviceRed:0.690 green:0.075 blue:0.000 alpha:1.0];\n> RScriptEditorTextView.m:\telse shColorNumber=[NSColor colorWithDeviceRed:0.020 green:0.320 blue:0.095 alpha:1.0];\n> RScriptEditorTextView.m:\telse shColorKeyword=[NSColor colorWithDeviceRed:0.765 green:0.535 blue:0.035 alpha:1.0];\n> RScriptEditorTextView.m:\telse shColorComment=[NSColor colorWithDeviceRed:0.312 green:0.309 blue:0.309 alpha:1.0];\n> RScriptEditorTextView.m:\telse shColorIdentifier=[NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:1.0];\n> RScriptEditorTextView.m:\tif (!c) c=[NSColor colorWithDeviceRed:0.71f green:0.835f blue:1.0f alpha:1.0f];\n> RScriptEditorTextView.m:\telse shColorBackground=[NSColor colorWithDeviceRed:1.0 green:1.0 blue:1.0 alpha:1.0];\n> RScriptEditorTextView.m:\telse shColorCurrentLine=[NSColor colorWithDeviceRed:0.9 green:0.9 blue:0.9 alpha:0.8];\n> RTextView.m:\t\t\tframeColor = [Preferences unarchivedObjectForKey:selectionColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]];\n> RTextView.m:\t\t\tframeColor = [Preferences unarchivedObjectForKey:editorSelectionBackgroundColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]];\n> RTextView.m:\t\tbgColor = [frameColor colorWithAlphaComponent:0.4];\n>\n>\n>\n>> On 4/03/2020, at 11:49 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>\n>> On 04/03/2020 3:08 a.m., Ivan Calandra wrote:\n>>> Dear Mac useRs,\n>>> When I was still working on Mac, I used to love the RGui, partly because\n>>> of the color codes. Now that I work on Windows, I use R through RStudio\n>>> but cannot find a color theme that gives the same colors as the Mac\n>>> RGui. I am not very familiar with CSS styles so I don't think I can\n>>> create one myself.\n>>> But I thought the Mac CSS style might be available somewhere, and that I\n>>> could use it in RStudio.\n>> The Mac R.app sources are available from https://cran.r-project.org/bin/macosx/Mac-GUI-1.70.tar.gz.  However, I don't understand Cocoa apps enough to know where to look for the default colors.\n>>\n>> Duncan Murdoch\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Hi Simon,\n\nI do not know how I should use that...?\nAny more hint?\n\nThanks!\nIvan\n\n--\nDr. Ivan Calandra\nTraCEr, laboratory for Traceology and Controlled Experiments\nMONREPOS Archaeological Research Cent",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 7,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-620d46df8c0a",
+      "message_id": "<05E7833F-72C3-477F-8316-E4852D3AD908@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2020-03-05T11:57:18+01:00",
+      "subject": "[R-SIG-Mac] colors from RGui in RStudio",
+      "subject_clean": "colors from RGui in RStudio",
+      "in_reply_to": "<60d58e3f-d4c2-699a-ba37-c5f7e6ff122c@rgzm.de>",
+      "references": [
+        "<cdae723f-b3d2-4550-a514-3123a7e54ea7@Spark>",
+        "<5751914b-c21b-4fc6-a93d-9e5859f75969@Spark>",
+        "<2A92F7F2-CE16-48F9-B327-6FDCF9DA41C7@R-project.org>",
+        "<86006EE4-8466-453D-841D-8EDDDAC672B2@R-project.org>",
+        "<006a5514-819e-4b4b-a269-2ca62991150c@Spark>",
+        "<11492c17-3337-6cb5-bf53-263b4c0a2893@rgzm.de>",
+        "<cbd116ee-7f49-1e80-6270-79d29622ed31@gmail.com>",
+        "<066201C9-980F-47F6-8A70-27D334E5ECA6@R-project.org>",
+        "<60d58e3f-d4c2-699a-ba37-c5f7e6ff122c@rgzm.de>"
+      ],
+      "body_plain": "Neither does any of the rest of us, I expect... \n\nMy guess is that first you need to \n\n- figure out how to edit RStudio themes. Some hints here\n\nhttps://support.rstudio.com/hc/en-us/articles/115011846747-Using-RStudio-Themes\n\nIt is not completely transparent how to proceed (e.g., where are the existing themes stored??),\nbut it looks like the standard themes are accessible if you take the hint and enter the online tmThemes editor.\n\n- figure out which elements in RGui correspond to which elements in RStudio\n\n- figure out how to translate the colors. I would expect that the colorWithDeviceRed are easy conversions to\nhex code (multiply by 255, round, and use sprintf(\"%X\", ...), for instance), after which you can just type them in. \nE.g.,\n\ncolorWithDeviceRed:0.025 green:0.085 blue:0.600 alpha:1.0]\n\nshould become #061699\n\nDunno about colorWithCalibrated...\n\n\n-pd\n\n> On 5 Mar 2020, at 08:36 , Ivan Calandra <calandra at rgzm.de> wrote:\n> \n> Hi Simon,\n> \n> I do not know how I should use that...?\n> Any more hint?\n> \n> Thanks!\n> Ivan\n> \n> --\n> Dr. Ivan Calandra\n> TraCEr, laboratory for Traceology and Controlled Experiments\n> MONREPOS Archaeological Research Centre and\n> Museum for Human Behavioural Evolution\n> Schloss Monrepos\n> 56567 Neuwied, Germany\n> +49 (0) 2631 9772-243\n> https://www.researchgate.net/profile/Ivan_Calandra\n> \n> On 04/03/2020 23:15, Simon Urbanek wrote:\n>> Mac-GUI$ grep -i colorWith *.m | grep -v //\n>> FoldingSignTextAttachmentCell.m:\t[[col colorWithAlphaComponent:0.6f] setFill];\n>> NoodleLineNumberView.m:\t\tnormalBackgroundColor = [[NSColor colorWithCalibratedWhite: 0.95 alpha: 1.0] retain];\n>> NoodleLineNumberView.m:\t\tfoldedBackgroundColor = [[NSColor colorWithCalibratedWhite: 0.85 alpha: 1.0] retain];\n>> NoodleLineNumberView.m:\t\treturn [NSColor colorWithCalibratedWhite:0.42 alpha:1.0];\n>> RController.m:\t\t[NSColor redColor], [NSColor grayColor], [NSColor purpleColor], [NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f], nil];\n>> RController.m:\t[attr setObject:[Preferences unarchivedObjectForKey:selectionColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]] forKey:NSBackgroundColorAttributeName];\n>> RScriptEditorTextView.m:\telse shColorNormal=[NSColor colorWithDeviceRed:0.025 green:0.085 blue:0.600 alpha:1.0];\n>> RScriptEditorTextView.m:\telse shColorString=[NSColor colorWithDeviceRed:0.690 green:0.075 blue:0.000 alpha:1.0];\n>> RScriptEditorTextView.m:\telse shColorNumber=[NSColor colorWithDeviceRed:0.020 green:0.320 blue:0.095 alpha:1.0];\n>> RScriptEditorTextView.m:\telse shColorKeyword=[NSColor colorWithDeviceRed:0.765 green:0.535 blue:0.035 alpha:1.0];\n>> RScriptEditorTextView.m:\telse shColorComment=[NSColor colorWithDeviceRed:0.312 green:0.309 blue:0.309 alpha:1.0];\n>> RScriptEditorTextView.m:\telse shColorIdentifier=[NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:1.0];\n>> RScriptEditorTextView.m:\tif (!c) c=[NSColor colorWithDeviceRed:0.71f green:0.835f blue:1.0f alpha:1.0f];\n>> RScriptEditorTextView.m:\telse shColorBackground=[NSColor colorWithDeviceRed:1.0 green:1.0 blue:1.0 alpha:1.0];\n>> RScriptEditorTextView.m:\telse shColorCurrentLine=[NSColor colorWithDeviceRed:0.9 green:0.9 blue:0.9 alpha:0.8];\n>> RTextView.m:\t\t\tframeColor = [Preferences unarchivedObjectForKey:selectionColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]];\n>> RTextView.m:\t\t\tframeColor = [Preferences unarchivedObjectForKey:editorSelectionBackgroundColorKey withDefault:[NSColor colorWithCalibratedRed:0.71f green:0.835f blue:1.0f alpha:1.0f]];\n>> RTextView.m:\t\tbgColor = [frameColor colorWithAlphaComponent:0.4];\n>> \n>> \n>> \n>>> On 4/03/2020, at 11:49 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>> \n>>> On 04/03/2020 3:08 a.m., Ivan Calandra wrote:\n>>>> Dear Mac useRs,\n>>>> When I was still working on Mac, I used to love the RGui, partly because\n>>>> of the color codes. Now that I work on Windows, I use R through RStudio\n>>>> but cannot find a color theme that gives the same colors as the Mac\n>>>> RGui. I am not very familiar with CSS styles so I don't think I can\n>>>> create one myself.\n>>>> But I thought the Mac CSS style might be available somewhere, and that I\n>>>> could use it in RStudio.\n>>> The Mac R.app sources are available from https://cran.r-project.org/bin/macosx/Mac-GUI-1.70.tar.gz.  However, I don't understand Cocoa apps enough to know where to look for the default colors.\n>>> \n>>> Duncan Murdoch\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Neither does any of the rest of us, I expect... \n\nMy guess is that first you need to \n\n- figure out how to edit RStudio themes. Some hints here\n\nhttps://support.rstudio.com/hc/en-us/articles/115011846",
+      "thread_id": "thread-e29d258a5777",
+      "thread_depth": 8,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-6f127e64947e",
+      "message_id": "<MN2PR12MB4077D2A97DB19D24427367C8F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>",
+      "from_name": "Shepherd, Lori",
+      "from_email_hash": "ea9e9340d257178aa1b928bc69ed4277ea8643508ee1da9006b9114b56b9ff51",
+      "date": "2020-03-05T17:39:15Z",
+      "subject": "[R-SIG-Mac] R 3.6.3  for MacOS",
+      "subject_clean": "R 3.6.3  for MacOS",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Is there any update on when R 3.6.3 will be available for download from  https://cloud.r-project.org/bin/macosx/ ?\nIt seems like there was a release of R 3.6.3 for linux and windows on February 29th that is available but nothing yet for Mac.\n\n\n\nLori Shepherd\n\nBioconductor Core Team\n\nRoswell Park Comprehensive Cancer Center\n\nDepartment of Biostatistics & Bioinformatics\n\nElm & Carlton Streets\n\nBuffalo, New York 14263\n\n\nThis email message may contain legally privileged and/or confidential information.  If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited.  If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Is there any update on when R 3.6.3 will be available for download from  https://cloud.r-project.org/bin/macosx/ ?\nIt seems like there was a release of R 3.6.3 for linux and windows on February 29th t",
+      "thread_id": "thread-6f127e64947e",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-7d3e1eec6ce4",
+      "message_id": "<f3a28e91-7925-4867-8e54-2734cbc52a08@Spark>",
+      "from_name": "Patrick Schratz",
+      "from_email_hash": "9c03185aaf0a0b1b753db873449831551e168a67af213835be56a195b2a81504",
+      "date": "2020-03-05T18:52:46+01:00",
+      "subject": "[R-SIG-Mac] R 3.6.3 for MacOS",
+      "subject_clean": "R 3.6.3 for MacOS",
+      "in_reply_to": "<MN2PR12MB4077D2A97DB19D24427367C8F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>",
+      "references": [
+        "<MN2PR12MB4077D2A97DB19D24427367C8F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>"
+      ],
+      "body_plain": "You can use the installer/binaries from the R developer page in the meantime:?https://mac.r-project.org/\nAm 5. M?rz 2020, 18:39 +0100 schrieb Shepherd, Lori <Lori.Shepherd at roswellpark.org>:\n> Is there any update on when R 3.6.3 will be available for download from https://cloud.r-project.org/bin/macosx/ ?\n> It seems like there was a release of R 3.6.3 for linux and windows on February 29th that is available but nothing yet for Mac.\n>\n>\n>\n> Lori Shepherd\n>\n> Bioconductor Core Team\n>\n> Roswell Park Comprehensive Cancer Center\n>\n> Department of Biostatistics & Bioinformatics\n>\n> Elm & Carlton Streets\n>\n> Buffalo, New York 14263\n>\n>\n> This email message may contain legally privileged and/or confidential information. If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited. If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n> [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "You can use the installer/binaries from the R developer page in the meantime:?https://mac.r-project.org/\nAm 5. M?rz 2020, 18:39 +0100 schrieb Shepherd, Lori <Lori.Shepherd at roswellpark.org>:\n> Is th",
+      "thread_id": "thread-6f127e64947e",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-ffa0c87d2bfb",
+      "message_id": "<MN2PR12MB4077B82B5F5E055CC8A94838F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>",
+      "from_name": "Shepherd, Lori",
+      "from_email_hash": "ea9e9340d257178aa1b928bc69ed4277ea8643508ee1da9006b9114b56b9ff51",
+      "date": "2020-03-05T18:03:34Z",
+      "subject": "[R-SIG-Mac] R 3.6.3 for MacOS",
+      "subject_clean": "R 3.6.3 for MacOS",
+      "in_reply_to": "<f3a28e91-7925-4867-8e54-2734cbc52a08@Spark>",
+      "references": [
+        "<MN2PR12MB4077D2A97DB19D24427367C8F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>",
+        "<f3a28e91-7925-4867-8e54-2734cbc52a08@Spark>"
+      ],
+      "body_plain": "Yes.  We are aware of the developer binaries but were looking for an update on the official R 3.6.3 release for mac os.\n\n\nLori Shepherd\n\nBioconductor Core Team\n\nRoswell Park Comprehensive Cancer Center\n\nDepartment of Biostatistics & Bioinformatics\n\nElm & Carlton Streets\n\nBuffalo, New York 14263\n\n________________________________\nFrom: Patrick Schratz <patrick.schratz at gmail.com>\nSent: Thursday, March 5, 2020 12:52 PM\nTo: r-sig-mac at r-project.org <r-sig-mac at r-project.org>; Shepherd, Lori <Lori.Shepherd at RoswellPark.org>\nSubject: Re: [R-SIG-Mac] R 3.6.3 for MacOS\n\nYou can use the installer/binaries from the R developer page in the meantime: https://mac.r-project.org/\nAm 5. M?rz 2020, 18:39 +0100 schrieb Shepherd, Lori <Lori.Shepherd at roswellpark.org>:\nIs there any update on when R 3.6.3 will be available for download from https://cloud.r-project.org/bin/macosx/ ?\nIt seems like there was a release of R 3.6.3 for linux and windows on February 29th that is available but nothing yet for Mac.\n\n\n\nLori Shepherd\n\nBioconductor Core Team\n\nRoswell Park Comprehensive Cancer Center\n\nDepartment of Biostatistics & Bioinformatics\n\nElm & Carlton Streets\n\nBuffalo, New York 14263\n\n\nThis email message may contain legally privileged and/or confidential information. If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited. If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n[[alternative HTML version deleted]]\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\nThis email message may contain legally privileged and/or confidential information.  If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited.  If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Yes.  We are aware of the developer binaries but were looking for an update on the official R 3.6.3 release for mac os.\n\n\nLori Shepherd\n\nBioconductor Core Team\n\nRoswell Park Comprehensive Cancer Cente",
+      "thread_id": "thread-6f127e64947e",
+      "thread_depth": 2,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-7b4df10e04ab",
+      "message_id": "<5049C225-0FEA-4E8B-8CE6-39C2D7B4B9EA@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-06T14:32:33+13:00",
+      "subject": "[R-SIG-Mac] R 3.6.3  for MacOS",
+      "subject_clean": "R 3.6.3  for MacOS",
+      "in_reply_to": "<MN2PR12MB4077D2A97DB19D24427367C8F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>",
+      "references": [
+        "<MN2PR12MB4077D2A97DB19D24427367C8F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>"
+      ],
+      "body_plain": "Lori,\n\nas posted here earlier[1], Apple has tightened notarization requirements this year making it impossible for current R releases to be notarized until R 4.0.0 and thus the last Apple-notarized release is R 3.6.2.\n\nIf you are on a macOS version that doesn't require notarization, then I have put a binary that is not notarized in\nhttps://mac.R-project.org/bin/macosx/el-capitan/base/R-3.6.3.nn.pkg\nSHA1(R-3.6.3.nn.pkg)= c462c9b1f9b45d778f05b8d9aa25a9123b3557c4\n\nI am currently investigating if we can enable the required restrictions on binaries and what implications for the functionality of R that will have and will keep you posted. \n\nCheers,\nSimon\n\n\n[1] - https://stat.ethz.ch/pipermail/r-sig-mac/2019-October/013100.html\n\n\n> On 6/03/2020, at 6:39 AM, Shepherd, Lori <Lori.Shepherd at RoswellPark.org> wrote:\n> \n> Is there any update on when R 3.6.3 will be available for download from  https://cloud.r-project.org/bin/macosx/ ?\n> It seems like there was a release of R 3.6.3 for linux and windows on February 29th that is available but nothing yet for Mac.\n> \n> \n> \n> Lori Shepherd\n> \n> Bioconductor Core Team\n> \n> Roswell Park Comprehensive Cancer Center\n> \n> Department of Biostatistics & Bioinformatics\n> \n> Elm & Carlton Streets\n> \n> Buffalo, New York 14263\n> \n> \n> This email message may contain legally privileged and/or confidential information.  If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited.  If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Lori,\n\nas posted here earlier[1], Apple has tightened notarization requirements this year making it impossible for current R releases to be notarized until R 4.0.0 and thus the last Apple-notarized re",
+      "thread_id": "thread-6f127e64947e",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-6cb1c822b884",
+      "message_id": "<8703F058-E6D8-4477-AB7F-B6CEC1BA74C0@gmail.com>",
+      "from_name": "Peter Dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2020-03-06T10:26:18+01:00",
+      "subject": "[R-SIG-Mac] R 3.6.3  for MacOS",
+      "subject_clean": "R 3.6.3  for MacOS",
+      "in_reply_to": "<5049C225-0FEA-4E8B-8CE6-39C2D7B4B9EA@R-project.org>",
+      "references": [
+        "<MN2PR12MB4077D2A97DB19D24427367C8F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>",
+        "<5049C225-0FEA-4E8B-8CE6-39C2D7B4B9EA@R-project.org>"
+      ],
+      "body_plain": "Installed without issues on Mojave.\n\nReminds me that I may need some instructions on any required changes in the toolchain for 4.0.0 if I want to upgrade the build machine to Catalina before the release.\n\n-pd\n\n> On 6 Mar 2020, at 02:32 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> Lori,\n> \n> as posted here earlier[1], Apple has tightened notarization requirements this year making it impossible for current R releases to be notarized until R 4.0.0 and thus the last Apple-notarized release is R 3.6.2.\n> \n> If you are on a macOS version that doesn't require notarization, then I have put a binary that is not notarized in\n> https://mac.R-project.org/bin/macosx/el-capitan/base/R-3.6.3.nn.pkg\n> SHA1(R-3.6.3.nn.pkg)= c462c9b1f9b45d778f05b8d9aa25a9123b3557c4\n> \n> I am currently investigating if we can enable the required restrictions on binaries and what implications for the functionality of R that will have and will keep you posted. \n> \n> Cheers,\n> Simon\n> \n> \n> [1] - https://stat.ethz.ch/pipermail/r-sig-mac/2019-October/013100.html\n> \n> \n>> On 6/03/2020, at 6:39 AM, Shepherd, Lori <Lori.Shepherd at RoswellPark.org> wrote:\n>> \n>> Is there any update on when R 3.6.3 will be available for download from  https://cloud.r-project.org/bin/macosx/ ?\n>> It seems like there was a release of R 3.6.3 for linux and windows on February 29th that is available but nothing yet for Mac.\n>> \n>> \n>> \n>> Lori Shepherd\n>> \n>> Bioconductor Core Team\n>> \n>> Roswell Park Comprehensive Cancer Center\n>> \n>> Department of Biostatistics & Bioinformatics\n>> \n>> Elm & Carlton Streets\n>> \n>> Buffalo, New York 14263\n>> \n>> \n>> This email message may contain legally privileged and/or confidential information.  If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited.  If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Installed without issues on Mojave.\n\nReminds me that I may need some instructions on any required changes in the toolchain for 4.0.0 if I want to upgrade the build machine to Catalina before the relea",
+      "thread_id": "thread-6f127e64947e",
+      "thread_depth": 2,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-8aa3f638091e",
+      "message_id": "<8F2299ED-A2E2-4A4B-92E5-E479FF535877@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-08T13:47:30+13:00",
+      "subject": "[R-SIG-Mac] R 3.6.3  for MacOS",
+      "subject_clean": "R 3.6.3  for MacOS",
+      "in_reply_to": "<8703F058-E6D8-4477-AB7F-B6CEC1BA74C0@gmail.com>",
+      "references": [
+        "<MN2PR12MB4077D2A97DB19D24427367C8F9E20@MN2PR12MB4077.namprd12.prod.outlook.com>",
+        "<5049C225-0FEA-4E8B-8CE6-39C2D7B4B9EA@R-project.org>",
+        "<8703F058-E6D8-4477-AB7F-B6CEC1BA74C0@gmail.com>"
+      ],
+      "body_plain": "Mojave doesn't require notarization (yet) so it is safe to use.\n\nI have now updated the CRAN main page with both the notarized version and the regular one. Catalina users must use the notarized version, they have no choice, and now Apple enforces hardened runtime for notarized software. The notarized version has modified binaries for all its components (including R, tcl/tk and texinfo), so there are restrictions on what it can do. It may limit interoperability with other libraries and software that is not notarized*.\nPlease note that R 3.6.2 is the last version on Catalina that uses regular runtime, Apple has closed the door so no new releases can use regular runtime on Catalina.\n\nThose on earlier versions of macOS are safe and can use the regular version. You can install the notarized version, but you don't have to.\n\nCheers,\nSimon\n\n* - so far Apple allows certain exceptions, but without them *all* R packages (containing binaries) will have to be signed and potentially notarized. The same applies to any libraries used as well, so that will severely limit the ability to create custom packages/libraries by the user. We may want to think about including code signing into the R package build process (and building R for that matter -- currently all signing is done post-hoc).\n\n\n> On Mar 6, 2020, at 10:26 PM, peter dalgaard <pdalgd at gmail.com> wrote:\n> \n> Installed without issues on Mojave.\n> \n> Reminds me that I may need some instructions on any required changes in the toolchain for 4.0.0 if I want to upgrade the build machine to Catalina before the release.\n> \n> -pd\n> \n>> On 6 Mar 2020, at 02:32 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> \n>> Lori,\n>> \n>> as posted here earlier[1], Apple has tightened notarization requirements this year making it impossible for current R releases to be notarized until R 4.0.0 and thus the last Apple-notarized release is R 3.6.2.\n>> \n>> If you are on a macOS version that doesn't require notarization, then I have put a binary that is not notarized in\n>> https://mac.R-project.org/bin/macosx/el-capitan/base/R-3.6.3.nn.pkg\n>> SHA1(R-3.6.3.nn.pkg)= c462c9b1f9b45d778f05b8d9aa25a9123b3557c4\n>> \n>> I am currently investigating if we can enable the required restrictions on binaries and what implications for the functionality of R that will have and will keep you posted. \n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>> [1] - https://stat.ethz.ch/pipermail/r-sig-mac/2019-October/013100.html\n>> \n>> \n>>> On 6/03/2020, at 6:39 AM, Shepherd, Lori <Lori.Shepherd at RoswellPark.org> wrote:\n>>> \n>>> Is there any update on when R 3.6.3 will be available for download from  https://cloud.r-project.org/bin/macosx/ ?\n>>> It seems like there was a release of R 3.6.3 for linux and windows on February 29th that is available but nothing yet for Mac.\n>>> \n>>> \n>>> \n>>> Lori Shepherd\n>>> \n>>> Bioconductor Core Team\n>>> \n>>> Roswell Park Comprehensive Cancer Center\n>>> \n>>> Department of Biostatistics & Bioinformatics\n>>> \n>>> Elm & Carlton Streets\n>>> \n>>> Buffalo, New York 14263\n>>> \n>>> \n>>> This email message may contain legally privileged and/or confidential information.  If you are not the intended recipient(s), or the employee or agent responsible for the delivery of this message to the intended recipient(s), you are hereby notified that any disclosure, copying, distribution, or use of this email message is prohibited.  If you have received this message in error, please notify the sender immediately by e-mail and delete this email message from your computer. Thank you.\n>>> \t[[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> -- \n> Peter Dalgaard, Professor,\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Office: A 4.23\n> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Mojave doesn't require notarization (yet) so it is safe to use.\n\nI have now updated the CRAN main page with both the notarized version and the regular one. Catalina users must use the notarized versio",
+      "thread_id": "thread-6f127e64947e",
+      "thread_depth": 3,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-50cd2cb7d03f",
+      "message_id": "<0088f2c2-d576-151b-99c3-580924143a97@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2020-03-12T01:42:17-05:00",
+      "subject": "[R-SIG-Mac] dir only shows some of what's there",
+      "subject_clean": "dir only shows some of what's there",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello, All:\n\n\n ????? What can cause \"dir\" to list only 3 of 18 files in a certain \ndirectory?\n\n\n ????? I'm working with Jim Ramsay trying to migrate the fda package to \nGitHub.? The current status is at \n\"https://github.com/JamesRamsay5/fda-revision\".? The \"data\" subdirectory \nthere contains only 3 files;? there should be 18.? I have all 18 in a \nlocal directory on my MacBook Pro running 10.15.3. I can see them in \nFinder, but I'm unable to get R to see more than those three.\n\n\n ?????? I do \"(wd0 <- getwd())\" and get:\n\n\n[1] \"/Users/sbgraves/Documents/current/R/fda\"\n\n\n ????? Finder shows that this has subdirectories \"data\" and \n\"fda2020-03-11/fda/data\" both with 18 files and \"fda-revision/fda/data\" \nwith only 3.? The latter is a current clone of \n\"https://github.com/JamesRamsay5/fda-revision\".? I copied files \nyesterday into \"fda-revision/fda/R\" and \"fda-revision/fda/demo\" without \nproblems.? However, over the past few hours, I've been unable to copy a \nfile one of the remaining 15 files from \"fda2020-03-11/fda/data\" into \n\"fda-revision/fda/data\".\n\n\n ?????? In R I tried the following:\n\n\n > (fda511old.data <- file.path(wd0, 'fda2020-03-11',\n+?????? 'fda', 'data'))\n[1] \"/Users/sbgraves/Documents/current/R/fda/fda2020-03-11/fda/data\"\n > dir(fda511old.data)\n[1] \"gait.rda\"??????? \"melanoma.rda\"??? \"nondurables.rda\"\n >\n > (fdaRev.data <- file.path(wd0, 'fda-revision',\n+??????????????????????? 'data'))\n[1] \"/Users/sbgraves/Documents/current/R/fda/fda-revision/data\"\n > dir(fdaRev.data)\n[1] \"gait.rda\"??????? \"melanoma.rda\"??? \"nondurables.rda\"\n\n\n ????? I checked \"data info\" on all 3 \"data\" directories.? The two with \n18 files show 18 items while the one with 3 shows only 3. \"data info\" \nfor all three say \"You can read and write\".\n\n\n ????? Suggestions?\n ????? Thanks,\n ????? Spencer Graves\n\n\n > sessionInfo()\nR version 3.6.3 (2020-02-29)\nPlatform: x86_64-apple-darwin15.6.0 (64-bit)\nRunning under: macOS Catalina 10.15.3\n\nMatrix products: default\nBLAS: \n/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib\nLAPACK: \n/Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats???? graphics? grDevices utils???? datasets\n[6] methods?? base\n\nloaded via a namespace (and not attached):\n[1] compiler_3.6.3 tools_3.6.3",
+      "body_snippet": "Hello, All:\n\n\n ????? What can cause \"dir\" to list only 3 of 18 files in a certain \ndirectory?\n\n\n ????? I'm working with Jim Ramsay trying to migrate the fda package to \nGitHub.? The current status is ",
+      "thread_id": "thread-50cd2cb7d03f",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-a28ea8eb0e74",
+      "message_id": "<47FC18AA-876C-480F-AEEB-27028AFCE108@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "1c54506f356013c044ac0f443a529ed55b43a5a79b20d7218e75266c764f4069",
+      "date": "2020-03-23T15:06:04+01:00",
+      "subject": "[R-SIG-Mac] Install r-devel with homebrew?",
+      "subject_clean": "Install r-devel with homebrew?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi\n\nI know - homebrew is not a supported installation approach to R, but I am asking anyway:\n\nIs there a way of installing r-devel via homebrew? Otherwise, what is the easiest way of getting r-devel on my Mac, without interfering with the homebrew install?\n\nThanks,\n\nRainer\n\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nOrcid ID: 0000-0002-7490-0066\n\nDepartment of Evolutionary Biology and Environmental Studies\nUniversity of Z?rich\nOffice Y34-J-74\nWinterthurerstrasse 190\n8075 Z?rich\nSwitzerland\n\nOffice:\t+41 (0)44 635 47 64\nCell:       \t+41 (0)78 630 66 57\nemail:      Rainer.Krug at uzh.ch\n\t\tRainer at krugs.de\nSkype:     RMkrug\n\nPGP: 0x0F52F982",
+      "body_snippet": "Hi\n\nI know - homebrew is not a supported installation approach to R, but I am asking anyway:\n\nIs there a way of installing r-devel via homebrew? Otherwise, what is the easiest way of getting r-devel o",
+      "thread_id": "thread-a28ea8eb0e74",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-f7b8bdb288ab",
+      "message_id": "<0B9F6080-D45E-45C7-9645-0D735E2DE4DD@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2020-03-23T14:09:20Z",
+      "subject": "[R-SIG-Mac] Install r-devel with homebrew?",
+      "subject_clean": "Install r-devel with homebrew?",
+      "in_reply_to": "<47FC18AA-876C-480F-AEEB-27028AFCE108@krugs.de>",
+      "references": [
+        "<47FC18AA-876C-480F-AEEB-27028AFCE108@krugs.de>"
+      ],
+      "body_plain": "Rainer,\n\nDownload the R-devel build from http://mac.r-project.org \n\nThe build is available under \"Universal nightly builds for Mac OS X (10.6+ and 10.9+)\" table.\n\nR-devel-el-capitan-sa-x86_64.tar.gz (67Mb)\nhttp://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-sa-x86_64.tar.gz \n\nR-devel-el-capitan-signed.pkg (77Mb, installer incl. GUI)\nhttp://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-signed.pkg \n\nBest,\n\nJJB\n\n?On 3/23/20, 9:06 AM, \"R-SIG-Mac on behalf of Rainer M Krug\" <r-sig-mac-bounces at r-project.org on behalf of Rainer at krugs.de> wrote:\n\n    Hi\n    \n    I know - homebrew is not a supported installation approach to R, but I am asking anyway:\n    \n    Is there a way of installing r-devel via homebrew? Otherwise, what is the easiest way of getting r-devel on my Mac, without interfering with the homebrew install?\n    \n    Thanks,\n    \n    Rainer\n    \n    \n    --\n    Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n    \n    Orcid ID: 0000-0002-7490-0066\n    \n    Department of Evolutionary Biology and Environmental Studies\n    University of Z?rich\n    Office Y34-J-74\n    Winterthurerstrasse 190\n    8075 Z?rich\n    Switzerland\n    \n    Office:\t+41 (0)44 635 47 64\n    Cell:       \t+41 (0)78 630 66 57\n    email:      Rainer.Krug at uzh.ch\n    \t\tRainer at krugs.de\n    Skype:     RMkrug\n    \n    PGP: 0x0F52F982\n    \n    _______________________________________________\n    R-SIG-Mac mailing list\n    R-SIG-Mac at r-project.org\n    https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Rainer,\n\nDownload the R-devel build from http://mac.r-project.org \n\nThe build is available under \"Universal nightly builds for Mac OS X (10.6+ and 10.9+)\" table.\n\nR-devel-el-capitan-sa-x86_64.tar.gz (",
+      "thread_id": "thread-a28ea8eb0e74",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-4991334df4ee",
+      "message_id": "<7F3065F4-0A0A-4AF6-AD5D-28A4CEF8AB54@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "1c54506f356013c044ac0f443a529ed55b43a5a79b20d7218e75266c764f4069",
+      "date": "2020-03-23T15:15:12+01:00",
+      "subject": "[R-SIG-Mac] Install r-devel with homebrew?",
+      "subject_clean": "Install r-devel with homebrew?",
+      "in_reply_to": "<0B9F6080-D45E-45C7-9645-0D735E2DE4DD@illinois.edu>",
+      "references": [
+        "<47FC18AA-876C-480F-AEEB-27028AFCE108@krugs.de>",
+        "<0B9F6080-D45E-45C7-9645-0D735E2DE4DD@illinois.edu>"
+      ],
+      "body_plain": "Thanks - done this (the tar.gz, as I don?t want to install it and run it from the downloaded location).\n\nBut how can I run R? I have the command R, but I get the message \"?R.framework? cannot be opened because the developer cannot be verified.\"\n\n\nAny suggestions?\n\nRainer\n\n> On 23 Mar 2020, at 15:09, Balamuta, James Joseph <balamut2 at illinois.edu> wrote:\n> \n> Rainer,\n> \n> Download the R-devel build from http://mac.r-project.org \n> \n> The build is available under \"Universal nightly builds for Mac OS X (10.6+ and 10.9+)\" table.\n> \n> R-devel-el-capitan-sa-x86_64.tar.gz (67Mb)\n> http://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-sa-x86_64.tar.gz \n> \n> R-devel-el-capitan-signed.pkg (77Mb, installer incl. GUI)\n> http://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-signed.pkg \n> \n> Best,\n> \n> JJB\n> \n> ?On 3/23/20, 9:06 AM, \"R-SIG-Mac on behalf of Rainer M Krug\" <r-sig-mac-bounces at r-project.org on behalf of Rainer at krugs.de> wrote:\n> \n>    Hi\n> \n>    I know - homebrew is not a supported installation approach to R, but I am asking anyway:\n> \n>    Is there a way of installing r-devel via homebrew? Otherwise, what is the easiest way of getting r-devel on my Mac, without interfering with the homebrew install?\n> \n>    Thanks,\n> \n>    Rainer\n> \n> \n>    --\n>    Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> \n>    Orcid ID: 0000-0002-7490-0066\n> \n>    Department of Evolutionary Biology and Environmental Studies\n>    University of Z?rich\n>    Office Y34-J-74\n>    Winterthurerstrasse 190\n>    8075 Z?rich\n>    Switzerland\n> \n>    Office:\t+41 (0)44 635 47 64\n>    Cell:       \t+41 (0)78 630 66 57\n>    email:      Rainer.Krug at uzh.ch\n>    \t\tRainer at krugs.de\n>    Skype:     RMkrug\n> \n>    PGP: 0x0F52F982\n> \n>    _______________________________________________\n>    R-SIG-Mac mailing list\n>    R-SIG-Mac at r-project.org\n>    https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nOrcid ID: 0000-0002-7490-0066\n\nDepartment of Evolutionary Biology and Environmental Studies\nUniversity of Z?rich\nOffice Y34-J-74\nWinterthurerstrasse 190\n8075 Z?rich\nSwitzerland\n\nOffice:\t+41 (0)44 635 47 64\nCell:       \t+41 (0)78 630 66 57\nemail:      Rainer.Krug at uzh.ch\n\t\tRainer at krugs.de\nSkype:     RMkrug\n\nPGP: 0x0F52F982\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks - done this (the tar.gz, as I don?t want to install it and run it from the downloaded location).\n\nBut how can I run R? I have the command R, but I get the message \"?R.framework? cannot be opene",
+      "thread_id": "thread-a28ea8eb0e74",
+      "thread_depth": 2,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-31649a0a53db",
+      "message_id": "<57B52744-9A3A-46CE-BC86-8163F7ACEA91@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2020-03-23T14:18:50Z",
+      "subject": "[R-SIG-Mac] Install r-devel with homebrew?",
+      "subject_clean": "Install r-devel with homebrew?",
+      "in_reply_to": "<7F3065F4-0A0A-4AF6-AD5D-28A4CEF8AB54@krugs.de>",
+      "references": [
+        "<47FC18AA-876C-480F-AEEB-27028AFCE108@krugs.de>",
+        "<0B9F6080-D45E-45C7-9645-0D735E2DE4DD@illinois.edu>",
+        "<7F3065F4-0A0A-4AF6-AD5D-28A4CEF8AB54@krugs.de>"
+      ],
+      "body_plain": "Rainer,\n\nUnfortunately, this is related to the new security settings Apple is enforcing for installers.\n\nThe solution to this problem straightforward but annoying.\n\nSteps to take:\n\n\n  *   Open the Finder\n  *   Locate where the installer you want to open is saved.\n  *   Control-click the installer icon AND choose ?Open? option the menu.\n     *   This will display a modified security warning with the added option of ?Open?\n  *   Click Open to allow the installer to run.\n\nBest,\n\nJJB\n\nFrom: Rainer M Krug <Rainer at krugs.de>\nDate: Monday, March 23, 2020 at 9:15 AM\nTo: James Balamuta <balamut2 at illinois.edu>\nCc: \"R-SIG-Mac at r-project.org\" <R-SIG-Mac at r-project.org>\nSubject: Re: [R-SIG-Mac] Install r-devel with homebrew?\n\nThanks - done this (the tar.gz, as I don?t want to install it and run it from the downloaded location).\n\nBut how can I run R? I have the command R, but I get the message \"?R.framework? cannot be opened because the developer cannot be verified.\"\n\n\nAny suggestions?\n\nRainer\n\n\nOn 23 Mar 2020, at 15:09, Balamuta, James Joseph <balamut2 at illinois.edu<mailto:balamut2 at illinois.edu>> wrote:\n\nRainer,\n\nDownload the R-devel build from http://mac.r-project.org<https://urldefense.proofpoint.com/v2/url?u=http-3A__mac.r-2Dproject.org&d=DwMFaQ&c=OCIEmEwdEq_aNlsP4fF3gFqSN-E3mlr2t9JcDdfOZag&r=Rba5GEqnBmPqWIfj6Ki2dRUPDq4KJBu7avSSHpSF-Gw&m=bQl0BiJQoyzp72Qwg2zhr5zkobvA6-wr3ac6CimxUZM&s=52KLl3eB6zfC82e0o5aQS2SqWtGL8cCaKI0_bLKBaLU&e=>\n\nThe build is available under \"Universal nightly builds for Mac OS X (10.6+ and 10.9+)\" table.\n\nR-devel-el-capitan-sa-x86_64.tar.gz (67Mb)\nhttp://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-sa-x86_64.tar.gz<https://urldefense.proofpoint.com/v2/url?u=http-3A__mac.r-2Dproject.org_el-2Dcapitan_R-2Ddevel_R-2Ddevel-2Del-2Dcapitan-2Dsa-2Dx86-5F64.tar.gz&d=DwMFaQ&c=OCIEmEwdEq_aNlsP4fF3gFqSN-E3mlr2t9JcDdfOZag&r=Rba5GEqnBmPqWIfj6Ki2dRUPDq4KJBu7avSSHpSF-Gw&m=bQl0BiJQoyzp72Qwg2zhr5zkobvA6-wr3ac6CimxUZM&s=WRwRZiuGcLsV-dbdjDYgyv29J0objakLGLyXbqMq7Tc&e=>\n\nR-devel-el-capitan-signed.pkg (77Mb, installer incl. GUI)\nhttp://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-signed.pkg<https://urldefense.proofpoint.com/v2/url?u=http-3A__mac.r-2Dproject.org_el-2Dcapitan_R-2Ddevel_R-2Ddevel-2Del-2Dcapitan-2Dsigned.pkg&d=DwMFaQ&c=OCIEmEwdEq_aNlsP4fF3gFqSN-E3mlr2t9JcDdfOZag&r=Rba5GEqnBmPqWIfj6Ki2dRUPDq4KJBu7avSSHpSF-Gw&m=bQl0BiJQoyzp72Qwg2zhr5zkobvA6-wr3ac6CimxUZM&s=-ONokPlnXMlJV2s6gOeN22_sYEJseQksqV312aIRf8Q&e=>\n\nBest,\n\nJJB\n\nOn 3/23/20, 9:06 AM, \"R-SIG-Mac on behalf of Rainer M Krug\" <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org> on behalf of Rainer at krugs.de<mailto:Rainer at krugs.de>> wrote:\n\n   Hi\n\n   I know - homebrew is not a supported installation approach to R, but I am asking anyway:\n\n   Is there a way of installing r-devel via homebrew? Otherwise, what is the easiest way of getting r-devel on my Mac, without interfering with the homebrew install?\n\n   Thanks,\n\n   Rainer\n\n\n   --\n   Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\n   Orcid ID: 0000-0002-7490-0066\n\n   Department of Evolutionary Biology and Environmental Studies\n   University of Z?rich\n   Office Y34-J-74\n   Winterthurerstrasse 190\n   8075 Z?rich\n   Switzerland\n\n   Office: +41 (0)44 635 47 64\n   Cell:        +41 (0)78 630 66 57\n   email:      Rainer.Krug at uzh.ch<mailto:Rainer.Krug at uzh.ch>\n    Rainer at krugs.de<mailto:Rainer at krugs.de>\n   Skype:     RMkrug\n\n   PGP: 0x0F52F982\n\n   _______________________________________________\n   R-SIG-Mac mailing list\n   R-SIG-Mac at r-project.org\n   https://stat.ethz.ch/mailman/listinfo/r-sig-mac<https://urldefense.proofpoint.com/v2/url?u=https-3A__stat.ethz.ch_mailman_listinfo_r-2Dsig-2Dmac&d=DwQFaQ&c=OCIEmEwdEq_aNlsP4fF3gFqSN-E3mlr2t9JcDdfOZag&r=Rba5GEqnBmPqWIfj6Ki2dRUPDq4KJBu7avSSHpSF-Gw&m=bQl0BiJQoyzp72Qwg2zhr5zkobvA6-wr3ac6CimxUZM&s=_hnssiYPIM5CCP_l4_9cg_7u8R2oGatRUZSX3-X5yG0&e=>\n\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\nOrcid ID: 0000-0002-7490-0066\n\nDepartment of Evolutionary Biology and Environmental Studies\nUniversity of Z?rich\nOffice Y34-J-74\nWinterthurerstrasse 190\n8075 Z?rich\nSwitzerland\n\nOffice: +41 (0)44 635 47 64\nCell:\n+41 (0)78 630 66 57\nemail:      Rainer.Krug at uzh.ch<mailto:Rainer.Krug at uzh.ch>\nRainer at krugs.de<mailto:Rainer at krugs.de>\nSkype:     RMkrug\n\nPGP: 0x0F52F982\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Rainer,\n\nUnfortunately, this is related to the new security settings Apple is enforcing for installers.\n\nThe solution to this problem straightforward but annoying.\n\nSteps to take:\n\n\n  *   Open the Fin",
+      "thread_id": "thread-a28ea8eb0e74",
+      "thread_depth": 3,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-d39580c8048e",
+      "message_id": "<88760060-ecfd-4199-b4c3-a25ee1a86df6@Spark>",
+      "from_name": "Patrick Schratz",
+      "from_email_hash": "9c03185aaf0a0b1b753db873449831551e168a67af213835be56a195b2a81504",
+      "date": "2020-03-23T15:24:18+01:00",
+      "subject": "[R-SIG-Mac] Install r-devel with homebrew?",
+      "subject_clean": "Install r-devel with homebrew?",
+      "in_reply_to": "<0B9F6080-D45E-45C7-9645-0D735E2DE4DD@illinois.edu>",
+      "references": [
+        "<47FC18AA-876C-480F-AEEB-27028AFCE108@krugs.de>",
+        "<0B9F6080-D45E-45C7-9645-0D735E2DE4DD@illinois.edu>"
+      ],
+      "body_plain": "Rainer,\n\nBe aware that the homebrew build of R used a different underlying C standard (if that is the correct way to name it?) which may cause issues when compiling certain packages from source.\nI think most people in this mailing list do not recommend it.\nIn addition, you might want to change your compiler to an openmp enabled clang one.\n\nI use a small script which installs R-dev:\n\nwget https://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-sa-x86_64.tar.gz\nsudo tar fvxz R*.tar.gz -C /\nrm R-devel-el-capitan-sa-x86_64.tar.gz\n\nCheers, Patrick\nOn 23. Mar 2020, 15:09 +0100, Balamuta, James Joseph <balamut2 at illinois.edu>, wrote:\n> Rainer,\n>\n> Download the R-devel build from http://mac.r-project.org\n>\n> The build is available under \"Universal nightly builds for Mac OS X (10.6+ and 10.9+)\" table.\n>\n> R-devel-el-capitan-sa-x86_64.tar.gz (67Mb)\n> http://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-sa-x86_64.tar.gz\n>\n> R-devel-el-capitan-signed.pkg (77Mb, installer incl. GUI)\n> http://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-signed.pkg\n>\n> Best,\n>\n> JJB\n>\n> On 3/23/20, 9:06 AM, \"R-SIG-Mac on behalf of Rainer M Krug\" <r-sig-mac-bounces at r-project.org on behalf of Rainer at krugs.de> wrote:\n>\n> Hi\n>\n> I know - homebrew is not a supported installation approach to R, but I am asking anyway:\n>\n> Is there a way of installing r-devel via homebrew? Otherwise, what is the easiest way of getting r-devel on my Mac, without interfering with the homebrew install?\n>\n> Thanks,\n>\n> Rainer\n>\n>\n> --\n> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>\n> Orcid ID: 0000-0002-7490-0066\n>\n> Department of Evolutionary Biology and Environmental Studies\n> University of Z?rich\n> Office Y34-J-74\n> Winterthurerstrasse 190\n> 8075 Z?rich\n> Switzerland\n>\n> Office: +41 (0)44 635 47 64\n> Cell: +41 (0)78 630 66 57\n> email: Rainer.Krug at uzh.ch\n> Rainer at krugs.de\n> Skype: RMkrug\n>\n> PGP: 0x0F52F982\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Rainer,\n\nBe aware that the homebrew build of R used a different underlying C standard (if that is the correct way to name it?) which may cause issues when compiling certain packages from source.\nI thi",
+      "thread_id": "thread-a28ea8eb0e74",
+      "thread_depth": 2,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-627e2b8565fb",
+      "message_id": "<CF6429FD-BFC9-40B7-ADED-3D5C15507DDC@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "1c54506f356013c044ac0f443a529ed55b43a5a79b20d7218e75266c764f4069",
+      "date": "2020-03-23T15:30:22+01:00",
+      "subject": "[R-SIG-Mac] Install r-devel with homebrew?",
+      "subject_clean": "Install r-devel with homebrew?",
+      "in_reply_to": "<88760060-ecfd-4199-b4c3-a25ee1a86df6@Spark>",
+      "references": [
+        "<47FC18AA-876C-480F-AEEB-27028AFCE108@krugs.de>",
+        "<0B9F6080-D45E-45C7-9645-0D735E2DE4DD@illinois.edu>",
+        "<88760060-ecfd-4199-b4c3-a25ee1a86df6@Spark>"
+      ],
+      "body_plain": "Thanks Patrick. This is working, and I can start r-devel.\n\nI am aware that some say that there are problems with homebrew, but I have never experienced any. \n\nThanks,\n\nRainer\n\n\n\n> On 23 Mar 2020, at 15:24, Patrick Schratz <patrick.schratz at gmail.com> wrote:\n> \n> Rainer,\n> \n> Be aware that the homebrew build of R used a different underlying C standard (if that is the correct way to name it?) which may cause issues when compiling certain packages from source.\n> I think most people in this mailing list do not recommend it.\n> In addition, you might want to change your compiler to an openmp enabled clang one.\n> \n> I use a small script which installs R-dev:\n> \n> wget https://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-sa-x86_64.tar.gz <https://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-sa-x86_64.tar.gz>\n> sudo tar fvxz R*.tar.gz -C /\n> rm R-devel-el-capitan-sa-x86_64.tar.gz\n> \n> Cheers, Patrick\n> On 23. Mar 2020, 15:09 +0100, Balamuta, James Joseph <balamut2 at illinois.edu>, wrote:\n>> Rainer,\n>> \n>> Download the R-devel build from http://mac.r-project.org\n>> \n>> The build is available under \"Universal nightly builds for Mac OS X (10.6+ and 10.9+)\" table.\n>> \n>> R-devel-el-capitan-sa-x86_64.tar.gz (67Mb)\n>> http://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-sa-x86_64.tar.gz\n>> \n>> R-devel-el-capitan-signed.pkg (77Mb, installer incl. GUI)\n>> http://mac.r-project.org/el-capitan/R-devel/R-devel-el-capitan-signed.pkg\n>> \n>> Best,\n>> \n>> JJB\n>> \n>> ?On 3/23/20, 9:06 AM, \"R-SIG-Mac on behalf of Rainer M Krug\" <r-sig-mac-bounces at r-project.org on behalf of Rainer at krugs.de> wrote:\n>> \n>> Hi\n>> \n>> I know - homebrew is not a supported installation approach to R, but I am asking anyway:\n>> \n>> Is there a way of installing r-devel via homebrew? Otherwise, what is the easiest way of getting r-devel on my Mac, without interfering with the homebrew install?\n>> \n>> Thanks,\n>> \n>> Rainer\n>> \n>> \n>> --\n>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>> \n>> Orcid ID: 0000-0002-7490-0066\n>> \n>> Department of Evolutionary Biology and Environmental Studies\n>> University of Z?rich\n>> Office Y34-J-74\n>> Winterthurerstrasse 190\n>> 8075 Z?rich\n>> Switzerland\n>> \n>> Office: +41 (0)44 635 47 64\n>> Cell: +41 (0)78 630 66 57\n>> email: Rainer.Krug at uzh.ch\n>> Rainer at krugs.de\n>> Skype: RMkrug\n>> \n>> PGP: 0x0F52F982\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n--\nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nOrcid ID: 0000-0002-7490-0066\n\nDepartment of Evolutionary Biology and Environmental Studies\nUniversity of Z?rich\nOffice Y34-J-74\nWinterthurerstrasse 190\n8075 Z?rich\nSwitzerland\n\nOffice:\t+41 (0)44 635 47 64\nCell:       \t+41 (0)78 630 66 57\nemail:      Rainer.Krug at uzh.ch\n\t\tRainer at krugs.de\nSkype:     RMkrug\n\nPGP: 0x0F52F982\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks Patrick. This is working, and I can start r-devel.\n\nI am aware that some say that there are problems with homebrew, but I have never experienced any. \n\nThanks,\n\nRainer\n\n\n\n> On 23 Mar 2020, at 1",
+      "thread_id": "thread-a28ea8eb0e74",
+      "thread_depth": 3,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-e7299e21a459",
+      "message_id": "<CANk-X-26cMc8DxsCcMxGszrEVvMreZHJGuoH95HLV8Ri1hF_4w@mail.gmail.com>",
+      "from_name": "Constantin Ahlmann-Eltze",
+      "from_email_hash": "7a4a36b661de595f0ff16fb1dc9cc8dcb3e7b60575c8ae454acad885928418f0",
+      "date": "2020-03-25T16:17:40+01:00",
+      "subject": "[R-SIG-Mac] R devel == 4.0.0?",
+      "subject_clean": "R devel == 4.0.0?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI wanted to install R 4.0.0 on my Mac (Mojave) to test  some of my packages\nwith the development version before it is released. I saw that\nhttps://mac.r-project.org/ is recommended to get a pkg or tar.gz file with\nthe latest version. However, the R-devel version linked there points to\n3.6.3.\n\nIs that the expected behavior? Am I right then, that I will have install R\n4.0.0 from source? And if so what is the recommended tool chain at the\nmoment for doing so?\n\nBest Regards,\nConstantin Ahlmann-Eltze\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\nI wanted to install R 4.0.0 on my Mac (Mojave) to test  some of my packages\nwith the development version before it is released. I saw that\nhttps://mac.r-project.org/ is recommended to get a pkg o",
+      "thread_id": "thread-e7299e21a459",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-cf7a0fbb3bfc",
+      "message_id": "<FB094632-BA60-4207-B678-ABD5CE4E22ED@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-26T09:53:46+13:00",
+      "subject": "[R-SIG-Mac] R devel == 4.0.0?",
+      "subject_clean": "R devel == 4.0.0?",
+      "in_reply_to": "<CANk-X-26cMc8DxsCcMxGszrEVvMreZHJGuoH95HLV8Ri1hF_4w@mail.gmail.com>",
+      "references": [
+        "<CANk-X-26cMc8DxsCcMxGszrEVvMreZHJGuoH95HLV8Ri1hF_4w@mail.gmail.com>"
+      ],
+      "body_plain": "Constantin,\n \nno, as you can see from the log the regression tests failed for R-devel, so it doesn't currently build. You'll have to wait until that has been fixed.\n\nCheers,\nSimon\n\n\n\n> On 26/03/2020, at 4:17 AM, Constantin Ahlmann-Eltze via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hi,\n> \n> I wanted to install R 4.0.0 on my Mac (Mojave) to test  some of my packages\n> with the development version before it is released. I saw that\n> https://mac.r-project.org/ is recommended to get a pkg or tar.gz file with\n> the latest version. However, the R-devel version linked there points to\n> 3.6.3.\n> \n> Is that the expected behavior? Am I right then, that I will have install R\n> 4.0.0 from source? And if so what is the recommended tool chain at the\n> moment for doing so?\n> \n> Best Regards,\n> Constantin Ahlmann-Eltze\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Constantin,\n \nno, as you can see from the log the regression tests failed for R-devel, so it doesn't currently build. You'll have to wait until that has been fixed.\n\nCheers,\nSimon\n\n\n\n> On 26/03/2020, ",
+      "thread_id": "thread-e7299e21a459",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-f73cc08dfedd",
+      "message_id": "<CANk-X-0LWJVDSnZP_Ln_cEObcTbma7-k6XdMFgL4f_O0frj=GA@mail.gmail.com>",
+      "from_name": "Constantin Ahlmann-Eltze",
+      "from_email_hash": "7a4a36b661de595f0ff16fb1dc9cc8dcb3e7b60575c8ae454acad885928418f0",
+      "date": "2020-03-25T22:38:07+01:00",
+      "subject": "[R-SIG-Mac] R devel == 4.0.0?",
+      "subject_clean": "R devel == 4.0.0?",
+      "in_reply_to": "<FB094632-BA60-4207-B678-ABD5CE4E22ED@R-project.org>",
+      "references": [
+        "<CANk-X-26cMc8DxsCcMxGszrEVvMreZHJGuoH95HLV8Ri1hF_4w@mail.gmail.com>",
+        "<FB094632-BA60-4207-B678-ABD5CE4E22ED@R-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\nthank you for the information, that clarifies the issue for me. I just\nwanted to make sure that I am looking in the right place :)\n\nBest Regards,\nConstantin\n\nAm Mi., 25. M?rz 2020 um 21:53 Uhr schrieb Simon Urbanek <\nsimon.urbanek at r-project.org>:\n\n> Constantin,\n>\n> no, as you can see from the log the regression tests failed for R-devel,\n> so it doesn't currently build. You'll have to wait until that has been\n> fixed.\n>\n> Cheers,\n> Simon\n>\n>\n>\n> > On 26/03/2020, at 4:17 AM, Constantin Ahlmann-Eltze via R-SIG-Mac <\n> r-sig-mac at r-project.org> wrote:\n> >\n> > Hi,\n> >\n> > I wanted to install R 4.0.0 on my Mac (Mojave) to test  some of my\n> packages\n> > with the development version before it is released. I saw that\n> > https://mac.r-project.org/ is recommended to get a pkg or tar.gz file\n> with\n> > the latest version. However, the R-devel version linked there points to\n> > 3.6.3.\n> >\n> > Is that the expected behavior? Am I right then, that I will have install\n> R\n> > 4.0.0 from source? And if so what is the recommended tool chain at the\n> > moment for doing so?\n> >\n> > Best Regards,\n> > Constantin Ahlmann-Eltze\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Simon,\n\nthank you for the information, that clarifies the issue for me. I just\nwanted to make sure that I am looking in the right place :)\n\nBest Regards,\nConstantin\n\nAm Mi., 25. M?rz 2020 um 21:53 ",
+      "thread_id": "thread-e7299e21a459",
+      "thread_depth": 2,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-0cbd48e80cf8",
+      "message_id": "<32127A4B-343C-4F0E-AE6C-91060F34CD1A@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2020-03-26T09:51:08+01:00",
+      "subject": "[R-SIG-Mac] R devel == 4.0.0?",
+      "subject_clean": "R devel == 4.0.0?",
+      "in_reply_to": "<FB094632-BA60-4207-B678-ABD5CE4E22ED@R-project.org>",
+      "references": [
+        "<CANk-X-26cMc8DxsCcMxGszrEVvMreZHJGuoH95HLV8Ri1hF_4w@mail.gmail.com>",
+        "<FB094632-BA60-4207-B678-ABD5CE4E22ED@R-project.org>"
+      ],
+      "body_plain": "FWIW, r-devel builds happily on my machine (MB Air '19, Mojave, clang8, gfortran 6.1.0 from CRAN), regression tests and all. \n\n-pd\n\n> On 25 Mar 2020, at 21:53 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> Constantin,\n> \n> no, as you can see from the log the regression tests failed for R-devel, so it doesn't currently build. You'll have to wait until that has been fixed.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On 26/03/2020, at 4:17 AM, Constantin Ahlmann-Eltze via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>> \n>> Hi,\n>> \n>> I wanted to install R 4.0.0 on my Mac (Mojave) to test  some of my packages\n>> with the development version before it is released. I saw that\n>> https://mac.r-project.org/ is recommended to get a pkg or tar.gz file with\n>> the latest version. However, the R-devel version linked there points to\n>> 3.6.3.\n>> \n>> Is that the expected behavior? Am I right then, that I will have install R\n>> 4.0.0 from source? And if so what is the recommended tool chain at the\n>> moment for doing so?\n>> \n>> Best Regards,\n>> Constantin Ahlmann-Eltze\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "FWIW, r-devel builds happily on my machine (MB Air '19, Mojave, clang8, gfortran 6.1.0 from CRAN), regression tests and all. \n\n-pd\n\n> On 25 Mar 2020, at 21:53 , Simon Urbanek <simon.urbanek at r-proje",
+      "thread_id": "thread-e7299e21a459",
+      "thread_depth": 2,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-96545a9e840c",
+      "message_id": "<dfaf7011-d602-4b75-a20a-34765b67f2cb@Spark>",
+      "from_name": "Patrick Schratz",
+      "from_email_hash": "9c03185aaf0a0b1b753db873449831551e168a67af213835be56a195b2a81504",
+      "date": "2020-03-26T09:59:23+01:00",
+      "subject": "[R-SIG-Mac] R devel == 4.0.0?",
+      "subject_clean": "R devel == 4.0.0?",
+      "in_reply_to": "<32127A4B-343C-4F0E-AE6C-91060F34CD1A@gmail.com>",
+      "references": [
+        "<CANk-X-26cMc8DxsCcMxGszrEVvMreZHJGuoH95HLV8Ri1hF_4w@mail.gmail.com>",
+        "<FB094632-BA60-4207-B678-ABD5CE4E22ED@R-project.org>",
+        "<32127A4B-343C-4F0E-AE6C-91060F34CD1A@gmail.com>"
+      ],
+      "body_plain": "Even if the R-devel build failed for a day, why does the tarball link/contain the R 3.6 source then?\n\nI update my R-devel install every few days automatically and would not notice that I suddenly got R-release via that URL.\nRather I would prefer a 404 or (better) the latest successful R-devel build?\n\n@Simon\nClarification would be appreciated.\n\nCheers, Patrick\nOn 26. Mar 2020, 09:51 +0100, peter dalgaard <pdalgd at gmail.com>, wrote:\n> FWIW, r-devel builds happily on my machine (MB Air '19, Mojave, clang8, gfortran 6.1.0 from CRAN), regression tests and all.\n>\n> -pd\n>\n> > On 25 Mar 2020, at 21:53 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> >\n> > Constantin,\n> >\n> > no, as you can see from the log the regression tests failed for R-devel, so it doesn't currently build. You'll have to wait until that has been fixed.\n> >\n> > Cheers,\n> > Simon\n> >\n> >\n> >\n> > > On 26/03/2020, at 4:17 AM, Constantin Ahlmann-Eltze via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> > >\n> > > Hi,\n> > >\n> > > I wanted to install R 4.0.0 on my Mac (Mojave) to test some of my packages\n> > > with the development version before it is released. I saw that\n> > > https://mac.r-project.org/ is recommended to get a pkg or tar.gz file with\n> > > the latest version. However, the R-devel version linked there points to\n> > > 3.6.3.\n> > >\n> > > Is that the expected behavior? Am I right then, that I will have install R\n> > > 4.0.0 from source? And if so what is the recommended tool chain at the\n> > > moment for doing so?\n> > >\n> > > Best Regards,\n> > > Constantin Ahlmann-Eltze\n> > >\n> > > [[alternative HTML version deleted]]\n> > >\n> > > _______________________________________________\n> > > R-SIG-Mac mailing list\n> > > R-SIG-Mac at r-project.org\n> > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> --\n> Peter Dalgaard, Professor,\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Office: A 4.23\n> Email: pd.mes at cbs.dk Priv: PDalgd at gmail.com\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Even if the R-devel build failed for a day, why does the tarball link/contain the R 3.6 source then?\n\nI update my R-devel install every few days automatically and would not notice that I suddenly got ",
+      "thread_id": "thread-e7299e21a459",
+      "thread_depth": 3,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-ec16f53ea685",
+      "message_id": "<25DA850F-FB21-42D0-AC53-91E4CAB7832F@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2020-03-26T10:24:02+01:00",
+      "subject": "[R-SIG-Mac] R devel == 4.0.0?",
+      "subject_clean": "R devel == 4.0.0?",
+      "in_reply_to": "<dfaf7011-d602-4b75-a20a-34765b67f2cb@Spark>",
+      "references": [
+        "<CANk-X-26cMc8DxsCcMxGszrEVvMreZHJGuoH95HLV8Ri1hF_4w@mail.gmail.com>",
+        "<FB094632-BA60-4207-B678-ABD5CE4E22ED@R-project.org>",
+        "<32127A4B-343C-4F0E-AE6C-91060F34CD1A@gmail.com>",
+        "<dfaf7011-d602-4b75-a20a-34765b67f2cb@Spark>"
+      ],
+      "body_plain": "This seems to have been resolved at this point. I think \"last successful\" actually is the expected modus operandi, something just got messed up (the r-devel SVN has never contained the 3.6.3 version label, it is always \"x.y.0 under development\"). \n\nAnother question is whether a failed regression test is reason enough to hold back the entire .pkg build, given that it is already by definition unstable. For source tarballs, I don't even check beyond being able to actually build the things, on the premise that it is often more important to get code tested in other areas than to fix a failing regression test.\n\nNotice that we go to 4.0.0 alpha tomorrow so presumably an R-4-0-branch entry should arrive on mac.r-project.org shortly.\n\n-pd\n\n> On 26 Mar 2020, at 09:59 , Patrick Schratz <patrick.schratz at gmail.com> wrote:\n> \n> Even if the R-devel build failed for a day, why does the tarball link/contain the R 3.6 source then?\n> \n> I update my R-devel install every few days automatically and would not notice that I suddenly got R-release via that URL.\n> Rather I would prefer a 404 or (better) the latest successful R-devel build?\n> \n> @Simon\n> Clarification would be appreciated.\n> \n> Cheers, Patrick\n> On 26. Mar 2020, 09:51 +0100, peter dalgaard <pdalgd at gmail.com>, wrote:\n>> FWIW, r-devel builds happily on my machine (MB Air '19, Mojave, clang8, gfortran 6.1.0 from CRAN), regression tests and all.\n>> \n>> -pd\n>> \n>>> On 25 Mar 2020, at 21:53 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>>> \n>>> Constantin,\n>>> \n>>> no, as you can see from the log the regression tests failed for R-devel, so it doesn't currently build. You'll have to wait until that has been fixed.\n>>> \n>>> Cheers,\n>>> Simon\n>>> \n>>> \n>>> \n>>>> On 26/03/2020, at 4:17 AM, Constantin Ahlmann-Eltze via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>>>> \n>>>> Hi,\n>>>> \n>>>> I wanted to install R 4.0.0 on my Mac (Mojave) to test some of my packages\n>>>> with the development version before it is released. I saw that\n>>>> https://mac.r-project.org/ is recommended to get a pkg or tar.gz file with\n>>>> the latest version. However, the R-devel version linked there points to\n>>>> 3.6.3.\n>>>> \n>>>> Is that the expected behavior? Am I right then, that I will have install R\n>>>> 4.0.0 from source? And if so what is the recommended tool chain at the\n>>>> moment for doing so?\n>>>> \n>>>> Best Regards,\n>>>> Constantin Ahlmann-Eltze\n>>>> \n>>>> [[alternative HTML version deleted]]\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> --\n>> Peter Dalgaard, Professor,\n>> Center for Statistics, Copenhagen Business School\n>> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n>> Phone: (+45)38153501\n>> Office: A 4.23\n>> Email: pd.mes at cbs.dk Priv: PDalgd at gmail.com\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "This seems to have been resolved at this point. I think \"last successful\" actually is the expected modus operandi, something just got messed up (the r-devel SVN has never contained the 3.6.3 version l",
+      "thread_id": "thread-e7299e21a459",
+      "thread_depth": 4,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-2affa0a83ac7",
+      "message_id": "<7CF046F4-7F1E-4A16-8BE5-BF464E8BB76C@rud.is>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "1825b2a2b76d0395326fce49d356e345a27463d5516c4e24d619f31bfed1b0e6",
+      "date": "2020-03-26T09:44:39-04:00",
+      "subject": "[R-SIG-Mac] contrib/3.5 and contrib/3.6 empty",
+      "subject_clean": "contrib/3.5 and contrib/3.6 empty",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Simon (et al),\n\nFYI Ref: https://twitter.com/bearloga/status/1243159479492972545?s=20\n\nand also my confirmation that bin/macosx/el-capitan/contrib/3.4 is the only 3.x with binaries in it after checking home CRAN mirror.\n\n-BoB",
+      "body_snippet": "Simon (et al),\n\nFYI Ref: https://twitter.com/bearloga/status/1243159479492972545?s=20\n\nand also my confirmation that bin/macosx/el-capitan/contrib/3.4 is the only 3.x with binaries in it after checkin",
+      "thread_id": "thread-2affa0a83ac7",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-1d20eaa44dd2",
+      "message_id": "<BF387225-C96C-413F-A1D2-5C6618F4319B@gmail.com>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "ffb123f9baccaf6b74db0bf4d17706dacb07ea25d79b547c8886dc6864d3054d",
+      "date": "2020-03-26T14:39:13Z",
+      "subject": "[R-SIG-Mac] dev tarball segfault on load (was Re: R devel == 4.0.0?)",
+      "subject_clean": "dev tarball segfault on load (was Re: R devel == 4.0.0?)",
+      "in_reply_to": "<25DA850F-FB21-42D0-AC53-91E4CAB7832F@gmail.com>",
+      "references": [
+        "<CANk-X-26cMc8DxsCcMxGszrEVvMreZHJGuoH95HLV8Ri1hF_4w@mail.gmail.com>",
+        "<FB094632-BA60-4207-B678-ABD5CE4E22ED@R-project.org>",
+        "<32127A4B-343C-4F0E-AE6C-91060F34CD1A@gmail.com>",
+        "<dfaf7011-d602-4b75-a20a-34765b67f2cb@Spark>",
+        "<25DA850F-FB21-42D0-AC53-91E4CAB7832F@gmail.com>"
+      ],
+      "body_plain": "Hi: Downloaded the developer version? tar yields an error, and R.app segfaults on load:\n\ntried tar with both the r-project instruction:\n\ntar fvxz ~/Downloads/R-devel-el-capitan-sa-x86_64.tar.gz  -C /\n\nand (equivalent) suggestion from RSwitch.app\n\ntar -xvzf ~/Downloads/R-devel-el-capitan-sa-x86_64.tar.gz\n\ncheers, tim\n\n\ntar -xvzf ~/Downloads/R-devel-el-capitan-sa-x86_64.tar.gz\n?\nx Library/Frameworks/R.framework/Versions/4.0/PrivateHeaders/R_ext/Visibility.h\ntar: Error exit delayed from previous errors.\n\n\nOn load R.app\n\n *** caught segfault ***\naddress 0x2e9e8, cause 'memory not mapped'\n\nTraceback:\n 1: .Call(C_R_initMethodDispatch, as.environment(where))\n 2: initMethodDispatch(where)\n 3: fun(libname, pkgname)\n 4: doTryCatch(return(expr), name, parentenv, handler)\n 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n 6: tryCatchList(expr, classes, parentenv, handlers)\n 7: tryCatch(fun(libname, pkgname), error = identity)\n 8: runHook(\".onLoad\", env, package.lib, package)\n 9: loadNamespace(package, lib.loc)\n10: doTryCatch(return(expr), name, parentenv, handler)\n11: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n12: tryCatchList(expr, classes, parentenv, handlers)\n13: tryCatch({    attr(package, \"LibPath\") <- which.lib.loc    ns <- loadNamespace(package, lib.loc)    env <- attachNamespace(ns, pos = pos, deps, exclude, include.only)}, error = function(e) {    P <- if (!is.null(cc <- conditionCall(e)))         paste(\" in\", deparse(cc)[1L])    else \"\"    msg <- gettextf(\"package or namespace load failed for %s%s:\\n %s\",         sQuote(package), P, conditionMessage(e))    if (logical.return)         message(paste(\"Error:\", msg), domain = NA)    else stop(msg, call. = FALSE, domain = NA)})\n14: library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,     warn.conflicts = warn.conflicts, quietly = quietly, mask.ok = mask.ok,     exclude = exclude, include.only = include.only, attach.required = attach.required)\n15: doTryCatch(return(expr), name, parentenv, handler)\n16: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n17: tryCatchList(expr, classes, parentenv, handlers)\n18: tryCatch(library(package, lib.loc = lib.loc, character.only = TRUE,     logical.return = TRUE, warn.conflicts = warn.conflicts, quietly = quietly,     mask.ok = mask.ok, exclude = exclude, include.only = include.only,     attach.required = attach.required), error = function(e) e)\n19: require(pkg, quietly = TRUE, warn.conflicts = FALSE, character.only = TRUE)\n20: .OptRequireMethods()\n\nPossible actions:\n1: abort (with core dump, if enabled)\n2: normal R exit\n3: exit R without saving workspace\n4: exit R saving workspace",
+      "body_snippet": "Hi: Downloaded the developer version? tar yields an error, and R.app segfaults on load:\n\ntried tar with both the r-project instruction:\n\ntar fvxz ~/Downloads/R-devel-el-capitan-sa-x86_64.tar.gz  -C /\n",
+      "thread_id": "thread-e7299e21a459",
+      "thread_depth": 5,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-a9b0c8c9d908",
+      "message_id": "<390805C5-F656-4A8D-8585-3F002434A2DB@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-27T11:07:17+13:00",
+      "subject": "[R-SIG-Mac] [Rd] Rebuilding and re-checking of downstream dependencies on CRAN Mac build machines",
+      "subject_clean": "Rebuilding and re-checking of downstream dependencies on CRAN Mac build machines",
+      "in_reply_to": "<CAFOpNVEZ2zSWHWyOECRRH9DUBLWCypRrbuGhk50DDepiHEc5og@mail.gmail.com>",
+      "references": [
+        "<CAFOpNVE8v+R_7TwaDevXRPKRFPF71qVH7d0MG07hn2Tb-HA0cA@mail.gmail.com>",
+        "<21843D74-A741-41C3-BB32-45B0B8D78A8C@R-project.org>",
+        "<CAFOpNVEZ2zSWHWyOECRRH9DUBLWCypRrbuGhk50DDepiHEc5og@mail.gmail.com>"
+      ],
+      "body_plain": "[moving to R-SIG-Mac where it belongs]\n\nWinston,\n\nthe error in the issue \nhttps://github.com/rstudio/httpuv/issues/260\nseems to come from libuv itself - possibly a compatibility issue with the latest Apple Security framework.\n\nThe issue in \nhttps://github.com/RcppCore/Rcpp/issues/1046\nis genuine and a bug in Rcpp as pointed out by Kevin. My understanding is that it was merged (I was following it on Rcpp mailing list and it looked that it's taken care of).\n\nPlease note that another important factor is SDK used - the CRAN El-Capitan builds are done against the 10.11 SDK:\n\n$ ls -l /Library/Developer/CommandLineTools/SDKs/\ntotal 8\nlrwxr-xr-x  1 root  wheel   15  6 Apr  2019 MacOSX.sdk -> MacOSX10.11.sdk\ndrwxr-xr-x  5 root  wheel  170  7 Aug  2017 MacOSX10.11.sdk\n\nThe R 4.0.0 builds will be done against the 10.13 SDK. You can check against later SDKs to make sure your package doesn't break on deprecated features, but generally, the CRAN builds are conservative to make sure the binaries run on older systems since not all users upgrade to the latest macOS (for a very good reason as we've seen with the carnage caused by Catalina). \n\nTo make it very clear, CRAN's goal is not to detect incompatibilities with latest SDK, but rather to provide stable binaries, so if a package breaks outside of CRAN, it is wise for the package developers to fix such issues, but fortunately they don't affect the availability on CRAN. That is also one of the reasons why CRAN is more stable than the 3rd party package managers.\n\nCheers,\nSimon\n\n\n\n> On 27/03/2020, at 10:41 AM, Winston Chang <winstonchang1 at gmail.com> wrote:\n> \n> Simon,\n> \n> The link I provided to the httpuv issue has detailed information about\n> the error:\n>  https://github.com/rstudio/httpuv/issues/260\n> \n> The error occurs when I run the following (although note, depending on\n> which mirror you use, the recent CRAN server issues may result in\n> problems downloading the packages):\n>  install.packages(\"Rcpp\")\n>  install.packages(\"httpuv\", type = \"source\")\n> \n> Here's the full output:\n>  https://gist.github.com/wch/c70b438381c9d2a8b1f917b054e0ba7e\n> \n> Here's an example of the errors:\n> \n> In file included from staticpath.cpp:1:\n> In file included from ./staticpath.h:7:\n> In file included from /Users/winston/R/3.6/BH/include/boost/optional.hpp:15:\n> In file included from\n> /Users/winston/R/3.6/BH/include/boost/optional/optional.hpp:28:\n> In file included from\n> /Users/winston/R/3.6/BH/include/boost/core/addressof.hpp:17:\n> In file included from /Users/winston/R/3.6/BH/include/boost/config.hpp:57:\n> In file included from\n> /Users/winston/R/3.6/BH/include/boost/config/platform/macos.hpp:28:\n> In file included from\n> /Users/winston/R/3.6/BH/include/boost/config/detail/posix_features.hpp:18:\n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h:664:27:\n> error: unknown type name 'uuid_t'; did you mean 'uid_t'?\n> int      getwgroups_np(int *, uuid_t);\n>                              ^\n> /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uid_t.h:31:31:\n> note: 'uid_t' declared here\n> typedef __darwin_uid_t        uid_t;\n>                              ^\n> \n> This issue describes the same problem:\n>  https://github.com/RcppCore/Rcpp/issues/1046\n> \n> And it has been fixed in the development version of Rcpp by:\n>   https://github.com/RcppCore/Rcpp/pull/1047\n> \n> I know that Kevin Ushey has tried building with the CRAN-recommended\n> clang 7 toolchain and encountered the same errors. I haven't done that\n> yet myself, though.\n> \n> -Winston\n> \n> On Thu, Mar 26, 2020 at 4:00 PM Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n>> \n>> Winston,\n>> \n>> the Mac CRAN build builds a package only if either is true:\n>> 1) the package has not passed checks\n>> 2) there is a new version of the package since last successful build+check\n>> \n>> The old build machine doesn't have the capacity to do full re-builds (it would take over 24h - currently the nightly build of packages takes 16-22 hours), but we're currently building a new setup for R 4.0.0 on new hardware and as a part of it we are planning to setup a \"mac-builder\" similar to what is currently available for Windows.\n>> \n>> That said, I have run httpuv by hand on the CRAN build machine (against Rcpp 1.0.4) and I saw no issues. I have seen the discussion on Rcpp, but so far no one actually posted details of what is breaking (nor do your links include any actual details on this). I'd love to help, but the lack fo a useful report makes this impossible. If you have any actual leads, please post them. The CRAN machine uses the tools that are available on CRAN: https://cran.r-project.org/bin/macosx/tools/ (clang-7 and gfortran-6.1 for 3.6.x)\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>>> On 27/03/2020, at 7:38 AM, Winston Chang <winstonchang1 at gmail.com> wrote:\n>>> \n>>> I have two questions about the CRAN machines that build binary\n>>> packages for Mac. When a new version of a package is released,\n>>> (A) Do the downstream dependencies get re-checked?\n>>> (B) Do the downstream dependencies get re-built?\n>>> \n>>> I have heard (but do not know for sure) that the answer to (A) is no,\n>>> the downstream dependencies do not get rechecked.\n>>> \n>>> From publicly available information on the CRAN web server, it looks\n>>> like the answer to (B) is also no, the downstream dependencies do not\n>>> get rebuilt. Looking at\n>>> https://www.r-project.org/nosvn/R.check/r-release-osx-x86_64/, I see\n>>> the following dates for these binary packages:\n>>> \n>>> - Rcpp_1.0.4.tgz: 2020-03-18\n>>> - httpuv_1.5.2.tgz: 2019-09-12\n>>> - dplyr_0.8.5.tgz: 2020-03-08\n>>> \n>>> Rcpp was released recently, and httpuv and dplyr (which are downstream\n>>> dependencies of Rcpp) have older dates, which indicates that these\n>>> binary packages were not rebuilt when Rcpp was released.\n>>> \n>>> In my particular case, I'm interested in the httpuv package (which I\n>>> maintain). I and several others have not been able to get the CRAN\n>>> version of httpuv to compile using the CRAN version of Rcpp on Mac.\n>>> (It seems to compile fine on other platforms.) I have heard from\n>>> maintainers of other Rcpp-dependent packages that they also can't get\n>>> their packages to compile on Mac, using both the default Mac compiler\n>>> toolchain and the CRAN-recommended toolchain, which uses clang 7.\n>>> \n>>> For more technical details about the cause of breakage, see:\n>>> https://github.com/RcppCore/Rcpp/issues/1060\n>>> https://github.com/rstudio/httpuv/issues/260\n>>> \n>>> If the CRAN Mac build machine is indeed able to build httpuv against\n>>> the current version of Rcpp, it would be really helpful to have more\n>>> information about the system configuration. If it is not able to\n>>> rebuild httpuv and other packages against Rcpp, then this is a\n>>> problem. Among other things, it prevents people from building their\n>>> packages from source using CRAN versions of packages, and it also\n>>> means that none of these packages can release a new version, because\n>>> the binaries can't be built on Mac.\n>>> \n>>> -Winston\n>>> \n>>> ______________________________________________\n>>> R-devel at r-project.org mailing list\n>>> https://stat.ethz.ch/mailman/listinfo/r-devel\n>>> \n>> \n>",
+      "body_snippet": "[moving to R-SIG-Mac where it belongs]\n\nWinston,\n\nthe error in the issue \nhttps://github.com/rstudio/httpuv/issues/260\nseems to come from libuv itself - possibly a compatibility issue with the latest ",
+      "thread_id": "thread-a9b0c8c9d908",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-091f249c26bb",
+      "message_id": "<CAFOpNVGd4xuttrWCvs+uGTwe-3xnO6JMAJzU_ksshp2Ux8ifFw@mail.gmail.com>",
+      "from_name": "Winston Chang",
+      "from_email_hash": "d1eebe30aff684db834c112f891aaf235a69b073d996b6fc7da2ee69846b5c52",
+      "date": "2020-03-26T22:18:42-05:00",
+      "subject": "[R-SIG-Mac] [Rd] Rebuilding and re-checking of downstream dependencies on CRAN Mac build machines",
+      "subject_clean": "Rebuilding and re-checking of downstream dependencies on CRAN Mac build machines",
+      "in_reply_to": "<390805C5-F656-4A8D-8585-3F002434A2DB@R-project.org>",
+      "references": [
+        "<CAFOpNVE8v+R_7TwaDevXRPKRFPF71qVH7d0MG07hn2Tb-HA0cA@mail.gmail.com>",
+        "<21843D74-A741-41C3-BB32-45B0B8D78A8C@R-project.org>",
+        "<CAFOpNVEZ2zSWHWyOECRRH9DUBLWCypRrbuGhk50DDepiHEc5og@mail.gmail.com>",
+        "<390805C5-F656-4A8D-8585-3F002434A2DB@R-project.org>"
+      ],
+      "body_plain": "You're right that the error originally reported in\nhttps://github.com/rstudio/httpuv/issues/260 wasn't due to Rcpp. When I was\ninvestigating the issue, I encountered a different error (the output of\nwhich I posted to\nhttps://gist.github.com/wch/c70b438381c9d2a8b1f917b054e0ba7e) which was\ncaused by Rcpp -- it's the same uuid_t/uid_t error that was seen in\nhttps://github.com/RcppCore/Rcpp/issues/1046. More details on that below if\nanyone is interested.\n\nRegarding the bug from https://github.com/RcppCore/Rcpp/issues/1046, the\nfix was merged, but it has not been released to CRAN.\n\nIt sounds like perhaps the 10.11 SDK may be a factor. I'll have to check\nwhether any of us who have tried to build these various packages have been\nusing the 10.11 SDK.\n\n===========================\n\nThis is how I tested that Kevin's fix from\nhttps://github.com/RcppCore/Rcpp/pull/1047 fixed my httpuv problem. I\ninstalled the commit with the fix, and then installed httpuv from CRAN, and\nthat works. Then I installed the parent commit that Kevin branched from,\nand then tried to install httpuv from CRAN, but that failed.\n\nHere are the commands I used to test:\n  # Installing Kevin's fix from Rcpp #1047 works\n  remotes::install_github(\"RcppCore/Rcpp at 46bf2e2\")\n  install.packages(\"httpuv\", type = \"source\")\n\n  # Doesn't work (this is the parent of the 46bf2e2)\n  remotes::install_github(\"RcppCore/Rcpp at 68a5489\")\n  install.packages(\"httpuv\", type = \"source\")  # Results in the\nuuid_t/uid_t errors\n\n-Winston\n\n\nOn Thu, Mar 26, 2020 at 5:07 PM Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n>\n> [moving to R-SIG-Mac where it belongs]\n>\n> Winston,\n>\n> the error in the issue\n> https://github.com/rstudio/httpuv/issues/260\n> seems to come from libuv itself - possibly a compatibility issue with the\nlatest Apple Security framework.\n>\n> The issue in\n> https://github.com/RcppCore/Rcpp/issues/1046\n> is genuine and a bug in Rcpp as pointed out by Kevin. My understanding is\nthat it was merged (I was following it on Rcpp mailing list and it looked\nthat it's taken care of).\n>\n> Please note that another important factor is SDK used - the CRAN\nEl-Capitan builds are done against the 10.11 SDK:\n>\n> $ ls -l /Library/Developer/CommandLineTools/SDKs/\n> total 8\n> lrwxr-xr-x  1 root  wheel   15  6 Apr  2019 MacOSX.sdk -> MacOSX10.11.sdk\n> drwxr-xr-x  5 root  wheel  170  7 Aug  2017 MacOSX10.11.sdk\n>\n> The R 4.0.0 builds will be done against the 10.13 SDK. You can check\nagainst later SDKs to make sure your package doesn't break on deprecated\nfeatures, but generally, the CRAN builds are conservative to make sure the\nbinaries run on older systems since not all users upgrade to the latest\nmacOS (for a very good reason as we've seen with the carnage caused by\nCatalina).\n>\n> To make it very clear, CRAN's goal is not to detect incompatibilities\nwith latest SDK, but rather to provide stable binaries, so if a package\nbreaks outside of CRAN, it is wise for the package developers to fix such\nissues, but fortunately they don't affect the availability on CRAN. That is\nalso one of the reasons why CRAN is more stable than the 3rd party package\nmanagers.\n>\n> Cheers,\n> Simon\n>\n>\n>\n> > On 27/03/2020, at 10:41 AM, Winston Chang <winstonchang1 at gmail.com>\nwrote:\n> >\n> > Simon,\n> >\n> > The link I provided to the httpuv issue has detailed information about\n> > the error:\n> >  https://github.com/rstudio/httpuv/issues/260\n> >\n> > The error occurs when I run the following (although note, depending on\n> > which mirror you use, the recent CRAN server issues may result in\n> > problems downloading the packages):\n> >  install.packages(\"Rcpp\")\n> >  install.packages(\"httpuv\", type = \"source\")\n> >\n> > Here's the full output:\n> >  https://gist.github.com/wch/c70b438381c9d2a8b1f917b054e0ba7e\n> >\n> > Here's an example of the errors:\n> >\n> > In file included from staticpath.cpp:1:\n> > In file included from ./staticpath.h:7:\n> > In file included from\n/Users/winston/R/3.6/BH/include/boost/optional.hpp:15:\n> > In file included from\n> > /Users/winston/R/3.6/BH/include/boost/optional/optional.hpp:28:\n> > In file included from\n> > /Users/winston/R/3.6/BH/include/boost/core/addressof.hpp:17:\n> > In file included from\n/Users/winston/R/3.6/BH/include/boost/config.hpp:57:\n> > In file included from\n> > /Users/winston/R/3.6/BH/include/boost/config/platform/macos.hpp:28:\n> > In file included from\n> >\n/Users/winston/R/3.6/BH/include/boost/config/detail/posix_features.hpp:18:\n> >\n/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h:664:27:\n> > error: unknown type name 'uuid_t'; did you mean 'uid_t'?\n> > int      getwgroups_np(int *, uuid_t);\n> >                              ^\n> >\n/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uid_t.h:31:31:\n> > note: 'uid_t' declared here\n> > typedef __darwin_uid_t        uid_t;\n> >                              ^\n> >\n> > This issue describes the same problem:\n> >  https://github.com/RcppCore/Rcpp/issues/1046\n> >\n> > And it has been fixed in the development version of Rcpp by:\n> >   https://github.com/RcppCore/Rcpp/pull/1047\n> >\n> > I know that Kevin Ushey has tried building with the CRAN-recommended\n> > clang 7 toolchain and encountered the same errors. I haven't done that\n> > yet myself, though.\n> >\n> > -Winston\n> >\n> > On Thu, Mar 26, 2020 at 4:00 PM Simon Urbanek\n> > <simon.urbanek at r-project.org> wrote:\n> >>\n> >> Winston,\n> >>\n> >> the Mac CRAN build builds a package only if either is true:\n> >> 1) the package has not passed checks\n> >> 2) there is a new version of the package since last successful\nbuild+check\n> >>\n> >> The old build machine doesn't have the capacity to do full re-builds\n(it would take over 24h - currently the nightly build of packages takes\n16-22 hours), but we're currently building a new setup for R 4.0.0 on new\nhardware and as a part of it we are planning to setup a \"mac-builder\"\nsimilar to what is currently available for Windows.\n> >>\n> >> That said, I have run httpuv by hand on the CRAN build machine\n(against Rcpp 1.0.4) and I saw no issues. I have seen the discussion on\nRcpp, but so far no one actually posted details of what is breaking (nor do\nyour links include any actual details on this). I'd love to help, but the\nlack fo a useful report makes this impossible. If you have any actual\nleads, please post them. The CRAN machine uses the tools that are available\non CRAN: https://cran.r-project.org/bin/macosx/tools/ (clang-7 and\ngfortran-6.1 for 3.6.x)\n> >>\n> >> Cheers,\n> >> Simon\n> >>\n> >>\n> >>> On 27/03/2020, at 7:38 AM, Winston Chang <winstonchang1 at gmail.com>\nwrote:\n> >>>\n> >>> I have two questions about the CRAN machines that build binary\n> >>> packages for Mac. When a new version of a package is released,\n> >>> (A) Do the downstream dependencies get re-checked?\n> >>> (B) Do the downstream dependencies get re-built?\n> >>>\n> >>> I have heard (but do not know for sure) that the answer to (A) is no,\n> >>> the downstream dependencies do not get rechecked.\n> >>>\n> >>> From publicly available information on the CRAN web server, it looks\n> >>> like the answer to (B) is also no, the downstream dependencies do not\n> >>> get rebuilt. Looking at\n> >>> https://www.r-project.org/nosvn/R.check/r-release-osx-x86_64/, I see\n> >>> the following dates for these binary packages:\n> >>>\n> >>> - Rcpp_1.0.4.tgz: 2020-03-18\n> >>> - httpuv_1.5.2.tgz: 2019-09-12\n> >>> - dplyr_0.8.5.tgz: 2020-03-08\n> >>>\n> >>> Rcpp was released recently, and httpuv and dplyr (which are downstream\n> >>> dependencies of Rcpp) have older dates, which indicates that these\n> >>> binary packages were not rebuilt when Rcpp was released.\n> >>>\n> >>> In my particular case, I'm interested in the httpuv package (which I\n> >>> maintain). I and several others have not been able to get the CRAN\n> >>> version of httpuv to compile using the CRAN version of Rcpp on Mac.\n> >>> (It seems to compile fine on other platforms.) I have heard from\n> >>> maintainers of other Rcpp-dependent packages that they also can't get\n> >>> their packages to compile on Mac, using both the default Mac compiler\n> >>> toolchain and the CRAN-recommended toolchain, which uses clang 7.\n> >>>\n> >>> For more technical details about the cause of breakage, see:\n> >>> https://github.com/RcppCore/Rcpp/issues/1060\n> >>> https://github.com/rstudio/httpuv/issues/260\n> >>>\n> >>> If the CRAN Mac build machine is indeed able to build httpuv against\n> >>> the current version of Rcpp, it would be really helpful to have more\n> >>> information about the system configuration. If it is not able to\n> >>> rebuild httpuv and other packages against Rcpp, then this is a\n> >>> problem. Among other things, it prevents people from building their\n> >>> packages from source using CRAN versions of packages, and it also\n> >>> means that none of these packages can release a new version, because\n> >>> the binaries can't be built on Mac.\n> >>>\n> >>> -Winston\n> >>>\n> >>> ______________________________________________\n> >>> R-devel at r-project.org mailing list\n> >>> https://stat.ethz.ch/mailman/listinfo/r-devel\n> >>>\n> >>\n> >\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "You're right that the error originally reported in\nhttps://github.com/rstudio/httpuv/issues/260 wasn't due to Rcpp. When I was\ninvestigating the issue, I encountered a different error (the output of\nw",
+      "thread_id": "thread-a9b0c8c9d908",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-e8e1cc67ecb2",
+      "message_id": "<88D226F8-AB88-493A-A18D-3D3B79CEDD42@gmail.com>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "ffb123f9baccaf6b74db0bf4d17706dacb07ea25d79b547c8886dc6864d3054d",
+      "date": "2020-03-28T01:53:59Z",
+      "subject": "[R-SIG-Mac] out of date value at http://cran.r-project.org/bin/macosx/VERSION",
+      "subject_clean": "out of date value at http://cran.r-project.org/bin/macosx/VERSION",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "http://cran.r-project.org/bin/macosx/VERSION \n\nis out of date: It returns: 3.6.2, when the correct answer since 2020/02/29 is 3.6.3\n\n\nthis makes Rapp.updates() not work as intended\n\nt",
+      "body_snippet": "http://cran.r-project.org/bin/macosx/VERSION \n\nis out of date: It returns: 3.6.2, when the correct answer since 2020/02/29 is 3.6.3\n\n\nthis makes Rapp.updates() not work as intended\n\nt",
+      "thread_id": "thread-e8e1cc67ecb2",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-6f4eeb7b2f60",
+      "message_id": "<6E86866E-43B0-4352-9BCF-52E398EFC292@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-28T16:12:45+13:00",
+      "subject": "[R-SIG-Mac] out of date value at http://cran.r-project.org/bin/macosx/VERSION",
+      "subject_clean": "out of date value at http://cran.r-project.org/bin/macosx/VERSION",
+      "in_reply_to": "<88D226F8-AB88-493A-A18D-3D3B79CEDD42@gmail.com>",
+      "references": [
+        "<88D226F8-AB88-493A-A18D-3D3B79CEDD42@gmail.com>"
+      ],
+      "body_plain": "Tim,\n\nthanks, now updated. R 3.6.3 was a bit problematic due the Apple changes, notarization and Catalina issues, but hopefully things have calmed down by now.\n\nThanks,\nSimon\n\n\n> On 28/03/2020, at 2:53 PM, Timothy Bates <timothy.c.bates at gmail.com> wrote:\n> \n> http://cran.r-project.org/bin/macosx/VERSION \n> \n> is out of date: It returns: 3.6.2, when the correct answer since 2020/02/29 is 3.6.3\n> \n> \n> this makes Rapp.updates() not work as intended\n> \n> t\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Tim,\n\nthanks, now updated. R 3.6.3 was a bit problematic due the Apple changes, notarization and Catalina issues, but hopefully things have calmed down by now.\n\nThanks,\nSimon\n\n\n> On 28/03/2020, at 2:5",
+      "thread_id": "thread-e8e1cc67ecb2",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-96e0ed45d7bb",
+      "message_id": "<CAMq9EmWO=xwbJLTZ8LtW0p2d=tAinCManh5bLTF0sqDgWiFcjw@mail.gmail.com>",
+      "from_name": "Prathiba Natesan",
+      "from_email_hash": "596f4e9b9d0cc68b3178441dc0771c0443d371ba33f4b5d2b9cec66e62e755dd",
+      "date": "2020-03-28T11:44:45-05:00",
+      "subject": "[R-SIG-Mac] High end performance desktop/laptop for statistical simulations",
+      "subject_clean": "High end performance desktop/laptop for statistical simulations",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all:\nI am looking for a high end performance desktop/laptop for statistical\nsimulations. I typically run hundreds of thousands of simulations using\nJAGS and other packages. Any suggestions?\nCheers\nP\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all:\nI am looking for a high end performance desktop/laptop for statistical\nsimulations. I typically run hundreds of thousands of simulations using\nJAGS and other packages. Any suggestions?\nCheers\n",
+      "thread_id": "thread-96e0ed45d7bb",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-d01e3e137c2e",
+      "message_id": "<C8AB70AF-F6CE-4470-A985-3D7A8B119810@dcn.davis.ca.us>",
+      "from_name": "Jeff Newmiller",
+      "from_email_hash": "b0534b2df56689de62a07ef0e2eefa136a2b7e536d83dd9445d2bc1683bb09fe",
+      "date": "2020-03-28T12:01:07-07:00",
+      "subject": "[R-SIG-Mac] High end performance desktop/laptop for statistical simulations",
+      "subject_clean": "High end performance desktop/laptop for statistical simulations",
+      "in_reply_to": "<CAMq9EmWO=xwbJLTZ8LtW0p2d=tAinCManh5bLTF0sqDgWiFcjw@mail.gmail.com>",
+      "references": [
+        "<CAMq9EmWO=xwbJLTZ8LtW0p2d=tAinCManh5bLTF0sqDgWiFcjw@mail.gmail.com>"
+      ],
+      "body_plain": "Use a cloud solution?\n\nOn March 28, 2020 9:44:45 AM PDT, Prathiba Natesan <prathibachaj at gmail.com> wrote:\n>Hi all:\n>I am looking for a high end performance desktop/laptop for statistical\n>simulations. I typically run hundreds of thousands of simulations using\n>JAGS and other packages. Any suggestions?\n>Cheers\n>P\n>\n>\t[[alternative HTML version deleted]]\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nSent from my phone. Please excuse my brevity.",
+      "body_snippet": "Use a cloud solution?\n\nOn March 28, 2020 9:44:45 AM PDT, Prathiba Natesan <prathibachaj at gmail.com> wrote:\n>Hi all:\n>I am looking for a high end performance desktop/laptop for statistical\n>simulatio",
+      "thread_id": "thread-96e0ed45d7bb",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-97ee21798347",
+      "message_id": "<ce58f3a3-494f-1674-067e-cd53e604dd70@indiana.edu>",
+      "from_name": "David",
+      "from_email_hash": "0692edf60e8d1adf61ddd1cce6d39166b800c408ac7e4d0133a157550d38480d",
+      "date": "2020-03-28T16:17:32-04:00",
+      "subject": "[R-SIG-Mac] How to add variables to a vector",
+      "subject_clean": "How to add variables to a vector",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "If I have a vector created like x <- c(5,1,9,3), how can I add values to \nit later?? That seems simple, but I don't find the answer in either of \nmy Dalgaard or Crawley books, or in the help functions.? Thanks.",
+      "body_snippet": "If I have a vector created like x <- c(5,1,9,3), how can I add values to \nit later?? That seems simple, but I don't find the answer in either of \nmy Dalgaard or Crawley books, or in the help functions",
+      "thread_id": "thread-97ee21798347",
+      "thread_depth": 0,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-ab27fd07fb31",
+      "message_id": "<2893CACD-8899-4601-B3C1-53799960B89C@gmail.com>",
+      "from_name": "Thomas Hopper",
+      "from_email_hash": "1196f2e332f32a65b98efee9529a499f3f08460cf683671def79ea71c0705100",
+      "date": "2020-03-28T16:22:03-04:00",
+      "subject": "[R-SIG-Mac] How to add variables to a vector",
+      "subject_clean": "How to add variables to a vector",
+      "in_reply_to": "<ce58f3a3-494f-1674-067e-cd53e604dd70@indiana.edu>",
+      "references": [
+        "<ce58f3a3-494f-1674-067e-cd53e604dd70@indiana.edu>"
+      ],
+      "body_plain": "Add elements to the vector x?\n\nx <- c(x, 4, 10, 8)\n\nSent from my iPhone\n\n> On Mar 28, 2020, at 16:17, David <parkhurs at indiana.edu> wrote:\n> \n> ?If I have a vector created like x <- c(5,1,9,3), how can I add values to it later?  That seems simple, but I don't find the answer in either of my Dalgaard or Crawley books, or in the help functions.  Thanks.\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Add elements to the vector x?\n\nx <- c(x, 4, 10, 8)\n\nSent from my iPhone\n\n> On Mar 28, 2020, at 16:17, David <parkhurs at indiana.edu> wrote:\n> \n> ?If I have a vector created like x <- c(5,1,9,3), how ",
+      "thread_id": "thread-97ee21798347",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-fca0da58b348",
+      "message_id": "<d5f3ff73-032c-9c89-0587-fcf45ff339ec@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2020-03-28T16:25:55-04:00",
+      "subject": "[R-SIG-Mac] How to add variables to a vector",
+      "subject_clean": "How to add variables to a vector",
+      "in_reply_to": "<ce58f3a3-494f-1674-067e-cd53e604dd70@indiana.edu>",
+      "references": [
+        "<ce58f3a3-494f-1674-067e-cd53e604dd70@indiana.edu>"
+      ],
+      "body_plain": "On 28/03/2020 4:17 p.m., David wrote:\n> If I have a vector created like x <- c(5,1,9,3), how can I add values to\n> it later?? That seems simple, but I don't find the answer in either of\n> my Dalgaard or Crawley books, or in the help functions.? Thanks.\n\nThis question belongs on R-help:  nothing to do with MacOS.  But the \nanswer is to use c(), or just assign to a nonexistent location.  For \nexample,\n\nx <- c(5,1,9,3)\nx <- c(x, 10)\nx[10] <- 20\n\nThis will result in x printing as\n\n[1]  5  1  9  3 10 NA NA NA NA 20",
+      "body_snippet": "On 28/03/2020 4:17 p.m., David wrote:\n> If I have a vector created like x <- c(5,1,9,3), how can I add values to\n> it later?? That seems simple, but I don't find the answer in either of\n> my Dalgaard ",
+      "thread_id": "thread-97ee21798347",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-e3a68e4c247c",
+      "message_id": "<24194.20550.319276.324255@stat.math.ethz.ch>",
+      "from_name": "Martin Maechler",
+      "from_email_hash": "a92f4a07d4e3cad5fba985e30db2b0fff598d5ddfbadbb2e91ffe91636400c62",
+      "date": "2020-03-30T22:02:14+02:00",
+      "subject": "[R-SIG-Mac] contrib/3.5 and contrib/3.6 empty",
+      "subject_clean": "contrib/3.5 and contrib/3.6 empty",
+      "in_reply_to": "<7CF046F4-7F1E-4A16-8BE5-BF464E8BB76C@rud.is>",
+      "references": [
+        "<7CF046F4-7F1E-4A16-8BE5-BF464E8BB76C@rud.is>"
+      ],
+      "body_plain": ">>>>> Bob Rudis \n>>>>>     on Thu, 26 Mar 2020 09:44:39 -0400 writes:\n\n    > Simon (et al),\n    > FYI Ref: https://twitter.com/bearloga/status/1243159479492972545?s=20\n\n    > and also my confirmation that bin/macosx/el-capitan/contrib/3.4 is the only 3.x with binaries in it after checking home CRAN mirror.\n\n    > -BoB\n\nWell, I think our mirror  https://cran.CH.r-project.org/\n  ( -->  https://stat.ethz.ch/CRAN/bin/macosx/el-capitan/contrib/3.6/ )\nwould have helped too, as my rsync script\nis \"slow to delete\" on purpose.\n\nBut that's not the reason for this e-mail: Rather to alert\npeople (SU !) to the fact that in unix-style directory look,\nthis is\n\n  drwxrwxr-x. 2  1048576 Mar 30 18:00 3.4\n  drwxrwxr-x. 2  1048576 Mar 23 22:50 3.5\n  drwxrwxr-x. 2  1048576 Mar 30 21:48 3.6\n  drwxrwxr-x. 2     4096 Apr 26  2019 3.7\n  lrwxrwxrwx. 1        3 Apr 26  2019 r-devel -> 3.7\n  lrwxrwxrwx. 1        3 Apr 26  2019 r-oldrel -> 3.5\n  lrwxrwxrwx. 1        3 Apr 26  2019 r-release -> 3.6\n\nwhere notably r-devel still sym.links to 3.7 rather than 4.0 (but is\nnot yet populated anyway)..",
+      "body_snippet": ">>>>> Bob Rudis \n>>>>>     on Thu, 26 Mar 2020 09:44:39 -0400 writes:\n\n    > Simon (et al),\n    > FYI Ref: https://twitter.com/bearloga/status/1243159479492972545?s=20\n\n    > and also my confirmation ",
+      "thread_id": "thread-2affa0a83ac7",
+      "thread_depth": 1,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-d2e9079d3a68",
+      "message_id": "<799891A5-DB5B-442E-809F-85F0185CBFBA@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2020-03-31T09:41:04+13:00",
+      "subject": "[R-SIG-Mac] contrib/3.5 and contrib/3.6 empty",
+      "subject_clean": "contrib/3.5 and contrib/3.6 empty",
+      "in_reply_to": "<24194.20550.319276.324255@stat.math.ethz.ch>",
+      "references": [
+        "<7CF046F4-7F1E-4A16-8BE5-BF464E8BB76C@rud.is>",
+        "<24194.20550.319276.324255@stat.math.ethz.ch>"
+      ],
+      "body_plain": "Martin,\n\nthanks, yes, el-capitan builds end with 3.6 so I have removed 3.7 and r-devel.\nYour subject got me scared ;)\n\nCheers,\nSimon\n\n\n> On 31/03/2020, at 9:02 AM, Martin Maechler <maechler at stat.math.ethz.ch> wrote:\n> \n>>>>>> Bob Rudis \n>>>>>>    on Thu, 26 Mar 2020 09:44:39 -0400 writes:\n> \n>> Simon (et al),\n>> FYI Ref: https://twitter.com/bearloga/status/1243159479492972545?s=20\n> \n>> and also my confirmation that bin/macosx/el-capitan/contrib/3.4 is the only 3.x with binaries in it after checking home CRAN mirror.\n> \n>> -BoB\n> \n> Well, I think our mirror  https://cran.CH.r-project.org/\n>  ( -->  https://stat.ethz.ch/CRAN/bin/macosx/el-capitan/contrib/3.6/ )\n> would have helped too, as my rsync script\n> is \"slow to delete\" on purpose.\n> \n> But that's not the reason for this e-mail: Rather to alert\n> people (SU !) to the fact that in unix-style directory look,\n> this is\n> \n>  drwxrwxr-x. 2  1048576 Mar 30 18:00 3.4\n>  drwxrwxr-x. 2  1048576 Mar 23 22:50 3.5\n>  drwxrwxr-x. 2  1048576 Mar 30 21:48 3.6\n>  drwxrwxr-x. 2     4096 Apr 26  2019 3.7\n>  lrwxrwxrwx. 1        3 Apr 26  2019 r-devel -> 3.7\n>  lrwxrwxrwx. 1        3 Apr 26  2019 r-oldrel -> 3.5\n>  lrwxrwxrwx. 1        3 Apr 26  2019 r-release -> 3.6\n> \n> where notably r-devel still sym.links to 3.7 rather than 4.0 (but is\n> not yet populated anyway)..\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Martin,\n\nthanks, yes, el-capitan builds end with 3.6 so I have removed 3.7 and r-devel.\nYour subject got me scared ;)\n\nCheers,\nSimon\n\n\n> On 31/03/2020, at 9:02 AM, Martin Maechler <maechler at stat.ma",
+      "thread_id": "thread-2affa0a83ac7",
+      "thread_depth": 2,
+      "month": "2020-03"
+    },
+    {
+      "id": "msg-a20dfbe6052e",
+      "message_id": "<3c1fc154-1bf0-280c-514d-a70a6f6b0171@fredhutch.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "dbd401bb8e3f9584c06b8d48d975a4c161b2635c73cde5f421bb448a5fc9d997",
+      "date": "2020-03-30T15:46:26-07:00",
+      "subject": "[R-SIG-Mac] contrib/3.5 and contrib/3.6 empty",
+      "subject_clean": "contrib/3.5 and contrib/3.6 empty",
+      "in_reply_to": "<799891A5-DB5B-442E-809F-85F0185CBFBA@R-project.org>",
+      "references": [
+        "<7CF046F4-7F1E-4A16-8BE5-BF464E8BB76C@rud.is>",
+        "<24194.20550.319276.324255@stat.math.ethz.ch>",
+        "<799891A5-DB5B-442E-809F-85F0185CBFBA@R-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\nOn 3/30/20 13:41, Simon Urbanek wrote:\n> Martin,\n> \n> thanks, yes, el-capitan builds end with 3.6 so I have removed 3.7 and r-devel.\n> Your subject got me scared ;)\n\nThanks for the update. Do you mind me asking what these things are going \nto be replaced with? I was not able to find any 4.0 subfolder on CRAN \nyet (after trying a few shots in the dark e.g. \nbin/macosx/high-sierra/contrib/4.0/, bin/macosx/catalina/contrib/4.0/, \nbin/macosx/contrib/4.0/)\n\nThanks,\nH.\n\n> \n> Cheers,\n> Simon\n> \n> \n>> On 31/03/2020, at 9:02 AM, Martin Maechler <maechler at stat.math.ethz.ch> wrote:\n>>\n>>>>>>> Bob Rudis\n>>>>>>>     on Thu, 26 Mar 2020 09:44:39 -0400 writes:\n>>\n>>> Simon (et al),\n>>> FYI Ref: https://urldefense.proofpoint.com/v2/url?u=https-3A__twitter.com_bearloga_status_1243159479492972545-3Fs-3D20&d=DwIFAg&c=eRAMFD45gAfqt84VtBcfhQ&r=BK7q3XeAvimeWdGbWY_wJYbW0WYiZvSXAJJKaaPhzWA&m=9lcm1EU4F0AsqywEcz1K1ZH7vd9AxFLF8bVP7Prelgo&s=UVYlK45rqDfz6HcA6cPDv26Zhf0OHJ9jbDVe8vzv2Vw&e=\n>>\n>>> and also my confirmation that bin/macosx/el-capitan/contrib/3.4 is the only 3.x with binaries in it after checking home CRAN mirror.\n>>\n>>> -BoB\n>>\n>> Well, I think our mirror  https://urldefense.proofpoint.com/v2/url?u=https-3A__cran.CH.r-2Dproject.org_&d=DwIFAg&c=eRAMFD45gAfqt84VtBcfhQ&r=BK7q3XeAvimeWdGbWY_wJYbW0WYiZvSXAJJKaaPhzWA&m=9lcm1EU4F0AsqywEcz1K1ZH7vd9AxFLF8bVP7Prelgo&s=tFuhG2OMwhRYFCEDEeaOozxo5tC-hZiPVzl2-KGN9uY&e=\n>>   ( -->  https://urldefense.proofpoint.com/v2/url?u=https-3A__stat.ethz.ch_CRAN_bin_macosx_el-2Dcapitan_contrib_3.6_&d=DwIFAg&c=eRAMFD45gAfqt84VtBcfhQ&r=BK7q3XeAvimeWdGbWY_wJYbW0WYiZvSXAJJKaaPhzWA&m=9lcm1EU4F0AsqywEcz1K1ZH7vd9AxFLF8bVP7Prelgo&s=uPH6_oJ5nplMbCWQUMJ8oPyv_jhMRfPU1N9ZD-JYePg&e=  )\n>> would have helped too, as my rsync script\n>> is \"slow to delete\" on purpose.\n>>\n>> But that's not the reason for this e-mail: Rather to alert\n>> people (SU !) to the fact that in unix-style directory look,\n>> this is\n>>\n>>   drwxrwxr-x. 2  1048576 Mar 30 18:00 3.4\n>>   drwxrwxr-x. 2  1048576 Mar 23 22:50 3.5\n>>   drwxrwxr-x. 2  1048576 Mar 30 21:48 3.6\n>>   drwxrwxr-x. 2     4096 Apr 26  2019 3.7\n>>   lrwxrwxrwx. 1        3 Apr 26  2019 r-devel -> 3.7\n>>   lrwxrwxrwx. 1        3 Apr 26  2019 r-oldrel -> 3.5\n>>   lrwxrwxrwx. 1        3 Apr 26  2019 r-release -> 3.6\n>>\n>> where notably r-devel still sym.links to 3.7 rather than 4.0 (but is\n>> not yet populated anyway)..\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://urldefense.proofpoint.com/v2/url?u=https-3A__stat.ethz.ch_mailman_listinfo_r-2Dsig-2Dmac&d=DwIFAg&c=eRAMFD45gAfqt84VtBcfhQ&r=BK7q3XeAvimeWdGbWY_wJYbW0WYiZvSXAJJKaaPhzWA&m=9lcm1EU4F0AsqywEcz1K1ZH7vd9AxFLF8bVP7Prelgo&s=uviIzX5RyMCRA1GpWLhYyjcNP_viq4A_cNy2pjEStcg&e=\n>>\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://urldefense.proofpoint.com/v2/url?u=https-3A__stat.ethz.ch_mailman_listinfo_r-2Dsig-2Dmac&d=DwIFAg&c=eRAMFD45gAfqt84VtBcfhQ&r=BK7q3XeAvimeWdGbWY_wJYbW0WYiZvSXAJJKaaPhzWA&m=9lcm1EU4F0AsqywEcz1K1ZH7vd9AxFLF8bVP7Prelgo&s=uviIzX5RyMCRA1GpWLhYyjcNP_viq4A_cNy2pjEStcg&e=\n> \n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M1-B514\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fredhutch.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Simon,\n\nOn 3/30/20 13:41, Simon Urbanek wrote:\n> Martin,\n> \n> thanks, yes, el-capitan builds end with 3.6 so I have removed 3.7 and r-devel.\n> Your subject got me scared ;)\n\nThanks for the update. ",
+      "thread_id": "thread-2affa0a83ac7",
+      "thread_depth": 3,
+      "month": "2020-03"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-e29d258a5777",
+      "subject": "R-latest.pkg link returning a 403 Forbidden error",
+      "message_count": 9,
+      "participants": [
+        "Duncan Murdoch",
+        "Ivan Calandra",
+        "Patrick Schratz",
+        "Simon Urbanek",
+        "peter dalgaard"
+      ],
+      "started": "2020-03-01T15:31:37+01:00",
+      "last_reply": "2020-03-05T11:57:18+01:00",
+      "root_message_id": "msg-e29d258a5777"
+    },
+    {
+      "id": "thread-6f127e64947e",
+      "subject": "R 3.6.3  for MacOS",
+      "message_count": 6,
+      "participants": [
+        "Patrick Schratz",
+        "Peter Dalgaard",
+        "Shepherd, Lori",
+        "Simon Urbanek"
+      ],
+      "started": "2020-03-05T17:39:15+00:00",
+      "last_reply": "2020-03-08T13:47:30+13:00",
+      "root_message_id": "msg-6f127e64947e"
+    },
+    {
+      "id": "thread-50cd2cb7d03f",
+      "subject": "dir only shows some of what's there",
+      "message_count": 1,
+      "participants": [
+        "Spencer Graves"
+      ],
+      "started": "2020-03-12T01:42:17-05:00",
+      "last_reply": "2020-03-12T01:42:17-05:00",
+      "root_message_id": "msg-50cd2cb7d03f"
+    },
+    {
+      "id": "thread-a28ea8eb0e74",
+      "subject": "Install r-devel with homebrew?",
+      "message_count": 6,
+      "participants": [
+        "Balamuta, James Joseph",
+        "Patrick Schratz",
+        "Rainer M Krug"
+      ],
+      "started": "2020-03-23T15:06:04+01:00",
+      "last_reply": "2020-03-23T15:30:22+01:00",
+      "root_message_id": "msg-a28ea8eb0e74"
+    },
+    {
+      "id": "thread-e7299e21a459",
+      "subject": "R devel == 4.0.0?",
+      "message_count": 7,
+      "participants": [
+        "Constantin Ahlmann-Eltze",
+        "Patrick Schratz",
+        "Simon Urbanek",
+        "Timothy Bates",
+        "peter dalgaard"
+      ],
+      "started": "2020-03-25T16:17:40+01:00",
+      "last_reply": "2020-03-26T14:39:13+00:00",
+      "root_message_id": "msg-e7299e21a459"
+    },
+    {
+      "id": "thread-2affa0a83ac7",
+      "subject": "contrib/3.5 and contrib/3.6 empty",
+      "message_count": 4,
+      "participants": [
+        "Bob Rudis",
+        "Hervé Pagès",
+        "Martin Maechler",
+        "Simon Urbanek"
+      ],
+      "started": "2020-03-26T09:44:39-04:00",
+      "last_reply": "2020-03-30T15:46:26-07:00",
+      "root_message_id": "msg-2affa0a83ac7"
+    },
+    {
+      "id": "thread-a9b0c8c9d908",
+      "subject": "Rebuilding and re-checking of downstream dependencies on CRAN Mac build machines",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "Winston Chang"
+      ],
+      "started": "2020-03-27T11:07:17+13:00",
+      "last_reply": "2020-03-26T22:18:42-05:00",
+      "root_message_id": "msg-a9b0c8c9d908"
+    },
+    {
+      "id": "thread-e8e1cc67ecb2",
+      "subject": "out of date value at http://cran.r-project.org/bin/macosx/VERSION",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "Timothy Bates"
+      ],
+      "started": "2020-03-28T01:53:59+00:00",
+      "last_reply": "2020-03-28T16:12:45+13:00",
+      "root_message_id": "msg-e8e1cc67ecb2"
+    },
+    {
+      "id": "thread-96e0ed45d7bb",
+      "subject": "High end performance desktop/laptop for statistical simulations",
+      "message_count": 2,
+      "participants": [
+        "Jeff Newmiller",
+        "Prathiba Natesan"
+      ],
+      "started": "2020-03-28T11:44:45-05:00",
+      "last_reply": "2020-03-28T12:01:07-07:00",
+      "root_message_id": "msg-96e0ed45d7bb"
+    },
+    {
+      "id": "thread-97ee21798347",
+      "subject": "How to add variables to a vector",
+      "message_count": 3,
+      "participants": [
+        "David",
+        "Duncan Murdoch",
+        "Thomas Hopper"
+      ],
+      "started": "2020-03-28T16:17:32-04:00",
+      "last_reply": "2020-03-28T16:25:55-04:00",
+      "root_message_id": "msg-97ee21798347"
+    }
+  ]
+}

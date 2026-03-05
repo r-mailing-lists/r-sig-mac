@@ -1,0 +1,497 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2017-06",
+  "messages": [
+    {
+      "id": "msg-29213ae5bab9",
+      "message_id": "<alpine.OSX.2.20.1706041408150.1143@charles-berrys-macbook.local>",
+      "from_name": "Charles C. Berry",
+      "from_email_hash": "15498daf9ece999d667eb0bc2fc7dc0ccabd3ea109150bfd76c7a821a975972e",
+      "date": "2017-06-04T15:03:52-07:00",
+      "subject": "[R-SIG-Mac] compiling with R-3.4.0",
+      "subject_clean": "compiling with R-3.4.0",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "TL;DR: I can compile C/Fortran to install packages that need\ncompilation, but I get loads of warnings.  I must have quirks in my\nsetup, possibly including the need to add system header files\ncompatible with clang4.\n\n\nDetails:\n\nI have\n\n: R version 3.4.0 (2017-04-21) -- \"You Stupid Darkness\"\n: macOS 10.12.5 (16F73) aka Sierra -- on an older MacBook Pro\n: Xcode 7.3        (mindful of advice that version 8.0 has some gotchas)\n: clang version 4.0.0 (tags/RELEASE_400/final) (in /usr/local/clang4/bin)\n: gfortran reports: gcc version 6.1.0 (GCC)  (in /usr/local/bin)\n: PATH=/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/bin\n\nbash-3.2$ grep -v \"#\" ~/.R/MakeVars\n\nCC=/usr/local/clang4/bin/clang\nCXX=/usr/local/clang4/bin/clang++\nLDFLAGS=-L/usr/local/clang4/lib\nCPPFLAGS=-I/usr/local/clang4/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include\nbash-3.2$\n\n\nI came to the CPPFLAGS setting by trial and error - noticing that \ncompilations generated fatal errors and complaints about not finding \n<string.h> and hunting my system for it.\n\n----\n\nWith all this packages will install, but generate lots of warnings, viz.\n\n* installing *source* package ?ECTC? ...\n** libs\n/usr/local/clang4/bin/clang -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG   -I/usr/local/clang4/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include   -fPIC  -Wall -g -O2  -c estimateCTC.c -o estimateCTC.o\nIn file included from estimateCTC.c:26:\nIn file included from ./ectc.h:1:\nIn file included from /Library/Frameworks/R.framework/Resources/include/R.h:55:\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/stdlib.h:92:6: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]\n#if !__DARWIN_NO_LONG_LONG\n      ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/sys/cdefs.h:633:32: note: expanded from macro '__DARWIN_NO_LONG_LONG'\n#define __DARWIN_NO_LONG_LONG   (defined(__STRICT_ANSI__) \\\n                                  ^\n[ ... ]\n\n14 warnings generated.\n/usr/local/clang4/bin/clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o ECTC.so estimateCTC.o init.o utils.o zmat.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\ninstalling to /Users/cberry/projects/bushman/ECTC.Rcheck/ECTC/libs\n** R\n** byte-compile and prepare package for lazy loading\n** help\n*** installing help indices\n** building package indices\n** testing if installed package can be loaded\n* DONE (ECTC)\n\n---\n\n\nFurther, attempts to use inline::cfunction(...) will *sometimes* fail.\nI recall that this depends on whether I specify #include directives\nand maybe which headers I use.\n\nAdvice appreciated.\n\n\nChuck",
+      "body_snippet": "TL;DR: I can compile C/Fortran to install packages that need\ncompilation, but I get loads of warnings.  I must have quirks in my\nsetup, possibly including the need to add system header files\ncompatibl",
+      "thread_id": "thread-29213ae5bab9",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-6337a1884d05",
+      "message_id": "<BY2PR05MB2279868E4CD617438DA2FD40E1CB0@BY2PR05MB2279.namprd05.prod.outlook.com>",
+      "from_name": "GERMAN  GIACOMAN VALLEJOS",
+      "from_email_hash": "7bde454d9d6042a220e1713c667a5814d8dfa1f67382ab5b8a4b51a312178d3e",
+      "date": "2017-06-06T05:10:26Z",
+      "subject": "[R-SIG-Mac] Rcmdr¡",
+      "subject_clean": "Rcmdr¡",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Quien me puede apoyar en la instalaci?n de R.app y otros paquetes para que puede usar en mi maquina MacBook Pro y poder usar diversos paquetes de R y su manejo en gr?ficos , al cual ya actualice a MacOs Sierra versi?n 10.12.5\n\nMacBook Pro (15-inch, Mid 2012) Procesador 2.3 GHz Intel Core i7 memoria 4 GB 1600 MHz DDR3 gr?ficos NVIDIA GeForce GT 650M 512 MB\n\nIntel HD Graphics 4000 1536 MB.\n\nHe intentado instalarlos, pero no me deja por factores de seguridad.\n\nSaludos\n\n\nDr. Gi?coman\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Quien me puede apoyar en la instalaci?n de R.app y otros paquetes para que puede usar en mi maquina MacBook Pro y poder usar diversos paquetes de R y su manejo en gr?ficos , al cual ya actualice a Mac",
+      "thread_id": "thread-6337a1884d05",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-dbb5032dbe8a",
+      "message_id": "<B80434D1-73C9-433C-ACF1-BBE0F45D08D6@gmail.com>",
+      "from_name": "Michael Hall",
+      "from_email_hash": "a24fec63e1c5af1f38457d862913438b109d0ed5d1d497f4921ebf795700f1b2",
+      "date": "2017-06-08T04:05:23-05:00",
+      "subject": "[R-SIG-Mac] istate CRAN mirror not working - unable to use .Rprofile to change",
+      "subject_clean": "istate CRAN mirror not working - unable to use .Rprofile to change",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I started getting errors installing packages using my default repository instate?\n\nWarning: unable to access index for repository http://streaming.stat.iastate.edu/CRAN/src/contrib:\n  cannot open URL 'http://streaming.stat.iastate.edu/CRAN/src/contrib/PACKAGES'\nWarning: unable to access index for repository http://streaming.stat.iastate.edu/CRAN/bin/macosx/el-capitan/contrib/3.4:\n  cannot open URL 'http://streaming.stat.iastate.edu/CRAN/bin/macosx/el-capitan/contrib/3.4/PACKAGES'\nWarning message:\npackage ?RWeka? is not available (for R version 3.4.0) \n\nGoogling, I was able to do this using a different mirror selected with chooseCRANmirror(), I chose Kansas.\n\nI googled how to make this the new default and was pointed to .Rprofile.\nThis doesn?t seem able to do this, with?\n\nmessage(\".Rprofile\")\nlocal({r <- getOption(\"repos\")\n      r[\"CRAN\"] <- \"https://rweb.crmda.ku.edu/cran\"\n      options(repos=r)})\n\nI get?\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n.Rprofile\n[R.app GUI 1.70 (7338) x86_64-apple-darwin15.6.0]\n\n[History restored from /Users/mjh/.Rapp.history]\n\nWhich shows the ?.Rprofile? message indicating it has run.\nHowever?\n\n> r <- getOption(\"repos\")\n> r\n                                    CRAN \n\"http://streaming.stat.iastate.edu/CRAN\" \n\nStill shows iastate.\nThen doing?\n\n> source(\".Rprofile\")\n.Rprofile\n> r <- getOption(\"repos\")\n> r\n                            CRAN \n\"https://rweb.crmda.ku.edu/cran? \n\nso the .Rprofile does work. R must be changing it to iastate after the profile is run?\nI had googled a mailing list thread where it was said .Rprofile wasn?t working on OS X. It was suggested in there that this be posted to this list. I checked the archives for the last couple months but didn?t see any mention.\n\nIs this a problem that needs addressing? Or has a workaround besides sourcing .Rprofile whenever I want to install packages?\n\n \n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I started getting errors installing packages using my default repository instate?\n\nWarning: unable to access index for repository http://streaming.stat.iastate.edu/CRAN/src/contrib:\n  cannot open URL ",
+      "thread_id": "thread-dbb5032dbe8a",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-5d0cfad247b6",
+      "message_id": "<ae4cbfad-dc16-cb31-b8ac-7fbe669b2127@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "17e1fcd7901e6a11dc6bc3ede542d46252611499631dfb4199936939fda2e399",
+      "date": "2017-06-08T06:53:24-04:00",
+      "subject": "[R-SIG-Mac] istate CRAN mirror not working - unable to use .Rprofile to change",
+      "subject_clean": "istate CRAN mirror not working - unable to use .Rprofile to change",
+      "in_reply_to": "<B80434D1-73C9-433C-ACF1-BBE0F45D08D6@gmail.com>",
+      "references": [
+        "<B80434D1-73C9-433C-ACF1-BBE0F45D08D6@gmail.com>"
+      ],
+      "body_plain": "If you are using R.app, you can also set the mirror in the Preferences \nmenu.  Perhaps this setting overrides the .Rprofile setting.\n\nDuncan Murdoch\n\nOn 08/06/2017 5:05 AM, Michael Hall wrote:\n> I started getting errors installing packages using my default repository instate?\n>\n> Warning: unable to access index for repository http://streaming.stat.iastate.edu/CRAN/src/contrib:\n>   cannot open URL 'http://streaming.stat.iastate.edu/CRAN/src/contrib/PACKAGES'\n> Warning: unable to access index for repository http://streaming.stat.iastate.edu/CRAN/bin/macosx/el-capitan/contrib/3.4:\n>   cannot open URL 'http://streaming.stat.iastate.edu/CRAN/bin/macosx/el-capitan/contrib/3.4/PACKAGES'\n> Warning message:\n> package ?RWeka? is not available (for R version 3.4.0)\n>\n> Googling, I was able to do this using a different mirror selected with chooseCRANmirror(), I chose Kansas.\n>\n> I googled how to make this the new default and was pointed to .Rprofile.\n> This doesn?t seem able to do this, with?\n>\n> message(\".Rprofile\")\n> local({r <- getOption(\"repos\")\n>       r[\"CRAN\"] <- \"https://rweb.crmda.ku.edu/cran\"\n>       options(repos=r)})\n>\n> I get?\n>\n> Type 'demo()' for some demos, 'help()' for on-line help, or\n> 'help.start()' for an HTML browser interface to help.\n> Type 'q()' to quit R.\n>\n> .Rprofile\n> [R.app GUI 1.70 (7338) x86_64-apple-darwin15.6.0]\n>\n> [History restored from /Users/mjh/.Rapp.history]\n>\n> Which shows the ?.Rprofile? message indicating it has run.\n> However?\n>\n>> r <- getOption(\"repos\")\n>> r\n>                                     CRAN\n> \"http://streaming.stat.iastate.edu/CRAN\"\n>\n> Still shows iastate.\n> Then doing?\n>\n>> source(\".Rprofile\")\n> .Rprofile\n>> r <- getOption(\"repos\")\n>> r\n>                             CRAN\n> \"https://rweb.crmda.ku.edu/cran?\n>\n> so the .Rprofile does work. R must be changing it to iastate after the profile is run?\n> I had googled a mailing list thread where it was said .Rprofile wasn?t working on OS X. It was suggested in there that this be posted to this list. I checked the archives for the last couple months but didn?t see any mention.\n>\n> Is this a problem that needs addressing? Or has a workaround besides sourcing .Rprofile whenever I want to install packages?\n>\n>\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "If you are using R.app, you can also set the mirror in the Preferences \nmenu.  Perhaps this setting overrides the .Rprofile setting.\n\nDuncan Murdoch\n\nOn 08/06/2017 5:05 AM, Michael Hall wrote:\n> I sta",
+      "thread_id": "thread-dbb5032dbe8a",
+      "thread_depth": 1,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-5af29b8ef51f",
+      "message_id": "<8168466E-D0FE-440B-9BA8-42F5A552DD2A@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2017-06-08T10:22:57-04:00",
+      "subject": "[R-SIG-Mac] compiling with R-3.4.0",
+      "subject_clean": "compiling with R-3.4.0",
+      "in_reply_to": "<alpine.OSX.2.20.1706041408150.1143@charles-berrys-macbook.local>",
+      "references": [
+        "<alpine.OSX.2.20.1706041408150.1143@charles-berrys-macbook.local>"
+      ],
+      "body_plain": "Charles,\n\nIncluding another SDK's includes manually won't work, because you can't mix SDKs - and you shouldn't need to do that.\n\nIf in doubt, run\nsudo xcode-select --install\nwhich will install any missing tools - you still do need regular Xcode installation in addition to the clang+fortran compilers.\nYou shouldn't need to touch CPPFLAGS - if you do, something is broken in your system.\n\nCheers,\nSimon\n\n \n\n> On Jun 4, 2017, at 6:03 PM, Charles C. Berry <ccberry at ucsd.edu> wrote:\n> \n> \n> \n> TL;DR: I can compile C/Fortran to install packages that need\n> compilation, but I get loads of warnings.  I must have quirks in my\n> setup, possibly including the need to add system header files\n> compatible with clang4.\n> \n> \n> Details:\n> \n> I have\n> \n> : R version 3.4.0 (2017-04-21) -- \"You Stupid Darkness\"\n> : macOS 10.12.5 (16F73) aka Sierra -- on an older MacBook Pro\n> : Xcode 7.3        (mindful of advice that version 8.0 has some gotchas)\n> : clang version 4.0.0 (tags/RELEASE_400/final) (in /usr/local/clang4/bin)\n> : gfortran reports: gcc version 6.1.0 (GCC)  (in /usr/local/bin)\n> : PATH=/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/bin\n> \n> bash-3.2$ grep -v \"#\" ~/.R/MakeVars\n> \n> CC=/usr/local/clang4/bin/clang\n> CXX=/usr/local/clang4/bin/clang++\n> LDFLAGS=-L/usr/local/clang4/lib\n> CPPFLAGS=-I/usr/local/clang4/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include\n> bash-3.2$\n> \n> \n> I came to the CPPFLAGS setting by trial and error - noticing that compilations generated fatal errors and complaints about not finding <string.h> and hunting my system for it.\n> \n> ----\n> \n> With all this packages will install, but generate lots of warnings, viz.\n> \n> * installing *source* package ?ECTC? ...\n> ** libs\n> /usr/local/clang4/bin/clang -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG   -I/usr/local/clang4/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include   -fPIC  -Wall -g -O2  -c estimateCTC.c -o estimateCTC.o\n> In file included from estimateCTC.c:26:\n> In file included from ./ectc.h:1:\n> In file included from /Library/Frameworks/R.framework/Resources/include/R.h:55:\n> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/stdlib.h:92:6: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]\n> #if !__DARWIN_NO_LONG_LONG\n>     ^\n> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/sys/cdefs.h:633:32: note: expanded from macro '__DARWIN_NO_LONG_LONG'\n> #define __DARWIN_NO_LONG_LONG   (defined(__STRICT_ANSI__) \\\n>                                 ^\n> [ ... ]\n> \n> 14 warnings generated.\n> /usr/local/clang4/bin/clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o ECTC.so estimateCTC.o init.o utils.o zmat.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\n> installing to /Users/cberry/projects/bushman/ECTC.Rcheck/ECTC/libs\n> ** R\n> ** byte-compile and prepare package for lazy loading\n> ** help\n> *** installing help indices\n> ** building package indices\n> ** testing if installed package can be loaded\n> * DONE (ECTC)\n> \n> ---\n> \n> \n> Further, attempts to use inline::cfunction(...) will *sometimes* fail.\n> I recall that this depends on whether I specify #include directives\n> and maybe which headers I use.\n> \n> Advice appreciated.\n> \n> \n> Chuck_______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Charles,\n\nIncluding another SDK's includes manually won't work, because you can't mix SDKs - and you shouldn't need to do that.\n\nIf in doubt, run\nsudo xcode-select --install\nwhich will install any mis",
+      "thread_id": "thread-29213ae5bab9",
+      "thread_depth": 1,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-09eef18d1009",
+      "message_id": "<alpine.OSX.2.20.1706081106220.2318@charles-berrys-macbook.local>",
+      "from_name": "Charles C. Berry",
+      "from_email_hash": "15498daf9ece999d667eb0bc2fc7dc0ccabd3ea109150bfd76c7a821a975972e",
+      "date": "2017-06-08T11:26:53-07:00",
+      "subject": "[R-SIG-Mac] compiling with R-3.4.0",
+      "subject_clean": "compiling with R-3.4.0",
+      "in_reply_to": "<8168466E-D0FE-440B-9BA8-42F5A552DD2A@r-project.org>",
+      "references": [
+        "<alpine.OSX.2.20.1706041408150.1143@charles-berrys-macbook.local>",
+        "<8168466E-D0FE-440B-9BA8-42F5A552DD2A@r-project.org>"
+      ],
+      "body_plain": "On Thu, 8 Jun 2017, Simon Urbanek wrote:\n\n> Charles,\n>\n> Including another SDK's includes manually won't work, because you can't \n> mix SDKs - and you shouldn't need to do that.\n>\n> If in doubt, run sudo xcode-select --install which will install any \n> missing tools - you still do need regular Xcode installation in addition \n> to the clang+fortran compilers. You shouldn't need to touch CPPFLAGS - \n> if you do, something is broken in your system.\n>\n\nSimon,\n\nThanks for the reply.  As of yesterday, everything seemed to be working OK \nwithout any ~/.R/MakeVars file. viz, I can compile packages using the \nbinary you provide for R-3.4.0.  Also, I can configure, make, and make \ncheck R-devel using the clang4 you provide.\n\nI can't say what is different now from before.  I just updated pcre and \nadded pkg-config, java JDK, and cairo.  I recently re-installed command \nline tools, but I have had these `forever'.\n\nAnyway, all is now well.\n\nThanks,\n\nChuck\n\n[snip]\n>>\n>>\n>> TL;DR: I can compile C/Fortran to install packages that need\n>> compilation, but I get loads of warnings.  I must have quirks in my\n>> setup, possibly including the need to add system header files\n>> compatible with clang4.\n\n[snip]",
+      "body_snippet": "On Thu, 8 Jun 2017, Simon Urbanek wrote:\n\n> Charles,\n>\n> Including another SDK's includes manually won't work, because you can't \n> mix SDKs - and you shouldn't need to do that.\n>\n> If in doubt, run s",
+      "thread_id": "thread-29213ae5bab9",
+      "thread_depth": 2,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-02d274fd863a",
+      "message_id": "<185067AF-733A-48AB-A0EF-D62E0FED86E5@gmail.com>",
+      "from_name": "Michael Hall",
+      "from_email_hash": "a24fec63e1c5af1f38457d862913438b109d0ed5d1d497f4921ebf795700f1b2",
+      "date": "2017-06-08T16:50:41-05:00",
+      "subject": "[R-SIG-Mac] istate CRAN mirror not working - unable to use .Rprofile to change",
+      "subject_clean": "istate CRAN mirror not working - unable to use .Rprofile to change",
+      "in_reply_to": "<ae4cbfad-dc16-cb31-b8ac-7fbe669b2127@gmail.com>",
+      "references": [
+        "<B80434D1-73C9-433C-ACF1-BBE0F45D08D6@gmail.com>",
+        "<ae4cbfad-dc16-cb31-b8ac-7fbe669b2127@gmail.com>"
+      ],
+      "body_plain": "> On Jun 8, 2017, at 5:53 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> If you are using R.app, you can also set the mirror in the Preferences menu.  Perhaps this setting overrides the .Rprofile setting.\n> \n\nI was using the app and wasn?t aware of the preference, so thanks.\n\nThere was no .Rprofile before I added one. \n\nI wasn?t sure what the app was basing this on. I didn?t see a Rprofile. <http://rprofile.info/>site anywhere in the framework either. Just a csv file that seemed to include all the mirrors turned up in a search.\n\nWhether or not being unable to do this with .Rprofile is a concern I don?t know. Looking again at help(Startup) it shows doing this as an example for Rprofile.site and not .Rprofile. I haven?t tried with .Rprofile.site.\nBut I can?t exactly say it is documented that this should work. Although you might assume that you should be able to do in .Rprofile whatever might be done in Rprofile.site.\n\nBut again, for my purposes yes, the preference is fine to change the default mirror and get me working normally. Thanks again. \n\nI am still a little curious if there are any thoughts on why the iastate mirror stopped working? \n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "> On Jun 8, 2017, at 5:53 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> If you are using R.app, you can also set the mirror in the Preferences menu.  Perhaps this setting overrides the ",
+      "thread_id": "thread-dbb5032dbe8a",
+      "thread_depth": 2,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-8b3dc42c3f8c",
+      "message_id": "<a3629c57-4931-1615-a079-73bc4e7d8eeb@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "17e1fcd7901e6a11dc6bc3ede542d46252611499631dfb4199936939fda2e399",
+      "date": "2017-06-08T18:22:05-04:00",
+      "subject": "[R-SIG-Mac] istate CRAN mirror not working - unable to use .Rprofile to change",
+      "subject_clean": "istate CRAN mirror not working - unable to use .Rprofile to change",
+      "in_reply_to": "<185067AF-733A-48AB-A0EF-D62E0FED86E5@gmail.com>",
+      "references": [
+        "<B80434D1-73C9-433C-ACF1-BBE0F45D08D6@gmail.com>",
+        "<ae4cbfad-dc16-cb31-b8ac-7fbe669b2127@gmail.com>",
+        "<185067AF-733A-48AB-A0EF-D62E0FED86E5@gmail.com>"
+      ],
+      "body_plain": "On 08/06/2017 5:50 PM, Michael Hall wrote:\n>\n>> On Jun 8, 2017, at 5:53 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>\n>> If you are using R.app, you can also set the mirror in the Preferences menu.  Perhaps this setting overrides the .Rprofile setting.\n>>\n>\n> I was using the app and wasn?t aware of the preference, so thanks.\n>\n> There was no .Rprofile before I added one.\n>\n> I wasn?t sure what the app was basing this on. I didn?t see a Rprofile. <http://rprofile.info/>site anywhere in the framework either. Just a csv file that seemed to include all the mirrors turned up in a search.\n>\n> Whether or not being unable to do this with .Rprofile is a concern I don?t know. Looking again at help(Startup) it shows doing this as an example for Rprofile.site and not .Rprofile. I haven?t tried with .Rprofile.site.\n> But I can?t exactly say it is documented that this should work. Although you might assume that you should be able to do in .Rprofile whatever might be done in Rprofile.site.\n\nThe documentation about .Rprofile is documentation about R.  R.app is a \nseparate project that acts as a front end to R.  Front ends can change \nthings that R does.  R.app uses its own Mac OS ways of storing \npersistent configuration information.\n\n>\n> But again, for my purposes yes, the preference is fine to change the default mirror and get me working normally. Thanks again.\n>\n> I am still a little curious if there are any thoughts on why the iastate mirror stopped working?\n\nYou would likely have to figure out who was running it, and ask them. \nMirrors are coordinated by CRAN, but are run by the local people who run \nthem.\n\nDuncan Murdoch",
+      "body_snippet": "On 08/06/2017 5:50 PM, Michael Hall wrote:\n>\n>> On Jun 8, 2017, at 5:53 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>\n>> If you are using R.app, you can also set the mirror in the Prefere",
+      "thread_id": "thread-dbb5032dbe8a",
+      "thread_depth": 3,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-e6daa32d0704",
+      "message_id": "<6FC40C14-D803-4526-8169-DCBB78FEDB50@gmail.com>",
+      "from_name": "Michael Hall",
+      "from_email_hash": "a24fec63e1c5af1f38457d862913438b109d0ed5d1d497f4921ebf795700f1b2",
+      "date": "2017-06-08T17:28:09-05:00",
+      "subject": "[R-SIG-Mac] istate CRAN mirror not working - unable to use .Rprofile to change",
+      "subject_clean": "istate CRAN mirror not working - unable to use .Rprofile to change",
+      "in_reply_to": "<a3629c57-4931-1615-a079-73bc4e7d8eeb@gmail.com>",
+      "references": [
+        "<B80434D1-73C9-433C-ACF1-BBE0F45D08D6@gmail.com>",
+        "<ae4cbfad-dc16-cb31-b8ac-7fbe669b2127@gmail.com>",
+        "<185067AF-733A-48AB-A0EF-D62E0FED86E5@gmail.com>",
+        "<a3629c57-4931-1615-a079-73bc4e7d8eeb@gmail.com>"
+      ],
+      "body_plain": "> On Jun 8, 2017, at 5:22 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> \n> The documentation about .Rprofile is documentation about R.  R.app is a separate project that acts as a front end to R.  Front ends can change things that R does.  R.app uses its own Mac OS ways of storing persistent configuration information.\n\nOK, seems a reasonable split in support. I?m not sure how far you can get away from what R does though.\n \n> \n>> \n>> But again, for my purposes yes, the preference is fine to change the default mirror and get me working normally. Thanks again.\n>> \n>> I am still a little curious if there are any thoughts on why the iastate mirror stopped working?\n> \n> You would likely have to figure out who was running it, and ask them. Mirrors are coordinated by CRAN, but are run by the local people who run them.\n\nI think for one mirror I did notice a contact person name, but I?m not sure I saw any contact information. Iowa is close but not close enough to go and try to track a responsible individual down.\n\nThanks again",
+      "body_snippet": "> On Jun 8, 2017, at 5:22 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> \n> The documentation about .Rprofile is documentation about R.  R.app is a separate project that acts as a front ",
+      "thread_id": "thread-dbb5032dbe8a",
+      "thread_depth": 4,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-e91ba5ae2de3",
+      "message_id": "<14FFC408-D36E-45B3-84CD-BBD400D0E885@gmail.com>",
+      "from_name": "Alfonso Saera Vila",
+      "from_email_hash": "b3242b6b51890aa86eba63f40bb138392ab5c68e2fb2c0b1350b6625ab570c4c",
+      "date": "2017-06-13T13:19:49+02:00",
+      "subject": "[R-SIG-Mac] R-3.4.0 installation problem?",
+      "subject_clean": "R-3.4.0 installation problem?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi everybody,\n\nI am working in a MacBook Pro (15 inches, mid 2010), OSX El Capitan (10.11.6), 2.4 GHz Intel Core i5, 8 GB 1067 MHz DDR3\n\nToday I tried to update from R-3.3 to R-3.4.0. I downloaded the R-3.4.0.pkg from https://cran.r-project.org/ site. After downloading I checked the MD5 checksum for the R-3.4.0.pkg image and it was the same than in the r-project website. I executed the file by double-clicking and everything appear to work fine, at the end it said that everything was installed with no problem.\n\nThe problem I have is that the old R.app was removed from my application folder but the new (R-3.4.0) does not appear in the application folder either.\n\nI tried to download and install the GNU Fortran 6.1 and then reinstall R but nothing changed.\n\nI tried to look for a solution in google and stackoverblow forum but did not find any clue of what to do. I hope I am not missing any stupid detail or making a rookie mistake. Sorry if this is not the way of posting this.\n\nThanks for your help,\n\nAlfonso",
+      "body_snippet": "Hi everybody,\n\nI am working in a MacBook Pro (15 inches, mid 2010), OSX El Capitan (10.11.6), 2.4 GHz Intel Core i5, 8 GB 1067 MHz DDR3\n\nToday I tried to update from R-3.3 to R-3.4.0. I downloaded the",
+      "thread_id": "thread-e91ba5ae2de3",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-ddd86e4f17fa",
+      "message_id": "<7938DE22-29B7-4297-AF32-7EB8D774D1EB@googlemail.com>",
+      "from_name": "Martin Batholdy",
+      "from_email_hash": "57605b0d784bab519fd53d94f11bdc3e647351a53cd2c5e2cdf3eb0528ee83fb",
+      "date": "2017-06-17T12:36:29+02:00",
+      "subject": "[R-SIG-Mac] R GUI very slow under mac OS 10.12.5 (Sierra)",
+      "subject_clean": "R GUI very slow under mac OS 10.12.5 (Sierra)",
+      "in_reply_to": "<C4A4053C-17FA-442F-9540-B276169D237A@comcast.net>",
+      "references": [
+        "<73725543-3B04-49EA-83C1-C777332E20B8@googlemail.com>",
+        "<C4A4053C-17FA-442F-9540-B276169D237A@comcast.net>"
+      ],
+      "body_plain": "Dear all,\n\nsorry for the late response.\n\nHere some more observations:\nIt seems to really depend on the output length. As soon as I ?clear console? it is very fast again and slows down significantly the more lines of code are printed.\n\nThe strange error-message (\"IMKInputSession presentFunctionRowItemTextInputViewWithEndpoint:completionHandler ??) is not unique to the RGui, but also appears in terminal occasionally (not sure yet by what it is triggered exactly).\n\n\nI have installed:\nXQuartz 2.7.11\nXCode 8.1 (8B62) \n\n\nAnd here is the output of sessionInfo():\n\nR version 3.4.0 (2017-04-21)\nPlatform: x86_64-apple-darwin15.6.0 (64-bit)\nRunning under: macOS Sierra 10.12.5\n\nMatrix products: default\nBLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib\nLAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] grid      graphics  grDevices utils     datasets  stats     methods  \n[8] base     \n\nother attached packages:\n [1] markovchain_0.6.9.3 shape_1.4.2         fields_9.0         \n [4] maps_3.2.0          spam_1.4-0          plotrix_3.6-5      \n [7] plyr_1.8.4          GGally_1.3.1        Hmisc_4.0-3        \n[10] ggplot2_2.2.1       Formula_1.2-1       survival_2.41-3    \n[13] lattice_0.20-35    \n\nloaded via a namespace (and not attached):\n [1] Rcpp_0.12.11        compiler_3.4.0      RColorBrewer_1.1-2 \n [4] base64enc_0.1-3     tools_3.4.0         rpart_4.1-11       \n [7] digest_0.6.12       tibble_1.3.1        gtable_0.2.0       \n[10] checkmate_1.8.2     htmlTable_1.9       rlang_0.1.1        \n[13] igraph_1.0.1        Matrix_1.2-9        parallel_3.4.0     \n[16] expm_0.999-2        gridExtra_2.2.1     stringr_1.2.0      \n[19] cluster_2.0.6       knitr_1.16          htmlwidgets_0.8    \n[22] stats4_3.4.0        nnet_7.3-12         reshape_0.8.6      \n[25] data.table_1.10.4   foreign_0.8-67      latticeExtra_0.6-28\n[28] matlab_1.0.2        magrittr_1.5        backports_1.1.0    \n[31] scales_0.4.1        htmltools_0.3.6     splines_3.4.0      \n[34] colorspace_1.3-2    stringi_1.1.5       acepack_1.4.1      \n[37] RcppParallel_4.3.20 lazyeval_0.2.0      munsell_0.4.3  \n\n\n\nHope that helps!\n\n\n\n> On 29. May 2017, at 22:44 , David Winsemius <dwinsemius at comcast.net> wrote:\n> \n> \n>> On May 27, 2017, at 3:44 AM, Martin Batholdy via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>> \n>> Dear all,\n>> \n>> I just switched to a new 2016 Macbook Pro and noticed that R is very slow when used over the R app. Using R via the terminal is significantly faster.\n>> Especially, drawing figures in quartz is really slow\n> \n> Not sure what \"drawing a figure\" actually means. Can you present code?\n> \n>> and sometimes the following error message is printed ? but this might be unrelated to the speed issue:\n>> \n>> IMKInputSession presentFunctionRowItemTextInputViewWithEndpoint:completionHandler: : [self textInputContext]=0x0 *NO* NSRemoteViewController to client, NSError=Error Domain=NSCocoaErrorDomain Code=4099 \"The connection from pid 0 was invalidated from this process.\" UserInfo={NSDebugDescription=The connection from pid 0 was invalidated from this process.}, com.apple.inputmethod.EmojiFunctionRowItem\n> \n> This error in Sierra hosted apps has also been reported on other app forums (as well as once before on this mailing list Mon, 19 Dec 2016 by a.beckerman at sheffield.ac.uk but got no response):\n> \n> https://discuss.atom.io/t/imkinputsession-error/36273\n> \n> https://github.com/macvim-dev/macvim/issues/422\n> \n> https://stackoverflow.com/questions/41249603/tkinter-error-in-terminal-possibly-from-my-key-bind\n> \n> \n>> \n>> Is this a known issue related to Sierra and/or the new Macbook Pros? Are there any workarounds or fixes?\n> \n> I surely don't know about workarounds but this does appear to be specific to Sierra. My MacbookPro is too old to get an update to Sierra. I do wonder if you have an updated (or any) XQuartz and XCode? Generally a complete question will include your versions of all essential system and R packages. \n> \n> What does sessionInfo() return?\n> \n> Try clicking on the system taskbar XQuartz icon and  using `XQuartz/About X11` and copying the version. I get:\n> \n> XQuartz 2.7.11 (xorg-server 1.18.4)\n> \n> My XCode version is: Version 8.2.1 (8C1002) but ISTR that Sierra needs a later version.\n> \n> And you should also probably indicate whether you have used either MacPorts or homebrew.\n> \n> The other system resource needed in the past was Tcl/Tk although I think that now should get installed and attached by default with any current version of R. The last link of the three above appeared related to the Tk interface which is used by R.app and the tcltk package is part of the base installation, so might be relevant, but this is written at the level of speculation. My other hypothesis is that two different installations of Tcl/Tk might give problems on one machine that were not encountered by others.\n> \n> -- \n> David.\n> \n>> \n>> \n>> Thanks for any suggestions!\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> David Winsemius\n> Alameda, CA, USA\n>",
+      "body_snippet": "Dear all,\n\nsorry for the late response.\n\nHere some more observations:\nIt seems to really depend on the output length. As soon as I ?clear console? it is very fast again and slows down significantly th",
+      "thread_id": "thread-ddd86e4f17fa",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-69a1e171627a",
+      "message_id": "<ACD1644AA6C67E4FBD0C350625508EC83668EF8A@FHSDB4H16-2.csu.mcmaster.ca>",
+      "from_name": "Fox, John",
+      "from_email_hash": "26b3c2bfbc5587a1119fc93e98ed6834f6847804a317ae5707e7442251474735",
+      "date": "2017-06-19T14:43:54Z",
+      "subject": "[R-SIG-Mac] Rcmdr¡",
+      "subject_clean": "Rcmdr¡",
+      "in_reply_to": "<18354_1497870562_v5JB9JO8005652_BY2PR05MB2279868E4CD617438DA2FD40E1CB0@BY2PR05MB2279.namprd05.prod.outlook.com>",
+      "references": [
+        "<18354_1497870562_v5JB9JO8005652_BY2PR05MB2279868E4CD617438DA2FD40E1CB0@BY2PR05MB2279.namprd05.prod.outlook.com>"
+      ],
+      "body_plain": "Dear Dr. German,\n\nI'll respond to your message in English, which is the language of this email list (and my written Spanish is poor anyway).\n\nIt's not clear from your email what problem or problems you're experiencing. You say that you can't install \"them\" (R, the Rcmdr package, other packages?) for \"security factors\" (what security factors?). \n\nIf your aim is to install and use the R Commander-- you mention the Rcmdr in the subject of your message but not in the message itself -- then the installation notes at < http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html> might help, but they don't address security issues.\n\nYou might also consult the posting guide for the R email lists at < https://www.r-project.org/posting-guide.html>, which has useful information about how to ask a question.\n\nI hope this helps,\n John\n\n-----------------------------\nJohn Fox, Professor\nMcMaster University\nHamilton, Ontario, Canada\nWeb: socserv.mcmaster.ca/jfox\n\n \n> -----Original Message-----\n> From: R-SIG-Mac [mailto:r-sig-mac-bounces at r-project.org] On Behalf Of\n> GERMAN GIACOMAN VALLEJOS\n> Sent: Tuesday, June 6, 2017 1:10 AM\n> To: r-sig-mac at r-project.org\n> Subject: [R-SIG-Mac] Rcmdr?\n> \n> Quien me puede apoyar en la instalaci?n de R.app y otros paquetes para que\n> puede usar en mi maquina MacBook Pro y poder usar diversos paquetes de R\n> y su manejo en gr?ficos , al cual ya actualice a MacOs Sierra versi?n 10.12.5\n> \n> MacBook Pro (15-inch, Mid 2012) Procesador 2.3 GHz Intel Core i7 memoria 4\n> GB 1600 MHz DDR3 gr?ficos NVIDIA GeForce GT 650M 512 MB\n> \n> Intel HD Graphics 4000 1536 MB.\n> \n> He intentado instalarlos, pero no me deja por factores de seguridad.\n> \n> Saludos\n> \n> \n> Dr. Gi?coman\n> \n> \t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear Dr. German,\n\nI'll respond to your message in English, which is the language of this email list (and my written Spanish is poor anyway).\n\nIt's not clear from your email what problem or problems yo",
+      "thread_id": "thread-69a1e171627a",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-50da85d33abc",
+      "message_id": "<351F4E56-B1E3-471B-A644-ECE386A3B2D2@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2017-06-19T09:58:17-07:00",
+      "subject": "[R-SIG-Mac] R-3.4.0 installation problem?",
+      "subject_clean": "R-3.4.0 installation problem?",
+      "in_reply_to": "<14FFC408-D36E-45B3-84CD-BBD400D0E885@gmail.com>",
+      "references": [
+        "<14FFC408-D36E-45B3-84CD-BBD400D0E885@gmail.com>"
+      ],
+      "body_plain": "> On Jun 13, 2017, at 4:19 AM, Alfonso Saera Vila <alfonsosaera at gmail.com> wrote:\n> \n> Hi everybody,\n> \n> I am working in a MacBook Pro (15 inches, mid 2010), OSX El Capitan (10.11.6), 2.4 GHz Intel Core i5, 8 GB 1067 MHz DDR3\n> \n> Today I tried to update from R-3.3 to R-3.4.0. I downloaded the R-3.4.0.pkg from https://cran.r-project.org/ site. After downloading I checked the MD5 checksum for the R-3.4.0.pkg image and it was the same than in the r-project website. I executed the file by double-clicking and everything appear to work fine, at the end it said that everything was installed with no problem.\n> \n> The problem I have is that the old R.app was removed from my application folder but the new (R-3.4.0) does not appear in the application folder either.\n\nR does not appear in the Applications folder. It is fairly deep in the Frameworks tree that in part of your system files. The R.app program is just a GUI to manage tasks in R in a more Apple-typical manner. It knows where to find the core R programs and lets you choose where to keep your package files. When I update R and R.app, I see no change in the appearance of R.app in the Application folder, but the new IDE code takes hold if there have been any changes, which may not have happened.. I can tell I have a new one when I open the R.app and see a new version number in the startup messages. e.g:\n\n[R.app GUI 1.70 (7338) x86_64-apple-darwin15.6.0]\n\nOne still needs to copy over the packages and do the update.packages with check.built = TRUE maneuver.\n\n> \n> I tried to download and install the GNU Fortran 6.1 and then reinstall R but nothing changed.\n\nThat is only needed if you are going to be compiling packages from source. If you go to http://r.research.att.com/ you can see the current version numbers for the disk images of GUIs that would be mated to various versions of R. (I seem to be somewhat out of date. So if I were having problems, which I'm not, I should be able to separately install the GUI from the current disk image.)",
+      "body_snippet": "> On Jun 13, 2017, at 4:19 AM, Alfonso Saera Vila <alfonsosaera at gmail.com> wrote:\n> \n> Hi everybody,\n> \n> I am working in a MacBook Pro (15 inches, mid 2010), OSX El Capitan (10.11.6), 2.4 GHz Inte",
+      "thread_id": "thread-e91ba5ae2de3",
+      "thread_depth": 1,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-e95d1008e0ff",
+      "message_id": "<CAE2FW2=92PqJ+qe3Lq_y+PoDPQ8ZUv4q2KS12a_pb1rprH6pig@mail.gmail.com>",
+      "from_name": "C W",
+      "from_email_hash": "09a8d9d48fdd91a9d3a031d9d6241629aae44cb00eebc637caba1b04d69a7232",
+      "date": "2017-06-19T16:01:41-04:00",
+      "subject": "[R-SIG-Mac] How to read 7z zip file into R?",
+      "subject_clean": "How to read 7z zip file into R?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi R Mac list,\n\nI am just curious how to read 7z file into R on mac? There are two\nsolutions for Windows, is there a solution for Mac without downloading a\nthird party unzip app?\n\nThank you,\n\nMike\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi R Mac list,\n\nI am just curious how to read 7z file into R on mac? There are two\nsolutions for Windows, is there a solution for Mac without downloading a\nthird party unzip app?\n\nThank you,\n\nMike\n\n\t[",
+      "thread_id": "thread-e95d1008e0ff",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-ba3d2e52ccc1",
+      "message_id": "<CAE2FW2mTpQj6qD8ryZoGm8m3bRAMdmA3CaDL=2YQzS44tQ1r5Q@mail.gmail.com>",
+      "from_name": "C W",
+      "from_email_hash": "09a8d9d48fdd91a9d3a031d9d6241629aae44cb00eebc637caba1b04d69a7232",
+      "date": "2017-06-20T01:22:32-04:00",
+      "subject": "[R-SIG-Mac] How to read 7z zip file into R?",
+      "subject_clean": "How to read 7z zip file into R?",
+      "in_reply_to": "<CAE2FW2=92PqJ+qe3Lq_y+PoDPQ8ZUv4q2KS12a_pb1rprH6pig@mail.gmail.com>",
+      "references": [
+        "<CAE2FW2=92PqJ+qe3Lq_y+PoDPQ8ZUv4q2KS12a_pb1rprH6pig@mail.gmail.com>"
+      ],
+      "body_plain": "Never mind, I don't think there is a solution. I have used an unzip\napplication to unzip and then combine the files manually in R.\n\nThanks all!\n\nOn Mon, Jun 19, 2017 at 4:01 PM, C W <tmrsg11 at gmail.com> wrote:\n\n> Hi R Mac list,\n>\n> I am just curious how to read 7z file into R on mac? There are two\n> solutions for Windows, is there a solution for Mac without downloading a\n> third party unzip app?\n>\n> Thank you,\n>\n> Mike\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Never mind, I don't think there is a solution. I have used an unzip\napplication to unzip and then combine the files manually in R.\n\nThanks all!\n\nOn Mon, Jun 19, 2017 at 4:01 PM, C W <tmrsg11 at gmail.",
+      "thread_id": "thread-e95d1008e0ff",
+      "thread_depth": 1,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-cdcb8ab1fb73",
+      "message_id": "<0B55C4F0-9E9A-40B8-B90F-9D6B87D0F213@uv.es>",
+      "from_name": "Agustin Diez Castillo",
+      "from_email_hash": "06e9fc2d532549390e19725bb420f27d90cbc300bb6655696455523fe060dbc4",
+      "date": "2017-06-20T09:49:24+02:00",
+      "subject": "[R-SIG-Mac] Rcmdr¡",
+      "subject_clean": "Rcmdr¡",
+      "in_reply_to": "<ACD1644AA6C67E4FBD0C350625508EC83668EF8A@FHSDB4H16-2.csu.mcmaster.ca>",
+      "references": [
+        "<18354_1497870562_v5JB9JO8005652_BY2PR05MB2279868E4CD617438DA2FD40E1CB0@BY2PR05MB2279.namprd05.prod.outlook.com>",
+        "<ACD1644AA6C67E4FBD0C350625508EC83668EF8A@FHSDB4H16-2.csu.mcmaster.ca>"
+      ],
+      "body_plain": "I guess what German is referring to is that only applications for identified developers [1, 2], but it is only a guess.\n[1] https://kb.wisc.edu/helpdesk/page.php?id=25443\n[2] https://support.apple.com/kb/PH25088?locale=en_US\nEl 19Jun, 2017, a las 4:43 PM, Fox, John <jfox at mcmaster.ca> escribi?:\n\n> Dear Dr. German,\n> \n> I'll respond to your message in English, which is the language of this email list (and my written Spanish is poor anyway).\n> \n> It's not clear from your email what problem or problems you're experiencing. You say that you can't install \"them\" (R, the Rcmdr package, other packages?) for \"security factors\" (what security factors?).\n> \n> If your aim is to install and use the R Commander-- you mention the Rcmdr in the subject of your message but not in the message itself -- then the installation notes at < http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html> might help, but they don't address security issues.\n> \n> You might also consult the posting guide for the R email lists at < https://www.r-project.org/posting-guide.html>, which has useful information about how to ask a question.\n> \n> I hope this helps,\n> John\n> \n> -----------------------------\n> John Fox, Professor\n> McMaster University\n> Hamilton, Ontario, Canada\n> Web: socserv.mcmaster.ca/jfox\n> \n> \n>> -----Original Message-----\n>> From: R-SIG-Mac [mailto:r-sig-mac-bounces at r-project.org] On Behalf Of\n>> GERMAN GIACOMAN VALLEJOS\n>> Sent: Tuesday, June 6, 2017 1:10 AM\n>> To: r-sig-mac at r-project.org\n>> Subject: [R-SIG-Mac] Rcmdr?\n>> \n>> Quien me puede apoyar en la instalaci?n de R.app y otros paquetes para que\n>> puede usar en mi maquina MacBook Pro y poder usar diversos paquetes de R\n>> y su manejo en gr?ficos , al cual ya actualice a MacOs Sierra versi?n 10.12.5\n>> \n>> MacBook Pro (15-inch, Mid 2012) Procesador 2.3 GHz Intel Core i7 memoria 4\n>> GB 1600 MHz DDR3 gr?ficos NVIDIA GeForce GT 650M 512 MB\n>> \n>> Intel HD Graphics 4000 1536 MB.\n>> \n>> He intentado instalarlos, pero no me deja por factores de seguridad.\n>> \n>> Saludos\n>> \n>> \n>> Dr. Gi?coman\n>> \n>> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 842 bytes\nDesc: Message signed with OpenPGP using GPGMail\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20170620/d6f5d537/attachment.sig>",
+      "body_snippet": "I guess what German is referring to is that only applications for identified developers [1, 2], but it is only a guess.\n[1] https://kb.wisc.edu/helpdesk/page.php?id=25443\n[2] https://support.apple.com",
+      "thread_id": "thread-69a1e171627a",
+      "thread_depth": 1,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-aba01ccfda10",
+      "message_id": "<9de54c59-793a-d907-8101-ec417e6940c1@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2017-06-20T10:16:07+01:00",
+      "subject": "[R-SIG-Mac] Rcmdr¡",
+      "subject_clean": "Rcmdr¡",
+      "in_reply_to": "<0B55C4F0-9E9A-40B8-B90F-9D6B87D0F213@uv.es>",
+      "references": [
+        "<18354_1497870562_v5JB9JO8005652_BY2PR05MB2279868E4CD617438DA2FD40E1CB0@BY2PR05MB2279.namprd05.prod.outlook.com>",
+        "<ACD1644AA6C67E4FBD0C350625508EC83668EF8A@FHSDB4H16-2.csu.mcmaster.ca>",
+        "<0B55C4F0-9E9A-40B8-B90F-9D6B87D0F213@uv.es>"
+      ],
+      "body_plain": "On 20/06/2017 08:49, Agustin Diez Castillo wrote:\n> I guess what German is referring to is that only applications for identified developers [1, 2], but it is only a guess.\n\nHmm, the R package is signed by an identifiable developer: those links \nshould not be relevant and if you find otherwise you should be \nsuspicious that you do not have a genuine R distribution.  (Some of the \nsnapshot packages on r.research.att.com are unsigned, but a new user \nshould not be using those: R-3.4.0.pkg is signed.)\n\n> [1] https://kb.wisc.edu/helpdesk/page.php?id=25443\n> [2] https://support.apple.com/kb/PH25088?locale=en_US\n> El 19Jun, 2017, a las 4:43 PM, Fox, John <jfox at mcmaster.ca> escribi?:\n> \n>> Dear Dr. German,\n>>\n>> I'll respond to your message in English, which is the language of this email list (and my written Spanish is poor anyway).\n>>\n>> It's not clear from your email what problem or problems you're experiencing. You say that you can't install \"them\" (R, the Rcmdr package, other packages?) for \"security factors\" (what security factors?).\n>>\n>> If your aim is to install and use the R Commander-- you mention the Rcmdr in the subject of your message but not in the message itself -- then the installation notes at < http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html> might help, but they don't address security issues.\n>>\n>> You might also consult the posting guide for the R email lists at < https://www.r-project.org/posting-guide.html>, which has useful information about how to ask a question.\n>>\n>> I hope this helps,\n>> John\n>>\n>> -----------------------------\n>> John Fox, Professor\n>> McMaster University\n>> Hamilton, Ontario, Canada\n>> Web: socserv.mcmaster.ca/jfox\n>>\n>>\n>>> -----Original Message-----\n>>> From: R-SIG-Mac [mailto:r-sig-mac-bounces at r-project.org] On Behalf Of\n>>> GERMAN GIACOMAN VALLEJOS\n>>> Sent: Tuesday, June 6, 2017 1:10 AM\n>>> To: r-sig-mac at r-project.org\n>>> Subject: [R-SIG-Mac] Rcmdr?\n>>>\n>>> Quien me puede apoyar en la instalaci?n de R.app y otros paquetes para que\n>>> puede usar en mi maquina MacBook Pro y poder usar diversos paquetes de R\n>>> y su manejo en gr?ficos , al cual ya actualice a MacOs Sierra versi?n 10.12.5\n>>>\n>>> MacBook Pro (15-inch, Mid 2012) Procesador 2.3 GHz Intel Core i7 memoria 4\n>>> GB 1600 MHz DDR3 gr?ficos NVIDIA GeForce GT 650M 512 MB\n>>>\n>>> Intel HD Graphics 4000 1536 MB.\n>>>\n>>> He intentado instalarlos, pero no me deja por factores de seguridad.\n>>>\n>>> Saludos\n>>>\n>>>\n>>> Dr. Gi?coman\n>>>\n>>> \t[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 20/06/2017 08:49, Agustin Diez Castillo wrote:\n> I guess what German is referring to is that only applications for identified developers [1, 2], but it is only a guess.\n\nHmm, the R package is signe",
+      "thread_id": "thread-69a1e171627a",
+      "thread_depth": 2,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-ff160fb8e273",
+      "message_id": "<E9E3814B-AB02-489C-86A6-9EE7CF3BAAA4@noaa.gov>",
+      "from_name": "Roy Mendelssohn - NOAA Federal",
+      "from_email_hash": "f8c65c8ee5279c0d0fb1885669084ade2a0012bc467e7fc1c716d659669f48c6",
+      "date": "2017-06-20T08:12:54-07:00",
+      "subject": "[R-SIG-Mac] Package sf 0.5-0 on El Capitan or higher",
+      "subject_clean": "Package sf 0.5-0 on El Capitan or higher",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi All:\n\nI am interesting in getting the latest version of the package SF running on my Mac (macOS Sierra,  10.12.5, R version 3.4).  On CRAN only source is available for El Capitan or higher.  There are several places that suggest SF can be compiled after doing the necessary installs using \"brew\"  but I found that given my version of OS,  one or more of the brew packages failed.  I believe I have all the packages needed installed using the stuff from Kyngchaos,  but my efforts to set the compile directories correctly have not worked.\n\nHas anyone been able to build this,  or have any suggestions on how to build it?\n\nThanks,\n\n-Roy\n\n\n\n**********************\n\"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n**********************\nRoy Mendelssohn\nSupervisory Operations Research Analyst\nNOAA/NMFS\nEnvironmental Research Division\nSouthwest Fisheries Science Center\n***Note new street address***\n110 McAllister Way\nSanta Cruz, CA 95060\nPhone: (831)-420-3666\nFax: (831) 420-3980\ne-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n\n\"Old age and treachery will overcome youth and skill.\"\n\"From those who have been given much, much will be expected\" \n\"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.",
+      "body_snippet": "Hi All:\n\nI am interesting in getting the latest version of the package SF running on my Mac (macOS Sierra,  10.12.5, R version 3.4).  On CRAN only source is available for El Capitan or higher.  There ",
+      "thread_id": "thread-ff160fb8e273",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-e57b51cffa5d",
+      "message_id": "<D0E4A476-36C2-4871-B327-D343D9327DA6@noaa.gov>",
+      "from_name": "Roy Mendelssohn - NOAA Federal",
+      "from_email_hash": "f8c65c8ee5279c0d0fb1885669084ade2a0012bc467e7fc1c716d659669f48c6",
+      "date": "2017-06-20T08:32:12-07:00",
+      "subject": "[R-SIG-Mac] Package sf 0.5-0 on El Capitan or higher",
+      "subject_clean": "Package sf 0.5-0 on El Capitan or higher",
+      "in_reply_to": "<E9E3814B-AB02-489C-86A6-9EE7CF3BAAA4@noaa.gov>",
+      "references": [
+        "<E9E3814B-AB02-489C-86A6-9EE7CF3BAAA4@noaa.gov>"
+      ],
+      "body_plain": "Hi All:\n\nMy apologies.  Some days the brain kicks in more slowly than others.  I was able to answer my own question.  Since a binary is not on CRAN,  I thought I would document what worked.\n\n1.  Get the needed frameworks from:\n\nhttp://www.kyngchaos.com/software/frameworks\n\nMake certain you have GDAL, GEOS and PROJ installed.  By default they are installed in /Library/Frameworks.\n\n2.  Download the source file from CRAN. \n\n3. In a terminal, change directory to where the source file is located.\n\n4.  R CMD INSTALL sf_0.5-0.tar.gz --configure-args='-with-gdal-config=/Library/Frameworks/GDAL.framework/Versions/2.1/unix/bin/gdal-config -with-geos-config=/Library/Frameworks/GEOS.framework/Versions/3/unix/bin/geos-config'\n\nIf your version of the GDAL framework is different,  make the obvious change.\n\nIs they any way to just directly get a binary on CRAN,  or only if they can build it on the CRAN machine?\n\nThanks,\n\n-Roy\n\n> On Jun 20, 2017, at 8:12 AM, Roy Mendelssohn - NOAA Federal <roy.mendelssohn at noaa.gov> wrote:\n> \n> Hi All:\n> \n> I am interesting in getting the latest version of the package SF running on my Mac (macOS Sierra,  10.12.5, R version 3.4).  On CRAN only source is available for El Capitan or higher.  There are several places that suggest SF can be compiled after doing the necessary installs using \"brew\"  but I found that given my version of OS,  one or more of the brew packages failed.  I believe I have all the packages needed installed using the stuff from Kyngchaos,  but my efforts to set the compile directories correctly have not worked.\n> \n> Has anyone been able to build this,  or have any suggestions on how to build it?\n> \n> Thanks,\n> \n> -Roy\n> \n> \n> \n> **********************\n> \"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n> **********************\n> Roy Mendelssohn\n> Supervisory Operations Research Analyst\n> NOAA/NMFS\n> Environmental Research Division\n> Southwest Fisheries Science Center\n> ***Note new street address***\n> 110 McAllister Way\n> Santa Cruz, CA 95060\n> Phone: (831)-420-3666\n> Fax: (831) 420-3980\n> e-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n> \n> \"Old age and treachery will overcome youth and skill.\"\n> \"From those who have been given much, much will be expected\" \n> \"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.\n> \n\n**********************\n\"The contents of this message do not reflect any position of the U.S. Government or NOAA.\"\n**********************\nRoy Mendelssohn\nSupervisory Operations Research Analyst\nNOAA/NMFS\nEnvironmental Research Division\nSouthwest Fisheries Science Center\n***Note new street address***\n110 McAllister Way\nSanta Cruz, CA 95060\nPhone: (831)-420-3666\nFax: (831) 420-3980\ne-mail: Roy.Mendelssohn at noaa.gov www: http://www.pfeg.noaa.gov/\n\n\"Old age and treachery will overcome youth and skill.\"\n\"From those who have been given much, much will be expected\" \n\"the arc of the moral universe is long, but it bends toward justice\" -MLK Jr.",
+      "body_snippet": "Hi All:\n\nMy apologies.  Some days the brain kicks in more slowly than others.  I was able to answer my own question.  Since a binary is not on CRAN,  I thought I would document what worked.\n\n1.  Get t",
+      "thread_id": "thread-ff160fb8e273",
+      "thread_depth": 1,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-717f9c61514e",
+      "message_id": "<CAGx1TMAVCVaE65L8uJ6Fc3vWBaqkbnQNRSURvb=1qEtyPKzs+w@mail.gmail.com>",
+      "from_name": "Richard M. Heiberger",
+      "from_email_hash": "4ce810eab8587777db353ea9d997b9e94d9e73af018121f9a3424238038952df",
+      "date": "2017-06-22T12:28:07-04:00",
+      "subject": "[R-SIG-Mac] png error message problem, and potential crash",
+      "subject_clean": "png error message problem, and potential crash",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "bash-3.2$ R --vanilla\n\nR version 3.4.0 Patched (2017-04-28 r72639) -- \"You Stupid Darkness\"\nCopyright (C) 2017 The R Foundation for Statistical Computing\nPlatform: x86_64-apple-darwin15.6.0 (64-bit)\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n> png(\"abcd.png\", height=.22, width=2)\nJun 22 12:13:08  R[59491] <Error>: CGContextTranslateCTM: invalid\ncontext 0x0. If you want to see the backtrace, please set\nCG_CONTEXT_SHOW_BACKTRACE environmental variable.\nJun 22 12:13:08  R[59491] <Error>: CGContextScaleCTM: invalid context\n0x0. If you want to see the backtrace, please set\nCG_CONTEXT_SHOW_BACKTRACE environmental variable.\n> png(\"abcd.png\", height=.22, width=2, units=\"in\", res=300)\n> dev.cur()\nquartz_off_screen\n                3\n> dev.off()\nquartz_off_screen\n                2\n> dev.off()\nnull device\n          1\n> version\n               _\nplatform       x86_64-apple-darwin15.6.0\narch           x86_64\nos             darwin15.6.0\nsystem         x86_64, darwin15.6.0\nstatus         Patched\nmajor          3\nminor          4.0\nyear           2017\nmonth          04\nday            28\nsvn rev        72639\nlanguage       R\nversion.string R version 3.4.0 Patched (2017-04-28 r72639)\nnickname       You Stupid Darkness\n> q()\nbash-3.2$\n\nDeep inside a function with png() inside a loop,\nafter about 70 of the CGContextTranslateCTM messages,\nI got the crash message\nJun 22 11:40:48  R[59174] <Error>: CGBitmapContextCreateImage: invalid\ncontext 0x0. If you want to see the backtrace, please set\nCG_CONTEXT_SHOW_BACKTRACE environmental variable.\n\nProcess R trace/BPT trap: 5 at Thu Jun 22 11:40:48 2017\n\n\nFor comparison, on Windows\nR version 3.4.0 Patched (2017-04-28 r72638) -- \"You Stupid Darkness\"\nCopyright (C) 2017 The R Foundation for Statistical Computing\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\n\nI get an appropriate error message\n\n> png(\"abcd.png\", height=.22, width=2)\nWarning message:\nIn png(\"abcd.png\", height = 0.22, width = 2) :\n  'width=2, height=0' are unlikely values in pixels\n>\n\nFor completeness, the repair, shown above, is to use the units and res\narguments.",
+      "body_snippet": "bash-3.2$ R --vanilla\n\nR version 3.4.0 Patched (2017-04-28 r72639) -- \"You Stupid Darkness\"\nCopyright (C) 2017 The R Foundation for Statistical Computing\nPlatform: x86_64-apple-darwin15.6.0 (64-bit)\n\n",
+      "thread_id": "thread-717f9c61514e",
+      "thread_depth": 0,
+      "month": "2017-06"
+    },
+    {
+      "id": "msg-54e01db29d3b",
+      "message_id": "<3C18C1E6-7CFB-4F9F-A258-9658C97451A9@truthfromdata.com>",
+      "from_name": "Lee Godfrey",
+      "from_email_hash": "d97556a337efbf80704630d5bbcffa218ea8474e8a29f13cf2a6993480c831f0",
+      "date": "2017-06-30T12:31:41Z",
+      "subject": "[R-SIG-Mac] Install sf from source on macOS 10.12 (Sierra)",
+      "subject_clean": "Install sf from source on macOS 10.12 (Sierra)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "After struggling to build and install sf on my Mac I thought providing the code chunk below would help others.\n\nIt assumes the GDAL 2.1 Complete framework from http://www.kyngchaos.com/software/frameworks <http://www.kyngchaos.com/software/frameworks> has been installed to /Library/Frameworks.  Modify the path as necessary if you have installed it elsewhere.\n\n# build and install sf package from source with specified config for GDAL/GEOS/PROJ.4\nsf_config_args <- c(\n  \"--with-gdal-config=/Library/Frameworks/GDAL.Framework/Versions/2.1/unix/bin/gdal-config\",\n  \"--with-geos-config=/Library/Frameworks/GEOS.Framework/Versions/3/unix/bin/geos-config\",\n  \"--with-proj-include=/Library/Frameworks/PROJ.framework/Versions/4/unix/include\",\n  \"--with-proj-lib=/Library/Frameworks/PROJ.framework/Versions/4/unix/lib\",\n  \"--with-proj-share=/Library/Frameworks/PROJ.framework/Versions/4/unix/share/proj\"\n)\ninstall.packages(?sf\", configure.args = sf_config_args)\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "After struggling to build and install sf on my Mac I thought providing the code chunk below would help others.\n\nIt assumes the GDAL 2.1 Complete framework from http://www.kyngchaos.com/software/framew",
+      "thread_id": "thread-54e01db29d3b",
+      "thread_depth": 0,
+      "month": "2017-06"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-29213ae5bab9",
+      "subject": "compiling with R-3.4.0",
+      "message_count": 3,
+      "participants": [
+        "Charles C. Berry",
+        "Simon Urbanek"
+      ],
+      "started": "2017-06-04T15:03:52-07:00",
+      "last_reply": "2017-06-08T11:26:53-07:00",
+      "root_message_id": "msg-29213ae5bab9"
+    },
+    {
+      "id": "thread-6337a1884d05",
+      "subject": "Rcmdr¡",
+      "message_count": 1,
+      "participants": [
+        "GERMAN  GIACOMAN VALLEJOS"
+      ],
+      "started": "2017-06-06T05:10:26+00:00",
+      "last_reply": "2017-06-06T05:10:26+00:00",
+      "root_message_id": "msg-6337a1884d05"
+    },
+    {
+      "id": "thread-dbb5032dbe8a",
+      "subject": "istate CRAN mirror not working - unable to use .Rprofile to change",
+      "message_count": 5,
+      "participants": [
+        "Duncan Murdoch",
+        "Michael Hall"
+      ],
+      "started": "2017-06-08T04:05:23-05:00",
+      "last_reply": "2017-06-08T17:28:09-05:00",
+      "root_message_id": "msg-dbb5032dbe8a"
+    },
+    {
+      "id": "thread-e91ba5ae2de3",
+      "subject": "R-3.4.0 installation problem?",
+      "message_count": 2,
+      "participants": [
+        "Alfonso Saera Vila",
+        "David Winsemius"
+      ],
+      "started": "2017-06-13T13:19:49+02:00",
+      "last_reply": "2017-06-19T09:58:17-07:00",
+      "root_message_id": "msg-e91ba5ae2de3"
+    },
+    {
+      "id": "thread-ddd86e4f17fa",
+      "subject": "R GUI very slow under mac OS 10.12.5 (Sierra)",
+      "message_count": 1,
+      "participants": [
+        "Martin Batholdy"
+      ],
+      "started": "2017-06-17T12:36:29+02:00",
+      "last_reply": "2017-06-17T12:36:29+02:00",
+      "root_message_id": "msg-ddd86e4f17fa"
+    },
+    {
+      "id": "thread-69a1e171627a",
+      "subject": "Rcmdr¡",
+      "message_count": 3,
+      "participants": [
+        "Agustin Diez Castillo",
+        "Fox, John",
+        "Prof Brian Ripley"
+      ],
+      "started": "2017-06-19T14:43:54+00:00",
+      "last_reply": "2017-06-20T10:16:07+01:00",
+      "root_message_id": "msg-69a1e171627a"
+    },
+    {
+      "id": "thread-e95d1008e0ff",
+      "subject": "How to read 7z zip file into R?",
+      "message_count": 2,
+      "participants": [
+        "C W"
+      ],
+      "started": "2017-06-19T16:01:41-04:00",
+      "last_reply": "2017-06-20T01:22:32-04:00",
+      "root_message_id": "msg-e95d1008e0ff"
+    },
+    {
+      "id": "thread-ff160fb8e273",
+      "subject": "Package sf 0.5-0 on El Capitan or higher",
+      "message_count": 2,
+      "participants": [
+        "Roy Mendelssohn - NOAA Federal"
+      ],
+      "started": "2017-06-20T08:12:54-07:00",
+      "last_reply": "2017-06-20T08:32:12-07:00",
+      "root_message_id": "msg-ff160fb8e273"
+    },
+    {
+      "id": "thread-717f9c61514e",
+      "subject": "png error message problem, and potential crash",
+      "message_count": 1,
+      "participants": [
+        "Richard M. Heiberger"
+      ],
+      "started": "2017-06-22T12:28:07-04:00",
+      "last_reply": "2017-06-22T12:28:07-04:00",
+      "root_message_id": "msg-717f9c61514e"
+    },
+    {
+      "id": "thread-54e01db29d3b",
+      "subject": "Install sf from source on macOS 10.12 (Sierra)",
+      "message_count": 1,
+      "participants": [
+        "Lee Godfrey"
+      ],
+      "started": "2017-06-30T12:31:41+00:00",
+      "last_reply": "2017-06-30T12:31:41+00:00",
+      "root_message_id": "msg-54e01db29d3b"
+    }
+  ]
+}

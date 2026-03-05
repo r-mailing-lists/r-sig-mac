@@ -1,0 +1,1301 @@
+From @|mon@urb@nek @end|ng |rom R-project@org  Fri May  3 03:10:37 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Fri, 3 May 2024 13:10:37 +1200
+Subject: [R-SIG-Mac] R 4.4 crashes loading dplyr
+In-Reply-To: <CANkkNcgC2K3Hq4UYktAFf9uFDDobWdcZ1S7mdrVZA3QXBobEkA@mail.gmail.com>
+References: <CANkkNcg20E9Qj+W8jf=sPkE+v2zG8UJWq4kb8A517TeHAUS2vQ@mail.gmail.com>
+ <02808911-83F7-4106-8FEA-E74C6CE0DCB2@gmail.com>
+ <CANkkNcgC2K3Hq4UYktAFf9uFDDobWdcZ1S7mdrVZA3QXBobEkA@mail.gmail.com>
+Message-ID: <728A666F-7E77-4C94-A0F1-004C9427E30D@R-project.org>
+
+Carl,
+
+it shows that you apparently had some ancient version of magrittr installed way back from R 4.2.x. I have no idea why or how you got it, but update.packages(checkBuilt=TRUE) in R 4.4.0 should have fixed it.
+
+Cheers,
+Simon
+
+
+
+> On 1/05/2024, at 12:32 AM, Carl Witthoft <cellocgw at gmail.com> wrote:
+> 
+> Thanks, Peter!   The funny thing is that I had kept R 4.2 around in the
+> Frameworks directory, but didn't expect a new installation of R4.4 to
+> choose that path for libs.  I removed R4.2 , then reinstalled R4.4 and now
+> the correct libs are invoked.  I guess some config macro file must have
+> remained in the list of startup items.
+> FWIW,  after removing R4.2 but before reinstalling R4.4,   I tried
+> 'library(dplyr)'  , which didn't crash but failed with the error msgs shown
+> here.
+> Error: package or namespace load failed for ?dplyr? in dyn.load(file,
+> DLLpath = DLLpath, ...):
+> unable to load shared object
+> '/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/magrittr/libs/magrittr.so':
+> 
+> dlopen(/Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/magrittr/libs/magrittr.so,
+> 0x0006): Library not loaded:
+> /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libR.dylib
+>  Referenced from: <B6E9C258-16F0-31E8-AF63-50207542C35F>
+> /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/library/magrittr/libs/magrittr.so
+>  Reason: tried:
+> '/Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libR.dylib' (no
+> such file),
+> '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libR.dylib'
+> (no such file),
+> '/Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libR.dylib' (no
+> such file), '/usr/local/lib/libR.dylib' (no such file),
+> '/usr/lib/libR.dylib' (no such file, not in dyld cac
+> 
+> regards,
+> Carl
+
+
+From ethu||n @end|ng |rom um|ch@edu  Fri May  3 14:26:52 2024
+From: ethu||n @end|ng |rom um|ch@edu (Elyse Thulin)
+Date: Fri, 3 May 2024 08:26:52 -0400
+Subject: [R-SIG-Mac] Quanteda on mac with M2 advice
+Message-ID: <CALU+1xFcj+X-O7LkNZZ6jHKjJr26Bzw=5_Gby3d9feyUW0ADWQ@mail.gmail.com>
+
+Hi, all,
+
+Can someone point me to any resources for figuring out how to run quanteda
+on my m2 mac?
+
+Thanks!
+Elyse
+
+-- 
+Elyse J. Thulin, Ph.D
+Assistant Research Professor
+University of Michigan
+Institute for Firearm Injury Prevention
+Department of Health Behavior and Health Education
+
+(e): ethulin at umich.edu
+(w): elysethulin.github.io
+Link to papers here
+<https://scholar.google.com/citations?user=IVlp2u0AAAAJ&hl=en>
+
+	[[alternative HTML version deleted]]
+
+
+From dw|n@em|u@ @end|ng |rom comc@@t@net  Sat May  4 00:48:54 2024
+From: dw|n@em|u@ @end|ng |rom comc@@t@net (David Winsemius)
+Date: Fri, 3 May 2024 15:48:54 -0700
+Subject: [R-SIG-Mac] Quanteda on mac with M2 advice
+In-Reply-To: <CALU+1xFcj+X-O7LkNZZ6jHKjJr26Bzw=5_Gby3d9feyUW0ADWQ@mail.gmail.com>
+References: <CALU+1xFcj+X-O7LkNZZ6jHKjJr26Bzw=5_Gby3d9feyUW0ADWQ@mail.gmail.com>
+Message-ID: <7ac43efb-ec28-ba45-a580-515643fdc4aa@comcast.net>
+
+
+On 5/3/24 05:26, Elyse Thulin wrote:
+> Hi, all,
+>
+> Can someone point me to any resources for figuring out how to run quanteda
+> on my m2 mac?
+
+
+Seems like going to the "URL:" entry in the DESCRIPTION file would be 
+the obvious first place to try.
+
+
+-- 
+
+David.
+
+>
+> Thanks!
+> Elyse
+>
+
+
+From ken @end|ng |rom kjbe@th@|d@@u  Sat May  4 07:49:18 2024
+From: ken @end|ng |rom kjbe@th@|d@@u (Ken Beath)
+Date: Sat, 4 May 2024 15:49:18 +1000
+Subject: [R-SIG-Mac] Quanteda on mac with M2 advice
+In-Reply-To: <CALU+1xFcj+X-O7LkNZZ6jHKjJr26Bzw=5_Gby3d9feyUW0ADWQ@mail.gmail.com>
+References: <CALU+1xFcj+X-O7LkNZZ6jHKjJr26Bzw=5_Gby3d9feyUW0ADWQ@mail.gmail.com>
+Message-ID: <92E3CAA2-0EB6-4085-8975-A9A92F10C357@kjbeath.id.au>
+
+You need to explain what particular part of running it doesn?t work. I?ve installed it on my M1 MacBook together with the extra packages in the Getting Started document, tried a simple example and everything works fine.  If you look at their website https://quanteda.io <https://quanteda.io/> it has a section Replications which shows how it can be used to perform some analyses from books.
+
+Ken
+
+> On 3 May 2024, at 10:26?PM, Elyse Thulin <ethulin at umich.edu> wrote:
+> 
+> Hi, all,
+> 
+> Can someone point me to any resources for figuring out how to run quanteda
+> on my m2 mac?
+> 
+> Thanks!
+> Elyse
+> 
+> -- 
+> Elyse J. Thulin, Ph.D
+> Assistant Research Professor
+> University of Michigan
+> Institute for Firearm Injury Prevention
+> Department of Health Behavior and Health Education
+> 
+> (e): ethulin at umich.edu
+> (w): elysethulin.github.io
+> Link to papers here
+> <https://scholar.google.com/citations?user=IVlp2u0AAAAJ&hl=en>
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+	[[alternative HTML version deleted]]
+
+
+From unw|n @end|ng |rom m@th@un|-@ug@burg@de  Sun May  5 16:27:19 2024
+From: unw|n @end|ng |rom m@th@un|-@ug@burg@de (Antony Unwin)
+Date: Sun, 5 May 2024 16:27:19 +0200
+Subject: [R-SIG-Mac] Knitting an Rmarkdown file fails for pdf
+Message-ID: <AC82F460-09A0-455F-A921-270763F0100D@math.uni-augsburg.de>
+
+I have recently updated my Mac to R 4.4.0 and the latest version of RStudio.  This may or may not be the reason that any Rmd files of mine with citations fail with the following error on knitting to pdf:
+
+! Undefined control sequence.
+l.98 \NewDocumentCommand
+                        \citeproctext{}{} 
+
+Error: LaTeX failed to compile citeTest.tex.
+
+Knitting to html or to word work fine.  Knitting to pdf without citations works as well.  Does anyone have a solution?
+
+As a test file I have used the sample Rmd file from Posit with one citation added.
+
+Thanks for any help
+
+Antony
+
+
+Professor (em.) Antony Unwin
+Mathematics Institute,
+University of Augsburg, 
+86135 Augsburg, Germany
+
+
+
+
+	[[alternative HTML version deleted]]
+
+
+From pd@|gd @end|ng |rom gm@||@com  Sun May  5 17:52:55 2024
+From: pd@|gd @end|ng |rom gm@||@com (peter dalgaard)
+Date: Sun, 5 May 2024 17:52:55 +0200
+Subject: [R-SIG-Mac] Knitting an Rmarkdown file fails for pdf
+In-Reply-To: <AC82F460-09A0-455F-A921-270763F0100D@math.uni-augsburg.de>
+References: <AC82F460-09A0-455F-A921-270763F0100D@math.uni-augsburg.de>
+Message-ID: <1267D96C-7DD5-4BC3-A4EB-1ACA9759B491@gmail.com>
+
+Hi Antony,
+
+The absence of \NewDocumentCommand could suggest that your LaTeX installation is too old. Some kind of path messup might also do it, I suppose.
+
+- Peter
+
+> On 5 May 2024, at 16:27 , Antony Unwin <unwin at math.uni-augsburg.de> wrote:
+> 
+> I have recently updated my Mac to R 4.4.0 and the latest version of RStudio.  This may or may not be the reason that any Rmd files of mine with citations fail with the following error on knitting to pdf:
+> 
+> ! Undefined control sequence.
+> l.98 \NewDocumentCommand
+>                        \citeproctext{}{} 
+> 
+> Error: LaTeX failed to compile citeTest.tex.
+> 
+> Knitting to html or to word work fine.  Knitting to pdf without citations works as well.  Does anyone have a solution?
+> 
+> As a test file I have used the sample Rmd file from Posit with one citation added.
+> 
+> Thanks for any help
+> 
+> Antony
+> 
+> 
+> Professor (em.) Antony Unwin
+> Mathematics Institute,
+> University of Augsburg, 
+> 86135 Augsburg, Germany
+> 
+> 
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business School
+Solbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From unw|n @end|ng |rom m@th@un|-@ug@burg@de  Sun May  5 19:14:24 2024
+From: unw|n @end|ng |rom m@th@un|-@ug@burg@de (Antony Unwin)
+Date: Sun, 5 May 2024 19:14:24 +0200
+Subject: [R-SIG-Mac] Knitting an Rmarkdown file fails for pdf
+In-Reply-To: <96b734e6-9bd6-4ebc-896f-e7f6e709d5db@gmail.com>
+References: <AC82F460-09A0-455F-A921-270763F0100D@math.uni-augsburg.de>
+ <2b970d48-246b-4421-b38e-b3f9d30da481@gmail.com>
+ <6A2BAB84-D223-432A-AF15-EC8EAC871D0A@math.uni-augsburg.de>
+ <96b734e6-9bd6-4ebc-896f-e7f6e709d5db@gmail.com>
+Message-ID: <66202D22-B8D2-4551-92F2-5CF5B40148F9@math.uni-augsburg.de>
+
+Thanks, Duncan, that solves that problem (and quickly!).
+
+Antony
+
+
+> On 5 May 2024, at 18:33, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:
+> 
+> TeX Live 2015 is pretty old.  Maybe an update would fix things.  The R "tinytex" package installs a small version of TeX Live; it may be the easiest way to update.
+> 
+> Duncan
+> 
+> On 05/05/2024 11:25 a.m., Antony Unwin wrote:
+>> The first line of my log file is:
+>> This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.28)
+>>> On 5 May 2024, at 16:38, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:
+>>> 
+>>> On 05/05/2024 10:27 a.m., Antony Unwin wrote:
+>>>> I have recently updated my Mac to R 4.4.0 and the latest version of RStudio.  This may or may not be the reason that any Rmd files of mine with citations fail with the following error on knitting to pdf:
+>>>> ! Undefined control sequence.
+>>>> l.98 \NewDocumentCommand
+>>>>                         \citeproctext{}{}
+>>>> Error: LaTeX failed to compile citeTest.tex.
+>>>> Knitting to html or to word work fine.  Knitting to pdf without citations works as well.  Does anyone have a solution?
+>>>> As a test file I have used the sample Rmd file from Posit with one citation added.
+>>>> Thanks for any help
+>>>> Antony
+>>> 
+>>> Can you tell which version of LaTeX it is using?
+>>> 
+>>> Duncan Murdoch
+>>> 
+> 
+
+
+From unw|n @end|ng |rom m@th@un|-@ug@burg@de  Sun May  5 19:15:40 2024
+From: unw|n @end|ng |rom m@th@un|-@ug@burg@de (Antony Unwin)
+Date: Sun, 5 May 2024 19:15:40 +0200
+Subject: [R-SIG-Mac] Knitting an Rmarkdown file fails for pdf
+In-Reply-To: <1267D96C-7DD5-4BC3-A4EB-1ACA9759B491@gmail.com>
+References: <AC82F460-09A0-455F-A921-270763F0100D@math.uni-augsburg.de>
+ <1267D96C-7DD5-4BC3-A4EB-1ACA9759B491@gmail.com>
+Message-ID: <D1F96E51-40CC-4F0B-9405-AE06CF8AD4CA@math.uni-augsburg.de>
+
+Thanks, Peter.  Duncan also suggested the age of my LaTeX installation might be the issue.
+
+Antony
+
+> On 5 May 2024, at 17:52, peter dalgaard <pdalgd at gmail.com> wrote:
+> 
+> Hi Antony,
+> 
+> The absence of \NewDocumentCommand could suggest that your LaTeX installation is too old. Some kind of path messup might also do it, I suppose.
+> 
+> - Peter
+> 
+>> On 5 May 2024, at 16:27 , Antony Unwin <unwin at math.uni-augsburg.de> wrote:
+>> 
+>> I have recently updated my Mac to R 4.4.0 and the latest version of RStudio.  This may or may not be the reason that any Rmd files of mine with citations fail with the following error on knitting to pdf:
+>> 
+>> ! Undefined control sequence.
+>> l.98 \NewDocumentCommand
+>>                       \citeproctext{}{} 
+>> 
+>> Error: LaTeX failed to compile citeTest.tex.
+>> 
+>> Knitting to html or to word work fine.  Knitting to pdf without citations works as well.  Does anyone have a solution?
+>> 
+>> As a test file I have used the sample Rmd file from Posit with one citation added.
+>> 
+>> Thanks for any help
+>> 
+>> Antony
+>> 
+>> 
+>> Professor (em.) Antony Unwin
+>> Mathematics Institute,
+>> University of Augsburg, 
+>> 86135 Augsburg, Germany
+>> 
+>> 
+>> 
+>> 
+>> 	[[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> -- 
+> Peter Dalgaard, Professor,
+> Center for Statistics, Copenhagen Business School
+> Solbjerg Plads 3, 2000 Frederiksberg, Denmark
+> Phone: (+45)38153501
+> Office: A 4.23
+> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+> 
+
+
+From unw|n @end|ng |rom m@th@un|-@ug@burg@de  Wed May  8 15:45:24 2024
+From: unw|n @end|ng |rom m@th@un|-@ug@burg@de (Antony Unwin)
+Date: Wed, 8 May 2024 15:45:24 +0200
+Subject: [R-SIG-Mac] Table of contents for book changed after LaTeX update
+Message-ID: <BF61BBAA-FAD8-471D-B82B-FD6C207E89F4@math.uni-augsburg.de>
+
+At the weekend I asked about a LaTex problem I had on the Mac and got an immediate solution, great!  I have accordingly updated my LaTeX using tinytex and have a new problem.  When I built my book with bookdown using the updated LaTeX there were a few small changes that I had to fix, some of which I think may have been due to a bit more space being given around tables, graphics, and lists.  There was also a large change, the table of contents has extra spacing everywhere, so that now it needs 7 pages instead of 5.  How can I get the old table of contents back?
+
+The book is for CRCPress and uses their krantz.cls LaTeX class file.
+
+Thanks, as always, for any help.
+
+Antony
+
+Professor (em.) Antony Unwin
+Mathematics Institute,
+University of Augsburg, 
+86135 Augsburg, Germany
+
+From m@rc_@chw@rtz @end|ng |rom me@com  Wed May  8 16:37:35 2024
+From: m@rc_@chw@rtz @end|ng |rom me@com (Marc Schwartz)
+Date: Wed, 08 May 2024 10:37:35 -0400
+Subject: [R-SIG-Mac] 
+ Table of contents for book changed after LaTeX update
+In-Reply-To: <BF61BBAA-FAD8-471D-B82B-FD6C207E89F4@math.uni-augsburg.de>
+References: <BF61BBAA-FAD8-471D-B82B-FD6C207E89F4@math.uni-augsburg.de>
+Message-ID: <29AC5009-4A4D-4E1A-B33F-B72FA259FACD@me.com>
+
+Hi Antony,
+
+Going back and looking at the thread over the weekend, I am wondering, if you did not uninstall the older version of TexLive/MacTeX, and there may be some conflicts with TinyTex, especially given the age of your old TexLive/MacTeX version.
+
+I found the following report, albeit, from 2021:
+
+  https://github.com/rstudio/rmarkdown/issues/2172
+
+that might support the hypothesis of a conflict between the two TeX installations.
+
+TeXLive/MacTex will typically install in /usr/local/texlive/XXXX, where XXXX is the year of the version. If that is still present, or there is more than one, and presuming that you want to stay with TinyTeX, I would remove the old installation(s).
+
+There will also be a texmf-local folder in the /usr/local/texlive folder and you should probably remove that as well.
+
+After the above, you may want to reboot your Mac, then reinstall TinyTeX, just to be sure that you then have a full and clean install.
+
+I install the full MacTeX version of TexLive from https://tug.org/mactex/, and just update the installation each year, removing the prior year's version, typically in the March/April timeframe on release. I also do frequent incremental updates of the installation using the TexLive utility app.
+
+Regards,
+
+Marc Schwartz
+
+
+?-----Original Message-----
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org>> on behalf of Antony Unwin <unwin at math.uni-augsburg.de <mailto:unwin at math.uni-augsburg.de>>
+Date: Wednesday, May 8, 2024 at 9:46 AM
+To: <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>
+Subject: [R-SIG-Mac] Table of contents for book changed after LaTeX update
+
+
+At the weekend I asked about a LaTex problem I had on the Mac and got an immediate solution, great! I have accordingly updated my LaTeX using tinytex and have a new problem. When I built my book with bookdown using the updated LaTeX there were a few small changes that I had to fix, some of which I think may have been due to a bit more space being given around tables, graphics, and lists. There was also a large change, the table of contents has extra spacing everywhere, so that now it needs 7 pages instead of 5. How can I get the old table of contents back?
+
+
+The book is for CRCPress and uses their krantz.cls LaTeX class file.
+
+
+Thanks, as always, for any help.
+
+
+Antony
+
+
+Professor (em.) Antony Unwin
+Mathematics Institute,
+University of Augsburg, 
+86135 Augsburg, Germany
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>
+
+
+From unw|n @end|ng |rom m@th@un|-@ug@burg@de  Wed May  8 17:52:54 2024
+From: unw|n @end|ng |rom m@th@un|-@ug@burg@de (Antony Unwin)
+Date: Wed, 8 May 2024 17:52:54 +0200
+Subject: [R-SIG-Mac] 
+ Table of contents for book changed after LaTeX update
+In-Reply-To: <29AC5009-4A4D-4E1A-B33F-B72FA259FACD@me.com>
+References: <BF61BBAA-FAD8-471D-B82B-FD6C207E89F4@math.uni-augsburg.de>
+ <29AC5009-4A4D-4E1A-B33F-B72FA259FACD@me.com>
+Message-ID: <11DB24AA-8B3E-4A02-87BA-F5D98DFB5815@math.uni-augsburg.de>
+
+Marc,
+
+That makes a lot of sense, thanks for finding the rmarkdown issue and for your detailed instructions.  It turned out I had three (!) TeXLive versions, the latest being 2015, and I have deleted these and the texmf-local folder.  I also uninstalled TinyTeX, rebooted, and installed TinyTeX again.  This has not solved my problem, but I suspect I have missed deleting something that should be deleted, perhaps /Library/TeX?
+
+Antony 
+
+
+
+> On 8 May 2024, at 16:37, Marc Schwartz <marc_schwartz at me.com> wrote:
+> 
+> Hi Antony,
+> 
+> Going back and looking at the thread over the weekend, I am wondering, if you did not uninstall the older version of TexLive/MacTeX, and there may be some conflicts with TinyTex, especially given the age of your old TexLive/MacTeX version.
+> 
+> I found the following report, albeit, from 2021:
+> 
+>  https://github.com/rstudio/rmarkdown/issues/2172
+> 
+> that might support the hypothesis of a conflict between the two TeX installations.
+> 
+> TeXLive/MacTex will typically install in /usr/local/texlive/XXXX, where XXXX is the year of the version. If that is still present, or there is more than one, and presuming that you want to stay with TinyTeX, I would remove the old installation(s).
+> 
+> There will also be a texmf-local folder in the /usr/local/texlive folder and you should probably remove that as well.
+> 
+> After the above, you may want to reboot your Mac, then reinstall TinyTeX, just to be sure that you then have a full and clean install.
+> 
+> I install the full MacTeX version of TexLive from https://tug.org/mactex/, and just update the installation each year, removing the prior year's version, typically in the March/April timeframe on release. I also do frequent incremental updates of the installation using the TexLive utility app.
+> 
+> Regards,
+> 
+> Marc Schwartz
+> 
+> 
+> ?-----Original Message-----
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org>> on behalf of Antony Unwin <unwin at math.uni-augsburg.de <mailto:unwin at math.uni-augsburg.de>>
+> Date: Wednesday, May 8, 2024 at 9:46 AM
+> To: <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>
+> Subject: [R-SIG-Mac] Table of contents for book changed after LaTeX update
+> 
+> 
+> At the weekend I asked about a LaTex problem I had on the Mac and got an immediate solution, great! I have accordingly updated my LaTeX using tinytex and have a new problem. When I built my book with bookdown using the updated LaTeX there were a few small changes that I had to fix, some of which I think may have been due to a bit more space being given around tables, graphics, and lists. There was also a large change, the table of contents has extra spacing everywhere, so that now it needs 7 pages instead of 5. How can I get the old table of contents back?
+> 
+> 
+> The book is for CRCPress and uses their krantz.cls LaTeX class file.
+> 
+> 
+> Thanks, as always, for any help.
+> 
+> 
+> Antony
+> 
+> 
+> Professor (em.) Antony Unwin
+> Mathematics Institute,
+> University of Augsburg, 
+> 86135 Augsburg, Germany
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>
+> 
+> 
+> 
+> 
+
+
+	[[alternative HTML version deleted]]
+
+
+From m@rc_@chw@rtz @end|ng |rom me@com  Wed May  8 18:24:32 2024
+From: m@rc_@chw@rtz @end|ng |rom me@com (Marc Schwartz)
+Date: Wed, 08 May 2024 12:24:32 -0400
+Subject: [R-SIG-Mac] 
+ Table of contents for book changed after LaTeX update
+In-Reply-To: <11DB24AA-8B3E-4A02-87BA-F5D98DFB5815@math.uni-augsburg.de>
+References: <BF61BBAA-FAD8-471D-B82B-FD6C207E89F4@math.uni-augsburg.de>
+ <29AC5009-4A4D-4E1A-B33F-B72FA259FACD@me.com>
+ <11DB24AA-8B3E-4A02-87BA-F5D98DFB5815@math.uni-augsburg.de>
+Message-ID: <BE83ECEB-BC38-47F7-AED1-8CBFBC422B0D@me.com>
+
+Hi Antony,
+
+Deleting the /Library/TeX folder tree would be another one to remove. There are also some links that may be in there that go back to the TexLive tree that presumably no longer exists.
+
+That being said, in checking the uninstall instructions for TexLive, there is a note of caution that if you have multiple TeX installations, others such as TinyTeX, may very well use that same /Library/TeX tree for their own purposes.
+
+Thus, if you do delete that tree for the sake of having a clean system, you may want to yet again, reinstall TinyTex.
+
+If these additional steps still do not resolve the issue, it may be prudent to post to the TinyTex issues forum on Github:
+
+  https://github.com/rstudio/tinytex/issues
+
+perhaps with a reference back to that older rmarkdown issue, to see if any of the folks there might have some additional guidance.
+
+Regards,
+
+Marc
+
+
+
+From: Antony Unwin <unwin at math.uni-augsburg.de>
+Date: Wednesday, May 8, 2024 at 11:53?AM
+To: Marc Schwartz <marc_schwartz at me.com>
+Cc: <r-sig-mac at r-project.org>
+Subject: Re: [R-SIG-Mac] Table of contents for book changed after LaTeX update
+
+Marc,
+
+That makes a lot of sense, thanks for finding the rmarkdown issue and for your detailed instructions. ?It turned out I had three (!) TeXLive versions, the latest being 2015, and I have deleted these and the texmf-local folder. ?I also uninstalled TinyTeX, rebooted, and installed TinyTeX again. ?This has not solved my problem, but I suspect I have missed deleting something that should be deleted, perhaps /Library/TeX?
+
+Antony?
+
+
+
+
+On 8 May 2024, at 16:37, Marc Schwartz <marc_schwartz at me.com> wrote:
+
+Hi Antony,
+
+Going back and looking at the thread over the weekend, I am wondering, if you did not uninstall the older version of TexLive/MacTeX, and there may be some conflicts with TinyTex, especially given the age of your old TexLive/MacTeX version.
+
+I found the following report, albeit, from 2021:
+
+?https://github.com/rstudio/rmarkdown/issues/2172
+
+that might support the hypothesis of a conflict between the two TeX installations.
+
+TeXLive/MacTex will typically install in /usr/local/texlive/XXXX, where XXXX is the year of the version. If that is still present, or there is more than one, and presuming that you want to stay with TinyTeX, I would remove the old installation(s).
+
+There will also be a texmf-local folder in the /usr/local/texlive folder and you should probably remove that as well.
+
+After the above, you may want to reboot your Mac, then reinstall TinyTeX, just to be sure that you then have a full and clean install.
+
+I install the full MacTeX version of TexLive from https://tug.org/mactex/, and just update the installation each year, removing the prior year's version, typically in the March/April timeframe on release. I also do frequent incremental updates of the installation using the TexLive utility app.
+
+Regards,
+
+Marc Schwartz
+
+
+?-----Original Message-----
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org>> on behalf of Antony Unwin <unwin at math.uni-augsburg.de <mailto:unwin at math.uni-augsburg.de>>
+Date: Wednesday, May 8, 2024 at 9:46 AM
+To: <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>
+Subject: [R-SIG-Mac] Table of contents for book changed after LaTeX update
+
+
+At the weekend I asked about a LaTex problem I had on the Mac and got an immediate solution, great! I have accordingly updated my LaTeX using tinytex and have a new problem. When I built my book with bookdown using the updated LaTeX there were a few small changes that I had to fix, some of which I think may have been due to a bit more space being given around tables, graphics, and lists. There was also a large change, the table of contents has extra spacing everywhere, so that now it needs 7 pages instead of 5. How can I get the old table of contents back?
+
+
+The book is for CRCPress and uses their krantz.cls LaTeX class file.
+
+
+Thanks, as always, for any help.
+
+
+Antony
+
+
+Professor (em.) Antony Unwin
+Mathematics Institute,
+University of Augsburg, 
+86135 Augsburg, Germany
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>
+
+
+From unw|n @end|ng |rom m@th@un|-@ug@burg@de  Wed May  8 19:37:26 2024
+From: unw|n @end|ng |rom m@th@un|-@ug@burg@de (Antony Unwin)
+Date: Wed, 8 May 2024 19:37:26 +0200
+Subject: [R-SIG-Mac] 
+ Table of contents for book changed after LaTeX update
+In-Reply-To: <BE83ECEB-BC38-47F7-AED1-8CBFBC422B0D@me.com>
+References: <BF61BBAA-FAD8-471D-B82B-FD6C207E89F4@math.uni-augsburg.de>
+ <29AC5009-4A4D-4E1A-B33F-B72FA259FACD@me.com>
+ <11DB24AA-8B3E-4A02-87BA-F5D98DFB5815@math.uni-augsburg.de>
+ <BE83ECEB-BC38-47F7-AED1-8CBFBC422B0D@me.com>
+Message-ID: <F6C4E384-0504-4506-8270-46954A86FF72@math.uni-augsburg.de>
+
+Marc,
+
+Thanks again for the advice.   After the deletion of /Library/TeX the double-spacing of the contents was still not sorted out.  I?ll post to the TinyTex issues forum as you suggest.
+
+Regards
+
+Antony
+
+> On 8 May 2024, at 18:24, Marc Schwartz <marc_schwartz at me.com> wrote:
+> 
+> Hi Antony,
+> 
+> Deleting the /Library/TeX folder tree would be another one to remove. There are also some links that may be in there that go back to the TexLive tree that presumably no longer exists.
+> 
+> That being said, in checking the uninstall instructions for TexLive, there is a note of caution that if you have multiple TeX installations, others such as TinyTeX, may very well use that same /Library/TeX tree for their own purposes.
+> 
+> Thus, if you do delete that tree for the sake of having a clean system, you may want to yet again, reinstall TinyTex.
+> 
+> If these additional steps still do not resolve the issue, it may be prudent to post to the TinyTex issues forum on Github:
+> 
+>  https://github.com/rstudio/tinytex/issues
+> 
+> perhaps with a reference back to that older rmarkdown issue, to see if any of the folks there might have some additional guidance.
+> 
+> Regards,
+> 
+> Marc
+> 
+> 
+> 
+> From: Antony Unwin <unwin at math.uni-augsburg.de>
+> Date: Wednesday, May 8, 2024 at 11:53?AM
+> To: Marc Schwartz <marc_schwartz at me.com>
+> Cc: <r-sig-mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] Table of contents for book changed after LaTeX update
+> 
+> Marc,
+> 
+> That makes a lot of sense, thanks for finding the rmarkdown issue and for your detailed instructions.  It turned out I had three (!) TeXLive versions, the latest being 2015, and I have deleted these and the texmf-local folder.  I also uninstalled TinyTeX, rebooted, and installed TinyTeX again.  This has not solved my problem, but I suspect I have missed deleting something that should be deleted, perhaps /Library/TeX?
+> 
+> Antony 
+> 
+> 
+> 
+> 
+> On 8 May 2024, at 16:37, Marc Schwartz <marc_schwartz at me.com> wrote:
+> 
+> Hi Antony,
+> 
+> Going back and looking at the thread over the weekend, I am wondering, if you did not uninstall the older version of TexLive/MacTeX, and there may be some conflicts with TinyTex, especially given the age of your old TexLive/MacTeX version.
+> 
+> I found the following report, albeit, from 2021:
+> 
+>  https://github.com/rstudio/rmarkdown/issues/2172
+> 
+> that might support the hypothesis of a conflict between the two TeX installations.
+> 
+> TeXLive/MacTex will typically install in /usr/local/texlive/XXXX, where XXXX is the year of the version. If that is still present, or there is more than one, and presuming that you want to stay with TinyTeX, I would remove the old installation(s).
+> 
+> There will also be a texmf-local folder in the /usr/local/texlive folder and you should probably remove that as well.
+> 
+> After the above, you may want to reboot your Mac, then reinstall TinyTeX, just to be sure that you then have a full and clean install.
+> 
+> I install the full MacTeX version of TexLive from https://tug.org/mactex/, and just update the installation each year, removing the prior year's version, typically in the March/April timeframe on release. I also do frequent incremental updates of the installation using the TexLive utility app.
+> 
+> Regards,
+> 
+> Marc Schwartz
+> 
+> 
+> ?-----Original Message-----
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org <mailto:r-sig-mac-bounces at r-project.org>> on behalf of Antony Unwin <unwin at math.uni-augsburg.de <mailto:unwin at math.uni-augsburg.de>>
+> Date: Wednesday, May 8, 2024 at 9:46 AM
+> To: <r-sig-mac at r-project.org <mailto:r-sig-mac at r-project.org>>
+> Subject: [R-SIG-Mac] Table of contents for book changed after LaTeX update
+> 
+> 
+> At the weekend I asked about a LaTex problem I had on the Mac and got an immediate solution, great! I have accordingly updated my LaTeX using tinytex and have a new problem. When I built my book with bookdown using the updated LaTeX there were a few small changes that I had to fix, some of which I think may have been due to a bit more space being given around tables, graphics, and lists. There was also a large change, the table of contents has extra spacing everywhere, so that now it needs 7 pages instead of 5. How can I get the old table of contents back?
+> 
+> 
+> The book is for CRCPress and uses their krantz.cls LaTeX class file.
+> 
+> 
+> Thanks, as always, for any help.
+> 
+> 
+> Antony
+> 
+> 
+> Professor (em.) Antony Unwin
+> Mathematics Institute,
+> University of Augsburg, 
+> 86135 Augsburg, Germany
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>
+> 
+> 
+> 
+> 
+> 
+> 
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Mon May 20 12:06:22 2024
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Mon, 20 May 2024 06:06:22 -0400
+Subject: [R-SIG-Mac] Some M3 upgrade notes
+Message-ID: <a458a577-8aa7-4089-8922-8a12be8909f7@gmail.com>
+
+I've got a new M3 Macbook Air.  My previous laptop was Intel based, so 
+there were a few issues with the update.  I wanted to leave some notes 
+here in case anyone else has these problems.
+
+1.  The notes in the Installation and Administration guide suggest using
+
+   FFLAGS="-g -O2 -mmacos-version-min=11.0"
+   FCFLAGS="-g -O2 -mmacos-version-min=11.0"
+
+in the config.site file.  That causes an error; the last option needs to 
+be "-mmacosx-version-min=11.0", or it can be left out completely.
+
+2.  The Xcode command line tools that I installed on the Intel Mac 
+conflict somehow with the new ones installed by
+
+   xcode-select --install
+
+I deleted /Library/Developer/CommandLineTools and reinstalled them.
+
+3.  Simon's script that is installed by
+
+   source("https://mac.R-project.org/bin/install.R")
+
+doesn't report permission errors.  For me it worked at first, but then 
+at some point (not sure when) it started failing to be able to create 
+directories to hold the libs it was installing, but its output still 
+looked like it was working. Running R under sudo fixed this.  Changing 
+ownership as suggested in the Installation and Admin manual section 
+C.3.1 should also have worked, but I didn't notice that until later.
+
+Duncan Murdoch
+
+
+From g||berto@c@m@r@ @end|ng |rom |npe@br  Mon May 20 14:48:59 2024
+From: g||berto@c@m@r@ @end|ng |rom |npe@br (Gilberto Camara)
+Date: Mon, 20 May 2024 09:48:59 -0300
+Subject: [R-SIG-Mac] M3 not working with torch
+Message-ID: <C878DA23-99F6-4719-85AA-487BB99F63DF@inpe.br>
+
+Dear R-SIG-MAC
+
+I bought a new MacBook Air with the M3 chip, which has 8 CPUs, 10 GPUs, and 16GB of integrated memory. My R `torch` apps are crashing. I have assembled an MWE that works on other Mac architectures, including MacBook Air M1 and MacMini. The OS is the same (Sonoma 14.5). The MWE follows:
+
+```{r}
+# ==== MWE
+
+# Download the training samples
+rds_file <- "https://raw.githubusercontent.com/e-sensing/sitsdata/master/inst/extdata/torch/train_samples.rds?raw=true"
+dest_file <- paste0(tempdir(),"/train_samples.rds")
+download.file(rds_file,
+              destfile = dest_file,
+              method = "curl")
+train_samples <- readRDS(dest_file)
+
+# Sample labels
+labels <- c("Cerrado", "Forest", "Pasture", "Soy_Corn")
+
+# Create numeric labels vector
+code_labels <- seq_along(labels)
+names(code_labels) <- labels
+
+# Split the data into training and validation data sets
+# Create partitions for different splits of the input data
+frac <- 0.2
+train_samples <- dplyr::group_by(train_samples, .data[["label"]])
+test_samples <- train_samples |>
+    dplyr::slice_sample(prop = frac) |>
+    dplyr::ungroup()
+    
+# Remove the lines used for validation
+sel <- !train_samples[["sample_id"]] %in% test_samples[["sample_id"]]
+train_samples <- train_samples[sel, ]
+
+# Shuffle the data
+train_samples <- train_samples[sample(nrow(train_samples), nrow(train_samples)), ]
+test_samples <- test_samples[sample(nrow(test_samples), nrow(test_samples)), ]
+
+# Organize data for model training
+train_x <- as.matrix(train_samples[, -2:0])
+train_y <- unname(code_labels[train_samples[["label"]]])
+
+# Create the test data
+test_x <- as.matrix(test_samples[, -2:0])
+test_y <- unname(code_labels[test_samples[["label"]]])
+
+# Set torch seed
+torch::torch_manual_seed(sample.int(10^5, 1))
+
+# Avoid a global variable for 'self'
+self <- NULL
+
+# function to create a simple sequential NN module
+.torch_linear_relu_dropout <- torch::nn_module(
+    classname = "torch_linear_batch_norm_relu_dropout",
+    initialize = function(input_dim,
+                          output_dim,
+                          dropout_rate) {
+        self$block <- torch::nn_sequential(
+            torch::nn_linear(input_dim, output_dim),
+            torch::nn_relu(),
+            torch::nn_dropout(dropout_rate)
+        )
+    },
+    forward = function(x) {
+        self$block(x)
+    }
+)
+
+# Define the MLP architecture
+mlp_model <- torch::nn_module(
+    initialize = function(num_pred, layers, dropout_rates, y_dim) {
+        tensors <- list()
+        # input layer
+        tensors[[1]] <- .torch_linear_relu_dropout(
+            input_dim = num_pred,
+            output_dim = 512,
+            dropout_rate = 0.40
+        )
+        # output layer
+        tensors[[length(tensors) + 1]] <-
+            torch::nn_linear(layers[length(layers)], y_dim)
+        # add softmax tensor
+        tensors[[length(tensors) + 1]] <- torch::nn_softmax(dim = 2)
+        # create a sequential module that calls the layers in the same
+        # order.
+        self$model <- torch::nn_sequential(!!!tensors)
+    },
+    forward = function(x) {
+        self$model(x)
+    }
+)
+# Train the model using luz
+
+torch_model <- luz::setup(
+    module = mlp_model,
+    loss = torch::nn_cross_entropy_loss(),
+    metrics = list(luz::luz_metric_accuracy()),
+    optimizer = torch::optim_adamw,
+)
+torch_model <- luz::set_hparams(
+    torch_model,
+    num_pred = ncol(train_x),
+    layers = 512,
+    dropout_rates = 0.3,
+    y_dim = length(code_labels)
+)
+torch_model <- luz::set_opt_hparams(
+    torch_model,
+    lr = 0.001,
+    eps = 1e-08,
+    weight_decay = 1.0e-06
+)
+torch_model <- luz::fit(
+    torch_model,
+    data = list(train_x, train_y),
+    epochs = 100,
+    valid_data = list(test_x, test_y),
+    callbacks = list(luz::luz_callback_early_stopping(
+        patience = 20,
+        min_delta = 0.01
+    )),
+  verbose = TRUE
+)
+
+```
+The error occurs in the `luz::fit` function. Inside RStudio, the code gets stuck, and then RStudio asks to restart R. When running R from the terminal, the output is:
+```{r}
+ *** caught bus error ***
+address 0x16daa0000, cause 'invalid alignment'
+
+ *** caught segfault ***
+address 0x9, cause 'invalid permissions'
+zsh: segmentation fault  R
+```
+The `sessionInfo()` output is as follows:
+
+```{r}
+
+R version 4.4.0 (2024-04-24)
+Platform: aarch64-apple-darwin20
+Running under: macOS Sonoma 14.5
+
+Matrix products: default
+BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Sao_Paulo
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+ [1] crayon_1.5.2      vctrs_0.6.5       cli_3.6.2         zeallot_0.1.0    
+ [5] rlang_1.1.3       processx_3.8.4    generics_0.1.3    torch_0.12.0.9000
+ [9] coro_1.0.4        glue_1.7.0        bit_4.0.5         prettyunits_1.2.0
+[13] luz_0.4.0         ps_1.7.6          hms_1.1.3         fansi_1.0.6      
+[17] tibble_3.2.1      progress_1.2.3    lifecycle_1.0.4   compiler_4.4.0   
+[21] dplyr_1.1.4       fs_1.6.4          Rcpp_1.0.12       pkgconfig_2.0.3  
+[25] rstudioapi_0.16.0 R6_2.5.1          tidyselect_1.2.1  utf8_1.2.4       
+[29] pillar_1.9.0      callr_3.7.6       magrittr_2.0.3    tools_4.4.0      
+[33] bit64_4.0.5     
+```
+
+Any clues will be most appreciated. 
+
+Thanks
+Gilberto
+============================
+Prof Dr Gilberto Camara
+Senior Researcher
+National Institute for Space Research (INPE), Brazil
+https://gilbertocamara.org/
+=============================
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Mon May 20 22:48:25 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Tue, 21 May 2024 08:48:25 +1200
+Subject: [R-SIG-Mac] M3 not working with torch
+In-Reply-To: <C878DA23-99F6-4719-85AA-487BB99F63DF@inpe.br>
+References: <C878DA23-99F6-4719-85AA-487BB99F63DF@inpe.br>
+Message-ID: <778A3C18-A506-44B3-A48B-29767A14F5CE@R-project.org>
+
+Gilberto,
+
+since luz is a contributed package, you should probably start first by asking the authors. Given that the torch ecosystem is quite complex and has several layers that need to work together, even if you talk to them, you probably need to add details such as exact versions used (including the torch and metal layers) and how you installed the pieces (I know you helpfully supplied sesisonInfo() but I suspect that info such as exact torch run-time is pertinent as well). Next step would be to trace the error - check the system crash reporter or run R -d lldb to find out the exact library the crash happens in which may give you more clues. I don't have any M3 machines so I can't check myself, unfortunately.
+
+Cheers,
+Simon
+
+
+
+> On 21/05/2024, at 12:48 AM, Gilberto Camara <gilberto.camara at inpe.br> wrote:
+> 
+> Dear R-SIG-MAC
+> 
+> I bought a new MacBook Air with the M3 chip, which has 8 CPUs, 10 GPUs, and 16GB of integrated memory. My R `torch` apps are crashing. I have assembled an MWE that works on other Mac architectures, including MacBook Air M1 and MacMini. The OS is the same (Sonoma 14.5). The MWE follows:
+> [...]
+> ```
+> The error occurs in the `luz::fit` function. Inside RStudio, the code gets stuck, and then RStudio asks to restart R. When running R from the terminal, the output is:
+> ```{r}
+> *** caught bus error ***
+> address 0x16daa0000, cause 'invalid alignment'
+> 
+> *** caught segfault ***
+> address 0x9, cause 'invalid permissions'
+> zsh: segmentation fault  R
+> ```
+> The `sessionInfo()` output is as follows:
+
+
+From g||berto@c@m@r@ @end|ng |rom |npe@br  Mon May 20 23:52:23 2024
+From: g||berto@c@m@r@ @end|ng |rom |npe@br (Gilberto Camara)
+Date: Mon, 20 May 2024 18:52:23 -0300
+Subject: [R-SIG-Mac] M3 not working with torch
+In-Reply-To: <778A3C18-A506-44B3-A48B-29767A14F5CE@R-project.org>
+References: <C878DA23-99F6-4719-85AA-487BB99F63DF@inpe.br>
+ <778A3C18-A506-44B3-A48B-29767A14F5CE@R-project.org>
+Message-ID: <3B7135C9-4247-4650-BAEB-5C5617B48502@inpe.br>
+
+Dear Simon
+
+Many thanks for your response and suggestions. I have raised an issue in the R torch repository: 
+
+https://github.com/mlverse/torch/issues/1167
+
+All the best
+Gilberto
+============================
+Prof Dr Gilberto Camara
+Senior Researcher
+National Institute for Space Research (INPE), Brazil
+https://gilbertocamara.org/
+=============================
+
+
+
+
+> On 20 May 2024, at 17:48, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+> 
+> Gilberto,
+> 
+> since luz is a contributed package, you should probably start first by asking the authors. Given that the torch ecosystem is quite complex and has several layers that need to work together, even if you talk to them, you probably need to add details such as exact versions used (including the torch and metal layers) and how you installed the pieces (I know you helpfully supplied sesisonInfo() but I suspect that info such as exact torch run-time is pertinent as well). Next step would be to trace the error - check the system crash reporter or run R -d lldb to find out the exact library the crash happens in which may give you more clues. I don't have any M3 machines so I can't check myself, unfortunately.
+> 
+> Cheers,
+> Simon
+> 
+> 
+> 
+>> On 21/05/2024, at 12:48 AM, Gilberto Camara <gilberto.camara at inpe.br> wrote:
+>> 
+>> Dear R-SIG-MAC
+>> 
+>> I bought a new MacBook Air with the M3 chip, which has 8 CPUs, 10 GPUs, and 16GB of integrated memory. My R `torch` apps are crashing. I have assembled an MWE that works on other Mac architectures, including MacBook Air M1 and MacMini. The OS is the same (Sonoma 14.5). The MWE follows:
+>> [...]
+>> ```
+>> The error occurs in the `luz::fit` function. Inside RStudio, the code gets stuck, and then RStudio asks to restart R. When running R from the terminal, the output is:
+>> ```{r}
+>> *** caught bus error ***
+>> address 0x16daa0000, cause 'invalid alignment'
+>> 
+>> *** caught segfault ***
+>> address 0x9, cause 'invalid permissions'
+>> zsh: segmentation fault  R
+>> ```
+>> The `sessionInfo()` output is as follows:
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From pm|||n @end|ng |rom gm@||@com  Thu May 23 17:00:36 2024
+From: pm|||n @end|ng |rom gm@||@com (Petar Milin)
+Date: Thu, 23 May 2024 16:00:36 +0100
+Subject: [R-SIG-Mac] library 'quadmath' not found
+Message-ID: <2b9b73ea-ff83-426d-9919-f716a1a8db86@Canary>
+
+I have recently updated my R (4.4.0) and all the packages running on Sonoma (14.5) with Intel. When I try to install from GitHub with:
+
+install_github("zdk123/SpiecEasi")
+
+I get the error message:
+
+ld: warning: search path '/opt/gfortran/lib/gcc/x86_64-apple-darwin20.0/12.2.0' not found
+ld: warning: search path '/opt/gfortran/lib' not found
+ld: library 'quadmath' not found
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make: *** [SpiecEasi.so] Error 1
+ERROR: compilation failed for package ?SpiecEasi?
+
+I did
+
+xcode-select ?install
+
+but that was done already.
+
+I also installed
+
+gfortran-4.2.3.pkg
+
+but that did not help either.
+
+Can anyone advise, please?
+
+Many thanks!
+
+
+	[[alternative HTML version deleted]]
+
+
+From r|p|ey @end|ng |rom @t@t@@ox@@c@uk  Thu May 23 18:03:04 2024
+From: r|p|ey @end|ng |rom @t@t@@ox@@c@uk (Prof Brian Ripley)
+Date: Thu, 23 May 2024 17:03:04 +0100
+Subject: [R-SIG-Mac] library 'quadmath' not found
+In-Reply-To: <2b9b73ea-ff83-426d-9919-f716a1a8db86@Canary>
+References: <2b9b73ea-ff83-426d-9919-f716a1a8db86@Canary>
+Message-ID: <b85cda51-bb03-4fa3-b556-ec7fea58e3de@stats.ox.ac.uk>
+
+On 23/05/2024 16:00, Petar Milin wrote:
+> I have recently updated my R (4.4.0) and all the packages running on Sonoma (14.5) with Intel. When I try to install from GitHub with:
+> 
+> install_github("zdk123/SpiecEasi")
+> 
+> I get the error message:
+> 
+> ld: warning: search path '/opt/gfortran/lib/gcc/x86_64-apple-darwin20.0/12.2.0' not found
+> ld: warning: search path '/opt/gfortran/lib' not found
+                ^^^^ is the important message.
+
+> ld: library 'quadmath' not found
+> clang: error: linker command failed with exit code 1 (use -v to see invocation)
+> make: *** [SpiecEasi.so] Error 1
+> ERROR: compilation failed for package ?SpiecEasi?
+> 
+> I did
+> 
+> xcode-select ?install
+> 
+> but that was done already.
+> 
+> I also installed
+> 
+> gfortran-4.2.3.pkg
+> 
+> but that did not help either.
+
+Please remove it via pkgutils: it is way too old.
+
+> Can anyone advise, please?
+
+Please read the R-admin manual.  To install a package using Fortran from 
+sources you need to install 
+https://mac.r-project.org/tools/gfortran-12.2-universal.pkg, also 
+indicated via the tools page linked from 
+https://cran.r-project.org/bin/macosx/
+
+
+-- 
+Brian D. Ripley,                  ripley at stats.ox.ac.uk
+Emeritus Professor of Applied Statistics, University of Oxford
+
+
+From r|p|ey @end|ng |rom @t@t@@ox@@c@uk  Sun May 26 09:42:40 2024
+From: r|p|ey @end|ng |rom @t@t@@ox@@c@uk (Prof Brian Ripley)
+Date: Sun, 26 May 2024 08:42:40 +0100
+Subject: [R-SIG-Mac] FLIBS for binary R installations (was library
+ 'quadmath' not found)
+In-Reply-To: <b85cda51-bb03-4fa3-b556-ec7fea58e3de@stats.ox.ac.uk>
+References: <2b9b73ea-ff83-426d-9919-f716a1a8db86@Canary>
+ <b85cda51-bb03-4fa3-b556-ec7fea58e3de@stats.ox.ac.uk>
+Message-ID: <88c2dcaa-9707-43f4-811a-d878db1886f7@stats.ox.ac.uk>
+
+This is only about use of CRAN binary installations of R, and
+specifically the arm64 build of R 4.4.0.  It is rather technical ... but
+with a simple take-home message at the end.
+
+Because CRAN binary distributions contain copies of the Fortran
+runtime libraries there are a number of other possibilities.
+The distributed etc/Makeconf contains
+
+FLIBS =  -L/opt/gfortran/lib/gcc/aarch64-apple-darwin20.0/12.2.0 
+-L/opt/gfortran/lib -lgfortran -lemutls_w -lquadmath
+
+(Only the arm64 version contains -lemutls_w: it is a static library so
+only needed when compiling Fortran code, and probably only Fortran
+code using OpenMP and that has to be linked by gfortran and so does not
+use FLIBS.)
+
+https://cran.r-project.org/doc/manuals/r-devel/R-admin.html#macOS-packages
+and
+https://cran.r-project.org/doc/manuals/r-devel/R-admin.html#macOS-packages
+
+describe how to override this, either personally (via ~/.R/Makevars)
+or for all users (set R_MAKEVARS_SITE).
+
+FLIBS is used when installing a package that contains Fortran source
+code or links to Fortran libraries, most prominently BLAS and LAPACK
+libraries.  The way linking works is rather different on macOS
+from other platforms.
+
+
+Scenarios
+=========
+
+a) If you want to compile a package from sources containing Fortran
+code, you will need the recommended Fortran compiler and installing
+that will match the FLIBS in the distribution. It will also work to
+use
+
+FLIBS = -L/Library/Frameworks/R.framework/Resources/lib -lgfortran 
+-lquadmath
+
+NB: a large majority of the Fortran-using packages do not make any calls 
+to the Fortran runtime libraries, so any setting of FLIBS including 
+empty will work provided it does not refer to non-existent paths.
+
+If you use a different compiler (such as those for gfortran 13 or 14 
+mentioned in the manual), you will need to set FLIBS appropriately but 
+the above will probably do.
+
+
+b) Compiling a package from source which calls BLAS or LAPACK but not 
+Fortran will need to find the Fortran runtime libraries.  As the 
+distributed BLAS and LAPACK libraries are already built against those 
+included with R and hardcode their paths, you could also use
+
+FLIBS =
+
+
+c) Installing a CRAN binary package that uses Fortran source code.
+This will have a .so linked against the Fortran libraries from the
+CRAN binary R, e.g.
+
+auk2% otool -L Hmisc/libs/Hmisc.so
+Hmisc/libs/Hmisc.so:
+	Hmisc.so (compatibility version 0.0.0, current version 0.0.0)
+	/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libgfortran.5.dylib (compatibility version 6.0.0, current version 6.0.0)
+	/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libquadmath.0.dylib (compatibility version 1.0.0, current version 1.0.0)
+	/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libR.dylib (compatibility version 4.4.0, current version 4.4.0)
+
+So FLIBS is not used.  (Actually Hmisc is one of the many packages
+with no calls to the Fortran runtime libraries.)
+
+Ditto for a binary package which calls BLAS or LAPACK.
+
+This may not be the case for binary packages from other repositories.
+
+
+d) A very few packages compile a Fortran executable (cepreader,
+x13binary, INLA).  As these are linked by gfortran, FLIBS is not used,
+but the CRAN binary package for cepreader is linked against the paths
+in the gfortran distribution so that is required.  For x13binary the
+R-provided libs are used whereas INLA ships its own copies (but has
+missed one).
+
+
+It seems that life for those using binary builds would be simpler if
+their etc/Makeconf contained
+
+FLIBS = -L/Library/Frameworks/R.framework/Resources/lib -lgfortran 
+-lquadmath
+
+Until that is done, I recommend creating a ~/.R/Makevars file
+containing that line.
+
+
+
+On 23/05/2024 17:03, Prof Brian Ripley via R-SIG-Mac wrote:
+> On 23/05/2024 16:00, Petar Milin wrote:
+>> I have recently updated my R (4.4.0) and all the packages running on 
+>> Sonoma (14.5) with Intel. When I try to install from GitHub with:
+>>
+>> install_github("zdk123/SpiecEasi")
+>>
+>> I get the error message:
+>>
+>> ld: warning: search path 
+>> '/opt/gfortran/lib/gcc/x86_64-apple-darwin20.0/12.2.0' not found
+>> ld: warning: search path '/opt/gfortran/lib' not found
+>  ?????????????? ^^^^ is the important message.
+> 
+>> ld: library 'quadmath' not found
+>> clang: error: linker command failed with exit code 1 (use -v to see 
+>> invocation)
+>> make: *** [SpiecEasi.so] Error 1
+>> ERROR: compilation failed for package ?SpiecEasi?
+>>
+>> I did
+>>
+>> xcode-select ?install
+>>
+>> but that was done already.
+>>
+>> I also installed
+>>
+>> gfortran-4.2.3.pkg
+>>
+>> but that did not help either.
+> 
+> Please remove it via pkgutils: it is way too old.
+> 
+>> Can anyone advise, please?
+> 
+> Please read the R-admin manual.? To install a package using Fortran from 
+> sources you need to install 
+> https://mac.r-project.org/tools/gfortran-12.2-universal.pkg, also 
+> indicated via the tools page linked from 
+> https://cran.r-project.org/bin/macosx/
+> 
+> 
+
+-- 
+Brian D. Ripley,                  ripley at stats.ox.ac.uk
+Emeritus Professor of Applied Statistics, University of Oxford
+
+

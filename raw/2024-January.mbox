@@ -1,0 +1,629 @@
+From jeroenoom@ @end|ng |rom gm@||@com  Tue Jan  2 20:21:56 2024
+From: jeroenoom@ @end|ng |rom gm@||@com (Jeroen Ooms)
+Date: Tue, 2 Jan 2024 20:21:56 +0100
+Subject: [R-SIG-Mac] Cross compilation and linking without -undefined
+Message-ID: <CABFfbXswfjj3dWg3+2SaWMBS8rQVLW6SiMZ_3wXRcpSf31edvw@mail.gmail.com>
+
+R on MacOS defaults to linking with "-undefined dynamic_lookup" when
+building packages, which suppresses linking errors due to undefined
+symbols. Undefined symbols often indicate that the package has omitted
+a required library in PKG_LIBS, or that the architecture of the static
+lib does not match the target. When this happens, CMD INSTALL usually
+fails to load the package dylib in the subsequent "test-load" step,
+unless the undefined symbols are already preloaded in the process via
+base R (e.g. zlib, iconv, etc) in which case it goes unnoticed.
+
+I was wondering what is the benefit of suppressing linking errors this
+way? Afaik R does not do this on other platforms. A failure at the
+"test-load" step gives a cryptic error indicating only the mangled
+name of the first undefined symbol. The linker can provide much nicer
+error messages, detailing the names and locations of undefined
+symbols.
+
+Another motivation for looking into this is to support cross compiling
+of R packages on MacOS. We are exploring several ways to cross compile
+R packages, including:
+
+  macos-x86_64 -> macos-arm64 (by overriding -arch in Makeconf)
+  linux-x86_64 -> macos-x86_64 (using osxcross)
+  linux-x86_64 -> macos-arm64 (using osxcross)
+
+The main challenge with cross compiling is that we cannot test-load
+the R package on the host machine, so we always have to build with
+--no-test-load. However this is dangerous in combination with the
+"-undefined" flag, because we don't catch undefined symbols anymore.
+
+Unfortunately undefined symbols are a common problem when cross
+compiling, because some packages mistakenly assume host == target, and
+then build/link a lib for the wrong arch. If we don't catch this, we
+end up shipping broken binary R packages to end-users, which we want
+to prevent.
+
+To remedy this, I am testing to build packages using the same setup as
+CRAN (MacOSX11.sdk + libs from
+https://mac.r-project.org/bin/darwin20/) but without the "-undefined
+dynamic_lookup" flag, like so:
+
+  sed -i.bak 's/-undefined dynamic_lookup//g' $(R RHOME)/etc/Makeconf
+
+This works fine for almost all packages. Some do reveal a linking
+problem, but these are mostly real bugs and easily fixable. For
+example the httpuv package fails with:
+
+ld: Undefined symbols:
+  _deflate, referenced from:
+      GZipDataSource::getData(unsigned long) in gzipdatasource.o
+      GZipDataSource::deflateNext() in gzipdatasource.o
+  _deflateEnd, referenced from:
+      GZipDataSource::~GZipDataSource() in gzipdatasource.o
+
+Note how the above message from the linker is very clear in what is
+missing and where. This error is accurate, because httpuv indeed calls
+external libz, but fails to set "-lz" in PKG_LIBS. This was never
+noticed because libz.dylib is preloaded in R, hence the test-load does
+not notice the bug.
+
+Another example is 'arrow' which was missing "-framework Security" in
+PKG_LIBS. This will be fixed in the upcoming CRAN release. There were
+a few more of such cases where PKG_LIBS was missing some lib of
+Framework, but they are mostly fixable.
+
+One problem I have not solved is the RcppParallel package, which
+bundles another library (libtbb) which is not linked but lazy-loaded
+(not sure why). This causes linking errors or some other packages that
+have LinkingTo: RcppParallel. Perhaps this can be solved by providing
+a static libtbb via the cran recipes, such that RcppParallel does not
+have to bundle one.
+
+It would be really nice if eventually R could remove "-undefined" from
+the default linker flags when building R packages. This makes build
+logs more informative and easier to debug, and forces packages to
+specify complete linker flags, which will eventually enable safer
+cross-compiling (including of universal binaries).
+
+
+From r|p|ey @end|ng |rom @t@t@@ox@@c@uk  Wed Jan  3 08:11:53 2024
+From: r|p|ey @end|ng |rom @t@t@@ox@@c@uk (Prof Brian Ripley)
+Date: Wed, 3 Jan 2024 07:11:53 +0000
+Subject: [R-SIG-Mac] Cross compilation and linking without -undefined
+In-Reply-To: <CABFfbXswfjj3dWg3+2SaWMBS8rQVLW6SiMZ_3wXRcpSf31edvw@mail.gmail.com>
+References: <CABFfbXswfjj3dWg3+2SaWMBS8rQVLW6SiMZ_3wXRcpSf31edvw@mail.gmail.com>
+Message-ID: <1acde9d4-7bbb-4654-a073-33dabf92b1cb@stats.ox.ac.uk>
+
+This is just a default.  AFAICS it is set in DYLIB_LDFLAGS and you can 
+set that as you wish - it is documented in config.site.
+
+That cross-compilation cannot test-load is a major reason not to use it 
+and why support for packages was downplayed on Windows.
+
+On 02/01/2024 19:21, Jeroen Ooms wrote:
+> R on MacOS defaults to linking with "-undefined dynamic_lookup" when
+> building packages, which suppresses linking errors due to undefined
+> symbols. Undefined symbols often indicate that the package has omitted
+> a required library in PKG_LIBS, or that the architecture of the static
+> lib does not match the target. When this happens, CMD INSTALL usually
+> fails to load the package dylib in the subsequent "test-load" step,
+> unless the undefined symbols are already preloaded in the process via
+> base R (e.g. zlib, iconv, etc) in which case it goes unnoticed.
+> 
+> I was wondering what is the benefit of suppressing linking errors this
+> way? Afaik R does not do this on other platforms. A failure at the
+> "test-load" step gives a cryptic error indicating only the mangled
+> name of the first undefined symbol. The linker can provide much nicer
+> error messages, detailing the names and locations of undefined
+> symbols.
+
+It may, but it often does not.  Frequently test-loading shows issues in 
+complex C++-using packages: you mention 'arrow' and that is a current 
+(and frequent) failure on Linux.
+
+> Another motivation for looking into this is to support cross compiling
+> of R packages on MacOS. We are exploring several ways to cross compile
+> R packages, including:
+> 
+>    macos-x86_64 -> macos-arm64 (by overriding -arch in Makeconf)
+>    linux-x86_64 -> macos-x86_64 (using osxcross)
+>    linux-x86_64 -> macos-arm64 (using osxcross)
+> 
+> The main challenge with cross compiling is that we cannot test-load
+> the R package on the host machine, so we always have to build with
+> --no-test-load. However this is dangerous in combination with the
+> "-undefined" flag, because we don't catch undefined symbols anymore.
+> 
+> Unfortunately undefined symbols are a common problem when cross
+> compiling, because some packages mistakenly assume host == target, and
+> then build/link a lib for the wrong arch. If we don't catch this, we
+> end up shipping broken binary R packages to end-users, which we want
+> to prevent.
+> 
+> To remedy this, I am testing to build packages using the same setup as
+> CRAN (MacOSX11.sdk + libs from
+> https://mac.r-project.org/bin/darwin20/) but without the "-undefined
+> dynamic_lookup" flag, like so:
+> 
+>    sed -i.bak 's/-undefined dynamic_lookup//g' $(R RHOME)/etc/Makeconf
+> 
+> This works fine for almost all packages. Some do reveal a linking
+> problem, but these are mostly real bugs and easily fixable. For
+> example the httpuv package fails with:
+> 
+> ld: Undefined symbols:
+>    _deflate, referenced from:
+>        GZipDataSource::getData(unsigned long) in gzipdatasource.o
+>        GZipDataSource::deflateNext() in gzipdatasource.o
+>    _deflateEnd, referenced from:
+>        GZipDataSource::~GZipDataSource() in gzipdatasource.o
+> 
+> Note how the above message from the linker is very clear in what is
+> missing and where. This error is accurate, because httpuv indeed calls
+> external libz, but fails to set "-lz" in PKG_LIBS. This was never
+> noticed because libz.dylib is preloaded in R, hence the test-load does
+> not notice the bug.
+> 
+> Another example is 'arrow' which was missing "-framework Security" in
+> PKG_LIBS. This will be fixed in the upcoming CRAN release. There were
+> a few more of such cases where PKG_LIBS was missing some lib of
+> Framework, but they are mostly fixable.
+> 
+> One problem I have not solved is the RcppParallel package, which
+> bundles another library (libtbb) which is not linked but lazy-loaded
+> (not sure why). This causes linking errors or some other packages that
+> have LinkingTo: RcppParallel. Perhaps this can be solved by providing
+> a static libtbb via the cran recipes, such that RcppParallel does not
+> have to bundle one.
+> 
+> It would be really nice if eventually R could remove "-undefined" from
+> the default linker flags when building R packages. This makes build
+> logs more informative and easier to debug, and forces packages to
+> specify complete linker flags, which will eventually enable safer
+> cross-compiling (including of universal binaries).
+
+-- 
+Brian D. Ripley,                  ripley at stats.ox.ac.uk
+Emeritus Professor of Applied Statistics, University of Oxford
+
+
+From brod|e@g@@|@m @end|ng |rom y@hoo@com  Sun Jan 21 15:09:43 2024
+From: brod|e@g@@|@m @end|ng |rom y@hoo@com (Brodie Gaslam)
+Date: Sun, 21 Jan 2024 14:09:43 +0000 (UTC)
+Subject: [R-SIG-Mac] Arm 64 Nightly Build URL Missing
+In-Reply-To: <1703932861.712273.1697900843506@mail.yahoo.com>
+References: <1703932861.712273.1697900843506.ref@mail.yahoo.com>
+ <1703932861.712273.1697900843506@mail.yahoo.com>
+Message-ID: <861613641.1097332.1705846183686@mail.yahoo.com>
+
+Hi,
+
+In addition to the missing link described below, it looks like the nightly build tar.gz has not been updated since 2023-10-30.? This corresponds to the build log[1].? The x86-64 version seems to have a much more recent version (2024-01-19).? I have other methods of running R-devel so this is just an FYI.
+
+Best,
+
+B.
+
+PS: the current arm64 version is 2023-10-30 r85440, which interestingly is a bit newer than the one I reported in the prior e-mail.
+
+[1]: https://mac.r-project.org/logs/log-R-devel.big-sur.arm64.html
+
+
+
+
+
+
+On Saturday, October 21, 2023 at 11:07:23 AM EDT, Brodie Gaslam <brodie.gaslam at yahoo.com> wrote: 
+
+
+
+
+
+Hi,
+
+For some reason the URL in the nightly builds[1] table for the arm64 tar.gz is missing.? The actual tar.gz is there if I start with the x86 URL and modify it, but it is an older version r85331 vs r85355.? Not a big deal at all on my account, just an FYI.
+
+Thanks for all the hard work of keeping up this infrastructure.? It is really helpful to me.
+
+Best,
+
+B.
+
+[1]: https://mac.r-project.org/#nightly
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Mon Jan 22 00:22:37 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Mon, 22 Jan 2024 12:22:37 +1300
+Subject: [R-SIG-Mac] Arm 64 Nightly Build URL Missing
+In-Reply-To: <861613641.1097332.1705846183686@mail.yahoo.com>
+References: <1703932861.712273.1697900843506.ref@mail.yahoo.com>
+ <1703932861.712273.1697900843506@mail.yahoo.com>
+ <861613641.1097332.1705846183686@mail.yahoo.com>
+Message-ID: <BA2C1437-F696-4C63-9D47-8857F66EF002@R-project.org>
+
+Brodie,
+
+thanks. There was a problem between the two build VMs where the x86_64 one could overwrite arm64's content with a stale content before they got branched. This should now be fixed - each should be supplying only its own part.
+
+Cheers,
+Simon
+
+
+
+> On Jan 22, 2024, at 3:09 AM, Brodie Gaslam via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+> 
+> Hi,
+> 
+> In addition to the missing link described below, it looks like the nightly build tar.gz has not been updated since 2023-10-30.  This corresponds to the build log[1].  The x86-64 version seems to have a much more recent version (2024-01-19).  I have other methods of running R-devel so this is just an FYI.
+> 
+> Best,
+> 
+> B.
+> 
+> PS: the current arm64 version is 2023-10-30 r85440, which interestingly is a bit newer than the one I reported in the prior e-mail.
+> 
+> [1]: https://mac.r-project.org/logs/log-R-devel.big-sur.arm64.html
+> 
+> 
+> 
+> 
+> 
+> 
+> On Saturday, October 21, 2023 at 11:07:23 AM EDT, Brodie Gaslam <brodie.gaslam at yahoo.com> wrote: 
+> 
+> 
+> 
+> 
+> 
+> Hi,
+> 
+> For some reason the URL in the nightly builds[1] table for the arm64 tar.gz is missing.  The actual tar.gz is there if I start with the x86 URL and modify it, but it is an older version r85331 vs r85355.  Not a big deal at all on my account, just an FYI.
+> 
+> Thanks for all the hard work of keeping up this infrastructure.  It is really helpful to me.
+> 
+> Best,
+> 
+> B.
+> 
+> [1]: https://mac.r-project.org/#nightly
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From ESWRIGHT @end|ng |rom p|tt@edu  Mon Jan 22 15:41:26 2024
+From: ESWRIGHT @end|ng |rom p|tt@edu (Wright, Erik Scott)
+Date: Mon, 22 Jan 2024 14:41:26 +0000
+Subject: [R-SIG-Mac] Miniature plot windows
+Message-ID: <66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>
+
+Hi all,
+
+I recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.
+
+For example, my screen measures about 13.5" x 8.8" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0" x 2.0".
+
+It is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.
+
+Any suggestions would be appreciated.
+
+Erik
+
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.2.1
+
+
+From h@n@on @end|ng |rom dep@uw@edu  Mon Jan 22 16:06:25 2024
+From: h@n@on @end|ng |rom dep@uw@edu (Bryan Hanson)
+Date: Mon, 22 Jan 2024 08:06:25 -0700
+Subject: [R-SIG-Mac] Miniature plot windows
+In-Reply-To: <66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>
+References: <66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>
+Message-ID: <4D5CDD4D-2D69-4BEB-88DB-822E14F5C01E@depauw.edu>
+
+Just guessing here, but did you re-install/update XQuartz?  That?s recommended for new hardware and significant jumps in the R version.
+
+Bryan
+
+> On Jan 22, 2024, at 7:41?AM, Wright, Erik Scott <ESWRIGHT at pitt.edu> wrote:
+> 
+> Hi all,
+> 
+> I recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.
+> 
+> For example, my screen measures about 13.5" x 8.8" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0" x 2.0".
+> 
+> It is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.
+> 
+> Any suggestions would be appreciated.
+> 
+> Erik
+> 
+> R version 4.3.2 (2023-10-31)
+> Platform: aarch64-apple-darwin20 (64-bit)
+> Running under: macOS Sonoma 14.2.1
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+=============
+Bryan A. Hanson
+Prof. Emeritus, DePauw University
+Chemistry & Biochemistry
+hanson at depauw.edu
+profbryanhanson at gmail.com
+Nerdy blog: ChemoSpec.org
+I?m at GMT -7 year round
+
+
+
+
+
+
+
+	[[alternative HTML version deleted]]
+
+
+From ESWRIGHT @end|ng |rom p|tt@edu  Mon Jan 22 17:14:47 2024
+From: ESWRIGHT @end|ng |rom p|tt@edu (Wright, Erik Scott)
+Date: Mon, 22 Jan 2024 16:14:47 +0000
+Subject: [R-SIG-Mac] Miniature plot windows
+In-Reply-To: <4D5CDD4D-2D69-4BEB-88DB-822E14F5C01E@depauw.edu>
+References: <66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>
+ <4D5CDD4D-2D69-4BEB-88DB-822E14F5C01E@depauw.edu>
+Message-ID: <740EF615-46C9-40F1-ACE4-B2DF0C7095B4@pitt.edu>
+
+I was able to fix the problem by adding to my .Rprofile
+
+setHook(packageEvent("grDevices", "onLoad"),
+        function(...) grDevices::quartz.options(dpi=127))
+
+This creates a 7" x 7" plot by default after restarting R. The 127 is the screen's native dpi (254) divided by 2.
+
+I'm not sure where .External(C_Quartz, ...) is getting dpi from when it is NULL (the default), but the value was too small apparently.
+
+Erik
+
+
+On Jan 22, 2024, at 10:06?AM, Bryan Hanson <hanson at depauw.edu> wrote:
+
+Just guessing here, but did you re-install/update XQuartz?  That?s recommended for new hardware and significant jumps in the R version.
+
+Bryan
+
+On Jan 22, 2024, at 7:41?AM, Wright, Erik Scott <ESWRIGHT at pitt.edu<mailto:ESWRIGHT at pitt.edu>> wrote:
+
+Hi all,
+
+I recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.
+
+For example, my screen measures about 13.5" x 8.8" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0" x 2.0".
+
+It is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.
+
+Any suggestions would be appreciated.
+
+Erik
+
+R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.2.1
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+=============
+Bryan A. Hanson
+Prof. Emeritus, DePauw University
+Chemistry & Biochemistry
+hanson at depauw.edu<mailto:hanson at depauw.edu>
+profbryanhanson at gmail.com<mailto:profbryanhanson at gmail.com>
+Nerdy blog: ChemoSpec.org<http://chemospec.org/>
+I?m at GMT -7 year round
+
+
+	[[alternative HTML version deleted]]
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Mon Jan 22 22:27:07 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Tue, 23 Jan 2024 10:27:07 +1300
+Subject: [R-SIG-Mac] Miniature plot windows
+In-Reply-To: <66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>
+References: <66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>
+Message-ID: <54931EEF-773B-4F17-A667-AA91CF285E55@R-project.org>
+
+Erik,
+
+thanks, this is very unusual. Can you, please, send me more details about your setup? Please run the following two lines in Terminal and send me the full output:
+
+system_profiler SPHardwareDataType | grep Model
+system_profiler SPDisplaysDataType
+
+Then in R run the following code and also include the result:
+
+inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID(); CGSize ds = CGDisplayScreenSize(md); Rprintf("%.2f x %.2f -> %d x %d\\n", ds.width/25.4, ds.height/25.4, (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md)); return R_NilValue;','#include <ApplicationServices/ApplicationServices.h>')()
+
+This should result in something like this (install the inline package if you don't have it and you will also need command line tools which you can get by running
+xcode-select --install
+in Terminal if you don't have them):
+
+> inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID(); CGSize ds = CGDisplayScreenSize(md); Rprintf("%.2f x %.2f -> %d x %d\\n", ds.width/25.4, ds.height/25.4, (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md)); return R_NilValue;','#include <ApplicationServices/ApplicationServices.h>')()
+23.54 x 13.24 -> 2048 x 1152
+
+This shows the physical size of the screen (in inches) and the current resolution.
+
+The Quartz dpi setting is NULL by default which means "detect from hardware" which works on all Macs I have seen so the fact that it is way off is odd. The code above is how the dimensions are determined.
+
+Cheers,
+Simon
+
+PS: if the email processing mangled the above code here is a broken-down version that hopefully doesn't get mangled:
+
+inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID();
+CGSize ds = CGDisplayScreenSize(md);
+Rprintf("%.2f x %.2f -> %d x %d\\n", ds.width/25.4, ds.height/25.4,
+  (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md));
+return R_NilValue;',
+'#include <ApplicationServices/ApplicationServices.h>')()
+
+
+
+> On Jan 23, 2024, at 3:41 AM, Wright, Erik Scott <ESWRIGHT at pitt.edu> wrote:
+> 
+> Hi all,
+> 
+> I recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.
+> 
+> For example, my screen measures about 13.5" x 8.8" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0" x 2.0".
+> 
+> It is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.
+> 
+> Any suggestions would be appreciated.
+> 
+> Erik
+> 
+> R version 4.3.2 (2023-10-31)
+> Platform: aarch64-apple-darwin20 (64-bit)
+> Running under: macOS Sonoma 14.2.1
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From ESWRIGHT @end|ng |rom p|tt@edu  Mon Jan 22 23:06:09 2024
+From: ESWRIGHT @end|ng |rom p|tt@edu (Wright, Erik Scott)
+Date: Mon, 22 Jan 2024 22:06:09 +0000
+Subject: [R-SIG-Mac] Miniature plot windows
+In-Reply-To: <54931EEF-773B-4F17-A667-AA91CF285E55@R-project.org>
+References: <66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>
+ <54931EEF-773B-4F17-A667-AA91CF285E55@R-project.org>
+Message-ID: <02FD59F2-7981-4000-9116-B5BAF72DAB79@pitt.edu>
+
+Hi Simon,
+
+Thanks for all you do to support R on Mac OS.
+
+***
+
+system_profiler SPHardwareDataType | grep Model
+
+      Model Name: MacBook Pro
+      Model Identifier: Mac15,9
+      Model Number: MUW63LL/A
+
+***
+
+system_profiler SPDisplaysDataType
+
+Graphics/Displays:
+
+    Apple M3 Max:
+
+      Chipset Model: Apple M3 Max
+      Type: GPU
+      Bus: Built-In
+      Total Number of Cores: 40
+      Vendor: Apple (0x106b)
+      Metal Support: Metal 3
+      Displays:
+        Color LCD:
+          Display Type: Built-in Liquid Retina XDR Display
+          Resolution: 3456 x 2234 Retina
+          Main Display: Yes
+          Mirror: Off
+          Online: Yes
+          Automatically Adjust Brightness: Yes
+          Connection Type: Internal
+
+***
+
+inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID();
+CGSize ds = CGDisplayScreenSize(md);
+Rprintf("%.2f x %.2f -> %d x %d\\n", ds.width/25.4, ds.height/25.4,
+ (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md));
+return R_NilValue;',
+'#include <ApplicationServices/ApplicationServices.h>')()
+
+13.55 x 8.76 -> 1728 x 1117
+NULL
+
+***
+
+Please let me know if anything else would be useful.
+
+Erik
+
+
+> On Jan 22, 2024, at 4:27?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+>
+> Erik,
+>
+> thanks, this is very unusual. Can you, please, send me more details about your setup? Please run the following two lines in Terminal and send me the full output:
+>
+> system_profiler SPHardwareDataType | grep Model
+> system_profiler SPDisplaysDataType
+>
+> Then in R run the following code and also include the result:
+>
+> inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID(); CGSize ds = CGDisplayScreenSize(md); Rprintf("%.2f x %.2f -> %d x %d\\n", ds.width/25.4, ds.height/25.4, (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md)); return R_NilValue;','#include <ApplicationServices/ApplicationServices.h>')()
+>
+> This should result in something like this (install the inline package if you don't have it and you will also need command line tools which you can get by running
+> xcode-select --install
+> in Terminal if you don't have them):
+>
+>> inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID(); CGSize ds = CGDisplayScreenSize(md); Rprintf("%.2f x %.2f -> %d x %d\\n", ds.width/25.4, ds.height/25.4, (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md)); return R_NilValue;','#include <ApplicationServices/ApplicationServices.h>')()
+> 23.54 x 13.24 -> 2048 x 1152
+>
+> This shows the physical size of the screen (in inches) and the current resolution.
+>
+> The Quartz dpi setting is NULL by default which means "detect from hardware" which works on all Macs I have seen so the fact that it is way off is odd. The code above is how the dimensions are determined.
+>
+> Cheers,
+> Simon
+>
+> PS: if the email processing mangled the above code here is a broken-down version that hopefully doesn't get mangled:
+>
+> inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID();
+> CGSize ds = CGDisplayScreenSize(md);
+> Rprintf("%.2f x %.2f -> %d x %d\\n", ds.width/25.4, ds.height/25.4,
+>  (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md));
+> return R_NilValue;',
+> '#include <ApplicationServices/ApplicationServices.h>')()
+>
+>
+>
+>> On Jan 23, 2024, at 3:41 AM, Wright, Erik Scott <ESWRIGHT at pitt.edu> wrote:
+>>
+>> Hi all,
+>>
+>> I recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.
+>>
+>> For example, my screen measures about 13.5" x 8.8" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0" x 2.0".
+>>
+>> It is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.
+>>
+>> Any suggestions would be appreciated.
+>>
+>> Erik
+>>
+>> R version 4.3.2 (2023-10-31)
+>> Platform: aarch64-apple-darwin20 (64-bit)
+>> Running under: macOS Sonoma 14.2.1
+>>
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>
+>
+
+

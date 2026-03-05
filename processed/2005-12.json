@@ -1,0 +1,1709 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2005-12",
+  "messages": [
+    {
+      "id": "msg-6a423d8f4f28",
+      "message_id": "<55640D39-A6A3-42A1-BFF1-9D7983BE5065@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2005-12-01T09:40:15+01:00",
+      "subject": "[R-SIG-Mac] contrib.url on OSX ?!",
+      "subject_clean": "contrib.url on OSX ?!",
+      "in_reply_to": "<BFB34FF8.13CF1%sdavis2@mail.nih.gov>",
+      "references": [
+        "<BFB34FF8.13CF1%sdavis2@mail.nih.gov>"
+      ],
+      "body_plain": "Sean,\nif type is set to mac.binary, then the contrib url is what reported  \nby Seth (and 2.3 only applies to R-devel, no binaries available at  \nthe moment unless you point to a repository that builds packages  \nagainst R-devel. I think Seth is using R-devel for his test).\nIf you install from source, then it should not happen that you get  \n\"macosx\" in the url, as we only have one \"path\" for the sources (no  \nmatter the architecture).\nOn R-2.2.0 I get\n > contrib.url('foo')\n[1] \"foo/bin/macosx/powerpc/contrib/2.2\"\nwhich is correct. Cran binary of CRAN reports\n > sessionInfo()\nR version 2.2.0, 2005-10-06, powerpc-apple-darwin7.9.0\nso it seems to me that Sean is using a R-devel version of R-2.1.0 and  \nnot the final one.\nThe contrib.url function has been changed indeed just before official  \nfinal release of R-2.2.0\nstefano\n\n\n\nOn Nov 30, 2005, at 6:47 PM, Sean Davis wrote:\n\n> On 11/30/05 12:44 PM, \"Seth Falcon\" <sfalcon at fhcrc.org> wrote:\n>\n>> In a recent post to the Bioconductor list, Sean reported trouble with\n>> the affy package's automagic package installation.\n>>\n>> The affy package is wrapping install.packages.  The issue seems to be\n>> that on his system he sees:\n>>\n>>> sessionInfo()\n>> R version 2.2.0, 2005-08-11, powerpc-apple-darwin7.9.0\n>>\n>>> contrib.url('foo')\n>> [1] \"foo/bin/macosx/2.2\"\n>>\n>> Shouldn't an R 2.2.x see the following (that's what I get):\n>>> contrib.url(\"foo\", type=\"mac.binary\")\n>> [1] \"foo/bin/macosx/powerpc/contrib/2.3\"\n>>\n>> Sean, can you try reinstalling R?  Perhaps you somehow have an older\n>> version that doesn't have the right contrib.url function?  I'm\n>> confused, but this seems to be the crux of your problem.\n>\n>\n> I'll try reinstalling at some point here.  I tend to install from  \n> source, so\n> that may be an issue.\n>\n> Sean\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Sean,\nif type is set to mac.binary, then the contrib url is what reported  \nby Seth (and 2.3 only applies to R-devel, no binaries available at  \nthe moment unless you point to a repository that builds",
+      "thread_id": "thread-6a423d8f4f28",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-cd75135232ac",
+      "message_id": "<45380796612c92b0e5160a0428440c43@ntlworld.com>",
+      "from_name": "John Vaul",
+      "from_email_hash": "8f0f0499d584f03056336b7c3925f6ea8702e9a71ecca51fd246c8b6f57e0349",
+      "date": "2005-12-01T09:40:26Z",
+      "subject": "[R-SIG-Mac] FIXED - Error compiling gnlm package from source -FIXED",
+      "subject_clean": "FIXED - Error compiling gnlm package from source -FIXED",
+      "in_reply_to": "<5D890B53-48F8-4462-8810-2843586A822A@stat.ucla.edu>",
+      "references": [
+        "<a5ff267d7e5b5b0f871cd8f824fc1356@ntlworld.com>",
+        "<9428723E-2CE5-48B6-AA53-4C1264DC07F6@stat.ucla.edu>",
+        "<5D890B53-48F8-4462-8810-2843586A822A@stat.ucla.edu>"
+      ],
+      "body_plain": "I have now managed to get the gnlm package installed from source.  \nThanks Jan!\n\nAdding the -lcc_dynamic flag to the Makefile does the trick. There is a  \ndiscussion this at:\n\nhttp://www.astro.gla.ac.uk/users/norman/note/2004/restFP/\n\nRegards\n\nJohn\n\nOn Nov 30, 2005, at 9:22 PM, Jan de Leeuw wrote:\n\n>\n>> Link manually in the src directory and add -lgcc\n>>\n>>> gcc-3.3 -bundle -flat_namespace -undefined suppress -o gnlm.so\n>>> stable.o\n>>> -L/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2 -lg2c -lgcc -\n>>> lSystem\n>>\n>> or, alternatively, upgrade R, the compiler, and the OS\n>>\n>>\n>> On Nov 30, 2005, at 12:53 , John Vaul wrote:\n>>\n>>> Hi\n>>>\n>>> I am new to R and am trying to install the package gnlm (obtained\n>>> from\n>>> http://popgen.unimaas.nl/~jlindsey/rcode.html) from source but keep\n>>> getting the following messages.\n>>>\n>>>\n>>> * Installing *source* package 'gnlm' ...\n>>> ** libs\n>>> gcc-3.3 -no-cpp-precomp\n>>> -I/Library/Frameworks/R.framework/Resources/include\n>>> -I/usr/local/include   -fno-common  -g -O2 -c stable.c -o stable.o\n>>> gcc-3.3 -bundle -flat_namespace -undefined suppress -o gnlm.so\n>>> stable.o\n>>> -L/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2 -lg2c -lSystem\n>>> ld: stable.o has external relocation entries in non-writable section\n>>> (__TEXT,__text) for symbols:\n>>> restFP\n>>> saveFP\n>>> ** Removing\n>>> '/Library/Frameworks/R.framework/Versions/2.2/Resources/library/gnlm'\n>>> make: *** [gnlm.so] Error 1\n>>> ERROR: compilation failed for package 'gnlm'\n>>>\n>>> i am running OS 10.3.9, R 1.13\n>>>\n>>> Any pointers to where I might look to resolve this issue would be\n>>> much\n>>> appreciated!\n>>>\n>>>\n>>> Regards\n>>>\n>>> John Vaul\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>\n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of\n> Statistics;\n> Editor: Journal of Multivariate Analysis, Journal of Statistical\n> Software\n> US mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n> 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email:  \n> deleeuw at stat.ucla.edu\n> .mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\n> homepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n>\n> ----------------------------------------------------------------------- \n> -\n> -------------------------\n>            No matter where you go, there you are. --- Buckaroo Banzai\n>                     http://gifi.stat.ucla.edu/sounds/nomatter.au\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "I have now managed to get the gnlm package installed from source.  \nThanks Jan!\n\nAdding the -lcc_dynamic flag to the Makefile does the trick. There is a  \ndiscussion this at:\n\nhttp://www.astro.gla.ac.",
+      "thread_id": "thread-cd75135232ac",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-d32470c9380f",
+      "message_id": "<BFB45860.13DEC%sdavis2@mail.nih.gov>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2005-12-01T07:36:00-05:00",
+      "subject": "[R-SIG-Mac] contrib.url on OSX ?!",
+      "subject_clean": "contrib.url on OSX ?!",
+      "in_reply_to": "<55640D39-A6A3-42A1-BFF1-9D7983BE5065@mclink.it>",
+      "references": [],
+      "body_plain": "On 12/1/05 3:40 AM, \"stefano iacus\" <jago at mclink.it> wrote:\n\n> Sean,\n> if type is set to mac.binary, then the contrib url is what reported\n> by Seth (and 2.3 only applies to R-devel, no binaries available at\n> the moment unless you point to a repository that builds packages\n> against R-devel. I think Seth is using R-devel for his test).\n> If you install from source, then it should not happen that you get\n> \"macosx\" in the url, as we only have one \"path\" for the sources (no\n> matter the architecture).\n> On R-2.2.0 I get\n>> contrib.url('foo')\n> [1] \"foo/bin/macosx/powerpc/contrib/2.2\"\n> which is correct. Cran binary of CRAN reports\n>> sessionInfo()\n> R version 2.2.0, 2005-10-06, powerpc-apple-darwin7.9.0\n> so it seems to me that Sean is using a R-devel version of R-2.1.0 and\n> not the final one.\n> The contrib.url function has been changed indeed just before official\n> final release of R-2.2.0\n> stefano\n\nStefano,\n\nThanks for these details.  That is probably the issue, as this particular R\nversion was a devel version.\n\nSean",
+      "body_snippet": "On 12/1/05 3:40 AM, \"stefano iacus\" <jago at mclink.it> wrote:\n\n> Sean,\n> if type is set to mac.binary, then the contrib url is what reported\n> by Seth (and 2.3 only applies to R-devel, no binaries av",
+      "thread_id": "thread-6a423d8f4f28",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-83bcb897d216",
+      "message_id": "<581B8213-E05E-4B57-B7BF-4106DA1F1669@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "336988218f6d4b1346a7309c624091e326d02cacaea7086e50e58a35762a49f7",
+      "date": "2005-12-01T10:04:47-05:00",
+      "subject": "[R-SIG-Mac] GDD installation",
+      "subject_clean": "GDD installation",
+      "in_reply_to": "<5c5fa360512010258x29135cd6xa7ec2d694f3b3a20@mail.gmail.com>",
+      "references": [
+        "<5c5fa360512010258x29135cd6xa7ec2d694f3b3a20@mail.gmail.com>"
+      ],
+      "body_plain": "Richard,\n\nbefore I go into details, do you have a specific reason for  \nrecompiling GDD yourself? It is available in binary form on CRAN, so  \nall you have to do is to say install.packages(\"GDD\") and it works out  \nof the box (R 2.2.0).\n\nOn Dec 1, 2005, at 5:58 AM, richard mendes wrote:\n\n> checking for gdImageCreateFromPng in -lgd... no\n> configure: error: Can't find libgd!\n\nThis seems like a problem in the installation of your libgd. Make  \nsure \"gdlib-config\" is on your PATH (i.e. when you type gdlib-config  \nyou get its help and no error). That script is generated by libgd and  \nprovides all compilation flags necessary to link against libgd.\n\n> \"/Library/Frameworks/R.framework/Resources/library/GDD/libs/GDD.so\":\n>   dlcompat: dyld: /Applications/R.app/Contents/MacOS/R Undefined  \n> symbols:\n> _gdImageJpeg\n> _gdImagePng\n> Error in library(\"GDD\") : .First.lib failed for 'GDD'\n\nIt seems as if your libgd is missing JPEG and PNG support. Please  \nmake sure you libgd has both JPEG and PNG support. Freetype and  \nfontconfig are useful, too (FT is included in the Apple X11).\n\n> do you have any idea how to fix this problem or is this impossible  \n> because this package doesn't work on a mac ?\n\nAs I was saying earlier, it works on Mac OS X and Mac users don't  \neven have to worry about compiling it at all.\n\nCheers,\nSimon",
+      "body_snippet": "Richard,\n\nbefore I go into details, do you have a specific reason for  \nrecompiling GDD yourself? It is available in binary form on CRAN, so  \nall you have to do is to say install.packages(\"GDD\") and ",
+      "thread_id": "thread-83bcb897d216",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-b1b13739431d",
+      "message_id": "<38A6B801-849E-497E-BCCB-136C2927FBEB@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-01T10:11:12-05:00",
+      "subject": "[R-SIG-Mac] FIXED - Error compiling gnlm package from source -FIXED",
+      "subject_clean": "FIXED - Error compiling gnlm package from source -FIXED",
+      "in_reply_to": "<45380796612c92b0e5160a0428440c43@ntlworld.com>",
+      "references": [
+        "<a5ff267d7e5b5b0f871cd8f824fc1356@ntlworld.com>",
+        "<9428723E-2CE5-48B6-AA53-4C1264DC07F6@stat.ucla.edu>",
+        "<5D890B53-48F8-4462-8810-2843586A822A@stat.ucla.edu>",
+        "<45380796612c92b0e5160a0428440c43@ntlworld.com>"
+      ],
+      "body_plain": "John,\n\njust a side note:\n\nOn Dec 1, 2005, at 4:40 AM, John Vaul wrote:\n\n> I have now managed to get the gnlm package installed from source.\n\nPossibly you may want to notify the package maintainer that his  \npackage is broken by not using all necessary linker flags from R. If  \nyou compile an R package using R makefiles, it will supply - \nlcc_dynamic automatically. It is discouraged to use custom Makefiles  \nin packages as they are neither portable nor reliable - and in most  \ncases unnecessary.\n\n> Adding the -lcc_dynamic flag to the Makefile does the trick. There  \n> is a discussion this at:\n\nThis was also discussed on this list many times ... ;)\n\nCheers,\nSimon",
+      "body_snippet": "John,\n\njust a side note:\n\nOn Dec 1, 2005, at 4:40 AM, John Vaul wrote:\n\n> I have now managed to get the gnlm package installed from source.\n\nPossibly you may want to notify the package maintainer that",
+      "thread_id": "thread-cd75135232ac",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-994cce404817",
+      "message_id": "<341490C0-37FE-4934-ADB7-03C83F29370D@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-01T10:17:42-05:00",
+      "subject": "[R-SIG-Mac] Crash when trying to save Quartz window as PDF",
+      "subject_clean": "Crash when trying to save Quartz window as PDF",
+      "in_reply_to": "<62E94F67-1798-4E99-AC0F-F97F43CE04D1@mail.utexas.edu>",
+      "references": [
+        "<62E94F67-1798-4E99-AC0F-F97F43CE04D1@mail.utexas.edu>"
+      ],
+      "body_plain": "On Nov 30, 2005, at 7:13 PM, Xochitl Morgan wrote:\n\n> My R (Version 2.2.0) has been crashing quite reliably when I try to  \n> save my Quartz window of graphs as a PDF.   If it makes any  \n> difference, my OS is 10.4.3.\n\nCan you, please, test a more recent version of the R.app GUI?  \nPreferably the most recent debug version obtainable from\nhttp://research.att.com/~urbanek/R/\n(bottom of the page). There was an issue with saving files in general  \nwhen non-ASCII characters were used that was fixed recently. If it's  \nan another issue, please send us the crash report based on the debug  \nversion.\n\nThanks,\nSimon\n\nPS: does the same problem occur when using:\nquartz.save(\"plot.pdf\",type=\"pdf\")\ninstead?",
+      "body_snippet": "On Nov 30, 2005, at 7:13 PM, Xochitl Morgan wrote:\n\n> My R (Version 2.2.0) has been crashing quite reliably when I try to  \n> save my Quartz window of graphs as a PDF.   If it makes any  \n> difference",
+      "thread_id": "thread-994cce404817",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-5db749b50870",
+      "message_id": "<0FA5BC60-E963-4D99-933C-DA7C67FA4FEE@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-01T11:43:48-05:00",
+      "subject": "[R-SIG-Mac] R with PHP on mac",
+      "subject_clean": "R with PHP on mac",
+      "in_reply_to": "<0B5B25E4-BCFE-449F-8867-4AF1A9CF30B2@obs-vlfr.fr>",
+      "references": [
+        "<0B5B25E4-BCFE-449F-8867-4AF1A9CF30B2@obs-vlfr.fr>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051201/56240812/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051201/56240812/attachment.pl",
+      "thread_id": "thread-5db749b50870",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-c9f280655d79",
+      "message_id": "<06B19A50-F9C3-4209-A2AA-E9A671961391@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-12-01T09:11:05-08:00",
+      "subject": "[R-SIG-Mac] FIXED - Error compiling gnlm package from source -FIXED",
+      "subject_clean": "FIXED - Error compiling gnlm package from source -FIXED",
+      "in_reply_to": "<50634.194.57.165.22.1133453120.squirrel@webmail.lyon.inserm.fr>",
+      "references": [
+        "<50634.194.57.165.22.1133453120.squirrel@webmail.lyon.inserm.fr>"
+      ],
+      "body_plain": "Yesterday I installed all the Lindsey packages with gcc/gfortran 4.0.1.\n\nExcept for one or two small trivial changes because of \"old\" fortran,  \nthere\nwere no problems whatsoever. Also, if you use the new cctools from\nXcode-2.2 there is no need for cc_dynamic.\n\nAs far as I can see there are no reasons for using gcc-3.x any more,\nbecause most package authors now have corrected the \"old\" fortran\ncode.\n\nOn Dec 1, 2005, at 10:05 , Ken Knoblauch wrote:\n\n> Just another note. On Jim Lindsey's site, you can find the suggestion:\n>\n> MAC Users: if you have problems compiling a library, try removing the\n> Makefile from the src directory.\n>\n> This always has worked for me although I find that I need to compile\n> from the terminal command line.\n>\n> In general, I've found the author very responsive to fixing the  \n> smallest bug\n> that might arise in these packages.\n>\n> ken\n>\n>\n>\n>> John,\n>>\n>> just a side note:\n>>\n>> On Dec 1, 2005, at 4:40 AM, John Vaul wrote:\n>>\n>>> I have now managed to get the gnlm package installed from source.\n>>\n>> Possibly you may want to notify the package maintainer that his\n>> package is broken by not using all necessary linker flags from R. If\n>> you compile an R package using R makefiles, it will supply -\n>> lcc_dynamic automatically. It is discouraged to use custom Makefiles\n>> in packages as they are neither portable nor reliable - and in most\n>> cases unnecessary.\n>>\n>>> Adding the -lcc_dynamic flag to the Makefile does the trick. There\n>>> is a discussion this at:\n>>\n>> This was also discussed on this list many times ... ;)\n>>\n>> Cheers,\n>> Simon\n>\n> -- \n> Ken Knoblauch\n> Inserm U371\n> Cerveau et Vision\n> Dept. of Cognitive Neuroscience\n> 18 avenue du Doyen L?pine\n> 69500 Bron\n> France\n> tel: +33 (0)4 72 91 34 77\n> fax: +33 (0)4 72 91 34 61\n> portable: +33 (0)6 84 10 64 10\n> http://www.lyon.inserm.fr/371/\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "Yesterday I installed all the Lindsey packages with gcc/gfortran 4.0.1.\n\nExcept for one or two small trivial changes because of \"old\" fortran,  \nthere\nwere no problems whatsoever. Also, if you use the",
+      "thread_id": "thread-88614245f5c6",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-88614245f5c6",
+      "message_id": "<50634.194.57.165.22.1133453120.squirrel@webmail.lyon.inserm.fr>",
+      "from_name": "Ken Knoblauch",
+      "from_email_hash": "cd1eec8a1ad6dd6ca45868d4d8bd582ed8e9931848426612a8bc1afdbbf20bb5",
+      "date": "2005-12-01T17:05:20-01:00",
+      "subject": "[R-SIG-Mac] FIXED - Error compiling gnlm package from source -FIXED",
+      "subject_clean": "FIXED - Error compiling gnlm package from source -FIXED",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Just another note. On Jim Lindsey's site, you can find the suggestion:\n\nMAC Users: if you have problems compiling a library, try removing the\nMakefile from the src directory.\n\nThis always has worked for me although I find that I need to compile\nfrom the terminal command line.\n\nIn general, I've found the author very responsive to fixing the smallest bug\nthat might arise in these packages.\n\nken\n\n\n\n>John,\n>\n>just a side note:\n>\n>On Dec 1, 2005, at 4:40 AM, John Vaul wrote:\n>\n>> I have now managed to get the gnlm package installed from source.\n>\n>Possibly you may want to notify the package maintainer that his\n>package is broken by not using all necessary linker flags from R. If\n>you compile an R package using R makefiles, it will supply -\n>lcc_dynamic automatically. It is discouraged to use custom Makefiles\n>in packages as they are neither portable nor reliable - and in most\n>cases unnecessary.\n>\n>> Adding the -lcc_dynamic flag to the Makefile does the trick. There\n>> is a discussion this at:\n>\n>This was also discussed on this list many times ... ;)\n>\n>Cheers,\n>Simon\n\n-- \nKen Knoblauch\nInserm U371\nCerveau et Vision\nDept. of Cognitive Neuroscience\n18 avenue du Doyen L?pine\n69500 Bron\nFrance\ntel: +33 (0)4 72 91 34 77\nfax: +33 (0)4 72 91 34 61\nportable: +33 (0)6 84 10 64 10\nhttp://www.lyon.inserm.fr/371/",
+      "body_snippet": "Just another note. On Jim Lindsey's site, you can find the suggestion:\n\nMAC Users: if you have problems compiling a library, try removing the\nMakefile from the src directory.\n\nThis always has worked f",
+      "thread_id": "thread-88614245f5c6",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-05a73ee6e4b3",
+      "message_id": "<7A9AC6D1-CE29-49E5-81B4-09283810B131@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-12-01T10:33:36-08:00",
+      "subject": "[R-SIG-Mac] for do-it-yourselvers: lindsey packages with gfortran",
+      "subject_clean": "for do-it-yourselvers: lindsey packages with gfortran",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "1. In the event package, in survkit.f, the data statements should be\nchanged (twice) to\n\n       DATA(WGAUSS(J,3),J=1,3)/\n      + 0.417771379105166318,1.67108551642066683,0.417771379105166318/\n       DATA(WGAUSS(J,4),J=1,4)/\n      + 0.114993714684505977,1.13832042263099442,\n      + 1.13832042263099487,0.114993714684505977/\n       DATA(WGAUSS(J,5),J=1,5)/\n      + 0.0282181455332160026,0.556661785214017657,\n      + 1.33686841313653382,0.556661785214018656,0.02821814553321600266/\n       DATA(XGAUSS(J,3),J=1,3)/\n      + -1.73205080756887786,0.D0,1.73205080756887786/\n       DATA(XGAUSS(J,4),J=1,4)/\n      + -2.33441421833897689,-0.741963784302725915,\n      + 0.741963784302725360,2.33441421833897689/\n       DATA(XGAUSS(J,5),J=1,5)/\n      + -2.85697001387280558,-1.35562617997426593,0.D0,\n      + 1.35562617997426460,2.85697001387280558/\n\n2. In rmutil file gettvc.f there are a number of constants equal to  \n1e300\nor 1e301. The compiler does not let that through (overflow). I  \nchanged them\nto 1e30.\n\n3. In repeated, file binnest.f, line 638, the statement\n\nGradient(t1+t2+kk) = Gradient(t1+t2+kk) + (D1_Sig2(kk) / Li\n\nis too long -- I removed some spaces and it compiles fine.\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "1. In the event package, in survkit.f, the data statements should be\nchanged (twice) to\n\n       DATA(WGAUSS(J,3),J=1,3)/\n      + 0.417771379105166318,1.67108551642066683,0.417771379105166318/\n       D",
+      "thread_id": "thread-05a73ee6e4b3",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-9c77dc4e3ada",
+      "message_id": "<9015737B-F8D4-4F54-8212-C1EE4938D937@mail.utexas.edu>",
+      "from_name": "Xochitl Morgan",
+      "from_email_hash": "6aa401fc3b503763f740a77c1549d7bded517bbd03ee6b16d5d469c75ca67aeb",
+      "date": "2005-12-01T13:47:16-06:00",
+      "subject": "[R-SIG-Mac] Fwd:  Crash when trying to save Quartz window as PDF",
+      "subject_clean": "Crash when trying to save Quartz window as PDF",
+      "in_reply_to": null,
+      "references": [
+        "<341490C0-37FE-4934-ADB7-03C83F29370D@r-project.org>"
+      ],
+      "body_plain": "Ok.\nI tested with the R.app GUI  (R-GUI-Debug) from the web page you  \nmentioned.  I used the one under \"Built for R 2.2.x\" because the one  \nfor 2.3.x didn't work with my R and I didn't see an R 2.3 at cran.r- \nproject.org to download.  This also crashed when presented with the  \nsame problem.  I have attached my bug report.\n\n> quartz.save(\"plot.pdf\",type=\"pdf\")\nThe quartz.save command did save without crashing, but the PDF it  \nproduced was of a decidedly odd phenotype with backwards blue writing  \nover a large part of it.  If you don't know what I mean, I'd be happy  \nto send that along also.\n\nIf I can do anything else to help, I'd be glad to.\n?\n\n\nBegin forwarded message:\n\n> From: Simon Urbanek <simon.urbanek at r-project.org>\n> Date: December 1, 2005 9:17:42 AM CST\n> To: Xochitl Morgan <morganx at mail.utexas.edu>\n> Cc: R-SIG-Mac at r-project.org\n> Subject: Re: [R-SIG-Mac] Crash when trying to save Quartz window as  \n> PDF\n>\n> On Nov 30, 2005, at 7:13 PM, Xochitl Morgan wrote:\n>\n>> My R (Version 2.2.0) has been crashing quite reliably when I try  \n>> to save my Quartz window of graphs as a PDF.   If it makes any  \n>> difference, my OS is 10.4.3.\n>\n> Can you, please, test a more recent version of the R.app GUI?  \n> Preferably the most recent debug version obtainable from\n> http://research.att.com/~urbanek/R/\n> (bottom of the page). There was an issue with saving files in  \n> general when non-ASCII characters were used that was fixed  \n> recently. If it's an another issue, please send us the crash report  \n> based on the debug version.\n>\n> Thanks,\n> Simon\n>\n> PS: does the same problem occur when using:\n> quartz.save(\"plot.pdf\",type=\"pdf\")\n> instead?\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051201/044af8b5/attachment-0002.html\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: R.crash.log\nType: application/octet-stream\nSize: 266630 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051201/044af8b5/R.crash-0001.obj\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051201/044af8b5/attachment-0003.html",
+      "body_snippet": "Ok.\nI tested with the R.app GUI  (R-GUI-Debug) from the web page you  \nmentioned.  I used the one under \"Built for R 2.2.x\" because the one  \nfor 2.3.x didn't work with my R and I didn't see an R 2.3 ",
+      "thread_id": "thread-994cce404817",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-d0774fc26d1f",
+      "message_id": "<Pine.OSF.4.58.0512011511330.126813@wotan.mdacc.tmc.edu>",
+      "from_name": "Paul Roebuck",
+      "from_email_hash": "3e8c4af3eaa0fe4ab3765c56e47c0159670298a2c1dcdac344cef506ce54656f",
+      "date": "2005-12-01T15:41:36-06:00",
+      "subject": "[R-SIG-Mac] Using GCC4/GFORTRAN with R (and R.app)",
+      "subject_clean": "Using GCC4/GFORTRAN with R (and R.app)",
+      "in_reply_to": "<06B19A50-F9C3-4209-A2AA-E9A671961391@stat.ucla.edu>",
+      "references": [
+        "<50634.194.57.165.22.1133453120.squirrel@webmail.lyon.inserm.fr>",
+        "<06B19A50-F9C3-4209-A2AA-E9A671961391@stat.ucla.edu>"
+      ],
+      "body_plain": "On Thu, 1 Dec 2005, Jan de Leeuw wrote:\n\n> Yesterday I installed all the Lindsey packages with gcc/gfortran 4.0.1.\n>\n> Except for one or two small trivial changes because of \"old\" fortran,\n> there were no problems whatsoever. Also, if you use the new cctools\n> from Xcode-2.2 there is no need for cc_dynamic.\n>\n> As far as I can see there are no reasons for using gcc-3.x any more,\n> because most package authors now have corrected the \"old\" fortran\n> code.\n\nSeem to remember Ripley bringing up some issues with\ngfortran bugs/optimization on rdev a while back. Were\nthose resolved?\n\nIs there a plan for handling the binary distributions\nfor the differing ABIs?\n\n----------------------------------------------------------\nSIGSIG -- signature too long (core dumped)",
+      "body_snippet": "On Thu, 1 Dec 2005, Jan de Leeuw wrote:\n\n> Yesterday I installed all the Lindsey packages with gcc/gfortran 4.0.1.\n>\n> Except for one or two small trivial changes because of \"old\" fortran,\n> there wer",
+      "thread_id": "thread-88614245f5c6",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-f1f5e132d19c",
+      "message_id": "<152082A2-9893-4B58-8422-FFFF1370ED93@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-01T17:27:33-05:00",
+      "subject": "[R-SIG-Mac] Using GCC4/GFORTRAN with R (and R.app)",
+      "subject_clean": "Using GCC4/GFORTRAN with R (and R.app)",
+      "in_reply_to": "<Pine.OSF.4.58.0512011511330.126813@wotan.mdacc.tmc.edu>",
+      "references": [
+        "<50634.194.57.165.22.1133453120.squirrel@webmail.lyon.inserm.fr>",
+        "<06B19A50-F9C3-4209-A2AA-E9A671961391@stat.ucla.edu>",
+        "<Pine.OSF.4.58.0512011511330.126813@wotan.mdacc.tmc.edu>"
+      ],
+      "body_plain": "Paul,\n\nOn Dec 1, 2005, at 4:41 PM, Paul Roebuck wrote:\n\n> Seem to remember Ripley bringing up some issues with gfortran bugs/ \n> optimization on rdev a while back. Were those resolved?\n\nI didn't re-iterate on gcc4 recently (will do later this month), but  \nthe last status was that the stdio problem persists, some simple  \nFortran code segfaults, but R will pass make check (when linked to  \nstatic libgfortran) - so yes, it's possible. Right now I'm slightly  \nout of spare cycles, but I plan to experiment with universal R binary  \nlater this month and that involves producing full binaries using  \ngcc4 ...\n\nJan, if you have a spare minute, can you run some benchmarks of your  \ngcc4-optimized R (preferably involving mostly Fortran code vs just C)  \nagainst the CRAN binary? That would be quite helpful in assessing the  \ncurrent speed benefits...\n\n> Is there a plan for handling the binary distributions for the  \n> differing ABIs?\n\nYes in the sense that they will be separate. We have added one more  \ndirectory level to the Mac binaries for that reason.\n\nHowever, the ABI-fix currently applies to R internal code only, so  \npackages that need those specific LAPACK functions will be on their  \nown. I guess it would be possible to use a more elaborate fix or  \nprovide additional entry points, but there was no need (yet?).\n\nCheers,\nSimon",
+      "body_snippet": "Paul,\n\nOn Dec 1, 2005, at 4:41 PM, Paul Roebuck wrote:\n\n> Seem to remember Ripley bringing up some issues with gfortran bugs/ \n> optimization on rdev a while back. Were those resolved?\n\nI didn't re-it",
+      "thread_id": "thread-88614245f5c6",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-d6feac6cf564",
+      "message_id": "<DDF3045F-62D6-455F-9FAC-7AB664305FA8@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-12-01T14:46:36-08:00",
+      "subject": "[R-SIG-Mac] Using GCC4/GFORTRAN with R (and R.app)",
+      "subject_clean": "Using GCC4/GFORTRAN with R (and R.app)",
+      "in_reply_to": "<152082A2-9893-4B58-8422-FFFF1370ED93@r-project.org>",
+      "references": [
+        "<50634.194.57.165.22.1133453120.squirrel@webmail.lyon.inserm.fr>",
+        "<06B19A50-F9C3-4209-A2AA-E9A671961391@stat.ucla.edu>",
+        "<Pine.OSF.4.58.0512011511330.126813@wotan.mdacc.tmc.edu>",
+        "<152082A2-9893-4B58-8422-FFFF1370ED93@r-project.org>"
+      ],
+      "body_plain": "On Dec 1, 2005, at 14:27 , Simon Urbanek wrote:\n\n> Jan, if you have a spare minute, can you run some benchmarks of  \n> your gcc4-optimized R (preferably involving mostly Fortran code vs  \n> just C) against the CRAN binary? That would be quite helpful in  \n> assessing the current speed benefits...\n\nIn the past I used\n\nsink(\"timings.lis\")\nhilbert<-function(n) 1/(outer(seq(n),seq(n),\"+\")-1)\nprint(\"hilbert n=500\")\nprint(system.time(eigen(hilbert(500))))\nprint(system.time(eigen(hilbert(500))))\nprint(system.time(eigen(hilbert(500))))\nprint(\"hilbert n=1000\")\nprint(system.time(eigen(hilbert(1000))))\nprint(system.time(eigen(hilbert(1000))))\nprint(system.time(eigen(hilbert(1000))))\nprint(\"sort n=6\")\nprint(system.time(sort(rnorm(10^6))))\nprint(system.time(sort(rnorm(10^6))))\nprint(system.time(sort(rnorm(10^6))))\nprint(\"sort n=7\")\nprint(system.time(sort(rnorm(10^7))))\nprint(system.time(sort(rnorm(10^7))))\nprint(system.time(sort(rnorm(10^7))))\nsink()\n\nwould that do ?\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "On Dec 1, 2005, at 14:27 , Simon Urbanek wrote:\n\n> Jan, if you have a spare minute, can you run some benchmarks of  \n> your gcc4-optimized R (preferably involving mostly Fortran code vs  \n> just C) ag",
+      "thread_id": "thread-88614245f5c6",
+      "thread_depth": 4,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-74f3c010d628",
+      "message_id": "<1FA1C85B-71B7-46E0-B66E-B21F58D9AF87@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-12-01T15:54:45-08:00",
+      "subject": "[R-SIG-Mac] Using GCC4/GFORTRAN with R (and R.app)",
+      "subject_clean": "Using GCC4/GFORTRAN with R (and R.app)",
+      "in_reply_to": "<152082A2-9893-4B58-8422-FFFF1370ED93@r-project.org>",
+      "references": [
+        "<50634.194.57.165.22.1133453120.squirrel@webmail.lyon.inserm.fr>",
+        "<06B19A50-F9C3-4209-A2AA-E9A671961391@stat.ucla.edu>",
+        "<Pine.OSF.4.58.0512011511330.126813@wotan.mdacc.tmc.edu>",
+        "<152082A2-9893-4B58-8422-FFFF1370ED93@r-project.org>"
+      ],
+      "body_plain": "On Dec 1, 2005, at 14:27 , Simon Urbanek wrote:\n\n> Jan, if you have a spare minute, can you run some benchmarks of  \n> your gcc4-optimized R (preferably involving mostly Fortran code vs  \n> just C) against the CRAN binary? That would be quite helpful in  \n> assessing the current speed benefits...\n\n\nThis is on a quad (2 x 2 x 2.5 Ghz) G5 with OS X 10.4.4 and 2GB of RAM.\nI used\n\nhilbert<-function(n) 1/(outer(seq(n),seq(n),\"+\")-1)\nprint(\"hilbert n=500\")\nprint(system.time(eigen(hilbert(500))))\nprint(system.time(eigen(hilbert(500))))\nprint(system.time(eigen(hilbert(500))))\nprint(\"hilbert n=1000\")\nprint(system.time(eigen(hilbert(1000))))\nprint(system.time(eigen(hilbert(1000))))\nprint(system.time(eigen(hilbert(1000))))\nprint(\"sort n=6\")\nprint(system.time(sort(rnorm(10^6))))\nprint(system.time(sort(rnorm(10^6))))\nprint(system.time(sort(rnorm(10^6))))\nprint(\"sort n=7\")\nprint(system.time(sort(rnorm(10^7))))\nprint(system.time(sort(rnorm(10^7))))\nprint(system.time(sort(rnorm(10^7))))\n# loess\nloess.me<-function(n) {\nprint(paste(\"loess n=\",as.character(n),sep=\"\"))\nfor (i in 1:5) {\n\tx<-rnorm(10^n); y<-rnorm(10^n); z<-rnorm(10^n)\n\tprint(system.time(loess(z~x+y)))\n\t}\n}\nloess.me(3)\nloess.me(4)\n\nFirst for R-2.3.0 r36557, optimized for G5, compiled with gcc and  \ngfortran 4.0.1 (Apple build 5305)\n\n[1] \"hilbert n=500\"\n[1] 0.50 0.16 0.56 0.00 0.00\n[1] 0.43 0.16 0.49 0.00 0.00\n[1] 0.41 0.15 0.48 0.00 0.00\n[1] \"hilbert n=1000\"\n[1] 2.71 0.74 2.79 0.00 0.00\n[1] 2.34 0.74 2.43 0.00 0.00\n[1] 2.36 0.80 2.53 0.00 0.00\n[1] \"sort n=6\"\n[1] 0.64 0.03 0.67 0.00 0.00\n[1] 0.64 0.03 0.68 0.00 0.00\n[1] 0.64 0.03 0.67 0.00 0.00\n[1] \"sort n=7\"\n[1] 7.85 0.30 8.15 0.00 0.00\n[1] 7.80 0.28 8.08 0.00 0.00\n[1] 7.81 0.30 8.11 0.00 0.00\n[1] \"loess n=3\"\n[1] 0.07 0.01 0.07 0.00 0.00\n[1] 0.06 0.00 0.07 0.00 0.00\n[1] 0.07 0.00 0.06 0.00 0.00\n[1] 0.06 0.00 0.07 0.00 0.00\n[1] 0.07 0.00 0.06 0.00 0.00\n[1] \"loess n=4\"\n[1] 4.50 0.06 4.56 0.00 0.00\n[1] 4.63 0.05 4.69 0.00 0.00\n[1] 4.58 0.05 4.63 0.00 0.00\n[1] 4.63 0.04 4.67 0.00 0.00\n[1] 4.66 0.04 4.69 0.00 0.00\n\nThen for the CRAN R-2.2.0 r35749 using gcc and g77 3.3\n\n[1] \"hilbert n=500\"\n[1] 0.51 0.19 0.63 0.00 0.00\n[1] 0.44 0.16 0.51 0.00 0.00\n[1] 0.42 0.15 0.48 0.00 0.00\n[1] \"hilbert n=1000\"\n[1] 2.72 0.74 2.79 0.00 0.00\n[1] 2.37 0.72 2.44 0.00 0.00\n[1] 2.37 0.74 2.45 0.00 0.00\n[1] \"sort n=6\"\n[1] 0.65 0.03 0.69 0.00 0.00\n[1] 0.64 0.03 0.67 0.00 0.00\n[1] 0.65 0.02 0.68 0.00 0.00\n[1] \"sort n=7\"\n[1] 7.88 0.34 8.23 0.00 0.00\n[1] 7.84 0.33 8.20 0.00 0.00\n[1] 7.86 0.33 8.22 0.00 0.00\n[1] \"loess n=3\"\n[1] 0.07 0.00 0.10 0.00 0.00\n[1] 0.07 0.00 0.07 0.00 0.00\n[1] 0.06 0.00 0.07 0.00 0.00\n[1] 0.07 0.01 0.07 0.00 0.00\n[1] 0.07 0.00 0.07 0.00 0.00\n[1] \"loess n=4\"\n[1] 4.79 0.04 4.83 0.00 0.00\n[1] 4.83 0.05 4.90 0.00 0.00\n[1] 4.74 0.04 4.77 0.00 0.00\n[1] 4.89 0.05 4.94 0.00 0.00\n[1] 4.79 0.05 4.84 0.00 0.00\n\nhilbert() will spend most of its time in vecLib, so there is  \nobviously very little\ndifference. For loess we see a speedup of about 5% -- not very  \nimpressive. Certainly not\nsince it comes from both a compiler difference and a difference in  \noptimization flags. But\nsince there is no use of SMP and no single precision floating point,  \nwe can't expect\ntoo much from the optimization anyway. Moral: if you want to run your  \nR faster, upgrade\nyour CPU.\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "On Dec 1, 2005, at 14:27 , Simon Urbanek wrote:\n\n> Jan, if you have a spare minute, can you run some benchmarks of  \n> your gcc4-optimized R (preferably involving mostly Fortran code vs  \n> just C) ag",
+      "thread_id": "thread-88614245f5c6",
+      "thread_depth": 4,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-502afb01ea7d",
+      "message_id": "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>",
+      "from_name": "Paul Shannon",
+      "from_email_hash": "78971c7f2703c106b234dddfcc5a1bd4f1b7c391132fd4ebe777b72e3a47354e",
+      "date": "2005-12-03T14:14:21-08:00",
+      "subject": "[R-SIG-Mac] RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "subject_clean": "RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all,\n\n>From a goggle search, it appears this problem is not unknown, and may be\ndue to compiler version differences (gcc 3.3 and 4.0).  But whatever\nthe cause, and despite the remedies I tried (mostly 'sudo gcc_select 3.3') I could not get \nRMySQL to load.  Here's the error message:\n\n  > library (RMySQL)\n    Loading required package: DBI\n    Error in dyn.load(x, as.logical(local), as.logical(now)) :\n          unable to load shared library '/Library/Frameworks/R.framework/Resources/library/RMySQL/libs/RMySQL.so':\n    dlopen(/Library/Frameworks/R.framework/Resources/library/RMySQL/libs/RMySQL.so, 6): Symbol not found: _fprintf$LDBLStub\n    Referenced from: /Library/Frameworks/R.framework/Resources/library/RMySQL/libs/RMySQL.so\n    Expected in: flat namespace\n    Error in library(RMySQL) : .First.lib failed for 'RMySQL'\n\nThis is using:\n\n        Mac OS 10.4.3 \n     R version 2.1.1.  \n         mysql 5.0.1\n           DBI 0.1-9\n        RMySQL 0.5-5\n\nAny suggestions?\n\nThanks!\n\n - Paul Shannon\n   Institute for Systems Biology\n   Seattle",
+      "body_snippet": "Hi all,\n\n>From a goggle search, it appears this problem is not unknown, and may be\ndue to compiler version differences (gcc 3.3 and 4.0).  But whatever\nthe cause, and despite the remedies I tried (mos",
+      "thread_id": "thread-502afb01ea7d",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-dc2652b249cd",
+      "message_id": "<5A79906D-0DD7-4147-A7F2-98F8B4D32DAE@imperial.ac.uk>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2005-12-03T22:48:33Z",
+      "subject": "[R-SIG-Mac] R logo icon",
+      "subject_clean": "R logo icon",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi All,\n\nI just produced a new R logo icon. It's almost exactly the same as  \nthe one supplied by the R.app, but the resloution is better. I  \ndownloaded the R logo as a PNG file from the R developer site and  \nworked from there with PS and Icon Composer. If the developer of R  \nfor OSX want it I'd be glad to share it.\n\nCheers,\n\nFederico\n\n--\nFederico C. F. Calboli\nDepartment of Epidemiology and Public Health\nImperial College, St. Mary's Campus\nNorfolk Place, London W2 1PG\n\nTel +44 (0)20 75941602   Fax +44 (0)20 75943193\n\nf.calboli [.a.t] imperial.ac.uk\nf.calboli [.a.t] gmail.com",
+      "body_snippet": "Hi All,\n\nI just produced a new R logo icon. It's almost exactly the same as  \nthe one supplied by the R.app, but the resloution is better. I  \ndownloaded the R logo as a PNG file from the R developer ",
+      "thread_id": "thread-dc2652b249cd",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-a9ca3bf922f8",
+      "message_id": "<77778A65-06D6-46E4-9CC7-B952BBE96289@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-03T20:19:40-05:00",
+      "subject": "[R-SIG-Mac] R logo icon",
+      "subject_clean": "R logo icon",
+      "in_reply_to": "<5A79906D-0DD7-4147-A7F2-98F8B4D32DAE@imperial.ac.uk>",
+      "references": [
+        "<5A79906D-0DD7-4147-A7F2-98F8B4D32DAE@imperial.ac.uk>"
+      ],
+      "body_plain": "Hi Federico,\n\nOn Dec 3, 2005, at 5:48 PM, Federico Calboli wrote:\n\n> I just produced a new R logo icon. It's almost exactly the same as  \n> the one supplied by the R.app, but the resloution is better. I  \n> downloaded the R logo as a PNG file from the R developer site and  \n> worked from there with PS and Icon Composer. If the developer of R   \n> for OSX want it I'd be glad to share it.\n\nThanks for the effort, but AFAIR Stefano has created a new hi-res  \nlogo some time ago which is available at high resolutions on this page:\nhttp://developer.r-project.org/Logo/\n\nHowever, for the GUI I would suggest a more Aqua-like logo.  A while  \nago I created a sample which you'll find at\nhttp://www.rosuda.org/misc/Rgui.icns\n(you'll need to download it and look at it in the Finder preview or  \nthe icon composer)\n\nIt's not great (the R should be thicker), but I guess you get the  \nidea. If you are PS-savvy, like to do such things and have some spare  \ntime, you could give it a shot ...\n\nThanks,\nSimon",
+      "body_snippet": "Hi Federico,\n\nOn Dec 3, 2005, at 5:48 PM, Federico Calboli wrote:\n\n> I just produced a new R logo icon. It's almost exactly the same as  \n> the one supplied by the R.app, but the resloution is better.",
+      "thread_id": "thread-dc2652b249cd",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-258917464144",
+      "message_id": "<D9C5E5FD-73EC-4870-A644-F61DE838A872@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-03T20:23:56-05:00",
+      "subject": "[R-SIG-Mac] RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "subject_clean": "RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "in_reply_to": "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>",
+      "references": [
+        "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>"
+      ],
+      "body_plain": "Paul,\n\ncan you, please, supply us with some critical details such as how you  \ninstalled and/or compiled RMySQL and whether you have a custom or  \nCRAN version of R?\n\nThanks,\nSimon\n\nOn Dec 3, 2005, at 5:14 PM, Paul Shannon wrote:\n\n> Hi all,\n>\n>> From a goggle search, it appears this problem is not unknown, and  \n>> may be\n> due to compiler version differences (gcc 3.3 and 4.0).  But whatever\n> the cause, and despite the remedies I tried (mostly 'sudo  \n> gcc_select 3.3') I could not get\n> RMySQL to load.  Here's the error message:\n>\n>> library (RMySQL)\n>     Loading required package: DBI\n>     Error in dyn.load(x, as.logical(local), as.logical(now)) :\n>           unable to load shared library '/Library/Frameworks/ \n> R.framework/Resources/library/RMySQL/libs/RMySQL.so':\n>     dlopen(/Library/Frameworks/R.framework/Resources/library/RMySQL/ \n> libs/RMySQL.so, 6): Symbol not found: _fprintf$LDBLStub\n>     Referenced from: /Library/Frameworks/R.framework/Resources/ \n> library/RMySQL/libs/RMySQL.so\n>     Expected in: flat namespace\n>     Error in library(RMySQL) : .First.lib failed for 'RMySQL'\n>\n> This is using:\n>\n>         Mac OS 10.4.3\n>      R version 2.1.1.\n>          mysql 5.0.1\n>            DBI 0.1-9\n>         RMySQL 0.5-5\n>\n> Any suggestions?\n>\n> Thanks!\n>\n>  - Paul Shannon\n>    Institute for Systems Biology\n>    Seattle\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "Paul,\n\ncan you, please, supply us with some critical details such as how you  \ninstalled and/or compiled RMySQL and whether you have a custom or  \nCRAN version of R?\n\nThanks,\nSimon\n\nOn Dec 3, 2005, at",
+      "thread_id": "thread-502afb01ea7d",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-92cb2553cc40",
+      "message_id": "<E18DCD7F-A373-49FE-A8BD-C359BF8780D2@smalltime.com>",
+      "from_name": "gene",
+      "from_email_hash": "91bd817b952c525e6423d7d052ec62fa855128102bd9ade5c353e60ded4af871",
+      "date": "2005-12-03T17:44:18-08:00",
+      "subject": "[R-SIG-Mac] RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "subject_clean": "RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "in_reply_to": "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>",
+      "references": [
+        "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>"
+      ],
+      "body_plain": "I just had (and posted about) the exact same error message.  I found  \nit went away after updating Xcode to 2.2.  I also made a change to  \nSHLIB (though I don't know if that made a difference), which I can  \nlook up when I am at my other computer.\n\n-- Gene\n\nOn Dec 3, 2005, at 2:14 PM, Paul Shannon wrote:\n\n> Hi all,\n>\n>> From a goggle search, it appears this problem is not unknown, and  \n>> may be\n> due to compiler version differences (gcc 3.3 and 4.0).  But whatever\n> the cause, and despite the remedies I tried (mostly 'sudo  \n> gcc_select 3.3') I could not get\n> RMySQL to load.  Here's the error message:\n>\n>> library (RMySQL)\n>     Loading required package: DBI\n>     Error in dyn.load(x, as.logical(local), as.logical(now)) :\n>           unable to load shared library '/Library/Frameworks/ \n> R.framework/Resources/library/RMySQL/libs/RMySQL.so':\n>     dlopen(/Library/Frameworks/R.framework/Resources/library/RMySQL/ \n> libs/RMySQL.so, 6): Symbol not found: _fprintf$LDBLStub\n>     Referenced from: /Library/Frameworks/R.framework/Resources/ \n> library/RMySQL/libs/RMySQL.so\n>     Expected in: flat namespace\n>     Error in library(RMySQL) : .First.lib failed for 'RMySQL'\n>\n> This is using:\n>\n>         Mac OS 10.4.3\n>      R version 2.1.1.\n>          mysql 5.0.1\n>            DBI 0.1-9\n>         RMySQL 0.5-5\n>\n> Any suggestions?\n>\n> Thanks!\n>\n>  - Paul Shannon\n>    Institute for Systems Biology\n>    Seattle\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I just had (and posted about) the exact same error message.  I found  \nit went away after updating Xcode to 2.2.  I also made a change to  \nSHLIB (though I don't know if that made a difference), which",
+      "thread_id": "thread-502afb01ea7d",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-3f9ac29bf940",
+      "message_id": "<1133697659.11270.104.camel@localhost.localdomain>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2005-12-04T12:00:59Z",
+      "subject": "[R-SIG-Mac] R logo icon",
+      "subject_clean": "R logo icon",
+      "in_reply_to": "<77778A65-06D6-46E4-9CC7-B952BBE96289@r-project.org>",
+      "references": [
+        "<5A79906D-0DD7-4147-A7F2-98F8B4D32DAE@imperial.ac.uk>",
+        "<77778A65-06D6-46E4-9CC7-B952BBE96289@r-project.org>"
+      ],
+      "body_plain": "> Thanks for the effort, but AFAIR Stefano has created a new hi-res  \n> logo some time ago which is available at high resolutions on this page:\n> http://developer.r-project.org/Logo/\n\nThat's where I got it.\n> \n> However, for the GUI I would suggest a more Aqua-like logo.  A while  \n> ago I created a sample which you'll find at\n> http://www.rosuda.org/misc/Rgui.icns\n> (you'll need to download it and look at it in the Finder preview or  \n> the icon composer)\n\nI limited myself to make a .icns of the high res R Logo, so it look\nquite different form yours. I don't know if I'll ever have the time to\naquafy it. In the meantime, if anyone whats it I'd be happy to share.\n\nFede \n\n-- \nFederico C. F. Calboli\nDepartment of Epidemiology and Public Health\nImperial College, St Mary's Campus\nNorfolk Place, London W2 1PG\n\nTel  +44 (0)20 7594 1602     Fax (+44) 020 7594 3193\n\nf.calboli [.a.t] imperial.ac.uk\nf.calboli [.a.t] gmail.com",
+      "body_snippet": "> Thanks for the effort, but AFAIR Stefano has created a new hi-res  \n> logo some time ago which is available at high resolutions on this page:\n> http://developer.r-project.org/Logo/\n\nThat's where I g",
+      "thread_id": "thread-dc2652b249cd",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-a00d2de10f1a",
+      "message_id": "<2F0B9065-BF94-4243-BD7A-FD7B621763A4@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-04T11:52:40-05:00",
+      "subject": "[R-SIG-Mac] R logo icon",
+      "subject_clean": "R logo icon",
+      "in_reply_to": "<1133697659.11270.104.camel@localhost.localdomain>",
+      "references": [
+        "<5A79906D-0DD7-4147-A7F2-98F8B4D32DAE@imperial.ac.uk>",
+        "<77778A65-06D6-46E4-9CC7-B952BBE96289@r-project.org>",
+        "<1133697659.11270.104.camel@localhost.localdomain>"
+      ],
+      "body_plain": "On Dec 4, 2005, at 7:00 AM, Federico Calboli wrote:\n\n>> Thanks for the effort, but AFAIR Stefano has created a new hi-res\n>> logo some time ago which is available at high resolutions on this  \n>> page:\n>> http://developer.r-project.org/Logo/\n>\n> That's where I got it.\n>>\n>> However, for the GUI I would suggest a more Aqua-like logo.  A while\n>> ago I created a sample which you'll find at\n>> http://www.rosuda.org/misc/Rgui.icns\n>> (you'll need to download it and look at it in the Finder preview or\n>> the icon composer)\n>\n> I limited myself to make a .icns of the high res R Logo, so it look\n> quite different form yours. I don't know if I'll ever have the time to\n> aquafy it. In the meantime, if anyone whats it I'd be happy to share.\n\nOk, sure. Do you have them somewhere on the web?\n\nCheers,\nSimon",
+      "body_snippet": "On Dec 4, 2005, at 7:00 AM, Federico Calboli wrote:\n\n>> Thanks for the effort, but AFAIR Stefano has created a new hi-res\n>> logo some time ago which is available at high resolutions on this  \n>> page",
+      "thread_id": "thread-dc2652b249cd",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-beeb71bdb106",
+      "message_id": "<1133717872.11270.106.camel@localhost.localdomain>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2005-12-04T17:37:52Z",
+      "subject": "[R-SIG-Mac] R logo icon",
+      "subject_clean": "R logo icon",
+      "in_reply_to": "<2F0B9065-BF94-4243-BD7A-FD7B621763A4@r-project.org>",
+      "references": [
+        "<5A79906D-0DD7-4147-A7F2-98F8B4D32DAE@imperial.ac.uk>",
+        "<77778A65-06D6-46E4-9CC7-B952BBE96289@r-project.org>",
+        "<1133697659.11270.104.camel@localhost.localdomain>",
+        "<2F0B9065-BF94-4243-BD7A-FD7B621763A4@r-project.org>"
+      ],
+      "body_plain": "On Sun, 2005-12-04 at 11:52 -0500, Simon Urbanek wrote:\n> Ok, sure. Do you have them somewhere on the web?\n\nNope. Will email.\n\nFede\n\n-- \nFederico C. F. Calboli\nDepartment of Epidemiology and Public Health\nImperial College, St Mary's Campus\nNorfolk Place, London W2 1PG\n\nTel  +44 (0)20 7594 1602     Fax (+44) 020 7594 3193\n\nf.calboli [.a.t] imperial.ac.uk\nf.calboli [.a.t] gmail.com",
+      "body_snippet": "On Sun, 2005-12-04 at 11:52 -0500, Simon Urbanek wrote:\n> Ok, sure. Do you have them somewhere on the web?\n\nNope. Will email.\n\nFede\n\n-- \nFederico C. F. Calboli\nDepartment of Epidemiology and Public He",
+      "thread_id": "thread-dc2652b249cd",
+      "thread_depth": 4,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-4059581d5cdd",
+      "message_id": "<13662507.1133723113504.JavaMail.fparlamis@mac.com>",
+      "from_name": "Franklin Parlamis",
+      "from_email_hash": "826922dd3076ce8d018428529d397d245a00356c49bd9b894c780b41f159dcbf",
+      "date": "2005-12-04T11:05:13-08:00",
+      "subject": "[R-SIG-Mac] RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "subject_clean": "RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "in_reply_to": "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>",
+      "references": [
+        "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>"
+      ],
+      "body_plain": "hi.  you may have found my postings on this topic in the archives from about a month back.  i had somewhat different problems with RMySQL, but all my problems were resolved after I re-installed MySQL from source and RMySQL from source (both with default compiler 3.3).\n\n  \nOn Saturday, December 03, 2005, at 02:15PM, Paul Shannon <pshannon at systemsbiology.org> wrote:\n\n>Hi all,\n>\n>>From a goggle search, it appears this problem is not unknown, and may be\n>due to compiler version differences (gcc 3.3 and 4.0).  But whatever\n>the cause, and despite the remedies I tried (mostly 'sudo gcc_select 3.3') I could not get \n>RMySQL to load.  Here's the error message:\n>\n>  > library (RMySQL)\n>    Loading required package: DBI\n>    Error in dyn.load(x, as.logical(local), as.logical(now)) :\n>          unable to load shared library '/Library/Frameworks/R.framework/Resources/library/RMySQL/libs/RMySQL.so':\n>    dlopen(/Library/Frameworks/R.framework/Resources/library/RMySQL/libs/RMySQL.so, 6): Symbol not found: _fprintf$LDBLStub\n>    Referenced from: /Library/Frameworks/R.framework/Resources/library/RMySQL/libs/RMySQL.so\n>    Expected in: flat namespace\n>    Error in library(RMySQL) : .First.lib failed for 'RMySQL'\n>\n>This is using:\n>\n>        Mac OS 10.4.3 \n>     R version 2.1.1.  \n>         mysql 5.0.1\n>           DBI 0.1-9\n>        RMySQL 0.5-5\n>\n>Any suggestions?\n>\n>Thanks!\n>\n> - Paul Shannon\n>   Institute for Systems Biology\n>   Seattle\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "hi.  you may have found my postings on this topic in the archives from about a month back.  i had somewhat different problems with RMySQL, but all my problems were resolved after I re-installed MySQL ",
+      "thread_id": "thread-502afb01ea7d",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-3835392b21de",
+      "message_id": "<7122A8D7-6286-400C-BC56-B65BADF4B261@mac.com>",
+      "from_name": "Parlamis Franklin",
+      "from_email_hash": "826922dd3076ce8d018428529d397d245a00356c49bd9b894c780b41f159dcbf",
+      "date": "2005-12-04T18:28:26-10:00",
+      "subject": "[R-SIG-Mac] sizing of quartz and x11 windows",
+      "subject_clean": "sizing of quartz and x11 windows",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "whenever i open an x11 or quartz window, the dimensions of the window  \nare roughly 74% and 72%, respectively, of what i call for.  for example:\n\nquartz(width=3, height=4) leads to a window that is roughly 2.15  \ninches by 2.9 inches, and\nx11(width=3, height=4) leads to a window that is roughly 2.21 inches  \nby 3 inches\n\ni am using dual apple cinema 23\" displays set at the 1920x1200  \nresolution.\n\ncan anyone point me in the direction of understanding why this is  \nhappening?",
+      "body_snippet": "whenever i open an x11 or quartz window, the dimensions of the window  \nare roughly 74% and 72%, respectively, of what i call for.  for example:\n\nquartz(width=3, height=4) leads to a window that is ro",
+      "thread_id": "thread-3835392b21de",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-4edec7bb2bb8",
+      "message_id": "<F165EE48-874E-44FE-BFE8-32A8FC5109A5@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2005-12-05T10:42:53+01:00",
+      "subject": "[R-SIG-Mac] sizing of quartz and x11 windows",
+      "subject_clean": "sizing of quartz and x11 windows",
+      "in_reply_to": "<7122A8D7-6286-400C-BC56-B65BADF4B261@mac.com>",
+      "references": [
+        "<7122A8D7-6286-400C-BC56-B65BADF4B261@mac.com>"
+      ],
+      "body_plain": "The general answer is that your pixels are not squares but they are  \nvertical rectangles, so what you expect is not what you see.\nAs for the small difference in quartz vs x11 I think is because of  \nthe resizing square at the bottom-right of the quartz window. So you  \nshould measure up to that square and you should get the same height.\nYou should notice this effect by creating 3x3 window and look that  \nindeed it appears as a rectangle.\nhope this helps\nstefano\n\n\n\nOn Dec 5, 2005, at 5:28 AM, Parlamis Franklin wrote:\n\n> whenever i open an x11 or quartz window, the dimensions of the window\n> are roughly 74% and 72%, respectively, of what i call for.  for  \n> example:\n>\n> quartz(width=3, height=4) leads to a window that is roughly 2.15\n> inches by 2.9 inches, and\n> x11(width=3, height=4) leads to a window that is roughly 2.21 inches\n> by 3 inches\n>\n> i am using dual apple cinema 23\" displays set at the 1920x1200\n> resolution.\n>\n> can anyone point me in the direction of understanding why this is\n> happening?\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "The general answer is that your pixels are not squares but they are  \nvertical rectangles, so what you expect is not what you see.\nAs for the small difference in quartz vs x11 I think is because of  \n",
+      "thread_id": "thread-3835392b21de",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-4c92373ae850",
+      "message_id": "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+      "from_name": "Hai Lin",
+      "from_email_hash": "2df52dac112c0035500fa5ba8f341c6a2298d41b719d23e5910a32bdb5aaf794",
+      "date": "2005-12-05T14:07:42-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051205/0542a157/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051205/0542a157/attachment.pl",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-636a0779e337",
+      "message_id": "<6D9ABFF1-D530-4150-93BD-8C5F7B8ED45A@mac.com>",
+      "from_name": "Parlamis Franklin",
+      "from_email_hash": "826922dd3076ce8d018428529d397d245a00356c49bd9b894c780b41f159dcbf",
+      "date": "2005-12-05T12:36:28-10:00",
+      "subject": "[R-SIG-Mac] sizing of quartz and x11 windows",
+      "subject_clean": "sizing of quartz and x11 windows",
+      "in_reply_to": "<F165EE48-874E-44FE-BFE8-32A8FC5109A5@mclink.it>",
+      "references": [
+        "<7122A8D7-6286-400C-BC56-B65BADF4B261@mac.com>",
+        "<F165EE48-874E-44FE-BFE8-32A8FC5109A5@mclink.it>"
+      ],
+      "body_plain": "quartz(w=3,h=3) gives me a 2 6/32\" square window (not including the  \nbanner, but including the resizing square).\n\nthe measured discrepency between x11 and quartz seems to scale  \nlinearly with the size of the windows (an x11 window being 1/64, 6/64  \nand 12/64\" bigger in the 1, 3 and 6\" cases), but for both x11 and  \nquartz the resizing square is within the measured square region, so i  \nam not sure the resizing square is the source of the discrepency.\n\ni am more wondering why 3\" in the function call turns into 2 6/32\"  \ndisplayed.  is this a standard error for everyone, or is it just my  \nmonitor/card-combo that creates it?  and if it's standard, why have a  \nfunction that purports to deliver a measurement?\n\nOn Dec 4, 2005, at 11:42 PM, stefano iacus wrote:\n\n> The general answer is that your pixels are not squares but they are  \n> vertical rectangles, so what you expect is not what you see.\n> As for the small difference in quartz vs x11 I think is because of  \n> the resizing square at the bottom-right of the quartz window. So  \n> you should measure up to that square and you should get the same  \n> height.\n> You should notice this effect by creating 3x3 window and look that  \n> indeed it appears as a rectangle.\n> hope this helps\n> stefano\n>\n>\n>\n> On Dec 5, 2005, at 5:28 AM, Parlamis Franklin wrote:\n>\n>> whenever i open an x11 or quartz window, the dimensions of the window\n>> are roughly 74% and 72%, respectively, of what i call for.  for  \n>> example:\n>>\n>> quartz(width=3, height=4) leads to a window that is roughly 2.15\n>> inches by 2.9 inches, and\n>> x11(width=3, height=4) leads to a window that is roughly 2.21 inches\n>> by 3 inches\n>>\n>> i am using dual apple cinema 23\" displays set at the 1920x1200\n>> resolution.\n>>\n>> can anyone point me in the direction of understanding why this is\n>> happening?\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>",
+      "body_snippet": "quartz(w=3,h=3) gives me a 2 6/32\" square window (not including the  \nbanner, but including the resizing square).\n\nthe measured discrepency between x11 and quartz seems to scale  \nlinearly with the si",
+      "thread_id": "thread-3835392b21de",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-6d870a1392d0",
+      "message_id": "<27B10DDC-BB6F-4F49-B6BB-F040DE09BA8F@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-05T17:44:41-05:00",
+      "subject": "[R-SIG-Mac] console fonts",
+      "subject_clean": "console fonts",
+      "in_reply_to": "<0BA7EE4D4646E0409D458D347C508B7801280275@MAILSERV1.uni.glam.ac.uk>",
+      "references": [
+        "<0BA7EE4D4646E0409D458D347C508B7801280275@MAILSERV1.uni.glam.ac.uk>"
+      ],
+      "body_plain": "Sam,\n\nOn Nov 29, 2005, at 9:29 AM, Kemp S E ((Comp)) wrote:\n\n> I am having trouble changing the font style in the R GUI console. I  \n> want to change it to Courier, but everytime I try to do so it just  \n> changes back to Monaco on the next line.\n\nR.app currently provides no customization of the default console font  \nin the preferences, save for the font size. Changes made using the  \nfont menu are not explicitly handled and the behavior is quite  \ninteresting (at least on Tiger you can change the prompt/input font,  \nbut not the output font), given that 'multiple fonts allowed' is  \ndisabled in the text. I will put it on the ToDo list, but I am not  \nsure how easy it is to implement...\n\nCheers,\nSimon",
+      "body_snippet": "Sam,\n\nOn Nov 29, 2005, at 9:29 AM, Kemp S E ((Comp)) wrote:\n\n> I am having trouble changing the font style in the R GUI console. I  \n> want to change it to Courier, but everytime I try to do so it jus",
+      "thread_id": "thread-6d870a1392d0",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-09086a43994c",
+      "message_id": "<EXCHANGEWtIIZS2TRqf0000025e@exchange.systemsbiology.net>",
+      "from_name": "Paul Shannon",
+      "from_email_hash": "78971c7f2703c106b234dddfcc5a1bd4f1b7c391132fd4ebe777b72e3a47354e",
+      "date": "2005-12-05T14:53:22-08:00",
+      "subject": "[R-SIG-Mac] RMySQL and MySQL 5.0? (was Re: RMySQL and '_fprintf$LDBLStub' symbol not found)",
+      "subject_clean": "RMySQL and MySQL 5.0? (was Re: RMySQL and '_fprintf$LDBLStub' symbol not found)",
+      "in_reply_to": "<D9C5E5FD-73EC-4870-A644-F61DE838A872@r-project.org> (message from Simon Urbanek on Sat, 3 Dec 2005 20:23:56 -0500)",
+      "references": [
+        "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>",
+        "<D9C5E5FD-73EC-4870-A644-F61DE838A872@r-project.org>"
+      ],
+      "body_plain": "Simon asks:\n\n  > can you, please, supply us with some critical details such as how you  \n  > installed and/or compiled RMySQL and whether you have a custom or  \n  > CRAN version of R?\n\nGene offered:\n\n  > I just had (and posted about) the exact same error message.  I found  \n  > it went away after updating Xcode to 2.2.  I also made a change to  \n  > SHLIB (though I don't know if that made a difference), which I can  \n  > look up when I am at my other computer.\n\nand Franklin said:\n\n  > hi.  you may have found my postings on this topic in the archives\n  > from about a month back.  i had somewhat different problems with\n  > RMySQL, but all my problems were resolved after I re-installed\n  > MySQL from source and RMySQL from source (both with default\n  > compiler 3.3).\n\nI used R 2.1.1, installed from the CRAN binary.  RMySQL I built from source, version 0.5-5,\non top of XML (0.97-8)  and DBI (0.1-9).\n\nI did all this at home, on OSX 10.4.3, but only after installing the latest \nMySQL binary -- version 5.0.16-standard.  \n\nRepeating the installation at work, using MySQSL 4.1.10-max, everything worked fine.\nI'm afraid to upgrade MySQL from 4.1. to 5.0.  \n\nHas anyone else had any luck with MySQL 5.0 and RMySQL?\n\nThanks!\n\n - Paul",
+      "body_snippet": "Simon asks:\n\n  > can you, please, supply us with some critical details such as how you  \n  > installed and/or compiled RMySQL and whether you have a custom or  \n  > CRAN version of R?\n\nGene offered:\n\n",
+      "thread_id": "thread-502afb01ea7d",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-14cbd1e545f0",
+      "message_id": "<0046D3BA-9910-45C6-917A-C40DE0A17EA2@mac.com>",
+      "from_name": "Parlamis Franklin",
+      "from_email_hash": "826922dd3076ce8d018428529d397d245a00356c49bd9b894c780b41f159dcbf",
+      "date": "2005-12-05T13:13:29-10:00",
+      "subject": "[R-SIG-Mac] RMySQL and MySQL 5.0? (was Re: RMySQL and '_fprintf$LDBLStub' symbol not found)",
+      "subject_clean": "RMySQL and MySQL 5.0? (was Re: RMySQL and '_fprintf$LDBLStub' symbol not found)",
+      "in_reply_to": "<EXCHANGEWtIIZS2TRqf0000025e@exchange.systemsbiology.net>",
+      "references": [
+        "<EXCHANGEnSYe4nhrKtz00000220@exchange.systemsbiology.net>",
+        "<D9C5E5FD-73EC-4870-A644-F61DE838A872@r-project.org>",
+        "<EXCHANGEWtIIZS2TRqf0000025e@exchange.systemsbiology.net>"
+      ],
+      "body_plain": "yes.  i am running MySQL 5.0.15 and R 2.2.0.  everything appears to  \nwork fine now, although I've found that MySQL \"goes away\" (I believe  \nthat is close to the syntax from the R error message--can't replicate  \nright now) if I don't call to it for a long period of time. not sure  \nwhether that is a bug or security measure.\n\n\nOn Dec 5, 2005, at 12:53 PM, Paul Shannon wrote:\n\n> Simon asks:\n>\n>> can you, please, supply us with some critical details such as how you\n>> installed and/or compiled RMySQL and whether you have a custom or\n>> CRAN version of R?\n>\n> Gene offered:\n>\n>> I just had (and posted about) the exact same error message.  I found\n>> it went away after updating Xcode to 2.2.  I also made a change to\n>> SHLIB (though I don't know if that made a difference), which I can\n>> look up when I am at my other computer.\n>\n> and Franklin said:\n>\n>> hi.  you may have found my postings on this topic in the archives\n>> from about a month back.  i had somewhat different problems with\n>> RMySQL, but all my problems were resolved after I re-installed\n>> MySQL from source and RMySQL from source (both with default\n>> compiler 3.3).\n>\n> I used R 2.1.1, installed from the CRAN binary.  RMySQL I built  \n> from source, version 0.5-5,\n> on top of XML (0.97-8)  and DBI (0.1-9).\n>\n> I did all this at home, on OSX 10.4.3, but only after installing  \n> the latest\n> MySQL binary -- version 5.0.16-standard.\n>\n> Repeating the installation at work, using MySQSL 4.1.10-max,  \n> everything worked fine.\n> I'm afraid to upgrade MySQL from 4.1. to 5.0.\n>\n> Has anyone else had any luck with MySQL 5.0 and RMySQL?\n>\n> Thanks!\n>\n>  - Paul\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "yes.  i am running MySQL 5.0.15 and R 2.2.0.  everything appears to  \nwork fine now, although I've found that MySQL \"goes away\" (I believe  \nthat is close to the syntax from the R error message--can't",
+      "thread_id": "thread-502afb01ea7d",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-54652e806c60",
+      "message_id": "<06B0F37F-413F-4883-B86D-63239022E880@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-05T18:14:54-05:00",
+      "subject": "[R-SIG-Mac] sizing of quartz and x11 windows",
+      "subject_clean": "sizing of quartz and x11 windows",
+      "in_reply_to": "<6D9ABFF1-D530-4150-93BD-8C5F7B8ED45A@mac.com>",
+      "references": [
+        "<7122A8D7-6286-400C-BC56-B65BADF4B261@mac.com>",
+        "<F165EE48-874E-44FE-BFE8-32A8FC5109A5@mclink.it>",
+        "<6D9ABFF1-D530-4150-93BD-8C5F7B8ED45A@mac.com>"
+      ],
+      "body_plain": "On Dec 5, 2005, at 5:36 PM, Parlamis Franklin wrote:\n\n> i am more wondering why 3\" in the function call turns into 2 6/32\"  \n> displayed.  is this a standard error for everyone, or is it just  \n> my  monitor/card-combo that creates it?\n\nThe discrepancy comes from the fact that the DPI density is not  \nnecessarily calibrated exactly to your monitor. I don't remember what  \nQuartz uses (it is initialized to 72dpi, but I see no code that  \nchanges it later), but the DPI for X11 is usually set to an arbitrary  \ndefault of 75 or 100 (see xdpyinfo|grep resol) which may not match  \nyour display (in fact my 23\" Apple display has 99.5x98.3 DPI  \naccording to OS X so Apple knows what they're doing). You can use the  \n-dpi argument to specify your real DPI in X11. As of Quartz, unless  \nthere is a way to set ipr in R directly I don't think you can change  \nit. Given that most modern displays have at least 100dpi, I'd vote to  \nchange the Quartz default to 100...\n\nCheers,\nSimon",
+      "body_snippet": "On Dec 5, 2005, at 5:36 PM, Parlamis Franklin wrote:\n\n> i am more wondering why 3\" in the function call turns into 2 6/32\"  \n> displayed.  is this a standard error for everyone, or is it just  \n> my  ",
+      "thread_id": "thread-3835392b21de",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-4ced27ef8f6e",
+      "message_id": "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "828012f8d91e7aec02576a685516a3192623cbd0772e74805d42b3a808a25e6c",
+      "date": "2005-12-06T22:42:49+11:00",
+      "subject": "[R-SIG-Mac] please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>",
+      "references": [
+        "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>"
+      ],
+      "body_plain": "I use TextWrangler http://www.barebones.com as a general editor. It's  \nfree and fairly powerful. I haven't set up any integration with R,  \nbut this should be possible if someone wants to do some work, as  \nthere are possibilities for source colouring, applescripting and  \nplugin extensions. I just save the files and then Source File in R.\n\nKen\n\nOn 06/12/2005, at 10:00 PM, r-sig-mac-request at stat.math.ethz.ch wrote:\n\n>\n> Message: 1\n> Date: Mon, 5 Dec 2005 14:07:42 -0800 (PST)\n> From: Hai Lin <kevinvol2002 at yahoo.com>\n> Subject: [R-SIG-Mac] please recommend an editor\n> To: r-sig-mac at stat.math.ethz.ch, kevinvol2002 at yahoo.com\n> Message-ID: <20051205220742.23884.qmail at web32411.mail.mud.yahoo.com>\n> Content-Type: text/plain\n>\n> Hi R-Mac users:\n>\n>   I am using R in Mac OS 10.3.8 and I am trying to find an editor  \n> which is compatible with R in Mac. I recently bumped into Xcode for  \n> a few times in Mac when I directly opened scripts. Would Xcode be a  \n> good editor to learn? Are there a lot people use it?\n>\n>   I don't know what you use to edit your files. Can you recommend?\n>\n>   Thanks for any information.\n>\n>   Kevin\n>\n> \t\t\n> ---------------------------------\n>\n>  Single? There's someone we'd like you to meet.\n>\n> \t[[alternative HTML version deleted]]\n>\n>\n>\n> ------------------------------\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> End of R-SIG-Mac Digest, Vol 34, Issue 8\n> ****************************************\n>",
+      "body_snippet": "I use TextWrangler http://www.barebones.com as a general editor. It's  \nfree and fairly powerful. I haven't set up any integration with R,  \nbut this should be possible if someone wants to do some wor",
+      "thread_id": "thread-4ced27ef8f6e",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-e88decb81776",
+      "message_id": "<BFBAF59C.5E55%rjohnson@ncifcrf.gov>",
+      "from_name": "Randall C Johnson [Contr.]",
+      "from_email_hash": "234b0aedbf14ef8621746e5a4bc8a1cbefe7b33c9bceab65f52047225f8acbf4",
+      "date": "2005-12-06T08:00:28-05:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+      "references": [],
+      "body_plain": "Hi Kevin,\nI prefer Emacs with ESS. It is fairly easy to install, and includes syntax\nhighlighting and interfacing with R. The keyboard shortcuts are a little\nawkward at first, but make life *much* easier in the long run. I've only\nbeen using it for a few months, and I'm very happy with it.\n\nBest,\nRandy\n\n\nOn 12/5/05 5:07 PM, \"Hai Lin\" <kevinvol2002 at yahoo.com> wrote:\n\n> Hi R-Mac users:\n>    \n>   I am using R in Mac OS 10.3.8 and I am trying to find an editor which is\n> compatible with R in Mac. I recently bumped into Xcode for a few times in Mac\n> when I directly opened scripts. Would Xcode be a good editor to learn? Are\n> there a lot people use it?\n>    \n>   I don't know what you use to edit your files. Can you recommend?\n>    \n>   Thanks for any information.\n>    \n>   Kevin\n> \n> \n> ---------------------------------\n> \n>  Single? There's someone we'd like you to meet.\n> \n> [[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nRandall C Johnson\nBioinformatics Analyst\nSAIC-Frederick, Inc (Contractor)\nLaboratory of Genomic Diversity\nNCI-Frederick\nP.O. Box B\n1050 Boyles Street\nBldg 560, Rm 11-85\nFrederick, MD 21702\nPhone: (301) 846-1304\nFax: (301) 846-1686\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "body_snippet": "Hi Kevin,\nI prefer Emacs with ESS. It is fairly easy to install, and includes syntax\nhighlighting and interfacing with R. The keyboard shortcuts are a little\nawkward at first, but make life *much* eas",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-9a412dcce185",
+      "message_id": "<2192530F-50E9-42A7-8110-6BBFC9543803@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-06T10:59:38-05:00",
+      "subject": "[R-SIG-Mac] Fwd: Crash when trying to save Quartz window as PDF",
+      "subject_clean": "Crash when trying to save Quartz window as PDF",
+      "in_reply_to": "<9015737B-F8D4-4F54-8212-C1EE4938D937@mail.utexas.edu>",
+      "references": [
+        "<341490C0-37FE-4934-ADB7-03C83F29370D@r-project.org>",
+        "<9015737B-F8D4-4F54-8212-C1EE4938D937@mail.utexas.edu>"
+      ],
+      "body_plain": "Thank you for the details!\n\nOn Dec 1, 2005, at 2:47 PM, Xochitl Morgan wrote:\n\n> Ok.\n> I tested with the R.app GUI  (R-GUI-Debug) from the web page you  \n> mentioned.  I used the one under \"Built for R 2.2.x\" because the  \n> one for 2.3.x didn't work with my R and I didn't see an R 2.3 at  \n> cran.r-project.org to download.\n\nI'm sorry this is my fault - it shouldn't say \"R 2.3\" - it should say  \n\"R-devel\", because there is no such thing as R 2.3.x yet. Using  \n\"Built for R 2.2x\" is absolutely correct.\n\n>   This also crashed when presented with the same problem.  I have  \n> attached my bug report.\n\nThank you. Unfortunately the bug is hard to track, because at the  \ncrash-point there should be no dynamically allocated buffer, so it  \nmeans there was a memory corruption before ... I'll see if I can  \nreproduce it somehow. If not, I'll need your help to print the values  \nof some variables - do you have Xcode developer tools installed on  \nyour machine?\n\nCheers,\nSimon",
+      "body_snippet": "Thank you for the details!\n\nOn Dec 1, 2005, at 2:47 PM, Xochitl Morgan wrote:\n\n> Ok.\n> I tested with the R.app GUI  (R-GUI-Debug) from the web page you  \n> mentioned.  I used the one under \"Built for ",
+      "thread_id": "thread-994cce404817",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-eb6704196655",
+      "message_id": "<4395B5B8.2060200@ucdavis.edu>",
+      "from_name": "Julin Maloof",
+      "from_email_hash": "99b5258a1e516382351f94946b203b78325d964e2eef1d9c277136498020ea5b",
+      "date": "2005-12-06T08:00:56-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Kevin,\n\nJust to make sure:\n\nYou are aware that there is an editor built in to the R.app GUI, right?  Once you open R.app, go to the file menu and use new or open. \n\nFor more serious tasks I use xemacs and emacs speaks statistics http://ess.r-project.org/.  For this you will need to be running X11.  \n\nJulin\n\n> Message: 1\n> Date: Mon, 5 Dec 2005 14:07:42 -0800 (PST)\n> From: Hai Lin <kevinvol2002 at yahoo.com>\n> Subject: [R-SIG-Mac] please recommend an editor\n> To: r-sig-mac at stat.math.ethz.ch, kevinvol2002 at yahoo.com\n> Message-ID: <20051205220742.23884.qmail at web32411.mail.mud.yahoo.com>\n> Content-Type: text/plain\n> \n> Hi R-Mac users:\n>    \n>   I am using R in Mac OS 10.3.8 and I am trying to find an editor which is compatible with R in Mac. I recently bumped into Xcode for a few times in Mac when I directly opened scripts. Would Xcode be a good editor to learn? Are there a lot people use it?\n>    \n>   I don't know what you use to edit your files. Can you recommend? \n>    \n>   Thanks for any information.\n>    \n>   Kevin\n\n-- \nJulin Maloof\nAssistant Professor\nSection of Plant Biology\nUniversity of California, Davis\n1 Shields Ave\nDavis, CA, 95616\n\nvoice: (530) 752-8077\nfax:   (530) 752-5410",
+      "body_snippet": "Kevin,\n\nJust to make sure:\n\nYou are aware that there is an editor built in to the R.app GUI, right?  Once you open R.app, go to the file menu and use new or open. \n\nFor more serious tasks I use xemacs",
+      "thread_id": "thread-eb6704196655",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-5da3fe4b872d",
+      "message_id": "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-06T11:08:07-05:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+      "references": [
+        "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "Kevin,\n\nOn Dec 5, 2005, at 5:07 PM, Hai Lin wrote:\n\n>   I am using R in Mac OS 10.3.8 and I am trying to find an editor  \n> which is compatible with R in Mac. I recently bumped into Xcode for  \n> a few times in Mac when I directly opened scripts. Would Xcode be a  \n> good editor to learn? Are there a lot people use it?\n\nXcode is nice, but the R support is limited to some syntax  \nhighlighting (which was posted on this list some time ago).  \nPersonally I use either the integrated editor in the R GUI or Emacs  \n(Carbon Emacs 22.0.50 to be more precise). Both have good R  \nintegration (i.e. not just syntax highlighting, but also auto- \ncompletion of functions, objects and argument lookup). The integrated  \nR GUI editor is more suitable for beginners, Emacs is ... well,  \nEmacs :) powerful if you know how to use it (and it's the only one  \nwith Rd mode AFAIK). I have also heard that SubEthaEdit is a really  \ngood editor with R syntax highlighting support, but never used it  \nmyself.\n\nCheers,\nSimon",
+      "body_snippet": "Kevin,\n\nOn Dec 5, 2005, at 5:07 PM, Hai Lin wrote:\n\n>   I am using R in Mac OS 10.3.8 and I am trying to find an editor  \n> which is compatible with R in Mac. I recently bumped into Xcode for  \n> a fe",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-6eb2ed7c466c",
+      "message_id": "<78F93767-F247-482F-8E2B-90AC28F401DE@smalltime.com>",
+      "from_name": "gene",
+      "from_email_hash": "91bd817b952c525e6423d7d052ec62fa855128102bd9ade5c353e60ded4af871",
+      "date": "2005-12-06T08:56:47-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>",
+      "references": [
+        "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>",
+        "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>"
+      ],
+      "body_plain": "I've written a BBEdit syntax coloring module for R language.  I think  \nit might work with the free TextWrangler too.  If anyone wants a  \ncopy, email me.\n\n-- Gene\n\n\n\nOn Dec 6, 2005, at 3:42 AM, Ken Beath wrote:\n\n> I use TextWrangler http://www.barebones.com as a general editor. It's\n> free and fairly powerful. I haven't set up any integration with R,\n> but this should be possible if someone wants to do some work, as\n> there are possibilities for source colouring, applescripting and\n> plugin extensions. I just save the files and then Source File in R.\n>\n> Ken\n>\n> On 06/12/2005, at 10:00 PM, r-sig-mac-request at stat.math.ethz.ch wrote:\n>\n>>\n>> Message: 1\n>> Date: Mon, 5 Dec 2005 14:07:42 -0800 (PST)\n>> From: Hai Lin <kevinvol2002 at yahoo.com>\n>> Subject: [R-SIG-Mac] please recommend an editor\n>> To: r-sig-mac at stat.math.ethz.ch, kevinvol2002 at yahoo.com\n>> Message-ID: <20051205220742.23884.qmail at web32411.mail.mud.yahoo.com>\n>> Content-Type: text/plain\n>>\n>> Hi R-Mac users:\n>>\n>>   I am using R in Mac OS 10.3.8 and I am trying to find an editor\n>> which is compatible with R in Mac. I recently bumped into Xcode for\n>> a few times in Mac when I directly opened scripts. Would Xcode be a\n>> good editor to learn? Are there a lot people use it?\n>>\n>>   I don't know what you use to edit your files. Can you recommend?\n>>\n>>   Thanks for any information.\n>>\n>>   Kevin\n>>\n>> \t\t\n>> ---------------------------------\n>>\n>>  Single? There's someone we'd like you to meet.\n>>\n>> \t[[alternative HTML version deleted]]\n>>\n>>\n>>\n>> ------------------------------\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>> End of R-SIG-Mac Digest, Vol 34, Issue 8\n>> ****************************************\n>>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I've written a BBEdit syntax coloring module for R language.  I think  \nit might work with the free TextWrangler too.  If anyone wants a  \ncopy, email me.\n\n-- Gene\n\n\n\nOn Dec 6, 2005, at 3:42 AM, Ken B",
+      "thread_id": "thread-4ced27ef8f6e",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-4718ed08bd0f",
+      "message_id": "<FC754C44-D135-4290-A5AC-F2813F820152@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-12-06T09:25:10-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<4395B5B8.2060200@ucdavis.edu>",
+      "references": [
+        "<4395B5B8.2060200@ucdavis.edu>"
+      ],
+      "body_plain": "Not true. ESS works fine in the many versions of Carbon Emacs and in  \nthe Carbon\nXemacs.\n\nOn Dec 6, 2005, at 08:00 , Julin Maloof wrote:\n\n> For more serious tasks I use xemacs and emacs speaks statistics  \n> http://ess.r-project.org/.  For this you will need to be running X11.\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "Not true. ESS works fine in the many versions of Carbon Emacs and in  \nthe Carbon\nXemacs.\n\nOn Dec 6, 2005, at 08:00 , Julin Maloof wrote:\n\n> For more serious tasks I use xemacs and emacs speaks statis",
+      "thread_id": "thread-eb6704196655",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-76c83f65d7ed",
+      "message_id": "<15645025.1133892262606.JavaMail.fparlamis@mac.com>",
+      "from_name": "Franklin Parlamis",
+      "from_email_hash": "826922dd3076ce8d018428529d397d245a00356c49bd9b894c780b41f159dcbf",
+      "date": "2005-12-06T10:04:22-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>",
+      "references": [
+        "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+        "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>"
+      ],
+      "body_plain": "One nice feature of the R GUI integrated editor is the ability to run an R command from within the editor.  It also looks and feels like the App itself, which is nice.\n\nI have found that Emacs does a better job with auto-indentation, and have also made use of Emac's backup automation features.  Emacs can probably do the \"run a command from the editor trick\" (it unclogged my toilet the other day); I just haven't figured out how to make it happen yet.\n\n \nOn Tuesday, December 06, 2005, at 09:10AM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n\n>Kevin,\n>\n>On Dec 5, 2005, at 5:07 PM, Hai Lin wrote:\n>\n>>   I am using R in Mac OS 10.3.8 and I am trying to find an editor  \n>> which is compatible with R in Mac. I recently bumped into Xcode for  \n>> a few times in Mac when I directly opened scripts. Would Xcode be a  \n>> good editor to learn? Are there a lot people use it?\n>\n>Xcode is nice, but the R support is limited to some syntax  \n>highlighting (which was posted on this list some time ago).  \n>Personally I use either the integrated editor in the R GUI or Emacs  \n>(Carbon Emacs 22.0.50 to be more precise). Both have good R  \n>integration (i.e. not just syntax highlighting, but also auto- \n>completion of functions, objects and argument lookup). The integrated  \n>R GUI editor is more suitable for beginners, Emacs is ... well,  \n>Emacs :) powerful if you know how to use it (and it's the only one  \n>with Rd mode AFAIK). I have also heard that SubEthaEdit is a really  \n>good editor with R syntax highlighting support, but never used it  \n>myself.\n>\n>Cheers,\n>Simon\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "One nice feature of the R GUI integrated editor is the ability to run an R command from within the editor.  It also looks and feels like the App itself, which is nice.\n\nI have found that Emacs does a ",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-05d5dfa53696",
+      "message_id": "<83bbe6a50b5d45317c587e60fab9caa0@mindspring.com>",
+      "from_name": "Tracy Lightcap",
+      "from_email_hash": "c0115c717c4f157b454fbb20b5663fe035489f3691a68a14e95da759442664b6",
+      "date": "2005-12-06T15:22:21-05:00",
+      "subject": "[R-SIG-Mac] R 2.2 crash",
+      "subject_clean": "R 2.2 crash",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have installed R2.2 (R Cocoa GUI 1.13 (1915)) on my B&W 350 Powermac \n(640MB)  running OS 10.3.8. The program crashes on boot. The crash file \nis as follows:\n\nHost Name:      Tracy-Lightcaps-Computer.local\nDate/Time:      2005-12-06 13:12:14 -0500\nOS Version:     10.3.8 (Build 7U16)\nReport Version: 2\n\nCommand: R\nPath:    /Applications/R.app/Contents/MacOS/R\nVersion: 1.13 (1915)\nPID:     652\nThread:  Unknown\n\nLink (dyld) error:\n\ndyld: /Applications/R.app/Contents/MacOS/R Undefined symbols:\n/Library/Frameworks/R.framework/Resources/lib/libR.dylib undefined \nreference to _cacos expected to be defined in \n/usr/lib/libSystem.B.dylib\n/Library/Frameworks/R.framework/Resources/lib/libR.dylib undefined \nreference to _cacosh expected to be defined in \n/usr/lib/libSystem.B.dylib\n/Library/Frameworks/R.framework/Resources/lib/libR.dylib undefined \nreference to _carg expected to be defined in /usr/lib/libSystem.B.dylib\n/Library/Frameworks/R.framework/Resources/lib/libR.dylib undefined \nreference to _casin expected to be defined in \n/usr/lib/libSystem.B.dylib\n/Library/Frameworks/R.framework/Resources/lib/libR.dylib undefined \nreference to _casinh expected to be defined in \n/usr/lib/libSystem.B.dylib\n/Library/Frameworks/R.framework/Resources/lib/libR.dylib undefined \nreference to _catan expected to be defined in \n/usr/lib/libSystem.B.dylib\n/Library/Frameworks/R.framework/Resources/lib/libR.dylib undefined \nreference to _catanh expected\n\nI already had R 2.1 on the machine and installed R 2.2 as an update \nfrom a disk image without removing the older application. \nInterestingly, the installer reported R 2.2 as a downgrade instead of \nan upgrade on installation; I assumed this was a bug. When R 2.2 failed \nto boot, I removed R.app and tried reinstallation from the disk image \nwith the same result. It looks like part of dylib didn't install.  Any \nideas about what is going on here?\n\nTracy Lightcap\nAssociate Professor\nPolitical Science\nLaGrange College\nLaGrange  GA  30240\n(O) 706.880.8226 (H) 770.444.0842",
+      "body_snippet": "I have installed R2.2 (R Cocoa GUI 1.13 (1915)) on my B&W 350 Powermac \n(640MB)  running OS 10.3.8. The program crashes on boot. The crash file \nis as follows:\n\nHost Name:      Tracy-Lightcaps-Compute",
+      "thread_id": "thread-05d5dfa53696",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-756272c190ec",
+      "message_id": "<9AA41408-CF64-4369-8C66-1F56DDCA42DD@stat.berkeley.edu>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "64daa056fd8bc97c1a667a56c348131f4bfb7651adb6032fb836238a930de545",
+      "date": "2005-12-06T12:29:59-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+      "references": [
+        "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "As several people have replied, Emacs is by far the preferred choice  \nfor most serious R developers. Using the ESS package with Emacs  \nprovides you with an interface to R which goes beyond just syntax  \nhighlightning. An example (which Simon has already described): you  \ncan press a key combination to start looking up in the help system.  \nTyping plot. and pressing TAB will then give you alist of help pages  \nfor functions starting with plot. amongst the loaded packages. This  \nis extremely useful. There are other features such as the ability to  \nsend a single line of code or a single function to R (instead of  \nsourcing the whole script). For package writes there are also nice  \nmodes for .Rd files and (in case you use it) saved transcript files  \n(you can eg. say you entire transcript from an R session and remove  \nall the output, leaving only the commands as a sourcable R script.).  \nEss supports Sweave documents as well.\n\nEmacs has other advantages:\n* it is truly cross-platform, a big advantage if you are also using  \n*NIX servers and/or windows\n* it supports basically any kind of language out there, so if you  \nwrite in a set of different language, it makes sense to use a single  \neditor\n* One small lifesaver for statisticians (and others): it supports  \nrectangular cut and paste: imagine being able to cut out a column  \nfrom a table...\n\nOther editors does the same, but the functionality of the ESS package  \nis to my knowledge not present in any other editor, making Emacs a  \nfirst choice for R users.\n\nHaving said all of that, Emacs is a big program (which btw. is older  \nthan dos), with some learning curve. It will take you a long time  \nbefore you feel totally at home in it. And you will spend the first  \ncouple of months cursing about the strange key combinations and the  \nsmall quirks. So do not even think of using it unless you plan to do  \nmore than write 10 lines of R code.\n\nAs Jan has said: you do not in any way need to run X11 to run Emacs,  \nalthough it makes sense to use x11 to plot graphics.\n\nOther people have suggested other editors for the causal user.\n\n/Kasper\n\nOn Dec 5, 2005, at 2:07 PM, Hai Lin wrote:\n\n> Hi R-Mac users:\n>\n>   I am using R in Mac OS 10.3.8 and I am trying to find an editor  \n> which is compatible with R in Mac. I recently bumped into Xcode for  \n> a few times in Mac when I directly opened scripts. Would Xcode be a  \n> good editor to learn? Are there a lot people use it?\n>\n>   I don't know what you use to edit your files. Can you recommend?\n>\n>   Thanks for any information.\n>\n>   Kevin\n>\n> \t\t\n> ---------------------------------\n>\n>  Single? There's someone we'd like you to meet.\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "As several people have replied, Emacs is by far the preferred choice  \nfor most serious R developers. Using the ESS package with Emacs  \nprovides you with an interface to R which goes beyond just synt",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-b54fa51f0424",
+      "message_id": "<4395FAAC.40003@sfu.ca>",
+      "from_name": "Michael Toews",
+      "from_email_hash": "c60ab1d6b046351f7fe717fb6a5f331df74569cf1327a1de8deaae39c803d482",
+      "date": "2005-12-06T12:55:08-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>",
+      "references": [
+        "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+        "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>"
+      ],
+      "body_plain": "This is a related remark to this topic and the icon topic of last week.\nI'm not sure how file associations work between OS X apps and their \nextensions, however R.app doesn't appear to \"own\" any file extensions \nwhen it is installed, and they have generic or blank icons. Perhaps the \nindividual keen on making icons from the email discussion last week \ncould make new icons for \"*.R\" files, which might look like R-code with \nthe R logo; an icon for \"*.RData\" which could look like those DB \ncylinders with the R logo; and another icon for \"*.Rd\" files \n(document-like text with the R logo?).\nI forget if I had to manually get the \"*.RData\" extension to \"Open \nwith...\" R.app, but this should be an automatic association after \ninstall; same goes for the \"*.R\" files.\nThe default behavior for double-clicking an \"*.R\" file should not open \nXCode, and should not be associated with an XCode \"*.r\" Resource Manager \nfile icon. (I'm defiantly not sure if app file ownership in OS X is case \nsensitive, because in an ideal UNIX world \"*.r\" extensions and \"*.R\" are \ndifferent, which they are in this case.)\nAnyways, just a thought.\n+mt\n\nSimon Urbanek wrote:\n> Kevin,\n>\n> On Dec 5, 2005, at 5:07 PM, Hai Lin wrote:\n>\n>   \n>>   I am using R in Mac OS 10.3.8 and I am trying to find an editor  \n>> which is compatible with R in Mac. I recently bumped into Xcode for  \n>> a few times in Mac when I directly opened scripts. Would Xcode be a  \n>> good editor to learn? Are there a lot people use it?\n>>     \n>\n> Xcode is nice, but the R support is limited to some syntax  \n> highlighting (which was posted on this list some time ago).  \n> Personally I use either the integrated editor in the R GUI or Emacs  \n> (Carbon Emacs 22.0.50 to be more precise). Both have good R  \n> integration (i.e. not just syntax highlighting, but also auto- \n> completion of functions, objects and argument lookup). The integrated  \n> R GUI editor is more suitable for beginners, Emacs is ... well,  \n> Emacs :) powerful if you know how to use it (and it's the only one  \n> with Rd mode AFAIK). I have also heard that SubEthaEdit is a really  \n> good editor with R syntax highlighting support, but never used it  \n> myself.\n>\n> Cheers,\n> Simon\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "This is a related remark to this topic and the icon topic of last week.\nI'm not sure how file associations work between OS X apps and their \nextensions, however R.app doesn't appear to \"own\" any file ",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-d13e480d29ac",
+      "message_id": "<20051206210913.46347.qmail@web32411.mail.mud.yahoo.com>",
+      "from_name": "Hai Lin",
+      "from_email_hash": "2df52dac112c0035500fa5ba8f341c6a2298d41b719d23e5910a32bdb5aaf794",
+      "date": "2005-12-06T13:09:13-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<9AA41408-CF64-4369-8C66-1F56DDCA42DD@stat.berkeley.edu>",
+      "references": [],
+      "body_plain": "Appreciate you all for kind replys. With others, I am\ngetting incrediable amount of Info. It really really\nhelps.\n\nThanks again.\n\nKevin\n\n--- Kasper Daniel Hansen <khansen at stat.Berkeley.EDU>\nwrote:\n\n> As several people have replied, Emacs is by far the\n> preferred choice  \n> for most serious R developers. Using the ESS package\n> with Emacs  \n> provides you with an interface to R which goes\n> beyond just syntax  \n> highlightning. An example (which Simon has already\n> described): you  \n> can press a key combination to start looking up in\n> the help system.  \n> Typing plot. and pressing TAB will then give you\n> alist of help pages  \n> for functions starting with plot. amongst the loaded\n> packages. This  \n> is extremely useful. There are other features such\n> as the ability to  \n> send a single line of code or a single function to R\n> (instead of  \n> sourcing the whole script). For package writes there\n> are also nice  \n> modes for .Rd files and (in case you use it) saved\n> transcript files  \n> (you can eg. say you entire transcript from an R\n> session and remove  \n> all the output, leaving only the commands as a\n> sourcable R script.).  \n> Ess supports Sweave documents as well.\n> \n> Emacs has other advantages:\n> * it is truly cross-platform, a big advantage if you\n> are also using  \n> *NIX servers and/or windows\n> * it supports basically any kind of language out\n> there, so if you  \n> write in a set of different language, it makes sense\n> to use a single  \n> editor\n> * One small lifesaver for statisticians (and\n> others): it supports  \n> rectangular cut and paste: imagine being able to cut\n> out a column  \n> from a table...\n> \n> Other editors does the same, but the functionality\n> of the ESS package  \n> is to my knowledge not present in any other editor,\n> making Emacs a  \n> first choice for R users.\n> \n> Having said all of that, Emacs is a big program\n> (which btw. is older  \n> than dos), with some learning curve. It will take\n> you a long time  \n> before you feel totally at home in it. And you will\n> spend the first  \n> couple of months cursing about the strange key\n> combinations and the  \n> small quirks. So do not even think of using it\n> unless you plan to do  \n> more than write 10 lines of R code.\n> \n> As Jan has said: you do not in any way need to run\n> X11 to run Emacs,  \n> although it makes sense to use x11 to plot graphics.\n> \n> Other people have suggested other editors for the\n> causal user.\n> \n> /Kasper\n> \n> On Dec 5, 2005, at 2:07 PM, Hai Lin wrote:\n> \n> > Hi R-Mac users:\n> >\n> >   I am using R in Mac OS 10.3.8 and I am trying to\n> find an editor  \n> > which is compatible with R in Mac. I recently\n> bumped into Xcode for  \n> > a few times in Mac when I directly opened scripts.\n> Would Xcode be a  \n> > good editor to learn? Are there a lot people use\n> it?\n> >\n> >   I don't know what you use to edit your files.\n> Can you recommend?\n> >\n> >   Thanks for any information.\n> >\n> >   Kevin\n> >\n> > \t\t\n> > ---------------------------------\n> >\n> >  Single? There's someone we'd like you to meet.\n> >\n> > \t[[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at stat.math.ethz.ch\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "Appreciate you all for kind replys. With others, I am\ngetting incrediable amount of Info. It really really\nhelps.\n\nThanks again.\n\nKevin\n\n--- Kasper Daniel Hansen <khansen at stat.Berkeley.EDU>\nwrote:\n",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-41c399c33c52",
+      "message_id": "<FDF5FCA6-8984-4B56-AF95-CD25798E696F@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2005-12-06T22:12:33+01:00",
+      "subject": "[R-SIG-Mac] please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": "<78F93767-F247-482F-8E2B-90AC28F401DE@smalltime.com>",
+      "references": [
+        "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>",
+        "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>",
+        "<78F93767-F247-482F-8E2B-90AC28F401DE@smalltime.com>"
+      ],
+      "body_plain": "It would be nice to collect such modules for different mac specific  \neditors and distribute them with the R installer.\nWhat do you think SImon?\nstefano\n\n\nOn Dec 6, 2005, at 5:56 PM, gene wrote:\n\n> I've written a BBEdit syntax coloring module for R language.  I think\n> it might work with the free TextWrangler too.  If anyone wants a\n> copy, email me.\n>\n> -- Gene\n>\n>\n>\n> On Dec 6, 2005, at 3:42 AM, Ken Beath wrote:\n>\n>> I use TextWrangler http://www.barebones.com as a general editor. It's\n>> free and fairly powerful. I haven't set up any integration with R,\n>> but this should be possible if someone wants to do some work, as\n>> there are possibilities for source colouring, applescripting and\n>> plugin extensions. I just save the files and then Source File in R.\n>>\n>> Ken\n>>\n>> On 06/12/2005, at 10:00 PM, r-sig-mac-request at stat.math.ethz.ch  \n>> wrote:\n>>\n>>>\n>>> Message: 1\n>>> Date: Mon, 5 Dec 2005 14:07:42 -0800 (PST)\n>>> From: Hai Lin <kevinvol2002 at yahoo.com>\n>>> Subject: [R-SIG-Mac] please recommend an editor\n>>> To: r-sig-mac at stat.math.ethz.ch, kevinvol2002 at yahoo.com\n>>> Message-ID: <20051205220742.23884.qmail at web32411.mail.mud.yahoo.com>\n>>> Content-Type: text/plain\n>>>\n>>> Hi R-Mac users:\n>>>\n>>>   I am using R in Mac OS 10.3.8 and I am trying to find an editor\n>>> which is compatible with R in Mac. I recently bumped into Xcode for\n>>> a few times in Mac when I directly opened scripts. Would Xcode be a\n>>> good editor to learn? Are there a lot people use it?\n>>>\n>>>   I don't know what you use to edit your files. Can you recommend?\n>>>\n>>>   Thanks for any information.\n>>>\n>>>   Kevin\n>>>\n>>> \t\t\n>>> ---------------------------------\n>>>\n>>>  Single? There's someone we'd like you to meet.\n>>>\n>>> \t[[alternative HTML version deleted]]\n>>>\n>>>\n>>>\n>>> ------------------------------\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>>\n>>> End of R-SIG-Mac Digest, Vol 34, Issue 8\n>>> ****************************************\n>>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "It would be nice to collect such modules for different mac specific  \neditors and distribute them with the R installer.\nWhat do you think SImon?\nstefano\n\n\nOn Dec 6, 2005, at 5:56 PM, gene wrote:\n\n> I'",
+      "thread_id": "thread-4ced27ef8f6e",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-eade1afc0365",
+      "message_id": "<E1307397-3308-4DC2-A034-362464495FC2@bellarmine.edu>",
+      "from_name": "Bill Rising",
+      "from_email_hash": "e4ebef78b5fbb5d7bfc9490d3a0905dca46cbb1160976277b59d579c24e713d0",
+      "date": "2005-12-06T16:58:16-05:00",
+      "subject": "[R-SIG-Mac] please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>",
+      "references": [
+        "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>",
+        "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>"
+      ],
+      "body_plain": "On Dec 6, 2005, at 6:42, Ken Beath wrote:\n\n> I use TextWrangler http://www.barebones.com as a general editor. It's\n> free and fairly powerful. I haven't set up any integration with R,\n> but this should be possible if someone wants to do some work, as\n> there are possibilities for source colouring, applescripting and\n> plugin extensions. I just save the files and then Source File in R.\n\nI'm a big fan of emacs. On the mac Aquaemacs allows avoiding some of  \nthe odd keystrokes that emacs normally requires. It's now pretty  \nmature, and works pretty well in genl.\n\nBill\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: smime.p7s\nType: application/pkcs7-signature\nSize: 2373 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051206/d905f8b6/smime.bin",
+      "body_snippet": "On Dec 6, 2005, at 6:42, Ken Beath wrote:\n\n> I use TextWrangler http://www.barebones.com as a general editor. It's\n> free and fairly powerful. I haven't set up any integration with R,\n> but this shoul",
+      "thread_id": "thread-4ced27ef8f6e",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-ce5eb9736efc",
+      "message_id": "<BFBB749C.5EBA%rjohnson@ncifcrf.gov>",
+      "from_name": "Randall C. Johnson [Contr]",
+      "from_email_hash": "234b0aedbf14ef8621746e5a4bc8a1cbefe7b33c9bceab65f52047225f8acbf4",
+      "date": "2005-12-06T17:02:20-05:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<15645025.1133892262606.JavaMail.fparlamis@mac.com>",
+      "references": [],
+      "body_plain": "> I have found that Emacs does a better job with auto-indentation, and have also\n> made use of Emac's backup automation features.  Emacs can probably do the \"run\n> a command from the editor trick\" (it unclogged my toilet the other day); I\n> just haven't figured out how to make it happen yet.\n\nctr-c ctr-j  runs the line\nctr-c ctr-r  runs the region - mark the beginning of the region with ctr-spc\nctr-c ctr-b  runs the buffer\n\nBest,\nRandy\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nRandall C Johnson\nBioinformatics Analyst\nSAIC-Frederick, Inc (Contractor)\nLaboratory of Genomic Diversity\nNCI-Frederick\nP.O. Box B\n1050 Boyles Street\nBldg 560, Rm 11-85\nFrederick, MD 21702\nPhone: (301) 846-1304\nFax: (301) 846-1686\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "body_snippet": "> I have found that Emacs does a better job with auto-indentation, and have also\n> made use of Emac's backup automation features.  Emacs can probably do the \"run\n> a command from the editor trick\" (it",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-9587b78dbf47",
+      "message_id": "<20F14969-7DA4-4F44-BD84-4ACEA597F0F3@stat.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "96054a6fc2ab5940337a3945e39fc6d1008334db662840abd9512700aa3b3d7e",
+      "date": "2005-12-06T14:12:55-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>",
+      "references": [
+        "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+        "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>"
+      ],
+      "body_plain": "Furthermore, if I ever got around to doing anything else with the  \nXcode stuff, it would be aimed towards the package developer and not  \nthe R user. In my copious spare time, of course.\n\n\nOn Dec 6, 2005, at 8:08 AM, Simon Urbanek wrote:\n\n> Kevin,\n>\n> On Dec 5, 2005, at 5:07 PM, Hai Lin wrote:\n>\n>>   I am using R in Mac OS 10.3.8 and I am trying to find an editor\n>> which is compatible with R in Mac. I recently bumped into Xcode for\n>> a few times in Mac when I directly opened scripts. Would Xcode be a\n>> good editor to learn? Are there a lot people use it?\n>\n> Xcode is nice, but the R support is limited to some syntax\n> highlighting (which was posted on this list some time ago).\n> Personally I use either the integrated editor in the R GUI or Emacs\n> (Carbon Emacs 22.0.50 to be more precise). Both have good R\n> integration (i.e. not just syntax highlighting, but also auto-\n> completion of functions, objects and argument lookup). The integrated\n> R GUI editor is more suitable for beginners, Emacs is ... well,\n> Emacs :) powerful if you know how to use it (and it's the only one\n> with Rd mode AFAIK). I have also heard that SubEthaEdit is a really\n> good editor with R syntax highlighting support, but never used it\n> myself.\n>\n> Cheers,\n> Simon\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n---\nByron Ellis (ellis at stat.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Furthermore, if I ever got around to doing anything else with the  \nXcode stuff, it would be aimed towards the package developer and not  \nthe R user. In my copious spare time, of course.\n\n\nOn Dec 6, ",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-92b39f7c9569",
+      "message_id": "<43961536.3070103@ucdavis.edu>",
+      "from_name": "Julin Maloof",
+      "from_email_hash": "99b5258a1e516382351f94946b203b78325d964e2eef1d9c277136498020ea5b",
+      "date": "2005-12-06T14:48:22-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Right.  What I should have said is that I haven't found a carbon version of emacs or xemacs that I like as well as the X11 based xemacs. The last time I tried this was perhaps 6 months ago with Andrew Choi's port of Xemacs.  It was nice, but at that time window functions seemed to bog down with long files (scrolling, etc, I think...I can't remember its been a while).  And it seemed like Andrew might not be interested in continuing on the project.  I see, however, that he has.\n\nJan (or others) which carbon emacs or xemacs do you prefer? \n\nThanks,\n\nJulin\n\n\n> Message: 6\n> Date: Tue, 6 Dec 2005 09:25:10 -0800\n> From: Jan de Leeuw <deleeuw at stat.ucla.edu>\n> Subject: Re: [R-SIG-Mac] please recommend an editor\n> To: R-SIG-Mac Mailing List <r-sig-mac at stat.math.ethz.ch>\n> Message-ID: <FC754C44-D135-4290-A5AC-F2813F820152 at stat.ucla.edu>\n> Content-Type: text/plain; charset=US-ASCII; delsp=yes; format=flowed\n> \n> Not true. ESS works fine in the many versions of Carbon Emacs and in  \n> the Carbon\n> Xemacs.\n> \n> On Dec 6, 2005, at 08:00 , Julin Maloof wrote:\n> \n>> > For more serious tasks I use xemacs and emacs speaks statistics  \n>> > http://ess.r-project.org/.  For this you will need to be running X11.\n> \n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \n> Statistics;\n> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n> Software\n> US mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw at stat.ucla.edu\n> .mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\n> homepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n>    \n> ------------------------------------------------------------------------ \n> -------------------------\n>            No matter where you go, there you are. --- Buckaroo Banzai\n>                     http://gifi.stat.ucla.edu/sounds/nomatter.au\n\n\n-- \nJulin Maloof\nAssistant Professor\nSection of Plant Biology\nUniversity of California, Davis\n1 Shields Ave\nDavis, CA, 95616\n\nvoice: (530) 752-8077\nfax:   (530) 752-5410",
+      "body_snippet": "Right.  What I should have said is that I haven't found a carbon version of emacs or xemacs that I like as well as the X11 based xemacs. The last time I tried this was perhaps 6 months ago with Andrew",
+      "thread_id": "thread-92b39f7c9569",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-e30dee9c586a",
+      "message_id": "<C93C7500-11FC-458C-A1A9-4CD85DE7BDD0@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-12-06T15:02:28-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<43961536.3070103@ucdavis.edu>",
+      "references": [
+        "<43961536.3070103@ucdavis.edu>"
+      ],
+      "body_plain": "apple recommends\n\nhttp://home.att.ne.jp/alpha/z123/emacs-mac-e.html  (comes with ESS)\n\nbut\n\nhttp://aquamacs.org/index.shtml\nhttp://emacs-on-aqua.sourceforge.net/\n\nare interesting too and may eventually be better than the more classical\nemacs-mac\n\ni never seriously used xemacs -- so dont know about that one\n\n\nOn Dec 6, 2005, at 14:48 , Julin Maloof wrote:\n\n> Right.  What I should have said is that I haven't found a carbon  \n> version of emacs or xemacs that I like as well as the X11 based  \n> xemacs. The last time I tried this was perhaps 6 months ago with  \n> Andrew Choi's port of Xemacs.  It was nice, but at that time window  \n> functions seemed to bog down with long files (scrolling, etc, I  \n> think...I can't remember its been a while).  And it seemed like  \n> Andrew might not be interested in continuing on the project.  I  \n> see, however, that he has.\n>\n> Jan (or others) which carbon emacs or xemacs do you prefer?\n>\n> Thanks,\n>\n> Julin\n>\n>\n>> Message: 6\n>> Date: Tue, 6 Dec 2005 09:25:10 -0800\n>> From: Jan de Leeuw <deleeuw at stat.ucla.edu>\n>> Subject: Re: [R-SIG-Mac] please recommend an editor\n>> To: R-SIG-Mac Mailing List <r-sig-mac at stat.math.ethz.ch>\n>> Message-ID: <FC754C44-D135-4290-A5AC-F2813F820152 at stat.ucla.edu>\n>> Content-Type: text/plain; charset=US-ASCII; delsp=yes; format=flowed\n>>\n>> Not true. ESS works fine in the many versions of Carbon Emacs and in\n>> the Carbon\n>> Xemacs.\n>>\n>> On Dec 6, 2005, at 08:00 , Julin Maloof wrote:\n>>\n>>>> For more serious tasks I use xemacs and emacs speaks statistics\n>>>> http://ess.r-project.org/.  For this you will need to be running  \n>>>> X11.\n>>\n>> ===\n>> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of\n>> Statistics;\n>> Editor: Journal of Multivariate Analysis, Journal of Statistical\n>> Software\n>> US mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n>> 90095-1554\n>> phone (310)-825-9550;  fax (310)-206-5658;  email:  \n>> deleeuw at stat.ucla.edu\n>> .mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\n>> homepages: http://gifi.stat.ucla.edu ++++++ http:// \n>> www.cuddyvalley.org\n>>\n>> --------------------------------------------------------------------- \n>> ---\n>> -------------------------\n>>            No matter where you go, there you are. --- Buckaroo Banzai\n>>                     http://gifi.stat.ucla.edu/sounds/nomatter.au\n>\n>\n> -- \n> Julin Maloof\n> Assistant Professor\n> Section of Plant Biology\n> University of California, Davis\n> 1 Shields Ave\n> Davis, CA, 95616\n>\n> voice: (530) 752-8077\n> fax:   (530) 752-5410\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "apple recommends\n\nhttp://home.att.ne.jp/alpha/z123/emacs-mac-e.html  (comes with ESS)\n\nbut\n\nhttp://aquamacs.org/index.shtml\nhttp://emacs-on-aqua.sourceforge.net/\n\nare interesting too and may eventuall",
+      "thread_id": "thread-92b39f7c9569",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-438c3cf67fe6",
+      "message_id": "<1C4AAD14-EFB9-4547-9310-6AA7B82A4947@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-12-06T15:06:55-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<9AA41408-CF64-4369-8C66-1F56DDCA42DD@stat.berkeley.edu>",
+      "references": [
+        "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+        "<9AA41408-CF64-4369-8C66-1F56DDCA42DD@stat.berkeley.edu>"
+      ],
+      "body_plain": "This is a really important feature but BBEdit and Alpha also\nsupport it (option-click-drag)\n\nOn Dec 6, 2005, at 12:29 , Kasper Daniel Hansen wrote:\n\n> * One small lifesaver for statisticians (and others): it supports\n> rectangular cut and paste: imagine being able to cut out a column\n> from a table...",
+      "body_snippet": "This is a really important feature but BBEdit and Alpha also\nsupport it (option-click-drag)\n\nOn Dec 6, 2005, at 12:29 , Kasper Daniel Hansen wrote:\n\n> * One small lifesaver for statisticians (and othe",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-255122638ff1",
+      "message_id": "<569D0950-B626-4F10-B6E2-4149E795A28A@stat.berkeley.edu>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "64daa056fd8bc97c1a667a56c348131f4bfb7651adb6032fb836238a930de545",
+      "date": "2005-12-06T15:09:59-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": "<FDF5FCA6-8984-4B56-AF95-CD25798E696F@mclink.it>",
+      "references": [
+        "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>",
+        "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>",
+        "<78F93767-F247-482F-8E2B-90AC28F401DE@smalltime.com>",
+        "<FDF5FCA6-8984-4B56-AF95-CD25798E696F@mclink.it>"
+      ],
+      "body_plain": "Well, I guess a first thing would be to place them at the CRAN site  \nunder \"other\" where WinEdt and ESS gets linked to, and the a2ps  \nstylesheets are.\n\nHaving something in the MacOSX FAQ world make sense as well.\n\nKasper\n\nOn Dec 6, 2005, at 1:12 PM, stefano iacus wrote:\n\n> It would be nice to collect such modules for different mac specific\n> editors and distribute them with the R installer.\n> What do you think SImon?\n> stefano\n>\n>\n> On Dec 6, 2005, at 5:56 PM, gene wrote:\n>\n>> I've written a BBEdit syntax coloring module for R language.  I think\n>> it might work with the free TextWrangler too.  If anyone wants a\n>> copy, email me.\n>>\n>> -- Gene\n>>\n>>\n>>\n>> On Dec 6, 2005, at 3:42 AM, Ken Beath wrote:\n>>\n>>> I use TextWrangler http://www.barebones.com as a general editor.  \n>>> It's\n>>> free and fairly powerful. I haven't set up any integration with R,\n>>> but this should be possible if someone wants to do some work, as\n>>> there are possibilities for source colouring, applescripting and\n>>> plugin extensions. I just save the files and then Source File in R.\n>>>\n>>> Ken\n>>>\n>>> On 06/12/2005, at 10:00 PM, r-sig-mac-request at stat.math.ethz.ch\n>>> wrote:\n>>>\n>>>>\n>>>> Message: 1\n>>>> Date: Mon, 5 Dec 2005 14:07:42 -0800 (PST)\n>>>> From: Hai Lin <kevinvol2002 at yahoo.com>\n>>>> Subject: [R-SIG-Mac] please recommend an editor\n>>>> To: r-sig-mac at stat.math.ethz.ch, kevinvol2002 at yahoo.com\n>>>> Message-ID:  \n>>>> <20051205220742.23884.qmail at web32411.mail.mud.yahoo.com>\n>>>> Content-Type: text/plain\n>>>>\n>>>> Hi R-Mac users:\n>>>>\n>>>>   I am using R in Mac OS 10.3.8 and I am trying to find an editor\n>>>> which is compatible with R in Mac. I recently bumped into Xcode for\n>>>> a few times in Mac when I directly opened scripts. Would Xcode be a\n>>>> good editor to learn? Are there a lot people use it?\n>>>>\n>>>>   I don't know what you use to edit your files. Can you recommend?\n>>>>\n>>>>   Thanks for any information.\n>>>>\n>>>>   Kevin\n>>>>\n>>>> \t\t\n>>>> ---------------------------------\n>>>>\n>>>>  Single? There's someone we'd like you to meet.\n>>>>\n>>>> \t[[alternative HTML version deleted]]\n>>>>\n>>>>\n>>>>\n>>>> ------------------------------\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at stat.math.ethz.ch\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>\n>>>>\n>>>> End of R-SIG-Mac Digest, Vol 34, Issue 8\n>>>> ****************************************\n>>>>\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Well, I guess a first thing would be to place them at the CRAN site  \nunder \"other\" where WinEdt and ESS gets linked to, and the a2ps  \nstylesheets are.\n\nHaving something in the MacOSX FAQ world make ",
+      "thread_id": "thread-4ced27ef8f6e",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-fe6165c652fc",
+      "message_id": "<1253d67a0512061604j19c19e76o1311236c6859a48e@mail.gmail.com>",
+      "from_name": "Joel Bremson",
+      "from_email_hash": "4802145a3e2bf37ffad8ba4eeb5630d5113aaf0e51e5869ed246aedc2ed50605",
+      "date": "2005-12-06T16:04:15-08:00",
+      "subject": "[R-SIG-Mac] Mac code editing",
+      "subject_clean": "Mac code editing",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "> On Dec 6, 2005, at 6:42, Ken Beath wrote:\n>\n\n> > plugin extensions. I just save the files and then Source File in R.\n>\n\n\nThere are a lot of options for editing. Any Emacs version takes time,\nbut it's probably worth it if you do a lot of work in R. Another\noption is jedit, an open source editor written in java. It has an R\nmode you can download for it.\n\nThere is a good trick to know for working with editors that don't have\ndirect R integration: file.choose(). file.choose() will pop up an OS\nnative file selection box so you don't have to cut and paste paths\ninto the R monitor.\n\nI've been keeping a blog of R notes at http://r-notes.blogspot.com.\nThere is an entry there on file.choose().\n\n\nJB\n\n\n--\nJoel Bremson\nGraduate Student\nInstitute for Transportation Studies - UC Davis",
+      "body_snippet": "> On Dec 6, 2005, at 6:42, Ken Beath wrote:\n>\n\n> > plugin extensions. I just save the files and then Source File in R.\n>\n\n\nThere are a lot of options for editing. Any Emacs version takes time,\nbut it'",
+      "thread_id": "thread-fe6165c652fc",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-3b1a742797e1",
+      "message_id": "<6E043008-4652-4334-959D-4CA9D93FF888@smalltime.com>",
+      "from_name": "gene",
+      "from_email_hash": "91bd817b952c525e6423d7d052ec62fa855128102bd9ade5c353e60ded4af871",
+      "date": "2005-12-06T17:24:03-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": "<p06210202bfbbc6eea536@[192.168.2.109]>",
+      "references": [
+        "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>",
+        "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>",
+        "<78F93767-F247-482F-8E2B-90AC28F401DE@smalltime.com>",
+        "<p06210202bfbbc6eea536@[192.168.2.109]>"
+      ],
+      "body_plain": "In light of the massive response I've gotten (at least 5 emails),  \nI've put the BBEdit/TextWrangler R language module on my webserver.   \nYou can access it at http://www.smalltime.com/gene/R.plist\n\nThe file goes in \"~/Library/Application Support/BBEdit/Language  \nModules/\" for BBEdit and in \"~/Library/Application Support/ \nTextWrangler/Language Modules/\" for TextWrangler (thanks Dan) or the  \ncorresponding global Library locations.\n\n\nPhilippe, Dan Putler suggested I forward you this information for  \nlisting on the R-GUI page.\n\n\n>> I've written a BBEdit syntax coloring module for R language.  I  \n>> think it might work with the free TextWrangler too.  If anyone  \n>> wants a copy, email me.\n>>\n>> -- Gene",
+      "body_snippet": "In light of the massive response I've gotten (at least 5 emails),  \nI've put the BBEdit/TextWrangler R language module on my webserver.   \nYou can access it at http://www.smalltime.com/gene/R.plist\n\nT",
+      "thread_id": "thread-3b1a742797e1",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-bb8ef797410e",
+      "message_id": "<7315C7E20C5FD41198D700508BAD4C080D44547D@ntazgas01.azg.nl>",
+      "from_name": "Booman, M",
+      "from_email_hash": "09332cbca30fe339598b6cd8b77daafba78ca40c8623149918023819cc1e21df",
+      "date": "2005-12-07T15:49:00+01:00",
+      "subject": "[R-SIG-Mac] Confused about different users and packages...",
+      "subject_clean": "Confused about different users and packages...",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051207/381e6f31/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051207/381e6f31/attachment.pl",
+      "thread_id": "thread-bb8ef797410e",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-48ad26b2c3a3",
+      "message_id": "<2E6C4344-BF0A-44FB-895D-CB3ACB486852@mac.com>",
+      "from_name": "Parlamis Franklin",
+      "from_email_hash": "826922dd3076ce8d018428529d397d245a00356c49bd9b894c780b41f159dcbf",
+      "date": "2005-12-07T10:21:16-10:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<BFBB749C.5EBA%rjohnson@ncifcrf.gov>",
+      "references": [
+        "<BFBB749C.5EBA%rjohnson@ncifcrf.gov>"
+      ],
+      "body_plain": "since this topic is pretty popular, let me mention a problem i have  \nfound with the integrated editor from R.app:\n\nthe \"undo typing\" command seems to remove an arbitrary number of  \nkeystrokes.  at times, i will make a mistake, then when i go to undo  \nit, i find the editor has undone not only my mistake but a  \nsignificant amount of prior work.  it is difficult to produce a  \nreplicable example, because i am not sure whether the number of  \nkeystrokes that are undone is a function of time between the  \nkeystrokes, or some other grouping mechanism.   i apologize for not  \nincluding one.\n\njust wondering, has anyone else experienced this?  is it a bug, or a  \nsetting?\n\nOn Dec 6, 2005, at 12:02 PM, Randall C. Johnson [Contr] wrote:\n\n>> I have found that Emacs does a better job with auto-indentation,  \n>> and have also\n>> made use of Emac's backup automation features.  Emacs can probably  \n>> do the \"run\n>> a command from the editor trick\" (it unclogged my toilet the other  \n>> day); I\n>> just haven't figured out how to make it happen yet.\n>\n> ctr-c ctr-j  runs the line\n> ctr-c ctr-r  runs the region - mark the beginning of the region  \n> with ctr-spc\n> ctr-c ctr-b  runs the buffer\n>\n> Best,\n> Randy\n>\n> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n> Randall C Johnson\n> Bioinformatics Analyst\n> SAIC-Frederick, Inc (Contractor)\n> Laboratory of Genomic Diversity\n> NCI-Frederick\n> P.O. Box B\n> 1050 Boyles Street\n> Bldg 560, Rm 11-85\n> Frederick, MD 21702\n> Phone: (301) 846-1304\n> Fax: (301) 846-1686\n> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n>\n>\n>",
+      "body_snippet": "since this topic is pretty popular, let me mention a problem i have  \nfound with the integrated editor from R.app:\n\nthe \"undo typing\" command seems to remove an arbitrary number of  \nkeystrokes.  at t",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 4,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-e5c61116bb76",
+      "message_id": "<394C073D-298D-44B0-BE1A-49AA4B5737F3@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-11T22:07:46+09:00",
+      "subject": "[R-SIG-Mac] Confused about different users and packages...",
+      "subject_clean": "Confused about different users and packages...",
+      "in_reply_to": "<7315C7E20C5FD41198D700508BAD4C080D44547D@ntazgas01.azg.nl>",
+      "references": [
+        "<7315C7E20C5FD41198D700508BAD4C080D44547D@ntazgas01.azg.nl>"
+      ],
+      "body_plain": "Marije,\n\nplease note that R 2.1.1 is outdated and there have been many  \nimprovements especially in the GUI ever since.\n\nOn Dec 7, 2005, at 11:49 PM, Booman, M wrote:\n\n> I want to do my analysis, which uses the siggenes package from  \n> Bioconductor,\n> I do the following: I open the package manager, check the checkmark  \n> for the\n> siggenes package to change its status to \"loaded\", and try to run  \n> my first\n> command (read.table). But then R gives me an error message, saying  \n> there are\n> no files in my User/Marije/Library/R/library folder.\n\nBut the package is loaded, right? I guess it's just a warning from  \nthe package manager, that checks for your personal packages and finds  \nnone. However, I cannot reproduce it using the current R...\n\n> That's true, but as I understood this folder is only for personal  \n> packages. Shouldn't I be able towork with the packages I installed  \n> as an admin (which are located in the Macintosh HD/Library/ \n> Frameworks/R.Framework/Versions/2.1.1/Resources/Library folder)?\n\nOf course and I doubt you can't ...\n\n> As I said, I am new to Mac and find this setup of different users  \n> the hardest part to fully understand (coming from Windows XP with  \n> only 1 user who has admin privileges).\n\nWell a badly configured Windows system, yes :) You can have multiple  \nusers in XP, too, and you shouldn't be using the Admin user, although  \nmany do...\n\nCheers,\nSimon",
+      "body_snippet": "Marije,\n\nplease note that R 2.1.1 is outdated and there have been many  \nimprovements especially in the GUI ever since.\n\nOn Dec 7, 2005, at 11:49 PM, Booman, M wrote:\n\n> I want to do my analysis, whic",
+      "thread_id": "thread-bb8ef797410e",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-ce4709baa282",
+      "message_id": "<99BDFA67-1F4F-42F3-9A84-80FC8DA66789@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-11T22:15:12+09:00",
+      "subject": "[R-SIG-Mac] please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": "<E1307397-3308-4DC2-A034-362464495FC2@bellarmine.edu>",
+      "references": [
+        "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>",
+        "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>",
+        "<E1307397-3308-4DC2-A034-362464495FC2@bellarmine.edu>"
+      ],
+      "body_plain": "On Dec 7, 2005, at 6:58 AM, Bill Rising wrote:\n\n> On Dec 6, 2005, at 6:42, Ken Beath wrote:\n>\n>> I use TextWrangler http://www.barebones.com as a general editor. It's\n>> free and fairly powerful. I haven't set up any integration with R,\n>> but this should be possible if someone wants to do some work, as\n>> there are possibilities for source colouring, applescripting and\n>> plugin extensions. I just save the files and then Source File in R.\n>\n> I'm a big fan of emacs. On the mac Aquaemacs allows avoiding some  \n> of the odd keystrokes that emacs normally requires.\n\nFWIW you can avoid that in any emacs - that's what .emacs is for ;).  \nI prefer the 'real' emacs compiled as Carbon app which is really  \nstable and behaves as it should - the other clones sometimes don't so  \nI'd avoid them. I guess I'll make an 'editors for R' page on the OS X  \nwiki when I get back and we can put stuff like this there ...\n\nCheers,\nSimon",
+      "body_snippet": "On Dec 7, 2005, at 6:58 AM, Bill Rising wrote:\n\n> On Dec 6, 2005, at 6:42, Ken Beath wrote:\n>\n>> I use TextWrangler http://www.barebones.com as a general editor. It's\n>> free and fairly powerful. I ha",
+      "thread_id": "thread-4ced27ef8f6e",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-6f31494bbe90",
+      "message_id": "<D7CFBE4F-E95C-4152-8EAA-778FB0AEC3EE@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-11T22:18:01+09:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<1C4AAD14-EFB9-4547-9310-6AA7B82A4947@stat.ucla.edu>",
+      "references": [
+        "<20051205220742.23884.qmail@web32411.mail.mud.yahoo.com>",
+        "<9AA41408-CF64-4369-8C66-1F56DDCA42DD@stat.berkeley.edu>",
+        "<1C4AAD14-EFB9-4547-9310-6AA7B82A4947@stat.ucla.edu>"
+      ],
+      "body_plain": "On Dec 7, 2005, at 8:06 AM, Jan de Leeuw wrote:\n\n> This is a really important feature but BBEdit and Alpha also\n> support it (option-click-drag)\n\n\nGood to know - we could build it into the integrated Mac GUI editor  \nas well - any other wishes? The Xmas shall be jolly, so I could put  \nin a feature or two ;) ..\n\nCheers,\nSimon",
+      "body_snippet": "On Dec 7, 2005, at 8:06 AM, Jan de Leeuw wrote:\n\n> This is a really important feature but BBEdit and Alpha also\n> support it (option-click-drag)\n\n\nGood to know - we could build it into the integrated ",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-72df80ce6f60",
+      "message_id": "<0432A7AB-83C7-4740-9503-0D78B6872A7F@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-11T22:21:08+09:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<2E6C4344-BF0A-44FB-895D-CB3ACB486852@mac.com>",
+      "references": [
+        "<BFBB749C.5EBA%rjohnson@ncifcrf.gov>",
+        "<2E6C4344-BF0A-44FB-895D-CB3ACB486852@mac.com>"
+      ],
+      "body_plain": "On Dec 8, 2005, at 5:21 AM, Parlamis Franklin wrote:\n\n> since this topic is pretty popular, let me mention a problem i have\n> found with the integrated editor from R.app:\n>\n> the \"undo typing\" command seems to remove an arbitrary number of\n> keystrokes.  at times, i will make a mistake, then when i go to undo\n> it, i find the editor has undone not only my mistake but a\n> significant amount of prior work.\n\nThe problem is to decide when to put in a checkpoint. Right now, we  \nare forcing them only after <Enter> which is ok for usual work, but  \nif you are only fixing a line here or there then those won't be  \nchecked in. Should we use some time-based limit? Cocoa's default is  \nto place no checkpoints so it's not a help :P\n\nCheers,\nSimon",
+      "body_snippet": "On Dec 8, 2005, at 5:21 AM, Parlamis Franklin wrote:\n\n> since this topic is pretty popular, let me mention a problem i have\n> found with the integrated editor from R.app:\n>\n> the \"undo typing\" command",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 5,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-e55639fb01a8",
+      "message_id": "<66B8A514-E651-4A38-B4ED-C5CA92F543FE@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-11T22:23:57+09:00",
+      "subject": "[R-SIG-Mac] Mac code editing",
+      "subject_clean": "Mac code editing",
+      "in_reply_to": "<1253d67a0512061604j19c19e76o1311236c6859a48e@mail.gmail.com>",
+      "references": [
+        "<1253d67a0512061604j19c19e76o1311236c6859a48e@mail.gmail.com>"
+      ],
+      "body_plain": "On Dec 7, 2005, at 9:04 AM, Joel Bremson wrote:\n\n> There are a lot of options for editing. Any Emacs version takes  \n> time, but it's probably worth it if you do a lot of work in R.  \n> Another option is jedit, an open source editor written in java. It  \n> has an R mode you can download for it.\n\nLast time I checked it was very slooooow - good if you like to drink  \ncoffee while your computer is busy, but it didn't work for me.\n\n> There is a good trick to know for working with editors that don't  \n> have direct R integration: file.choose(). file.choose() will pop up  \n> an OS native file selection box so you don't have to cut and paste  \n> paths into the R monitor.\n\nWell on a Mac I prefer drag and drop which is even faster than typing  \nthose commands ...\n\nCheers,\nSimon",
+      "body_snippet": "On Dec 7, 2005, at 9:04 AM, Joel Bremson wrote:\n\n> There are a lot of options for editing. Any Emacs version takes  \n> time, but it's probably worth it if you do a lot of work in R.  \n> Another option",
+      "thread_id": "thread-fe6165c652fc",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-23e21b5867cd",
+      "message_id": "<439C5DF8.6020300@r-project.org>",
+      "from_name": "John Chambers",
+      "from_email_hash": "07ce409e62c6fa8a42409d100cd19d8b5f4308ae065b786c7a703624eacfc072",
+      "date": "2005-12-11T09:12:24-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": "<99BDFA67-1F4F-42F3-9A84-80FC8DA66789@r-project.org>",
+      "references": [
+        "<mailman.1.1133866800.32243.r-sig-mac@stat.math.ethz.ch>",
+        "<13434B35-EF03-474A-A158-B6D1393530D0@kagi.com>",
+        "<E1307397-3308-4DC2-A034-362464495FC2@bellarmine.edu>",
+        "<99BDFA67-1F4F-42F3-9A84-80FC8DA66789@r-project.org>"
+      ],
+      "body_plain": "Simon Urbanek wrote:\n\n>On Dec 7, 2005, at 6:58 AM, Bill Rising wrote:\n>\n>  \n>\n>>On Dec 6, 2005, at 6:42, Ken Beath wrote:\n>>\n>>    \n>>\n>>>I use TextWrangler http://www.barebones.com as a general editor. It's\n>>>free and fairly powerful. I haven't set up any integration with R,\n>>>but this should be possible if someone wants to do some work, as\n>>>there are possibilities for source colouring, applescripting and\n>>>plugin extensions. I just save the files and then Source File in R.\n>>>      \n>>>\n>>I'm a big fan of emacs. On the mac Aquaemacs allows avoiding some  \n>>of the odd keystrokes that emacs normally requires.\n>>    \n>>\n>\n>FWIW you can avoid that in any emacs - that's what .emacs is for ;).  \n>I prefer the 'real' emacs compiled as Carbon app which is really  \n>stable and behaves as it should - the other clones sometimes don't so  \n>I'd avoid them. \n>\n\"Which emacs?\" is the source of huge flames (firestorms ?) on the \nmacosx-emacs lists, of course.  Aquaemacs is good at providing a natural \nMac feel & compatibility; if you mainly do  a variety of tasks on Mac OS \nX I find it helps your interactions go smoothly.  And recent versions \nhave been better at stability.  The maintainers are very responsive, \nalmost as good as the Mac R team ;-).\n\nOTOH if you do emacs on different platforms a lot, then you may find \nAquaemacs disconcerting.  (I'm more in the former camp these days, but \nsympathize with both.)\n\nJohn\n\n>I guess I'll make an 'editors for R' page on the OS X  \n>wiki when I get back and we can put stuff like this there ...\n>\n>Cheers,\n>Simon\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>  \n>",
+      "body_snippet": "Simon Urbanek wrote:\n\n>On Dec 7, 2005, at 6:58 AM, Bill Rising wrote:\n>\n>  \n>\n>>On Dec 6, 2005, at 6:42, Ken Beath wrote:\n>>\n>>    \n>>\n>>>I use TextWrangler http://www.barebones.com as a general edito",
+      "thread_id": "thread-4ced27ef8f6e",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-a99ffbec578d",
+      "message_id": "<p06210208bfc2d0cb469c@[192.168.2.109]>",
+      "from_name": "Martin Renner",
+      "from_email_hash": "2127c85f96572ae98c9e8f44f4ef6f350f57b59c427addebe1f20be4f96e8984",
+      "date": "2005-12-12T00:34:25-09:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<0432A7AB-83C7-4740-9503-0D78B6872A7F@r-project.org>",
+      "references": [
+        "<BFBB749C.5EBA%rjohnson@ncifcrf.gov>",
+        "<2E6C4344-BF0A-44FB-895D-CB3ACB486852@mac.com>",
+        "<0432A7AB-83C7-4740-9503-0D78B6872A7F@r-project.org>"
+      ],
+      "body_plain": ">On Dec 8, 2005, at 5:21 AM, Parlamis Franklin wrote:\n>\n>>  since this topic is pretty popular, let me mention a problem i have\n>>  found with the integrated editor from R.app:\n>>\n>>  the \"undo typing\" command seems to remove an arbitrary number of\n>>  keystrokes.  at times, i will make a mistake, then when i go to undo\n>>  it, i find the editor has undone not only my mistake but a\n>>  significant amount of prior work.\n>\n>The problem is to decide when to put in a checkpoint. Right now, we \n>are forcing them only after <Enter> which is ok for usual work, but \n>if you are only fixing a line here or there then those won't be \n>checked in. Should we use some time-based limit? Cocoa's default is\n>to place no checkpoints so it's not a help :P\nSince you mentioned christmas - ideal might be a short time limit (10 \ns?) and multiple undos. Knowing how the checkpoint is set already \nhelps a great deal.\n\nCheers,\n\tMartin",
+      "body_snippet": ">On Dec 8, 2005, at 5:21 AM, Parlamis Franklin wrote:\n>\n>>  since this topic is pretty popular, let me mention a problem i have\n>>  found with the integrated editor from R.app:\n>>\n>>  the \"undo typing",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 6,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-e6f9c645ef18",
+      "message_id": "<2573110.1134410752998.JavaMail.fparlamis@mac.com>",
+      "from_name": "Franklin Parlamis",
+      "from_email_hash": "826922dd3076ce8d018428529d397d245a00356c49bd9b894c780b41f159dcbf",
+      "date": "2005-12-12T10:05:52-08:00",
+      "subject": "[R-SIG-Mac] please recommend an editor",
+      "subject_clean": "please recommend an editor",
+      "in_reply_to": "<p06210208bfc2d0cb469c@[192.168.2.109]>",
+      "references": [
+        "<BFBB749C.5EBA%rjohnson@ncifcrf.gov>",
+        "<2E6C4344-BF0A-44FB-895D-CB3ACB486852@mac.com>",
+        "<0432A7AB-83C7-4740-9503-0D78B6872A7F@r-project.org>",
+        "<p06210208bfc2d0cb469c@[192.168.2.109]>"
+      ],
+      "body_plain": "i think time-based might be awkward because if you don't type for a while, your first several (potentially many) strokes of the undo command would have no effect.  maybe a certain number of keystrokes?  whatever aquamacs does works fine by me, so i would mimic if possible.\n \nOn Monday, December 12, 2005, at 01:50AM, Martin Renner <martin.renner at stonebow.otago.ac.nz> wrote:\n\n>>On Dec 8, 2005, at 5:21 AM, Parlamis Franklin wrote:\n>>\n>>>  since this topic is pretty popular, let me mention a problem i have\n>>>  found with the integrated editor from R.app:\n>>>\n>>>  the \"undo typing\" command seems to remove an arbitrary number of\n>>>  keystrokes.  at times, i will make a mistake, then when i go to undo\n>>>  it, i find the editor has undone not only my mistake but a\n>>>  significant amount of prior work.\n>>\n>>The problem is to decide when to put in a checkpoint. Right now, we \n>>are forcing them only after <Enter> which is ok for usual work, but \n>>if you are only fixing a line here or there then those won't be \n>>checked in. Should we use some time-based limit? Cocoa's default is\n>>to place no checkpoints so it's not a help :P\n>Since you mentioned christmas - ideal might be a short time limit (10 \n>s?) and multiple undos. Knowing how the checkpoint is set already \n>helps a great deal.\n>\n>Cheers,\n>\tMartin\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "i think time-based might be awkward because if you don't type for a while, your first several (potentially many) strokes of the undo command would have no effect.  maybe a certain number of keystrokes",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 7,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-133bb88256fe",
+      "message_id": "<BFC5D453.EA2%dugue@ird.fr>",
+      "from_name": "Dugu=?ISO-8859-1?B?6SA=?=R=?ISO-8859-1?B?6Q==?=mi",
+      "from_email_hash": "738f1fa618fa5fcd2c085bb2dae73915e60defaf57104f3c1a2ca7f6011bb58a",
+      "date": "2005-12-14T13:53:23+01:00",
+      "subject": "[R-SIG-Mac] R.app crash report",
+      "subject_clean": "R.app crash report",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051214/eea6f5a0/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051214/eea6f5a0/attachment.pl",
+      "thread_id": "thread-133bb88256fe",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-aba50e88331d",
+      "message_id": "<20051214171030.43036.qmail@web32415.mail.mud.yahoo.com>",
+      "from_name": "Hai Lin",
+      "from_email_hash": "2df52dac112c0035500fa5ba8f341c6a2298d41b719d23e5910a32bdb5aaf794",
+      "date": "2005-12-14T09:10:30-08:00",
+      "subject": "[R-SIG-Mac] load two different .RData",
+      "subject_clean": "load two different .RData",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Mac-Rs,\n\nI had one R Console open.\nWhen I tried to open another R Console from shell\nscript, it gave me an error message \" line 6: 590\nSegmentation fault ${_PATH}/R\". Do you all have idea\nwhat is going on and how to fix it? \n\nWhat I am trying to do is to load two datasets in\ndifferent workspaces, so I can compare results from\nboth outputs. It may have better solution which allow\none work with two .RData but in the same Console. \n\nI don't know if I explained it well.\n\nThanks for your input.\n\nKevin",
+      "body_snippet": "Dear Mac-Rs,\n\nI had one R Console open.\nWhen I tried to open another R Console from shell\nscript, it gave me an error message \" line 6: 590\nSegmentation fault ${_PATH}/R\". Do you all have idea\nwhat is",
+      "thread_id": "thread-aba50e88331d",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-bc0d7c3940a2",
+      "message_id": "<4F93D1DD-6659-45D2-8628-D6CC9A868DC5@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-15T18:11:35-05:00",
+      "subject": "[R-SIG-Mac] R 2.2 crash",
+      "subject_clean": "R 2.2 crash",
+      "in_reply_to": "<83bbe6a50b5d45317c587e60fab9caa0@mindspring.com>",
+      "references": [
+        "<83bbe6a50b5d45317c587e60fab9caa0@mindspring.com>"
+      ],
+      "body_plain": "Tracy,\n\nOn Dec 6, 2005, at 3:22 PM, Tracy Lightcap wrote:\n\n> I have installed R2.2 (R Cocoa GUI 1.13 (1915)) on my B&W 350 Powermac\n> (640MB)  running OS 10.3.8. The program crashes on boot.\n\nYou may want to update your system - it is outdated. The CRAN version  \nof R is compiled on 10.3.9 which is the current Panther version.  \nPlease let us know if the error still persists after system update.\n\nCheers,\nSimon",
+      "body_snippet": "Tracy,\n\nOn Dec 6, 2005, at 3:22 PM, Tracy Lightcap wrote:\n\n> I have installed R2.2 (R Cocoa GUI 1.13 (1915)) on my B&W 350 Powermac\n> (640MB)  running OS 10.3.8. The program crashes on boot.\n\nYou may ",
+      "thread_id": "thread-05d5dfa53696",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-8571bb785f8f",
+      "message_id": "<11860995.1135032438370.JavaMail.kateturner64@mac.com>",
+      "from_name": "Kate",
+      "from_email_hash": "8d7021337317a4b630f5b24a357b618d9dd86b4b4ee7bcb82f57f3c0b1f6b447",
+      "date": "2005-12-19T14:47:18-08:00",
+      "subject": "[R-SIG-Mac] Deleting packages from R",
+      "subject_clean": "Deleting packages from R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI down loaded and installed a windows binary instead of a mac package. I can't remove the windows package from my package manager, and I can't find any info. re how to do this. The mac version of the package doesn't seem to want to install over the windows version.  Does anyone know how to get delete the windows version of the package from the package manager?\n\nThanks",
+      "body_snippet": "Hi,\n\nI down loaded and installed a windows binary instead of a mac package. I can't remove the windows package from my package manager, and I can't find any info. re how to do this. The mac version of",
+      "thread_id": "thread-8571bb785f8f",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-759a0d4e9735",
+      "message_id": "<23ACBA39-C56C-48D7-B5C2-2CB760C4988A@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-19T20:16:16-05:00",
+      "subject": "[R-SIG-Mac] Deleting packages from R",
+      "subject_clean": "Deleting packages from R",
+      "in_reply_to": "<11860995.1135032438370.JavaMail.kateturner64@mac.com>",
+      "references": [
+        "<11860995.1135032438370.JavaMail.kateturner64@mac.com>"
+      ],
+      "body_plain": "Kate,\n\nOn Dec 19, 2005, at 5:47 PM, Kate wrote:\n\n> I down loaded and installed a windows binary instead of a mac  \n> package. I can't remove the windows package from my package  \n> manager, and I can't find any info. re how to do this. The mac  \n> version of the package doesn't seem to want to install over the  \n> windows version.  Does anyone know how to get delete the windows  \n> version of the package from the package manager?\n\nI wonder how you were able to install the Windows version of the  \npackage, it should not be possible ... Anyway, in order to delete a  \npackage manually, start Terminal and type the following:\n\nsudo rm -rf /Library/Frameworks/R.framework/Resources/library/PKG\n\nwhere PKG is the name of the package you want to delete. If you  \ninstalled the package in you user directory instead, take the Finder  \nand look in your home -> Library -> R -> library. You should see the  \npackage there as a folder - just delete the folder with Finder.\n\nCheers,\nSimon",
+      "body_snippet": "Kate,\n\nOn Dec 19, 2005, at 5:47 PM, Kate wrote:\n\n> I down loaded and installed a windows binary instead of a mac  \n> package. I can't remove the windows package from my package  \n> manager, and I can'",
+      "thread_id": "thread-8571bb785f8f",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-c1a6dd3265c2",
+      "message_id": "<BFCE124E.33615%tim.bates@ed.ac.uk>",
+      "from_name": "Timothy Bates",
+      "from_email_hash": "906d407a729647cc91c4e43ce28d4fcaa3d8c31102184befaff986e86fb70998",
+      "date": "2005-12-20T19:55:58Z",
+      "subject": "[R-SIG-Mac] Timezone not working?",
+      "subject_clean": "Timezone not working?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi there,\nThis is pretty trivial:\n\nSys.time()        -->  \"2005-11-09 03:18:32 GMT\"\nSys.timezone() -->  \"\"\n\ni.e., Sys.time works, and knows where I am (I think ? perhaps GMT is an\naccident of living on the prime meridian), but timezone is an empty string.\n\nTim",
+      "body_snippet": "Hi there,\nThis is pretty trivial:\n\nSys.time()        -->  \"2005-11-09 03:18:32 GMT\"\nSys.timezone() -->  \"\"\n\ni.e., Sys.time works, and knows where I am (I think ? perhaps GMT is an\naccident of living o",
+      "thread_id": "thread-c1a6dd3265c2",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-6f4eddf345f8",
+      "message_id": "<460BD4DA-A573-49AD-BA84-0403F78E9104@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-28T09:54:43-05:00",
+      "subject": "[R-SIG-Mac] Timezone not working?",
+      "subject_clean": "Timezone not working?",
+      "in_reply_to": "<BFCE124E.33615%tim.bates@ed.ac.uk>",
+      "references": [
+        "<BFCE124E.33615%tim.bates@ed.ac.uk>"
+      ],
+      "body_plain": "Tim,\n\nOn Dec 20, 2005, at 2:55 PM, Timothy Bates wrote:\n\n> Hi there,\n> This is pretty trivial:\n>\n> Sys.time()        -->  \"2005-11-09 03:18:32 GMT\"\n> Sys.timezone() -->  \"\"\n\n      'Sys.timezone' returns an OS-specific character string, possibly\n      an empty string.\n\nand it's as simple as\nas.vector(Sys.getenv(\"TZ\"))\n\nHowever, TZ is only used to *override the default timezone* (as per  \nPOSIX) so by default you get an empty string.\ncaladan:urbanek$ date\nWed Dec 28 09:40:15 EST 2005\ncaladan:urbanek$ TZ=GMT date\nWed Dec 28 14:40:15 GMT 2005\n\n> i.e., Sys.time works, and knows where I am (I think ? perhaps GMT  \n> is an accident of living on the prime meridian),\n\n... and the only place on Earth where Windows and unix actually agree  \non the time ;).\n\nCheers,\nSimon",
+      "body_snippet": "Tim,\n\nOn Dec 20, 2005, at 2:55 PM, Timothy Bates wrote:\n\n> Hi there,\n> This is pretty trivial:\n>\n> Sys.time()        -->  \"2005-11-09 03:18:32 GMT\"\n> Sys.timezone() -->  \"\"\n\n      'Sys.timezone' retur",
+      "thread_id": "thread-c1a6dd3265c2",
+      "thread_depth": 1,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-548d7c1052a0",
+      "message_id": "<20051229204506.98567.qmail@web32401.mail.mud.yahoo.com>",
+      "from_name": "Hai Lin",
+      "from_email_hash": "2df52dac112c0035500fa5ba8f341c6a2298d41b719d23e5910a32bdb5aaf794",
+      "date": "2005-12-29T12:45:06-08:00",
+      "subject": "[R-SIG-Mac] look for difference b/w files",
+      "subject_clean": "look for difference b/w files",
+      "in_reply_to": "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>",
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051229/33fc8486/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051229/33fc8486/attachment.pl",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 2,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-55a82908ace5",
+      "message_id": "<B562D130-C49D-45AF-98A4-9E4A9FF32CB7@charite.de>",
+      "from_name": "Tilo Blenk",
+      "from_email_hash": "9566a4aa1eb5fa674a3ea491d3e31c5590d89fb73069bea0bc9faa6c0c9a657f",
+      "date": "2005-12-30T00:09:19+01:00",
+      "subject": "[R-SIG-Mac]  please recommend an editor (Hai Lin)",
+      "subject_clean": "please recommend an editor (Hai Lin)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "For the BBEdit/TextWrangler users.\n\nIf you do not use it already, you may find the following Applescript  \nhelpful:\n\nset selectedText to selection as string\ntell application \"R\"\n\tactivate\n\tcmd selectedText\nend tell\n\nIt is very basic but it works. If you write some R code in BBEdit you  \ncan select some commands there, select the Applescript via the menu  \nor a keyboard shortcut, and the commands are executed in the R console.\n\nTo create the script just open the script editor in BBEdit, copy the  \ncode into the editor, compile it, and save the script into '~/Library/ \nApplication Support/BBEdit/Scripts/'. You will find the script in the  \nApplescript menu. You may want to set a keyboard shortcut (Window >  \nPalettes > Scripts menu and then Set Key).\n\nTilo",
+      "body_snippet": "For the BBEdit/TextWrangler users.\n\nIf you do not use it already, you may find the following Applescript  \nhelpful:\n\nset selectedText to selection as string\ntell application \"R\"\n\tactivate\n\tcmd selecte",
+      "thread_id": "thread-55a82908ace5",
+      "thread_depth": 0,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-94acc851f2b4",
+      "message_id": "<20051230082902.GA13390@wald.ucdavis.edu>",
+      "from_name": "Duncan Temple Lang",
+      "from_email_hash": "9d03780d47037d8f601edb4b35f661951beebebd29d56c8466e2d23fd126f621",
+      "date": "2005-12-30T00:29:02-08:00",
+      "subject": "[R-SIG-Mac] look for difference b/w files",
+      "subject_clean": "look for difference b/w files",
+      "in_reply_to": "<20051229204506.98567.qmail@web32401.mail.mud.yahoo.com>",
+      "references": [
+        "<28B5E4F5-FE96-4C1F-AF01-D688CD7C0173@r-project.org>",
+        "<20051229204506.98567.qmail@web32401.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "Use the application diff from the shell\n\n  diff -c file1.R file2.R\n\n D.\n\n\nHai Lin wrote:\n> Dear R-Mac,\n>   \n>   I am using Mac OX 10.3 and I have Emacs+ESS installed.\n>   \n>   I try to find difference b/w two script files. I appreciate it if you  could kindly tell me how do I achieve it, either by some kind of Mac  applications or command in R. I did see someone running a statement on  Unix.\n>    \n>   By the way, thanks for everyone's recommendation on the editor in R-Mac . I've installed Emacs on my machine. \n>   \n>   Kevin\n>   \n> \n> \n> \t\t\n> ---------------------------------\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nDuncan Temple Lang                duncan at wald.ucdavis.edu\nDepartment of Statistics          work:  (530) 752-4782\n371 Kerr Hall                     fax:   (530) 752-7099\nOne Shields Ave.\nUniversity of California at Davis\nDavis, CA 95616, USA\n\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 189 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20051230/2ce4b659/attachment.bin",
+      "body_snippet": "Use the application diff from the shell\n\n  diff -c file1.R file2.R\n\n D.\n\n\nHai Lin wrote:\n> Dear R-Mac,\n>   \n>   I am using Mac OX 10.3 and I have Emacs+ESS installed.\n>   \n>   I try to find difference",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-436f2f1ea61a",
+      "message_id": "<BFDA8639.2960%sdavis2@mail.nih.gov>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2005-12-30T06:37:45-05:00",
+      "subject": "[R-SIG-Mac] look for difference b/w files",
+      "subject_clean": "look for difference b/w files",
+      "in_reply_to": "<20051230082902.GA13390@wald.ucdavis.edu>",
+      "references": [],
+      "body_plain": "On 12/30/05 3:29 AM, \"Duncan Temple Lang\" <duncan at wald.ucdavis.edu> wrote:\n\n> Use the application diff from the shell\n> \n>   diff -c file1.R file2.R\n> \n>  D.\n> \n> \n> Hai Lin wrote:\n>> Dear R-Mac,\n>>   \n>>   I am using Mac OX 10.3 and I have Emacs+ESS installed.\n>>   \n>>   I try to find difference b/w two script files. I appreciate it if you\n>> could kindly tell me how do I achieve it, either by some kind of Mac\n>> applications or command in R. I did see someone running a statement on  Unix.\n>>    \n>>   By the way, thanks for everyone's recommendation on the editor in R-Mac .\n>> I've installed Emacs on my machine.\n\nEmacs has a diff built in.\n\nSean",
+      "body_snippet": "On 12/30/05 3:29 AM, \"Duncan Temple Lang\" <duncan at wald.ucdavis.edu> wrote:\n\n> Use the application diff from the shell\n> \n>   diff -c file1.R file2.R\n> \n>  D.\n> \n> \n> Hai Lin wrote:\n>> Dear R-Mac,\n>",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 4,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-86602040257b",
+      "message_id": "<m2mzii4p1g.fsf@fhcrc.org>",
+      "from_name": "Seth Falcon",
+      "from_email_hash": "92e6ad61c3d6d545a12aa5845a0d74c5de1bbbc7bf85c768e4a2cb862e092abc",
+      "date": "2005-12-30T06:50:35-08:00",
+      "subject": "[R-SIG-Mac] look for difference b/w files",
+      "subject_clean": "look for difference b/w files",
+      "in_reply_to": "<20051229204506.98567.qmail@web32401.mail.mud.yahoo.com> (Hai Lin's message of \"Thu, 29 Dec 2005 12:45:06 -0800 (PST)\")",
+      "references": [
+        "<20051229204506.98567.qmail@web32401.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "On 29 Dec 2005, kevinvol2002 at yahoo.com wrote:\n> I try to find difference b/w two script files. I appreciate it if\n> you could kindly tell me how do I achieve it, either by some kind of\n> Mac applications or command in R. I did see someone running a\n> statement on Unix.\n\nSince you are using Emacs already, you might try M-x ediff.  But\nbefore you do that, you can read the help for it via C-h f ediff.\n\n+ seth",
+      "body_snippet": "On 29 Dec 2005, kevinvol2002 at yahoo.com wrote:\n> I try to find difference b/w two script files. I appreciate it if\n> you could kindly tell me how do I achieve it, either by some kind of\n> Mac applic",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 3,
+      "month": "2005-12"
+    },
+    {
+      "id": "msg-e23fb11f94f9",
+      "message_id": "<67F7C4B3-9D9D-4BB0-8E84-A3151F9E04C7@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-12-30T14:04:18-05:00",
+      "subject": "[R-SIG-Mac] look for difference b/w files",
+      "subject_clean": "look for difference b/w files",
+      "in_reply_to": "<20051229204506.98567.qmail@web32401.mail.mud.yahoo.com>",
+      "references": [
+        "<20051229204506.98567.qmail@web32401.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "Kevin,\n\nOn Dec 29, 2005, at 3:45 PM, Hai Lin wrote:\n\n>   I am using Mac OX 10.3 and I have Emacs+ESS installed.\n>\n>   I try to find difference b/w two script files. I appreciate it if  \n> you  could kindly tell me how do I achieve it, either by some kind  \n> of Mac  applications or command in R. I did see someone running a  \n> statement on  Unix.\n\njust for completeness, there is a very nice utility in Developer/ \nApplications/Utilities called \"FileMerge\". It is much nicer than diff  \nand also allows you to create a resulting file by specifying which  \nparts you want from which file. It is too intuitive and easy to use  \nfor Emacs users but I though I'll mention it anyway ;).\n\nCheers,\nSimon",
+      "body_snippet": "Kevin,\n\nOn Dec 29, 2005, at 3:45 PM, Hai Lin wrote:\n\n>   I am using Mac OX 10.3 and I have Emacs+ESS installed.\n>\n>   I try to find difference b/w two script files. I appreciate it if  \n> you  could k",
+      "thread_id": "thread-4c92373ae850",
+      "thread_depth": 3,
+      "month": "2005-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-6a423d8f4f28",
+      "subject": "contrib.url on OSX ?!",
+      "message_count": 2,
+      "participants": [
+        "Sean Davis",
+        "stefano iacus"
+      ],
+      "started": "2005-12-01T09:40:15+01:00",
+      "last_reply": "2005-12-01T07:36:00-05:00",
+      "root_message_id": "msg-6a423d8f4f28"
+    },
+    {
+      "id": "thread-cd75135232ac",
+      "subject": "FIXED - Error compiling gnlm package from source -FIXED",
+      "message_count": 2,
+      "participants": [
+        "John Vaul",
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-01T09:40:26+00:00",
+      "last_reply": "2005-12-01T10:11:12-05:00",
+      "root_message_id": "msg-cd75135232ac"
+    },
+    {
+      "id": "thread-83bcb897d216",
+      "subject": "GDD installation",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-01T10:04:47-05:00",
+      "last_reply": "2005-12-01T10:04:47-05:00",
+      "root_message_id": "msg-83bcb897d216"
+    },
+    {
+      "id": "thread-994cce404817",
+      "subject": "Crash when trying to save Quartz window as PDF",
+      "message_count": 3,
+      "participants": [
+        "Simon Urbanek",
+        "Xochitl Morgan"
+      ],
+      "started": "2005-12-01T10:17:42-05:00",
+      "last_reply": "2005-12-06T10:59:38-05:00",
+      "root_message_id": "msg-994cce404817"
+    },
+    {
+      "id": "thread-05a73ee6e4b3",
+      "subject": "for do-it-yourselvers: lindsey packages with gfortran",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2005-12-01T10:33:36-08:00",
+      "last_reply": "2005-12-01T10:33:36-08:00",
+      "root_message_id": "msg-05a73ee6e4b3"
+    },
+    {
+      "id": "thread-5db749b50870",
+      "subject": "R with PHP on mac",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-01T11:43:48-05:00",
+      "last_reply": "2005-12-01T11:43:48-05:00",
+      "root_message_id": "msg-5db749b50870"
+    },
+    {
+      "id": "thread-88614245f5c6",
+      "subject": "FIXED - Error compiling gnlm package from source -FIXED",
+      "message_count": 6,
+      "participants": [
+        "Jan de Leeuw",
+        "Ken Knoblauch",
+        "Paul Roebuck",
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-01T17:05:20-01:00",
+      "last_reply": "2005-12-01T15:54:45-08:00",
+      "root_message_id": "msg-88614245f5c6"
+    },
+    {
+      "id": "thread-502afb01ea7d",
+      "subject": "RMySQL and '_fprintf$LDBLStub' symbol not found",
+      "message_count": 6,
+      "participants": [
+        "Franklin Parlamis",
+        "Parlamis Franklin",
+        "Paul Shannon",
+        "Simon Urbanek",
+        "gene"
+      ],
+      "started": "2005-12-03T14:14:21-08:00",
+      "last_reply": "2005-12-05T13:13:29-10:00",
+      "root_message_id": "msg-502afb01ea7d"
+    },
+    {
+      "id": "thread-dc2652b249cd",
+      "subject": "R logo icon",
+      "message_count": 5,
+      "participants": [
+        "Federico Calboli",
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-03T22:48:33+00:00",
+      "last_reply": "2005-12-04T17:37:52+00:00",
+      "root_message_id": "msg-dc2652b249cd"
+    },
+    {
+      "id": "thread-3835392b21de",
+      "subject": "sizing of quartz and x11 windows",
+      "message_count": 4,
+      "participants": [
+        "Parlamis Franklin",
+        "Simon Urbanek",
+        "stefano iacus"
+      ],
+      "started": "2005-12-04T18:28:26-10:00",
+      "last_reply": "2005-12-05T18:14:54-05:00",
+      "root_message_id": "msg-3835392b21de"
+    },
+    {
+      "id": "thread-4c92373ae850",
+      "subject": "please recommend an editor",
+      "message_count": 20,
+      "participants": [
+        "Byron Ellis",
+        "Duncan Temple Lang",
+        "Franklin Parlamis",
+        "Hai Lin",
+        "Jan de Leeuw",
+        "Kasper Daniel Hansen",
+        "Martin Renner",
+        "Michael Toews",
+        "Parlamis Franklin",
+        "Randall C Johnson [Contr.]",
+        "Randall C. Johnson [Contr]",
+        "Sean Davis",
+        "Seth Falcon",
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-05T14:07:42-08:00",
+      "last_reply": "2005-12-30T14:04:18-05:00",
+      "root_message_id": "msg-4c92373ae850"
+    },
+    {
+      "id": "thread-6d870a1392d0",
+      "subject": "console fonts",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-05T17:44:41-05:00",
+      "last_reply": "2005-12-05T17:44:41-05:00",
+      "root_message_id": "msg-6d870a1392d0"
+    },
+    {
+      "id": "thread-eb6704196655",
+      "subject": "please recommend an editor",
+      "message_count": 2,
+      "participants": [
+        "Jan de Leeuw",
+        "Julin Maloof"
+      ],
+      "started": "2005-12-06T08:00:56-08:00",
+      "last_reply": "2005-12-06T09:25:10-08:00",
+      "root_message_id": "msg-eb6704196655"
+    },
+    {
+      "id": "thread-92b39f7c9569",
+      "subject": "please recommend an editor",
+      "message_count": 2,
+      "participants": [
+        "Jan de Leeuw",
+        "Julin Maloof"
+      ],
+      "started": "2005-12-06T14:48:22-08:00",
+      "last_reply": "2005-12-06T15:02:28-08:00",
+      "root_message_id": "msg-92b39f7c9569"
+    },
+    {
+      "id": "thread-05d5dfa53696",
+      "subject": "R 2.2 crash",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "Tracy Lightcap"
+      ],
+      "started": "2005-12-06T15:22:21-05:00",
+      "last_reply": "2005-12-15T18:11:35-05:00",
+      "root_message_id": "msg-05d5dfa53696"
+    },
+    {
+      "id": "thread-fe6165c652fc",
+      "subject": "Mac code editing",
+      "message_count": 2,
+      "participants": [
+        "Joel Bremson",
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-06T16:04:15-08:00",
+      "last_reply": "2005-12-11T22:23:57+09:00",
+      "root_message_id": "msg-fe6165c652fc"
+    },
+    {
+      "id": "thread-3b1a742797e1",
+      "subject": "please recommend an editor (Hai Lin)",
+      "message_count": 1,
+      "participants": [
+        "gene"
+      ],
+      "started": "2005-12-06T17:24:03-08:00",
+      "last_reply": "2005-12-06T17:24:03-08:00",
+      "root_message_id": "msg-3b1a742797e1"
+    },
+    {
+      "id": "thread-4ced27ef8f6e",
+      "subject": "please recommend an editor (Hai Lin)",
+      "message_count": 7,
+      "participants": [
+        "Bill Rising",
+        "John Chambers",
+        "Kasper Daniel Hansen",
+        "Ken Beath",
+        "Simon Urbanek",
+        "gene",
+        "stefano iacus"
+      ],
+      "started": "2005-12-06T22:42:49+11:00",
+      "last_reply": "2005-12-11T09:12:24-08:00",
+      "root_message_id": "msg-4ced27ef8f6e"
+    },
+    {
+      "id": "thread-bb8ef797410e",
+      "subject": "Confused about different users and packages...",
+      "message_count": 2,
+      "participants": [
+        "Booman, M",
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-07T15:49:00+01:00",
+      "last_reply": "2005-12-11T22:07:46+09:00",
+      "root_message_id": "msg-bb8ef797410e"
+    },
+    {
+      "id": "thread-aba50e88331d",
+      "subject": "load two different .RData",
+      "message_count": 1,
+      "participants": [
+        "Hai Lin"
+      ],
+      "started": "2005-12-14T09:10:30-08:00",
+      "last_reply": "2005-12-14T09:10:30-08:00",
+      "root_message_id": "msg-aba50e88331d"
+    },
+    {
+      "id": "thread-133bb88256fe",
+      "subject": "R.app crash report",
+      "message_count": 1,
+      "participants": [
+        "Dugu=?ISO-8859-1?B?6SA=?=R=?ISO-8859-1?B?6Q==?=mi"
+      ],
+      "started": "2005-12-14T13:53:23+01:00",
+      "last_reply": "2005-12-14T13:53:23+01:00",
+      "root_message_id": "msg-133bb88256fe"
+    },
+    {
+      "id": "thread-8571bb785f8f",
+      "subject": "Deleting packages from R",
+      "message_count": 2,
+      "participants": [
+        "Kate",
+        "Simon Urbanek"
+      ],
+      "started": "2005-12-19T14:47:18-08:00",
+      "last_reply": "2005-12-19T20:16:16-05:00",
+      "root_message_id": "msg-8571bb785f8f"
+    },
+    {
+      "id": "thread-c1a6dd3265c2",
+      "subject": "Timezone not working?",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "Timothy Bates"
+      ],
+      "started": "2005-12-20T19:55:58+00:00",
+      "last_reply": "2005-12-28T09:54:43-05:00",
+      "root_message_id": "msg-c1a6dd3265c2"
+    },
+    {
+      "id": "thread-55a82908ace5",
+      "subject": "please recommend an editor (Hai Lin)",
+      "message_count": 1,
+      "participants": [
+        "Tilo Blenk"
+      ],
+      "started": "2005-12-30T00:09:19+01:00",
+      "last_reply": "2005-12-30T00:09:19+01:00",
+      "root_message_id": "msg-55a82908ace5"
+    }
+  ]
+}

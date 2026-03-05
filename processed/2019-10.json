@@ -1,0 +1,600 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2019-10",
+  "messages": [
+    {
+      "id": "msg-54f5f95cbb01",
+      "message_id": "<36141903-5B13-4161-B59B-ADF408EA9F7C@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2019-10-08T15:49:32-04:00",
+      "subject": "[R-SIG-Mac] Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "subject_clean": "Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi All,\n\nPerhaps I missed something relevant along the way someplace, but I ran the upgrade to Catalina (10.15) last night. I wanted to give folks a heads up on an issue that you may face, especially if you have XQuartz installed alongside R.\n\nOne of the sequelae of the upgrade is that some files may get relocated during the upgrade, likely in part due to the macOS SIP.\n\nIn my case, this involved the symlink for XQuartz, 'usr/X11R6', which gets placed into a \"Relocated Items\" folder on the Desktop. That folder, which is actually an alias to /Users/Shared, contains a folder tree with: Security/usr/X11R6. Naively, after seeing this, I elected to move the entire folder to the Trash.\n\nThat led me into a cycle of trying to figure out how to then delete that folder tree from the Trash, as I would get various OS errors in the course of doing so.\n\nThat led me to some Google searches, with incremental attempts at solutions, but eventually landing on the following thread in the Apple Community forums:\n\n  https://discussions.apple.com/thread/250712783\n\nAfter the first review of the thread there, and before user 'faikbey' posted a possible solution using Recovery Mode, I filed an Issue on the XQuartz github repo here:\n\n  https://github.com/XQuartz/XQuartz/issues/1\n\nIt would seem that, at some level, one workaround would be to uninstall XQuartz fully before the Catalina upgrade, but there is no uninstall program provided by them. There is a series of CLI commands in a github gist here:\n\n  https://gist.github.com/pwnsdx/d127873e24cef159d4d603accaf37ee4#file-gistfile1-txt\n\nwhich appears to work, but would likely be best used prior to the Catalina upgrade, and then re-install XQuartz after the upgrade is complete.\n\nThe solution to the problem posted by 'faikbey' in the Apple forum appears to work in the original scenario, albeit, as I noted in my reply in that thread, I needed to first mount the user volume in Recovery Mode using Disk Utility, before I could proceed with the additional steps of deleting the files from the Trash, then rebooting into normal mode. \n\nIf anyone else has experienced this and knows of an alternative/better solution, let us know.\n\nOtherwise, let's see what the XQuartz folks might come up with on this, as this was not an issue with prior macOS upgrades.\n\nRegards,\n\nMarc Schwartz",
+      "body_snippet": "Hi All,\n\nPerhaps I missed something relevant along the way someplace, but I ran the upgrade to Catalina (10.15) last night. I wanted to give folks a heads up on an issue that you may face, especially ",
+      "thread_id": "thread-54f5f95cbb01",
+      "thread_depth": 0,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-0411d2640cde",
+      "message_id": "<8C51A165-E488-4DF8-BFF5-D7661C3888C3@gmail.com>",
+      "from_name": "Luis Puerto",
+      "from_email_hash": "2c606eb6f9972cf835b68db211c71b2ce9cdd203d9a074e038ffe88f0ae40963",
+      "date": "2019-10-08T23:19:55+03:00",
+      "subject": "[R-SIG-Mac]  Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "subject_clean": "Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "in_reply_to": "<36141903-5B13-4161-B59B-ADF408EA9F7C@me.com>",
+      "references": [
+        "<36141903-5B13-4161-B59B-ADF408EA9F7C@me.com>"
+      ],
+      "body_plain": "Thanks a lot for the heads up! \n\nCheers!\nLuis\n\n> On 8 Oct 2019, at 22:49, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hi All,\n> \n> Perhaps I missed something relevant along the way someplace, but I ran the upgrade to Catalina (10.15) last night. I wanted to give folks a heads up on an issue that you may face, especially if you have XQuartz installed alongside R.\n> \n> One of the sequelae of the upgrade is that some files may get relocated during the upgrade, likely in part due to the macOS SIP.\n> \n> In my case, this involved the symlink for XQuartz, 'usr/X11R6', which gets placed into a \"Relocated Items\" folder on the Desktop. That folder, which is actually an alias to /Users/Shared, contains a folder tree with: Security/usr/X11R6. Naively, after seeing this, I elected to move the entire folder to the Trash.\n> \n> That led me into a cycle of trying to figure out how to then delete that folder tree from the Trash, as I would get various OS errors in the course of doing so.\n> \n> That led me to some Google searches, with incremental attempts at solutions, but eventually landing on the following thread in the Apple Community forums:\n> \n>  https://discussions.apple.com/thread/250712783\n> \n> After the first review of the thread there, and before user 'faikbey' posted a possible solution using Recovery Mode, I filed an Issue on the XQuartz github repo here:\n> \n>  https://github.com/XQuartz/XQuartz/issues/1\n> \n> It would seem that, at some level, one workaround would be to uninstall XQuartz fully before the Catalina upgrade, but there is no uninstall program provided by them. There is a series of CLI commands in a github gist here:\n> \n>  https://gist.github.com/pwnsdx/d127873e24cef159d4d603accaf37ee4#file-gistfile1-txt\n> \n> which appears to work, but would likely be best used prior to the Catalina upgrade, and then re-install XQuartz after the upgrade is complete.\n> \n> The solution to the problem posted by 'faikbey' in the Apple forum appears to work in the original scenario, albeit, as I noted in my reply in that thread, I needed to first mount the user volume in Recovery Mode using Disk Utility, before I could proceed with the additional steps of deleting the files from the Trash, then rebooting into normal mode. \n> \n> If anyone else has experienced this and knows of an alternative/better solution, let us know.\n> \n> Otherwise, let's see what the XQuartz folks might come up with on this, as this was not an issue with prior macOS upgrades.\n> \n> Regards,\n> \n> Marc Schwartz\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Thanks a lot for the heads up! \n\nCheers!\nLuis\n\n> On 8 Oct 2019, at 22:49, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hi All,\n> \n> Perhaps I missed something relevant along th",
+      "thread_id": "thread-54f5f95cbb01",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-1439db6235c7",
+      "message_id": "<345B94E1-37CE-461A-9DF8-D3521C895C5A@rud.is>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "1825b2a2b76d0395326fce49d356e345a27463d5516c4e24d619f31bfed1b0e6",
+      "date": "2019-10-08T22:00:23-04:00",
+      "subject": "[R-SIG-Mac]  Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "subject_clean": "Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "in_reply_to": "<8C51A165-E488-4DF8-BFF5-D7661C3888C3@gmail.com>",
+      "references": [
+        "<36141903-5B13-4161-B59B-ADF408EA9F7C@me.com>",
+        "<8C51A165-E488-4DF8-BFF5-D7661C3888C3@gmail.com>"
+      ],
+      "body_plain": "I've been running Catalina since the first beta and upgraded to GM the day of release. Apart from having to stick R things into Full Disk Access I've had no issues with R nor XQuartz.\n\nI read through the links provided and, while I do have said symlink in the relocated items folder Apple creates (this is new behavior for the GM), it gets re-created fine for me & XQuartz works fine (and the minor pkg deps I have installed that use it also work fine.\n\nThis would appear to be a YMMV situation.\n\n-Bob\n\n> On Oct 8, 2019, at 4:19 PM, Luis Puerto <luiss.puerto at gmail.com> wrote:\n> \n> Thanks a lot for the heads up! \n> \n> Cheers!\n> Luis\n> \n>> On 8 Oct 2019, at 22:49, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>> \n>> Hi All,\n>> \n>> Perhaps I missed something relevant along the way someplace, but I ran the upgrade to Catalina (10.15) last night. I wanted to give folks a heads up on an issue that you may face, especially if you have XQuartz installed alongside R.\n>> \n>> One of the sequelae of the upgrade is that some files may get relocated during the upgrade, likely in part due to the macOS SIP.\n>> \n>> In my case, this involved the symlink for XQuartz, 'usr/X11R6', which gets placed into a \"Relocated Items\" folder on the Desktop. That folder, which is actually an alias to /Users/Shared, contains a folder tree with: Security/usr/X11R6. Naively, after seeing this, I elected to move the entire folder to the Trash.\n>> \n>> That led me into a cycle of trying to figure out how to then delete that folder tree from the Trash, as I would get various OS errors in the course of doing so.\n>> \n>> That led me to some Google searches, with incremental attempts at solutions, but eventually landing on the following thread in the Apple Community forums:\n>> \n>> https://discussions.apple.com/thread/250712783\n>> \n>> After the first review of the thread there, and before user 'faikbey' posted a possible solution using Recovery Mode, I filed an Issue on the XQuartz github repo here:\n>> \n>> https://github.com/XQuartz/XQuartz/issues/1\n>> \n>> It would seem that, at some level, one workaround would be to uninstall XQuartz fully before the Catalina upgrade, but there is no uninstall program provided by them. There is a series of CLI commands in a github gist here:\n>> \n>> https://gist.github.com/pwnsdx/d127873e24cef159d4d603accaf37ee4#file-gistfile1-txt\n>> \n>> which appears to work, but would likely be best used prior to the Catalina upgrade, and then re-install XQuartz after the upgrade is complete.\n>> \n>> The solution to the problem posted by 'faikbey' in the Apple forum appears to work in the original scenario, albeit, as I noted in my reply in that thread, I needed to first mount the user volume in Recovery Mode using Disk Utility, before I could proceed with the additional steps of deleting the files from the Trash, then rebooting into normal mode. \n>> \n>> If anyone else has experienced this and knows of an alternative/better solution, let us know.\n>> \n>> Otherwise, let's see what the XQuartz folks might come up with on this, as this was not an issue with prior macOS upgrades.\n>> \n>> Regards,\n>> \n>> Marc Schwartz\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I've been running Catalina since the first beta and upgraded to GM the day of release. Apart from having to stick R things into Full Disk Access I've had no issues with R nor XQuartz.\n\nI read through ",
+      "thread_id": "thread-54f5f95cbb01",
+      "thread_depth": 2,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-84b9658325a9",
+      "message_id": "<CAC2h7utzKxz9tEHVAfkfH-RrLxRcpK2T_n6MUYKspz+-vUVMpg@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "d93d2b6e7e026786d1329cc362094fa8cf7678c5556ec56db24b97db9e327685",
+      "date": "2019-10-09T09:20:58-04:00",
+      "subject": "[R-SIG-Mac]  Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "subject_clean": "Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "in_reply_to": "<345B94E1-37CE-461A-9DF8-D3521C895C5A@rud.is>",
+      "references": [
+        "<36141903-5B13-4161-B59B-ADF408EA9F7C@me.com>",
+        "<8C51A165-E488-4DF8-BFF5-D7661C3888C3@gmail.com>",
+        "<345B94E1-37CE-461A-9DF8-D3521C895C5A@rud.is>"
+      ],
+      "body_plain": "Bob,\n\nYou ran the betas. On issues like this, that could be a big difference. So\nIm not sure it is yet an issue that could be user dependent.\n\nBest,\nKasper\n\nOn Tue, Oct 8, 2019 at 10:00 PM Bob Rudis <bob at rud.is> wrote:\n\n> I've been running Catalina since the first beta and upgraded to GM the day\n> of release. Apart from having to stick R things into Full Disk Access I've\n> had no issues with R nor XQuartz.\n>\n> I read through the links provided and, while I do have said symlink in the\n> relocated items folder Apple creates (this is new behavior for the GM), it\n> gets re-created fine for me & XQuartz works fine (and the minor pkg deps I\n> have installed that use it also work fine.\n>\n> This would appear to be a YMMV situation.\n>\n> -Bob\n>\n> > On Oct 8, 2019, at 4:19 PM, Luis Puerto <luiss.puerto at gmail.com> wrote:\n> >\n> > Thanks a lot for the heads up!\n> >\n> > Cheers!\n> > Luis\n> >\n> >> On 8 Oct 2019, at 22:49, Marc Schwartz via R-SIG-Mac <\n> r-sig-mac at r-project.org> wrote:\n> >>\n> >> Hi All,\n> >>\n> >> Perhaps I missed something relevant along the way someplace, but I ran\n> the upgrade to Catalina (10.15) last night. I wanted to give folks a heads\n> up on an issue that you may face, especially if you have XQuartz installed\n> alongside R.\n> >>\n> >> One of the sequelae of the upgrade is that some files may get relocated\n> during the upgrade, likely in part due to the macOS SIP.\n> >>\n> >> In my case, this involved the symlink for XQuartz, 'usr/X11R6', which\n> gets placed into a \"Relocated Items\" folder on the Desktop. That folder,\n> which is actually an alias to /Users/Shared, contains a folder tree with:\n> Security/usr/X11R6. Naively, after seeing this, I elected to move the\n> entire folder to the Trash.\n> >>\n> >> That led me into a cycle of trying to figure out how to then delete\n> that folder tree from the Trash, as I would get various OS errors in the\n> course of doing so.\n> >>\n> >> That led me to some Google searches, with incremental attempts at\n> solutions, but eventually landing on the following thread in the Apple\n> Community forums:\n> >>\n> >> https://discussions.apple.com/thread/250712783\n> >>\n> >> After the first review of the thread there, and before user 'faikbey'\n> posted a possible solution using Recovery Mode, I filed an Issue on the\n> XQuartz github repo here:\n> >>\n> >> https://github.com/XQuartz/XQuartz/issues/1\n> >>\n> >> It would seem that, at some level, one workaround would be to uninstall\n> XQuartz fully before the Catalina upgrade, but there is no uninstall\n> program provided by them. There is a series of CLI commands in a github\n> gist here:\n> >>\n> >>\n> https://gist.github.com/pwnsdx/d127873e24cef159d4d603accaf37ee4#file-gistfile1-txt\n> >>\n> >> which appears to work, but would likely be best used prior to the\n> Catalina upgrade, and then re-install XQuartz after the upgrade is complete.\n> >>\n> >> The solution to the problem posted by 'faikbey' in the Apple forum\n> appears to work in the original scenario, albeit, as I noted in my reply in\n> that thread, I needed to first mount the user volume in Recovery Mode using\n> Disk Utility, before I could proceed with the additional steps of deleting\n> the files from the Trash, then rebooting into normal mode.\n> >>\n> >> If anyone else has experienced this and knows of an alternative/better\n> solution, let us know.\n> >>\n> >> Otherwise, let's see what the XQuartz folks might come up with on this,\n> as this was not an issue with prior macOS upgrades.\n> >>\n> >> Regards,\n> >>\n> >> Marc Schwartz\n> >>\n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBest,\nKasper\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Bob,\n\nYou ran the betas. On issues like this, that could be a big difference. So\nIm not sure it is yet an issue that could be user dependent.\n\nBest,\nKasper\n\nOn Tue, Oct 8, 2019 at 10:00 PM Bob Rudis <",
+      "thread_id": "thread-54f5f95cbb01",
+      "thread_depth": 3,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-bf7e69e67641",
+      "message_id": "<62B6B05E-D3BB-49EF-AE12-0E2E671FEBB4@univ-lyon1.fr>",
+      "from_name": "Jean Thioulouse",
+      "from_email_hash": "9c5735c52b6dd7816fc372353606b4eeabbbb6a1a2bb2e6764818fef12eec5b2",
+      "date": "2019-10-09T15:50:39+02:00",
+      "subject": "[R-SIG-Mac]  Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "subject_clean": "Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "in_reply_to": "<CAC2h7utzKxz9tEHVAfkfH-RrLxRcpK2T_n6MUYKspz+-vUVMpg@mail.gmail.com>",
+      "references": [
+        "<36141903-5B13-4161-B59B-ADF408EA9F7C@me.com>",
+        "<8C51A165-E488-4DF8-BFF5-D7661C3888C3@gmail.com>",
+        "<345B94E1-37CE-461A-9DF8-D3521C895C5A@rud.is>",
+        "<CAC2h7utzKxz9tEHVAfkfH-RrLxRcpK2T_n6MUYKspz+-vUVMpg@mail.gmail.com>"
+      ],
+      "body_plain": "I did not run any of the Catalina betas and have no problem with Catalina/XQuartz.\n\nJean\n\n?-\nJean THIOULOUSE - orcid.org/0000-0001-7664-0598\nhttp://lbbe.univ-lyon1.fr/-Thioulouse-Jean-.html\nhttps://www.springer.com/fr/book/9781493988488\n\n\n\n\n> Le 9 oct. 2019 ? 15:20, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> a ?crit :\n> \n> Bob,\n> \n> You ran the betas. On issues like this, that could be a big difference. So\n> Im not sure it is yet an issue that could be user dependent.\n> \n> Best,\n> Kasper\n> \n> On Tue, Oct 8, 2019 at 10:00 PM Bob Rudis <bob at rud.is> wrote:\n> \n>> I've been running Catalina since the first beta and upgraded to GM the day\n>> of release. Apart from having to stick R things into Full Disk Access I've\n>> had no issues with R nor XQuartz.\n>> \n>> I read through the links provided and, while I do have said symlink in the\n>> relocated items folder Apple creates (this is new behavior for the GM), it\n>> gets re-created fine for me & XQuartz works fine (and the minor pkg deps I\n>> have installed that use it also work fine.\n>> \n>> This would appear to be a YMMV situation.\n>> \n>> -Bob\n>> \n>>> On Oct 8, 2019, at 4:19 PM, Luis Puerto <luiss.puerto at gmail.com> wrote:\n>>> \n>>> Thanks a lot for the heads up!\n>>> \n>>> Cheers!\n>>> Luis\n>>> \n>>>> On 8 Oct 2019, at 22:49, Marc Schwartz via R-SIG-Mac <\n>> r-sig-mac at r-project.org> wrote:\n>>>> \n>>>> Hi All,\n>>>> \n>>>> Perhaps I missed something relevant along the way someplace, but I ran\n>> the upgrade to Catalina (10.15) last night. I wanted to give folks a heads\n>> up on an issue that you may face, especially if you have XQuartz installed\n>> alongside R.\n>>>> \n>>>> One of the sequelae of the upgrade is that some files may get relocated\n>> during the upgrade, likely in part due to the macOS SIP.\n>>>> \n>>>> In my case, this involved the symlink for XQuartz, 'usr/X11R6', which\n>> gets placed into a \"Relocated Items\" folder on the Desktop. That folder,\n>> which is actually an alias to /Users/Shared, contains a folder tree with:\n>> Security/usr/X11R6. Naively, after seeing this, I elected to move the\n>> entire folder to the Trash.\n>>>> \n>>>> That led me into a cycle of trying to figure out how to then delete\n>> that folder tree from the Trash, as I would get various OS errors in the\n>> course of doing so.\n>>>> \n>>>> That led me to some Google searches, with incremental attempts at\n>> solutions, but eventually landing on the following thread in the Apple\n>> Community forums:\n>>>> \n>>>> https://discussions.apple.com/thread/250712783\n>>>> \n>>>> After the first review of the thread there, and before user 'faikbey'\n>> posted a possible solution using Recovery Mode, I filed an Issue on the\n>> XQuartz github repo here:\n>>>> \n>>>> https://github.com/XQuartz/XQuartz/issues/1\n>>>> \n>>>> It would seem that, at some level, one workaround would be to uninstall\n>> XQuartz fully before the Catalina upgrade, but there is no uninstall\n>> program provided by them. There is a series of CLI commands in a github\n>> gist here:\n>>>> \n>>>> \n>> https://gist.github.com/pwnsdx/d127873e24cef159d4d603accaf37ee4#file-gistfile1-txt\n>>>> \n>>>> which appears to work, but would likely be best used prior to the\n>> Catalina upgrade, and then re-install XQuartz after the upgrade is complete.\n>>>> \n>>>> The solution to the problem posted by 'faikbey' in the Apple forum\n>> appears to work in the original scenario, albeit, as I noted in my reply in\n>> that thread, I needed to first mount the user volume in Recovery Mode using\n>> Disk Utility, before I could proceed with the additional steps of deleting\n>> the files from the Trash, then rebooting into normal mode.\n>>>> \n>>>> If anyone else has experienced this and knows of an alternative/better\n>> solution, let us know.\n>>>> \n>>>> Otherwise, let's see what the XQuartz folks might come up with on this,\n>> as this was not an issue with prior macOS upgrades.\n>>>> \n>>>> Regards,\n>>>> \n>>>> Marc Schwartz\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> \n> -- \n> Best,\n> Kasper\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I did not run any of the Catalina betas and have no problem with Catalina/XQuartz.\n\nJean\n\n?-\nJean THIOULOUSE - orcid.org/0000-0001-7664-0598\nhttp://lbbe.univ-lyon1.fr/-Thioulouse-Jean-.html\nhttps://ww",
+      "thread_id": "thread-54f5f95cbb01",
+      "thread_depth": 4,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-c8fcf697c01e",
+      "message_id": "<2B12ACD9-DD78-41A2-B76B-370BC9723C50@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2019-10-09T10:22:21-04:00",
+      "subject": "[R-SIG-Mac]  Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "subject_clean": "Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "in_reply_to": "<345B94E1-37CE-461A-9DF8-D3521C895C5A@rud.is>",
+      "references": [
+        "<36141903-5B13-4161-B59B-ADF408EA9F7C@me.com>",
+        "<8C51A165-E488-4DF8-BFF5-D7661C3888C3@gmail.com>",
+        "<345B94E1-37CE-461A-9DF8-D3521C895C5A@rud.is>"
+      ],
+      "body_plain": "Bob,\n\nIf you have not tried to actually delete the relocated files folder, with the X11R6 symlink and then empty the trash, you have not experienced the issue in question.\n\nIn the past 24 hours, as a result of an increasing number of people upgrading to Catalina, the number of posts on the relocated files issue found via a Google search have increased by a magnitude.\n\nMany of these are people simply expressing surprise at the new folder showing up on their desktops, but an increasing number are relevant to the specific issue that I raised, in not being able to delete these files from the trash and then having to go into Recovery mode to deal with it. \n\nThat is not an acceptable solution for non-technical users, and the XQuartz folks need to address it specifically, but it is likely that Apple will need to address it more broadly.\n\nRegards,\n\nMarc\n\n\n> On Oct 8, 2019, at 10:00 PM, Bob Rudis <bob at rud.is> wrote:\n> \n> I've been running Catalina since the first beta and upgraded to GM the day of release. Apart from having to stick R things into Full Disk Access I've had no issues with R nor XQuartz.\n> \n> I read through the links provided and, while I do have said symlink in the relocated items folder Apple creates (this is new behavior for the GM), it gets re-created fine for me & XQuartz works fine (and the minor pkg deps I have installed that use it also work fine.\n> \n> This would appear to be a YMMV situation.\n> \n> -Bob\n> \n>> On Oct 8, 2019, at 4:19 PM, Luis Puerto <luiss.puerto at gmail.com> wrote:\n>> \n>> Thanks a lot for the heads up! \n>> \n>> Cheers!\n>> Luis\n>> \n>>> On 8 Oct 2019, at 22:49, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>>> \n>>> Hi All,\n>>> \n>>> Perhaps I missed something relevant along the way someplace, but I ran the upgrade to Catalina (10.15) last night. I wanted to give folks a heads up on an issue that you may face, especially if you have XQuartz installed alongside R.\n>>> \n>>> One of the sequelae of the upgrade is that some files may get relocated during the upgrade, likely in part due to the macOS SIP.\n>>> \n>>> In my case, this involved the symlink for XQuartz, 'usr/X11R6', which gets placed into a \"Relocated Items\" folder on the Desktop. That folder, which is actually an alias to /Users/Shared, contains a folder tree with: Security/usr/X11R6. Naively, after seeing this, I elected to move the entire folder to the Trash.\n>>> \n>>> That led me into a cycle of trying to figure out how to then delete that folder tree from the Trash, as I would get various OS errors in the course of doing so.\n>>> \n>>> That led me to some Google searches, with incremental attempts at solutions, but eventually landing on the following thread in the Apple Community forums:\n>>> \n>>> https://discussions.apple.com/thread/250712783\n>>> \n>>> After the first review of the thread there, and before user 'faikbey' posted a possible solution using Recovery Mode, I filed an Issue on the XQuartz github repo here:\n>>> \n>>> https://github.com/XQuartz/XQuartz/issues/1\n>>> \n>>> It would seem that, at some level, one workaround would be to uninstall XQuartz fully before the Catalina upgrade, but there is no uninstall program provided by them. There is a series of CLI commands in a github gist here:\n>>> \n>>> https://gist.github.com/pwnsdx/d127873e24cef159d4d603accaf37ee4#file-gistfile1-txt\n>>> \n>>> which appears to work, but would likely be best used prior to the Catalina upgrade, and then re-install XQuartz after the upgrade is complete.\n>>> \n>>> The solution to the problem posted by 'faikbey' in the Apple forum appears to work in the original scenario, albeit, as I noted in my reply in that thread, I needed to first mount the user volume in Recovery Mode using Disk Utility, before I could proceed with the additional steps of deleting the files from the Trash, then rebooting into normal mode. \n>>> \n>>> If anyone else has experienced this and knows of an alternative/better solution, let us know.\n>>> \n>>> Otherwise, let's see what the XQuartz folks might come up with on this, as this was not an issue with prior macOS upgrades.\n>>> \n>>> Regards,\n>>> \n>>> Marc Schwartz\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Bob,\n\nIf you have not tried to actually delete the relocated files folder, with the X11R6 symlink and then empty the trash, you have not experienced the issue in question.\n\nIn the past 24 hours, as a ",
+      "thread_id": "thread-54f5f95cbb01",
+      "thread_depth": 3,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-4a6ee19547ee",
+      "message_id": "<BE33A211-6BF7-4A13-94CD-08863696F4F1@neuwirth.priv.at>",
+      "from_name": "Erich Subscriptions",
+      "from_email_hash": "2ed9bec5cafdefe3fc774f0c53610d75bd1162b9d5989e09a35de80f3373a44d",
+      "date": "2019-10-10T17:28:13+02:00",
+      "subject": "[R-SIG-Mac] Catalina and gfortran",
+      "subject_clean": "Catalina and gfortran",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am trying to produce a n R environment on clean new Catalina installation (in a VM).\nThe R binary installer and RStudio work.\nThen, I installed clang7, and that seems to work also.\ngfortran, however, is a problem.\nThe 4.2.3 version (still in the tools folder on CRAN) is 32bit only,\nso it does not work on Catalina.\n6.1 from https://github.com/fxcoudert/gfortran-for-macOS/\ncannot be installed, the installer tells that it is incompatible with this version of macOS.\n\nIs there a workaround? Can I find a version of gfortran which will compile\npackages containing Fortran code?\n(I stumbled on classInt).\n\nI also tried gcc at 7 from homebrew, but could not get it to run either.",
+      "body_snippet": "I am trying to produce a n R environment on clean new Catalina installation (in a VM).\nThe R binary installer and RStudio work.\nThen, I installed clang7, and that seems to work also.\ngfortran, however",
+      "thread_id": "thread-4a6ee19547ee",
+      "thread_depth": 0,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-9e230539704e",
+      "message_id": "<8998228E-3610-4089-9125-1D9CB8FEFAD7@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2019-10-10T15:30:29Z",
+      "subject": "[R-SIG-Mac] Catalina and gfortran",
+      "subject_clean": "Catalina and gfortran",
+      "in_reply_to": "<BE33A211-6BF7-4A13-94CD-08863696F4F1@neuwirth.priv.at>",
+      "references": [
+        "<BE33A211-6BF7-4A13-94CD-08863696F4F1@neuwirth.priv.at>"
+      ],
+      "body_plain": "Erich,\n\nTry to install gfortran with this installer: \n\nhttps://cran.r-project.org/bin/macosx/tools/gfortran-6.1.pkg \n\nSincerely,\n\nJJB\n\n?On 10/10/19, 10:28 AM, \"R-SIG-Mac on behalf of Erich Subscriptions\" <r-sig-mac-bounces at r-project.org on behalf of erich.subs at neuwirth.priv.at> wrote:\n\n    I am trying to produce a n R environment on clean new Catalina installation (in a VM).\n    The R binary installer and RStudio work.\n    Then, I installed clang7, and that seems to work also.\n    gfortran, however, is a problem.\n    The 4.2.3 version (still in the tools folder on CRAN) is 32bit only,\n    so it does not work on Catalina.\n    6.1 from https://github.com/fxcoudert/gfortran-for-macOS/\n    cannot be installed, the installer tells that it is incompatible with this version of macOS.\n    \n    Is there a workaround? Can I find a version of gfortran which will compile\n    packages containing Fortran code?\n    (I stumbled on classInt).\n    \n    I also tried gcc at 7 from homebrew, but could not get it to run either.\n    \n    _______________________________________________\n    R-SIG-Mac mailing list\n    R-SIG-Mac at r-project.org\n    https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Erich,\n\nTry to install gfortran with this installer: \n\nhttps://cran.r-project.org/bin/macosx/tools/gfortran-6.1.pkg \n\nSincerely,\n\nJJB\n\n?On 10/10/19, 10:28 AM, \"R-SIG-Mac on behalf of Erich Subscriptio",
+      "thread_id": "thread-4a6ee19547ee",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-7e54a7cf4d45",
+      "message_id": "<CAJXgQP2_PfoW3xZDCox9_rF525i2cfw+hspnT4bac6F4HAyQzA@mail.gmail.com>",
+      "from_name": "Kevin Ushey",
+      "from_email_hash": "c0bffc799bd95bf26caa6b1c9abdc3f8fdc556eac7399824869756688d2f0689",
+      "date": "2019-10-10T08:35:20-07:00",
+      "subject": "[R-SIG-Mac] Catalina and gfortran",
+      "subject_clean": "Catalina and gfortran",
+      "in_reply_to": "<BE33A211-6BF7-4A13-94CD-08863696F4F1@neuwirth.priv.at>",
+      "references": [
+        "<BE33A211-6BF7-4A13-94CD-08863696F4F1@neuwirth.priv.at>"
+      ],
+      "body_plain": "There is a package providing gfortran 6.1 on the page at\nhttps://cran.r-project.org/bin/macosx/tools/, and that should be used\nnow with the El Capitan builds of R.\n\nFWIW, I've had success using gfortran from Homebrew gcc; you just need\nto ensure that the correct Fortran libraries are passed along during\ncompilation. E.g. I have:\n\n    FLIBS = -L`gfortran -print-file-name=libgfortran.dylib | xargs dirname`\n\nin my `~/.R/Makevars`.\n\nBest,\nKevin\n\nOn Thu, Oct 10, 2019 at 8:28 AM Erich Subscriptions\n<erich.subs at neuwirth.priv.at> wrote:\n>\n> I am trying to produce a n R environment on clean new Catalina installation (in a VM).\n> The R binary installer and RStudio work.\n> Then, I installed clang7, and that seems to work also.\n> gfortran, however, is a problem.\n> The 4.2.3 version (still in the tools folder on CRAN) is 32bit only,\n> so it does not work on Catalina.\n> 6.1 from https://github.com/fxcoudert/gfortran-for-macOS/\n> cannot be installed, the installer tells that it is incompatible with this version of macOS.\n>\n> Is there a workaround? Can I find a version of gfortran which will compile\n> packages containing Fortran code?\n> (I stumbled on classInt).\n>\n> I also tried gcc at 7 from homebrew, but could not get it to run either.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "There is a package providing gfortran 6.1 on the page at\nhttps://cran.r-project.org/bin/macosx/tools/, and that should be used\nnow with the El Capitan builds of R.\n\nFWIW, I've had success using gfortr",
+      "thread_id": "thread-4a6ee19547ee",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-9e38fa375055",
+      "message_id": "<3AB89DC5-635E-4681-A4D9-CC324FB19AD6@neuwirth.priv.at>",
+      "from_name": "Erich Subscriptions",
+      "from_email_hash": "2ed9bec5cafdefe3fc774f0c53610d75bd1162b9d5989e09a35de80f3373a44d",
+      "date": "2019-10-10T17:36:26+02:00",
+      "subject": "[R-SIG-Mac] My silliness",
+      "subject_clean": "My silliness",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "gfortran 6.1 from the tools directory (which I simply did not notice) did install.\nBut it also seems to be 32bi and therefore does not work on Catalina.\n\n\n\nSorry for bothering people here.",
+      "body_snippet": "gfortran 6.1 from the tools directory (which I simply did not notice) did install.\nBut it also seems to be 32bi and therefore does not work on Catalina.\n\n\n\nSorry for bothering people here.",
+      "thread_id": "thread-9e38fa375055",
+      "thread_depth": 0,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-85f2e2e0e69f",
+      "message_id": "<80941020-5ec2-76e4-f762-3ffd59725154@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2019-10-10T10:43:29-05:00",
+      "subject": "[R-SIG-Mac] Catalina and gfortran (also: My silliness)",
+      "subject_clean": "Catalina and gfortran (also: My silliness)",
+      "in_reply_to": "<3AB89DC5-635E-4681-A4D9-CC324FB19AD6@neuwirth.priv.at>",
+      "references": [
+        "<3AB89DC5-635E-4681-A4D9-CC324FB19AD6@neuwirth.priv.at>"
+      ],
+      "body_plain": "????? Catalina advertised that it would no longer accept 32 bit \napplications.\n\n\n ????? Isn't there a 64 bit version of gfortran to use with Catalina?\n\n\n ????? Spencer Graves\n\n\nOn 2019-10-10 10:36, Erich Subscriptions wrote:\n> gfortran 6.1 from the tools directory (which I simply did not notice) did install.\n> But it also seems to be 32bi and therefore does not work on Catalina.\n>\n>\n>\n> Sorry for bothering people here.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "????? Catalina advertised that it would no longer accept 32 bit \napplications.\n\n\n ????? Isn't there a 64 bit version of gfortran to use with Catalina?\n\n\n ????? Spencer Graves\n\n\nOn 2019-10-10 10:36, Er",
+      "thread_id": "thread-9e38fa375055",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-b58254207f67",
+      "message_id": "<7974758F-138D-4578-A214-0C4BBBDCF7E8@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2019-10-10T15:48:36Z",
+      "subject": "[R-SIG-Mac] Catalina and gfortran (also: My silliness)",
+      "subject_clean": "Catalina and gfortran (also: My silliness)",
+      "in_reply_to": "<80941020-5ec2-76e4-f762-3ffd59725154@prodsyse.com>",
+      "references": [
+        "<3AB89DC5-635E-4681-A4D9-CC324FB19AD6@neuwirth.priv.at>",
+        "<80941020-5ec2-76e4-f762-3ffd59725154@prodsyse.com>"
+      ],
+      "body_plain": "Greetings and Salutations All,",
+      "body_snippet": "Greetings and Salutations All,",
+      "thread_id": "thread-9e38fa375055",
+      "thread_depth": 2,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-b89b0ac2152c",
+      "message_id": "<CAJXgQP24UmXQ2Ok7Gn2rCjhBQN2RK449KSxHc0=bcM8DUDZ7MA@mail.gmail.com>",
+      "from_name": "Kevin Ushey",
+      "from_email_hash": "c0bffc799bd95bf26caa6b1c9abdc3f8fdc556eac7399824869756688d2f0689",
+      "date": "2019-10-11T10:59:34-07:00",
+      "subject": "[R-SIG-Mac] R-patched installers cannot be run on Catalina",
+      "subject_clean": "R-patched installers cannot be run on Catalina",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI'm seeing the following when I attempt to install R-patched, as from\nhttp://mac.r-project.org/:\n\n---\n\n?R-3.6-branch-el-capitan-signed.pkg? can?t be opened because Apple\ncannot check it for malicious software.\n\nThis software needs to be updated. Contact the developer for more information.\n\n---\n\nI suspect this is pain being imposed by the requirement for notarized\napplications / installers. The dialog can be overridden through the\nSecurity & Privacy preferences pane, but Apple does not make this\nobvious.\n\nThe official R 3.6.1 installer is not affected; likely because it was\ngrandfathered in due to its being published before Catalina was rolled\nout.\n\nAre there plans to notarize these builds of R? (can we be helpful in\nmaking that happen?)\n\nBest,\nKevin",
+      "body_snippet": "Hi,\n\nI'm seeing the following when I attempt to install R-patched, as from\nhttp://mac.r-project.org/:\n\n---\n\n?R-3.6-branch-el-capitan-signed.pkg? can?t be opened because Apple\ncannot check it for malic",
+      "thread_id": "thread-b89b0ac2152c",
+      "thread_depth": 0,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-f4a75c41a004",
+      "message_id": "<191f5dbe-5dbd-8046-7ba7-bd656fd1f3f8@lisse.NA>",
+      "from_name": "Dr Eberhard W Lisse",
+      "from_email_hash": "93198b7406f8147b29c8ec4070bb3410039299dc0f6f9e78bb5d24f319fbeeb4",
+      "date": "2019-10-11T22:25:08+02:00",
+      "subject": "[R-SIG-Mac] R-patched installers cannot be run on Catalina",
+      "subject_clean": "R-patched installers cannot be run on Catalina",
+      "in_reply_to": "<CAJXgQP24UmXQ2Ok7Gn2rCjhBQN2RK449KSxHc0=bcM8DUDZ7MA@mail.gmail.com>",
+      "references": [
+        "<CAJXgQP24UmXQ2Ok7Gn2rCjhBQN2RK449KSxHc0=bcM8DUDZ7MA@mail.gmail.com>"
+      ],
+      "body_plain": "You could always issue\n\n\tsudo spctl --master-disable\n\n:-)-O\n\nel\n\nOn 2019-10-11 19:59 , Kevin Ushey wrote:\n> Hi,\n> \n> I'm seeing the following when I attempt to install R-patched, as from\n> http://mac.r-project.org/:\n> \n> ---\n> \n> ?R-3.6-branch-el-capitan-signed.pkg? can?t be opened because Apple\n> cannot check it for malicious software.\n> \n> This software needs to be updated. Contact the developer for more information.\n> \n> ---\n> \n> I suspect this is pain being imposed by the requirement for notarized\n> applications / installers. The dialog can be overridden through the\n> Security & Privacy preferences pane, but Apple does not make this\n> obvious.\n> \n> The official R 3.6.1 installer is not affected; likely because it was\n> grandfathered in due to its being published before Catalina was rolled\n> out.\n> \n> Are there plans to notarize these builds of R? (can we be helpful in\n> making that happen?)\n> \n> Best,\n> Kevin\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n-- \nDr. Eberhard W. Lisse          / Obstetrician & Gynaecologist (Saar)\nel at lisse.NA            / *     |   Telephone: +264 81 124 6733 (cell)\nPO Box 8421                  /\nBachbrecht, Namibia     ;____/",
+      "body_snippet": "You could always issue\n\n\tsudo spctl --master-disable\n\n:-)-O\n\nel\n\nOn 2019-10-11 19:59 , Kevin Ushey wrote:\n> Hi,\n> \n> I'm seeing the following when I attempt to install R-patched, as from\n> http://mac.",
+      "thread_id": "thread-b89b0ac2152c",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-f4c6096616c9",
+      "message_id": "<5CAEAFB8-BA94-4405-800F-49BBBB9105FD@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-10-11T16:31:09-04:00",
+      "subject": "[R-SIG-Mac] R-patched installers cannot be run on Catalina",
+      "subject_clean": "R-patched installers cannot be run on Catalina",
+      "in_reply_to": "<CAJXgQP24UmXQ2Ok7Gn2rCjhBQN2RK449KSxHc0=bcM8DUDZ7MA@mail.gmail.com>",
+      "references": [
+        "<CAJXgQP24UmXQ2Ok7Gn2rCjhBQN2RK449KSxHc0=bcM8DUDZ7MA@mail.gmail.com>"
+      ],
+      "body_plain": "Kevin,\n\nthanks for the report. We are aware of the notarization and there are plans, but at this point it's unclear if it's even possible, given the various constraints and the way R works (it's unlikely that R as it is will pass the test). We definitely hope to have a solution for R 4.0.0, but it's unlikely that any R 3.x version can be released in a conform way.\n\nCheers,\nSimon\n\n\n> On Oct 11, 2019, at 1:59 PM, Kevin Ushey <kevinushey at gmail.com> wrote:\n> \n> Hi,\n> \n> I'm seeing the following when I attempt to install R-patched, as from\n> http://mac.r-project.org/:\n> \n> ---\n> \n> ?R-3.6-branch-el-capitan-signed.pkg? can?t be opened because Apple\n> cannot check it for malicious software.\n> \n> This software needs to be updated. Contact the developer for more information.\n> \n> ---\n> \n> I suspect this is pain being imposed by the requirement for notarized\n> applications / installers. The dialog can be overridden through the\n> Security & Privacy preferences pane, but Apple does not make this\n> obvious.\n> \n> The official R 3.6.1 installer is not affected; likely because it was\n> grandfathered in due to its being published before Catalina was rolled\n> out.\n> \n> Are there plans to notarize these builds of R? (can we be helpful in\n> making that happen?)\n> \n> Best,\n> Kevin\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Kevin,\n\nthanks for the report. We are aware of the notarization and there are plans, but at this point it's unclear if it's even possible, given the various constraints and the way R works (it's unlik",
+      "thread_id": "thread-b89b0ac2152c",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-03da7d9a3f21",
+      "message_id": "<37EFA106-870C-4809-9F25-A5899C7D1454@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2019-10-11T16:39:55-04:00",
+      "subject": "[R-SIG-Mac] R-patched installers cannot be run on Catalina",
+      "subject_clean": "R-patched installers cannot be run on Catalina",
+      "in_reply_to": "<191f5dbe-5dbd-8046-7ba7-bd656fd1f3f8@lisse.NA>",
+      "references": [
+        "<CAJXgQP24UmXQ2Ok7Gn2rCjhBQN2RK449KSxHc0=bcM8DUDZ7MA@mail.gmail.com>",
+        "<191f5dbe-5dbd-8046-7ba7-bd656fd1f3f8@lisse.NA>"
+      ],
+      "body_plain": "Hi,\n\nI am going to presume that Simon is already aware of this, but there is a page on the Apple Dev site that describes the workflow that can be implemented/customized to automate the notarization process via scripting:\n\n  https://developer.apple.com/documentation/xcode/notarizing_your_app_before_distribution/customizing_the_notarization_workflow\n\nWhether this can be done efficiently to support the nightly builds via the current build system would be the question.\n\nAlso, with nightly builds, there is a risk of the notarization process introducing delays, as just happened:\n\n  https://www.macrumors.com/2019/10/10/apple-macos-catalina-app-notarization-slow/\n\nRegards,\n\nMarc Schwartz\n\n\n> On Oct 11, 2019, at 4:25 PM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n> \n> You could always issue\n> \n> \tsudo spctl --master-disable\n> \n> :-)-O\n> \n> el\n> \n> On 2019-10-11 19:59 , Kevin Ushey wrote:\n>> Hi,\n>> \n>> I'm seeing the following when I attempt to install R-patched, as from\n>> http://mac.r-project.org/:\n>> \n>> ---\n>> \n>> ?R-3.6-branch-el-capitan-signed.pkg? can?t be opened because Apple\n>> cannot check it for malicious software.\n>> \n>> This software needs to be updated. Contact the developer for more information.\n>> \n>> ---\n>> \n>> I suspect this is pain being imposed by the requirement for notarized\n>> applications / installers. The dialog can be overridden through the\n>> Security & Privacy preferences pane, but Apple does not make this\n>> obvious.\n>> \n>> The official R 3.6.1 installer is not affected; likely because it was\n>> grandfathered in due to its being published before Catalina was rolled\n>> out.\n>> \n>> Are there plans to notarize these builds of R? (can we be helpful in\n>> making that happen?)\n>> \n>> Best,\n>> Kevin",
+      "body_snippet": "Hi,\n\nI am going to presume that Simon is already aware of this, but there is a page on the Apple Dev site that describes the workflow that can be implemented/customized to automate the notarization pr",
+      "thread_id": "thread-b89b0ac2152c",
+      "thread_depth": 2,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-aff162641569",
+      "message_id": "<324F0211-F2C4-43CC-BE1D-BE79A587A0A0@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-10-11T16:55:30-04:00",
+      "subject": "[R-SIG-Mac] R-patched installers cannot be run on Catalina",
+      "subject_clean": "R-patched installers cannot be run on Catalina",
+      "in_reply_to": "<37EFA106-870C-4809-9F25-A5899C7D1454@me.com>",
+      "references": [
+        "<CAJXgQP24UmXQ2Ok7Gn2rCjhBQN2RK449KSxHc0=bcM8DUDZ7MA@mail.gmail.com>",
+        "<191f5dbe-5dbd-8046-7ba7-bd656fd1f3f8@lisse.NA>",
+        "<37EFA106-870C-4809-9F25-A5899C7D1454@me.com>"
+      ],
+      "body_plain": "The issue is not the process, the issue is that Apple requires particular way to build the binaries with particular tools in order to even be able to pass the notarization process and our current build does not use those. We can't change the tools in the middle of the release so for R 3.6.x we're stuck with what we are currently using which Apple doesn't accept. Hence the only hope is for R 4.0.0 and we're working on that.\n\nCheers,\nSimon\n\n\n\n> On Oct 11, 2019, at 4:39 PM, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hi,\n> \n> I am going to presume that Simon is already aware of this, but there is a page on the Apple Dev site that describes the workflow that can be implemented/customized to automate the notarization process via scripting:\n> \n>  https://developer.apple.com/documentation/xcode/notarizing_your_app_before_distribution/customizing_the_notarization_workflow\n> \n> Whether this can be done efficiently to support the nightly builds via the current build system would be the question.\n> \n> Also, with nightly builds, there is a risk of the notarization process introducing delays, as just happened:\n> \n>  https://www.macrumors.com/2019/10/10/apple-macos-catalina-app-notarization-slow/\n> \n> Regards,\n> \n> Marc Schwartz\n> \n> \n>> On Oct 11, 2019, at 4:25 PM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n>> \n>> You could always issue\n>> \n>> \tsudo spctl --master-disable\n>> \n>> :-)-O\n>> \n>> el\n>> \n>> On 2019-10-11 19:59 , Kevin Ushey wrote:\n>>> Hi,\n>>> \n>>> I'm seeing the following when I attempt to install R-patched, as from\n>>> http://mac.r-project.org/:\n>>> \n>>> ---\n>>> \n>>> ?R-3.6-branch-el-capitan-signed.pkg? can?t be opened because Apple\n>>> cannot check it for malicious software.\n>>> \n>>> This software needs to be updated. Contact the developer for more information.\n>>> \n>>> ---\n>>> \n>>> I suspect this is pain being imposed by the requirement for notarized\n>>> applications / installers. The dialog can be overridden through the\n>>> Security & Privacy preferences pane, but Apple does not make this\n>>> obvious.\n>>> \n>>> The official R 3.6.1 installer is not affected; likely because it was\n>>> grandfathered in due to its being published before Catalina was rolled\n>>> out.\n>>> \n>>> Are there plans to notarize these builds of R? (can we be helpful in\n>>> making that happen?)\n>>> \n>>> Best,\n>>> Kevin\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "The issue is not the process, the issue is that Apple requires particular way to build the binaries with particular tools in order to even be able to pass the notarization process and our current buil",
+      "thread_id": "thread-b89b0ac2152c",
+      "thread_depth": 3,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-15f5d30fad73",
+      "message_id": "<29B2432A-A749-4FB8-8396-A40F3FA41041@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2019-10-11T17:12:11-04:00",
+      "subject": "[R-SIG-Mac] R-patched installers cannot be run on Catalina",
+      "subject_clean": "R-patched installers cannot be run on Catalina",
+      "in_reply_to": "<324F0211-F2C4-43CC-BE1D-BE79A587A0A0@R-project.org>",
+      "references": [
+        "<CAJXgQP24UmXQ2Ok7Gn2rCjhBQN2RK449KSxHc0=bcM8DUDZ7MA@mail.gmail.com>",
+        "<191f5dbe-5dbd-8046-7ba7-bd656fd1f3f8@lisse.NA>",
+        "<37EFA106-870C-4809-9F25-A5899C7D1454@me.com>",
+        "<324F0211-F2C4-43CC-BE1D-BE79A587A0A0@R-project.org>"
+      ],
+      "body_plain": "Simon,\n\nThanks for the clarification.\n\nRegards,\n\nMarc\n\n\n> On Oct 11, 2019, at 4:55 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> The issue is not the process, the issue is that Apple requires particular way to build the binaries with particular tools in order to even be able to pass the notarization process and our current build does not use those. We can't change the tools in the middle of the release so for R 3.6.x we're stuck with what we are currently using which Apple doesn't accept. Hence the only hope is for R 4.0.0 and we're working on that.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On Oct 11, 2019, at 4:39 PM, Marc Schwartz via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>> \n>> Hi,\n>> \n>> I am going to presume that Simon is already aware of this, but there is a page on the Apple Dev site that describes the workflow that can be implemented/customized to automate the notarization process via scripting:\n>> \n>> https://developer.apple.com/documentation/xcode/notarizing_your_app_before_distribution/customizing_the_notarization_workflow\n>> \n>> Whether this can be done efficiently to support the nightly builds via the current build system would be the question.\n>> \n>> Also, with nightly builds, there is a risk of the notarization process introducing delays, as just happened:\n>> \n>> https://www.macrumors.com/2019/10/10/apple-macos-catalina-app-notarization-slow/\n>> \n>> Regards,\n>> \n>> Marc Schwartz\n>> \n>> \n>>> On Oct 11, 2019, at 4:25 PM, Dr Eberhard W Lisse <el at lisse.NA> wrote:\n>>> \n>>> You could always issue\n>>> \n>>> \tsudo spctl --master-disable\n>>> \n>>> :-)-O\n>>> \n>>> el\n>>> \n>>> On 2019-10-11 19:59 , Kevin Ushey wrote:\n>>>> Hi,\n>>>> \n>>>> I'm seeing the following when I attempt to install R-patched, as from\n>>>> http://mac.r-project.org/:\n>>>> \n>>>> ---\n>>>> \n>>>> ?R-3.6-branch-el-capitan-signed.pkg? can?t be opened because Apple\n>>>> cannot check it for malicious software.\n>>>> \n>>>> This software needs to be updated. Contact the developer for more information.\n>>>> \n>>>> ---\n>>>> \n>>>> I suspect this is pain being imposed by the requirement for notarized\n>>>> applications / installers. The dialog can be overridden through the\n>>>> Security & Privacy preferences pane, but Apple does not make this\n>>>> obvious.\n>>>> \n>>>> The official R 3.6.1 installer is not affected; likely because it was\n>>>> grandfathered in due to its being published before Catalina was rolled\n>>>> out.\n>>>> \n>>>> Are there plans to notarize these builds of R? (can we be helpful in\n>>>> making that happen?)\n>>>> \n>>>> Best,\n>>>> Kevin\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Simon,\n\nThanks for the clarification.\n\nRegards,\n\nMarc\n\n\n> On Oct 11, 2019, at 4:55 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> The issue is not the process, the issue is that Apple ",
+      "thread_id": "thread-b89b0ac2152c",
+      "thread_depth": 4,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-b270038b3b9a",
+      "message_id": "<6721321C-A129-4557-BAB3-B1D4F1BE2AC6@depauw.edu>",
+      "from_name": "Bryan Hanson",
+      "from_email_hash": "a8281090fe3f4c60194a9bdbee79c82d7c808f157ccc9059c884ffe8cb2ccf91",
+      "date": "2019-10-23T16:32:24-04:00",
+      "subject": "[R-SIG-Mac] Saving a *.R file hangs R GUI under certain sequences of operations",
+      "subject_clean": "Saving a *.R file hangs R GUI under certain sequences of operations",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have found a sequence of actions that causes the R GUI on Mac to hang:\n\n1. Launch R GUI.\n2. Open an empty *.R file via the button or menu or shortcut.\n3. Add something to the file.\n4. Save the file via menu or shortcut (technically a Save as?).  In the save dialog box:\n  a. If you save in whatever directory is pointing to, everything works fine.\n  b. If you attempt to change the directory, for instance by clicking on the icon for a folder w/i the current directory, one gets the pinwheel of death and R must be forced to quit.\n\nCan anyone else reproduce this? \n\nBryan\n\nsessionInfo:\n\nR version 3.6.1 (2019-07-05)\nPlatform: x86_64-apple-darwin15.6.0 (64-bit)\nRunning under: macOS Mojave 10.14.6\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib\nLAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods  \n[7] base     \n\nloaded via a namespace (and not attached):\n[1] compiler_3.6.1",
+      "body_snippet": "I have found a sequence of actions that causes the R GUI on Mac to hang:\n\n1. Launch R GUI.\n2. Open an empty *.R file via the button or menu or shortcut.\n3. Add something to the file.\n4. Save the file ",
+      "thread_id": "thread-b270038b3b9a",
+      "thread_depth": 0,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-e5953938f0aa",
+      "message_id": "<2C22430A-A26B-47E7-8349-0D3AC6C4FA2A@depauw.edu>",
+      "from_name": "Bryan Hanson",
+      "from_email_hash": "a8281090fe3f4c60194a9bdbee79c82d7c808f157ccc9059c884ffe8cb2ccf91",
+      "date": "2019-10-23T18:13:48-04:00",
+      "subject": "[R-SIG-Mac]  Saving a *.R file hangs R GUI under certain sequences of operations",
+      "subject_clean": "Saving a *.R file hangs R GUI under certain sequences of operations",
+      "in_reply_to": "<2d1dcb75-2f14-2553-e1bf-a67946321ae9@gmail.com>",
+      "references": [
+        "<6721321C-A129-4557-BAB3-B1D4F1BE2AC6@depauw.edu>",
+        "<2d1dcb75-2f14-2553-e1bf-a67946321ae9@gmail.com>"
+      ],
+      "body_plain": "Duncan?\n\nI?m creating a new file. The menu item is ?New Document?.   I called it *.R to distinguish it from ?New Rd Document?, and since when you attempt to save it the suggested name is ?untitled.R?.\n\nI don?t see anything in the console.  When I click an existing folder in the dialog, there is a brief delay and then the pinwheel, then it?s stuck.\n\nBryan\n\n> On Oct 23, 2019, at 5:39 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> On 23/10/2019 4:32 p.m., Bryan Hanson wrote:\n>> I have found a sequence of actions that causes the R GUI on Mac to hang:\n>> 1. Launch R GUI.\n>> 2. Open an empty *.R file via the button or menu or shortcut.\n> \n> Could you clarify this:  Are you opening an existing file that is empty, or creating a new document?  I don't see any way to specify *.R in the former, and I don't see a problem with the latter.  A bit more below...\n> \n>> 3. Add something to the file.\n>> 4. Save the file via menu or shortcut (technically a Save as?).  In the save dialog box:\n>>   a. If you save in whatever directory is pointing to, everything works fine.\n>>   b. If you attempt to change the directory, for instance by clicking on the icon for a folder w/i the current directory, one gets the pinwheel of death and R must be forced to quit.\n>> Can anyone else reproduce this?\n>> Bryan\n>> sessionInfo:\n>> R version 3.6.1 (2019-07-05)\n>> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>> Running under: macOS Mojave 10.14.6\n> \n> I'm using the same R, but macOS High Sierra 10.13.6.\n> \n> At some point in the exercise I saw this warning in the console:\n> \n> objc[27995]: Class FIFinderSyncExtensionHost is implemented in both /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit (0x7fffadb52cd0) and /System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride (0x112670cd8). One of the two will be used. Which one is undefined.\n> \n> It might be that in the newer MacOS this is fatal.\n> \n> Duncan Murdoch\n> \n>> Matrix products: default\n>> BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib\n>> LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods\n>> [7] base\n>> loaded via a namespace (and not attached):\n>> [1] compiler_3.6.1\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Duncan?\n\nI?m creating a new file. The menu item is ?New Document?.   I called it *.R to distinguish it from ?New Rd Document?, and since when you attempt to save it the suggested name is ?untitled.R?.",
+      "thread_id": "thread-e5953938f0aa",
+      "thread_depth": 0,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-53cabed59a27",
+      "message_id": "<4DA7CB79-0866-4CD2-9C67-FEEB16EAB528@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "04fa6d0c3897d7401f735ea1444a11e9ef8fce794f6ed7b871e5a56f2d21cdfe",
+      "date": "2019-10-24T11:29:11+11:00",
+      "subject": "[R-SIG-Mac]  Saving a *.R file hangs R GUI under certain sequences of operations",
+      "subject_clean": "Saving a *.R file hangs R GUI under certain sequences of operations",
+      "in_reply_to": "<2C22430A-A26B-47E7-8349-0D3AC6C4FA2A@depauw.edu>",
+      "references": [
+        "<6721321C-A129-4557-BAB3-B1D4F1BE2AC6@depauw.edu>",
+        "<2d1dcb75-2f14-2553-e1bf-a67946321ae9@gmail.com>",
+        "<2C22430A-A26B-47E7-8349-0D3AC6C4FA2A@depauw.edu>"
+      ],
+      "body_plain": "I have Catalina and it works perfectly, as far as this goes.\n\nKen\n\n> On 24 Oct 2019, at 9:13 am, Bryan Hanson <hanson at depauw.edu> wrote:\n> \n> Duncan?\n> \n> I?m creating a new file. The menu item is ?New Document?.   I called it *.R to distinguish it from ?New Rd Document?, and since when you attempt to save it the suggested name is ?untitled.R?.\n> \n> I don?t see anything in the console.  When I click an existing folder in the dialog, there is a brief delay and then the pinwheel, then it?s stuck.\n> \n> Bryan\n> \n>> On Oct 23, 2019, at 5:39 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>> \n>> On 23/10/2019 4:32 p.m., Bryan Hanson wrote:\n>>> I have found a sequence of actions that causes the R GUI on Mac to hang:\n>>> 1. Launch R GUI.\n>>> 2. Open an empty *.R file via the button or menu or shortcut.\n>> \n>> Could you clarify this:  Are you opening an existing file that is empty, or creating a new document?  I don't see any way to specify *.R in the former, and I don't see a problem with the latter.  A bit more below...\n>> \n>>> 3. Add something to the file.\n>>> 4. Save the file via menu or shortcut (technically a Save as?).  In the save dialog box:\n>>>  a. If you save in whatever directory is pointing to, everything works fine.\n>>>  b. If you attempt to change the directory, for instance by clicking on the icon for a folder w/i the current directory, one gets the pinwheel of death and R must be forced to quit.\n>>> Can anyone else reproduce this?\n>>> Bryan\n>>> sessionInfo:\n>>> R version 3.6.1 (2019-07-05)\n>>> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>>> Running under: macOS Mojave 10.14.6\n>> \n>> I'm using the same R, but macOS High Sierra 10.13.6.\n>> \n>> At some point in the exercise I saw this warning in the console:\n>> \n>> objc[27995]: Class FIFinderSyncExtensionHost is implemented in both /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit (0x7fffadb52cd0) and /System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride (0x112670cd8). One of the two will be used. Which one is undefined.\n>> \n>> It might be that in the newer MacOS this is fatal.\n>> \n>> Duncan Murdoch\n>> \n>>> Matrix products: default\n>>> BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib\n>>> LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>>> locale:\n>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods\n>>> [7] base\n>>> loaded via a namespace (and not attached):\n>>> [1] compiler_3.6.1\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "I have Catalina and it works perfectly, as far as this goes.\n\nKen\n\n> On 24 Oct 2019, at 9:13 am, Bryan Hanson <hanson at depauw.edu> wrote:\n> \n> Duncan?\n> \n> I?m creating a new file. The menu item is ",
+      "thread_id": "thread-e5953938f0aa",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-5dafa7ac4d76",
+      "message_id": "<4D42B86F-D7DE-4E97-9EA9-75BB21EF85A4@dcn.davis.ca.us>",
+      "from_name": "Jeff Newmiller",
+      "from_email_hash": "b0534b2df56689de62a07ef0e2eefa136a2b7e536d83dd9445d2bc1683bb09fe",
+      "date": "2019-10-23T17:54:10-07:00",
+      "subject": "[R-SIG-Mac]  Saving a *.R file hangs R GUI under certain sequences of operations",
+      "subject_clean": "Saving a *.R file hangs R GUI under certain sequences of operations",
+      "in_reply_to": "<2C22430A-A26B-47E7-8349-0D3AC6C4FA2A@depauw.edu>",
+      "references": [
+        "<6721321C-A129-4557-BAB3-B1D4F1BE2AC6@depauw.edu>",
+        "<2d1dcb75-2f14-2553-e1bf-a67946321ae9@gmail.com>",
+        "<2C22430A-A26B-47E7-8349-0D3AC6C4FA2A@depauw.edu>"
+      ],
+      "body_plain": "Are you really entering an asterisk as part of the file name? That sounds like an extremely bad idea.\n\nOn October 23, 2019 3:13:48 PM PDT, Bryan Hanson <hanson at depauw.edu> wrote:\n>Duncan?\n>\n>I?m creating a new file. The menu item is ?New Document?.   I called it\n>*.R to distinguish it from ?New Rd Document?, and since when you\n>attempt to save it the suggested name is ?untitled.R?.\n>\n>I don?t see anything in the console.  When I click an existing folder\n>in the dialog, there is a brief delay and then the pinwheel, then it?s\n>stuck.\n>\n>Bryan\n>\n>> On Oct 23, 2019, at 5:39 PM, Duncan Murdoch\n><murdoch.duncan at gmail.com> wrote:\n>> \n>> On 23/10/2019 4:32 p.m., Bryan Hanson wrote:\n>>> I have found a sequence of actions that causes the R GUI on Mac to\n>hang:\n>>> 1. Launch R GUI.\n>>> 2. Open an empty *.R file via the button or menu or shortcut.\n>> \n>> Could you clarify this:  Are you opening an existing file that is\n>empty, or creating a new document?  I don't see any way to specify *.R\n>in the former, and I don't see a problem with the latter.  A bit more\n>below...\n>> \n>>> 3. Add something to the file.\n>>> 4. Save the file via menu or shortcut (technically a Save as?).  In\n>the save dialog box:\n>>>   a. If you save in whatever directory is pointing to, everything\n>works fine.\n>>>   b. If you attempt to change the directory, for instance by\n>clicking on the icon for a folder w/i the current directory, one gets\n>the pinwheel of death and R must be forced to quit.\n>>> Can anyone else reproduce this?\n>>> Bryan\n>>> sessionInfo:\n>>> R version 3.6.1 (2019-07-05)\n>>> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>>> Running under: macOS Mojave 10.14.6\n>> \n>> I'm using the same R, but macOS High Sierra 10.13.6.\n>> \n>> At some point in the exercise I saw this warning in the console:\n>> \n>> objc[27995]: Class FIFinderSyncExtensionHost is implemented in both\n>/System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit\n>(0x7fffadb52cd0) and\n>/System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride\n>(0x112670cd8). One of the two will be used. Which one is undefined.\n>> \n>> It might be that in the newer MacOS this is fatal.\n>> \n>> Duncan Murdoch\n>> \n>>> Matrix products: default\n>>> BLAS:  \n>/Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib\n>>> LAPACK:\n>/Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>>> locale:\n>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods\n>>> [7] base\n>>> loaded via a namespace (and not attached):\n>>> [1] compiler_3.6.1\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nSent from my phone. Please excuse my brevity.",
+      "body_snippet": "Are you really entering an asterisk as part of the file name? That sounds like an extremely bad idea.\n\nOn October 23, 2019 3:13:48 PM PDT, Bryan Hanson <hanson at depauw.edu> wrote:\n>Duncan?\n>\n>I?m cr",
+      "thread_id": "thread-e5953938f0aa",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-9771a7d6dc92",
+      "message_id": "<0F4FEE62-7FDB-4FD7-A39B-B435A409039F@depauw.edu>",
+      "from_name": "Bryan Hanson",
+      "from_email_hash": "a8281090fe3f4c60194a9bdbee79c82d7c808f157ccc9059c884ffe8cb2ccf91",
+      "date": "2019-10-23T21:36:38-04:00",
+      "subject": "[R-SIG-Mac]  Saving a *.R file hangs R GUI under certain sequences of operations",
+      "subject_clean": "Saving a *.R file hangs R GUI under certain sequences of operations",
+      "in_reply_to": "<4D42B86F-D7DE-4E97-9EA9-75BB21EF85A4@dcn.davis.ca.us>",
+      "references": [
+        "<6721321C-A129-4557-BAB3-B1D4F1BE2AC6@depauw.edu>",
+        "<2d1dcb75-2f14-2553-e1bf-a67946321ae9@gmail.com>",
+        "<2C22430A-A26B-47E7-8349-0D3AC6C4FA2A@depauw.edu>",
+        "<4D42B86F-D7DE-4E97-9EA9-75BB21EF85A4@dcn.davis.ca.us>"
+      ],
+      "body_plain": "No, I was just intending to be generic in my description of the problem/process.  The filename defaults to ?untitled.R? and one can use that for testing (it fails for me).\n\n> On Oct 23, 2019, at 8:54 PM, Jeff Newmiller <jdnewmil at dcn.davis.ca.us> wrote:\n> \n> Are you really entering an asterisk as part of the file name? That sounds like an extremely bad idea.\n> \n> On October 23, 2019 3:13:48 PM PDT, Bryan Hanson <hanson at depauw.edu> wrote:\n>> Duncan?\n>> \n>> I?m creating a new file. The menu item is ?New Document?.   I called it\n>> *.R to distinguish it from ?New Rd Document?, and since when you\n>> attempt to save it the suggested name is ?untitled.R?.\n>> \n>> I don?t see anything in the console.  When I click an existing folder\n>> in the dialog, there is a brief delay and then the pinwheel, then it?s\n>> stuck.\n>> \n>> Bryan\n>> \n>>> On Oct 23, 2019, at 5:39 PM, Duncan Murdoch\n>> <murdoch.duncan at gmail.com> wrote:\n>>> \n>>> On 23/10/2019 4:32 p.m., Bryan Hanson wrote:\n>>>> I have found a sequence of actions that causes the R GUI on Mac to\n>> hang:\n>>>> 1. Launch R GUI.\n>>>> 2. Open an empty *.R file via the button or menu or shortcut.\n>>> \n>>> Could you clarify this:  Are you opening an existing file that is\n>> empty, or creating a new document?  I don't see any way to specify *.R\n>> in the former, and I don't see a problem with the latter.  A bit more\n>> below...\n>>> \n>>>> 3. Add something to the file.\n>>>> 4. Save the file via menu or shortcut (technically a Save as?).  In\n>> the save dialog box:\n>>>>  a. If you save in whatever directory is pointing to, everything\n>> works fine.\n>>>>  b. If you attempt to change the directory, for instance by\n>> clicking on the icon for a folder w/i the current directory, one gets\n>> the pinwheel of death and R must be forced to quit.\n>>>> Can anyone else reproduce this?\n>>>> Bryan\n>>>> sessionInfo:\n>>>> R version 3.6.1 (2019-07-05)\n>>>> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>>>> Running under: macOS Mojave 10.14.6\n>>> \n>>> I'm using the same R, but macOS High Sierra 10.13.6.\n>>> \n>>> At some point in the exercise I saw this warning in the console:\n>>> \n>>> objc[27995]: Class FIFinderSyncExtensionHost is implemented in both\n>> /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit\n>> (0x7fffadb52cd0) and\n>> /System/Library/PrivateFrameworks/FileProvider.framework/OverrideBundles/FinderSyncCollaborationFileProviderOverride.bundle/Contents/MacOS/FinderSyncCollaborationFileProviderOverride\n>> (0x112670cd8). One of the two will be used. Which one is undefined.\n>>> \n>>> It might be that in the newer MacOS this is fatal.\n>>> \n>>> Duncan Murdoch\n>>> \n>>>> Matrix products: default\n>>>> BLAS:  \n>> /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib\n>>>> LAPACK:\n>> /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>>>> locale:\n>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods\n>>>> [7] base\n>>>> loaded via a namespace (and not attached):\n>>>> [1] compiler_3.6.1\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> -- \n> Sent from my phone. Please excuse my brevity.",
+      "body_snippet": "No, I was just intending to be generic in my description of the problem/process.  The filename defaults to ?untitled.R? and one can use that for testing (it fails for me).\n\n> On Oct 23, 2019, at 8:54 ",
+      "thread_id": "thread-e5953938f0aa",
+      "thread_depth": 2,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-cd6c73439ac3",
+      "message_id": "<a9828728-f4b9-ae55-71c9-d487f883d79d@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2019-10-29T16:00:44-05:00",
+      "subject": "[R-SIG-Mac] update.packages() cannot install from source",
+      "subject_clean": "update.packages() cannot install from source",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello, All:\n\n\n ????? \"update.packages()\" fails for me on packages DescTools, digest, \njpeg, mgcv, openxlsx, rlang, and spam.? It first says:\n\n\n ? There are binary versions available but the\n ? source versions are later:\n ?????????? binary? source needs_compilation\nDescTools 0.99.29 0.99.30????????????? TRUE\ndigest???? 0.6.21? 0.6.22????????????? TRUE\njpeg??????? 0.1-8 0.1-8.1????????????? TRUE\nmgcv?????? 1.8-29? 1.8-30????????????? TRUE\nopenxlsx? 4.1.0.1?? 4.1.2????????????? TRUE\nrlang?????? 0.4.0?? 0.4.1????????????? TRUE\nspam??????? 2.3-0 2.3-0.2????????????? TRUE\n\n\n ????? It then asks, \"Do you want to install from sources the packages \nwhich need compilation? (Yes/no/cancel)\".? I reply \"y\" or \"Yes\".? For \neach package, it says it was\n\n... successfully unpacked and MD5 sums checked\n** using staged installation\n** libs\nxcrun: error: invalid active developer path \n(/Library/Developer/CommandLineTools), missing xcrun at: \n/Library/Developer/CommandLineTools/usr/bin/xcrun\nERROR: compilation failed for package ?DescTools?\n* removing \n?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/DescTools?\n* restoring previous \n?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/DescTools?\n\n\n ????? A web search for \"xcrun: error: invalid active developer path\" \nidentified a couple of discussions on StackExchange that say that I need \nto have Xcode installed correctly.? I think I have everything up to \ndate:? macOS 10.15.1 Catalina with Xcode downloaded and installed via \nthe App store.? RStudio 1.2.5001 with:\n\n\nsessionInfo()\nR version 3.6.1 (2019-07-05)\nPlatform: x86_64-apple-darwin15.6.0 (64-bit)\nRunning under: macOS Catalina 10.15.1\n\nMatrix products: default\nBLAS: \n/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib\nLAPACK: \n/Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats???? graphics? grDevices utils???? datasets\n[6] methods?? base\n\nloaded via a namespace (and not attached):\n[1] compiler_3.6.1 tools_3.6.1\n\n\n\"https://apple.stackexchange.com/questions/254380/why-am-i-getting-an-invalid-active-developer-path-when-attempting-to-use-git-a\" \nrecommends, \"xcode-select --install\", which to me seems like it should \nbe equivalent to the install I just did via the App Store. This \nStackExchange discussion also said, \"If the above alone doesn't do it, \nthen also run:? xcode-select --reset\".? However, before I do that, I \nthought I'd ask here if anyone else is having a problem like this.? And \nif yes, and if they've fixed it, what did they do to fix it?\n\n\n ????? Thanks,\n ????? Spencer Graves",
+      "body_snippet": "Hello, All:\n\n\n ????? \"update.packages()\" fails for me on packages DescTools, digest, \njpeg, mgcv, openxlsx, rlang, and spam.? It first says:\n\n\n ? There are binary versions available but the\n ? source ",
+      "thread_id": "thread-cd6c73439ac3",
+      "thread_depth": 0,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-1dce859ea347",
+      "message_id": "<14083E09-1ECE-4484-89B9-1C61509DBED1@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2019-10-29T21:12:47Z",
+      "subject": "[R-SIG-Mac] update.packages() cannot install from source",
+      "subject_clean": "update.packages() cannot install from source",
+      "in_reply_to": "<a9828728-f4b9-ae55-71c9-d487f883d79d@prodsyse.com>",
+      "references": [
+        "<a9828728-f4b9-ae55-71c9-d487f883d79d@prodsyse.com>"
+      ],
+      "body_plain": "Greetings and Salutations,\n\nNote that Xcode Command Line Tools is not the same as Xcode IDE. In fact, only Xcode CLI Tools are required, which are light-weight compared to the IDE.\n\nRegarding your error, this is symptomatic of an Xcode update tied to an OS point-release. Note in the session information 10.15.1 (the .1 being the bump)\n\n    R version 3.6.1 (2019-07-05)\n    Platform: x86_64-apple-darwin15.6.0 (64-bit)\n    Running under: macOS Catalina 10.15.1\n\nBoth of the commands highlighted are accurate. Though, the order should be changed to:\n\nsudo xcode-select --reset\nsudo xcode-select --install\n\nThe reset changes back to using the default command line tools path. This was needed for Mojave.\n\nSincerely,\n\nJJB\n\n?On 10/29/19, 4:01 PM, \"R-SIG-Mac on behalf of Spencer Graves\" <r-sig-mac-bounces at r-project.org on behalf of spencer.graves at prodsyse.com> wrote:\n\n    Hello, All:\n    \n    \n           \"update.packages()\" fails for me on packages DescTools, digest, \n    jpeg, mgcv, openxlsx, rlang, and spam.  It first says:\n    \n    \n       There are binary versions available but the\n       source versions are later:\n                binary  source needs_compilation\n    DescTools 0.99.29 0.99.30              TRUE\n    digest     0.6.21  0.6.22              TRUE\n    jpeg        0.1-8 0.1-8.1              TRUE\n    mgcv       1.8-29  1.8-30              TRUE\n    openxlsx  4.1.0.1   4.1.2              TRUE\n    rlang       0.4.0   0.4.1              TRUE\n    spam        2.3-0 2.3-0.2              TRUE\n    \n    \n           It then asks, \"Do you want to install from sources the packages \n    which need compilation? (Yes/no/cancel)\".  I reply \"y\" or \"Yes\".  For \n    each package, it says it was\n    \n    ... successfully unpacked and MD5 sums checked\n    ** using staged installation\n    ** libs\n    xcrun: error: invalid active developer path \n    (/Library/Developer/CommandLineTools), missing xcrun at: \n    /Library/Developer/CommandLineTools/usr/bin/xcrun\n    ERROR: compilation failed for package ?DescTools?\n    * removing \n    ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/DescTools?\n    * restoring previous \n    ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/DescTools?\n    \n    \n           A web search for \"xcrun: error: invalid active developer path\" \n    identified a couple of discussions on StackExchange that say that I need \n    to have Xcode installed correctly.  I think I have everything up to \n    date:  macOS 10.15.1 Catalina with Xcode downloaded and installed via \n    the App store.  RStudio 1.2.5001 with:\n    \n    \n    sessionInfo()\n    R version 3.6.1 (2019-07-05)\n    Platform: x86_64-apple-darwin15.6.0 (64-bit)\n    Running under: macOS Catalina 10.15.1\n    \n    Matrix products: default\n    BLAS: \n    /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib\n    LAPACK: \n    /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n    \n    locale:\n    [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n    \n    attached base packages:\n    [1] stats     graphics  grDevices utils     datasets\n    [6] methods   base\n    \n    loaded via a namespace (and not attached):\n    [1] compiler_3.6.1 tools_3.6.1\n    \n    \n    \"https://apple.stackexchange.com/questions/254380/why-am-i-getting-an-invalid-active-developer-path-when-attempting-to-use-git-a\" \n    recommends, \"xcode-select --install\", which to me seems like it should \n    be equivalent to the install I just did via the App Store. This \n    StackExchange discussion also said, \"If the above alone doesn't do it, \n    then also run:  xcode-select --reset\".  However, before I do that, I \n    thought I'd ask here if anyone else is having a problem like this.  And \n    if yes, and if they've fixed it, what did they do to fix it?\n    \n    \n           Thanks,\n           Spencer Graves\n    \n    _______________________________________________\n    R-SIG-Mac mailing list\n    R-SIG-Mac at r-project.org\n    https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Greetings and Salutations,\n\nNote that Xcode Command Line Tools is not the same as Xcode IDE. In fact, only Xcode CLI Tools are required, which are light-weight compared to the IDE.\n\nRegarding your err",
+      "thread_id": "thread-cd6c73439ac3",
+      "thread_depth": 1,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-09f0a1efd19a",
+      "message_id": "<26e14026-caeb-40c2-93df-755f400b4f1d@Spark>",
+      "from_name": "Eberhard W Lisse",
+      "from_email_hash": "9f64ab141ef1d3b3b6c06a6e6a937a9c06fe5eef1cc88df2789131ef0d490f47",
+      "date": "2019-10-29T23:31:24+02:00",
+      "subject": "[R-SIG-Mac] update.packages() cannot install from source",
+      "subject_clean": "update.packages() cannot install from source",
+      "in_reply_to": "<14083E09-1ECE-4484-89B9-1C61509DBED1@illinois.edu>",
+      "references": [
+        "<a9828728-f4b9-ae55-71c9-d487f883d79d@prodsyse.com>",
+        "<14083E09-1ECE-4484-89B9-1C61509DBED1@illinois.edu>"
+      ],
+      "body_plain": "The\n\nxcode-select ?install\n\nis required after upgrading to Catalina.\n\nI have several machines so I usually only need to figure out once what Apple has done this time :-)-O.\n\nOnce I know that, the other machines usually go without a hitch. And after a while one settles in and doesn?t even notice Apple being Nanny any longer. But I still write it into my handbook so next version I can remember :-)-O\n\nI usually do homebrew first and when that works the other stuff usually compiles as well.\n\nOr you can run\n\n\tmake\n\nif that works, xcode-cli is installed properly.\n\n\nel\n\n?\nSent from Dr Lisse?s iPhone Xs\nOn 29 Oct 2019, 23:13 +0200, Balamuta, James Joseph <balamut2 at illinois.edu>, wrote:\n> Greetings and Salutations,\n>\n> Note that Xcode Command Line Tools is not the same as Xcode IDE. In fact, only Xcode CLI Tools are required, which are light-weight compared to the IDE.\n>\n> Regarding your error, this is symptomatic of an Xcode update tied to an OS point-release. Note in the session information 10.15.1 (the .1 being the bump)\n>\n> R version 3.6.1 (2019-07-05)\n> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n> Running under: macOS Catalina 10.15.1\n>\n> Both of the commands highlighted are accurate. Though, the order should be changed to:\n>\n> sudo xcode-select --reset\n> sudo xcode-select --install\n>\n> The reset changes back to using the default command line tools path. This was needed for Mojave.\n>\n> Sincerely,\n>\n> JJB\n>\n> On 10/29/19, 4:01 PM, \"R-SIG-Mac on behalf of Spencer Graves\" <r-sig-mac-bounces at r-project.org on behalf of spencer.graves at prodsyse.com> wrote:\n>\n> Hello, All:\n>\n>\n> \"update.packages()\" fails for me on packages DescTools, digest,\n> jpeg, mgcv, openxlsx, rlang, and spam. It first says:\n>\n>\n> There are binary versions available but the\n> source versions are later:\n> binary source needs_compilation\n> DescTools 0.99.29 0.99.30 TRUE\n> digest 0.6.21 0.6.22 TRUE\n> jpeg 0.1-8 0.1-8.1 TRUE\n> mgcv 1.8-29 1.8-30 TRUE\n> openxlsx 4.1.0.1 4.1.2 TRUE\n> rlang 0.4.0 0.4.1 TRUE\n> spam 2.3-0 2.3-0.2 TRUE\n>\n>\n> It then asks, \"Do you want to install from sources the packages\n> which need compilation? (Yes/no/cancel)\". I reply \"y\" or \"Yes\". For\n> each package, it says it was\n>\n> ... successfully unpacked and MD5 sums checked\n> ** using staged installation\n> ** libs\n> xcrun: error: invalid active developer path\n> (/Library/Developer/CommandLineTools), missing xcrun at:\n> /Library/Developer/CommandLineTools/usr/bin/xcrun\n> ERROR: compilation failed for package ?DescTools?\n> * removing\n> ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/DescTools?\n> * restoring previous\n> ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/DescTools?\n>\n>\n> A web search for \"xcrun: error: invalid active developer path\"\n> identified a couple of discussions on StackExchange that say that I need\n> to have Xcode installed correctly. I think I have everything up to\n> date: macOS 10.15.1 Catalina with Xcode downloaded and installed via\n> the App store. RStudio 1.2.5001 with:\n>\n>\n> sessionInfo()\n> R version 3.6.1 (2019-07-05)\n> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n> Running under: macOS Catalina 10.15.1\n>\n> Matrix products: default\n> BLAS:\n> /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib\n> LAPACK:\n> /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats graphics grDevices utils datasets\n> [6] methods base\n>\n> loaded via a namespace (and not attached):\n> [1] compiler_3.6.1 tools_3.6.1\n>\n>\n> \"https://apple.stackexchange.com/questions/254380/why-am-i-getting-an-invalid-active-developer-path-when-attempting-to-use-git-a\"\n> recommends, \"xcode-select --install\", which to me seems like it should\n> be equivalent to the install I just did via the App Store. This\n> StackExchange discussion also said, \"If the above alone doesn't do it,\n> then also run: xcode-select --reset\". However, before I do that, I\n> thought I'd ask here if anyone else is having a problem like this. And\n> if yes, and if they've fixed it, what did they do to fix it?\n>\n>\n> Thanks,\n> Spencer Graves\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "The\n\nxcode-select ?install\n\nis required after upgrading to Catalina.\n\nI have several machines so I usually only need to figure out once what Apple has done this time :-)-O.\n\nOnce I know that, the othe",
+      "thread_id": "thread-cd6c73439ac3",
+      "thread_depth": 2,
+      "month": "2019-10"
+    },
+    {
+      "id": "msg-b6a83bce7aa4",
+      "message_id": "<15dcac48-2c21-f6aa-286e-b8822fcfd171@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2019-10-29T17:31:43-05:00",
+      "subject": "[R-SIG-Mac] update.packages() cannot install from source",
+      "subject_clean": "update.packages() cannot install from source",
+      "in_reply_to": "<14083E09-1ECE-4484-89B9-1C61509DBED1@illinois.edu>",
+      "references": [
+        "<a9828728-f4b9-ae55-71c9-d487f883d79d@prodsyse.com>",
+        "<14083E09-1ECE-4484-89B9-1C61509DBED1@illinois.edu>"
+      ],
+      "body_plain": "????? Thanks to James Joseph Balamuta and Eberhard W. Lisse.? I \nfollowed the 2-step procedure outlined by Balamuta, and it fixed the \nproblem for all but the jpeg package.? I will write the maintainer of \nthat package.? (The one-step would probably have worked, but I didn't \ntry it.)\n\n\n ????? Thanks again,\n ????? Spencer Graves\n\n\nOn 2019-10-29 16:12, Balamuta, James Joseph wrote:\n> Greetings and Salutations,\n>\n> Note that Xcode Command Line Tools is not the same as Xcode IDE. In fact, only Xcode CLI Tools are required, which are light-weight compared to the IDE.\n>\n> Regarding your error, this is symptomatic of an Xcode update tied to an OS point-release. Note in the session information 10.15.1 (the .1 being the bump)\n>\n>      R version 3.6.1 (2019-07-05)\n>      Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>      Running under: macOS Catalina 10.15.1\n>\n> Both of the commands highlighted are accurate. Though, the order should be changed to:\n>\n> sudo xcode-select --reset\n> sudo xcode-select --install\n>\n> The reset changes back to using the default command line tools path. This was needed for Mojave.\n>\n> Sincerely,\n>\n> JJB\n>\n> ?On 10/29/19, 4:01 PM, \"R-SIG-Mac on behalf of Spencer Graves\" <r-sig-mac-bounces at r-project.org on behalf of spencer.graves at prodsyse.com> wrote:\n>\n>      Hello, All:\n>      \n>      \n>             \"update.packages()\" fails for me on packages DescTools, digest,\n>      jpeg, mgcv, openxlsx, rlang, and spam.  It first says:\n>      \n>      \n>         There are binary versions available but the\n>         source versions are later:\n>                  binary  source needs_compilation\n>      DescTools 0.99.29 0.99.30              TRUE\n>      digest     0.6.21  0.6.22              TRUE\n>      jpeg        0.1-8 0.1-8.1              TRUE\n>      mgcv       1.8-29  1.8-30              TRUE\n>      openxlsx  4.1.0.1   4.1.2              TRUE\n>      rlang       0.4.0   0.4.1              TRUE\n>      spam        2.3-0 2.3-0.2              TRUE\n>      \n>      \n>             It then asks, \"Do you want to install from sources the packages\n>      which need compilation? (Yes/no/cancel)\".  I reply \"y\" or \"Yes\".  For\n>      each package, it says it was\n>      \n>      ... successfully unpacked and MD5 sums checked\n>      ** using staged installation\n>      ** libs\n>      xcrun: error: invalid active developer path\n>      (/Library/Developer/CommandLineTools), missing xcrun at:\n>      /Library/Developer/CommandLineTools/usr/bin/xcrun\n>      ERROR: compilation failed for package ?DescTools?\n>      * removing\n>      ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/DescTools?\n>      * restoring previous\n>      ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/DescTools?\n>      \n>      \n>             A web search for \"xcrun: error: invalid active developer path\"\n>      identified a couple of discussions on StackExchange that say that I need\n>      to have Xcode installed correctly.  I think I have everything up to\n>      date:  macOS 10.15.1 Catalina with Xcode downloaded and installed via\n>      the App store.  RStudio 1.2.5001 with:\n>      \n>      \n>      sessionInfo()\n>      R version 3.6.1 (2019-07-05)\n>      Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>      Running under: macOS Catalina 10.15.1\n>      \n>      Matrix products: default\n>      BLAS:\n>      /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib\n>      LAPACK:\n>      /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>      \n>      locale:\n>      [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>      \n>      attached base packages:\n>      [1] stats     graphics  grDevices utils     datasets\n>      [6] methods   base\n>      \n>      loaded via a namespace (and not attached):\n>      [1] compiler_3.6.1 tools_3.6.1\n>      \n>      \n>      \"https://apple.stackexchange.com/questions/254380/why-am-i-getting-an-invalid-active-developer-path-when-attempting-to-use-git-a\"\n>      recommends, \"xcode-select --install\", which to me seems like it should\n>      be equivalent to the install I just did via the App Store. This\n>      StackExchange discussion also said, \"If the above alone doesn't do it,\n>      then also run:  xcode-select --reset\".  However, before I do that, I\n>      thought I'd ask here if anyone else is having a problem like this.  And\n>      if yes, and if they've fixed it, what did they do to fix it?\n>      \n>      \n>             Thanks,\n>             Spencer Graves\n>      \n>      _______________________________________________\n>      R-SIG-Mac mailing list\n>      R-SIG-Mac at r-project.org\n>      https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>      \n>",
+      "body_snippet": "????? Thanks to James Joseph Balamuta and Eberhard W. Lisse.? I \nfollowed the 2-step procedure outlined by Balamuta, and it fixed the \nproblem for all but the jpeg package.? I will write the maintaine",
+      "thread_id": "thread-cd6c73439ac3",
+      "thread_depth": 2,
+      "month": "2019-10"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-54f5f95cbb01",
+      "subject": "Apparent interaction between XQuartz and the Catalina (10.15) macOS upgrade",
+      "message_count": 6,
+      "participants": [
+        "Bob Rudis",
+        "Jean Thioulouse",
+        "Kasper Daniel Hansen",
+        "Luis Puerto",
+        "Marc Schwartz"
+      ],
+      "started": "2019-10-08T15:49:32-04:00",
+      "last_reply": "2019-10-09T10:22:21-04:00",
+      "root_message_id": "msg-54f5f95cbb01"
+    },
+    {
+      "id": "thread-4a6ee19547ee",
+      "subject": "Catalina and gfortran",
+      "message_count": 3,
+      "participants": [
+        "Balamuta, James Joseph",
+        "Erich Subscriptions",
+        "Kevin Ushey"
+      ],
+      "started": "2019-10-10T17:28:13+02:00",
+      "last_reply": "2019-10-10T08:35:20-07:00",
+      "root_message_id": "msg-4a6ee19547ee"
+    },
+    {
+      "id": "thread-9e38fa375055",
+      "subject": "My silliness",
+      "message_count": 3,
+      "participants": [
+        "Balamuta, James Joseph",
+        "Erich Subscriptions",
+        "Spencer Graves"
+      ],
+      "started": "2019-10-10T17:36:26+02:00",
+      "last_reply": "2019-10-10T15:48:36+00:00",
+      "root_message_id": "msg-9e38fa375055"
+    },
+    {
+      "id": "thread-b89b0ac2152c",
+      "subject": "R-patched installers cannot be run on Catalina",
+      "message_count": 6,
+      "participants": [
+        "Dr Eberhard W Lisse",
+        "Kevin Ushey",
+        "Marc Schwartz",
+        "Simon Urbanek"
+      ],
+      "started": "2019-10-11T10:59:34-07:00",
+      "last_reply": "2019-10-11T17:12:11-04:00",
+      "root_message_id": "msg-b89b0ac2152c"
+    },
+    {
+      "id": "thread-b270038b3b9a",
+      "subject": "Saving a *.R file hangs R GUI under certain sequences of operations",
+      "message_count": 1,
+      "participants": [
+        "Bryan Hanson"
+      ],
+      "started": "2019-10-23T16:32:24-04:00",
+      "last_reply": "2019-10-23T16:32:24-04:00",
+      "root_message_id": "msg-b270038b3b9a"
+    },
+    {
+      "id": "thread-e5953938f0aa",
+      "subject": "Saving a *.R file hangs R GUI under certain sequences of operations",
+      "message_count": 4,
+      "participants": [
+        "Bryan Hanson",
+        "Jeff Newmiller",
+        "Ken Beath"
+      ],
+      "started": "2019-10-23T18:13:48-04:00",
+      "last_reply": "2019-10-23T21:36:38-04:00",
+      "root_message_id": "msg-e5953938f0aa"
+    },
+    {
+      "id": "thread-cd6c73439ac3",
+      "subject": "update.packages() cannot install from source",
+      "message_count": 4,
+      "participants": [
+        "Balamuta, James Joseph",
+        "Eberhard W Lisse",
+        "Spencer Graves"
+      ],
+      "started": "2019-10-29T16:00:44-05:00",
+      "last_reply": "2019-10-29T17:31:43-05:00",
+      "root_message_id": "msg-cd6c73439ac3"
+    }
+  ]
+}

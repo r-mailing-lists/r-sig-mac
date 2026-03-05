@@ -1,0 +1,1139 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2014-01",
+  "messages": [
+    {
+      "id": "msg-0ea0ff7becb0",
+      "message_id": "<CEEDAED0-4160-4AC7-ACDB-057CE49B4F94@umich.edu>",
+      "from_name": "Dan Rabosky",
+      "from_email_hash": "2f13dbb6e1aad37a5347b4ff4da1db7a8a46e7d9553a38cf0611a964010cac9d",
+      "date": "2014-01-06T09:14:52-05:00",
+      "subject": "[R-SIG-Mac] architecture problems for BUILD & SHLIB",
+      "subject_clean": "architecture problems for BUILD & SHLIB",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi-\n\nI am building a package that includes C code. When I try to compile the source files using SHLIB (or build the package using BUILD), it fails because it builds for the wrong architecture. Specifically, SHLIB and BUILD specify \"-arch i386\" by default on my machine. When I override and compile manually with \"-arch x86_64\", it is fine. I'm unsure how to deal with this problem. Where are the configuration files that SHLIB and BUILD are using that specify the compiler and the architecture? \n\nI'm using R v3.0.2 on OSX 10.7.5. \n\nWould this have anything to do with settings in /Library/Frameworks/R.framework/Versions/3.0/Resources/etc/Makeconf ? If so, I see nothing in there about i386: rather, -arch x86_64 is specified. \n\nThanks in advance. Full error message below. I have the same issue if I just compile with SHLIB and try to load them (though it's fine if I compile with gcc -arch x86_64, then load the *.so files). \n\nI'd also love to know how to configure things so that SHLIB and BUILD call a particular compiler, and where I would add any path variables that need to be added for this to work.\n\n~Dan Rabosky\n\nR commands from bash:\nR CMD BUILD testpackage\nR CMD INSTALL testpackage_1.0.tar.gz\n\nThen:\n\n* installing to library ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library?\n* installing *source* package ?testpackage? ...\n** libs\ngcc-4.0 -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include    -fPIC  -g -O2 -c dtrates.c -o dtrates.o\ngcc-4.0 -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include    -fPIC  -g -O2 -c treetraverse.c -o treetraverse.o\ngcc-4.0 -arch i386 -std=gnu99 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/lib -L/usr/local/lib -o testpackage.so dtrates.o treetraverse.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\nld: warning: in /Library/Frameworks/R.framework/R, file was built for unsupported file format which is not the architecture being linked (i386)\ninstalling to /Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage/libs\n** R\n** data\n** preparing package for lazy loading\n** help\n*** installing help indices\n** building package indices\n** testing if installed package can be loaded\nError in dyn.load(file, DLLpath = DLLpath, ...) : \n  unable to load shared object '/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage/libs/testpackage.so':\n  dlopen(/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage/libs/testpackage.so, 6): no suitable image found.  Did find:\n\t/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage/libs/testpackage.so: mach-o, but wrong architecture\nError: loading failed\nExecution halted\nERROR: loading failed\n* removing ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage?\n* restoring previous ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage?",
+      "body_snippet": "Hi-\n\nI am building a package that includes C code. When I try to compile the source files using SHLIB (or build the package using BUILD), it fails because it builds for the wrong architecture. Specifi",
+      "thread_id": "thread-0ea0ff7becb0",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-adc870457b18",
+      "message_id": "<B478B438-8DE3-487F-9FED-77077A3F0EA2@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-06T21:11:59-05:00",
+      "subject": "[R-SIG-Mac] R and Xcode 5",
+      "subject_clean": "R and Xcode 5",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "FWIW the latest binaries from\nhttp://r.research.att.com\ncontain a post-install script that will automatically switch to gcc/g++ so users planning to compile package from sources with Xcode 5 are encouraged to upgrade as to not have to mess with configuration files.\n\nCheers,\nSimon",
+      "body_snippet": "FWIW the latest binaries from\nhttp://r.research.att.com\ncontain a post-install script that will automatically switch to gcc/g++ so users planning to compile package from sources with Xcode 5 are encou",
+      "thread_id": "thread-adc870457b18",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-ebe3179d119a",
+      "message_id": "<52CBBDC6.2080105@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2014-01-07T09:41:42+01:00",
+      "subject": "[R-SIG-Mac] R and Xcode 5",
+      "subject_clean": "R and Xcode 5",
+      "in_reply_to": "<B478B438-8DE3-487F-9FED-77077A3F0EA2@r-project.org>",
+      "references": [
+        "<B478B438-8DE3-487F-9FED-77077A3F0EA2@r-project.org>"
+      ],
+      "body_plain": "-----BEGIN PGP SIGNED MESSAGE-----\nHash: SHA1\n\nHi Simon\n\nI have problem acessing the site via a web browser (neither safari nor\nfirefox), altough I can ping it.\n\nIs there an alternative site where I can download the binaries?\n\nThanks,\n\nRainer\n\nOn 01/07/14, 03:11 , Simon Urbanek wrote:\n> FWIW the latest binaries from http://r.research.att.com contain a \n> post-install script that will automatically switch to gcc/g++ so \n> users planning to compile package from sources with Xcode 5 are \n> encouraged to upgrade as to not have to mess with configuration \n> files.\n\n\n> \n> Cheers, Simon\n> \n> _______________________________________________ R-SIG-Mac mailing \n> list R-SIG-Mac at r-project.org \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n- -- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation\nBiology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG/MacGPG2 v2.0.22 (Darwin)\nComment: Using GnuPG with Thunderbird - http://www.enigmail.net/\n\niQEcBAEBAgAGBQJSy73GAAoJENvXNx4PUvmCw8YIAKq1YIW5qtdJuowSCKvZb3e2\nG0vYXsL9TR7YGBjSWhF07GTZDNT8t11zwPI3+u2Zq8WatunJT66HLCHjMR8CmgZD\nG+HDQBilnL1V9iyL/Z4oax7SuGc4mhNYAeTq4knWzamPs63uq5nixJWjQfrHS4on\n5jDJqgmV5MAwgRiB83z8rpThQSTeJR6fYKPeJ2nw7ruE+if6aXfrxjWYl8HTjreR\nVsYq5HH6CtP60gC+SB6w8nPjc4qML12bIXRNX8VrhFSNk+sqRtAKT11dIJUmC4ju\nVb6SsINhLbiaFuyM2kGahAOgQ+deVxow2Tb/4HrXMg4mbG9qF/cZY3USdGmoQmk=\n=qK6z\n-----END PGP SIGNATURE-----",
+      "body_snippet": "-----BEGIN PGP SIGNED MESSAGE-----\nHash: SHA1\n\nHi Simon\n\nI have problem acessing the site via a web browser (neither safari nor\nfirefox), altough I can ping it.\n\nIs there an alternative site where I c",
+      "thread_id": "thread-adc870457b18",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-a588227da1a3",
+      "message_id": "<52CBBDC6.1080008@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2014-01-07T09:41:42+01:00",
+      "subject": "[R-SIG-Mac] R and Xcode 5",
+      "subject_clean": "R and Xcode 5",
+      "in_reply_to": "<B478B438-8DE3-487F-9FED-77077A3F0EA2@r-project.org>",
+      "references": [
+        "<B478B438-8DE3-487F-9FED-77077A3F0EA2@r-project.org>"
+      ],
+      "body_plain": "-----BEGIN PGP SIGNED MESSAGE-----\nHash: SHA1\n\nHi Simon\n\nI have problem acessing the site via a web browser (neither safari nor\nfirefox), altough I can ping it.\n\nIs there an alternative site where I can download the binaries?\n\nThanks,\n\nRainer\n\nOn 01/07/14, 03:11 , Simon Urbanek wrote:\n\n\n- -- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation\nBiology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG/MacGPG2 v2.0.22 (Darwin)\nComment: Using GnuPG with Thunderbird - http://www.enigmail.net/\n\niQEcBAEBAgAGBQJSy729AAoJENvXNx4PUvmC+cUH/1mnc8duBJoD5MswG77quJJZ\nKNXSNmxZdDrrq0Kb/xsH8EtR+wefBtArF8FqlroDIM488SXEmdEmmGlr6z8CGYkt\nmQWHBAqXGpnZAVQQVnUMB4NAdIFOllOMvc0427JaIBKFZAFnhGOmZOxi9MnmIcBB\nDY4+/8AOxpzglTI1ibVkkYExYSwG/OmgZCA6yP18YOYDLQ+3QSlLohPcgWJJXAtO\n5FDBJMFvhgE9YU3WOY7oixTXyQOeo+7ZCdBv8ge2MBJBal43Z2wZaCZoG4K2rMAX\n4IvWkChUyy16xlTUYfZwc/qH2u1zEmLEXeo3n22WIk3T7YR/U1mqGyvl00/OyGY=\n=ByX2\n-----END PGP SIGNATURE-----",
+      "body_snippet": "-----BEGIN PGP SIGNED MESSAGE-----\nHash: SHA1\n\nHi Simon\n\nI have problem acessing the site via a web browser (neither safari nor\nfirefox), altough I can ping it.\n\nIs there an alternative site where I c",
+      "thread_id": "thread-adc870457b18",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-cbafa49590de",
+      "message_id": "<733B2D8E-8D63-4C0A-B26B-AEA055E360F3@msu.edu>",
+      "from_name": "Amanda Charbonneau",
+      "from_email_hash": "14528b381b05bc2af2375a78ba372f5a5f01691e8846ec786c1fdf4bde8974e5",
+      "date": "2014-01-11T20:16:58-05:00",
+      "subject": "[R-SIG-Mac] Segfault Error in GUI version of R",
+      "subject_clean": "Segfault Error in GUI version of R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI have been experiencing a GUI bug for the last several weeks that I have just been able to identify as a reproducible error: Spelling and syntax mistakes that would normally result in an ?object foobar not found? or ?unexpected foo in bar? error message now result in an unrecoverable ?caught segfault? error. The segfault can be triggered regardless of dataset size, packages, and runtime. All segfaults seem to report the same memory address. However, no other programs are reporting memory errors, and I can make a dataset of arbitrary size and perform an infinite number of typo-free calculations on it without encountering an error. I also cannot reproduce the errors in the terminal using the same R installation with the same typo-commands.\n\nExample:\n> > taco <- c(1,2)\n> > mean(taco)\n> [1] 1.5\n> > mean(tac)\n> Error in mean(tac) : object 'tac' not found\n> \n>  *** caught segfault ***\n> address 0x7c0, cause 'memory not mapped'\n> \n> Possible actions:\n> 1: abort (with core dump, if enabled)\n> 2: normal R exit\n> 3: exit R without saving workspace\n> 4: exit R saving workspace\n> Selection: \n\n\nI?m running:\nR version 3.0.1 (2013-05-16) -- \"Good Sport\"\nCopyright (C) 2013 The R Foundation for Statistical Computing\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n[R.app GUI 1.61 (6492) x86_64-apple-darwin10.8.0]\n\nCrash report and Sessioninfo are attached. Any help/suggestions are appreciated. I don?t type accurately enough to run R without occasional typos, and it?s really making it difficult to work.\n\nAmanda\n\nAmanda Charbonneau\nGraduate Student\nMichigan State University\ncharbo24 at msu.edu\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140111/1c8a8d19/attachment-0003.html>\n-------------- next part --------------\nAn embedded and charset-unspecified text was scrubbed...\nName: Session_Info_R.txt\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140111/1c8a8d19/attachment-0002.txt>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140111/1c8a8d19/attachment-0004.html>\n-------------- next part --------------\nAn embedded and charset-unspecified text was scrubbed...\nName: Rcrashreport.txt\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140111/1c8a8d19/attachment-0003.txt>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140111/1c8a8d19/attachment-0005.html>",
+      "body_snippet": "Hi,\n\nI have been experiencing a GUI bug for the last several weeks that I have just been able to identify as a reproducible error: Spelling and syntax mistakes that would normally result in an ?object",
+      "thread_id": "thread-cbafa49590de",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-d65e28537f7b",
+      "message_id": "<52D3A3B0.8020901@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-01-13T08:28:32Z",
+      "subject": "[R-SIG-Mac] Segfault Error in GUI version of R",
+      "subject_clean": "Segfault Error in GUI version of R",
+      "in_reply_to": "<733B2D8E-8D63-4C0A-B26B-AEA055E360F3@msu.edu>",
+      "references": [
+        "<733B2D8E-8D63-4C0A-B26B-AEA055E360F3@msu.edu>"
+      ],
+      "body_plain": "The version of R.app you are using (built for OS X 10.6 before 10.9 was \nreleased) is not compatible with Mavericks (10.9): are you using that?\n\nIf so, please update your R to 3.0.2, or if you do not want to do that, \nupdate just R.app from r.research.att.com (which just now was serving me \nan empty page).\n\nBTW, the 'bug' seems to be in OS X system calls in 10.9: we have merely \nworked around it.\n\nOn 12/01/2014 01:16, Amanda Charbonneau wrote:\n> Hi,\n>\n> I have been experiencing a GUI bug for the last several weeks that I\n> have just been able to identify as a reproducible error: Spelling and\n> syntax mistakes that would normally result in an ?object foobar not\n> found? or ?unexpected foo in bar? error message now result in an\n> unrecoverable ?caught segfault? error. The segfault can be triggered\n> regardless of dataset size, packages, and runtime. All segfaults seem to\n> report the same memory address. However, no other programs are reporting\n> memory errors, and I can make a dataset of arbitrary size and perform an\n> infinite number of typo-free calculations on it without encountering an\n> error. I also cannot reproduce the errors in the terminal using the same\n> R installation with the same typo-commands.\n>\n> Example:\n>\n>>     > taco <- c(1,2)\n>>     > mean(taco)\n>>     [1] 1.5\n>>     > mean(tac)\n>>     Error in mean(tac) : object 'tac' not found\n>>\n>>      *** caught segfault ***\n>>     address 0x7c0, cause 'memory not mapped'\n>>\n>>     Possible actions:\n>>     1: abort (with core dump, if enabled)\n>>     2: normal R exit\n>>     3: exit R without saving workspace\n>>     4: exit R saving workspace\n>>     Selection:\n>\n>\n> I?m running:\n> R version 3.0.1 (2013-05-16) -- \"Good Sport\"\n> Copyright (C) 2013 The R Foundation for Statistical Computing\n> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n> [R.app GUI 1.61 (6492) x86_64-apple-darwin10.8.0]\n>\n> Crash report and Sessioninfo are attached. Any help/suggestions are\n> appreciated. I don?t type accurately enough to run R without occasional\n> typos, and it?s really making it difficult to work.\n>\n> Amanda\n>\n> Amanda Charbonneau\n> Graduate Student\n> Michigan State University\n> charbo24 at msu.edu <mailto:charbo24 at msu.edu>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "The version of R.app you are using (built for OS X 10.6 before 10.9 was \nreleased) is not compatible with Mavericks (10.9): are you using that?\n\nIf so, please update your R to 3.0.2, or if you do not ",
+      "thread_id": "thread-cbafa49590de",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-c3978a7f16de",
+      "message_id": "<52D3A665.3040103@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-01-13T08:40:05Z",
+      "subject": "[R-SIG-Mac] architecture problems for BUILD & SHLIB",
+      "subject_clean": "architecture problems for BUILD & SHLIB",
+      "in_reply_to": "<CEEDAED0-4160-4AC7-ACDB-057CE49B4F94@umich.edu>",
+      "references": [
+        "<CEEDAED0-4160-4AC7-ACDB-057CE49B4F94@umich.edu>"
+      ],
+      "body_plain": "-arch i386 is not specified in R itself (and neither is gcc-4.0).  As a \nguess you have a personal Makevars file, either in the package sources \nor under ~/.R .  See \nhttp://cran.r-project.org/doc/manuals/r-release/R-admin.html#Customizing-package-compilation \n.\n\nOn 06/01/2014 14:14, Dan Rabosky wrote:\n>\n> Hi-\n>\n> I am building a package that includes C code. When I try to compile the source files using SHLIB (or build the package using BUILD), it fails because it builds for the wrong architecture. Specifically, SHLIB and BUILD specify \"-arch i386\" by default on my machine. When I override and compile manually with \"-arch x86_64\", it is fine. I'm unsure how to deal with this problem. Where are the configuration files that SHLIB and BUILD are using that specify the compiler and the architecture?\n>\n> I'm using R v3.0.2 on OSX 10.7.5.\n>\n> Would this have anything to do with settings in /Library/Frameworks/R.framework/Versions/3.0/Resources/etc/Makeconf ? If so, I see nothing in there about i386: rather, -arch x86_64 is specified.\n>\n> Thanks in advance. Full error message below. I have the same issue if I just compile with SHLIB and try to load them (though it's fine if I compile with gcc -arch x86_64, then load the *.so files).\n>\n> I'd also love to know how to configure things so that SHLIB and BUILD call a particular compiler, and where I would add any path variables that need to be added for this to work.\n\nThat is in the OS X section of the same manual, with examples.\n\n\n> ~Dan Rabosky\n>\n> R commands from bash:\n> R CMD BUILD testpackage\n> R CMD INSTALL testpackage_1.0.tar.gz\n>\n> Then:\n>\n> * installing to library ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library?\n> * installing *source* package ?testpackage? ...\n> ** libs\n> gcc-4.0 -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include    -fPIC  -g -O2 -c dtrates.c -o dtrates.o\n> gcc-4.0 -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include    -fPIC  -g -O2 -c treetraverse.c -o treetraverse.o\n> gcc-4.0 -arch i386 -std=gnu99 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/lib -L/usr/local/lib -o testpackage.so dtrates.o treetraverse.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\n> ld: warning: in /Library/Frameworks/R.framework/R, file was built for unsupported file format which is not the architecture being linked (i386)\n> installing to /Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage/libs\n> ** R\n> ** data\n> ** preparing package for lazy loading\n> ** help\n> *** installing help indices\n> ** building package indices\n> ** testing if installed package can be loaded\n> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>    unable to load shared object '/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage/libs/testpackage.so':\n>    dlopen(/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage/libs/testpackage.so, 6): no suitable image found.  Did find:\n> \t/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage/libs/testpackage.so: mach-o, but wrong architecture\n> Error: loading failed\n> Execution halted\n> ERROR: loading failed\n> * removing ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage?\n> * restoring previous ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library/testpackage?\n>\n>\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "-arch i386 is not specified in R itself (and neither is gcc-4.0).  As a \nguess you have a personal Makevars file, either in the package sources \nor under ~/.R .  See \nhttp://cran.r-project.org/doc/man",
+      "thread_id": "thread-0ea0ff7becb0",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-3b7685e33fd4",
+      "message_id": "<15B6FCB3-AA35-4630-BCA1-E86642CBEEF6@icloud.com>",
+      "from_name": "Robert J Goedman",
+      "from_email_hash": "18c9a944a027fb10bda03cc7c9479781cf354da58aef985307321db784cb63bc",
+      "date": "2014-01-14T07:08:36-08:00",
+      "subject": "[R-SIG-Mac] [R] tcltk makes R crash under Mavericks",
+      "subject_clean": "tcltk makes R crash under Mavericks",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140114/ad5d8bdf/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140114/ad5d8bdf/attachment.pl>",
+      "thread_id": "thread-3b7685e33fd4",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-aa978c49a9ec",
+      "message_id": "<CALTFHW-XB_vh=+FHRW9TnC_Ue5GM3U1rKRTv84n8BgnaToOMtw@mail.gmail.com>",
+      "from_name": "Claudia Tebaldi",
+      "from_email_hash": "b22672f1bbe3b52be1ca52c309a68f6836d1792d5130c18abb1c24965735143a",
+      "date": "2014-01-14T08:56:17-07:00",
+      "subject": "[R-SIG-Mac] [R] tcltk makes R crash under Mavericks",
+      "subject_clean": "tcltk makes R crash under Mavericks",
+      "in_reply_to": "<15B6FCB3-AA35-4630-BCA1-E86642CBEEF6@icloud.com>",
+      "references": [
+        "<15B6FCB3-AA35-4630-BCA1-E86642CBEEF6@icloud.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140114/6f1cf3c5/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140114/6f1cf3c5/attachment.pl>",
+      "thread_id": "thread-3b7685e33fd4",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-3773668ca494",
+      "message_id": "<CAFT9XHy=Vth=xx4Pr88o831MM2XZz1kneSw00-wW6nmsyrbX+w@mail.gmail.com>",
+      "from_name": "Blair Christian",
+      "from_email_hash": "b288db69edf5f04b2acdedb6e5bd5784fc20510c43283c68b9ec014225e13097",
+      "date": "2014-01-15T07:02:27-05:00",
+      "subject": "[R-SIG-Mac] R ESS X11 issue possibly related to R tcltk crash under Mavericks...",
+      "subject_clean": "R ESS X11 issue possibly related to R tcltk crash under Mavericks...",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This is probably obvious to somebody with more knowledge than myself,\nbut I lost an hour or so to this problem.  This is description of an\nodd Xquartz/R/ESS problem and resolution.  It's odd because what\nseemed like an ESS problem was resolved by reinstalling Xquartz.\nHopefully it will help somebody else out.\n\n\nBackground:\nI have installed R+ESS on 4 machines (2008-2013) running 10.8 and 10.9\nin the last couple months, several of them identical on the software\nside (matching versions of OS X (10.9.1), R (3.0.2), Emacs (24.3), ESS\n(13.09) and Xquartz (2.7.5).  I just wiped a 2008 macbook air\nyesterday, reinstalled R, ess, emacs for mac, Xquartz (all newest\nversions- only difference was that I git cloned the dev version of\nESS) and observed the following behavior:\n\n\nProblem:\nWhen invoked from the terminal command line, R behaved \"normally\" when\ninvoking X11()/plot/capabilities().  However, when any of those\ncommands were issued in an ESS session in R/emacs, R would close\nwithout invoking X11 (not segfault crash, just close gracefully, as if\nI had issued q('yes')).  I started going back to previous versions of\nESS because R functioned normally from the command line and I had git\ncloned the dev version of ESS (13.09-01) and thought that it was the\nculprit, but that didn't work.\n\n\nResolution:\nI spent some time searching, and ran across Claudia's post here on\nr-sig-mac and couldn't tell if the problem I had was identical, but it\nwas related enough for me to give it a shot. I went to reinstall\nXquartz (2.7.5, fresh download) and afterwards the problem was\nresolved.\n\n\nPossibly Useful Notes/Confounding Issue:\nOn this old laptop (macbook air 2008/os x 10.9.1/1.86 GHz intel core 2\nduo/2Gb ram) the reinstall of Xquartz would say \"Install time\nremaining: about one minute\", but in reality there was a fontconfig\nprocess (fc-cache) that took about 7-8 minutes to complete. Possibly\nrelated to this Xquartz 2.7.5 fontconfig cache rebuild issue?\nhttp://comments.gmane.org/gmane.os.apple.xquartz.devel/723\n\n\nIn previous attempts to reinstall Xquartz, I had killed the fc-cache\nprocess after 4-6 minutes.  I read up on it some more and from the\ncommand line viewed installed fonts\nsudo /opt/X11/bin/fc-cache -v -s\nand all installed fonts were valid, it just took a while and being\npatient paid off.  So I have no idea if this fc-cache command is\ncausing me alone problems or if others are affected.\n\nIn a fit of desperation in the middle of the troubleshooting, I had\nremoved the font cache, so that confounded my description above.\nsudo atsutil databases -remove\natsutil server -shutdown\natsutil server -ping\n\nIf anybody knows definitively if this was appropriate/inappropriate, I\nwould be interested in hearing about it.  Hopefully this helps\nsomebody else out.",
+      "body_snippet": "This is probably obvious to somebody with more knowledge than myself,\nbut I lost an hour or so to this problem.  This is description of an\nodd Xquartz/R/ESS problem and resolution.  It's odd because w",
+      "thread_id": "thread-3773668ca494",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-f280ab75ef5e",
+      "message_id": "<FBAE8542-6F68-4ED8-93A9-EBFA234B5B85@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-15T14:04:35-05:00",
+      "subject": "[R-SIG-Mac] R ESS X11 issue possibly related to R tcltk crash under Mavericks...",
+      "subject_clean": "R ESS X11 issue possibly related to R tcltk crash under Mavericks...",
+      "in_reply_to": "<CAFT9XHy=Vth=xx4Pr88o831MM2XZz1kneSw00-wW6nmsyrbX+w@mail.gmail.com>",
+      "references": [
+        "<CAFT9XHy=Vth=xx4Pr88o831MM2XZz1kneSw00-wW6nmsyrbX+w@mail.gmail.com>"
+      ],
+      "body_plain": "On Jan 15, 2014, at 7:02 AM, Blair Christian <blair.christian at gmail.com> wrote:\n\n> This is probably obvious to somebody with more knowledge than myself,\n> but I lost an hour or so to this problem.  This is description of an\n> odd Xquartz/R/ESS problem and resolution.  It's odd because what\n> seemed like an ESS problem was resolved by reinstalling Xquartz.\n> Hopefully it will help somebody else out.\n> \n> \n> Background:\n> I have installed R+ESS on 4 machines (2008-2013) running 10.8 and 10.9\n> in the last couple months, several of them identical on the software\n> side (matching versions of OS X (10.9.1), R (3.0.2), Emacs (24.3), ESS\n> (13.09) and Xquartz (2.7.5).  I just wiped a 2008 macbook air\n> yesterday, reinstalled R, ess, emacs for mac, Xquartz (all newest\n> versions- only difference was that I git cloned the dev version of\n> ESS) and observed the following behavior:\n> \n> \n> Problem:\n> When invoked from the terminal command line, R behaved \"normally\" when\n> invoking X11()/plot/capabilities().  However, when any of those\n> commands were issued in an ESS session in R/emacs, R would close\n> without invoking X11 (not segfault crash, just close gracefully, as if\n> I had issued q('yes')).  I started going back to previous versions of\n> ESS because R functioned normally from the command line and I had git\n> cloned the dev version of ESS (13.09-01) and thought that it was the\n> culprit, but that didn't work.\n> \n> \n> Resolution:\n> I spent some time searching, and ran across Claudia's post here on\n> r-sig-mac and couldn't tell if the problem I had was identical, but it\n> was related enough for me to give it a shot. I went to reinstall\n> Xquartz (2.7.5, fresh download) and afterwards the problem was\n> resolved.\n> \n> \n> Possibly Useful Notes/Confounding Issue:\n> On this old laptop (macbook air 2008/os x 10.9.1/1.86 GHz intel core 2\n> duo/2Gb ram) the reinstall of Xquartz would say \"Install time\n> remaining: about one minute\", but in reality there was a fontconfig\n> process (fc-cache) that took about 7-8 minutes to complete. Possibly\n> related to this Xquartz 2.7.5 fontconfig cache rebuild issue?\n> http://comments.gmane.org/gmane.os.apple.xquartz.devel/723\n> \n> \n> In previous attempts to reinstall Xquartz, I had killed the fc-cache\n> process after 4-6 minutes.\n\nThat would do it ;). FC is necessary and you have to let it run through so it builds the font database - it doesn't work without it. It can take a while depending on the disk speed, machine, FS fragmentation etc. The lesson is to never interrupt an install process in the middle - not a good idea.\n\n(BTW: the \"about one minute\" is simply a bad UI - Apple has no way of knowing how long it will take since the postflight script doesn't provide any way for tracking the progress).\n\n\n>  I read up on it some more and from the\n> command line viewed installed fonts\n> sudo /opt/X11/bin/fc-cache -v -s\n> and all installed fonts were valid, it just took a while and being\n> patient paid off.  So I have no idea if this fc-cache command is\n> causing me alone problems or if others are affected.\n> \n> In a fit of desperation in the middle of the troubleshooting, I had\n> removed the font cache, so that confounded my description above.\n> sudo atsutil databases -remove\n> atsutil server -shutdown\n> atsutil server -ping\n> \n\nThat has nothing to do with the above. Here you're messing with ATS cache, which has nothing to do with fontconfig and its cache. ATS is the OS X native font handling while FC is the parallel world devised for other unix systems.\n\nCheers,\nSimon\n\n\n\n> If anybody knows definitively if this was appropriate/inappropriate, I\n> would be interested in hearing about it.  Hopefully this helps\n> somebody else out.\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Jan 15, 2014, at 7:02 AM, Blair Christian <blair.christian at gmail.com> wrote:\n\n> This is probably obvious to somebody with more knowledge than myself,\n> but I lost an hour or so to this problem. ",
+      "thread_id": "thread-3773668ca494",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-28ef02cd2288",
+      "message_id": "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+      "from_name": "Axel Urbiz",
+      "from_email_hash": "a70b966953de7a4af2db9ad5f69721cd0c4a9c9af9db4abc1d16047a092e3ca2",
+      "date": "2014-01-18T15:31:19+01:00",
+      "subject": "[R-SIG-Mac] My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140118/5c7d77cf/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140118/5c7d77cf/attachment.pl>",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-60dc74e982bf",
+      "message_id": "<7D1846C9-892A-4C9B-B7C3-4979DC557053@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-18T10:25:08-05:00",
+      "subject": "[R-SIG-Mac] [Rd] My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>"
+      ],
+      "body_plain": "On Jan 18, 2014, at 9:31 AM, Axel Urbiz <axel.urbiz at gmail.com> wrote:\n\n> Hi All,\n> \n> \n> I'm planning to submit my first package to R, and although I read all the\n> documentation, I'm not very clear on the following 2 items, from which I'd\n> appreciate your guidance:\n> \n> \n> 1)I understand it is suggested to use the R dev version to build the\n> package. Which one specifically should I use to build a package on a Mac\n> OS? How about package dependencies, which version should I install on the R\n> dev version (and where should I get them)?\n> \n\nYou can get latest R-devel builds for Mac OS X from\n\nhttp://r.research.att.com\n\nand the same is true for binary packages for R-devel - simply use http://r.research.att.com as the repository (in fact most CRAN mirrors should work as well).\n\nCheers,\nSimon\n\n\n> 2) Not sure if this one belongs to this list. Does licensing follow the\n> logic of \"inheritance\" (i.e. if all the package dependencies of my package\n> are \"GPL-2 | GPL-3\", does my package need to use the same license agreement?\n> \n> \n> \n> Thanks!\n> \n> Axel.\n> \n> \t[[alternative HTML version deleted]]\n> \n> ______________________________________________\n> R-devel at r-project.org mailing list\n> https://stat.ethz.ch/mailman/listinfo/r-devel\n>",
+      "body_snippet": "On Jan 18, 2014, at 9:31 AM, Axel Urbiz <axel.urbiz at gmail.com> wrote:\n\n> Hi All,\n> \n> \n> I'm planning to submit my first package to R, and although I read all the\n> documentation, I'm not very clea",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-2c5161c4f51c",
+      "message_id": "<C6804F45-D7B2-4088-87F5-15B66A09609D@helsinki.fi>",
+      "from_name": "Reijo Sund",
+      "from_email_hash": "c7ad1aeb7be928dd3c498d8cb9d59d19d19064f76b872e9c42b36e74c313f966",
+      "date": "2014-01-20T01:43:26+02:00",
+      "subject": "[R-SIG-Mac] Building backward compatible binary packages with OS X 10.9 and Xcode 5.0?",
+      "subject_clean": "Building backward compatible binary packages with OS X 10.9 and Xcode 5.0?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Using the latest patched R 3.0.2 on Mac OS X Maverics (10.9.1) with Xcode 5.0.2 command line tools and clang set as a compiler, the following kind of C code somewhere in a package results in a dynamic link to symbol ___sincos_stret:\n\ndouble sincos(double n) { return(sin(n)+cos(n)); }\n\nIt is obvious that ___sincos_stret is an LLVM optimization: if code calls sin(n) and then cos(n) and uses both results, the compiler will make one call to the structure-returning sincos method.\n\nThe actual problem is that such symbol is available in system library /usr/lib/system/libsystem_m.dylib only since Mavericks (10.9 SDK) and a package installed from binary (.tgz) compiled on 10.9 but run on 10.8 or older fails: Symbol not found: ___sincos_stret\n\nOne ?solution\" is to make minor changes to the C code so that compiler won?t detect a need for optimization. A better solution is to use compiler flag -mmacosx-version-min=10.8. However, these solutions to a single concrete problem give only partial answers to the more general question:\n\nHow to (maximize the possibility to) create OS X 10.6+ (i.e. R 3.0.0+) compatible .tgz binary packages using a computer with OS X 10.9 and Xcode 5.0 (and without using CRAN or RForge building services)? \n\nAny tips would be appreciated.\n\nBest wishes,\nReijo Sund",
+      "body_snippet": "Using the latest patched R 3.0.2 on Mac OS X Maverics (10.9.1) with Xcode 5.0.2 command line tools and clang set as a compiler, the following kind of C code somewhere in a package results in a dynamic",
+      "thread_id": "thread-2c5161c4f51c",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-1f172f2ce3b7",
+      "message_id": "<2BACE3B3-F502-4EA8-96C7-49F600022830@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-19T19:26:44-05:00",
+      "subject": "[R-SIG-Mac] Building backward compatible binary packages with OS X 10.9 and Xcode 5.0?",
+      "subject_clean": "Building backward compatible binary packages with OS X 10.9 and Xcode 5.0?",
+      "in_reply_to": "<C6804F45-D7B2-4088-87F5-15B66A09609D@helsinki.fi>",
+      "references": [
+        "<C6804F45-D7B2-4088-87F5-15B66A09609D@helsinki.fi>"
+      ],
+      "body_plain": "On Jan 19, 2014, at 6:43 PM, Reijo Sund <reijo.sund at helsinki.fi> wrote:\n\n> Using the latest patched R 3.0.2 on Mac OS X Maverics (10.9.1) with Xcode 5.0.2 command line tools and clang set as a compiler, the following kind of C code somewhere in a package results in a dynamic link to symbol ___sincos_stret:\n> \n> double sincos(double n) { return(sin(n)+cos(n)); }\n> \n> It is obvious that ___sincos_stret is an LLVM optimization: if code calls sin(n) and then cos(n) and uses both results, the compiler will make one call to the structure-returning sincos method.\n> \n> The actual problem is that such symbol is available in system library /usr/lib/system/libsystem_m.dylib only since Mavericks (10.9 SDK) and a package installed from binary (.tgz) compiled on 10.9 but run on 10.8 or older fails: Symbol not found: ___sincos_stret\n> \n> One ?solution\" is to make minor changes to the C code so that compiler won?t detect a need for optimization. A better solution is to use compiler flag -mmacosx-version-min=10.8. However, these solutions to a single concrete problem give only partial answers to the more general question:\n> \n> How to (maximize the possibility to) create OS X 10.6+ (i.e. R 3.0.0+) compatible .tgz binary packages using a computer with OS X 10.9 and Xcode 5.0 (and without using CRAN or RForge building services)? \n> \n\nUse the 10.6 SDK (e.g. via -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk) and -mmacosx-version-min=10.6 flags for both linking and compilation.\n\nNote, however, that 10.6 SDK is no longer supplied with Xcode 5, so you'll have to pick it from an older Xcode package.\n\nBTW, the missing symbol is your least worry - the linker has changed since 10.8 so any binaries compiled for 10.8+ don't even load in 10.6. Using the SDKs can be problematic if you have dependent libraries, because most non-Mac tools don't know how to deal with SDKs and may pick some system library inadvertently. So if you're only concerned about your package then give it a shot and test it under 10.6 to see if it works. The most reliable way is still to run 10.6 VM in 10.9 if you want 100% guarantee.\n\nCheers,\nSimon\n\n\n\n\n> Any tips would be appreciated.\n> \n> Best wishes,\n> Reijo Sund\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Jan 19, 2014, at 6:43 PM, Reijo Sund <reijo.sund at helsinki.fi> wrote:\n\n> Using the latest patched R 3.0.2 on Mac OS X Maverics (10.9.1) with Xcode 5.0.2 command line tools and clang set as a comp",
+      "thread_id": "thread-2c5161c4f51c",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-ee5654b408f4",
+      "message_id": "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2014-01-20T09:31:45Z",
+      "subject": "[R-SIG-Mac] My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>"
+      ],
+      "body_plain": "On 18 Jan 2014, at 14:31, Axel Urbiz <axel.urbiz at gmail.com> wrote:\n\n> Hi All,\n> \n> \n> I'm planning to submit my first package to R, and although I read all the\n> documentation, I'm not very clear on the following 2 items, from which I'd\n> appreciate your guidance:\n> \n> \n> 1)I understand it is suggested to use the R dev version to build the\n> package.\n\nIs it?  this is news to me.  I have a grand total of 2 packages up and I never ever used R-devel, and never ever had a problem, had a report of a problem or had a note from CRAn about my packages not being ok because I built them with R-relase (or whatever it might be called) and not R-devel.\n\nBW\n\nF\n\n\n\n> Which one specifically should I use to build a package on a Mac\n> OS? How about package dependencies, which version should I install on the R\n> dev version (and where should I get them)?\n> \n> \n> 2) Not sure if this one belongs to this list. Does licensing follow the\n> logic of \"inheritance\" (i.e. if all the package dependencies of my package\n> are \"GPL-2 | GPL-3\", does my package need to use the same license agreement?\n> \n> \n> \n> Thanks!\n> \n> Axel.\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 881 bytes\nDesc: Message signed with OpenPGP using GPGMail\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/6a594a23/attachment.bin>",
+      "body_snippet": "On 18 Jan 2014, at 14:31, Axel Urbiz <axel.urbiz at gmail.com> wrote:\n\n> Hi All,\n> \n> \n> I'm planning to submit my first package to R, and although I read all the\n> documentation, I'm not very clear o",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-5ad189fbad99",
+      "message_id": "<DAC6B174-4D9F-430C-952E-083B69514F7E@glasgow.ac.uk>",
+      "from_name": "Matthew Denwood",
+      "from_email_hash": "dd421a7fa656de5fabf92a0e9873a9a5278221a43fb92ad4181a56e616822a19",
+      "date": "2014-01-20T11:11:27Z",
+      "subject": "[R-SIG-Mac] My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>"
+      ],
+      "body_plain": "On 20 Jan 2014, at 09:31, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n\n> On 18 Jan 2014, at 14:31, Axel Urbiz <axel.urbiz at gmail.com> wrote:\n> \n>> Hi All,\n>> \n>> \n>> I'm planning to submit my first package to R, and although I read all the\n>> documentation, I'm not very clear on the following 2 items, from which I'd\n>> appreciate your guidance:\n>> \n>> \n>> 1)I understand it is suggested to use the R dev version to build the\n>> package.\n> \n> Is it?  this is news to me.  I have a grand total of 2 packages up and I never ever used R-devel, and never ever had a problem, had a report of a problem or had a note from CRAn about my packages not being ok because I built them with R-relase (or whatever it might be called) and not R-devel.\n> \n\nI also build my packages on the release version of R, but I do always first upload to the frankly invaluable win-builder service at http://win-builder.r-project.org  - this is mainly to check compatibility/issues under Windows (of which there are frequently several), but also checks for problems against R-devel (of which I don't think I've ever had any).  It is also very worthwhile checking the check logs for the current versions of your package on CRAN, as there are often minor issues identified on other systems (particularly solaris).\n\nCheers,\n\nMatt\n\n\n> BW\n> \n> F\n> \n> \n> \n>> Which one specifically should I use to build a package on a Mac\n>> OS? How about package dependencies, which version should I install on the R\n>> dev version (and where should I get them)?\n>> \n>> \n>> 2) Not sure if this one belongs to this list. Does licensing follow the\n>> logic of \"inheritance\" (i.e. if all the package dependencies of my package\n>> are \"GPL-2 | GPL-3\", does my package need to use the same license agreement?\n>> \n>> \n>> \n>> Thanks!\n>> \n>> Axel.\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> <signature.asc>_______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "On 20 Jan 2014, at 09:31, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n\n> On 18 Jan 2014, at 14:31, Axel Urbiz <axel.urbiz at gmail.com> wrote:\n> \n>> Hi All,\n>> \n>> \n>> I'm planning to submit",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 2,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-16c2fb5a44b7",
+      "message_id": "<BF6F881A-4424-4C9B-B425-C5F738CD7850@vet.gla.ac.uk>",
+      "from_name": "Matthew Denwood",
+      "from_email_hash": "c692418c207355ef4c7d3e7482c38ab3d3cb44ea325ad0a962d4900961bf884a",
+      "date": "2014-01-20T11:13:54Z",
+      "subject": "[R-SIG-Mac] My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/eda97bd8/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/eda97bd8/attachment.pl>",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 2,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-af6e75980c7d",
+      "message_id": "<CABtg=KnXCX7U_csVMqrDoAg2TQ0q1DeUO_dFPqtef53Fkz1U_g@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "be1b1aa2bf940edb4d90301c038c97e98b84ed5c8724f0d46a3b2ee263683539",
+      "date": "2014-01-20T09:51:59-05:00",
+      "subject": "[R-SIG-Mac] [Rd]  My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/9bfe5db4/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/9bfe5db4/attachment.pl>",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 2,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-f7ac152d139c",
+      "message_id": "<897E0F88-B101-4151-B3E0-819244023C79@imperial.ac.uk>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2014-01-20T14:58:08Z",
+      "subject": "[R-SIG-Mac] [Rd]  My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<CABtg=KnXCX7U_csVMqrDoAg2TQ0q1DeUO_dFPqtef53Fkz1U_g@mail.gmail.com>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+        "<CABtg=KnXCX7U_csVMqrDoAg2TQ0q1DeUO_dFPqtef53Fkz1U_g@mail.gmail.com>"
+      ],
+      "body_plain": "On 20 Jan 2014, at 14:51, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n\n> On Mon, Jan 20, 2014 at 4:31 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n> [...]\n> Is it?  this is news to me.  I have a grand total of 2 packages up and I never ever used R-devel, and never ever had a problem, had a report of a problem or had a note from CRAn about my packages not being ok because I built them with R-relase (or whatever it might be called) and not R-devel.\n> \n> From the CRAN repository policy, that you also read and agreed to:\n\nTo be honest I have little time to read the byzantine requirements of the policies but\n> \n> \"Please ensure that R CMD check --as-cran has been run on the tarball to be uploaded before submission. This should be done with the current version of R-devel (or if that is not possible, current R-patched or the current release of R.)\"\n\nI do that *with the current release of R* and I never had an issue whatsoever.  Incidentally the words 'This should be done with the current version of R-devel (or if that is not possible, current R-patched or the current release of R' translate in plainspeak 'run R CMD check --as-cran with whatever version of R provided it's not outdated'. \n\nF\n\n\n\n> \n> Gabor\n> \n> [...]\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 881 bytes\nDesc: Message signed with OpenPGP using GPGMail\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/3cbe29b4/attachment.bin>",
+      "body_snippet": "On 20 Jan 2014, at 14:51, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n\n> On Mon, Jan 20, 2014 at 4:31 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n> [...]\n> Is it?  this is news to me",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 3,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-41ea6919fecf",
+      "message_id": "<CABtg=KnY1ykUY51UqN_U5_FWm0zQiUb+NgSpQobreYAhM-3xgw@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "be1b1aa2bf940edb4d90301c038c97e98b84ed5c8724f0d46a3b2ee263683539",
+      "date": "2014-01-20T10:15:57-05:00",
+      "subject": "[R-SIG-Mac] [Rd]  My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<897E0F88-B101-4151-B3E0-819244023C79@imperial.ac.uk>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+        "<CABtg=KnXCX7U_csVMqrDoAg2TQ0q1DeUO_dFPqtef53Fkz1U_g@mail.gmail.com>",
+        "<897E0F88-B101-4151-B3E0-819244023C79@imperial.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/09fcc72f/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/09fcc72f/attachment.pl>",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 4,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-3f14d86321cc",
+      "message_id": "<9194C733-093B-4893-B327-50AEF4A725F6@imperial.ac.uk>",
+      "from_name": "Federico Calboli",
+      "from_email_hash": "a8bbf369f348bd87d0af37612627264a6c22cc2852a56c36e1457f3a5c80f6d6",
+      "date": "2014-01-20T15:34:14Z",
+      "subject": "[R-SIG-Mac] [Rd]  My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<CABtg=KnY1ykUY51UqN_U5_FWm0zQiUb+NgSpQobreYAhM-3xgw@mail.gmail.com>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+        "<CABtg=KnXCX7U_csVMqrDoAg2TQ0q1DeUO_dFPqtef53Fkz1U_g@mail.gmail.com>",
+        "<897E0F88-B101-4151-B3E0-819244023C79@imperial.ac.uk>",
+        "<CABtg=KnY1ykUY51UqN_U5_FWm0zQiUb+NgSpQobreYAhM-3xgw@mail.gmail.com>"
+      ],
+      "body_plain": "On 20 Jan 2014, at 15:15, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n\n> On Mon, Jan 20, 2014 at 9:58 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n> [...]\n> I do that *with the current release of R* and I never had an issue whatsoever.  Incidentally the words 'This should be done with the current version of R-devel (or if that is not possible, current R-patched or the current release of R' translate in plainspeak 'run R CMD check --as-cran with whatever version of R provided it's not outdated'.\n> \n> That's an interesting \"translation\".\n\nThat's as interesting as the English language makes it -- please note of the expression 'should' as opposed to 'must', and the list of three options of R versions.\n\n> Are you a CRAN maintainer?\n\nI maintain two packages on CRAN, if that's what you're asking.\n\n> \n> I guess you were just lucky so far. Most packages are small and not affected by changes between R-release and R-devel. But some of them are. \n> \n> Also, R-devel typically has more rigorous package checks than R-release.\n\nDoes it?  \n\n> My package was delayed several times because it did not pass checks in R-devel (it did in R-release). I guess this happened to other packages as well, hence the sentence above was included in the policies.\n\nI presume that the issue is this: some packages are written solely in R, hence, unless one uses a particular and outdated syntax, there are no differences between R-devel and and R-current, whereas packages that call C/C++/Fortran code are subject to the vagaries of compilers and operating systems, and using R-devel should help future proofing the package, while maintaing compatibility with R-current.\n\nBW\n\nF\n\n\n> \n> Gabor\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: signature.asc\nType: application/pgp-signature\nSize: 881 bytes\nDesc: Message signed with OpenPGP using GPGMail\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/f4dc83f6/attachment.bin>",
+      "body_snippet": "On 20 Jan 2014, at 15:15, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n\n> On Mon, Jan 20, 2014 at 9:58 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n> [...]\n> I do that *with the curren",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 5,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-6597aceae1b4",
+      "message_id": "<CABtg=KkYEn5Yf2Vq9DP77_CPL1Ke_MzGpzy-UTT1+mn-cqpm-g@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "be1b1aa2bf940edb4d90301c038c97e98b84ed5c8724f0d46a3b2ee263683539",
+      "date": "2014-01-20T10:49:31-05:00",
+      "subject": "[R-SIG-Mac] [Rd]  My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<9194C733-093B-4893-B327-50AEF4A725F6@imperial.ac.uk>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+        "<CABtg=KnXCX7U_csVMqrDoAg2TQ0q1DeUO_dFPqtef53Fkz1U_g@mail.gmail.com>",
+        "<897E0F88-B101-4151-B3E0-819244023C79@imperial.ac.uk>",
+        "<CABtg=KnY1ykUY51UqN_U5_FWm0zQiUb+NgSpQobreYAhM-3xgw@mail.gmail.com>",
+        "<9194C733-093B-4893-B327-50AEF4A725F6@imperial.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/be0bd1d3/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/be0bd1d3/attachment.pl>",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 6,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-eb3c4bce90fc",
+      "message_id": "<841C076A-CC5D-4F8C-93E0-CBF515C6B2E7@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-20T11:34:42-05:00",
+      "subject": "[R-SIG-Mac] My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>"
+      ],
+      "body_plain": "On Jan 20, 2014, at 4:31 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n\n> On 18 Jan 2014, at 14:31, Axel Urbiz <axel.urbiz at gmail.com> wrote:\n> \n>> Hi All,\n>> \n>> \n>> I'm planning to submit my first package to R, and although I read all the\n>> documentation, I'm not very clear on the following 2 items, from which I'd\n>> appreciate your guidance:\n>> \n>> \n>> 1)I understand it is suggested to use the R dev version to build the\n>> package.\n> \n> Is it?\n\nYes\n\n\n>  this is news to me.  I have a grand total of 2 packages up and I never ever used R-devel, and never ever had a problem, had a report of a problem or had a note from CRAn about my packages not being ok because I built them with R-relase (or whatever it might be called) and not R-devel.\n> \n\nYou got lucky so far ;). See earlier post - you're answering to an already answered thread.\n\nCheers,\nSimon\n\n\n\n> BW\n> \n> F\n> \n> \n> \n>> Which one specifically should I use to build a package on a Mac\n>> OS? How about package dependencies, which version should I install on the R\n>> dev version (and where should I get them)?\n>> \n>> \n>> 2) Not sure if this one belongs to this list. Does licensing follow the\n>> logic of \"inheritance\" (i.e. if all the package dependencies of my package\n>> are \"GPL-2 | GPL-3\", does my package need to use the same license agreement?\n>> \n>> \n>> \n>> Thanks!\n>> \n>> Axel.\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "On Jan 20, 2014, at 4:31 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n\n> On 18 Jan 2014, at 14:31, Axel Urbiz <axel.urbiz at gmail.com> wrote:\n> \n>> Hi All,\n>> \n>> \n>> I'm planning to sub",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 2,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-e2b24aba6133",
+      "message_id": "<6857B52E-6AC0-4825-AE12-912AFCE05908@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-20T12:09:25-05:00",
+      "subject": "[R-SIG-Mac] [Rd]  My first package",
+      "subject_clean": "My first package",
+      "in_reply_to": "<9194C733-093B-4893-B327-50AEF4A725F6@imperial.ac.uk>",
+      "references": [
+        "<CAAyVsXKQ+e_2xaZVNcTk3jm173KEKixai99FiSn9P1mB16AH0w@mail.gmail.com>",
+        "<515E0699-CBC1-4ABB-8418-6362E19B6018@imperial.ac.uk>",
+        "<CABtg=KnXCX7U_csVMqrDoAg2TQ0q1DeUO_dFPqtef53Fkz1U_g@mail.gmail.com>",
+        "<897E0F88-B101-4151-B3E0-819244023C79@imperial.ac.uk>",
+        "<CABtg=KnY1ykUY51UqN_U5_FWm0zQiUb+NgSpQobreYAhM-3xgw@mail.gmail.com>",
+        "<9194C733-093B-4893-B327-50AEF4A725F6@imperial.ac.uk>"
+      ],
+      "body_plain": "On Jan 20, 2014, at 10:34 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n\n> \n> On 20 Jan 2014, at 15:15, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n>> On Mon, Jan 20, 2014 at 9:58 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n>> [...]\n>> I do that *with the current release of R* and I never had an issue whatsoever.  Incidentally the words 'This should be done with the current version of R-devel (or if that is not possible, current R-patched or the current release of R' translate in plainspeak 'run R CMD check --as-cran with whatever version of R provided it's not outdated'.\n>> \n>> That's an interesting \"translation\".\n> \n> That's as interesting as the English language makes it -- please note of the expression 'should' as opposed to 'must', and the list of three options of R versions.\n> \n\nYes, in that order. Note also *if that is not possible*. The whole point is that the check on CRAN *will* be run against R-devel which is what you have to satisfy. By not using R-devel you're taking the chance of not passing some tests and creating extra work for the CRAN maintainers to give you the output that you could have gotten yourself and request fixes - that's why it says \"should\". Given the number of package submissions, the effect of people that choose to ignore the rules compounds and thus creates a significant preventable workload which the above rule attempts to minimize.\n\n\n>> Are you a CRAN maintainer?\n> \n> I maintain two packages on CRAN, if that's what you're asking.\n> \n>> \n>> I guess you were just lucky so far. Most packages are small and not affected by changes between R-release and R-devel. But some of them are. \n>> \n>> Also, R-devel typically has more rigorous package checks than R-release.\n> \n> Does it?  \n> \n\nYes, often.\n\n\n>> My package was delayed several times because it did not pass checks in R-devel (it did in R-release). I guess this happened to other packages as well, hence the sentence above was included in the policies.\n> \n> I presume that the issue is this: some packages are written solely in R, hence, unless one uses a particular and outdated syntax, there are no differences between R-devel and and R-current,\n\nWrong\n\n\n> whereas packages that call C/C++/Fortran code are subject to the vagaries of compilers and operating systems, and using R-devel should help future proofing the package, while maintaing compatibility with R-current.\n> \n\nYou're asked to use R-devel and on OS X it's readily available including binary package dependencies.\n\nCheers,\nSimon",
+      "body_snippet": "On Jan 20, 2014, at 10:34 AM, Federico Calboli <f.calboli at imperial.ac.uk> wrote:\n\n> \n> On 20 Jan 2014, at 15:15, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n>> On Mon, Jan 20, 2014 at 9:58 A",
+      "thread_id": "thread-28ef02cd2288",
+      "thread_depth": 6,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-48298e6d183d",
+      "message_id": "<957D7B16-7030-41DE-9CD5-087F0E75A0EC@icloud.com>",
+      "from_name": "LUIS VELO",
+      "from_email_hash": "436c818cbe4d7c85d392b519a1fdf482e87f0332913628482dd93de37697468a",
+      "date": "2014-01-20T21:53:11+01:00",
+      "subject": "[R-SIG-Mac] Unable to install R-2.11.1.pkg and up to R-3.0.2 in Mac OSX 10.8.5",
+      "subject_clean": "Unable to install R-2.11.1.pkg and up to R-3.0.2 in Mac OSX 10.8.5",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/5798ba7c/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140120/5798ba7c/attachment.pl>",
+      "thread_id": "thread-48298e6d183d",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-7732a1e1000f",
+      "message_id": "<CAFzdDH88eHJy=n5CY_aQAM7prM774QAPcOFVk2RcNcArL_x6mA@mail.gmail.com>",
+      "from_name": "Clayton Stanley",
+      "from_email_hash": "26177e85ca79f6638ebd5c5e62978bc6359cbaf6d99bf9c34287b66407eca52b",
+      "date": "2014-01-22T11:35:53-06:00",
+      "subject": "[R-SIG-Mac] Inaccurate Rprof() timings on a darwin machine running SL w/ 64-bit kernel",
+      "subject_clean": "Inaccurate Rprof() timings on a darwin machine running SL w/ 64-bit kernel",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140122/3c2d6fce/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140122/3c2d6fce/attachment.pl>",
+      "thread_id": "thread-7732a1e1000f",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-e3d834242cb0",
+      "message_id": "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+      "from_name": "Reijo Sund",
+      "from_email_hash": "c7ad1aeb7be928dd3c498d8cb9d59d19d19064f76b872e9c42b36e74c313f966",
+      "date": "2014-01-24T01:09:25+02:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "There have recently been some problems while running packages using Tcl/Tk with R.app GUI under Mac Os X Mavericks (10.9). It is also well known that it is not a good idea to work with R.app and a custom builded R that uses the Aqua version of Tcl/Tk.\n\nSimple solution for these problems is to use command line R (i.e. R in terminal window) instead of R.app GUI. Although it is not particularly difficult to launch terminal application and then R from the prompt, it would be nice to have an icon on the dock to launch the command line R with one click.\n\nAfter some experiencing with AppleScript, I ended up with the following script. There was a need for some ?fine tuning? to deal with problems of Terminal app scripting without manually changing preferences of Terminal app (problems include that in certain cases more than two windows are created instead of one and that it is not trivial to close (only) the correct window after quitting R under the default settings of terminal).\n\n-----------------\n\nproperty commandString : \"R --no-save --no-restore; screen osascript -e 'tell application \\\"Terminal\\\" to close (every window whose name contains \\\"Survo R\\\")'; exit 0\"\n\ntell application \"System Events\"\n\tif (count (processes whose name is \"Terminal\")) is 0 then\n\t\ttell application \"Terminal\"\n\t\t\tactivate\n\t\t\tdo script commandString in window 1\n\t\t\t\n\t\t\ttell window 1\n\t\t\t\tset custom title of first tab to \"Survo R\"\n\t\t\tend tell\n\t\tend tell\n\telse\n\t\ttell application \"Terminal\"\n\t\t\tactivate\n\t\t\tdo script commandString\n\t\t\tset currWin to index of first window\n\t\t\t\n\t\t\ttell window currWin\n\t\t\t\tset custom title of first tab to \"Survo R\"\n\t\t\tend tell\n\t\tend tell\n\tend if\nend tell\n\n-----------------\n\nThe script can be run in AppleScript editor (located in /Applications/Utilities/AppleScript Editor), but for the actual use it is useful to File->Export it to Application. Created app works just like any other Mac OS X application and you can drag it to the dock to get the functionality to launch command line R with one click.\n\nIt is certainly unnecessarily complicated for novice users to create the app themselves, so the distribution of the final app (instead of the script) would probably be a more reasonable idea. It is also likely that there are better, safer and more portable ways to provide such a functionality (across Mac OS X versions), but at least the basic idea can be tested with the script above.\n\nSo, finally, my question is: Would it be a possible and maybe even a good idea to include this kind of Rterm shortcut app functionality to the R binary for Mac OS X distribution or to make it available from some of the official R Mac OS X pages?\n\nBest wishes,\nReijo Sund",
+      "body_snippet": "There have recently been some problems while running packages using Tcl/Tk with R.app GUI under Mac Os X Mavericks (10.9). It is also well known that it is not a good idea to work with R.app and a cus",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-8a47af6153be",
+      "message_id": "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-23T20:56:06-05:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>"
+      ],
+      "body_plain": "That seems a bit convoluted to me. For a clickable document you can simply create R.command containing single line\nR\n\nIf you want an app, just open the Automator, pick Application type, select \"Run Shell Script\" with single line\nopen -a Terminal /usr/bin/R\n\nCheers,\nSimon\n\n\nOn Jan 23, 2014, at 6:09 PM, Reijo Sund <reijo.sund at helsinki.fi> wrote:\n\n> There have recently been some problems while running packages using Tcl/Tk with R.app GUI under Mac Os X Mavericks (10.9). It is also well known that it is not a good idea to work with R.app and a custom builded R that uses the Aqua version of Tcl/Tk.\n> \n> Simple solution for these problems is to use command line R (i.e. R in terminal window) instead of R.app GUI. Although it is not particularly difficult to launch terminal application and then R from the prompt, it would be nice to have an icon on the dock to launch the command line R with one click.\n> \n> After some experiencing with AppleScript, I ended up with the following script. There was a need for some ?fine tuning? to deal with problems of Terminal app scripting without manually changing preferences of Terminal app (problems include that in certain cases more than two windows are created instead of one and that it is not trivial to close (only) the correct window after quitting R under the default settings of terminal).\n> \n> -----------------\n> \n> property commandString : \"R --no-save --no-restore; screen osascript -e 'tell application \\\"Terminal\\\" to close (every window whose name contains \\\"Survo R\\\")'; exit 0\"\n> \n> tell application \"System Events\"\n> \tif (count (processes whose name is \"Terminal\")) is 0 then\n> \t\ttell application \"Terminal\"\n> \t\t\tactivate\n> \t\t\tdo script commandString in window 1\n> \t\t\t\n> \t\t\ttell window 1\n> \t\t\t\tset custom title of first tab to \"Survo R\"\n> \t\t\tend tell\n> \t\tend tell\n> \telse\n> \t\ttell application \"Terminal\"\n> \t\t\tactivate\n> \t\t\tdo script commandString\n> \t\t\tset currWin to index of first window\n> \t\t\t\n> \t\t\ttell window currWin\n> \t\t\t\tset custom title of first tab to \"Survo R\"\n> \t\t\tend tell\n> \t\tend tell\n> \tend if\n> end tell\n> \n> -----------------\n> \n> The script can be run in AppleScript editor (located in /Applications/Utilities/AppleScript Editor), but for the actual use it is useful to File->Export it to Application. Created app works just like any other Mac OS X application and you can drag it to the dock to get the functionality to launch command line R with one click.\n> \n> It is certainly unnecessarily complicated for novice users to create the app themselves, so the distribution of the final app (instead of the script) would probably be a more reasonable idea. It is also likely that there are better, safer and more portable ways to provide such a functionality (across Mac OS X versions), but at least the basic idea can be tested with the script above.\n> \n> So, finally, my question is: Would it be a possible and maybe even a good idea to include this kind of Rterm shortcut app functionality to the R binary for Mac OS X distribution or to make it available from some of the official R Mac OS X pages?\n> \n> Best wishes,\n> Reijo Sund\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "That seems a bit convoluted to me. For a clickable document you can simply create R.command containing single line\nR\n\nIf you want an app, just open the Automator, pick Application type, select \"Run Sh",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-61f2cc2cc2c7",
+      "message_id": "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+      "from_name": "Dave Deriso",
+      "from_email_hash": "530a33783543b2c75bc21b1bb31260bff5a8c22d60a358b307fd7b94507f996f",
+      "date": "2014-01-23T18:40:49-08:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/dcaf3642/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/dcaf3642/attachment.pl>",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 2,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-58a0e990026f",
+      "message_id": "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-23T22:41:46-05:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>"
+      ],
+      "body_plain": "On Jan 23, 2014, at 9:40 PM, Dave Deriso <deriso at gmail.com> wrote:\n\n> for OSX just add this to your ~/.bash_profile  alias r=?/Library/Frameworks/R.framework/Resources/R?  ...open terminal and type r \n> \n> bam!\n> \n\nWell, in Terminal you don't need any alias - just type R\n\nBut that was not Reijo's question ... he didn't want to start Terminal manually ...\n\n\n> On Thu, Jan 23, 2014 at 5:56 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> That seems a bit convoluted to me. For a clickable document you can simply create R.command containing single line\n> R\n> \n> If you want an app, just open the Automator, pick Application type, select \"Run Shell Script\" with single line\n> open -a Terminal /usr/bin/R\n> \n> Cheers,\n> Simon\n> \n> \n> On Jan 23, 2014, at 6:09 PM, Reijo Sund <reijo.sund at helsinki.fi> wrote:\n> \n> > There have recently been some problems while running packages using Tcl/Tk with R.app GUI under Mac Os X Mavericks (10.9). It is also well known that it is not a good idea to work with R.app and a custom builded R that uses the Aqua version of Tcl/Tk.\n> >\n> > Simple solution for these problems is to use command line R (i.e. R in terminal window) instead of R.app GUI. Although it is not particularly difficult to launch terminal application and then R from the prompt, it would be nice to have an icon on the dock to launch the command line R with one click.\n> >\n> > After some experiencing with AppleScript, I ended up with the following script. There was a need for some ?fine tuning? to deal with problems of Terminal app scripting without manually changing preferences of Terminal app (problems include that in certain cases more than two windows are created instead of one and that it is not trivial to close (only) the correct window after quitting R under the default settings of terminal).\n> >\n> > -----------------\n> >\n> > property commandString : \"R --no-save --no-restore; screen osascript -e 'tell application \\\"Terminal\\\" to close (every window whose name contains \\\"Survo R\\\")'; exit 0\"\n> >\n> > tell application \"System Events\"\n> >       if (count (processes whose name is \"Terminal\")) is 0 then\n> >               tell application \"Terminal\"\n> >                       activate\n> >                       do script commandString in window 1\n> >\n> >                       tell window 1\n> >                               set custom title of first tab to \"Survo R\"\n> >                       end tell\n> >               end tell\n> >       else\n> >               tell application \"Terminal\"\n> >                       activate\n> >                       do script commandString\n> >                       set currWin to index of first window\n> >\n> >                       tell window currWin\n> >                               set custom title of first tab to \"Survo R\"\n> >                       end tell\n> >               end tell\n> >       end if\n> > end tell\n> >\n> > -----------------\n> >\n> > The script can be run in AppleScript editor (located in /Applications/Utilities/AppleScript Editor), but for the actual use it is useful to File->Export it to Application. Created app works just like any other Mac OS X application and you can drag it to the dock to get the functionality to launch command line R with one click.\n> >\n> > It is certainly unnecessarily complicated for novice users to create the app themselves, so the distribution of the final app (instead of the script) would probably be a more reasonable idea. It is also likely that there are better, safer and more portable ways to provide such a functionality (across Mac OS X versions), but at least the basic idea can be tested with the script above.\n> >\n> > So, finally, my question is: Would it be a possible and maybe even a good idea to include this kind of Rterm shortcut app functionality to the R binary for Mac OS X distribution or to make it available from some of the official R Mac OS X pages?\n> >\n> > Best wishes,\n> > Reijo Sund\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Jan 23, 2014, at 9:40 PM, Dave Deriso <deriso at gmail.com> wrote:\n\n> for OSX just add this to your ~/.bash_profile  alias r=?/Library/Frameworks/R.framework/Resources/R?  ...open terminal and type",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 3,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-0ec59f9f4eef",
+      "message_id": "<971EDE98-D46B-4B5C-979C-295EF5136B11@icloud.com>",
+      "from_name": "Robert J Goedman",
+      "from_email_hash": "18c9a944a027fb10bda03cc7c9479781cf354da58aef985307321db784cb63bc",
+      "date": "2014-01-23T19:50:56-08:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>"
+      ],
+      "body_plain": "It would be nice if Reijo's approach would provide basic AppleScripting, primarily to handle scripting in a Terminal from TextMate, etc.\n\nRegards,\nRob\n\nSent from my iPhone\n\n> On Jan 23, 2014, at 7:41 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> \n>> On Jan 23, 2014, at 9:40 PM, Dave Deriso <deriso at gmail.com> wrote:\n>> \n>> for OSX just add this to your ~/.bash_profile  alias r=?/Library/Frameworks/R.framework/Resources/R?  ...open terminal and type r \n>> \n>> bam!\n> \n> Well, in Terminal you don't need any alias - just type R\n> \n> But that was not Reijo's question ... he didn't want to start Terminal manually ...\n> \n> \n>> On Thu, Jan 23, 2014 at 5:56 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n>> That seems a bit convoluted to me. For a clickable document you can simply create R.command containing single line\n>> R\n>> \n>> If you want an app, just open the Automator, pick Application type, select \"Run Shell Script\" with single line\n>> open -a Terminal /usr/bin/R\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>>> On Jan 23, 2014, at 6:09 PM, Reijo Sund <reijo.sund at helsinki.fi> wrote:\n>>> \n>>> There have recently been some problems while running packages using Tcl/Tk with R.app GUI under Mac Os X Mavericks (10.9). It is also well known that it is not a good idea to work with R.app and a custom builded R that uses the Aqua version of Tcl/Tk.\n>>> \n>>> Simple solution for these problems is to use command line R (i.e. R in terminal window) instead of R.app GUI. Although it is not particularly difficult to launch terminal application and then R from the prompt, it would be nice to have an icon on the dock to launch the command line R with one click.\n>>> \n>>> After some experiencing with AppleScript, I ended up with the following script. There was a need for some ?fine tuning? to deal with problems of Terminal app scripting without manually changing preferences of Terminal app (problems include that in certain cases more than two windows are created instead of one and that it is not trivial to close (only) the correct window after quitting R under the default settings of terminal).\n>>> \n>>> -----------------\n>>> \n>>> property commandString : \"R --no-save --no-restore; screen osascript -e 'tell application \\\"Terminal\\\" to close (every window whose name contains \\\"Survo R\\\")'; exit 0\"\n>>> \n>>> tell application \"System Events\"\n>>>      if (count (processes whose name is \"Terminal\")) is 0 then\n>>>              tell application \"Terminal\"\n>>>                      activate\n>>>                      do script commandString in window 1\n>>> \n>>>                      tell window 1\n>>>                              set custom title of first tab to \"Survo R\"\n>>>                      end tell\n>>>              end tell\n>>>      else\n>>>              tell application \"Terminal\"\n>>>                      activate\n>>>                      do script commandString\n>>>                      set currWin to index of first window\n>>> \n>>>                      tell window currWin\n>>>                              set custom title of first tab to \"Survo R\"\n>>>                      end tell\n>>>              end tell\n>>>      end if\n>>> end tell\n>>> \n>>> -----------------\n>>> \n>>> The script can be run in AppleScript editor (located in /Applications/Utilities/AppleScript Editor), but for the actual use it is useful to File->Export it to Application. Created app works just like any other Mac OS X application and you can drag it to the dock to get the functionality to launch command line R with one click.\n>>> \n>>> It is certainly unnecessarily complicated for novice users to create the app themselves, so the distribution of the final app (instead of the script) would probably be a more reasonable idea. It is also likely that there are better, safer and more portable ways to provide such a functionality (across Mac OS X versions), but at least the basic idea can be tested with the script above.\n>>> \n>>> So, finally, my question is: Would it be a possible and maybe even a good idea to include this kind of Rterm shortcut app functionality to the R binary for Mac OS X distribution or to make it available from some of the official R Mac OS X pages?\n>>> \n>>> Best wishes,\n>>> Reijo Sund\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "It would be nice if Reijo's approach would provide basic AppleScripting, primarily to handle scripting in a Terminal from TextMate, etc.\n\nRegards,\nRob\n\nSent from my iPhone\n\n> On Jan 23, 2014, at 7:41 ",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 4,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-ee4e83237acb",
+      "message_id": "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>",
+      "from_name": "Tyler Ritchie",
+      "from_email_hash": "8a0db05c84b61248469d9b4e057770865a9e492330b01def7e9c0cb6595756d9",
+      "date": "2014-01-23T20:40:33-08:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/b169e85c/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/b169e85c/attachment.pl>",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 4,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-0e1540482246",
+      "message_id": "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "be1b1aa2bf940edb4d90301c038c97e98b84ed5c8724f0d46a3b2ee263683539",
+      "date": "2014-01-24T00:07:17-05:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+        "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140124/84a84b04/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140124/84a84b04/attachment.pl>",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 5,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-74fa92cf5647",
+      "message_id": "<CA+qf=sNSwHcfvqRLgGUZ6xadOUZ6TZn_KfhwGrUQmuD0vVKLLw@mail.gmail.com>",
+      "from_name": "Tyler Ritchie",
+      "from_email_hash": "8a0db05c84b61248469d9b4e057770865a9e492330b01def7e9c0cb6595756d9",
+      "date": "2014-01-23T21:27:48-08:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+        "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>",
+        "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/8072216f/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/8072216f/attachment.pl>",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 6,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-ad6eeb54a275",
+      "message_id": "<CALn_Mmou+nNxGJ7mGGjObx36Gmt0VRzHn5hM8dKVXbdaxwnzrQ@mail.gmail.com>",
+      "from_name": "Dave Deriso",
+      "from_email_hash": "530a33783543b2c75bc21b1bb31260bff5a8c22d60a358b307fd7b94507f996f",
+      "date": "2014-01-23T21:31:52-08:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+        "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>",
+        "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/dcae0b8e/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/dcae0b8e/attachment.pl>",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 6,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-19c465b102c3",
+      "message_id": "<CABtg=K=MSYAkwigcKi2ZO6rOi1dog5TXuLFELHBgPRrt2L7f3w@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "be1b1aa2bf940edb4d90301c038c97e98b84ed5c8724f0d46a3b2ee263683539",
+      "date": "2014-01-24T00:34:59-05:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<CALn_Mmou+nNxGJ7mGGjObx36Gmt0VRzHn5hM8dKVXbdaxwnzrQ@mail.gmail.com>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+        "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>",
+        "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>",
+        "<CALn_Mmou+nNxGJ7mGGjObx36Gmt0VRzHn5hM8dKVXbdaxwnzrQ@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140124/a8d525fc/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140124/a8d525fc/attachment.pl>",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 7,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-fd70c7a131b7",
+      "message_id": "<52E21298.2080409@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-01-24T07:13:28Z",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+        "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>",
+        "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>"
+      ],
+      "body_plain": "On 24/01/2014 05:07, G?bor Cs?rdi wrote:\n> On Thu, Jan 23, 2014 at 11:40 PM, Tyler Ritchie <tyler.ritchie at gmail.com>wrote:\n>\n>>>\n>>> Well, in Terminal you don't need any alias - just type R\n>>>\n>>\n>> If you really want to save the shift though.. alias r='R'\n>>\n>\n> No, OSX is case insensitive:\n\nBy default: it depends on the file system in use, and that can be \nchanged to be POSIX-compliant on HFS (and other FSs).\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On 24/01/2014 05:07, G?bor Cs?rdi wrote:\n> On Thu, Jan 23, 2014 at 11:40 PM, Tyler Ritchie <tyler.ritchie at gmail.com>wrote:\n>\n>>>\n>>> Well, in Terminal you don't need any alias - just type R\n>>>\n>>\n",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 6,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-3ecbecd38df9",
+      "message_id": "<CALn_MmqVixBQ_UWFqvKKj4JHuoG3GsfD-Oa=s04ew9g4kQ3hhQ@mail.gmail.com>",
+      "from_name": "Dave Deriso",
+      "from_email_hash": "530a33783543b2c75bc21b1bb31260bff5a8c22d60a358b307fd7b94507f996f",
+      "date": "2014-01-23T23:22:37-08:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<52E21298.2080409@stats.ox.ac.uk>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+        "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>",
+        "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>",
+        "<52E21298.2080409@stats.ox.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/2628358f/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140123/2628358f/attachment.pl>",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 7,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-e2b9e2deeeaa",
+      "message_id": "<C9ABE081-35BE-4138-847E-ED3E87DA907D@helsinki.fi>",
+      "from_name": "Reijo Sund",
+      "from_email_hash": "c7ad1aeb7be928dd3c498d8cb9d59d19d19064f76b872e9c42b36e74c313f966",
+      "date": "2014-01-24T10:30:37+02:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>"
+      ],
+      "body_plain": "Simon Urbanek wrote:\n> If you want an app, just open the Automator, pick Application type, select \"Run Shell Script\" with single line\n> open -a Terminal /usr/bin/R\n\nDave Deriso wrote:\n> you could check out Platypus to wrap your command into an app. Basically write a simple bash script to call\n> R with the desired parameters, and Platypus will turn that into an app that you can put on your launch bar. \n\n \nThanks for the replies.\n\nPlatypus seems to be interesting, but with quick testing the resulted app was not interactive and not usable as such.\n\nAutomator approach works quite nicely, but after exiting the terminal window stays open (stating Process completed) and with the default settings in terminal it must be closed manually. I cannot killable terminal app to accomplish closing, because there may be other terminal windows open. It is of course possible to _manually_ change the terminal preferences so that the window closes at exit, but what if I want such behavior only for the terminal window running R?\n\nAnd actually I was not asking how to accomplish such task but would it be possible to have such an app distributed with R.\n\nThe motivation is simple:\nThere exists several R packages that utilize Tcl/Tk to create alternative user interfaces. For some courses, hundreds of students (some of them never seen R before) may be installing R and the interface packages also to their own laptops. Nowadays more and more people are using Macs, and the problems with R.app GUI and Tcl/Tk may give them a wrong impression of the performance of R and the interfaces. It is already challenging enough for the students to install R and XQuartz (fortunately since R 3.0.0 no more need to install tcltk separately) on Mac, so giving a long list of point-by-point instructions to tune things up give a geeky feeling. And a need for manually open and close Terminal window gives easily a mixed impression for a first timer: Why I cannot use the main entrance to R, but need to travel all the way to the back door?\n\nIn that sense it would be very nice if a simple R terminal icon would appear in addition to R.app GUI icon after installing R on Mac.\n\nBest wishes,\nReijo Sund",
+      "body_snippet": "Simon Urbanek wrote:\n> If you want an app, just open the Automator, pick Application type, select \"Run Shell Script\" with single line\n> open -a Terminal /usr/bin/R\n\nDave Deriso wrote:\n> you could chec",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 2,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-8711d5e74e26",
+      "message_id": "<E3C387B1-5F0B-4016-8D67-15E89A81A992@uv.es>",
+      "from_name": "Agustin Diez Castillo",
+      "from_email_hash": "5b36046e1478376866de52b7b2de6f2d5ee45aae86666609fc048179695a3801",
+      "date": "2014-01-24T09:34:02+01:00",
+      "subject": "[R-SIG-Mac] Shortcut for launching command line R?",
+      "subject_clean": "Shortcut for launching command line R?",
+      "in_reply_to": "<CALn_MmqVixBQ_UWFqvKKj4JHuoG3GsfD-Oa=s04ew9g4kQ3hhQ@mail.gmail.com>",
+      "references": [
+        "<3B7AD0DE-712D-4E0F-AC56-42E34475673A@helsinki.fi>",
+        "<ED0ED8C0-4A2A-4A53-AA0B-FD5821A78A29@r-project.org>",
+        "<CALn_Mmr6KWZpJEmP-Pq7fxHZay7d5OoSprNVZ=N+y=0jFYsgwQ@mail.gmail.com>",
+        "<D2A59F11-FAA5-41C5-8420-A039B1EAA6A7@r-project.org>",
+        "<CA+qf=sNW0kFgQcqTFP+5Pb1GffXg-Qg57+4BSYtw59LazwV51g@mail.gmail.com>",
+        "<CABtg=KkfKv1HKY=rE7MeBHOihrGjnPkYKg-hvyAX1q0UOdj3iQ@mail.gmail.com>",
+        "<52E21298.2080409@stats.ox.ac.uk>",
+        "<CALn_MmqVixBQ_UWFqvKKj4JHuoG3GsfD-Oa=s04ew9g4kQ3hhQ@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140124/a4062ac0/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140124/a4062ac0/attachment.pl>",
+      "thread_id": "thread-e3d834242cb0",
+      "thread_depth": 8,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-93e426eda598",
+      "message_id": "<08981DF1-FE1D-48D9-B0A4-EE6CFF55EF9F@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-24T11:19:48-05:00",
+      "subject": "[R-SIG-Mac] Unable to install R-2.11.1.pkg and up to R-3.0.2 in Mac OSX 10.8.5",
+      "subject_clean": "Unable to install R-2.11.1.pkg and up to R-3.0.2 in Mac OSX 10.8.5",
+      "in_reply_to": "<957D7B16-7030-41DE-9CD5-087F0E75A0EC@icloud.com>",
+      "references": [
+        "<957D7B16-7030-41DE-9CD5-087F0E75A0EC@icloud.com>"
+      ],
+      "body_plain": "Luis,\n\nOn Jan 20, 2014, at 3:53 PM, LUIS VELO <luisvelo1 at gmail.com> wrote:\n\n> Dear People\n> \n> I have an iMac 2013 with a Fusion Drive and OSX 10.8.5. No plans to migrate to Mavericks yet.\n> \n> I have had issues also with x11 that I've solved with a \"direct\" install:\n> \n> installer -pkg ~/Desktop/XQuartz.pkg -target / -allowUntrusted -store\n> \n> But, when I try to install R-2.11.1 and above (I'm using R-2.10.1, and works well ;) ) I get the following message from the installer:\n> \n> R 3.0.2 for Mac OS X 10.6 or higher (Snow Leopard build) can't be installed on this disk.\n> This build of R requires MAC OS X 10.6 or higher.\n> \n> If I try from the Terminal\n> \n> sudo installer -pkg ~/Desktop/R-3.0.2.pkg -target /\n> \n> or:\n> sudo -s\n> installer -verbose -pkg ~/Desktop/R-3.0.2.pkg -target /\n> \n> I receive this output from terminal:\n> \n> installer: Cannot install on volume / because it is disabled. \n> installer: This build of R requires Mac OS X 10.6 or higher\n> \n> And it fails.\n> What can I do? Delete some plist? Regenerate something? Reinstall Mountain Lion? I really prefer to not to have to rebuild from source.\n> \n\nWhat the above says is that the Apple Installer doesn't recognize the system on the drive you are installing to as OS X 10.6.0 or higher.\nWe don't control how the Installer determines the version, but typically it is stored in \n\n/System/Library/CoreServices/SystemVersion.plist\n\nOn 10.8.5 you should see\n\n$ cat /System/Library/CoreServices/SystemVersion.plist\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>ProductBuildVersion</key>\n\t<string>12F45</string>\n\t<key>ProductCopyright</key>\n\t<string>1983-2013 Apple Inc.</string>\n\t<key>ProductName</key>\n\t<string>Mac OS X</string>\n\t<key>ProductUserVisibleVersion</key>\n\t<string>10.8.5</string>\n\t<key>ProductVersion</key>\n\t<string>10.8.5</string>\n</dict>\n</plist>\n\n\nIf in doubt please have a look at the Installer log (enable all logs, not just errors) as you are installing R - it may possibly give some clue.\n\nThanks,\nSimon\n\n\n\n\n\n> I have had no issues installing R on my notebook with Lion.\n> \n> Regards\n> MW\n> \n> ps: I've also posted in this thread\n> http://apple.stackexchange.com/questions/117693/unable-to-install-r-2-11-1-pkg-and-up-to-r-3-0-2-in-mac-osx-10-8-5\n> \n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Luis,\n\nOn Jan 20, 2014, at 3:53 PM, LUIS VELO <luisvelo1 at gmail.com> wrote:\n\n> Dear People\n> \n> I have an iMac 2013 with a Fusion Drive and OSX 10.8.5. No plans to migrate to Mavericks yet.\n> \n> I h",
+      "thread_id": "thread-48298e6d183d",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-4eaa52d1cbc2",
+      "message_id": "<B21956AF-19A5-4B55-8C42-A466F6FD5574@ulb.ac.be>",
+      "from_name": "didier peeters",
+      "from_email_hash": "66e1e0e34d972bc348bfc062357c3f5862c55a0510165e8481d17aa0a1bafb3e",
+      "date": "2014-01-27T16:03:33+01:00",
+      "subject": "[R-SIG-Mac] error with RMySQL",
+      "subject_clean": "error with RMySQL",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140127/f38231ad/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140127/f38231ad/attachment.pl>",
+      "thread_id": "thread-4eaa52d1cbc2",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-8ff5bace710f",
+      "message_id": "<52E679F5.7040000@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "17e1fcd7901e6a11dc6bc3ede542d46252611499631dfb4199936939fda2e399",
+      "date": "2014-01-27T10:23:33-05:00",
+      "subject": "[R-SIG-Mac] error with RMySQL",
+      "subject_clean": "error with RMySQL",
+      "in_reply_to": "<B21956AF-19A5-4B55-8C42-A466F6FD5574@ulb.ac.be>",
+      "references": [
+        "<B21956AF-19A5-4B55-8C42-A466F6FD5574@ulb.ac.be>"
+      ],
+      "body_plain": "On 27/01/2014 10:03 AM, didier peeters wrote:\n> Hello,\n>\n> I can't write data in a MySQL table with RMySQL anymore.  I used to do this until one year ago but since then it's broken, I always get the error : \"Erreur dans tolower(avail) : cha?ne de charact?res multioctets incorrecte 43\" (meaning in English : Error in tolower(avail) : incorrect multibyte string\",  it can be something else than '43').  So I tried to narrow down to a simple case and I made this script :\n>\n> #!/usr/bin/Rscript\n> library(DBI)\n> library(RMySQL)\n>\n> conn <- dbConnect(\"MySQL\", user=\"userr\", password=\"passworrd\", dbname=\"dbtest\")\n>\n> res <- dbSendQuery(conn, statement = paste(\"SELECT * FROM testable\"))\n> input <- fetch(res, n = -1)\n>\n> dbWriteTable(conn, \"testable2\", input, row.names = T, overwrite = FALSE, append = T)\n>\n> dbDisconnect(conn)\n>\n> The table content being :\n>     id testval\n> 1  1   76\n> 2  2   47417\n>\n> The user owns the DB. The fetch works fine but not the dbWriteTable.  The error is probably related to some character coding but I can't figure out what.\n>\n> I'm using R version 3.0.2 (2013-09-25), RMySQL 0.9-3 and MySQL 5.6.14, Mac OS X 10.9.1 .\n> I have the same issue on Rstudio server hosted on a Debian machine.\n>\n> Thanks for helping !\n\nThis probably isn't a MacOS question, other than the fact that MacOS \ndefaults to UTF-8 and Windows doesn't.\nSince you are asking to append to an existing table, it probably has \nvalues stored in a Latin1 (or other non-UTF-8) encoding, and that's \nmessing things up.\n\nBut without a reproducible example, it's hard to guess...\n\nDuncan Murdoch",
+      "body_snippet": "On 27/01/2014 10:03 AM, didier peeters wrote:\n> Hello,\n>\n> I can't write data in a MySQL table with RMySQL anymore.  I used to do this until one year ago but since then it's broken, I always get the e",
+      "thread_id": "thread-4eaa52d1cbc2",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-85ac7b2eef43",
+      "message_id": "<E79CDD9C-E9C9-4F07-A9CF-1D1EEDFE3CA4@ulb.ac.be>",
+      "from_name": "didier peeters",
+      "from_email_hash": "66e1e0e34d972bc348bfc062357c3f5862c55a0510165e8481d17aa0a1bafb3e",
+      "date": "2014-01-27T16:38:29+01:00",
+      "subject": "[R-SIG-Mac] error with RMySQL",
+      "subject_clean": "error with RMySQL",
+      "in_reply_to": "<52E679F5.7040000@gmail.com>",
+      "references": [
+        "<B21956AF-19A5-4B55-8C42-A466F6FD5574@ulb.ac.be>",
+        "<52E679F5.7040000@gmail.com>"
+      ],
+      "body_plain": "Sorry, you're right.  But UTF-8 is the default on my mac as well as on my database.\nI was hoping that somebody already had that problem. \n\n\nLe 27 janv. 2014 ? 16:23, Duncan Murdoch <murdoch.duncan at gmail.com> a ?crit :\n\n> On 27/01/2014 10:03 AM, didier peeters wrote:\n>> Hello,\n>> \n>> I can't write data in a MySQL table with RMySQL anymore.  I used to do this until one year ago but since then it's broken, I always get the error : \"Erreur dans tolower(avail) : cha?ne de charact?res multioctets incorrecte 43\" (meaning in English : Error in tolower(avail) : incorrect multibyte string\",  it can be something else than '43').  So I tried to narrow down to a simple case and I made this script :\n>> \n>> #!/usr/bin/Rscript\n>> library(DBI)\n>> library(RMySQL)\n>> \n>> conn <- dbConnect(\"MySQL\", user=\"userr\", password=\"passworrd\", dbname=\"dbtest\")\n>> \n>> res <- dbSendQuery(conn, statement = paste(\"SELECT * FROM testable\"))\n>> input <- fetch(res, n = -1)\n>> \n>> dbWriteTable(conn, \"testable2\", input, row.names = T, overwrite = FALSE, append = T)\n>> \n>> dbDisconnect(conn)\n>> \n>> The table content being :\n>>    id testval\n>> 1  1   76\n>> 2  2   47417\n>> \n>> The user owns the DB. The fetch works fine but not the dbWriteTable.  The error is probably related to some character coding but I can't figure out what.\n>> \n>> I'm using R version 3.0.2 (2013-09-25), RMySQL 0.9-3 and MySQL 5.6.14, Mac OS X 10.9.1 .\n>> I have the same issue on Rstudio server hosted on a Debian machine.\n>> \n>> Thanks for helping !\n> \n> This probably isn't a MacOS question, other than the fact that MacOS defaults to UTF-8 and Windows doesn't.\n> Since you are asking to append to an existing table, it probably has values stored in a Latin1 (or other non-UTF-8) encoding, and that's messing things up.\n> \n> But without a reproducible example, it's hard to guess...\n> \n> Duncan Murdoch",
+      "body_snippet": "Sorry, you're right.  But UTF-8 is the default on my mac as well as on my database.\nI was hoping that somebody already had that problem. \n\n\nLe 27 janv. 2014 ? 16:23, Duncan Murdoch <murdoch.duncan at ",
+      "thread_id": "thread-4eaa52d1cbc2",
+      "thread_depth": 2,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-d9b2ea9d76c2",
+      "message_id": "<5C68CCA8-6096-4206-858D-86DF8B633C75@icloud.com>",
+      "from_name": "Roberta Rezende",
+      "from_email_hash": "f7fa30285f8d2583c5a182789f3d0466b0f717d814d70fd21216edbb97b60ddd",
+      "date": "2014-01-29T11:39:49+01:00",
+      "subject": "[R-SIG-Mac] problem with plot math",
+      "subject_clean": "problem with plot math",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi everyone,\n\nI?m a newbie and I?m studying R.\nI?m using Mavericks 10.9.1, R 3.0.2 with Rstudio.\n\nI?ve tried this simple example:\n\nx <- rnorm(100)\ny <- x + rnorm(100, sd = 0.5)\nplot(x, y,\n     xlab=substitute(bar(x) == k, list(k=mean(x))),\n     ylab=substitute(bar(y) == k, list(k=mean(y)))\n)\n\nbut my plot only has the plot, with no labels at all.\n\nIf I try the follow example, it works\n\nplot(0, 0, main = expression(theta == 0),\n     ylab = expression(hat(gamma) == 0),\n     xlab = expression(sum(x[i] * y[i], i==1, n)))\n\nIt is like it can?t do math, but it can plot values given.\n\nMay I have to install something else?\n\nThank you for your help",
+      "body_snippet": "Hi everyone,\n\nI?m a newbie and I?m studying R.\nI?m using Mavericks 10.9.1, R 3.0.2 with Rstudio.\n\nI?ve tried this simple example:\n\nx <- rnorm(100)\ny <- x + rnorm(100, sd = 0.5)\nplot(x, y,\n     xlab=su",
+      "thread_id": "thread-d9b2ea9d76c2",
+      "thread_depth": 0,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-0e8794441bf8",
+      "message_id": "<CABmqZHO2a1m-KcW+Nuk82Qrw14c2+PEtvhzSz+s0CqWjsKpkqg@mail.gmail.com>",
+      "from_name": "Ingmar Visser",
+      "from_email_hash": "3de458686dcc530513283e67f86dca86206142086b772552f194f13c43024b11",
+      "date": "2014-01-29T11:52:28+01:00",
+      "subject": "[R-SIG-Mac] problem with plot math",
+      "subject_clean": "problem with plot math",
+      "in_reply_to": "<5C68CCA8-6096-4206-858D-86DF8B633C75@icloud.com>",
+      "references": [
+        "<5C68CCA8-6096-4206-858D-86DF8B633C75@icloud.com>"
+      ],
+      "body_plain": "Your first example works for me with nice labels including \"x bar\"\netc, using this configuration:\n\n> sessionInfo()\nR version 3.0.2 (2013-09-25)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nBest, Ingmar\n\n\nOn Wed, Jan 29, 2014 at 11:39 AM, Roberta Rezende\n<roberta.rezende at icloud.com> wrote:\n> Hi everyone,\n>\n> I'm a newbie and I'm studying R.\n> I'm using Mavericks 10.9.1, R 3.0.2 with Rstudio.\n>\n> I've tried this simple example:\n>\n> x <- rnorm(100)\n> y <- x + rnorm(100, sd = 0.5)\n> plot(x, y,\n>      xlab=substitute(bar(x) == k, list(k=mean(x))),\n>      ylab=substitute(bar(y) == k, list(k=mean(y)))\n> )\n>\n> but my plot only has the plot, with no labels at all.\n>\n> If I try the follow example, it works\n>\n> plot(0, 0, main = expression(theta == 0),\n>      ylab = expression(hat(gamma) == 0),\n>      xlab = expression(sum(x[i] * y[i], i==1, n)))\n>\n> It is like it can't do math, but it can plot values given.\n>\n> May I have to install something else?\n>\n> Thank you for your help\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Your first example works for me with nice labels including \"x bar\"\netc, using this configuration:\n\n> sessionInfo()\nR version 3.0.2 (2013-09-25)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1",
+      "thread_id": "thread-d9b2ea9d76c2",
+      "thread_depth": 1,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-2539bef5c3f9",
+      "message_id": "<046840BC-766B-4066-AF72-066908B7D284@icloud.com>",
+      "from_name": "Roberta Rezende",
+      "from_email_hash": "f7fa30285f8d2583c5a182789f3d0466b0f717d814d70fd21216edbb97b60ddd",
+      "date": "2014-01-29T12:06:48+01:00",
+      "subject": "[R-SIG-Mac] problem with plot math",
+      "subject_clean": "problem with plot math",
+      "in_reply_to": "<CABmqZHO2a1m-KcW+Nuk82Qrw14c2+PEtvhzSz+s0CqWjsKpkqg@mail.gmail.com>",
+      "references": [
+        "<5C68CCA8-6096-4206-858D-86DF8B633C75@icloud.com>",
+        "<CABmqZHO2a1m-KcW+Nuk82Qrw14c2+PEtvhzSz+s0CqWjsKpkqg@mail.gmail.com>"
+      ],
+      "body_plain": "I have the exactly same session info.\nSo, I restarted the computer and it works now.\nSorry for this inconvenience. I?ll try everything before asking silly questions?\n\nThank you\n\n\nOn 29 Jan 2014, at 11:52, Ingmar Visser <i.visser at uva.nl> wrote:\n\n> Your first example works for me with nice labels including \"x bar\"\n> etc, using this configuration:\n> \n>> sessionInfo()\n> R version 3.0.2 (2013-09-25)\n> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> Best, Ingmar\n> \n> \n> On Wed, Jan 29, 2014 at 11:39 AM, Roberta Rezende\n> <roberta.rezende at icloud.com> wrote:\n>> Hi everyone,\n>> \n>> I'm a newbie and I'm studying R.\n>> I'm using Mavericks 10.9.1, R 3.0.2 with Rstudio.\n>> \n>> I've tried this simple example:\n>> \n>> x <- rnorm(100)\n>> y <- x + rnorm(100, sd = 0.5)\n>> plot(x, y,\n>>     xlab=substitute(bar(x) == k, list(k=mean(x))),\n>>     ylab=substitute(bar(y) == k, list(k=mean(y)))\n>> )\n>> \n>> but my plot only has the plot, with no labels at all.\n>> \n>> If I try the follow example, it works\n>> \n>> plot(0, 0, main = expression(theta == 0),\n>>     ylab = expression(hat(gamma) == 0),\n>>     xlab = expression(sum(x[i] * y[i], i==1, n)))\n>> \n>> It is like it can't do math, but it can plot values given.\n>> \n>> May I have to install something else?\n>> \n>> Thank you for your help\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I have the exactly same session info.\nSo, I restarted the computer and it works now.\nSorry for this inconvenience. I?ll try everything before asking silly questions?\n\nThank you\n\n\nOn 29 Jan 2014, at 11",
+      "thread_id": "thread-d9b2ea9d76c2",
+      "thread_depth": 2,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-71927cecf119",
+      "message_id": "<52E8F61F.4060402@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "17e1fcd7901e6a11dc6bc3ede542d46252611499631dfb4199936939fda2e399",
+      "date": "2014-01-29T07:37:51-05:00",
+      "subject": "[R-SIG-Mac] problem with plot math",
+      "subject_clean": "problem with plot math",
+      "in_reply_to": "<046840BC-766B-4066-AF72-066908B7D284@icloud.com>",
+      "references": [
+        "<5C68CCA8-6096-4206-858D-86DF8B633C75@icloud.com>",
+        "<CABmqZHO2a1m-KcW+Nuk82Qrw14c2+PEtvhzSz+s0CqWjsKpkqg@mail.gmail.com>",
+        "<046840BC-766B-4066-AF72-066908B7D284@icloud.com>"
+      ],
+      "body_plain": "On 14-01-29 6:06 AM, Roberta Rezende wrote:\n> I have the exactly same session info.\n> So, I restarted the computer and it works now.\n> Sorry for this inconvenience. I?ll try everything before asking silly questions?\n\nI'd guess the most likely thing is that your margins were too narrow \nbecause of some previous operation.  Closing and reopening the graphics \nwindow should restore the default margins, you probably don't need to \nrestart R, RStudio or the whole computer.\n\nYou can see the current margins by using par(\"mar\").  The default \nsetting is c(5.1, 4.1, 4.1, 2.1), i.e. a bit more than 5 lines at the \nbottom, 4 on the left and top, and 2 on the right.\n\nDuncan Murdoch\n\n>\n> Thank you\n>\n>\n> On 29 Jan 2014, at 11:52, Ingmar Visser <i.visser at uva.nl> wrote:\n>\n>> Your first example works for me with nice labels including \"x bar\"\n>> etc, using this configuration:\n>>\n>>> sessionInfo()\n>> R version 3.0.2 (2013-09-25)\n>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>\n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> Best, Ingmar\n>>\n>>\n>> On Wed, Jan 29, 2014 at 11:39 AM, Roberta Rezende\n>> <roberta.rezende at icloud.com> wrote:\n>>> Hi everyone,\n>>>\n>>> I'm a newbie and I'm studying R.\n>>> I'm using Mavericks 10.9.1, R 3.0.2 with Rstudio.\n>>>\n>>> I've tried this simple example:\n>>>\n>>> x <- rnorm(100)\n>>> y <- x + rnorm(100, sd = 0.5)\n>>> plot(x, y,\n>>>      xlab=substitute(bar(x) == k, list(k=mean(x))),\n>>>      ylab=substitute(bar(y) == k, list(k=mean(y)))\n>>> )\n>>>\n>>> but my plot only has the plot, with no labels at all.\n>>>\n>>> If I try the follow example, it works\n>>>\n>>> plot(0, 0, main = expression(theta == 0),\n>>>      ylab = expression(hat(gamma) == 0),\n>>>      xlab = expression(sum(x[i] * y[i], i==1, n)))\n>>>\n>>> It is like it can't do math, but it can plot values given.\n>>>\n>>> May I have to install something else?\n>>>\n>>> Thank you for your help\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On 14-01-29 6:06 AM, Roberta Rezende wrote:\n> I have the exactly same session info.\n> So, I restarted the computer and it works now.\n> Sorry for this inconvenience. I?ll try everything before asking s",
+      "thread_id": "thread-d9b2ea9d76c2",
+      "thread_depth": 3,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-8d43fc0a3b3a",
+      "message_id": "<588E15F1-9EAC-416D-955C-F5146B3C33C8@icloud.com>",
+      "from_name": "Roberta Rezende",
+      "from_email_hash": "f7fa30285f8d2583c5a182789f3d0466b0f717d814d70fd21216edbb97b60ddd",
+      "date": "2014-01-29T15:50:46+01:00",
+      "subject": "[R-SIG-Mac] problem with plot math",
+      "subject_clean": "problem with plot math",
+      "in_reply_to": "<52E8F61F.4060402@gmail.com>",
+      "references": [
+        "<5C68CCA8-6096-4206-858D-86DF8B633C75@icloud.com>",
+        "<CABmqZHO2a1m-KcW+Nuk82Qrw14c2+PEtvhzSz+s0CqWjsKpkqg@mail.gmail.com>",
+        "<046840BC-766B-4066-AF72-066908B7D284@icloud.com>",
+        "<52E8F61F.4060402@gmail.com>"
+      ],
+      "body_plain": "What you say is interesting. \n> par(\"mar\")\n[1] 5.1 4.1 4.1 2.1\n\nBut why after restarting it came back?\nWell, then it was gone and even if I restart all the computer, it never comes back.\nSo I?ve reset the PRAM (don?t know if it was a good idea) but now it works really great after many tries!\n\nthank you!\n\nRoberta\n\n\nOn 29 Jan 2014, at 13:37, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n\n> On 14-01-29 6:06 AM, Roberta Rezende wrote:\n>> I have the exactly same session info.\n>> So, I restarted the computer and it works now.\n>> Sorry for this inconvenience. I?ll try everything before asking silly questions?\n> \n> I'd guess the most likely thing is that your margins were too narrow because of some previous operation.  Closing and reopening the graphics window should restore the default margins, you probably don't need to restart R, RStudio or the whole computer.\n> \n> You can see the current margins by using par(\"mar\").  The default setting is c(5.1, 4.1, 4.1, 2.1), i.e. a bit more than 5 lines at the bottom, 4 on the left and top, and 2 on the right.\n> \n> Duncan Murdoch\n> \n>> \n>> Thank you\n>> \n>> \n>> On 29 Jan 2014, at 11:52, Ingmar Visser <i.visser at uva.nl> wrote:\n>> \n>>> Your first example works for me with nice labels including \"x bar\"\n>>> etc, using this configuration:\n>>> \n>>>> sessionInfo()\n>>> R version 3.0.2 (2013-09-25)\n>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>> \n>>> locale:\n>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>> \n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>> \n>>> Best, Ingmar\n>>> \n>>> \n>>> On Wed, Jan 29, 2014 at 11:39 AM, Roberta Rezende\n>>> <roberta.rezende at icloud.com> wrote:\n>>>> Hi everyone,\n>>>> \n>>>> I'm a newbie and I'm studying R.\n>>>> I'm using Mavericks 10.9.1, R 3.0.2 with Rstudio.\n>>>> \n>>>> I've tried this simple example:\n>>>> \n>>>> x <- rnorm(100)\n>>>> y <- x + rnorm(100, sd = 0.5)\n>>>> plot(x, y,\n>>>>     xlab=substitute(bar(x) == k, list(k=mean(x))),\n>>>>     ylab=substitute(bar(y) == k, list(k=mean(y)))\n>>>> )\n>>>> \n>>>> but my plot only has the plot, with no labels at all.\n>>>> \n>>>> If I try the follow example, it works\n>>>> \n>>>> plot(0, 0, main = expression(theta == 0),\n>>>>     ylab = expression(hat(gamma) == 0),\n>>>>     xlab = expression(sum(x[i] * y[i], i==1, n)))\n>>>> \n>>>> It is like it can't do math, but it can plot values given.\n>>>> \n>>>> May I have to install something else?\n>>>> \n>>>> Thank you for your help\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>",
+      "body_snippet": "What you say is interesting. \n> par(\"mar\")\n[1] 5.1 4.1 4.1 2.1\n\nBut why after restarting it came back?\nWell, then it was gone and even if I restart all the computer, it never comes back.\nSo I?ve reset",
+      "thread_id": "thread-d9b2ea9d76c2",
+      "thread_depth": 4,
+      "month": "2014-01"
+    },
+    {
+      "id": "msg-c9a4339f1571",
+      "message_id": "<544510C9-7651-4B44-84A8-9851936F3FE6@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-01-29T12:13:25-05:00",
+      "subject": "[R-SIG-Mac] problem with plot math",
+      "subject_clean": "problem with plot math",
+      "in_reply_to": "<588E15F1-9EAC-416D-955C-F5146B3C33C8@icloud.com>",
+      "references": [
+        "<5C68CCA8-6096-4206-858D-86DF8B633C75@icloud.com>",
+        "<CABmqZHO2a1m-KcW+Nuk82Qrw14c2+PEtvhzSz+s0CqWjsKpkqg@mail.gmail.com>",
+        "<046840BC-766B-4066-AF72-066908B7D284@icloud.com>",
+        "<52E8F61F.4060402@gmail.com>",
+        "<588E15F1-9EAC-416D-955C-F5146B3C33C8@icloud.com>"
+      ],
+      "body_plain": "On Jan 29, 2014, at 9:50 AM, Roberta Rezende <roberta.rezende at icloud.com> wrote:\n\n> What you say is interesting. \n>> par(\"mar\")\n> [1] 5.1 4.1 4.1 2.1\n> \n> But why after restarting it came back?\n\nYou probably had some issues with your fonts and the font cache got re-built after restart.\n\nCheers,\nSimon\n\n\n> Well, then it was gone and even if I restart all the computer, it never comes back.\n> So I?ve reset the PRAM (don?t know if it was a good idea) but now it works really great after many tries!\n> \n> thank you!\n> \n> Roberta\n> \n> \n> On 29 Jan 2014, at 13:37, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n>> On 14-01-29 6:06 AM, Roberta Rezende wrote:\n>>> I have the exactly same session info.\n>>> So, I restarted the computer and it works now.\n>>> Sorry for this inconvenience. I?ll try everything before asking silly questions?\n>> \n>> I'd guess the most likely thing is that your margins were too narrow because of some previous operation.  Closing and reopening the graphics window should restore the default margins, you probably don't need to restart R, RStudio or the whole computer.\n>> \n>> You can see the current margins by using par(\"mar\").  The default setting is c(5.1, 4.1, 4.1, 2.1), i.e. a bit more than 5 lines at the bottom, 4 on the left and top, and 2 on the right.\n>> \n>> Duncan Murdoch\n>> \n>>> \n>>> Thank you\n>>> \n>>> \n>>> On 29 Jan 2014, at 11:52, Ingmar Visser <i.visser at uva.nl> wrote:\n>>> \n>>>> Your first example works for me with nice labels including \"x bar\"\n>>>> etc, using this configuration:\n>>>> \n>>>>> sessionInfo()\n>>>> R version 3.0.2 (2013-09-25)\n>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>> \n>>>> locale:\n>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>> \n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>> \n>>>> Best, Ingmar\n>>>> \n>>>> \n>>>> On Wed, Jan 29, 2014 at 11:39 AM, Roberta Rezende\n>>>> <roberta.rezende at icloud.com> wrote:\n>>>>> Hi everyone,\n>>>>> \n>>>>> I'm a newbie and I'm studying R.\n>>>>> I'm using Mavericks 10.9.1, R 3.0.2 with Rstudio.\n>>>>> \n>>>>> I've tried this simple example:\n>>>>> \n>>>>> x <- rnorm(100)\n>>>>> y <- x + rnorm(100, sd = 0.5)\n>>>>> plot(x, y,\n>>>>>    xlab=substitute(bar(x) == k, list(k=mean(x))),\n>>>>>    ylab=substitute(bar(y) == k, list(k=mean(y)))\n>>>>> )\n>>>>> \n>>>>> but my plot only has the plot, with no labels at all.\n>>>>> \n>>>>> If I try the follow example, it works\n>>>>> \n>>>>> plot(0, 0, main = expression(theta == 0),\n>>>>>    ylab = expression(hat(gamma) == 0),\n>>>>>    xlab = expression(sum(x[i] * y[i], i==1, n)))\n>>>>> \n>>>>> It is like it can't do math, but it can plot values given.\n>>>>> \n>>>>> May I have to install something else?\n>>>>> \n>>>>> Thank you for your help\n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Jan 29, 2014, at 9:50 AM, Roberta Rezende <roberta.rezende at icloud.com> wrote:\n\n> What you say is interesting. \n>> par(\"mar\")\n> [1] 5.1 4.1 4.1 2.1\n> \n> But why after restarting it came back?\n\nYo",
+      "thread_id": "thread-d9b2ea9d76c2",
+      "thread_depth": 5,
+      "month": "2014-01"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-0ea0ff7becb0",
+      "subject": "architecture problems for BUILD & SHLIB",
+      "message_count": 2,
+      "participants": [
+        "Dan Rabosky",
+        "Prof Brian Ripley"
+      ],
+      "started": "2014-01-06T09:14:52-05:00",
+      "last_reply": "2014-01-13T08:40:05+00:00",
+      "root_message_id": "msg-0ea0ff7becb0"
+    },
+    {
+      "id": "thread-adc870457b18",
+      "subject": "R and Xcode 5",
+      "message_count": 3,
+      "participants": [
+        "Rainer M Krug",
+        "Simon Urbanek"
+      ],
+      "started": "2014-01-06T21:11:59-05:00",
+      "last_reply": "2014-01-07T09:41:42+01:00",
+      "root_message_id": "msg-adc870457b18"
+    },
+    {
+      "id": "thread-cbafa49590de",
+      "subject": "Segfault Error in GUI version of R",
+      "message_count": 2,
+      "participants": [
+        "Amanda Charbonneau",
+        "Prof Brian Ripley"
+      ],
+      "started": "2014-01-11T20:16:58-05:00",
+      "last_reply": "2014-01-13T08:28:32+00:00",
+      "root_message_id": "msg-cbafa49590de"
+    },
+    {
+      "id": "thread-3b7685e33fd4",
+      "subject": "tcltk makes R crash under Mavericks",
+      "message_count": 2,
+      "participants": [
+        "Claudia Tebaldi",
+        "Robert J Goedman"
+      ],
+      "started": "2014-01-14T07:08:36-08:00",
+      "last_reply": "2014-01-14T08:56:17-07:00",
+      "root_message_id": "msg-3b7685e33fd4"
+    },
+    {
+      "id": "thread-3773668ca494",
+      "subject": "R ESS X11 issue possibly related to R tcltk crash under Mavericks...",
+      "message_count": 2,
+      "participants": [
+        "Blair Christian",
+        "Simon Urbanek"
+      ],
+      "started": "2014-01-15T07:02:27-05:00",
+      "last_reply": "2014-01-15T14:04:35-05:00",
+      "root_message_id": "msg-3773668ca494"
+    },
+    {
+      "id": "thread-28ef02cd2288",
+      "subject": "My first package",
+      "message_count": 12,
+      "participants": [
+        "Axel Urbiz",
+        "Federico Calboli",
+        "Gábor Csárdi",
+        "Matthew Denwood",
+        "Simon Urbanek"
+      ],
+      "started": "2014-01-18T15:31:19+01:00",
+      "last_reply": "2014-01-20T12:09:25-05:00",
+      "root_message_id": "msg-28ef02cd2288"
+    },
+    {
+      "id": "thread-2c5161c4f51c",
+      "subject": "Building backward compatible binary packages with OS X 10.9 and Xcode 5.0?",
+      "message_count": 2,
+      "participants": [
+        "Reijo Sund",
+        "Simon Urbanek"
+      ],
+      "started": "2014-01-20T01:43:26+02:00",
+      "last_reply": "2014-01-19T19:26:44-05:00",
+      "root_message_id": "msg-2c5161c4f51c"
+    },
+    {
+      "id": "thread-48298e6d183d",
+      "subject": "Unable to install R-2.11.1.pkg and up to R-3.0.2 in Mac OSX 10.8.5",
+      "message_count": 2,
+      "participants": [
+        "LUIS VELO",
+        "Simon Urbanek"
+      ],
+      "started": "2014-01-20T21:53:11+01:00",
+      "last_reply": "2014-01-24T11:19:48-05:00",
+      "root_message_id": "msg-48298e6d183d"
+    },
+    {
+      "id": "thread-7732a1e1000f",
+      "subject": "Inaccurate Rprof() timings on a darwin machine running SL w/ 64-bit kernel",
+      "message_count": 1,
+      "participants": [
+        "Clayton Stanley"
+      ],
+      "started": "2014-01-22T11:35:53-06:00",
+      "last_reply": "2014-01-22T11:35:53-06:00",
+      "root_message_id": "msg-7732a1e1000f"
+    },
+    {
+      "id": "thread-e3d834242cb0",
+      "subject": "Shortcut for launching command line R?",
+      "message_count": 14,
+      "participants": [
+        "Agustin Diez Castillo",
+        "Dave Deriso",
+        "Gábor Csárdi",
+        "Prof Brian Ripley",
+        "Reijo Sund",
+        "Robert J Goedman",
+        "Simon Urbanek",
+        "Tyler Ritchie"
+      ],
+      "started": "2014-01-24T01:09:25+02:00",
+      "last_reply": "2014-01-24T09:34:02+01:00",
+      "root_message_id": "msg-e3d834242cb0"
+    },
+    {
+      "id": "thread-4eaa52d1cbc2",
+      "subject": "error with RMySQL",
+      "message_count": 3,
+      "participants": [
+        "Duncan Murdoch",
+        "didier peeters"
+      ],
+      "started": "2014-01-27T16:03:33+01:00",
+      "last_reply": "2014-01-27T16:38:29+01:00",
+      "root_message_id": "msg-4eaa52d1cbc2"
+    },
+    {
+      "id": "thread-d9b2ea9d76c2",
+      "subject": "problem with plot math",
+      "message_count": 6,
+      "participants": [
+        "Duncan Murdoch",
+        "Ingmar Visser",
+        "Roberta Rezende",
+        "Simon Urbanek"
+      ],
+      "started": "2014-01-29T11:39:49+01:00",
+      "last_reply": "2014-01-29T12:13:25-05:00",
+      "root_message_id": "msg-d9b2ea9d76c2"
+    }
+  ]
+}

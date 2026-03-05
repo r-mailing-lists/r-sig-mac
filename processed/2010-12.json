@@ -1,0 +1,909 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2010-12",
+  "messages": [
+    {
+      "id": "msg-440d4dfbe3aa",
+      "message_id": "<18001441.13753.1291213290442.JavaMail.open-xchange@oxde01>",
+      "from_name": "Richard R. Liu",
+      "from_email_hash": "a58a046f7f33b57599dca05769e74064dc71ff3e6cadafe69904dd7eaaf0c46f",
+      "date": "2010-12-01T15:21:30+01:00",
+      "subject": "[R-SIG-Mac] Java on Mac OS X 10.6.5 (Snow Leopard)",
+      "subject_clean": "Java on Mac OS X 10.6.5 (Snow Leopard)",
+      "in_reply_to": "<mailman.21.1291201206.14469.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.21.1291201206.14469.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "Further to Simon's instructions, point two, rerunning javareconf: if you want to\nreconfigure Java in R to produce universal binaries, then specify the --arch=\nswitch for R. ?I ran the command line once with --arch=i386 and once with\n--arch=x86_64 to produce a single version of rJava for both architectures. \n\n\nRichard\n\nOn December 1, 2010 at 12:00 PM r-sig-mac-request at r-project.org wrote:\n\n> Date: Tue, 30 Nov 2010 10:01:26 -0500\n> From: Simon Urbanek <simon.urbanek at r-project.org>\n> To: \"r-sig-mac at stat.math.ethz.ch List\" <r-sig-mac at stat.math.ethz.ch>,\n>? ? ? ? ?\"stats-rosuda-devel at listserv.uni-augsburg.de List\"\n>? ? ? ? ?<stats-rosuda-devel at listserv.uni-augsburg.de>\n> Subject: [R-SIG-Mac] Java on Mac OS X 10.6.5 (Snow Leopard)\n> Message-ID: <8860749C-5410-49AF-A7F3-393108529A45 at r-project.org>\n> Content-Type: text/plain; charset=us-ascii\n>\n> Apparently the latest update to Snow Leopard (10.6.5) removes necessary header\n> files from the system Java installation. They are now only available in the\n> corresponding Xcode SDKs. What does that mean?\n>\n>\n> * If you are using binaries from CRAN, there is nothing to worry about and you\n> can ignore this e-mail.\n>\n>\n>\n> * If you are compiling packages against the JavaVM from sources (such as\n> rJava), you will need to point the compilers to the new location of the\n> headers.\n>\n> For example if you want to use the 10.6 SDK you'll have to use:\n> JAVA_CPPFLAGS=-I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaV\n> M.framework/Headers\n>\n> You have two options: you can re-run javareconf with JAVA_CPPFLAGS specified,\n> i.e. (the command is all on one line!):\n> JAVA_CPPFLAGS=-I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaV\n> M.framework/Headers R CMD javareconf\n>\n> this will configure R with the correct flags. Alternatively, you can set\n> JAVA_CPPFLAGS before installing the packages in question if you don't want to\n> touch the R Java configuration.\n>\n> Note: the above assumes you installed Xcode in the default location\n> \"/Developer\" - adjust accordingly if you used a custom location.\n>\n>\n> Cheers,\n> Simon\n>\n>\n>\n> ------------------------------\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> End of R-SIG-Mac Digest, Vol 94, Issue 1\n> ****************************************\n>\n\n\nRichard R. Liu\nrichard.liu at pueo-owl.ch",
+      "body_snippet": "Further to Simon's instructions, point two, rerunning javareconf: if you want to\nreconfigure Java in R to produce universal binaries, then specify the --arch=\nswitch for R. ?I ran the command line onc",
+      "thread_id": "thread-440d4dfbe3aa",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-d134f44c2831",
+      "message_id": "<F61D6687-C812-471B-9D5F-1F4BEF7DF832@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2010-12-01T18:42:54-05:00",
+      "subject": "[R-SIG-Mac] getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "subject_clean": "getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nUntil now, I have always been happy to export dataframes using write.csv2. The only drawback was than they often include accented vowels and Excel on Mac seems to ONLY be able to properly understand MacRoman encoding. So I used OpenOffice instead to open them. \n\nBut for the next little while, colleagues using Windows and who do not have a clue about encoding (and who do not want to know about encoding) need to use my files. My files will have to be in ISOLATIN1 encoding. It is unfortunate that the write.table family of functions does not have a FileEncoding option like the read.table function family.\n\nI thought I'd get away by saving into Excel files instead of csv. I successfully created Excel files using write.xlsx from xlsx package, but this created \"monster\" files that were in Excel format, opened in Excel, but all accented vowels came out wrong.\n\nI found another package, WriteXLS  that has an encoding option for its WriteXLS function. It does not work on my Mac (running 10.6.5). The provided testPerl() function confirmed what the authors states in the INSTALL file I got with the package:\n\n\"Text::CSV_XS seems to be the one most likely to require separate installation, again, with the\nexception of ActiveState Perl, as noted above. Thus, in most cases, this may be the only Perl\nmodule that you will need to install beyond what is already provided in your Perl installation\nand the WriteXLS package. \"\n\ntestPerl()\nPerl found.\n\nThe following Perl modules were not found on this system:\n\nText::CSV_XS\n\nIf you have more than one Perl installation, be sure the correct one was used here.\n\nOtherwise, please install the missing modules. See the package INSTALL file for more information.\n\n\nIn the INSTALL file, instructions for Mac OS X are:\n\"\n\nOnce the tools are installed, you can then install any missing Perl modules by using the command line in a Terminal\nsuch as:\n\n  [sudo -H] cpan -i Text::CSV_XS\n\nThe 'sudo -H' is optional. It is required if you want to install the additional modules for yourself and other users \nof the Mac. Otherwise, if you just want to perform a 'local' install for yourself, it is not required.\"\n\nThe tools he refers to are the Developer's tools, which I have (though I did not do anything to keep them \"up to date\"). But running the above command resulted in this:\n\nsudo -H cpan -i Text::CSV_XS\nPassword:\nCPAN: Storable loaded ok (v2.18)\nGoing to read /var/root/.cpan/Metadata\n  Database was generated on Wed, 01 Dec 2010 22:42:47 GMT\nRunning install for module 'Text::CSV_XS'\nCPAN: Data::Dumper loaded ok (v2.121_14)\n'YAML' not installed, falling back to Data::Dumper and Storable to read prefs '/var/root/.cpan/prefs'\nRunning make for H/HM/HMBRAND/Text-CSV_XS-0.79.tgz\nCPAN: Digest::SHA loaded ok (v5.45)\nCPAN: Compress::Zlib loaded ok (v2.008)\nChecksum for /var/root/.cpan/sources/authors/id/H/HM/HMBRAND/Text-CSV_XS-0.79.tgz ok\nx Text-CSV_XS-0.79/\nx Text-CSV_XS-0.79/README\nx Text-CSV_XS-0.79/t/\nx Text-CSV_XS-0.79/t/60_samples.t\nx Text-CSV_XS-0.79/t/75_hashref.t\nx Text-CSV_XS-0.79/t/70_rt.t\nx Text-CSV_XS-0.79/t/15_flags.t\nx Text-CSV_XS-0.79/t/21_lexicalio.t\nx Text-CSV_XS-0.79/t/00_pod.t\nx Text-CSV_XS-0.79/t/65_allow.t\nx Text-CSV_XS-0.79/t/12_acc.t\nx Text-CSV_XS-0.79/t/20_file.t\nx Text-CSV_XS-0.79/t/22_scalario.t\nx Text-CSV_XS-0.79/t/51_utf8.t\nx Text-CSV_XS-0.79/t/81_subclass.t\nx Text-CSV_XS-0.79/t/80_diag.t\nx Text-CSV_XS-0.79/t/45_eol.t\nx Text-CSV_XS-0.79/t/50_utf8.t\nx Text-CSV_XS-0.79/t/util.pl\nx Text-CSV_XS-0.79/t/10_base.t\nx Text-CSV_XS-0.79/t/46_eol_si.t\nx Text-CSV_XS-0.79/t/41_null.t\nx Text-CSV_XS-0.79/t/40_misc.t\nx Text-CSV_XS-0.79/t/30_types.t\nx Text-CSV_XS-0.79/t/55_combi.t\nx Text-CSV_XS-0.79/t/76_magic.t\nx Text-CSV_XS-0.79/t/01_pod.t\nx Text-CSV_XS-0.79/CSV_XS.PL\nx Text-CSV_XS-0.79/examples/\nx Text-CSV_XS-0.79/examples/speed.pl\nx Text-CSV_XS-0.79/examples/csv-check\nx Text-CSV_XS-0.79/examples/parser-xs.pl\nx Text-CSV_XS-0.79/examples/csv2xls\nx Text-CSV_XS-0.79/examples/csvdiff\nx Text-CSV_XS-0.79/META.yml\nx Text-CSV_XS-0.79/CSV_XS.xs\nx Text-CSV_XS-0.79/MANIFEST\nx Text-CSV_XS-0.79/files/\nx Text-CSV_XS-0.79/files/utf8.csv\nx Text-CSV_XS-0.79/files/macosx.csv\nx Text-CSV_XS-0.79/ChangeLog\nx Text-CSV_XS-0.79/CSV_XS.pm\nx Text-CSV_XS-0.79/ppport.h\nx Text-CSV_XS-0.79/Makefile.PL\nCPAN: File::Temp loaded ok (v0.18)\nWarning (usually harmless): 'YAML' not installed, will not store persistent state\n\n  CPAN.pm: Going to build H/HM/HMBRAND/Text-CSV_XS-0.79.tgz\n\nChecking if your kit is complete...\nLooks good\nWriting Makefile for Text::CSV_XS\nCould not read '/var/root/.cpan/build/Text-CSV_XS-0.79-jEKZ8Y/META.yml'. Falling back to other methods to determine prerequisites\n  HMBRAND/Text-CSV_XS-0.79.tgz\n  make -- NOT OK\nWarning (usually harmless): 'YAML' not installed, will not store persistent state\nRunning make test\n  Can't test without successful make\nRunning make install\n  Make had returned bad status, install seems impossible\n\nIf you see what I am doing wrong, your help will be most appreciated.\n\nIs there another solution, such as easily (inside my R scripts) temporarily getting R to output csv files  in isolatin1?\n\nThanks in advance,\n\nDenis Chabot",
+      "body_snippet": "Hi,\n\nUntil now, I have always been happy to export dataframes using write.csv2. The only drawback was than they often include accented vowels and Excel on Mac seems to ONLY be able to properly underst",
+      "thread_id": "thread-d134f44c2831",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-f77be12c1dfe",
+      "message_id": "<478363AC-2FE5-4306-B9D4-42E4A64107B3@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "1c0c26ffdc63f8bcd27163d1af93be76a2c5ad37789d7759468aa44285929e74",
+      "date": "2010-12-01T19:45:42-06:00",
+      "subject": "[R-SIG-Mac] getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "subject_clean": "getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "in_reply_to": "<F61D6687-C812-471B-9D5F-1F4BEF7DF832@globetrotter.net>",
+      "references": [
+        "<F61D6687-C812-471B-9D5F-1F4BEF7DF832@globetrotter.net>"
+      ],
+      "body_plain": "On Dec 1, 2010, at 5:42 PM, Denis Chabot wrote:\n\n> Hi,\n> \n> Until now, I have always been happy to export dataframes using write.csv2. The only drawback was than they often include accented vowels and Excel on Mac seems to ONLY be able to properly understand MacRoman encoding. So I used OpenOffice instead to open them. \n> \n> But for the next little while, colleagues using Windows and who do not have a clue about encoding (and who do not want to know about encoding) need to use my files. My files will have to be in ISOLATIN1 encoding. It is unfortunate that the write.table family of functions does not have a FileEncoding option like the read.table function family.\n> \n> I thought I'd get away by saving into Excel files instead of csv. I successfully created Excel files using write.xlsx from xlsx package, but this created \"monster\" files that were in Excel format, opened in Excel, but all accented vowels came out wrong.\n> \n> I found another package, WriteXLS  that has an encoding option for its WriteXLS function. It does not work on my Mac (running 10.6.5). The provided testPerl() function confirmed what the authors states in the INSTALL file I got with the package:\n> \n> \"Text::CSV_XS seems to be the one most likely to require separate installation, again, with the\n> exception of ActiveState Perl, as noted above. Thus, in most cases, this may be the only Perl\n> module that you will need to install beyond what is already provided in your Perl installation\n> and the WriteXLS package. \"\n> \n> testPerl()\n> Perl found.\n> \n> The following Perl modules were not found on this system:\n> \n> Text::CSV_XS\n> \n> If you have more than one Perl installation, be sure the correct one was used here.\n> \n> Otherwise, please install the missing modules. See the package INSTALL file for more information.\n> \n> \n> In the INSTALL file, instructions for Mac OS X are:\n> \"\n> \n> Once the tools are installed, you can then install any missing Perl modules by using the command line in a Terminal\n> such as:\n> \n>  [sudo -H] cpan -i Text::CSV_XS\n> \n> The 'sudo -H' is optional. It is required if you want to install the additional modules for yourself and other users \n> of the Mac. Otherwise, if you just want to perform a 'local' install for yourself, it is not required.\"\n> \n> The tools he refers to are the Developer's tools, which I have (though I did not do anything to keep them \"up to date\"). But running the above command resulted in this:\n> \n> sudo -H cpan -i Text::CSV_XS\n> Password:\n> CPAN: Storable loaded ok (v2.18)\n> Going to read /var/root/.cpan/Metadata\n>  Database was generated on Wed, 01 Dec 2010 22:42:47 GMT\n> Running install for module 'Text::CSV_XS'\n> CPAN: Data::Dumper loaded ok (v2.121_14)\n> 'YAML' not installed, falling back to Data::Dumper and Storable to read prefs '/var/root/.cpan/prefs'\n> Running make for H/HM/HMBRAND/Text-CSV_XS-0.79.tgz\n> CPAN: Digest::SHA loaded ok (v5.45)\n> CPAN: Compress::Zlib loaded ok (v2.008)\n> Checksum for /var/root/.cpan/sources/authors/id/H/HM/HMBRAND/Text-CSV_XS-0.79.tgz ok\n> x Text-CSV_XS-0.79/\n> x Text-CSV_XS-0.79/README\n> x Text-CSV_XS-0.79/t/\n> x Text-CSV_XS-0.79/t/60_samples.t\n> x Text-CSV_XS-0.79/t/75_hashref.t\n> x Text-CSV_XS-0.79/t/70_rt.t\n> x Text-CSV_XS-0.79/t/15_flags.t\n> x Text-CSV_XS-0.79/t/21_lexicalio.t\n> x Text-CSV_XS-0.79/t/00_pod.t\n> x Text-CSV_XS-0.79/t/65_allow.t\n> x Text-CSV_XS-0.79/t/12_acc.t\n> x Text-CSV_XS-0.79/t/20_file.t\n> x Text-CSV_XS-0.79/t/22_scalario.t\n> x Text-CSV_XS-0.79/t/51_utf8.t\n> x Text-CSV_XS-0.79/t/81_subclass.t\n> x Text-CSV_XS-0.79/t/80_diag.t\n> x Text-CSV_XS-0.79/t/45_eol.t\n> x Text-CSV_XS-0.79/t/50_utf8.t\n> x Text-CSV_XS-0.79/t/util.pl\n> x Text-CSV_XS-0.79/t/10_base.t\n> x Text-CSV_XS-0.79/t/46_eol_si.t\n> x Text-CSV_XS-0.79/t/41_null.t\n> x Text-CSV_XS-0.79/t/40_misc.t\n> x Text-CSV_XS-0.79/t/30_types.t\n> x Text-CSV_XS-0.79/t/55_combi.t\n> x Text-CSV_XS-0.79/t/76_magic.t\n> x Text-CSV_XS-0.79/t/01_pod.t\n> x Text-CSV_XS-0.79/CSV_XS.PL\n> x Text-CSV_XS-0.79/examples/\n> x Text-CSV_XS-0.79/examples/speed.pl\n> x Text-CSV_XS-0.79/examples/csv-check\n> x Text-CSV_XS-0.79/examples/parser-xs.pl\n> x Text-CSV_XS-0.79/examples/csv2xls\n> x Text-CSV_XS-0.79/examples/csvdiff\n> x Text-CSV_XS-0.79/META.yml\n> x Text-CSV_XS-0.79/CSV_XS.xs\n> x Text-CSV_XS-0.79/MANIFEST\n> x Text-CSV_XS-0.79/files/\n> x Text-CSV_XS-0.79/files/utf8.csv\n> x Text-CSV_XS-0.79/files/macosx.csv\n> x Text-CSV_XS-0.79/ChangeLog\n> x Text-CSV_XS-0.79/CSV_XS.pm\n> x Text-CSV_XS-0.79/ppport.h\n> x Text-CSV_XS-0.79/Makefile.PL\n> CPAN: File::Temp loaded ok (v0.18)\n> Warning (usually harmless): 'YAML' not installed, will not store persistent state\n> \n>  CPAN.pm: Going to build H/HM/HMBRAND/Text-CSV_XS-0.79.tgz\n> \n> Checking if your kit is complete...\n> Looks good\n> Writing Makefile for Text::CSV_XS\n> Could not read '/var/root/.cpan/build/Text-CSV_XS-0.79-jEKZ8Y/META.yml'. Falling back to other methods to determine prerequisites\n>  HMBRAND/Text-CSV_XS-0.79.tgz\n>  make -- NOT OK\n> Warning (usually harmless): 'YAML' not installed, will not store persistent state\n> Running make test\n>  Can't test without successful make\n> Running make install\n>  Make had returned bad status, install seems impossible\n> \n> If you see what I am doing wrong, your help will be most appreciated.\n> \n> Is there another solution, such as easily (inside my R scripts) temporarily getting R to output csv files  in isolatin1?\n> \n> Thanks in advance,\n> \n> Denis Chabot\n\n\nHi Denis,\n\nSorry that you are having issues with WriteXLS.  If my recollection is at all correct, I believe that the solution is to re-install XCode Tools on your system. The YAML related warnings are ignorable, but the other errors suggest problems with the XCode Tools install on your system. I would be sure to download the latest version of XCode Tools from:\n\n  http://developer.apple.com/technologies/xcode.html\n\nNote that the latest version of XCode is 3.2.5 and includes both OSX and iOS tools packaged together and weighs in at 3.5 Gb...it took around 35 minutes to download over my network connection here.\n\nLet me know if that does not does not help you.\n\nRegards,\n\nMarc Schwartz",
+      "body_snippet": "On Dec 1, 2010, at 5:42 PM, Denis Chabot wrote:\n\n> Hi,\n> \n> Until now, I have always been happy to export dataframes using write.csv2. The only drawback was than they often include accented vowels and",
+      "thread_id": "thread-d134f44c2831",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-473ed190eebc",
+      "message_id": "<alpine.LFD.2.00.1012020630510.13083@gannet.stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2010-12-02T06:37:45Z",
+      "subject": "[R-SIG-Mac] getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "subject_clean": "getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "in_reply_to": "<F61D6687-C812-471B-9D5F-1F4BEF7DF832@globetrotter.net>",
+      "references": [
+        "<F61D6687-C812-471B-9D5F-1F4BEF7DF832@globetrotter.net>"
+      ],
+      "body_plain": "On Wed, 1 Dec 2010, Denis Chabot wrote:\n\n> Hi,\n>\n> Until now, I have always been happy to export dataframes using \n> write.csv2. The only drawback was than they often include accented \n> vowels and Excel on Mac seems to ONLY be able to properly understand \n> MacRoman encoding. So I used OpenOffice instead to open them.\n>\n> But for the next little while, colleagues using Windows and who do \n> not have a clue about encoding (and who do not want to know about \n> encoding) need to use my files. My files will have to be in \n> ISOLATIN1 encoding.\n\nMost likely CP1252, which is the encoding used on Windows in W. \nEuropean languages, not-quite-a-superset of latin1. (This is all in \nthe R manuals, BTW.)\n\n> It is unfortunate that the write.table family of \n> functions does not have a FileEncoding option like the read.table \n> function family.\n\nBut that's just syntactic sugar.\n\n     file: either a character string naming a file or a connection open\n           for writing.  ?\"\"? indicates output to the console.\n\nSee ?file for how to specify the encoding of a connection.  Very \nlikely you want\n\ncon <- file('filename', open=\"w\", encoding = \"latin1\")\n\n(or \"macroman\": see ?iconvlist to find encoding names on your OS).\n\n[...]\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On Wed, 1 Dec 2010, Denis Chabot wrote:\n\n> Hi,\n>\n> Until now, I have always been happy to export dataframes using \n> write.csv2. The only drawback was than they often include accented \n> vowels and Ex",
+      "thread_id": "thread-d134f44c2831",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-e64e45b675ea",
+      "message_id": "<3D46B4C8-26EF-4680-ABC4-1F577042CB45@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2010-12-02T05:39:26-05:00",
+      "subject": "[R-SIG-Mac] getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "subject_clean": "getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "in_reply_to": "<alpine.LFD.2.00.1012020630510.13083@gannet.stats.ox.ac.uk>",
+      "references": [
+        "<F61D6687-C812-471B-9D5F-1F4BEF7DF832@globetrotter.net>",
+        "<alpine.LFD.2.00.1012020630510.13083@gannet.stats.ox.ac.uk>"
+      ],
+      "body_plain": "Thank you Prof. Ripley, I'll read ?file and ?iconvlist.\n\nDenis\nLe 2010-12-02 ? 01:37, Prof Brian Ripley a ?crit :\n\n> On Wed, 1 Dec 2010, Denis Chabot wrote:\n> \n>> Hi,\n>> \n>> Until now, I have always been happy to export dataframes using write.csv2. The only drawback was than they often include accented vowels and Excel on Mac seems to ONLY be able to properly understand MacRoman encoding. So I used OpenOffice instead to open them.\n>> \n>> But for the next little while, colleagues using Windows and who do not have a clue about encoding (and who do not want to know about encoding) need to use my files. My files will have to be in ISOLATIN1 encoding.\n> \n> Most likely CP1252, which is the encoding used on Windows in W. European languages, not-quite-a-superset of latin1. (This is all in the R manuals, BTW.)\n> \n>> It is unfortunate that the write.table family of functions does not have a FileEncoding option like the read.table function family.\n> \n> But that's just syntactic sugar.\n> \n>    file: either a character string naming a file or a connection open\n>          for writing.  ?\"\"? indicates output to the console.\n> \n> See ?file for how to specify the encoding of a connection.  Very likely you want\n> \n> con <- file('filename', open=\"w\", encoding = \"latin1\")\n> \n> (or \"macroman\": see ?iconvlist to find encoding names on your OS).\n> \n> [...]\n> \n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "Thank you Prof. Ripley, I'll read ?file and ?iconvlist.\n\nDenis\nLe 2010-12-02 ? 01:37, Prof Brian Ripley a ?crit :\n\n> On Wed, 1 Dec 2010, Denis Chabot wrote:\n> \n>> Hi,\n>> \n>> Until now, I have always b",
+      "thread_id": "thread-d134f44c2831",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-ed4b1124a459",
+      "message_id": "<5F2EBE9D-790A-4EA7-BE85-592A37A294B7@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2010-12-02T06:49:44-05:00",
+      "subject": "[R-SIG-Mac] R-SIG-Mac Digest, Vol 94, Issue 2",
+      "subject_clean": "R-SIG-Mac Digest, Vol 94, Issue 2",
+      "in_reply_to": "<mailman.25.1291287614.24241.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.25.1291287614.24241.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "Thanks Prof. Ripley,\n\nLe 2010-12-02 ? 06:00, r-sig-mac-request at r-project.org a ?crit :\n\n> \n> On Wed, 1 Dec 2010, Denis Chabot wrote:\n> \n>> Hi,\n>> \n>> Until now, I have always been happy to export dataframes using \n>> write.csv2. The only drawback was than they often include accented \n>> vowels and Excel on Mac seems to ONLY be able to properly understand \n>> MacRoman encoding. So I used OpenOffice instead to open them.\n>> \n>> But for the next little while, colleagues using Windows and who do \n>> not have a clue about encoding (and who do not want to know about \n>> encoding) need to use my files. My files will have to be in \n>> ISOLATIN1 encoding.\n> \n> Most likely CP1252, which is the encoding used on Windows in W. \n> European languages, not-quite-a-superset of latin1. (This is all in \n> the R manuals, BTW.)\n> \n>> It is unfortunate that the write.table family of \n>> functions does not have a FileEncoding option like the read.table \n>> function family.\n> \n> But that's just syntactic sugar.\n> \n>     file: either a character string naming a file or a connection open\n>           for writing.  ?\"\"? indicates output to the console.\n> \n> See ?file for how to specify the encoding of a connection.  Very \n> likely you want\n> \n> con <- file('filename', open=\"w\", encoding = \"latin1\")\n> \n> (or \"macroman\": see ?iconvlist to find encoding names on your OS).\n> \n> [...]\n> \n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n\nThis works well for me for dataframe \"test\":\n\ncon <- file(\"test.csv\", open=\"w\", encoding = \"LATIN1\")\nwrite.csv(test, con, row.names=F)\nclose(con)\n\nI hesitated to use close() because this suggested it would be closed automatically:\n\"open opens a connection. In general functions using connections will open them if they are not open, but then close them again, so to leave a connection open call open explicitly.\"\n\nBut I quickly discovered I had to close manually.\n\nDenis",
+      "body_snippet": "Thanks Prof. Ripley,\n\nLe 2010-12-02 ? 06:00, r-sig-mac-request at r-project.org a ?crit :\n\n> \n> On Wed, 1 Dec 2010, Denis Chabot wrote:\n> \n>> Hi,\n>> \n>> Until now, I have always been happy to export d",
+      "thread_id": "thread-ed4b1124a459",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-2e2231337af6",
+      "message_id": "<4C70F8BA-884A-4D25-9FAC-5DD710323AD8@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2010-12-02T07:14:42-05:00",
+      "subject": "[R-SIG-Mac] getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "subject_clean": "getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "in_reply_to": "<478363AC-2FE5-4306-B9D4-42E4A64107B3@me.com>",
+      "references": [
+        "<F61D6687-C812-471B-9D5F-1F4BEF7DF832@globetrotter.net>",
+        "<478363AC-2FE5-4306-B9D4-42E4A64107B3@me.com>"
+      ],
+      "body_plain": "Following Marc's suggestion, I installed the latest Developer's tools and was then able to install the missing Perl script from Terminal, as verified from within R by:\n\ntestPerl()\nPerl found.\n\nAll required Perl modules were found.\n\nI can now use WriteXLS when needed. Thanks Marc.\n\nDenis\n\nLe 2010-12-01 ? 20:45, Marc Schwartz a ?crit :\n\n> On Dec 1, 2010, at 5:42 PM, Denis Chabot wrote:\n> \n>> Hi,\n>> \n>> Until now, I have always been happy to export dataframes using write.csv2. The only drawback was than they often include accented vowels and Excel on Mac seems to ONLY be able to properly understand MacRoman encoding. So I used OpenOffice instead to open them. \n>> \n>> But for the next little while, colleagues using Windows and who do not have a clue about encoding (and who do not want to know about encoding) need to use my files. My files will have to be in ISOLATIN1 encoding. It is unfortunate that the write.table family of functions does not have a FileEncoding option like the read.table function family.\n>> \n>> I thought I'd get away by saving into Excel files instead of csv. I successfully created Excel files using write.xlsx from xlsx package, but this created \"monster\" files that were in Excel format, opened in Excel, but all accented vowels came out wrong.\n>> \n>> I found another package, WriteXLS  that has an encoding option for its WriteXLS function. It does not work on my Mac (running 10.6.5). The provided testPerl() function confirmed what the authors states in the INSTALL file I got with the package:\n>> \n>> \"Text::CSV_XS seems to be the one most likely to require separate installation, again, with the\n>> exception of ActiveState Perl, as noted above. Thus, in most cases, this may be the only Perl\n>> module that you will need to install beyond what is already provided in your Perl installation\n>> and the WriteXLS package. \"\n>> \n>> testPerl()\n>> Perl found.\n>> \n>> The following Perl modules were not found on this system:\n>> \n>> Text::CSV_XS\n>> \n>> If you have more than one Perl installation, be sure the correct one was used here.\n>> \n>> Otherwise, please install the missing modules. See the package INSTALL file for more information.\n>> \n>> \n>> In the INSTALL file, instructions for Mac OS X are:\n>> \"\n>> \n>> Once the tools are installed, you can then install any missing Perl modules by using the command line in a Terminal\n>> such as:\n>> \n>> [sudo -H] cpan -i Text::CSV_XS\n>> \n>> The 'sudo -H' is optional. It is required if you want to install the additional modules for yourself and other users \n>> of the Mac. Otherwise, if you just want to perform a 'local' install for yourself, it is not required.\"\n>> \n>> The tools he refers to are the Developer's tools, which I have (though I did not do anything to keep them \"up to date\"). But running the above command resulted in this:\n>> \n>> sudo -H cpan -i Text::CSV_XS\n>> Password:\n>> CPAN: Storable loaded ok (v2.18)\n>> Going to read /var/root/.cpan/Metadata\n>> Database was generated on Wed, 01 Dec 2010 22:42:47 GMT\n>> Running install for module 'Text::CSV_XS'\n>> CPAN: Data::Dumper loaded ok (v2.121_14)\n>> 'YAML' not installed, falling back to Data::Dumper and Storable to read prefs '/var/root/.cpan/prefs'\n>> Running make for H/HM/HMBRAND/Text-CSV_XS-0.79.tgz\n>> CPAN: Digest::SHA loaded ok (v5.45)\n>> CPAN: Compress::Zlib loaded ok (v2.008)\n>> Checksum for /var/root/.cpan/sources/authors/id/H/HM/HMBRAND/Text-CSV_XS-0.79.tgz ok\n>> x Text-CSV_XS-0.79/\n>> x Text-CSV_XS-0.79/README\n>> x Text-CSV_XS-0.79/t/\n>> x Text-CSV_XS-0.79/t/60_samples.t\n>> x Text-CSV_XS-0.79/t/75_hashref.t\n>> x Text-CSV_XS-0.79/t/70_rt.t\n>> x Text-CSV_XS-0.79/t/15_flags.t\n>> x Text-CSV_XS-0.79/t/21_lexicalio.t\n>> x Text-CSV_XS-0.79/t/00_pod.t\n>> x Text-CSV_XS-0.79/t/65_allow.t\n>> x Text-CSV_XS-0.79/t/12_acc.t\n>> x Text-CSV_XS-0.79/t/20_file.t\n>> x Text-CSV_XS-0.79/t/22_scalario.t\n>> x Text-CSV_XS-0.79/t/51_utf8.t\n>> x Text-CSV_XS-0.79/t/81_subclass.t\n>> x Text-CSV_XS-0.79/t/80_diag.t\n>> x Text-CSV_XS-0.79/t/45_eol.t\n>> x Text-CSV_XS-0.79/t/50_utf8.t\n>> x Text-CSV_XS-0.79/t/util.pl\n>> x Text-CSV_XS-0.79/t/10_base.t\n>> x Text-CSV_XS-0.79/t/46_eol_si.t\n>> x Text-CSV_XS-0.79/t/41_null.t\n>> x Text-CSV_XS-0.79/t/40_misc.t\n>> x Text-CSV_XS-0.79/t/30_types.t\n>> x Text-CSV_XS-0.79/t/55_combi.t\n>> x Text-CSV_XS-0.79/t/76_magic.t\n>> x Text-CSV_XS-0.79/t/01_pod.t\n>> x Text-CSV_XS-0.79/CSV_XS.PL\n>> x Text-CSV_XS-0.79/examples/\n>> x Text-CSV_XS-0.79/examples/speed.pl\n>> x Text-CSV_XS-0.79/examples/csv-check\n>> x Text-CSV_XS-0.79/examples/parser-xs.pl\n>> x Text-CSV_XS-0.79/examples/csv2xls\n>> x Text-CSV_XS-0.79/examples/csvdiff\n>> x Text-CSV_XS-0.79/META.yml\n>> x Text-CSV_XS-0.79/CSV_XS.xs\n>> x Text-CSV_XS-0.79/MANIFEST\n>> x Text-CSV_XS-0.79/files/\n>> x Text-CSV_XS-0.79/files/utf8.csv\n>> x Text-CSV_XS-0.79/files/macosx.csv\n>> x Text-CSV_XS-0.79/ChangeLog\n>> x Text-CSV_XS-0.79/CSV_XS.pm\n>> x Text-CSV_XS-0.79/ppport.h\n>> x Text-CSV_XS-0.79/Makefile.PL\n>> CPAN: File::Temp loaded ok (v0.18)\n>> Warning (usually harmless): 'YAML' not installed, will not store persistent state\n>> \n>> CPAN.pm: Going to build H/HM/HMBRAND/Text-CSV_XS-0.79.tgz\n>> \n>> Checking if your kit is complete...\n>> Looks good\n>> Writing Makefile for Text::CSV_XS\n>> Could not read '/var/root/.cpan/build/Text-CSV_XS-0.79-jEKZ8Y/META.yml'. Falling back to other methods to determine prerequisites\n>> HMBRAND/Text-CSV_XS-0.79.tgz\n>> make -- NOT OK\n>> Warning (usually harmless): 'YAML' not installed, will not store persistent state\n>> Running make test\n>> Can't test without successful make\n>> Running make install\n>> Make had returned bad status, install seems impossible\n>> \n>> If you see what I am doing wrong, your help will be most appreciated.\n>> \n>> Is there another solution, such as easily (inside my R scripts) temporarily getting R to output csv files  in isolatin1?\n>> \n>> Thanks in advance,\n>> \n>> Denis Chabot\n> \n> \n> Hi Denis,\n> \n> Sorry that you are having issues with WriteXLS.  If my recollection is at all correct, I believe that the solution is to re-install XCode Tools on your system. The YAML related warnings are ignorable, but the other errors suggest problems with the XCode Tools install on your system. I would be sure to download the latest version of XCode Tools from:\n> \n> http://developer.apple.com/technologies/xcode.html\n> \n> Note that the latest version of XCode is 3.2.5 and includes both OSX and iOS tools packaged together and weighs in at 3.5 Gb...it took around 35 minutes to download over my network connection here.\n> \n> Let me know if that does not does not help you.\n> \n> Regards,\n> \n> Marc Schwartz\n>",
+      "body_snippet": "Following Marc's suggestion, I installed the latest Developer's tools and was then able to install the missing Perl script from Terminal, as verified from within R by:\n\ntestPerl()\nPerl found.\n\nAll req",
+      "thread_id": "thread-d134f44c2831",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-60066ba2de1c",
+      "message_id": "<998B1280-1D48-492D-86A4-74DBADBBDA10@gmail.com>",
+      "from_name": "Deniz Kellecioglu",
+      "from_email_hash": "dc3920db2fddb1afa83bb854fbc7de90a7bef63751ebb4033456d7f38b0e65c7",
+      "date": "2010-12-03T10:33:48+02:00",
+      "subject": "[R-SIG-Mac] R for Mac, good enough?",
+      "subject_clean": "R for Mac, good enough?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear R and Mac friend,\n\nI am rather impressed by R, but dont know if it is worthwile to spend  \ntime learning it, if the Mac version is not comprehensive enough. I am  \na PhD student in macroeconometrics, with focus on time-series.\n\nWould you recommend me to use R in that case? And which material and  \npackages would you recommend to go trough and download?\n\n\nSincere regards\nDeniz",
+      "body_snippet": "Dear R and Mac friend,\n\nI am rather impressed by R, but dont know if it is worthwile to spend  \ntime learning it, if the Mac version is not comprehensive enough. I am  \na PhD student in macroeconometr",
+      "thread_id": "thread-60066ba2de1c",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-cf04b84dab4f",
+      "message_id": "<9689455F-262C-419E-A7A8-28AAF793DC57@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "997bb787abf80042157dc28e91db13eb5e5c0f433207dba7fcb5331fa2e472af",
+      "date": "2010-12-09T09:03:29+01:00",
+      "subject": "[R-SIG-Mac] R for Mac, good enough?",
+      "subject_clean": "R for Mac, good enough?",
+      "in_reply_to": "<998B1280-1D48-492D-86A4-74DBADBBDA10@gmail.com>",
+      "references": [
+        "<998B1280-1D48-492D-86A4-74DBADBBDA10@gmail.com>"
+      ],
+      "body_plain": "On 03-12-2010, at 09:33, Deniz Kellecioglu wrote:\n\n> Dear R and Mac friend,\n> \n> I am rather impressed by R, but dont know if it is worthwile to spend time learning it, if the Mac version is not comprehensive enough. I am a PhD student in macroeconometrics, with focus on time-series.\n> \n\nI wouldn't worry about the quality of the Mac version of R. It just works.\nIt is more than excellent. \nThe GUI R.app is easy and fun to use.\nCommandline R works just fine.\n32-bit and 64-bit version.\nAll thanks to the work of Simon Urbanek.\n\nAnd there is a brilliant interface to R for the TextMate editor.\n\n> Would you recommend me to use R in that case? And which material and packages would you recommend to go trough and download?\n\nGoto CRAN and download the installer package for Mac OS X: R-2.12.0.pkg\nIf you haven't worked with R before, you should look at the Rintro manual.\nGoto CRAN and click on Manuals; you'll be taken to the page with an overview of R documentation.\n\nFor further packages you can have a look at Task Views (also on CRAN). Have a look at the TimeSeries view.\n\nEnjoy.\n\n/Berend",
+      "body_snippet": "On 03-12-2010, at 09:33, Deniz Kellecioglu wrote:\n\n> Dear R and Mac friend,\n> \n> I am rather impressed by R, but dont know if it is worthwile to spend time learning it, if the Mac version is not compr",
+      "thread_id": "thread-60066ba2de1c",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-ba799b4aea9d",
+      "message_id": "<AANLkTinRk5NVrUrHuA_wEde3fU6nWVbQYujpraRSgnXD@mail.gmail.com>",
+      "from_name": "Serdar Akin",
+      "from_email_hash": "784273ed2d38d3c4a7109b8a655a0b62bbbf4507685f26cf58636e80d3f747e4",
+      "date": "2010-12-09T14:41:16+01:00",
+      "subject": "[R-SIG-Mac] R-SIG-Mac Digest, Vol 94, Issue 4",
+      "subject_clean": "R-SIG-Mac Digest, Vol 94, Issue 4",
+      "in_reply_to": "<mailman.19.1291892405.9597.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.19.1291892405.9597.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20101209/3907fedd/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20101209/3907fedd/attachment.pl>",
+      "thread_id": "thread-ba799b4aea9d",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-a0b794e7a660",
+      "message_id": "<53DF393B-2037-4B0D-890F-8DBAA1BA1F55@meissner.com>",
+      "from_name": "Payam Minoofar",
+      "from_email_hash": "44fb4bc2d956daa6df06bfdc38b5035fca75a03c009f79482d9ed9a677630c2c",
+      "date": "2010-12-09T09:51:27-08:00",
+      "subject": "[R-SIG-Mac] R for Mac, good enough?",
+      "subject_clean": "R for Mac, good enough?",
+      "in_reply_to": "<mailman.19.1291892405.9597.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.19.1291892405.9597.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "The power of R is virtually unmatched, and R for Mac works extremely well. \n\nThe learning curve is steep, however, and documentation is difficult to grasp, even though it is abundantly available. I am more partial to a commercial data analysis package with which I grew up, but I have done enough work with R on the mac platform to recommend it highly.\n\nWith the caveat that it takes some time to learn. Once you have learned the language, however, you are truly not limited in any way in what you can do.\n\nInstall R and search the packages library for any packages that specifically address your needs. If they exist, start learning!\n_____\nPayam Minoofar, Ph. D.\nScientist\nMeissner Filtration Products\n4181 Calle Tesoro\nCamarillo, CA 93001\n805.388.9911 extension 159\n805.388.5948 fax\nwww.meissner.com\npayam.minoofar at meissner.com\n\n\n\nOn Dec 9, 2010, at 3:00 AM, <r-sig-mac-request at r-project.org> wrote:\n\n> Send R-SIG-Mac mailing list submissions to\n> \tr-sig-mac at r-project.org\n> \n> To subscribe or unsubscribe via the World Wide Web, visit\n> \thttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> or, via email, send a message with subject or body 'help' to\n> \tr-sig-mac-request at r-project.org\n> \n> You can reach the person managing the list at\n> \tr-sig-mac-owner at r-project.org\n> \n> When replying, please edit your Subject line so it is more specific\n> than \"Re: Contents of R-SIG-Mac digest...\"\n> \n> \n> Today's Topics:\n> \n>   1.  R for Mac, good enough? (Deniz Kellecioglu)\n>   2. Re:  R for Mac, good enough? (Berend Hasselman)\n> \n> \n> ----------------------------------------------------------------------\n> \n> Message: 1\n> Date: Fri, 3 Dec 2010 10:33:48 +0200\n> From: Deniz Kellecioglu <deniz.kellecioglu at gmail.com>\n> To: r-sig-mac at stat.math.ethz.ch\n> Subject: [R-SIG-Mac] R for Mac, good enough?\n> Message-ID: <998B1280-1D48-492D-86A4-74DBADBBDA10 at gmail.com>\n> Content-Type: text/plain; charset=US-ASCII; format=flowed; delsp=yes\n> \n> Dear R and Mac friend,\n> \n> I am rather impressed by R, but dont know if it is worthwile to spend  \n> time learning it, if the Mac version is not comprehensive enough. I am  \n> a PhD student in macroeconometrics, with focus on time-series.\n> \n> Would you recommend me to use R in that case? And which material and  \n> packages would you recommend to go trough and download?\n> \n> \n> Sincere regards\n> Deniz\n> \n> \n> \n> ------------------------------\n> \n> Message: 2\n> Date: Thu, 9 Dec 2010 09:03:29 +0100\n> From: Berend Hasselman <bhh at xs4all.nl>\n> To: Deniz Kellecioglu <deniz.kellecioglu at gmail.com>\n> Cc: r-sig-mac at stat.math.ethz.ch\n> Subject: Re: [R-SIG-Mac] R for Mac, good enough?\n> Message-ID: <9689455F-262C-419E-A7A8-28AAF793DC57 at xs4all.nl>\n> Content-Type: text/plain; charset=us-ascii\n> \n> \n> On 03-12-2010, at 09:33, Deniz Kellecioglu wrote:\n> \n>> Dear R and Mac friend,\n>> \n>> I am rather impressed by R, but dont know if it is worthwile to spend time learning it, if the Mac version is not comprehensive enough. I am a PhD student in macroeconometrics, with focus on time-series.\n>> \n> \n> I wouldn't worry about the quality of the Mac version of R. It just works.\n> It is more than excellent. \n> The GUI R.app is easy and fun to use.\n> Commandline R works just fine.\n> 32-bit and 64-bit version.\n> All thanks to the work of Simon Urbanek.\n> \n> And there is a brilliant interface to R for the TextMate editor.\n> \n>> Would you recommend me to use R in that case? And which material and packages would you recommend to go trough and download?\n> \n> Goto CRAN and download the installer package for Mac OS X: R-2.12.0.pkg\n> If you haven't worked with R before, you should look at the Rintro manual.\n> Goto CRAN and click on Manuals; you'll be taken to the page with an overview of R documentation.\n> \n> For further packages you can have a look at Task Views (also on CRAN). Have a look at the TimeSeries view.\n> \n> Enjoy.\n> \n> /Berend\n> \n> \n> ------------------------------\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> End of R-SIG-Mac Digest, Vol 94, Issue 4\n> ****************************************",
+      "body_snippet": "The power of R is virtually unmatched, and R for Mac works extremely well. \n\nThe learning curve is steep, however, and documentation is difficult to grasp, even though it is abundantly available. I am",
+      "thread_id": "thread-a0b794e7a660",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-8f72dc7752f9",
+      "message_id": "<4D015DF5.2010004@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2010-12-09T17:53:41-05:00",
+      "subject": "[R-SIG-Mac] html help and browser vs. Rgui",
+      "subject_clean": "html help and browser vs. Rgui",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have two separate questions about help windows.\n\nFirst:  I'm running R2.12 at home under 10.5.8, and at work under 10.6.4 \n(Intel iMacs in both cases).\n\nAt home, when I invoke help, e.g.,\n  >  ?sin ,\nI get the help page in the Rgui help window (and my web browser is not \ncalled).\n\nBut at work, the Rgui help window opens, remains blank, and the sin help \npage shows up in my default web browser.\n\nIs there a way I can either force my work machine to use the Rgui \nwindow, or at the least stop the useless help window from opening up?\n\nAm I able to use the Rgui help window at home just thru some luck of \npre-existing conditions (from the  R 2.8 or 2.9 days)?\n\nI checked, and the Library/Frameworks/.../base/R/Rprofile files are the \nsame on both machines, as are my personal   .Rprofile and .Renvir files \nin my home directory.\n\n\nSecond: I noticed that on both machines, when I use the Search bar in \nthe document editor window (Rgui editor window),  the little pop-up \nresults panel displays the help page, with properly functioning links to \nreferenced help pages.  This suggests the help system is working \"behind \nthe scenes\" somehow on my work machine, even though it fails to access \nthe Rgui Help window.    Anything I can do to adjust this?\n\n\nMany thanks for your help.\n\n\nCarl",
+      "body_snippet": "I have two separate questions about help windows.\n\nFirst:  I'm running R2.12 at home under 10.5.8, and at work under 10.6.4 \n(Intel iMacs in both cases).\n\nAt home, when I invoke help, e.g.,\n  >  ?sin ",
+      "thread_id": "thread-8f72dc7752f9",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-57aa2a38470a",
+      "message_id": "<D7C854F7-28F3-4E33-9B57-09F214EE7C3D@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2010-12-09T18:17:57-05:00",
+      "subject": "[R-SIG-Mac] html help and browser vs. Rgui",
+      "subject_clean": "html help and browser vs. Rgui",
+      "in_reply_to": "<4D015DF5.2010004@witthoft.com>",
+      "references": [
+        "<4D015DF5.2010004@witthoft.com>"
+      ],
+      "body_plain": "Carl,\n\nOn Dec 9, 2010, at 5:53 PM, Carl Witthoft wrote:\n\n> I have two separate questions about help windows.\n> \n> First:  I'm running R2.12 at home under 10.5.8, and at work under 10.6.4 (Intel iMacs in both cases).\n> \n> At home, when I invoke help, e.g.,\n> >  ?sin ,\n> I get the help page in the Rgui help window (and my web browser is not called).\n> \n> But at work, the Rgui help window opens, remains blank, and the sin help page shows up in my default web browser.\n> \n> Is there a way I can either force my work machine to use the Rgui window, or at the least stop the useless help window from opening up?\n> \n\nThe default is what you see at home - and that is the intended behavior.\n\nThere is a preference \"use.external.help\" that allows you to use an external browser (at the request of some users) - you can enable it using (in Terminal):\ndefaults write org.R-project.R use.external.help YES\n\nand disable it using\ndefaults delete org.R-project.R use.external.help \n\nSo chances are that you enabled it at some point in the past (maybe?) - it's definitely NOT the default.\n\nAlternatively (if that's not the issue?) it may be some strange setting of your browser - but you'd have to provide more detains on that (e.g. do you use a custom browser instead of Safari which may be forcing that behavior?).\n\nCheers,\nSimon\n\n\n\n> Am I able to use the Rgui help window at home just thru some luck of pre-existing conditions (from the  R 2.8 or 2.9 days)?\n> \n> I checked, and the Library/Frameworks/.../base/R/Rprofile files are the same on both machines, as are my personal   .Rprofile and .Renvir files in my home directory.\n> \n> \n> Second: I noticed that on both machines, when I use the Search bar in the document editor window (Rgui editor window),  the little pop-up results panel displays the help page, with properly functioning links to referenced help pages.  This suggests the help system is working \"behind the scenes\" somehow on my work machine, even though it fails to access the Rgui Help window.    Anything I can do to adjust this?\n> \n> \n> Many thanks for your help.\n> \n> \n> Carl\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "Carl,\n\nOn Dec 9, 2010, at 5:53 PM, Carl Witthoft wrote:\n\n> I have two separate questions about help windows.\n> \n> First:  I'm running R2.12 at home under 10.5.8, and at work under 10.6.4 (Intel iMacs ",
+      "thread_id": "thread-8f72dc7752f9",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-61518b38d315",
+      "message_id": "<4D016942.6040803@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2010-12-09T18:41:54-05:00",
+      "subject": "[R-SIG-Mac] html help and browser vs. Rgui",
+      "subject_clean": "html help and browser vs. Rgui",
+      "in_reply_to": "<D7C854F7-28F3-4E33-9B57-09F214EE7C3D@r-project.org>",
+      "references": [
+        "<4D015DF5.2010004@witthoft.com>",
+        "<D7C854F7-28F3-4E33-9B57-09F214EE7C3D@r-project.org>"
+      ],
+      "body_plain": "Thanks, Simon.\nI'll check out the current settings in my work machine's\norg.R-project.R.plist file next week (we have Friday off. Yay!).\n\nCarl\nPS I use Firefox both at home and at work as my default, so I *hope* \nthat's not the issue.\n\nOn 12/9/10 6:17 PM, Simon Urbanek wrote:\n> Carl,\n>\n> On Dec 9, 2010, at 5:53 PM, Carl Witthoft wrote:\n>\n>> I have two separate questions about help windows.\n>>\n>> First:  I'm running R2.12 at home under 10.5.8, and at work under\n>> 10.6.4 (Intel iMacs in both cases).\n>>\n>> At home, when I invoke help, e.g.,\n>>> ?sin ,\n>> I get the help page in the Rgui help window (and my web browser is\n>> not called).\n>>\n>> But at work, the Rgui help window opens, remains blank, and the sin\n>> help page shows up in my default web browser.\n>>\n>> Is there a way I can either force my work machine to use the Rgui\n>> window, or at the least stop the useless help window from opening\n>> up?\n>>\n>\n> The default is what you see at home - and that is the intended\n> behavior.\n>\n> There is a preference \"use.external.help\" that allows you to use an\n> external browser (at the request of some users) - you can enable it\n> using (in Terminal): defaults write org.R-project.R use.external.help\n> YES\n>\n> and disable it using defaults delete org.R-project.R\n> use.external.help\n>\n> So chances are that you enabled it at some point in the past (maybe?)\n> - it's definitely NOT the default.\n>\n> Alternatively (if that's not the issue?) it may be some strange\n> setting of your browser - but you'd have to provide more detains on\n> that (e.g. do you use a custom browser instead of Safari which may be\n> forcing that behavior?).\n>\n> Cheers, Simon\n>\n>\n>\n>> Am I able to use the Rgui help window at home just thru some luck\n>> of pre-existing conditions (from the  R 2.8 or 2.9 days)?\n>>\n>> I checked, and the Library/Frameworks/.../base/R/Rprofile files are\n>> the same on both machines, as are my personal   .Rprofile and\n>> .Renvir files in my home directory.\n>>\n>>\n>> Second: I noticed that on both machines, when I use the Search bar\n>> in the document editor window (Rgui editor window),  the little\n>> pop-up results panel displays the help page, with properly\n>> functioning links to referenced help pages.  This suggests the help\n>> system is working \"behind the scenes\" somehow on my work machine,\n>> even though it fails to access the Rgui Help window.    Anything I\n>> can do to adjust this?\n>>",
+      "body_snippet": "Thanks, Simon.\nI'll check out the current settings in my work machine's\norg.R-project.R.plist file next week (we have Friday off. Yay!).\n\nCarl\nPS I use Firefox both at home and at work as my default, ",
+      "thread_id": "thread-8f72dc7752f9",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-3f9bab4ca819",
+      "message_id": "<4D02459C.7020603@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2010-12-10T10:22:04-05:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<mailman.25.1291978807.24271.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.25.1291978807.24271.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "Next to \"begging the question,\"  the phrase \"steep learning curve\" is\nprobably the most misused cliche out there.\n\nA 'learning curve' represents knowledge (or understanding) as a function \nof time.  THerefore,  the steeper the better.\nPlease help save the English language from descent into Humpty-Dumpty \nland, and train your colleagues in the correct usage of both these terms.\n\nCarl\n\n> Message: 2 Date: Thu, 9 Dec 2010 09:51:27 -0800 From: Payam\n> Minoofar<payam.minoofar at meissner.com> To:\n> \"r-sig-mac at r-project.org\"<r-sig-mac at r-project.org> Cc:\n> \"deniz.kellecioglu at gmail.com\"<deniz.kellecioglu at gmail.com> Subject:\n> [R-SIG-Mac] R for Mac, good enough?\n> Message-ID:<53DF393B-2037-4B0D-890F-8DBAA1BA1F55 at meissner.com>\n> Content-Type: text/plain; charset=\"us-ascii\"\n>\n> The power of R is virtually unmatched, and R for Mac works extremely\n> well.\n>\n> The learning curve is steep, however, and documentation is difficult\n> to grasp, even though it is abundantly available. I am more partial\n> to a commercial data analysis package with which I grew up, but I\n> have done enough work with R on the mac platform to recommend it\n> highly.\n>",
+      "body_snippet": "Next to \"begging the question,\"  the phrase \"steep learning curve\" is\nprobably the most misused cliche out there.\n\nA 'learning curve' represents knowledge (or understanding) as a function \nof time.  T",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-0e56ff2f4dce",
+      "message_id": "<E406B41A-F113-4907-B385-2170AC66C0C0@auckland.ac.nz>",
+      "from_name": "Rolf Turner",
+      "from_email_hash": "904c134d5ad39093183253270ee481b35c208cc4297e137e579e32e8115e7dff",
+      "date": "2010-12-11T10:25:50+13:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<4D02459C.7020603@witthoft.com>",
+      "references": [
+        "<mailman.25.1291978807.24271.r-sig-mac@r-project.org>",
+        "<4D02459C.7020603@witthoft.com>"
+      ],
+      "body_plain": "I agree with you completely about ``begging the question''.  The\nnearly universal misuse of this expression drives me crazy.  I'm\nnot so sure about ``steep learning curve'' however.  My impression\nis that this phrase has *always* been used to convey the idea that\na subject area is difficult to learn, whence to use it (as you suggest)\nin the sense that the subject area can be learned quickly would be to\nchange the original meaning of the phrase.  That would be undesirable,\neven given that the original meaning is counter-intuitive.\n\nI recall having heard/read a ``justification'' for the original meaning\nto the effect that what is envisaged is plotting effort expended on\nthe *y* axis and knowledge level on the *x* axis.  Thus a steep learning\ncurve would entail expending a great deal of effort for a small increase\nin knowledge.\n\nI agree that this is a silly choice of axes --- I certainly wouldn't make\nsuch a choice.  But I don't suppose that there's any law against it.\n\n\tcheers,\n\n\t\tRolf Turner\n\nOn 11/12/2010, at 4:22 AM, Carl Witthoft wrote:\n\n> Next to \"begging the question,\"  the phrase \"steep learning curve\" is\n> probably the most misused cliche out there.\n> \n> A 'learning curve' represents knowledge (or understanding) as a function \n> of time.  THerefore,  the steeper the better.\n> Please help save the English language from descent into Humpty-Dumpty \n> land, and train your colleagues in the correct usage of both these terms.\n> \n> Carl\n> \n>> Message: 2 Date: Thu, 9 Dec 2010 09:51:27 -0800 From: Payam\n>> Minoofar<payam.minoofar at meissner.com> To:\n>> \"r-sig-mac at r-project.org\"<r-sig-mac at r-project.org> Cc:\n>> \"deniz.kellecioglu at gmail.com\"<deniz.kellecioglu at gmail.com> Subject:\n>> [R-SIG-Mac] R for Mac, good enough?\n>> Message-ID:<53DF393B-2037-4B0D-890F-8DBAA1BA1F55 at meissner.com>\n>> Content-Type: text/plain; charset=\"us-ascii\"\n>> \n>> The power of R is virtually unmatched, and R for Mac works extremely\n>> well.\n>> \n>> The learning curve is steep, however, and documentation is difficult\n>> to grasp, even though it is abundantly available. I am more partial\n>> to a commercial data analysis package with which I grew up, but I\n>> have done enough work with R on the mac platform to recommend it\n>> highly.\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I agree with you completely about ``begging the question''.  The\nnearly universal misuse of this expression drives me crazy.  I'm\nnot so sure about ``steep learning curve'' however.  My impression\nis ",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-1ad38d79dfa0",
+      "message_id": "<4D03749F.2010708@uni-lueneburg.de>",
+      "from_name": "Pfister",
+      "from_email_hash": "b65ea56df7567caa2c7ec1486877e12fe042b1a220ffd2f4343dda47efb18cd8",
+      "date": "2010-12-11T13:54:55+01:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<mailman.25.1292065206.30224.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.25.1292065206.30224.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "As Carl said, a learning curve plots performance (knowledge) as a \nfunction of time, at least that is how it has been used in psychology \nand the learning sciences for a hundred years. So a \"steep\" learning \ncurve implies \"easy to learn\" .... but the metaphor of being \"steep\" = \n\"hard to climb\" = \"difficult\" seems to be intuitively compelling for \nmany people, so I gave up on correcting people on the wrong use of \n\"steep learning curve\" ;-)\n\nR?diger Pfister\n\n\n>\n> Message: 2\n> Date: Sat, 11 Dec 2010 10:25:50 +1300\n> From: Rolf Turner<r.turner at auckland.ac.nz>\n> To: Carl Witthoft<carl at witthoft.com>\n> Cc: \"r-sig-mac at r-project.org\"<r-sig-mac at r-project.org>\n> Subject: Re: [R-SIG-Mac] learning R\n> Message-ID:<E406B41A-F113-4907-B385-2170AC66C0C0 at auckland.ac.nz>\n> Content-Type: text/plain; charset=\"us-ascii\"\n>\n>\n> I agree with you completely about ``begging the question''.  The\n> nearly universal misuse of this expression drives me crazy.  I'm\n> not so sure about ``steep learning curve'' however.  My impression\n> is that this phrase has *always* been used to convey the idea that\n> a subject area is difficult to learn, whence to use it (as you suggest)\n> in the sense that the subject area can be learned quickly would be to\n> change the original meaning of the phrase.  That would be undesirable,\n> even given that the original meaning is counter-intuitive.\n>\n> I recall having heard/read a ``justification'' for the original meaning\n> to the effect that what is envisaged is plotting effort expended on\n> the *y* axis and knowledge level on the *x* axis.  Thus a steep learning\n> curve would entail expending a great deal of effort for a small increase\n> in knowledge.\n>\n> I agree that this is a silly choice of axes --- I certainly wouldn't make\n> such a choice.  But I don't suppose that there's any law against it.\n>\n> \tcheers,\n>\n> \t\tRolf Turner\n>\n> On 11/12/2010, at 4:22 AM, Carl Witthoft wrote:\n>\n>> Next to \"begging the question,\"  the phrase \"steep learning curve\" is\n>> probably the most misused cliche out there.\n>>\n>> A 'learning curve' represents knowledge (or understanding) as a function\n>> of time.  THerefore,  the steeper the better.\n>> Please help save the English language from descent into Humpty-Dumpty\n>> land, and train your colleagues in the correct usage of both these terms.\n>>\n>> Carl\n>>\n>>> Message: 2 Date: Thu, 9 Dec 2010 09:51:27 -0800 From: Payam\n>>> Minoofar<payam.minoofar at meissner.com>  To:\n>>> \"r-sig-mac at r-project.org\"<r-sig-mac at r-project.org>  Cc:\n>>> \"deniz.kellecioglu at gmail.com\"<deniz.kellecioglu at gmail.com>  Subject:\n>>> [R-SIG-Mac] R for Mac, good enough?\n>>> Message-ID:<53DF393B-2037-4B0D-890F-8DBAA1BA1F55 at meissner.com>\n>>> Content-Type: text/plain; charset=\"us-ascii\"\n>>>\n>>> The power of R is virtually unmatched, and R for Mac works extremely\n>>> well.\n>>>\n>>> The learning curve is steep, however, and documentation is difficult\n>>> to grasp, even though it is abundantly available. I am more partial\n>>> to a commercial data analysis package with which I grew up, but I\n>>> have done enough work with R on the mac platform to recommend it\n>>> highly.\n>>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n>\n> ------------------------------\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> End of R-SIG-Mac Digest, Vol 94, Issue 6\n> ****************************************\n\n-- \nHans-Ruediger Pfister\nProfessor of Psychological Decision Research and Methods\nInstitute of Experimental Industrial Psychology (LueneLab)\nLeuphana University Lueneburg\nD-21335 Lueneburg / Germany\nhttp://www.leuphana.de/en/hans-ruediger-pfister.html",
+      "body_snippet": "As Carl said, a learning curve plots performance (knowledge) as a \nfunction of time, at least that is how it has been used in psychology \nand the learning sciences for a hundred years. So a \"steep\" le",
+      "thread_id": "thread-1ad38d79dfa0",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-3d1d08d4922e",
+      "message_id": "<AANLkTikgwvE6ddGXRG4-Gipf7SGm_tiFPfvGTxg6pfXq@mail.gmail.com>",
+      "from_name": "baptiste auguie",
+      "from_email_hash": "eb58b6b5ae557b42a6fa214d120546f579e2b8b60329f929cf05cd51d346bbf3",
+      "date": "2010-12-11T14:22:30+01:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<4D03749F.2010708@uni-lueneburg.de>",
+      "references": [
+        "<mailman.25.1292065206.30224.r-sig-mac@r-project.org>",
+        "<4D03749F.2010708@uni-lueneburg.de>"
+      ],
+      "body_plain": "On 11 December 2010 13:54, Pfister <pfister at uni-lueneburg.de> wrote:\n> So a \"steep\" learning curve implies \"easy to learn\"\n\nShouldn't that be \"quick to learn\"?\n\nMy own experience with R would suggest that easy and quick are not\nalways synonymous (eureka moment). I tend to think the R learning\ncurve qualifies as steep because it elevates you rapidly, if you are\nable to rise with it, and also because it can be difficult to follow.\n\nJust my two cents,\n\nbaptiste",
+      "body_snippet": "On 11 December 2010 13:54, Pfister <pfister at uni-lueneburg.de> wrote:\n> So a \"steep\" learning curve implies \"easy to learn\"\n\nShouldn't that be \"quick to learn\"?\n\nMy own experience with R would sugge",
+      "thread_id": "thread-1ad38d79dfa0",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-c218392be501",
+      "message_id": "<4ABD2B5B-AC5A-4006-B035-A9B86C45F2AC@gmail.com>",
+      "from_name": "Christophe Dutang",
+      "from_email_hash": "71db47fbb88383c85c0a4105bb9dd5508a39e5eb48ded58e22bd31403fb35064",
+      "date": "2010-12-11T14:45:37+01:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<AANLkTikgwvE6ddGXRG4-Gipf7SGm_tiFPfvGTxg6pfXq@mail.gmail.com>",
+      "references": [
+        "<mailman.25.1292065206.30224.r-sig-mac@r-project.org>",
+        "<4D03749F.2010708@uni-lueneburg.de>",
+        "<AANLkTikgwvE6ddGXRG4-Gipf7SGm_tiFPfvGTxg6pfXq@mail.gmail.com>"
+      ],
+      "body_plain": "There are many levels of knowledge/skills of R, the first levels are quick to do. But next levels are harder to pass.\n\nI will say in a sentence that R is easy to learn but difficult to master, which applies to many things (danse, music, sport, ...)!\n\nChristophe\n\n--\nChristophe Dutang\nPh.D. student at ISFA, Lyon, France\nwebsite: http://dutangc.free.fr\n\nLe 11 d?c. 2010 ? 14:22, baptiste auguie a ?crit :\n\n> On 11 December 2010 13:54, Pfister <pfister at uni-lueneburg.de> wrote:\n>> So a \"steep\" learning curve implies \"easy to learn\"\n> \n> Shouldn't that be \"quick to learn\"?\n> \n> My own experience with R would suggest that easy and quick are not\n> always synonymous (eureka moment). I tend to think the R learning\n> curve qualifies as steep because it elevates you rapidly, if you are\n> able to rise with it, and also because it can be difficult to follow.\n> \n> Just my two cents,\n> \n> baptiste\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "There are many levels of knowledge/skills of R, the first levels are quick to do. But next levels are harder to pass.\n\nI will say in a sentence that R is easy to learn but difficult to master, which a",
+      "thread_id": "thread-1ad38d79dfa0",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-4dcf8a5a2cc1",
+      "message_id": "<E8260355-F7DE-4358-B118-583A11A73F71@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "997bb787abf80042157dc28e91db13eb5e5c0f433207dba7fcb5331fa2e472af",
+      "date": "2010-12-11T15:40:12+01:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<E406B41A-F113-4907-B385-2170AC66C0C0@auckland.ac.nz>",
+      "references": [
+        "<mailman.25.1291978807.24271.r-sig-mac@r-project.org>",
+        "<4D02459C.7020603@witthoft.com>",
+        "<E406B41A-F113-4907-B385-2170AC66C0C0@auckland.ac.nz>"
+      ],
+      "body_plain": "On 10-12-2010, at 22:25, Rolf Turner wrote:\n\n> \n> I agree with you completely about ``begging the question''.  The\n> nearly universal misuse of this expression drives me crazy.  I'm\n> not so sure about ``steep learning curve'' however.  My impression\n> is that this phrase has *always* been used to convey the idea that\n> a subject area is difficult to learn, whence to use it (as you suggest)\n> in the sense that the subject area can be learned quickly would be to\n> change the original meaning of the phrase.  That would be undesirable,\n> even given that the original meaning is counter-intuitive.\n> \n> I recall having heard/read a ``justification'' for the original meaning\n> to the effect that what is envisaged is plotting effort expended on\n> the *y* axis and knowledge level on the *x* axis.  Thus a steep learning\n> curve would entail expending a great deal of effort for a small increase\n> in knowledge.\n\nSee  http://en.wikipedia.org/wiki/Learning_curve\nespecially section \"Common terms\".\nAnd in particular the next to last paragraph:-) in that section.\n\nBerend",
+      "body_snippet": "On 10-12-2010, at 22:25, Rolf Turner wrote:\n\n> \n> I agree with you completely about ``begging the question''.  The\n> nearly universal misuse of this expression drives me crazy.  I'm\n> not so sure abou",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-b1cd6a8a23cd",
+      "message_id": "<5076BE53-23CE-4B5B-B6EE-A4351462B95A@anu.edu.au>",
+      "from_name": "John Maindonald",
+      "from_email_hash": "2de8ee602ec487e8ae8c715c88cb2320b0ddc4a3428764e445cf26eb69ef92c5",
+      "date": "2010-12-13T08:42:11+11:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<E406B41A-F113-4907-B385-2170AC66C0C0@auckland.ac.nz>",
+      "references": [
+        "<mailman.25.1291978807.24271.r-sig-mac@r-project.org>",
+        "<4D02459C.7020603@witthoft.com>",
+        "<E406B41A-F113-4907-B385-2170AC66C0C0@auckland.ac.nz>"
+      ],
+      "body_plain": "Surely what is envisaged is the sheer effort involved in climbing\na step mountain side.  It does not have a graph in mind.  If one \nwants to change the metaphor and turn it into a graph, it is not \nat all obvious what the horizontal axis ought to be, though \nvarious rather strained interpretations can be proposed.  \n\nThere is a further aspect to the metaphor that deserves attention.\nThe reward for negotiating the steep learning curve is to reach\na great height, where marvellous vistas spread out before the\nclimber!\n\nJohn Maindonald             email: john.maindonald at anu.edu.au\nphone : +61 2 (6125)3473    fax  : +61 2(6125)5549\nCentre for Mathematics & Its Applications, Room 1194,\nJohn Dedman Mathematical Sciences Building (Building 27)\nAustralian National University, Canberra ACT 0200.\nhttp://www.maths.anu.edu.au/~johnm\n\nOn 11/12/2010, at 8:25 AM, Rolf Turner wrote:\n\n> \n> I agree with you completely about ``begging the question''.  The\n> nearly universal misuse of this expression drives me crazy.  I'm\n> not so sure about ``steep learning curve'' however.  My impression\n> is that this phrase has *always* been used to convey the idea that\n> a subject area is difficult to learn, whence to use it (as you suggest)\n> in the sense that the subject area can be learned quickly would be to\n> change the original meaning of the phrase.  That would be undesirable,\n> even given that the original meaning is counter-intuitive.\n> \n> I recall having heard/read a ``justification'' for the original meaning\n> to the effect that what is envisaged is plotting effort expended on\n> the *y* axis and knowledge level on the *x* axis.  Thus a steep learning\n> curve would entail expending a great deal of effort for a small increase\n> in knowledge.\n> \n> I agree that this is a silly choice of axes --- I certainly wouldn't make\n> such a choice.  But I don't suppose that there's any law against it.\n> \n> \tcheers,\n> \n> \t\tRolf Turner\n> \n> On 11/12/2010, at 4:22 AM, Carl Witthoft wrote:\n> \n>> Next to \"begging the question,\"  the phrase \"steep learning curve\" is\n>> probably the most misused cliche out there.\n>> \n>> A 'learning curve' represents knowledge (or understanding) as a function \n>> of time.  THerefore,  the steeper the better.\n>> Please help save the English language from descent into Humpty-Dumpty \n>> land, and train your colleagues in the correct usage of both these terms.\n>> \n>> Carl\n>> \n>>> Message: 2 Date: Thu, 9 Dec 2010 09:51:27 -0800 From: Payam\n>>> Minoofar<payam.minoofar at meissner.com> To:\n>>> \"r-sig-mac at r-project.org\"<r-sig-mac at r-project.org> Cc:\n>>> \"deniz.kellecioglu at gmail.com\"<deniz.kellecioglu at gmail.com> Subject:\n>>> [R-SIG-Mac] R for Mac, good enough?\n>>> Message-ID:<53DF393B-2037-4B0D-890F-8DBAA1BA1F55 at meissner.com>\n>>> Content-Type: text/plain; charset=\"us-ascii\"\n>>> \n>>> The power of R is virtually unmatched, and R for Mac works extremely\n>>> well.\n>>> \n>>> The learning curve is steep, however, and documentation is difficult\n>>> to grasp, even though it is abundantly available. I am more partial\n>>> to a commercial data analysis package with which I grew up, but I\n>>> have done enough work with R on the mac platform to recommend it\n>>> highly.\n>>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Surely what is envisaged is the sheer effort involved in climbing\na step mountain side.  It does not have a graph in mind.  If one \nwants to change the metaphor and turn it into a graph, it is not \nat",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-f4ceab307d2a",
+      "message_id": "<p06240855c92b0a14bf54@[165.124.162.15]>",
+      "from_name": "William Revelle",
+      "from_email_hash": "17775642d38a89586519cdb4da8b9881c3da6cb4b5abf51dc2b37a23be377688",
+      "date": "2010-12-12T17:36:38-06:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<5076BE53-23CE-4B5B-B6EE-A4351462B95A@anu.edu.au>",
+      "references": [
+        "<mailman.25.1291978807.24271.r-sig-mac@r-project.org>",
+        "<4D02459C.7020603@witthoft.com>",
+        "<E406B41A-F113-4907-B385-2170AC66C0C0@auckland.ac.nz>",
+        "<5076BE53-23CE-4B5B-B6EE-A4351462B95A@anu.edu.au>"
+      ],
+      "body_plain": "I share with Carl about the misuse of the term learning curve.\n\nThe original derivation was from learning theory where one plotted \nnumber of correct responses on the y axis against trial number on the \nx axis.  Steep learning curves thus implied rapid learning (of easy \nmaterial).  Flat learning curves implied slow learning (of difficult \nmaterial).\n\nWhen I complain about this misuse of the term to my psychological \ncolleagues, they smile, agree with me that their usage was incorrect, \nand then suggest I go back to worrying about how to code things in R.\n\nWhen I teach R, I suggest that yes, the learning curve is steep, \nsmile and then point out that therefore it is easy to learn. \nRealistically, as is true of learning any skill, the curve is \nnegatively accelerated with asymptotic learning achieved only by the \nwizards of Core R.\n\nBill\n\n\nAt 8:42 AM +1100 12/13/10, John Maindonald wrote:\n>Surely what is envisaged is the sheer effort involved in climbing\n>a step mountain side.  It does not have a graph in mind.  If one\n>wants to change the metaphor and turn it into a graph, it is not\n>at all obvious what the horizontal axis ought to be, though\n>various rather strained interpretations can be proposed. \n>\n>There is a further aspect to the metaphor that deserves attention.\n>The reward for negotiating the steep learning curve is to reach\n>a great height, where marvellous vistas spread out before the\n>climber!\n>\n>John Maindonald             email: john.maindonald at anu.edu.au\n>phone : +61 2 (6125)3473    fax  : +61 2(6125)5549\n>Centre for Mathematics & Its Applications, Room 1194,\n>John Dedman Mathematical Sciences Building (Building 27)\n>Australian National University, Canberra ACT 0200.\n>http://www.maths.anu.edu.au/~johnm\n>\n>On 11/12/2010, at 8:25 AM, Rolf Turner wrote:\n>\n>>\n>>  I agree with you completely about ``begging the question''.  The\n>>  nearly universal misuse of this expression drives me crazy.  I'm\n>>  not so sure about ``steep learning curve'' however.  My impression\n>>  is that this phrase has *always* been used to convey the idea that\n>>  a subject area is difficult to learn, whence to use it (as you suggest)\n>>  in the sense that the subject area can be learned quickly would be to\n>>  change the original meaning of the phrase.  That would be undesirable,\n>>  even given that the original meaning is counter-intuitive.\n>>\n>>  I recall having heard/read a ``justification'' for the original meaning\n>>  to the effect that what is envisaged is plotting effort expended on\n>>  the *y* axis and knowledge level on the *x* axis.  Thus a steep learning\n>>  curve would entail expending a great deal of effort for a small increase\n>>  in knowledge.\n>>\n>>  I agree that this is a silly choice of axes --- I certainly wouldn't make\n>>  such a choice.  But I don't suppose that there's any law against it.\n>>\n>>\tcheers,\n>>\n>>\t\tRolf Turner\n>>\n>>  On 11/12/2010, at 4:22 AM, Carl Witthoft wrote:\n>>\n>>>  Next to \"begging the question,\"  the phrase \"steep learning curve\" is\n>>>  probably the most misused cliche out there.\n>>>\n>>>  A 'learning curve' represents knowledge (or understanding) as a function\n>>>  of time.  THerefore,  the steeper the better.\n>>>  Please help save the English language from descent into Humpty-Dumpty\n>>>  land, and train your colleagues in the correct usage of both these terms.\n>>>\n>>>  Carl\n>>>\n>>>>  Message: 2 Date: Thu, 9 Dec 2010 09:51:27 -0800 From: Payam\n>>>>  Minoofar<payam.minoofar at meissner.com> To:\n>>>>  \"r-sig-mac at r-project.org\"<r-sig-mac at r-project.org> Cc:\n>>>>  \"deniz.kellecioglu at gmail.com\"<deniz.kellecioglu at gmail.com> Subject:\n>>>>  [R-SIG-Mac] R for Mac, good enough?\n>>>>  Message-ID:<53DF393B-2037-4B0D-890F-8DBAA1BA1F55 at meissner.com>\n>>>>  Content-Type: text/plain; charset=\"us-ascii\"\n>>>>\n>>>>  The power of R is virtually unmatched, and R for Mac works extremely\n>>>>  well.\n>>>>\n>>>>  The learning curve is steep, however, and documentation is difficult\n>  >>> to grasp, even though it is abundantly available. I am more partial\n>>>>  to a commercial data analysis package with which I grew up, but I\n>>>>  have done enough work with R on the mac platform to recommend it\n>>>>  highly.\n>>>>\n>>>\n>>>  _______________________________________________\n>>>  R-SIG-Mac mailing list\n>>>  R-SIG-Mac at r-project.org\n>>>  https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>  _______________________________________________\n>>  R-SIG-Mac mailing list\n>>  R-SIG-Mac at r-project.org\n>>  https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I share with Carl about the misuse of the term learning curve.\n\nThe original derivation was from learning theory where one plotted \nnumber of correct responses on the y axis against trial number on th",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 3,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-f7f7db284827",
+      "message_id": "<4D05DFB0.8050804@sciviews.org>",
+      "from_name": "Philippe Grosjean",
+      "from_email_hash": "71b9dd5d435dd797c88b6e8e80adcc63b4c2764c443f0ceca36f80f3ecda8d9a",
+      "date": "2010-12-13T09:56:16+01:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<p06240855c92b0a14bf54@[165.124.162.15]>",
+      "references": [
+        "<mailman.25.1291978807.24271.r-sig-mac@r-project.org>",
+        "<4D02459C.7020603@witthoft.com>",
+        "<E406B41A-F113-4907-B385-2170AC66C0C0@auckland.ac.nz>",
+        "<5076BE53-23CE-4B5B-B6EE-A4351462B95A@anu.edu.au>",
+        "<p06240855c92b0a14bf54@[165.124.162.15]>"
+      ],
+      "body_plain": "Ah! That is interesting!\n\nFor me, the learning curve is like the energy required for a chemical or \na biochemical reaction to occur. Thus, on the X-axis, you could have the \namount of R learned/assimilated, and on the Y-axis, you have the \nenergy/effort/time (or whatever measure of learning effort you like to \nuse). Thus, a steep learning curve means you have to provide a lot of \neffort to reach a little bit of learning. A flatter learning curve \nallows you to progress faster with little effort (like running on a flat \nground versus climbing a mountain, to reuse John's metaphor).\n\nStill with the (bio)chemical reaction analogy in mind, anything that \nmakes R more \"digest\" (a good tutorial, a good GUI, etc.) is like an \nenzyme that allows for the (bio)chemical reaction to occur with less energy.\n\nOtherwise, I am always amazed that people could use a metaphor like \nhere, a reference to the shape of a curve on a graph, without even \nknowing what exactly are the X- and Y-axes. Shame on us!\nBest,\n\nPhilippe\n\n..............................................<?}))><........\n  ) ) ) ) )\n( ( ( ( (    Prof. Philippe Grosjean\n  ) ) ) ) )\n( ( ( ( (    Numerical Ecology of Aquatic Systems\n  ) ) ) ) )   Mons University, Belgium\n( ( ( ( (\n..............................................................\n\nOn 13/12/10 00:36, William Revelle wrote:\n> I share with Carl about the misuse of the term learning curve.\n>\n> The original derivation was from learning theory where one plotted\n> number of correct responses on the y axis against trial number on the x\n> axis. Steep learning curves thus implied rapid learning (of easy\n> material). Flat learning curves implied slow learning (of difficult\n> material).\n>\n> When I complain about this misuse of the term to my psychological\n> colleagues, they smile, agree with me that their usage was incorrect,\n> and then suggest I go back to worrying about how to code things in R.\n>\n> When I teach R, I suggest that yes, the learning curve is steep, smile\n> and then point out that therefore it is easy to learn. Realistically, as\n> is true of learning any skill, the curve is negatively accelerated with\n> asymptotic learning achieved only by the wizards of Core R.\n>\n> Bill\n>\n>\n> At 8:42 AM +1100 12/13/10, John Maindonald wrote:\n>> Surely what is envisaged is the sheer effort involved in climbing\n>> a step mountain side. It does not have a graph in mind. If one\n>> wants to change the metaphor and turn it into a graph, it is not\n>> at all obvious what the horizontal axis ought to be, though\n>> various rather strained interpretations can be proposed.\n>> There is a further aspect to the metaphor that deserves attention.\n>> The reward for negotiating the steep learning curve is to reach\n>> a great height, where marvellous vistas spread out before the\n>> climber!\n>>\n>> John Maindonald email: john.maindonald at anu.edu.au\n>> phone : +61 2 (6125)3473 fax : +61 2(6125)5549\n>> Centre for Mathematics & Its Applications, Room 1194,\n>> John Dedman Mathematical Sciences Building (Building 27)\n>> Australian National University, Canberra ACT 0200.\n>> http://www.maths.anu.edu.au/~johnm\n>>\n>> On 11/12/2010, at 8:25 AM, Rolf Turner wrote:\n>>\n>>>\n>>> I agree with you completely about ``begging the question''. The\n>>> nearly universal misuse of this expression drives me crazy. I'm\n>>> not so sure about ``steep learning curve'' however. My impression\n>>> is that this phrase has *always* been used to convey the idea that\n>>> a subject area is difficult to learn, whence to use it (as you suggest)\n>>> in the sense that the subject area can be learned quickly would be to\n>>> change the original meaning of the phrase. That would be undesirable,\n>>> even given that the original meaning is counter-intuitive.\n>>>\n>>> I recall having heard/read a ``justification'' for the original meaning\n>>> to the effect that what is envisaged is plotting effort expended on\n>>> the *y* axis and knowledge level on the *x* axis. Thus a steep learning\n>>> curve would entail expending a great deal of effort for a small increase\n>>> in knowledge.\n>>>\n>>> I agree that this is a silly choice of axes --- I certainly wouldn't\n>>> make\n>>> such a choice. But I don't suppose that there's any law against it.\n>>>\n>>> cheers,\n>>>\n>>> Rolf Turner\n>>>\n>>> On 11/12/2010, at 4:22 AM, Carl Witthoft wrote:\n>>>\n>>>> Next to \"begging the question,\" the phrase \"steep learning curve\" is\n>>>> probably the most misused cliche out there.\n>>>>\n>>>> A 'learning curve' represents knowledge (or understanding) as a\n>>>> function\n>>>> of time. THerefore, the steeper the better.\n>>>> Please help save the English language from descent into Humpty-Dumpty\n>>>> land, and train your colleagues in the correct usage of both these\n>>>> terms.\n>>>>\n>>>> Carl\n>>>>\n>>>>> Message: 2 Date: Thu, 9 Dec 2010 09:51:27 -0800 From: Payam\n>>>>> Minoofar<payam.minoofar at meissner.com> To:\n>>>>> \"r-sig-mac at r-project.org\"<r-sig-mac at r-project.org> Cc:\n>>>>> \"deniz.kellecioglu at gmail.com\"<deniz.kellecioglu at gmail.com> Subject:\n>>>>> [R-SIG-Mac] R for Mac, good enough?\n>>>>> Message-ID:<53DF393B-2037-4B0D-890F-8DBAA1BA1F55 at meissner.com>\n>>>>> Content-Type: text/plain; charset=\"us-ascii\"\n>>>>>\n>>>>> The power of R is virtually unmatched, and R for Mac works extremely\n>>>>> well.\n>>>>>\n>>>>> The learning curve is steep, however, and documentation is difficult\n>> >>> to grasp, even though it is abundantly available. I am more partial\n>>>>> to a commercial data analysis package with which I grew up, but I\n>>>>> have done enough work with R on the mac platform to recommend it\n>>>>> highly.\n>>>>>\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "Ah! That is interesting!\n\nFor me, the learning curve is like the energy required for a chemical or \na biochemical reaction to occur. Thus, on the X-axis, you could have the \namount of R learned/assimi",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 4,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-96ac1594ea57",
+      "message_id": "<C92BAE82.1421B%jari.oksanen@oulu.fi>",
+      "from_name": "Jari Oksanen",
+      "from_email_hash": "09e172b476b93c81593eb33b6e85e7bab673167e3f09a8ba0597a15fe81c9f15",
+      "date": "2010-12-13T11:05:38+02:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<4D05DFB0.8050804@sciviews.org>",
+      "references": [],
+      "body_plain": "On 13/12/10 10:56 AM, \"Philippe Grosjean\" <phgrosjean at sciviews.org> wrote:\n\n> Ah! That is interesting!\n>\n...\n> \n> Otherwise, I am always amazed that people could use a metaphor like\n> here, a reference to the shape of a curve on a graph, without even\n> knowing what exactly are the X- and Y-axes. Shame on us!\n\nNothing to be ashamed of: We all know what is steep even if we cannot graph\nit. \n\nI just wonder why the other supposed \"misuse\" was completely ignored in this\nthread: there are many things in R that are \"begging the question\" but\nnobody dares to ask.\n\nCheers, Jari Oksanen",
+      "body_snippet": "On 13/12/10 10:56 AM, \"Philippe Grosjean\" <phgrosjean at sciviews.org> wrote:\n\n> Ah! That is interesting!\n>\n...\n> \n> Otherwise, I am always amazed that people could use a metaphor like\n> here, a refer",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 5,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-1b6b69477b0b",
+      "message_id": "<4D05E55B.2040108@univie.ac.at>",
+      "from_name": "Erich Neuwirth",
+      "from_email_hash": "178c9665decd09e76ed713e123ba2a6b2ed2ac166995047eb6dc12c5ab93e7ac",
+      "date": "2010-12-13T10:20:27+01:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<C92BAE82.1421B%jari.oksanen@oulu.fi>",
+      "references": [
+        "<C92BAE82.1421B%jari.oksanen@oulu.fi>"
+      ],
+      "body_plain": "And of course the inverse of a flat curve (assuming it is an invertible\nfunction) always is a steep curve.\nSo steepness or flatness depends on your choice of axes.\nIf you plot \"amount to be learned\" on the x-axis\nand \"time needed\" on the y-axis, you also get a steep curve.\n\n\n\nOn 12/13/2010 10:05 AM, Jari Oksanen wrote:\n> On 13/12/10 10:56 AM, \"Philippe Grosjean\" <phgrosjean at sciviews.org> wrote:\n> \n>> Ah! That is interesting!\n>>\n> ...\n>>\n>> Otherwise, I am always amazed that people could use a metaphor like\n>> here, a reference to the shape of a curve on a graph, without even\n>> knowing what exactly are the X- and Y-axes. Shame on us!\n> \n> Nothing to be ashamed of: We all know what is steep even if we cannot graph\n> it. \n> \n> I just wonder why the other supposed \"misuse\" was completely ignored in this\n> thread: there are many things in R that are \"begging the question\" but\n> nobody dares to ask.\n> \n> Cheers, Jari Oksanen\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "And of course the inverse of a flat curve (assuming it is an invertible\nfunction) always is a steep curve.\nSo steepness or flatness depends on your choice of axes.\nIf you plot \"amount to be learned\" o",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 6,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-30c079665b0a",
+      "message_id": "<E54DBF34-7B82-4562-B65C-3A0181133E88@gmail.com>",
+      "from_name": "Deniz Kellecioglu",
+      "from_email_hash": "dc3920db2fddb1afa83bb854fbc7de90a7bef63751ebb4033456d7f38b0e65c7",
+      "date": "2010-12-13T18:25:19+02:00",
+      "subject": "[R-SIG-Mac] R for Mac, good enough?",
+      "subject_clean": "R for Mac, good enough?",
+      "in_reply_to": "<53DF393B-2037-4B0D-890F-8DBAA1BA1F55@meissner.com>",
+      "references": [
+        "<mailman.19.1291892405.9597.r-sig-mac@r-project.org>",
+        "<53DF393B-2037-4B0D-890F-8DBAA1BA1F55@meissner.com>"
+      ],
+      "body_plain": "Thank you all for your reply and comments. I have actually come to  \nlike R a lot already. Yes, it takes some time to learn, especially  \nsince I am not used to programmming language.\n\nRespect to all involved!!!\n\n\nDeniz Kellecioglu\nInternational economist\n\n\n\nOn 9 Dec 2010, at 19:51, Payam Minoofar wrote:\n\n> The power of R is virtually unmatched, and R for Mac works extremely  \n> well.\n>\n> The learning curve is steep, however, and documentation is difficult  \n> to grasp, even though it is abundantly available. I am more partial  \n> to a commercial data analysis package with which I grew up, but I  \n> have done enough work with R on the mac platform to recommend it  \n> highly.\n>\n> With the caveat that it takes some time to learn. Once you have  \n> learned the language, however, you are truly not limited in any way  \n> in what you can do.\n>\n> Install R and search the packages library for any packages that  \n> specifically address your needs. If they exist, start learning!\n> _____\n> Payam Minoofar, Ph. D.\n> Scientist\n> Meissner Filtration Products\n> 4181 Calle Tesoro\n> Camarillo, CA 93001\n> 805.388.9911 extension 159\n> 805.388.5948 fax\n> www.meissner.com\n> payam.minoofar at meissner.com\n>\n>\n>\n> On Dec 9, 2010, at 3:00 AM, <r-sig-mac-request at r-project.org> wrote:\n>\n>> Send R-SIG-Mac mailing list submissions to\n>> \tr-sig-mac at r-project.org\n>>\n>> To subscribe or unsubscribe via the World Wide Web, visit\n>> \thttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> or, via email, send a message with subject or body 'help' to\n>> \tr-sig-mac-request at r-project.org\n>>\n>> You can reach the person managing the list at\n>> \tr-sig-mac-owner at r-project.org\n>>\n>> When replying, please edit your Subject line so it is more specific\n>> than \"Re: Contents of R-SIG-Mac digest...\"\n>>\n>>\n>> Today's Topics:\n>>\n>>  1.  R for Mac, good enough? (Deniz Kellecioglu)\n>>  2. Re:  R for Mac, good enough? (Berend Hasselman)\n>>\n>>\n>> ----------------------------------------------------------------------\n>>\n>> Message: 1\n>> Date: Fri, 3 Dec 2010 10:33:48 +0200\n>> From: Deniz Kellecioglu <deniz.kellecioglu at gmail.com>\n>> To: r-sig-mac at stat.math.ethz.ch\n>> Subject: [R-SIG-Mac] R for Mac, good enough?\n>> Message-ID: <998B1280-1D48-492D-86A4-74DBADBBDA10 at gmail.com>\n>> Content-Type: text/plain; charset=US-ASCII; format=flowed; delsp=yes\n>>\n>> Dear R and Mac friend,\n>>\n>> I am rather impressed by R, but dont know if it is worthwile to spend\n>> time learning it, if the Mac version is not comprehensive enough. I  \n>> am\n>> a PhD student in macroeconometrics, with focus on time-series.\n>>\n>> Would you recommend me to use R in that case? And which material and\n>> packages would you recommend to go trough and download?\n>>\n>>\n>> Sincere regards\n>> Deniz\n>>\n>>\n>>\n>> ------------------------------\n>>\n>> Message: 2\n>> Date: Thu, 9 Dec 2010 09:03:29 +0100\n>> From: Berend Hasselman <bhh at xs4all.nl>\n>> To: Deniz Kellecioglu <deniz.kellecioglu at gmail.com>\n>> Cc: r-sig-mac at stat.math.ethz.ch\n>> Subject: Re: [R-SIG-Mac] R for Mac, good enough?\n>> Message-ID: <9689455F-262C-419E-A7A8-28AAF793DC57 at xs4all.nl>\n>> Content-Type: text/plain; charset=us-ascii\n>>\n>>\n>> On 03-12-2010, at 09:33, Deniz Kellecioglu wrote:\n>>\n>>> Dear R and Mac friend,\n>>>\n>>> I am rather impressed by R, but dont know if it is worthwile to  \n>>> spend time learning it, if the Mac version is not comprehensive  \n>>> enough. I am a PhD student in macroeconometrics, with focus on  \n>>> time-series.\n>>>\n>>\n>> I wouldn't worry about the quality of the Mac version of R. It just  \n>> works.\n>> It is more than excellent.\n>> The GUI R.app is easy and fun to use.\n>> Commandline R works just fine.\n>> 32-bit and 64-bit version.\n>> All thanks to the work of Simon Urbanek.\n>>\n>> And there is a brilliant interface to R for the TextMate editor.\n>>\n>>> Would you recommend me to use R in that case? And which material  \n>>> and packages would you recommend to go trough and download?\n>>\n>> Goto CRAN and download the installer package for Mac OS X:  \n>> R-2.12.0.pkg\n>> If you haven't worked with R before, you should look at the Rintro  \n>> manual.\n>> Goto CRAN and click on Manuals; you'll be taken to the page with an  \n>> overview of R documentation.\n>>\n>> For further packages you can have a look at Task Views (also on  \n>> CRAN). Have a look at the TimeSeries view.\n>>\n>> Enjoy.\n>>\n>> /Berend\n>>\n>>\n>> ------------------------------\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>> End of R-SIG-Mac Digest, Vol 94, Issue 4\n>> ****************************************\n>",
+      "body_snippet": "Thank you all for your reply and comments. I have actually come to  \nlike R a lot already. Yes, it takes some time to learn, especially  \nsince I am not used to programmming language.\n\nRespect to all ",
+      "thread_id": "thread-a0b794e7a660",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-de260b132ee4",
+      "message_id": "<E898DA01-4572-4618-8E8C-B5CB1F8BC7A6@auckland.ac.nz>",
+      "from_name": "Rolf Turner",
+      "from_email_hash": "904c134d5ad39093183253270ee481b35c208cc4297e137e579e32e8115e7dff",
+      "date": "2010-12-14T07:49:44+13:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<C92BAE82.1421B%jari.oksanen@oulu.fi>",
+      "references": [
+        "<C92BAE82.1421B%jari.oksanen@oulu.fi>"
+      ],
+      "body_plain": "On 13/12/2010, at 10:05 PM, Jari Oksanen wrote:\n\n> On 13/12/10 10:56 AM, \"Philippe Grosjean\" <phgrosjean at sciviews.org> wrote:\n> \n>> Ah! That is interesting!\n>> \n> ...\n>> \n>> Otherwise, I am always amazed that people could use a metaphor like\n>> here, a reference to the shape of a curve on a graph, without even\n>> knowing what exactly are the X- and Y-axes. Shame on us!\n> \n> Nothing to be ashamed of: We all know what is steep even if we cannot graph\n> it. \n> \n> I just wonder why the other supposed \"misuse\" was completely ignored in this\n> thread: there are many things in R that are \"begging the question\" but\n> nobody dares to ask.\n\n\nThe phrase ``to beg the question'' means to indulge in circular reasoning;\nto assume what is to be proven.  Unfortunately that meaning is becoming lost\nin the wilderness of ignorance that surrounds us, and the phrase is almost\nuniversally used to mean ``to raise the question'' or ``to evince the necessity\nof an answer to the question''.  The language thus loses subtlety and nuance,\nand Newspeak takes over and limits our ability to express our thoughts.  And\nthat is doubleplus ungood! :-)\n\n\tcheers,\n\n\t\tRolf Turner",
+      "body_snippet": "On 13/12/2010, at 10:05 PM, Jari Oksanen wrote:\n\n> On 13/12/10 10:56 AM, \"Philippe Grosjean\" <phgrosjean at sciviews.org> wrote:\n> \n>> Ah! That is interesting!\n>> \n> ...\n>> \n>> Otherwise, I am always ",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 6,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-caa20071b47b",
+      "message_id": "<4D066E2B.4000000@gmail.com>",
+      "from_name": "Ben Bolker",
+      "from_email_hash": "18f6c2b0b79bec76f7afe0fad5e36fffd27297982eaee9a3a21101b9461258e5",
+      "date": "2010-12-13T14:04:11-05:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<E898DA01-4572-4618-8E8C-B5CB1F8BC7A6@auckland.ac.nz>",
+      "references": [
+        "<C92BAE82.1421B%jari.oksanen@oulu.fi>",
+        "<E898DA01-4572-4618-8E8C-B5CB1F8BC7A6@auckland.ac.nz>"
+      ],
+      "body_plain": "On 10-12-13 01:49 PM, Rolf Turner wrote:\n> \n> \n> The phrase ``to beg the question'' means to indulge in circular reasoning;\n> to assume what is to be proven.  Unfortunately that meaning is becoming lost\n> in the wilderness of ignorance that surrounds us, and the phrase is almost\n> universally used to mean ``to raise the question'' or ``to evince the necessity\n> of an answer to the question''.  The language thus loses subtlety and nuance,\n> and Newspeak takes over and limits our ability to express our thoughts.  And\n> that is doubleplus ungood! :-)\n> \n\n<http://www.qwantz.com/index.php?comic=693>\n<http://www.qwantz.com/index.php?comic=1841>\n\n  cheers\n    Ben",
+      "body_snippet": "On 10-12-13 01:49 PM, Rolf Turner wrote:\n> \n> \n> The phrase ``to beg the question'' means to indulge in circular reasoning;\n> to assume what is to be proven.  Unfortunately that meaning is becoming lo",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 7,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-4e50c7631662",
+      "message_id": "<4D06B15C.6080404@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2010-12-13T18:50:52-05:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<E898DA01-4572-4618-8E8C-B5CB1F8BC7A6@auckland.ac.nz>",
+      "references": [
+        "<C92BAE82.1421B%jari.oksanen@oulu.fi>",
+        "<E898DA01-4572-4618-8E8C-B5CB1F8BC7A6@auckland.ac.nz>"
+      ],
+      "body_plain": "Rolf -- you da man!\n\nBased on the literary quality of your epistle below, I will be sure to \ncall upon your services should I ever need some some organization to be \nsokaled.\n\n\nCarl\n\n\nOn 12/13/10 1:49 PM, Rolf Turner wrote:\n>\n> On 13/12/2010, at 10:05 PM, Jari Oksanen wrote:\n>\n>>\n>> I just wonder why the other supposed \"misuse\" was completely ignored in this\n>> thread: there are many things in R that are \"begging the question\" but\n>> nobody dares to ask.\n>\n>\n> The phrase ``to beg the question'' means to indulge in circular reasoning;\n> to assume what is to be proven.  Unfortunately that meaning is becoming lost\n> in the wilderness of ignorance that surrounds us, and the phrase is almost\n> universally used to mean ``to raise the question'' or ``to evince the necessity\n> of an answer to the question''.  The language thus loses subtlety and nuance,\n> and Newspeak takes over and limits our ability to express our thoughts.  And\n> that is doubleplus ungood! :-)\n>\n> \tcheers,\n>\n> \t\tRolf Turner",
+      "body_snippet": "Rolf -- you da man!\n\nBased on the literary quality of your epistle below, I will be sure to \ncall upon your services should I ever need some some organization to be \nsokaled.\n\n\nCarl\n\n\nOn 12/13/10 1:49",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 7,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-e2ac4223c83d",
+      "message_id": "<B57B3D04-A90B-406B-8FF7-C259085C1DCB@uiuc.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "152349103227e03ab475b54ddd8c2fe7b818a799e5aa40c0f7f6d51403413d44",
+      "date": "2010-12-17T17:50:42-06:00",
+      "subject": "[R-SIG-Mac] R on iphone with issh",
+      "subject_clean": "R on iphone with issh",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "There seems to have been quite a lot of gnashing of teeth\nabout running R on the iphone, but having recently installed\nissh on my iphone4 and found it capable of running R remotely -- complete\nwith forwarded x11 graphics, I've been wondering what all\nthe fuss was about.  Granted one would have to be rather\ndesperate to do anything very elaborate on the iphone, but\nit would seem much more likely to be useful when invoking\nan R session on a remote machine that you already were familiar\nwith than running de novo on the phone itself.  Setup was quite easy\nonce you are able to login to a remote machine, you need only to\nenable x forwarding, and the dwm window manager and \nthen invoking a plot command sends graphics that are viewable\nby tapping the X symbol in the upper right corner of the screen\n(twice).   \n\n\nurl:    www.econ.uiuc.edu/~roger            Roger Koenker\nemail    rkoenker at uiuc.edu            Department of Economics\nvox:     217-333-4558                University of Illinois\nfax:       217-244-6678                Urbana, IL 61801",
+      "body_snippet": "There seems to have been quite a lot of gnashing of teeth\nabout running R on the iphone, but having recently installed\nissh on my iphone4 and found it capable of running R remotely -- complete\nwith fo",
+      "thread_id": "thread-e2ac4223c83d",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-5f02f1a49422",
+      "message_id": "<53573AC0-1A66-45E3-A0C4-F7125DC753B7@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "1c0c26ffdc63f8bcd27163d1af93be76a2c5ad37789d7759468aa44285929e74",
+      "date": "2010-12-17T18:01:02-06:00",
+      "subject": "[R-SIG-Mac] R on iphone with issh",
+      "subject_clean": "R on iphone with issh",
+      "in_reply_to": "<B57B3D04-A90B-406B-8FF7-C259085C1DCB@uiuc.edu>",
+      "references": [
+        "<B57B3D04-A90B-406B-8FF7-C259085C1DCB@uiuc.edu>"
+      ],
+      "body_plain": "On Dec 17, 2010, at 5:50 PM, Roger Koenker wrote:\n\n> There seems to have been quite a lot of gnashing of teeth\n> about running R on the iphone, but having recently installed\n> issh on my iphone4 and found it capable of running R remotely -- complete\n> with forwarded x11 graphics, I've been wondering what all\n> the fuss was about.  Granted one would have to be rather\n> desperate to do anything very elaborate on the iphone, but\n> it would seem much more likely to be useful when invoking\n> an R session on a remote machine that you already were familiar\n> with than running de novo on the phone itself.  Setup was quite easy\n> once you are able to login to a remote machine, you need only to\n> enable x forwarding, and the dwm window manager and \n> then invoking a plot command sends graphics that are viewable\n> by tapping the X symbol in the upper right corner of the screen\n> (twice).   \n\n\nRoger,\n\nThe main issue in the prior discussions was not running R remotely, but actually having an R application on the iPhone or iPad, the latter certainly being more suitable to productivity with R.\n\nA stand-alone R application would not be possible under the current restrictions put in place by Apple, as discussed extensively in the past.\n\nHowever, a remote SSH model, such as you describe, or using a client/server model via a GUI based application on the iPhone or iPad that submitted code to a remote server and returned text/graphical results (such as Wolfram|Alpha, see http://products.wolframalpha.com/iphone/), is certainly possible.\n\nRegards,\n\nMarc Schwartz",
+      "body_snippet": "On Dec 17, 2010, at 5:50 PM, Roger Koenker wrote:\n\n> There seems to have been quite a lot of gnashing of teeth\n> about running R on the iphone, but having recently installed\n> issh on my iphone4 and f",
+      "thread_id": "thread-e2ac4223c83d",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-b057343c8572",
+      "message_id": "<C6F0B15F-FE49-47AF-89A1-F404E38EF994@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2010-12-18T11:23:33-05:00",
+      "subject": "[R-SIG-Mac] R on iphone with issh",
+      "subject_clean": "R on iphone with issh",
+      "in_reply_to": "<B57B3D04-A90B-406B-8FF7-C259085C1DCB@uiuc.edu>",
+      "references": [
+        "<B57B3D04-A90B-406B-8FF7-C259085C1DCB@uiuc.edu>"
+      ],
+      "body_plain": "On Dec 17, 2010, at 6:50 PM, Roger Koenker wrote:\n\n> There seems to have been quite a lot of gnashing of teeth\n> about running R on the iphone, but having recently installed\n> issh on my iphone4 and found it capable of running R remotely -- complete\n> with forwarded x11 graphics, I've been wondering what all\n> the fuss was about.\n\nNot that - you could run remote sessions from the iPhone for years (there are many ways, ssh+X11, VNC, remote R GUIs, ...) we know that ;). The discussion you refer to (I guess) was about native R which is possible (we have arm support in the framework) but not distributable via Apple Store. I would still argue that it would be nice to have remote version of the R.app for the iPad but given all the other available options it's not a high priority.\n\nCheers,\nSimon\n\n\n\n>  Granted one would have to be rather\n> desperate to do anything very elaborate on the iphone, but\n> it would seem much more likely to be useful when invoking\n> an R session on a remote machine that you already were familiar\n> with than running de novo on the phone itself.  Setup was quite easy\n> once you are able to login to a remote machine, you need only to\n> enable x forwarding, and the dwm window manager and \n> then invoking a plot command sends graphics that are viewable\n> by tapping the X symbol in the upper right corner of the screen\n> (twice).   \n> \n> \n> url:    www.econ.uiuc.edu/~roger            Roger Koenker\n> email    rkoenker at uiuc.edu            Department of Economics\n> vox:     217-333-4558                University of Illinois\n> fax:       217-244-6678                Urbana, IL 61801\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "On Dec 17, 2010, at 6:50 PM, Roger Koenker wrote:\n\n> There seems to have been quite a lot of gnashing of teeth\n> about running R on the iphone, but having recently installed\n> issh on my iphone4 and f",
+      "thread_id": "thread-e2ac4223c83d",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-431226b05024",
+      "message_id": "<loom.20101220T204650-511@post.gmane.org>",
+      "from_name": "Gordon Couger",
+      "from_email_hash": "ffe859f9ea6f00c5ccf9f2202376a5a502e0f2badddda9c330309913b4331fb3",
+      "date": "2010-12-20T20:03:48Z",
+      "subject": "[R-SIG-Mac] exported data R-SIG-Mac Digest, Vol 94, Issue 2",
+      "subject_clean": "exported data R-SIG-Mac Digest, Vol 94, Issue 2",
+      "in_reply_to": null,
+      "references": [
+        "<mailman.25.1291287614.24241.r-sig-mac@r-project.org>",
+        "<5F2EBE9D-790A-4EA7-BE85-592A37A294B7@globetrotter.net>"
+      ],
+      "body_plain": "I use barebones.com's BBEdit \nso I have reminders and menu selections for converting \nto various character representations, hand editing spots,\n fixing line endings and \nTaking a quick look at data to work out strategies to use \nBASH, C, scripts or what \nhave you to beat into shape. If $12?.00 USD is too \nmuch there is a free editor, Texwrangler.\n\nThey won't do anything you can't do other ways \nbut they save this old mind time. \n\nGordon",
+      "body_snippet": "I use barebones.com's BBEdit \nso I have reminders and menu selections for converting \nto various character representations, hand editing spots,\n fixing line endings and \nTaking a quick look at data to",
+      "thread_id": "thread-ed4b1124a459",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-8f043db81fed",
+      "message_id": "<C93524A2.8F1E%mali@jhsph.edu>",
+      "from_name": "Li, Man",
+      "from_email_hash": "6f8ddf858b6b9147c1bba4e581690881d404aed0798878c53de2f3096c66f824",
+      "date": "2010-12-20T15:20:02-05:00",
+      "subject": "[R-SIG-Mac] Unable to use jpeg() in R.2.12.1",
+      "subject_clean": "Unable to use jpeg() in R.2.12.1",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20101220/2e2afdb9/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20101220/2e2afdb9/attachment.pl>",
+      "thread_id": "thread-8f043db81fed",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-09b06333d050",
+      "message_id": "<9D3514D0-B076-4EA5-9389-7AF528F5B49D@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2010-12-20T16:39:24-05:00",
+      "subject": "[R-SIG-Mac] Unable to use jpeg() in R.2.12.1",
+      "subject_clean": "Unable to use jpeg() in R.2.12.1",
+      "in_reply_to": "<C93524A2.8F1E%mali@jhsph.edu>",
+      "references": [
+        "<C93524A2.8F1E%mali@jhsph.edu>"
+      ],
+      "body_plain": "On Dec 20, 2010, at 3:20 PM, Li, Man wrote:\n\n> Dear list,\n> \n> I just installed R-2.12.1 this afternoon on my mac (OS X 10.5.8). When I was trying to open jpeg() in R, I got this error message below.\n> \n>> jpeg()\n> Error in jpeg() : X11 module cannot be loaded\n> In addition: Warning message:\n> In jpeg() :\n>  unable to load shared object '/Library/Frameworks/R.framework/Resources/modules/x86_64/R_X11.so':\n>  dlopen(/Library/Frameworks/R.framework/Resources/modules/x86_64/R_X11.so, 6): Library not loaded: /usr/X11/lib/libfontconfig.1.dylib\n>  Referenced from: /Library/Frameworks/R.framework/Resources/modules/x86_64/R_X11.so\n>  Reason: Incompatible library version: R_X11.so requires version 5.0.0 or later, but libfontconfig.1.dylib provides version 3.0.0\n> \n\nApparently your X11 is out of date - try installing all security upgrades from Apple (see Software Update).\n\nThat said, on Mac you are usually better off using Quartz - e.g. quartz(.., type=\"jpeg\") instead of jpeg(), png() etc..\n\nCheers,\nSimon\n\n\n\n> There is no problem with png() and pdf().\n> \n> Please advise!\n> \n> Thanks a lot.\n> \n> ----------------------------\n> Man Li\n> Research Analyst\n> Dept of Epidemiology\n> Johns Hopkins Bloomberg School of Public Health\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "On Dec 20, 2010, at 3:20 PM, Li, Man wrote:\n\n> Dear list,\n> \n> I just installed R-2.12.1 this afternoon on my mac (OS X 10.5.8). When I was trying to open jpeg() in R, I got this error message below.\n",
+      "thread_id": "thread-8f043db81fed",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-8f94fb296599",
+      "message_id": "<C9353816.8F24%mali@jhsph.edu>",
+      "from_name": "Li, Man",
+      "from_email_hash": "6f8ddf858b6b9147c1bba4e581690881d404aed0798878c53de2f3096c66f824",
+      "date": "2010-12-20T16:43:02-05:00",
+      "subject": "[R-SIG-Mac] Unable to use jpeg() in R.2.12.1",
+      "subject_clean": "Unable to use jpeg() in R.2.12.1",
+      "in_reply_to": "<9D3514D0-B076-4EA5-9389-7AF528F5B49D@r-project.org>",
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20101220/074106db/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20101220/074106db/attachment.pl>",
+      "thread_id": "thread-8f043db81fed",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-001e3d7f9a1d",
+      "message_id": "<2AE461D2-870F-4C10-907B-0184DDD9D981@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2010-12-20T16:54:49-05:00",
+      "subject": "[R-SIG-Mac] Unable to use jpeg() in R.2.12.1",
+      "subject_clean": "Unable to use jpeg() in R.2.12.1",
+      "in_reply_to": "<C9353816.8F24%mali@jhsph.edu>",
+      "references": [
+        "<C9353816.8F24%mali@jhsph.edu>"
+      ],
+      "body_plain": "Mandy,\n\nthis should be the relevant info that you should see:\n\nhagal:~$ ls -l /usr/X11/lib/libfontconfig.*\n-rwxr-xr-x  1 root  wheel  1078864 Dec  5  2007 /usr/X11/lib/libfontconfig.1.1.0.dylib\n-rwxr-xr-x  1 root  wheel  1056752 Jun 17  2009 /usr/X11/lib/libfontconfig.1.3.0.dylib\nlrwxr-xr-x  1 root  wheel       25 Apr 13  2010 /usr/X11/lib/libfontconfig.1.dylib -> libfontconfig.1.3.0.dylib\nlrwxr-xr-x  1 root  wheel       25 Apr 13  2010 /usr/X11/lib/libfontconfig.dylib -> libfontconfig.1.3.0.dylib\n\nhagal:~$ otool -L /usr/X11/lib/libfontconfig.*|grep -A1 ^/             \n/usr/X11/lib/libfontconfig.1.1.0.dylib:\n\t/usr/X11/lib/libfontconfig.1.dylib (compatibility version 3.0.0, current version 3.0.0)\n--\n/usr/X11/lib/libfontconfig.1.3.0.dylib:\n\t/usr/X11/lib/libfontconfig.1.dylib (compatibility version 5.0.0, current version 5.0.0)\n--\n/usr/X11/lib/libfontconfig.1.dylib:\n\t/usr/X11/lib/libfontconfig.1.dylib (compatibility version 5.0.0, current version 5.0.0)\n--\n/usr/X11/lib/libfontconfig.dylib:\n\t/usr/X11/lib/libfontconfig.1.dylib (compatibility version 5.0.0, current version 5.0.0)\n\n\nAnd the correct version should have been a part of the 10.5.8 system update:\n\nhagal:~$ pkgutil --file-info /usr/X11/lib/libfontconfig.dylib \nvolume: /\npath: usr/X11/lib/libfontconfig.dylib\n\npkgid: com.apple.pkg.X11User\npkg-version: 10.5.3.1.1.1191932192\ninstall-time: 1271180430\nuid: 0\ngid: 0\nmode: 120755\n\npkgid: com.apple.pkg.update.os.10.5.8.combo\npkg-version: 1.0.1.1191932192\ninstall-time: 1271181602\nuid: 0\ngid: 0\nmode: 120755\n\n\nso if in doubt, try re-installing the 10.5.8 update:\n\nhttp://support.apple.com/downloads/Mac_OS_X_10_5_8_Combo_Update\n\nCheers,\nSimon\n\n\n\nOn Dec 20, 2010, at 4:43 PM, Li, Man wrote:\n\n> Hi Simon,\n> \n> Thanks for your quick response.\n> \n> I checked all upgrades from Apple. Nothing comes up. Here is my X11 version info.\n> \n> TransformProcessType: Success\n> X11.app starting:\n> X.org Release 7.2\n> X.Org Xquartz X Server 1.3.0-apple5\n> Build Date: 20080305\n> \n> Mandy\n> \n> On 12/20/10 4:39 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n> \n> \n> \n> On Dec 20, 2010, at 3:20 PM, Li, Man wrote:\n> \n> > Dear list,\n> >\n> > I just installed R-2.12.1 this afternoon on my mac (OS X 10.5.8). When I was trying to open jpeg() in R, I got this error message below.\n> >\n> >> jpeg()\n> > Error in jpeg() : X11 module cannot be loaded\n> > In addition: Warning message:\n> > In jpeg() :\n> >  unable to load shared object '/Library/Frameworks/R.framework/Resources/modules/x86_64/R_X11.so':\n> >  dlopen(/Library/Frameworks/R.framework/Resources/modules/x86_64/R_X11.so, 6): Library not loaded: /usr/X11/lib/libfontconfig.1.dylib\n> >  Referenced from: /Library/Frameworks/R.framework/Resources/modules/x86_64/R_X11.so\n> >  Reason: Incompatible library version: R_X11.so requires version 5.0.0 or later, but libfontconfig.1.dylib provides version 3.0.0\n> >\n> \n> Apparently your X11 is out of date - try installing all security upgrades from Apple (see Software Update).\n> \n> That said, on Mac you are usually better off using Quartz - e.g. quartz(.., type=\"jpeg\") instead of jpeg(), png() etc..\n> \n> Cheers,\n> Simon\n> \n> \n> \n> > There is no problem with png() and pdf().\n> >\n> > Please advise!\n> >\n> > Thanks a lot.\n> >\n> > ----------------------------\n> > Man Li\n> > Research Analyst\n> > Dept of Epidemiology\n> > Johns Hopkins Bloomberg School of Public Health\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> >\n> \n>",
+      "body_snippet": "Mandy,\n\nthis should be the relevant info that you should see:\n\nhagal:~$ ls -l /usr/X11/lib/libfontconfig.*\n-rwxr-xr-x  1 root  wheel  1078864 Dec  5  2007 /usr/X11/lib/libfontconfig.1.1.0.dylib\n-rwxr-",
+      "thread_id": "thread-8f043db81fed",
+      "thread_depth": 3,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-d90b960ae461",
+      "message_id": "<79EBCFBF-E2D0-44EE-8054-BAE363B81BE0@ualberta.ca>",
+      "from_name": "Patrick Bolger",
+      "from_email_hash": "7497c762a0f5efbaeab94482c2def0f3386b3359770a804670488496081feb9e",
+      "date": "2010-12-20T22:26:08-07:00",
+      "subject": "[R-SIG-Mac] learning R",
+      "subject_clean": "learning R",
+      "in_reply_to": "<4D066E2B.4000000@gmail.com>",
+      "references": [
+        "<C92BAE82.1421B%jari.oksanen@oulu.fi>",
+        "<E898DA01-4572-4618-8E8C-B5CB1F8BC7A6@auckland.ac.nz>",
+        "<4D066E2B.4000000@gmail.com>"
+      ],
+      "body_plain": "Beautiful! Thanks for that! I'm gonna post that on my office door.\n\nPoor T-Rex ;)\n\n-Pat\n\nOn 2010-12-13, at 12:04 PM, Ben Bolker wrote:\n\n> On 10-12-13 01:49 PM, Rolf Turner wrote:\n>> \n>> \n>> The phrase ``to beg the question'' means to indulge in circular reasoning;\n>> to assume what is to be proven.  Unfortunately that meaning is becoming lost\n>> in the wilderness of ignorance that surrounds us, and the phrase is almost\n>> universally used to mean ``to raise the question'' or ``to evince the necessity\n>> of an answer to the question''.  The language thus loses subtlety and nuance,\n>> and Newspeak takes over and limits our ability to express our thoughts.  And\n>> that is doubleplus ungood! :-)\n>> \n> \n> <http://www.qwantz.com/index.php?comic=693>\n> <http://www.qwantz.com/index.php?comic=1841>\n> \n>  cheers\n>    Ben\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n--------------\nPatrick Bolger, Ph.D.\nAssistant Professor\nDepartment of Linguistics\nUniversity of Alberta",
+      "body_snippet": "Beautiful! Thanks for that! I'm gonna post that on my office door.\n\nPoor T-Rex ;)\n\n-Pat\n\nOn 2010-12-13, at 12:04 PM, Ben Bolker wrote:\n\n> On 10-12-13 01:49 PM, Rolf Turner wrote:\n>> \n>> \n>> The phrase",
+      "thread_id": "thread-3f9bab4ca819",
+      "thread_depth": 8,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-1027bc48fc80",
+      "message_id": "<252AF0B8-DFAE-4DB6-BA05-DF695019DF80@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "997bb787abf80042157dc28e91db13eb5e5c0f433207dba7fcb5331fa2e472af",
+      "date": "2010-12-21T19:31:51+01:00",
+      "subject": "[R-SIG-Mac] Xcode 3.2.5 and gfortran",
+      "subject_clean": "Xcode 3.2.5 and gfortran",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I currently use Xcode 3.2.2 and gfortran-42-5659.pkg (obtained from the http://r.research.att.com/tools/ page) on Snow Leopard 10.6.5.\n\nI would like to know if I can use the  gfortran from gfortran-42-5664.pkg (integrated with Xcode 3.2.3) with the recently released Xcode 3.2.5?\nI'm asking since Software Update suggests updating Xcode, which is preferable to a direct dowload of 3.2.5 because of the size of a full download. \n\nBerend",
+      "body_snippet": "I currently use Xcode 3.2.2 and gfortran-42-5659.pkg (obtained from the http://r.research.att.com/tools/ page) on Snow Leopard 10.6.5.\n\nI would like to know if I can use the  gfortran from gfortran-42",
+      "thread_id": "thread-1027bc48fc80",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-bc5ae15b84e1",
+      "message_id": "<EDD9EE54-4C53-42EE-B524-885E8F74519E@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2010-12-21T14:22:01-05:00",
+      "subject": "[R-SIG-Mac] Xcode 3.2.5 and gfortran",
+      "subject_clean": "Xcode 3.2.5 and gfortran",
+      "in_reply_to": "<252AF0B8-DFAE-4DB6-BA05-DF695019DF80@xs4all.nl>",
+      "references": [
+        "<252AF0B8-DFAE-4DB6-BA05-DF695019DF80@xs4all.nl>"
+      ],
+      "body_plain": "On Dec 21, 2010, at 1:31 PM, Berend Hasselman wrote:\n\n> \n> I currently use Xcode 3.2.2 and gfortran-42-5659.pkg (obtained from the http://r.research.att.com/tools/ page) on Snow Leopard 10.6.5.\n> \n> I would like to know if I can use the  gfortran from gfortran-42-5664.pkg (integrated with Xcode 3.2.3) with the recently released Xcode 3.2.5?\n> I'm asking since Software Update suggests updating Xcode, which is preferable to a direct dowload of 3.2.5 because of the size of a full download. \n> \n\nApple has made no changes to the gcc since Xcode 3.2.3 (it's still at build 5664) so after updating to Xcode 3.2.5 you can use gfortran-42-5664.pkg to install the appropriate GNU Fortran version which is suitable for any of Xcode 3.2.3, 3.2.4 and 3.2.5.\n\nCheers,\nSimon",
+      "body_snippet": "On Dec 21, 2010, at 1:31 PM, Berend Hasselman wrote:\n\n> \n> I currently use Xcode 3.2.2 and gfortran-42-5659.pkg (obtained from the http://r.research.att.com/tools/ page) on Snow Leopard 10.6.5.\n> \n> I",
+      "thread_id": "thread-1027bc48fc80",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-d649242898eb",
+      "message_id": "<A4316C54-DFC0-4BF1-A91C-7A4BFEA7A038@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "997bb787abf80042157dc28e91db13eb5e5c0f433207dba7fcb5331fa2e472af",
+      "date": "2010-12-21T20:36:56+01:00",
+      "subject": "[R-SIG-Mac] Xcode 3.2.5 and gfortran",
+      "subject_clean": "Xcode 3.2.5 and gfortran",
+      "in_reply_to": "<EDD9EE54-4C53-42EE-B524-885E8F74519E@r-project.org>",
+      "references": [
+        "<252AF0B8-DFAE-4DB6-BA05-DF695019DF80@xs4all.nl>",
+        "<EDD9EE54-4C53-42EE-B524-885E8F74519E@r-project.org>"
+      ],
+      "body_plain": "On 21-12-2010, at 20:22, Simon Urbanek wrote:\n\n> \n> On Dec 21, 2010, at 1:31 PM, Berend Hasselman wrote:\n> \n>> \n>> I currently use Xcode 3.2.2 and gfortran-42-5659.pkg (obtained from the http://r.research.att.com/tools/ page) on Snow Leopard 10.6.5.\n>> \n>> I would like to know if I can use the  gfortran from gfortran-42-5664.pkg (integrated with Xcode 3.2.3) with the recently released Xcode 3.2.5?\n>> I'm asking since Software Update suggests updating Xcode, which is preferable to a direct dowload of 3.2.5 because of the size of a full download. \n>> \n> \n> Apple has made no changes to the gcc since Xcode 3.2.3 (it's still at build 5664) so after updating to Xcode 3.2.5 you can use gfortran-42-5664.pkg to install the appropriate GNU Fortran version which is suitable for any of Xcode 3.2.3, 3.2.4 and 3.2.5.\n\nThanks for the info.\n\nBerend",
+      "body_snippet": "On 21-12-2010, at 20:22, Simon Urbanek wrote:\n\n> \n> On Dec 21, 2010, at 1:31 PM, Berend Hasselman wrote:\n> \n>> \n>> I currently use Xcode 3.2.2 and gfortran-42-5659.pkg (obtained from the http://r.rese",
+      "thread_id": "thread-1027bc48fc80",
+      "thread_depth": 2,
+      "month": "2010-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-440d4dfbe3aa",
+      "subject": "Java on Mac OS X 10.6.5 (Snow Leopard)",
+      "message_count": 1,
+      "participants": [
+        "Richard R. Liu"
+      ],
+      "started": "2010-12-01T15:21:30+01:00",
+      "last_reply": "2010-12-01T15:21:30+01:00",
+      "root_message_id": "msg-440d4dfbe3aa"
+    },
+    {
+      "id": "thread-d134f44c2831",
+      "subject": "getting WriteXLS to work or else choosing file encoding of csv files output from R",
+      "message_count": 5,
+      "participants": [
+        "Denis Chabot",
+        "Marc Schwartz",
+        "Prof Brian Ripley"
+      ],
+      "started": "2010-12-01T18:42:54-05:00",
+      "last_reply": "2010-12-02T07:14:42-05:00",
+      "root_message_id": "msg-d134f44c2831"
+    },
+    {
+      "id": "thread-ed4b1124a459",
+      "subject": "R-SIG-Mac Digest, Vol 94, Issue 2",
+      "message_count": 2,
+      "participants": [
+        "Denis Chabot",
+        "Gordon Couger"
+      ],
+      "started": "2010-12-02T06:49:44-05:00",
+      "last_reply": "2010-12-20T20:03:48+00:00",
+      "root_message_id": "msg-ed4b1124a459"
+    },
+    {
+      "id": "thread-60066ba2de1c",
+      "subject": "R for Mac, good enough?",
+      "message_count": 2,
+      "participants": [
+        "Berend Hasselman",
+        "Deniz Kellecioglu"
+      ],
+      "started": "2010-12-03T10:33:48+02:00",
+      "last_reply": "2010-12-09T09:03:29+01:00",
+      "root_message_id": "msg-60066ba2de1c"
+    },
+    {
+      "id": "thread-a0b794e7a660",
+      "subject": "R for Mac, good enough?",
+      "message_count": 2,
+      "participants": [
+        "Deniz Kellecioglu",
+        "Payam Minoofar"
+      ],
+      "started": "2010-12-09T09:51:27-08:00",
+      "last_reply": "2010-12-13T18:25:19+02:00",
+      "root_message_id": "msg-a0b794e7a660"
+    },
+    {
+      "id": "thread-ba799b4aea9d",
+      "subject": "R-SIG-Mac Digest, Vol 94, Issue 4",
+      "message_count": 1,
+      "participants": [
+        "Serdar Akin"
+      ],
+      "started": "2010-12-09T14:41:16+01:00",
+      "last_reply": "2010-12-09T14:41:16+01:00",
+      "root_message_id": "msg-ba799b4aea9d"
+    },
+    {
+      "id": "thread-8f72dc7752f9",
+      "subject": "html help and browser vs. Rgui",
+      "message_count": 3,
+      "participants": [
+        "Carl Witthoft",
+        "Simon Urbanek"
+      ],
+      "started": "2010-12-09T17:53:41-05:00",
+      "last_reply": "2010-12-09T18:41:54-05:00",
+      "root_message_id": "msg-8f72dc7752f9"
+    },
+    {
+      "id": "thread-3f9bab4ca819",
+      "subject": "learning R",
+      "message_count": 12,
+      "participants": [
+        "Ben Bolker",
+        "Berend Hasselman",
+        "Carl Witthoft",
+        "Erich Neuwirth",
+        "Jari Oksanen",
+        "John Maindonald",
+        "Patrick Bolger",
+        "Philippe Grosjean",
+        "Rolf Turner",
+        "William Revelle"
+      ],
+      "started": "2010-12-10T10:22:04-05:00",
+      "last_reply": "2010-12-20T22:26:08-07:00",
+      "root_message_id": "msg-3f9bab4ca819"
+    },
+    {
+      "id": "thread-1ad38d79dfa0",
+      "subject": "learning R",
+      "message_count": 3,
+      "participants": [
+        "Christophe Dutang",
+        "Pfister",
+        "baptiste auguie"
+      ],
+      "started": "2010-12-11T13:54:55+01:00",
+      "last_reply": "2010-12-11T14:45:37+01:00",
+      "root_message_id": "msg-1ad38d79dfa0"
+    },
+    {
+      "id": "thread-e2ac4223c83d",
+      "subject": "R on iphone with issh",
+      "message_count": 3,
+      "participants": [
+        "Marc Schwartz",
+        "Roger Koenker",
+        "Simon Urbanek"
+      ],
+      "started": "2010-12-17T17:50:42-06:00",
+      "last_reply": "2010-12-18T11:23:33-05:00",
+      "root_message_id": "msg-e2ac4223c83d"
+    },
+    {
+      "id": "thread-8f043db81fed",
+      "subject": "Unable to use jpeg() in R.2.12.1",
+      "message_count": 4,
+      "participants": [
+        "Li, Man",
+        "Simon Urbanek"
+      ],
+      "started": "2010-12-20T15:20:02-05:00",
+      "last_reply": "2010-12-20T16:54:49-05:00",
+      "root_message_id": "msg-8f043db81fed"
+    },
+    {
+      "id": "thread-1027bc48fc80",
+      "subject": "Xcode 3.2.5 and gfortran",
+      "message_count": 3,
+      "participants": [
+        "Berend Hasselman",
+        "Simon Urbanek"
+      ],
+      "started": "2010-12-21T19:31:51+01:00",
+      "last_reply": "2010-12-21T20:36:56+01:00",
+      "root_message_id": "msg-1027bc48fc80"
+    }
+  ]
+}

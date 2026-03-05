@@ -1,0 +1,487 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2019-09",
+  "messages": [
+    {
+      "id": "msg-db81b3de71fb",
+      "message_id": "<C503E863-0F30-4CE6-A767-18521969DA6F@rud.is>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "1825b2a2b76d0395326fce49d356e345a27463d5516c4e24d619f31bfed1b0e6",
+      "date": "2019-09-01T14:07:34-04:00",
+      "subject": "[R-SIG-Mac] RSwitch 64-bit",
+      "subject_clean": "RSwitch 64-bit",
+      "in_reply_to": "<2951D619-1B9E-4664-B389-32745A8A799A@R-project.org>",
+      "references": [
+        "<F4F4F895-FCF7-47E9-921C-2ABFA57D2549@rud.is>",
+        "<2951D619-1B9E-4664-B389-32745A8A799A@R-project.org>"
+      ],
+      "body_plain": "I shall def ask in the future (I just assumed what was on the macOS dev page was it and received the result of what I usually get for assuming things :-)\n\nhttps://git.rud.is/hrbrmstr/official-rswitch has the official RSwitch from the SVN link you provided. It's been upgraded to a more modern Xcode project format and also has had deprecated Objective C methods migrated to non-deprecated ones. The nib has been converted to a xib and it should render equally well on dark and light mode enabled systems. Ideally it would get entitlements and be signed & notarized (and, you are likely well aware of these modern day hurdles but I'm just saying it for completeness to the entire list who might not as steeped in the development of mac apps). I can put ^^ on GitHub or anywhere else if it would be more convenient than my self-hosted gitea instance.\n\nhttps://git.rud.is/hrbrmstr/RSwitch is the revamped Swift version I've made and it's now (as of the non-released 1.4.2 dev version) on-par feature-wise with the original in that it includes the precise version info along with the maj.min symlink version; and, it uses pretty much the same methods as the original RSwitch did/does including reading of Rversion.h to get the precise maj.min.pat version. A png of that is attached (I never remember if attachments make it or not so said png is at https://rud.is/gl/rswitch-swift.png). Two recent releases (1.4.0 and 1.4.1) have made it through the notarization gauntlet as well.\n\nI've expanded the scope of it a bit (or more) as you'll see as you scan through it but it's def welcome to be on CRAN. I'm not sure of some of the expanded scope (it also references a vendor product) wld make that problematic or not, tho.\n\n-boB\n\n> On Aug 29, 2019, at 19:06, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> Bob,\n> \n> It would be likely easier just to ask ;) the sources are still there in the original 2006 SVN repo:\n> \n> http://svn.rforge.net/osx/trunk/RSwitch/\n> \n> It?s really just a very tiny utility, but works on Catalina as well. I can try to build it on the CRAN machine so it will match the current R binaries and thus support the same OS X/macOS versions (assuming it?s not using something too new that?s incopatible).\n> \n> I like the idea of the a menubar app - if/when you?re happy with your app, let me know and I?ll have a look. My only concern is to keep the R layout and detection in sync so if you are willing to contribute it we I can add it to the CRAN section.\n> \n> Thanks,\n> Simon\n> \n> \n>> On Aug 22, 2019, at 5:07 AM, Bob Rudis <bob at rud.is> wrote:\n>> \n>> On http://mac.r-project.org/ (which shld prbly be re-titled to \"R for macOS Developer's Page\"?I'd file a PR for that but do not know where that website source tree is maintained) there's a tiny binary at bottom of the page that enables switching of the `Current` R framework alias via a GUI.\n>> \n>> TLDR: It's 32-bit and the source links stopped working even when the site was homed @ AT&T. As a result, it's unusable on the forthcoming Catalina GA release.\n>> \n>> I have no idea how popular said tool is, but it's handy, so I threw together a Swift 5 version of it (and set a minimum macOS target of 10.14 since I cannot ethically enable use of woefully insecure operating systems).\n> \n> [OT]\n> Well, that?s nice, but leaves a many users especially those that cannot afford to buy a new Mac every year in the dark so the so-called ?ethical? consideration is rather questionable since it?s rather the opposite. I would certainly want to make sure it works on OS X systems that are supported by CRAN.\n> \n> \n> \n>> A core difference between the 2011 version and this 2019 version is that it's a menubar app vs a window app.\n>> \n>> The code and binary release are at <https://git.rud.is/hrbrmstr/RSwitch>, which has links to other social coding sites where the codebase is co-maintained.\n>> \n>> I have a bit more work to do on it (mostly just rounding out corners) but it has \"worked for me\" on Catalina betas and any/all contributions are welcome/encouraged.\n>> \n>> -boB\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>",
+      "body_snippet": "I shall def ask in the future (I just assumed what was on the macOS dev page was it and received the result of what I usually get for assuming things :-)\n\nhttps://git.rud.is/hrbrmstr/official-rswitch ",
+      "thread_id": "thread-db81b3de71fb",
+      "thread_depth": 0,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-cf331809247d",
+      "message_id": "<e984e11f-83e1-d0c3-855c-2aac638622a4@utoronto.ca>",
+      "from_name": "Timothy Dickinson",
+      "from_email_hash": "348e3c47522440ed32b0d07fb68b91c85fe5ea2df60308a36af5ac33afee5767",
+      "date": "2019-09-02T02:05:44Z",
+      "subject": "[R-SIG-Mac] R, ape, and read.nexus()",
+      "subject_clean": "R, ape, and read.nexus()",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have repeatedly been encountering a problem reading into R nexus files that I created in PAUP* 4.0a. I use the savetrees command in PAUP in order to get rid of edge lengths in .tre files received from my collaborator. This is useful to me since I thought I could edit things like tree and tip labels in the nexus file. But even without modifying the file exported by PAUP, I encounter this error message when I try to read the file into R (3.6.0 running on a Mac under OS 10.12.6). The Translate block has 26 labels, for the 26 taxa.\n\n> read.nexus(\"CDS_loci.treefile244.nex\")\n244 phylogenetic trees\nWarning message:\nIn matrix(x, ncol = 2, byrow = TRUE) :\n  data length [51] is not a sub-multiple or multiple of the number of rows [26]\n>\n\nAny suggestions as to what the problem might be would be most welcome.\n\nThank you, ---tad.\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I have repeatedly been encountering a problem reading into R nexus files that I created in PAUP* 4.0a. I use the savetrees command in PAUP in order to get rid of edge lengths in .tre files received fr",
+      "thread_id": "thread-cf331809247d",
+      "thread_depth": 0,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-e05b943f1f04",
+      "message_id": "<FB992E6B-0D10-4D45-AF3A-6926C3C285E4@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "04fa6d0c3897d7401f735ea1444a11e9ef8fce794f6ed7b871e5a56f2d21cdfe",
+      "date": "2019-09-02T12:14:17+10:00",
+      "subject": "[R-SIG-Mac] R, ape, and read.nexus()",
+      "subject_clean": "R, ape, and read.nexus()",
+      "in_reply_to": "<e984e11f-83e1-d0c3-855c-2aac638622a4@utoronto.ca>",
+      "references": [
+        "<e984e11f-83e1-d0c3-855c-2aac638622a4@utoronto.ca>"
+      ],
+      "body_plain": "That looks like a package issue, so I would contact the author. Some authors can be very helpful.\n\nKen\n\n> On 2 Sep 2019, at 12:05 pm, Timothy Dickinson <tim.dickinson at utoronto.ca> wrote:\n> \n> I have repeatedly been encountering a problem reading into R nexus files that I created in PAUP* 4.0a. I use the savetrees command in PAUP in order to get rid of edge lengths in .tre files received from my collaborator. This is useful to me since I thought I could edit things like tree and tip labels in the nexus file. But even without modifying the file exported by PAUP, I encounter this error message when I try to read the file into R (3.6.0 running on a Mac under OS 10.12.6). The Translate block has 26 labels, for the 26 taxa.\n> \n>> read.nexus(\"CDS_loci.treefile244.nex\")\n> 244 phylogenetic trees\n> Warning message:\n> In matrix(x, ncol = 2, byrow = TRUE) :\n>  data length [51] is not a sub-multiple or multiple of the number of rows [26]\n>> \n> \n> Any suggestions as to what the problem might be would be most welcome.\n> \n> Thank you, ---tad.\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "That looks like a package issue, so I would contact the author. Some authors can be very helpful.\n\nKen\n\n> On 2 Sep 2019, at 12:05 pm, Timothy Dickinson <tim.dickinson at utoronto.ca> wrote:\n> \n> I hav",
+      "thread_id": "thread-cf331809247d",
+      "thread_depth": 1,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-e79bf1166093",
+      "message_id": "<CABkCotQey0pBTMkpQxP_s0jwqFT+vUv_O1-YhYZXRwKX1L6otg@mail.gmail.com>",
+      "from_name": "Manuel Spínola",
+      "from_email_hash": "bd9f95c558444b18cc0bdb5b953c6863ec4a10dad5e1f84321cbae40474081ca",
+      "date": "2019-09-04T17:30:08-06:00",
+      "subject": "[R-SIG-Mac] Problems running rJava in MacOS",
+      "subject_clean": "Problems running rJava in MacOS",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear list members,\n\nI am having troubles running rJava.\n\nMacOS 10.14.6\nR 3.6.1\nrJava 0.9-11\njdk 11.0.4\n\n> library(rJava)\nError: package or namespace load failed for ?rJava?:\n .onLoad failed in loadNamespace() for 'rJava', details:\n  call: dyn.load(file, DLLpath = DLLpath, ...)\n  error: unable to load shared object\n'/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n\ndlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so,\n6): Library not loaded:\n/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n  Referenced from:\n/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so\n  Reason: image not found\n\nI run in terminal\n\n(base) Manuels-MacBook-Pro:~ manuelspinola$ R CMD javareconf\n\nJava interpreter : /usr/bin/java\n\nJava version     : 11.0.4\n\nJava home path   :\n/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home\n\nJava compiler    : /usr/bin/javac\n\nJava headers gen.: /usr/bin/javah\n\nJava archive tool: /usr/bin/jar\n\n\ntrying to compile and link a JNI program\n\ndetected JNI cpp flags    : -I$(JAVA_HOME)/include\n-I$(JAVA_HOME)/include/darwin\n\ndetected JNI linker flags : -L$(JAVA_HOME)/lib/server -ljvm\n\nclang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG\n-I/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/include\n-I/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/include/darwin\n-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n-I/usr/local/include  -fPIC  -Wall -g -O2  -c conftest.c -o conftest.o\n\nclang -dynamiclib -Wl,-headerpad_max_install_names -undefined\ndynamic_lookup -single_module -multiply_defined suppress\n-L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o\nconftest.so conftest.o\n-L/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/lib/server\n-ljvm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n-Wl,CoreFoundation\n\n\n\nJAVA_HOME        :\n/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home\n\nJava library path: $(JAVA_HOME)/lib/server\n\nJNI cpp flags    : -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin\n\nJNI linker flags : -L$(JAVA_HOME)/lib/server -ljvm\n\nUpdating Java configuration in /Library/Frameworks/R.framework/Resources\n\noverride rw-r--r--  root/admin for\n/Library/Frameworks/R.framework/Resources/etc/Makeconf? (y/n [n])\n\n\n-- \n*Manuel Sp?nola, Ph.D.*\nInstituto Internacional en Conservaci?n y Manejo de Vida Silvestre\nUniversidad Nacional\nApartado 1350-3000\nHeredia\nCOSTA RICA\nmspinola at una.cr <mspinola at una.ac.cr>\nmspinola10 at gmail.com\nTel?fono: (506) 8706 - 4662\nPersonal website: Lobito de r?o <https://sites.google.com/site/lobitoderio/>\nInstitutional website: ICOMVIS <http://www.icomvis.una.ac.cr/>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear list members,\n\nI am having troubles running rJava.\n\nMacOS 10.14.6\nR 3.6.1\nrJava 0.9-11\njdk 11.0.4\n\n> library(rJava)\nError: package or namespace load failed for ?rJava?:\n .onLoad failed in loadNam",
+      "thread_id": "thread-e79bf1166093",
+      "thread_depth": 0,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-1457307f230c",
+      "message_id": "<c6ae1cb5-6eca-29c2-d0b1-f744aa484eae@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "960cf691f34cc2709527dabb6de874fb0a4c64edacd6eb5108b4fb7e2aa36670",
+      "date": "2019-09-04T18:41:32-07:00",
+      "subject": "[R-SIG-Mac] Problems running rJava in MacOS",
+      "subject_clean": "Problems running rJava in MacOS",
+      "in_reply_to": "<CABkCotQey0pBTMkpQxP_s0jwqFT+vUv_O1-YhYZXRwKX1L6otg@mail.gmail.com>",
+      "references": [
+        "<CABkCotQey0pBTMkpQxP_s0jwqFT+vUv_O1-YhYZXRwKX1L6otg@mail.gmail.com>"
+      ],
+      "body_plain": "Was there a reason to refuse the system's offer to override?\n\n\n-- \n\nDavid.\n\nOn 9/4/19 4:30 PM, Manuel Sp?nola wrote:\n> Dear list members,\n>\n> I am having troubles running rJava.\n>\n> MacOS 10.14.6\n> R 3.6.1\n> rJava 0.9-11\n> jdk 11.0.4\n>\n>> library(rJava)\n> Error: package or namespace load failed for ?rJava?:\n>   .onLoad failed in loadNamespace() for 'rJava', details:\n>    call: dyn.load(file, DLLpath = DLLpath, ...)\n>    error: unable to load shared object\n> '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n>\n> dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so,\n> 6): Library not loaded:\n> /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n>    Referenced from:\n> /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so\n>    Reason: image not found\n>\n> I run in terminal\n>\n> (base) Manuels-MacBook-Pro:~ manuelspinola$ R CMD javareconf\n>\n> Java interpreter : /usr/bin/java\n>\n> Java version     : 11.0.4\n>\n> Java home path   :\n> /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home\n>\n> Java compiler    : /usr/bin/javac\n>\n> Java headers gen.: /usr/bin/javah\n>\n> Java archive tool: /usr/bin/jar\n>\n>\n> trying to compile and link a JNI program\n>\n> detected JNI cpp flags    : -I$(JAVA_HOME)/include\n> -I$(JAVA_HOME)/include/darwin\n>\n> detected JNI linker flags : -L$(JAVA_HOME)/lib/server -ljvm\n>\n> clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG\n> -I/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/include\n> -I/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/include/darwin\n> -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk\n> -I/usr/local/include  -fPIC  -Wall -g -O2  -c conftest.c -o conftest.o\n>\n> clang -dynamiclib -Wl,-headerpad_max_install_names -undefined\n> dynamic_lookup -single_module -multiply_defined suppress\n> -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o\n> conftest.so conftest.o\n> -L/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/lib/server\n> -ljvm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n> -Wl,CoreFoundation\n>\n>\n>\n> JAVA_HOME        :\n> /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home\n>\n> Java library path: $(JAVA_HOME)/lib/server\n>\n> JNI cpp flags    : -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin\n>\n> JNI linker flags : -L$(JAVA_HOME)/lib/server -ljvm\n>\n> Updating Java configuration in /Library/Frameworks/R.framework/Resources\n>\n> override rw-r--r--  root/admin for\n> /Library/Frameworks/R.framework/Resources/etc/Makeconf? (y/n [n])\n>\n>",
+      "body_snippet": "Was there a reason to refuse the system's offer to override?\n\n\n-- \n\nDavid.\n\nOn 9/4/19 4:30 PM, Manuel Sp?nola wrote:\n> Dear list members,\n>\n> I am having troubles running rJava.\n>\n> MacOS 10.14.6\n> R ",
+      "thread_id": "thread-e79bf1166093",
+      "thread_depth": 1,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-bd4d9dec2ce8",
+      "message_id": "<f041f435-e28f-d819-c36a-1f08a08412e6@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2019-09-12T06:44:48+01:00",
+      "subject": "[R-SIG-Mac] Xcode/CLT 11",
+      "subject_clean": "Xcode/CLT 11",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "As a test (I would not recommend it), I installed Command Line Tools 11 \non my Mojave machine.\n\n1) As expected, it does not contain any macOS_SDK_headers_for_macOS \npackage, so the second approach in\nhttps://cran.r-project.org/doc/manuals/r-devel/R-admin.html#Recommended-C_002fC_002b_002b-compilers\nis needed to use the non-Apple builds of clang.  If you do not need \nOpenMP support, one can simple use the CLT's compilers.\n\n2) This contains the SDK for 10.15 (as did CLT 10.2.1).  However, it \nconditionally declares timespec_get, a C11 function that is finally \nadded in 10.15.  autoconf does not understand the conditioning, so R's \nconfigure defined HAVE_TIMESPEC_GET in src/include/config.h.  I have \nworked around this in R-patched and R-devel, but for earlier versions of \nR simply comment out that line in src/include/config.h after running \nconfigure and before make.\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "As a test (I would not recommend it), I installed Command Line Tools 11 \non my Mojave machine.\n\n1) As expected, it does not contain any macOS_SDK_headers_for_macOS \npackage, so the second approach in\n",
+      "thread_id": "thread-bd4d9dec2ce8",
+      "thread_depth": 0,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-543cf7c6bc87",
+      "message_id": "<15FA9953-C843-4A22-8F6A-03E68858C2CD@gmail.com>",
+      "from_name": "Thomas Knox",
+      "from_email_hash": "ffd378df6de2c67a32235560a65bf9801bee9882d91152e99b150f20357dd564",
+      "date": "2019-09-19T13:09:30+01:00",
+      "subject": "[R-SIG-Mac] Problems with rJava fir R 3.6.1",
+      "subject_clean": "Problems with rJava fir R 3.6.1",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have recently installed R 3.6.1 on my MacBook running Mac OS Mojave 10.14.5 in order to run a custom package called MH1823 (probability of detection).  This package requires me to load the following packages from CRAN, tcltk, tcltk2, survival and xlsx.\n\n \n\nI have installed survival, xlsx and tlctk2 (i believe tcltk is embedded).  When I look at Package Manager i see that although the above packages are installed they are not loaded.  I can load survival but when I try to load ?xlsx? i get the following  error message is:\n\n \n\nError: package or namespace load failed for ?xlsx?:\n\n .onLoad failed in loadNamespace() for 'rJava', details:\n\n  call: dyn.load(file, DLLpath = DLLpath, ...)\n\n  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n\n  dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n\n  Referenced from: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so\n\n  Reason: image not found\n\nstarting httpd help server ? done\n\n \n\n \n\nthere may be a couple of hints in here.\n\n \n\n .onLoad failed in loadNamespace() for 'rJava', details  suggests the problem starts with calling rJava.\n\n \n\nthe next line in the error:\n\nerror: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n\nI have checked this path and see no problems, everything seems to stack up and I find jJava.so where it is supposed to be.  However in the next line:\n\n dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n\nI don?t know what the number , 6 after Java.so means but have presumed version number and may be why Java8 is not working.  I also note the path ?. /JavaVirtualMachines/jdk-11.0.1.jdk/ appears as . /JavaVirtualMachines/1.6.0.jdk/\n\nsuggesting a different build\n\n \n\nthe same occurs when I try to load the local source package MH1823\n\n \n\nWhen I try to load HM1823 I get the error message:\n\n* installing *source* package ?mh1823? ...\n\n** using staged installation\n\n** R\n\n** data\n\n** inst\n\n** byte-compile and prepare package for lazy loading\n\nError: package or namespace load failed for ?xlsx?:\n\n .onLoad failed in loadNamespace() for 'rJava', details:\n\n  call: dyn.load(file, DLLpath = DLLpath, ...)\n\n  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n\n  dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n\n  Referenced from: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so\n\n  Reason: image not found\n\nError: package ?xlsx? could not be loaded\n\nExecution halted\n\nERROR: lazy loading failed for package ?mh1823?\n\n* removing ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/mh1823?\n\n>\n\n \n\nI find that the error message is substantially the same suggesting rJava and/or the version of Java.  I have tried removing Java 8 from my machine and installing Java 6 but don?t see any difference.  It is easy to see that Java 8 has been removed but not easy to see that 6 is installed properly as the path names are still the same.\n\n \n\nWhen I try to load either tcltk or tcltk2, my instance of R stops responding entirely.\n\n \n\nI have also installed Xquartz as I believe this is needed for Mac OS X\n\n \n\nCan anyone provide some advice on what the issue might be?  I have tried reading through the FAQ?s but not found anything to point me in the right direction to correct the problem.\n\n \n\nRegards,\n\n \n\nTom Knox\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I have recently installed R 3.6.1 on my MacBook running Mac OS Mojave 10.14.5 in order to run a custom package called MH1823 (probability of detection).  This package requires me to load the following",
+      "thread_id": "thread-543cf7c6bc87",
+      "thread_depth": 0,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-b280eefe6684",
+      "message_id": "<5DA3624D-EBE9-4912-A60F-81A42DE02E2E@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2019-09-19T14:23:10+02:00",
+      "subject": "[R-SIG-Mac] Problems with rJava fir R 3.6.1",
+      "subject_clean": "Problems with rJava fir R 3.6.1",
+      "in_reply_to": "<15FA9953-C843-4A22-8F6A-03E68858C2CD@gmail.com>",
+      "references": [
+        "<15FA9953-C843-4A22-8F6A-03E68858C2CD@gmail.com>"
+      ],
+      "body_plain": "I try to suppress any memories of this stuff every time I have had to deal with it, but...\n\nWould \"R CMD javareconf\" help, maybe?\n\n-pd\n\n> On 19 Sep 2019, at 14:09 , Thomas Knox <knoxy1827 at gmail.com> wrote:\n> \n> I have recently installed R 3.6.1 on my MacBook running Mac OS Mojave 10.14.5 in order to run a custom package called MH1823 (probability of detection).  This package requires me to load the following packages from CRAN, tcltk, tcltk2, survival and xlsx.\n> \n> \n> \n> I have installed survival, xlsx and tlctk2 (i believe tcltk is embedded).  When I look at Package Manager i see that although the above packages are installed they are not loaded.  I can load survival but when I try to load ?xlsx? i get the following  error message is:\n> \n> \n> \n> Error: package or namespace load failed for ?xlsx?:\n> \n> .onLoad failed in loadNamespace() for 'rJava', details:\n> \n>  call: dyn.load(file, DLLpath = DLLpath, ...)\n> \n>  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n> \n>  dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n> \n>  Referenced from: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so\n> \n>  Reason: image not found\n> \n> starting httpd help server ? done\n> \n> \n> \n> \n> \n> there may be a couple of hints in here.\n> \n> \n> \n> .onLoad failed in loadNamespace() for 'rJava', details  suggests the problem starts with calling rJava.\n> \n> \n> \n> the next line in the error:\n> \n> error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n> \n> I have checked this path and see no problems, everything seems to stack up and I find jJava.so where it is supposed to be.  However in the next line:\n> \n> dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n> \n> I don?t know what the number , 6 after Java.so means but have presumed version number and may be why Java8 is not working.  I also note the path ?. /JavaVirtualMachines/jdk-11.0.1.jdk/ appears as . /JavaVirtualMachines/1.6.0.jdk/\n> \n> suggesting a different build\n> \n> \n> \n> the same occurs when I try to load the local source package MH1823\n> \n> \n> \n> When I try to load HM1823 I get the error message:\n> \n> * installing *source* package ?mh1823? ...\n> \n> ** using staged installation\n> \n> ** R\n> \n> ** data\n> \n> ** inst\n> \n> ** byte-compile and prepare package for lazy loading\n> \n> Error: package or namespace load failed for ?xlsx?:\n> \n> .onLoad failed in loadNamespace() for 'rJava', details:\n> \n>  call: dyn.load(file, DLLpath = DLLpath, ...)\n> \n>  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n> \n>  dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n> \n>  Referenced from: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so\n> \n>  Reason: image not found\n> \n> Error: package ?xlsx? could not be loaded\n> \n> Execution halted\n> \n> ERROR: lazy loading failed for package ?mh1823?\n> \n> * removing ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/mh1823?\n> \n>> \n> \n> \n> \n> I find that the error message is substantially the same suggesting rJava and/or the version of Java.  I have tried removing Java 8 from my machine and installing Java 6 but don?t see any difference.  It is easy to see that Java 8 has been removed but not easy to see that 6 is installed properly as the path names are still the same.\n> \n> \n> \n> When I try to load either tcltk or tcltk2, my instance of R stops responding entirely.\n> \n> \n> \n> I have also installed Xquartz as I believe this is needed for Mac OS X\n> \n> \n> \n> Can anyone provide some advice on what the issue might be?  I have tried reading through the FAQ?s but not found anything to point me in the right direction to correct the problem.\n> \n> \n> \n> Regards,\n> \n> \n> \n> Tom Knox\n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "I try to suppress any memories of this stuff every time I have had to deal with it, but...\n\nWould \"R CMD javareconf\" help, maybe?\n\n-pd\n\n> On 19 Sep 2019, at 14:09 , Thomas Knox <knoxy1827 at gmail.com",
+      "thread_id": "thread-543cf7c6bc87",
+      "thread_depth": 1,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-be43d93f4cb7",
+      "message_id": "<CABkCotS9JvMnvC3xBtYCxquVk1ZL=gvmOQxmFqEAEKzA-4p-JA@mail.gmail.com>",
+      "from_name": "Manuel Spínola",
+      "from_email_hash": "bd9f95c558444b18cc0bdb5b953c6863ec4a10dad5e1f84321cbae40474081ca",
+      "date": "2019-09-19T09:53:49-06:00",
+      "subject": "[R-SIG-Mac] Problems with rJava fir R 3.6.1",
+      "subject_clean": "Problems with rJava fir R 3.6.1",
+      "in_reply_to": "<15FA9953-C843-4A22-8F6A-03E68858C2CD@gmail.com>",
+      "references": [
+        "<15FA9953-C843-4A22-8F6A-03E68858C2CD@gmail.com>"
+      ],
+      "body_plain": "Hi Thomas,\n\nI have a similar problem and I solved installing the jdk version 11.0.1 (I\nguess this is the version that rJava expect that you have installed).  You\nneed to search in the JDK archive to find this version.  I tried the last\nJDK version 11.0.4 and it didn't work.\n\nAfter that I wrote in the terminal:\n\nR CMD javareconf\n\nAnd it works for me.\n\nManuel\n\nEl jue., 19 sept. 2019 a las 6:09, Thomas Knox (<knoxy1827 at gmail.com>)\nescribi?:\n\n> I have recently installed R 3.6.1 on my MacBook running Mac OS Mojave\n> 10.14.5 in order to run a custom package called MH1823 (probability of\n> detection).  This package requires me to load the following packages from\n> CRAN, tcltk, tcltk2, survival and xlsx.\n>\n>\n>\n> I have installed survival, xlsx and tlctk2 (i believe tcltk is embedded).\n> When I look at Package Manager i see that although the above packages are\n> installed they are not loaded.  I can load survival but when I try to load\n> ?xlsx? i get the following  error message is:\n>\n>\n>\n> Error: package or namespace load failed for ?xlsx?:\n>\n>  .onLoad failed in loadNamespace() for 'rJava', details:\n>\n>   call: dyn.load(file, DLLpath = DLLpath, ...)\n>\n>   error: unable to load shared object\n> '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n>\n>\n> dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so,\n> 6): Library not loaded:\n> /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n>\n>   Referenced from:\n> /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so\n>\n>   Reason: image not found\n>\n> starting httpd help server ? done\n>\n>\n>\n>\n>\n> there may be a couple of hints in here.\n>\n>\n>\n>  .onLoad failed in loadNamespace() for 'rJava', details  suggests the\n> problem starts with calling rJava.\n>\n>\n>\n> the next line in the error:\n>\n> error: unable to load shared object\n> '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n>\n> I have checked this path and see no problems, everything seems to stack up\n> and I find jJava.so where it is supposed to be.  However in the next line:\n>\n>  dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so,\n> 6): Library not loaded:\n> /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n>\n> I don?t know what the number , 6 after Java.so means but have presumed\n> version number and may be why Java8 is not working.  I also note the path\n> ?. /JavaVirtualMachines/jdk-11.0.1.jdk/ appears as . /JavaVirtualMachines/\n> 1.6.0.jdk/\n>\n> suggesting a different build\n>\n>\n>\n> the same occurs when I try to load the local source package MH1823\n>\n>\n>\n> When I try to load HM1823 I get the error message:\n>\n> * installing *source* package ?mh1823? ...\n>\n> ** using staged installation\n>\n> ** R\n>\n> ** data\n>\n> ** inst\n>\n> ** byte-compile and prepare package for lazy loading\n>\n> Error: package or namespace load failed for ?xlsx?:\n>\n>  .onLoad failed in loadNamespace() for 'rJava', details:\n>\n>   call: dyn.load(file, DLLpath = DLLpath, ...)\n>\n>   error: unable to load shared object\n> '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so':\n>\n>\n> dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so,\n> 6): Library not loaded:\n> /Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/lib/server/libjvm.dylib\n>\n>   Referenced from:\n> /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rJava/libs/rJava.so\n>\n>   Reason: image not found\n>\n> Error: package ?xlsx? could not be loaded\n>\n> Execution halted\n>\n> ERROR: lazy loading failed for package ?mh1823?\n>\n> * removing\n> ?/Library/Frameworks/R.framework/Versions/3.6/Resources/library/mh1823?\n>\n> >\n>\n>\n>\n> I find that the error message is substantially the same suggesting rJava\n> and/or the version of Java.  I have tried removing Java 8 from my machine\n> and installing Java 6 but don?t see any difference.  It is easy to see that\n> Java 8 has been removed but not easy to see that 6 is installed properly as\n> the path names are still the same.\n>\n>\n>\n> When I try to load either tcltk or tcltk2, my instance of R stops\n> responding entirely.\n>\n>\n>\n> I have also installed Xquartz as I believe this is needed for Mac OS X\n>\n>\n>\n> Can anyone provide some advice on what the issue might be?  I have tried\n> reading through the FAQ?s but not found anything to point me in the right\n> direction to correct the problem.\n>\n>\n>\n> Regards,\n>\n>\n>\n> Tom Knox\n>         [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \n*Manuel Sp?nola, Ph.D.*\nInstituto Internacional en Conservaci?n y Manejo de Vida Silvestre\nUniversidad Nacional\nApartado 1350-3000\nHeredia\nCOSTA RICA\nmspinola at una.cr <mspinola at una.ac.cr>\nmspinola10 at gmail.com\nTel?fono: (506) 8706 - 4662\nPersonal website: Lobito de r?o <https://sites.google.com/site/lobitoderio/>\nInstitutional website: ICOMVIS <http://www.icomvis.una.ac.cr/>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Thomas,\n\nI have a similar problem and I solved installing the jdk version 11.0.1 (I\nguess this is the version that rJava expect that you have installed).  You\nneed to search in the JDK archive to f",
+      "thread_id": "thread-543cf7c6bc87",
+      "thread_depth": 1,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-5ec63077335e",
+      "message_id": "<CAJXgQP3V9cfZVmEG-mXv244Y_RVD4R7GaSWr9xy0jChMS4wWwg@mail.gmail.com>",
+      "from_name": "Kevin Ushey",
+      "from_email_hash": "c0bffc799bd95bf26caa6b1c9abdc3f8fdc556eac7399824869756688d2f0689",
+      "date": "2019-09-19T09:55:19-07:00",
+      "subject": "[R-SIG-Mac] code-signing for builds of R from the developer page?",
+      "subject_clean": "code-signing for builds of R from the developer page?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nIt looks like the builds of R from http://mac.r-project.org/ are typically\nnot code-signed, and so one normally gets a Gatekeeper warning when trying\nto install them. E.g. I see (on macOS 10.14.6):\n\n?R-3.6-branch-el-capitan.pkg? can?t be opened because it is from an\nunidentified developer.\n\nYour security preferences allow installation of only apps from the App\nStore and identified developers.\n\n\nIs there any chance this might change in the future?\n\nThanks,\nKevin\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\nIt looks like the builds of R from http://mac.r-project.org/ are typically\nnot code-signed, and so one normally gets a Gatekeeper warning when trying\nto install them. E.g. I see (on macOS 10.14.6",
+      "thread_id": "thread-5ec63077335e",
+      "thread_depth": 0,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-f7a0da68f333",
+      "message_id": "<7827dc47-d223-bf04-d724-5648fac9e0fa@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2019-09-20T16:02:12-05:00",
+      "subject": "[R-SIG-Mac] Where is \"sh\" used by \"R CMD check\"?",
+      "subject_clean": "Where is \"sh\" used by \"R CMD check\"?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello:\n\n\n ????? How can I find \"sh\" that is used by \"R CMD check\" on my Mac?\n\n\n ????? I ask, my \"Bitdefender Antivirus for Mac\" blocks \"R CMD check\" \nwith a pop up saying, \"Bitdefender Safe Files blocked a new process, sh, \nfrom accessing your protected files.? What would you like to do?\"? I'm \nallowed to allow access \"For 5 minutes\" or \"For this time only\" -- or I \ncan block it forever.? I've been clicking \"Allow access\".\n\n\n ????? If I knew where \"sh\" was on my hard drive, I might be able to add \nit to a \"white list\" maintained by the antivirus.? Sadly, I don't know \nwhere it is.\n\n\n ????? Thanks,\n ????? Spencer Graves",
+      "body_snippet": "Hello:\n\n\n ????? How can I find \"sh\" that is used by \"R CMD check\" on my Mac?\n\n\n ????? I ask, my \"Bitdefender Antivirus for Mac\" blocks \"R CMD check\" \nwith a pop up saying, \"Bitdefender Safe Files bloc",
+      "thread_id": "thread-f7a0da68f333",
+      "thread_depth": 0,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-2a7145366e79",
+      "message_id": "<D7AD1E5D-DB7D-489E-BC51-EB6F78828027@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "040b2d09159b27cfd2853bc2dbb476bd637811586f307d9583c9ef7f806f3692",
+      "date": "2019-09-20T17:14:25-04:00",
+      "subject": "[R-SIG-Mac] Where is \"sh\" used by \"R CMD check\"?",
+      "subject_clean": "Where is \"sh\" used by \"R CMD check\"?",
+      "in_reply_to": "<7827dc47-d223-bf04-d724-5648fac9e0fa@prodsyse.com>",
+      "references": [
+        "<7827dc47-d223-bf04-d724-5648fac9e0fa@prodsyse.com>"
+      ],
+      "body_plain": "> On Sep 20, 2019, at 5:02 PM, Spencer Graves <spencer.graves at prodsyse.com> wrote:\n> \n> Hello:\n> \n> \n>       How can I find \"sh\" that is used by \"R CMD check\" on my Mac?\n> \n> \n>       I ask, my \"Bitdefender Antivirus for Mac\" blocks \"R CMD check\" with a pop up saying, \"Bitdefender Safe Files blocked a new process, sh, from accessing your protected files.  What would you like to do?\"  I'm allowed to allow access \"For 5 minutes\" or \"For this time only\" -- or I can block it forever.  I've been clicking \"Allow access\".\n> \n> \n>       If I knew where \"sh\" was on my hard drive, I might be able to add it to a \"white list\" maintained by the antivirus.  Sadly, I don't know where it is.\n> \n> \n>       Thanks,\n>       Spencer Graves\n\n\nHi Spencer,\n\nTypically via 'which' from a terminal:\n\n~  which sh\n/bin/sh\n\nThere is also 'whereis', but that will only check default system binary paths, whereas 'which' will also search your $PATH.\n\nIn this case, they return the same information:\n\n~  whereis sh\n/bin/sh\n\n\nIt sounds like you have the \"Safe Files\" option in Bitdefender enabled, which is optional, which is why the messages. I use BF also.\n\nRegards,\n\nMarc Schwartz",
+      "body_snippet": "> On Sep 20, 2019, at 5:02 PM, Spencer Graves <spencer.graves at prodsyse.com> wrote:\n> \n> Hello:\n> \n> \n>       How can I find \"sh\" that is used by \"R CMD check\" on my Mac?\n> \n> \n>       I ask, my \"Bi",
+      "thread_id": "thread-f7a0da68f333",
+      "thread_depth": 1,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-7e93905e8200",
+      "message_id": "<45f8b0e6-4265-e3fd-f973-3e75b7a76d50@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2019-09-20T16:18:14-05:00",
+      "subject": "[R-SIG-Mac] Where is \"sh\" used by \"R CMD check\"?",
+      "subject_clean": "Where is \"sh\" used by \"R CMD check\"?",
+      "in_reply_to": "<D7AD1E5D-DB7D-489E-BC51-EB6F78828027@me.com>",
+      "references": [
+        "<7827dc47-d223-bf04-d724-5648fac9e0fa@prodsyse.com>",
+        "<D7AD1E5D-DB7D-489E-BC51-EB6F78828027@me.com>"
+      ],
+      "body_plain": "Hi, Marc:? Thanks.? I got exactly the same two answers as you got. Now I \nneed to get back with Bitdefender to figure out what to do with that \ninformation.? Spencer\n\n\nOn 2019-09-20 16:14, Marc Schwartz wrote:\n>> On Sep 20, 2019, at 5:02 PM, Spencer Graves <spencer.graves at prodsyse.com> wrote:\n>>\n>> Hello:\n>>\n>>\n>>        How can I find \"sh\" that is used by \"R CMD check\" on my Mac?\n>>\n>>\n>>        I ask, my \"Bitdefender Antivirus for Mac\" blocks \"R CMD check\" with a pop up saying, \"Bitdefender Safe Files blocked a new process, sh, from accessing your protected files.  What would you like to do?\"  I'm allowed to allow access \"For 5 minutes\" or \"For this time only\" -- or I can block it forever.  I've been clicking \"Allow access\".\n>>\n>>\n>>        If I knew where \"sh\" was on my hard drive, I might be able to add it to a \"white list\" maintained by the antivirus.  Sadly, I don't know where it is.\n>>\n>>\n>>        Thanks,\n>>        Spencer Graves\n>\n> Hi Spencer,\n>\n> Typically via 'which' from a terminal:\n>\n> ~  which sh\n> /bin/sh\n>\n> There is also 'whereis', but that will only check default system binary paths, whereas 'which' will also search your $PATH.\n>\n> In this case, they return the same information:\n>\n> ~  whereis sh\n> /bin/sh\n>\n>\n> It sounds like you have the \"Safe Files\" option in Bitdefender enabled, which is optional, which is why the messages. I use BF also.\n>\n> Regards,\n>\n> Marc Schwartz\n>",
+      "body_snippet": "Hi, Marc:? Thanks.? I got exactly the same two answers as you got. Now I \nneed to get back with Bitdefender to figure out what to do with that \ninformation.? Spencer\n\n\nOn 2019-09-20 16:14, Marc Schwar",
+      "thread_id": "thread-f7a0da68f333",
+      "thread_depth": 2,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-8ccd9bd95bde",
+      "message_id": "<A73ED056-C83B-45BB-AB45-FA22606010D7@mac.com>",
+      "from_name": "Yoshihiko Baba",
+      "from_email_hash": "cf5a65a9d9588c5c566a276c3a987087084b424bbb7c53c3b3970f495bb0a3cc",
+      "date": "2019-09-21T09:03:31+09:00",
+      "subject": "[R-SIG-Mac] How to NOT remove build directory after building a package?",
+      "subject_clean": "How to NOT remove build directory after building a package?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\n\nI have been trying to build a CRAN package from the source on Mac+Fink.  However, I got an error during the build process.  How can I tell R not to remove the temporary build directory?\n\n\nchecking for gsl-config... /sw/opt/gsl25/bin/gsl-config\nchecking if GSL version >= 2.1... checking for gcc... gcc\nchecking whether the C compiler works... no\nconfigure: error: in /private/tmp/RtmpqJYplW/Rbuildc37f217e13c4/gsl': configure: error: C compiler cannot create executables See config.log' for more details\nERROR: configuration failed for package 'gsl'\nremoving '/private/tmp/RtmpqJYplW/Rinstc37f5c43ba09/gsl'\n-----------------------------------\nERROR: package installation failed\n\n\nI am using Fink because Fink can install multiple versions of libraries (gsl in this case).  However, to have multiple versions, GSL libraries are installed in non-standard direcotry (/sw/opt/gsl25).  By setting:\n$ export GSL_CONFIG=/sw/opt/gsl25/bin/gsl-config\nI have managed to tell the location of GSL, but gcc failed somehow.  But the config.log was deleted by R.\n\n\nThanks\n?\nBABA Yoshihiko",
+      "body_snippet": "Hi,\n\n\nI have been trying to build a CRAN package from the source on Mac+Fink.  However, I got an error during the build process.  How can I tell R not to remove the temporary build directory?\n\n\nchecki",
+      "thread_id": "thread-8ccd9bd95bde",
+      "thread_depth": 0,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-22341be4e069",
+      "message_id": "<68A73086-5648-49C8-BDD1-B91FCEB4FB7B@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-09-20T23:56:31-04:00",
+      "subject": "[R-SIG-Mac] How to NOT remove build directory after building a package?",
+      "subject_clean": "How to NOT remove build directory after building a package?",
+      "in_reply_to": "<A73ED056-C83B-45BB-AB45-FA22606010D7@mac.com>",
+      "references": [
+        "<A73ED056-C83B-45BB-AB45-FA22606010D7@mac.com>"
+      ],
+      "body_plain": "Using fink is asking for a lot of trouble, but, anyway, use\n\nR CMD INSTALL --no-clean-on-error\n\nThe other alternative is run INSTALL on the directory instead of the tar ball.\n\nCheers,\nS\n\n\n\n> On Sep 20, 2019, at 8:03 PM, Yoshihiko Baba via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hi,\n> \n> \n> I have been trying to build a CRAN package from the source on Mac+Fink.  However, I got an error during the build process.  How can I tell R not to remove the temporary build directory?\n> \n> \n> checking for gsl-config... /sw/opt/gsl25/bin/gsl-config\n> checking if GSL version >= 2.1... checking for gcc... gcc\n> checking whether the C compiler works... no\n> configure: error: in /private/tmp/RtmpqJYplW/Rbuildc37f217e13c4/gsl': configure: error: C compiler cannot create executables See config.log' for more details\n> ERROR: configuration failed for package 'gsl'\n> removing '/private/tmp/RtmpqJYplW/Rinstc37f5c43ba09/gsl'\n> -----------------------------------\n> ERROR: package installation failed\n> \n> \n> I am using Fink because Fink can install multiple versions of libraries (gsl in this case).  However, to have multiple versions, GSL libraries are installed in non-standard direcotry (/sw/opt/gsl25).  By setting:\n> $ export GSL_CONFIG=/sw/opt/gsl25/bin/gsl-config\n> I have managed to tell the location of GSL, but gcc failed somehow.  But the config.log was deleted by R.\n> \n> \n> Thanks\n> ?\n> BABA Yoshihiko\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Using fink is asking for a lot of trouble, but, anyway, use\n\nR CMD INSTALL --no-clean-on-error\n\nThe other alternative is run INSTALL on the directory instead of the tar ball.\n\nCheers,\nS\n\n\n\n> On Sep 20",
+      "thread_id": "thread-8ccd9bd95bde",
+      "thread_depth": 1,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-817a1dc753a3",
+      "message_id": "<9166C076-08F5-47AC-AE48-45359584413D@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-09-21T00:00:57-04:00",
+      "subject": "[R-SIG-Mac]  code-signing for builds of R from the developer page?",
+      "subject_clean": "code-signing for builds of R from the developer page?",
+      "in_reply_to": "<CAJXgQP3V9cfZVmEG-mXv244Y_RVD4R7GaSWr9xy0jChMS4wWwg@mail.gmail.com>",
+      "references": [
+        "<CAJXgQP3V9cfZVmEG-mXv244Y_RVD4R7GaSWr9xy0jChMS4wWwg@mail.gmail.com>"
+      ],
+      "body_plain": "For some reason signing doesn't work in cron jobs even if the keychain is unlocked. Hence only runs that I run from the shell are successfully signed (like releases). If anyone has a solution, I'd like to hear it.\n\nCheers,\nSimon\n\n\n> On Sep 19, 2019, at 12:55 PM, Kevin Ushey <kevinushey at gmail.com> wrote:\n> \n> Hi,\n> \n> It looks like the builds of R from http://mac.r-project.org/ are typically\n> not code-signed, and so one normally gets a Gatekeeper warning when trying\n> to install them. E.g. I see (on macOS 10.14.6):\n> \n> ?R-3.6-branch-el-capitan.pkg? can?t be opened because it is from an\n> unidentified developer.\n> \n> Your security preferences allow installation of only apps from the App\n> Store and identified developers.\n> \n> \n> Is there any chance this might change in the future?\n> \n> Thanks,\n> Kevin\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "For some reason signing doesn't work in cron jobs even if the keychain is unlocked. Hence only runs that I run from the shell are successfully signed (like releases). If anyone has a solution, I'd lik",
+      "thread_id": "thread-5ec63077335e",
+      "thread_depth": 1,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-e996c712aa10",
+      "message_id": "<2A4D751F-7183-44E7-B029-B366132AEB78@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2019-09-21T20:16:23Z",
+      "subject": "[R-SIG-Mac]  code-signing for builds of R from the developer page?",
+      "subject_clean": "code-signing for builds of R from the developer page?",
+      "in_reply_to": "<9166C076-08F5-47AC-AE48-45359584413D@R-project.org>",
+      "references": [
+        "<CAJXgQP3V9cfZVmEG-mXv244Y_RVD4R7GaSWr9xy0jChMS4wWwg@mail.gmail.com>",
+        "<9166C076-08F5-47AC-AE48-45359584413D@R-project.org>"
+      ],
+      "body_plain": "Greetings and Salutations All, \n\nI think `launchd` jobs would properly sign the installer. `launchd` is Apple's re-envisioning of `cron`.\n\nSo, would it be possible to port over the cron job to `launchd`?\n\nSincerely,\n\nJJB\n\n?On 9/20/19, 11:06 PM, \"R-SIG-Mac on behalf of Simon Urbanek\" <r-sig-mac-bounces at r-project.org on behalf of simon.urbanek at R-project.org> wrote:\n\n    For some reason signing doesn't work in cron jobs even if the keychain is unlocked. Hence only runs that I run from the shell are successfully signed (like releases). If anyone has a solution, I'd like to hear it.\n    \n    Cheers,\n    Simon\n    \n    \n    > On Sep 19, 2019, at 12:55 PM, Kevin Ushey <kevinushey at gmail.com> wrote:\n    > \n    > Hi,\n    > \n    > It looks like the builds of R from http://mac.r-project.org/ are typically\n    > not code-signed, and so one normally gets a Gatekeeper warning when trying\n    > to install them. E.g. I see (on macOS 10.14.6):\n    > \n    > ?R-3.6-branch-el-capitan.pkg? can?t be opened because it is from an\n    > unidentified developer.\n    > \n    > Your security preferences allow installation of only apps from the App\n    > Store and identified developers.\n    > \n    > \n    > Is there any chance this might change in the future?\n    > \n    > Thanks,\n    > Kevin\n    > \n    > \t[[alternative HTML version deleted]]\n    > \n    > _______________________________________________\n    > R-SIG-Mac mailing list\n    > R-SIG-Mac at r-project.org\n    > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n    > \n    \n    _______________________________________________\n    R-SIG-Mac mailing list\n    R-SIG-Mac at r-project.org\n    https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Greetings and Salutations All, \n\nI think `launchd` jobs would properly sign the installer. `launchd` is Apple's re-envisioning of `cron`.\n\nSo, would it be possible to port over the cron job to `launch",
+      "thread_id": "thread-5ec63077335e",
+      "thread_depth": 2,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-dde250b1c88e",
+      "message_id": "<FA1EC6F6-1AA2-4BBD-8AAA-5F3F2829D44D@rud.is>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "1825b2a2b76d0395326fce49d356e345a27463d5516c4e24d619f31bfed1b0e6",
+      "date": "2019-09-22T13:23:17-04:00",
+      "subject": "[R-SIG-Mac]  code-signing for builds of R from the developer page?",
+      "subject_clean": "code-signing for builds of R from the developer page?",
+      "in_reply_to": "<2A4D751F-7183-44E7-B029-B366132AEB78@illinois.edu>",
+      "references": [
+        "<CAJXgQP3V9cfZVmEG-mXv244Y_RVD4R7GaSWr9xy0jChMS4wWwg@mail.gmail.com>",
+        "<9166C076-08F5-47AC-AE48-45359584413D@R-project.org>",
+        "<2A4D751F-7183-44E7-B029-B366132AEB78@illinois.edu>"
+      ],
+      "body_plain": "Something like:\n\n    <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n    <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n    <plist version=\"1.0\">\n    <dict>\n\n      <key>Label</key>\n      <string>is.rud.buildr</string>\n\n      <key>ProgramArguments</key>\n      <array>\n        <string>sh</string>\n        <string>-c</string>\n        <string>/Users/bob/Development/R-3.6.1/build-and-sign.sh</string>\n      </array>\n\n      <key>StartCalendarInterval</key>\n      <dict>\n        <key>Hour</key>\n        <integer>13</integer>\n      </dict>\n\n      <key>UserName</key>\n      <string>bob</string>\n\n      <key>SessionCreate</key>\n      <true/>\n\n      <key>WorkingDirectory</key>\n      <string>/Users/bob/Development/R-3.6.1</string>\n\n      <key>StandardOutPath</key>\n      <string>/Users/bob/tmp/buildr-stdout.log</string>\n\n      <key>StandardErrorPath</key>\n      <string>/Users/bob/tmp/buildr-sterr.log</string>\n\n    </dict>\n    </plist>\n\nput into ~/Library/LaunchAgents/whatever.you.want.plist\n\nthen:\n\n    $ launchctl load -w ~/Library/LaunchAgents/whatever.you.want.plist\n\nwill run the build-and-sign.sh script at 1300 daily (made that up b/c it just turned 1300 here as I was typing) with std[out|err] logs preserved.\n\nThe key elements of the plist to enable access to the cert are:\n\n      <key>UserName</key>\n      <string>bob</string>\n\nand:\n\n      <key>SessionCreate</key>\n      <true/>\n\nThat should work on any recent/supported macOS.\n\nUse:\n\n      $ launchctl unload -w ~/Library/LaunchAgents/whatever.you.want.plist \n\nto unload any active launchd agent so you can reload.\n\nTo get verbose output from the code signing in the logs do:\n\n    codesign -vs \"Developer-id-stirng-from-keychain\" file\n\nI belive only:\n\n    Resources/bin/exec/R\n\nand any dylibs in:\n\n    Resources/lib/\n\n[need to|should be] be signed.\n\nWhile the script name I used is \"build and sign\" there's no reason you couldn't just have a launchd process for the code signing and keep the R build in cron.\n\nThere are (or used to be, at least) quite a few google-able solutions to other scenarios for this, the most common of which has the use of Jenkins (or other build pipeline managers) to manage build pipelines for macOS and iOS apps. I did a quick \"jenkins macos code sign\" and they all still seem to be there (just looked at the list, didn't dig into the URLs to see if they're alive).\n\n-boB\n\n> On Sep 21, 2019, at 4:16 PM, Balamuta, James Joseph <balamut2 at illinois.edu> wrote:\n> \n> Greetings and Salutations All, \n> \n> I think `launchd` jobs would properly sign the installer. `launchd` is Apple's re-envisioning of `cron`.\n> \n> So, would it be possible to port over the cron job to `launchd`?\n> \n> Sincerely,\n> \n> JJB\n> \n> ?On 9/20/19, 11:06 PM, \"R-SIG-Mac on behalf of Simon Urbanek\" <r-sig-mac-bounces at r-project.org on behalf of simon.urbanek at R-project.org> wrote:\n> \n>    For some reason signing doesn't work in cron jobs even if the keychain is unlocked. Hence only runs that I run from the shell are successfully signed (like releases). If anyone has a solution, I'd like to hear it.\n> \n>    Cheers,\n>    Simon\n> \n> \n>> On Sep 19, 2019, at 12:55 PM, Kevin Ushey <kevinushey at gmail.com> wrote:\n>> \n>> Hi,\n>> \n>> It looks like the builds of R from http://mac.r-project.org/ are typically\n>> not code-signed, and so one normally gets a Gatekeeper warning when trying\n>> to install them. E.g. I see (on macOS 10.14.6):\n>> \n>> ?R-3.6-branch-el-capitan.pkg? can?t be opened because it is from an\n>> unidentified developer.\n>> \n>> Your security preferences allow installation of only apps from the App\n>> Store and identified developers.\n>> \n>> \n>> Is there any chance this might change in the future?\n>> \n>> Thanks,\n>> Kevin\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n>    _______________________________________________\n>    R-SIG-Mac mailing list\n>    R-SIG-Mac at r-project.org\n>    https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Something like:\n\n    <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n    <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n    <plist version=\"1.0\"",
+      "thread_id": "thread-5ec63077335e",
+      "thread_depth": 3,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-ff98665028e3",
+      "message_id": "<11FCCBC7-378E-43F3-B684-866C888ECFE0@rud.is>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "1825b2a2b76d0395326fce49d356e345a27463d5516c4e24d619f31bfed1b0e6",
+      "date": "2019-09-22T13:29:12-04:00",
+      "subject": "[R-SIG-Mac]  code-signing for builds of R from the developer page?",
+      "subject_clean": "code-signing for builds of R from the developer page?",
+      "in_reply_to": "<FA1EC6F6-1AA2-4BBD-8AAA-5F3F2829D44D@rud.is>",
+      "references": [
+        "<CAJXgQP3V9cfZVmEG-mXv244Y_RVD4R7GaSWr9xy0jChMS4wWwg@mail.gmail.com>",
+        "<9166C076-08F5-47AC-AE48-45359584413D@R-project.org>",
+        "<2A4D751F-7183-44E7-B029-B366132AEB78@illinois.edu>",
+        "<FA1EC6F6-1AA2-4BBD-8AAA-5F3F2829D44D@rud.is>"
+      ],
+      "body_plain": "(apologies for a second spam addendum, I hit \"send\" too quickly)\n\nIn theory, once the latest Xcode is truly stable (the Xcode 11 GM is broken in some places so there's going to be another release before Apple release macOS Vista in October) the notarization \"API\" (that's way too kind of a word for it) should be fully baked and can be added to any build pipeline. That will require some other things for command line binaries (e.g. an Info.plist and entitlements file just for the notarization) to get ask for, receive, and then staple a ticket to a command line app.\n\nR.app will likely \"need\" said stapling come January 2020 (to avoid the \"this app is malware\" message from Apple).\n\nFor the previous mail, you should be able to also use `productsign` to sign the installer the same way.\n\n-boB\n\n> On Sep 22, 2019, at 1:23 PM, Bob Rudis <bob at rud.is> wrote:\n> \n> Something like:\n> \n>    <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n>    <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n>    <plist version=\"1.0\">\n>    <dict>\n> \n>      <key>Label</key>\n>      <string>is.rud.buildr</string>\n> \n>      <key>ProgramArguments</key>\n>      <array>\n>        <string>sh</string>\n>        <string>-c</string>\n>        <string>/Users/bob/Development/R-3.6.1/build-and-sign.sh</string>\n>      </array>\n> \n>      <key>StartCalendarInterval</key>\n>      <dict>\n>        <key>Hour</key>\n>        <integer>13</integer>\n>      </dict>\n> \n>      <key>UserName</key>\n>      <string>bob</string>\n> \n>      <key>SessionCreate</key>\n>      <true/>\n> \n>      <key>WorkingDirectory</key>\n>      <string>/Users/bob/Development/R-3.6.1</string>\n> \n>      <key>StandardOutPath</key>\n>      <string>/Users/bob/tmp/buildr-stdout.log</string>\n> \n>      <key>StandardErrorPath</key>\n>      <string>/Users/bob/tmp/buildr-sterr.log</string>\n> \n>    </dict>\n>    </plist>\n> \n> put into ~/Library/LaunchAgents/whatever.you.want.plist\n> \n> then:\n> \n>    $ launchctl load -w ~/Library/LaunchAgents/whatever.you.want.plist\n> \n> will run the build-and-sign.sh script at 1300 daily (made that up b/c it just turned 1300 here as I was typing) with std[out|err] logs preserved.\n> \n> The key elements of the plist to enable access to the cert are:\n> \n>      <key>UserName</key>\n>      <string>bob</string>\n> \n> and:\n> \n>      <key>SessionCreate</key>\n>      <true/>\n> \n> That should work on any recent/supported macOS.\n> \n> Use:\n> \n>      $ launchctl unload -w ~/Library/LaunchAgents/whatever.you.want.plist \n> \n> to unload any active launchd agent so you can reload.\n> \n> To get verbose output from the code signing in the logs do:\n> \n>    codesign -vs \"Developer-id-stirng-from-keychain\" file\n> \n> I belive only:\n> \n>    Resources/bin/exec/R\n> \n> and any dylibs in:\n> \n>    Resources/lib/\n> \n> [need to|should be] be signed.\n> \n> While the script name I used is \"build and sign\" there's no reason you couldn't just have a launchd process for the code signing and keep the R build in cron.\n> \n> There are (or used to be, at least) quite a few google-able solutions to other scenarios for this, the most common of which has the use of Jenkins (or other build pipeline managers) to manage build pipelines for macOS and iOS apps. I did a quick \"jenkins macos code sign\" and they all still seem to be there (just looked at the list, didn't dig into the URLs to see if they're alive).\n> \n> -boB\n> \n>> On Sep 21, 2019, at 4:16 PM, Balamuta, James Joseph <balamut2 at illinois.edu> wrote:\n>> \n>> Greetings and Salutations All, \n>> \n>> I think `launchd` jobs would properly sign the installer. `launchd` is Apple's re-envisioning of `cron`.\n>> \n>> So, would it be possible to port over the cron job to `launchd`?\n>> \n>> Sincerely,\n>> \n>> JJB\n>> \n>> ?On 9/20/19, 11:06 PM, \"R-SIG-Mac on behalf of Simon Urbanek\" <r-sig-mac-bounces at r-project.org on behalf of simon.urbanek at R-project.org> wrote:\n>> \n>>   For some reason signing doesn't work in cron jobs even if the keychain is unlocked. Hence only runs that I run from the shell are successfully signed (like releases). If anyone has a solution, I'd like to hear it.\n>> \n>>   Cheers,\n>>   Simon\n>> \n>> \n>>> On Sep 19, 2019, at 12:55 PM, Kevin Ushey <kevinushey at gmail.com> wrote:\n>>> \n>>> Hi,\n>>> \n>>> It looks like the builds of R from http://mac.r-project.org/ are typically\n>>> not code-signed, and so one normally gets a Gatekeeper warning when trying\n>>> to install them. E.g. I see (on macOS 10.14.6):\n>>> \n>>> ?R-3.6-branch-el-capitan.pkg? can?t be opened because it is from an\n>>> unidentified developer.\n>>> \n>>> Your security preferences allow installation of only apps from the App\n>>> Store and identified developers.\n>>> \n>>> \n>>> Is there any chance this might change in the future?\n>>> \n>>> Thanks,\n>>> Kevin\n>>> \n>>> \t[[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>>   _______________________________________________\n>>   R-SIG-Mac mailing list\n>>   R-SIG-Mac at r-project.org\n>>   https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "(apologies for a second spam addendum, I hit \"send\" too quickly)\n\nIn theory, once the latest Xcode is truly stable (the Xcode 11 GM is broken in some places so there's going to be another release befo",
+      "thread_id": "thread-5ec63077335e",
+      "thread_depth": 4,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-1481556fc86f",
+      "message_id": "<5D097F21-AE9A-4152-8475-9A48A379ECF6@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-09-22T21:38:47-04:00",
+      "subject": "[R-SIG-Mac]  code-signing for builds of R from the developer page?",
+      "subject_clean": "code-signing for builds of R from the developer page?",
+      "in_reply_to": "<11FCCBC7-378E-43F3-B684-866C888ECFE0@rud.is>",
+      "references": [
+        "<CAJXgQP3V9cfZVmEG-mXv244Y_RVD4R7GaSWr9xy0jChMS4wWwg@mail.gmail.com>",
+        "<9166C076-08F5-47AC-AE48-45359584413D@R-project.org>",
+        "<2A4D751F-7183-44E7-B029-B366132AEB78@illinois.edu>",
+        "<FA1EC6F6-1AA2-4BBD-8AAA-5F3F2829D44D@rud.is>",
+        "<11FCCBC7-378E-43F3-B684-866C888ECFE0@rud.is>"
+      ],
+      "body_plain": "Thanks, Bob (and JJB)!\n\nI have put the signing in a launch agent and we?ll see.\n\nAs for notarization, that will be interesting. The R installer is fine, the R.app likely, too (except for the hardening requirement and Xcode versions), but I?m not sure how that will affect the R.framework. I?ll experiment later next week.\n\nCheers,\nSimon\n\n\n> On Sep 22, 2019, at 1:29 PM, Bob Rudis <bob at rud.is> wrote:\n> \n> (apologies for a second spam addendum, I hit \"send\" too quickly)\n> \n> In theory, once the latest Xcode is truly stable (the Xcode 11 GM is broken in some places so there's going to be another release before Apple release macOS Vista in October) the notarization \"API\" (that's way too kind of a word for it) should be fully baked and can be added to any build pipeline. That will require some other things for command line binaries (e.g. an Info.plist and entitlements file just for the notarization) to get ask for, receive, and then staple a ticket to a command line app.\n> \n> R.app will likely \"need\" said stapling come January 2020 (to avoid the \"this app is malware\" message from Apple).\n> \n> For the previous mail, you should be able to also use `productsign` to sign the installer the same way.\n> \n> -boB\n> \n>> On Sep 22, 2019, at 1:23 PM, Bob Rudis <bob at rud.is> wrote:\n>> \n>> Something like:\n>> \n>>   <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n>>   <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n>>   <plist version=\"1.0\">\n>>   <dict>\n>> \n>>     <key>Label</key>\n>>     <string>is.rud.buildr</string>\n>> \n>>     <key>ProgramArguments</key>\n>>     <array>\n>>       <string>sh</string>\n>>       <string>-c</string>\n>>       <string>/Users/bob/Development/R-3.6.1/build-and-sign.sh</string>\n>>     </array>\n>> \n>>     <key>StartCalendarInterval</key>\n>>     <dict>\n>>       <key>Hour</key>\n>>       <integer>13</integer>\n>>     </dict>\n>> \n>>     <key>UserName</key>\n>>     <string>bob</string>\n>> \n>>     <key>SessionCreate</key>\n>>     <true/>\n>> \n>>     <key>WorkingDirectory</key>\n>>     <string>/Users/bob/Development/R-3.6.1</string>\n>> \n>>     <key>StandardOutPath</key>\n>>     <string>/Users/bob/tmp/buildr-stdout.log</string>\n>> \n>>     <key>StandardErrorPath</key>\n>>     <string>/Users/bob/tmp/buildr-sterr.log</string>\n>> \n>>   </dict>\n>>   </plist>\n>> \n>> put into ~/Library/LaunchAgents/whatever.you.want.plist\n>> \n>> then:\n>> \n>>   $ launchctl load -w ~/Library/LaunchAgents/whatever.you.want.plist\n>> \n>> will run the build-and-sign.sh script at 1300 daily (made that up b/c it just turned 1300 here as I was typing) with std[out|err] logs preserved.\n>> \n>> The key elements of the plist to enable access to the cert are:\n>> \n>>     <key>UserName</key>\n>>     <string>bob</string>\n>> \n>> and:\n>> \n>>     <key>SessionCreate</key>\n>>     <true/>\n>> \n>> That should work on any recent/supported macOS.\n>> \n>> Use:\n>> \n>>     $ launchctl unload -w ~/Library/LaunchAgents/whatever.you.want.plist \n>> \n>> to unload any active launchd agent so you can reload.\n>> \n>> To get verbose output from the code signing in the logs do:\n>> \n>>   codesign -vs \"Developer-id-stirng-from-keychain\" file\n>> \n>> I belive only:\n>> \n>>   Resources/bin/exec/R\n>> \n>> and any dylibs in:\n>> \n>>   Resources/lib/\n>> \n>> [need to|should be] be signed.\n>> \n>> While the script name I used is \"build and sign\" there's no reason you couldn't just have a launchd process for the code signing and keep the R build in cron.\n>> \n>> There are (or used to be, at least) quite a few google-able solutions to other scenarios for this, the most common of which has the use of Jenkins (or other build pipeline managers) to manage build pipelines for macOS and iOS apps. I did a quick \"jenkins macos code sign\" and they all still seem to be there (just looked at the list, didn't dig into the URLs to see if they're alive).\n>> \n>> -boB\n>> \n>>> On Sep 21, 2019, at 4:16 PM, Balamuta, James Joseph <balamut2 at illinois.edu> wrote:\n>>> \n>>> Greetings and Salutations All, \n>>> \n>>> I think `launchd` jobs would properly sign the installer. `launchd` is Apple's re-envisioning of `cron`.\n>>> \n>>> So, would it be possible to port over the cron job to `launchd`?\n>>> \n>>> Sincerely,\n>>> \n>>> JJB\n>>> \n>>> ?On 9/20/19, 11:06 PM, \"R-SIG-Mac on behalf of Simon Urbanek\" <r-sig-mac-bounces at r-project.org on behalf of simon.urbanek at R-project.org> wrote:\n>>> \n>>>  For some reason signing doesn't work in cron jobs even if the keychain is unlocked. Hence only runs that I run from the shell are successfully signed (like releases). If anyone has a solution, I'd like to hear it.\n>>> \n>>>  Cheers,\n>>>  Simon\n>>> \n>>> \n>>>> On Sep 19, 2019, at 12:55 PM, Kevin Ushey <kevinushey at gmail.com> wrote:\n>>>> \n>>>> Hi,\n>>>> \n>>>> It looks like the builds of R from http://mac.r-project.org/ are typically\n>>>> not code-signed, and so one normally gets a Gatekeeper warning when trying\n>>>> to install them. E.g. I see (on macOS 10.14.6):\n>>>> \n>>>> ?R-3.6-branch-el-capitan.pkg? can?t be opened because it is from an\n>>>> unidentified developer.\n>>>> \n>>>> Your security preferences allow installation of only apps from the App\n>>>> Store and identified developers.\n>>>> \n>>>> \n>>>> Is there any chance this might change in the future?\n>>>> \n>>>> Thanks,\n>>>> Kevin\n>>>> \n>>>> \t[[alternative HTML version deleted]]\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>>>  _______________________________________________\n>>>  R-SIG-Mac mailing list\n>>>  R-SIG-Mac at r-project.org\n>>>  https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Thanks, Bob (and JJB)!\n\nI have put the signing in a launch agent and we?ll see.\n\nAs for notarization, that will be interesting. The R installer is fine, the R.app likely, too (except for the hardening",
+      "thread_id": "thread-5ec63077335e",
+      "thread_depth": 5,
+      "month": "2019-09"
+    },
+    {
+      "id": "msg-37433a02ae46",
+      "message_id": "<CAJXgQP27rwbw1Mu=9Gfd-0UYma0Eb=oU25tRKNvVYv3Qt1fhmg@mail.gmail.com>",
+      "from_name": "Kevin Ushey",
+      "from_email_hash": "c0bffc799bd95bf26caa6b1c9abdc3f8fdc556eac7399824869756688d2f0689",
+      "date": "2019-09-24T14:49:56-07:00",
+      "subject": "[R-SIG-Mac]  code-signing for builds of R from the developer page?",
+      "subject_clean": "code-signing for builds of R from the developer page?",
+      "in_reply_to": "<5D097F21-AE9A-4152-8475-9A48A379ECF6@R-project.org>",
+      "references": [
+        "<CAJXgQP3V9cfZVmEG-mXv244Y_RVD4R7GaSWr9xy0jChMS4wWwg@mail.gmail.com>",
+        "<9166C076-08F5-47AC-AE48-45359584413D@R-project.org>",
+        "<2A4D751F-7183-44E7-B029-B366132AEB78@illinois.edu>",
+        "<FA1EC6F6-1AA2-4BBD-8AAA-5F3F2829D44D@rud.is>",
+        "<11FCCBC7-378E-43F3-B684-866C888ECFE0@rud.is>",
+        "<5D097F21-AE9A-4152-8475-9A48A379ECF6@R-project.org>"
+      ],
+      "body_plain": "I can confirm the newest published installers for R on\nhttp://mac.r-project.org/ are now signed. Thanks for taking a look so\nquickly!\n\nBest,\nKevin\n\nOn Sun, Sep 22, 2019 at 6:39 PM Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n\n> Thanks, Bob (and JJB)!\n>\n> I have put the signing in a launch agent and we?ll see.\n>\n> As for notarization, that will be interesting. The R installer is fine,\n> the R.app likely, too (except for the hardening requirement and Xcode\n> versions), but I?m not sure how that will affect the R.framework. I?ll\n> experiment later next week.\n>\n> Cheers,\n> Simon\n>\n>\n> > On Sep 22, 2019, at 1:29 PM, Bob Rudis <bob at rud.is> wrote:\n> >\n> > (apologies for a second spam addendum, I hit \"send\" too quickly)\n> >\n> > In theory, once the latest Xcode is truly stable (the Xcode 11 GM is\n> broken in some places so there's going to be another release before Apple\n> release macOS Vista in October) the notarization \"API\" (that's way too kind\n> of a word for it) should be fully baked and can be added to any build\n> pipeline. That will require some other things for command line binaries\n> (e.g. an Info.plist and entitlements file just for the notarization) to get\n> ask for, receive, and then staple a ticket to a command line app.\n> >\n> > R.app will likely \"need\" said stapling come January 2020 (to avoid the\n> \"this app is malware\" message from Apple).\n> >\n> > For the previous mail, you should be able to also use `productsign` to\n> sign the installer the same way.\n> >\n> > -boB\n> >\n> >> On Sep 22, 2019, at 1:23 PM, Bob Rudis <bob at rud.is> wrote:\n> >>\n> >> Something like:\n> >>\n> >>   <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n> >>   <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"\n> http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n> >>   <plist version=\"1.0\">\n> >>   <dict>\n> >>\n> >>     <key>Label</key>\n> >>     <string>is.rud.buildr</string>\n> >>\n> >>     <key>ProgramArguments</key>\n> >>     <array>\n> >>       <string>sh</string>\n> >>       <string>-c</string>\n> >>       <string>/Users/bob/Development/R-3.6.1/build-and-sign.sh</string>\n> >>     </array>\n> >>\n> >>     <key>StartCalendarInterval</key>\n> >>     <dict>\n> >>       <key>Hour</key>\n> >>       <integer>13</integer>\n> >>     </dict>\n> >>\n> >>     <key>UserName</key>\n> >>     <string>bob</string>\n> >>\n> >>     <key>SessionCreate</key>\n> >>     <true/>\n> >>\n> >>     <key>WorkingDirectory</key>\n> >>     <string>/Users/bob/Development/R-3.6.1</string>\n> >>\n> >>     <key>StandardOutPath</key>\n> >>     <string>/Users/bob/tmp/buildr-stdout.log</string>\n> >>\n> >>     <key>StandardErrorPath</key>\n> >>     <string>/Users/bob/tmp/buildr-sterr.log</string>\n> >>\n> >>   </dict>\n> >>   </plist>\n> >>\n> >> put into ~/Library/LaunchAgents/whatever.you.want.plist\n> >>\n> >> then:\n> >>\n> >>   $ launchctl load -w ~/Library/LaunchAgents/whatever.you.want.plist\n> >>\n> >> will run the build-and-sign.sh script at 1300 daily (made that up b/c\n> it just turned 1300 here as I was typing) with std[out|err] logs preserved.\n> >>\n> >> The key elements of the plist to enable access to the cert are:\n> >>\n> >>     <key>UserName</key>\n> >>     <string>bob</string>\n> >>\n> >> and:\n> >>\n> >>     <key>SessionCreate</key>\n> >>     <true/>\n> >>\n> >> That should work on any recent/supported macOS.\n> >>\n> >> Use:\n> >>\n> >>     $ launchctl unload -w\n> ~/Library/LaunchAgents/whatever.you.want.plist\n> >>\n> >> to unload any active launchd agent so you can reload.\n> >>\n> >> To get verbose output from the code signing in the logs do:\n> >>\n> >>   codesign -vs \"Developer-id-stirng-from-keychain\" file\n> >>\n> >> I belive only:\n> >>\n> >>   Resources/bin/exec/R\n> >>\n> >> and any dylibs in:\n> >>\n> >>   Resources/lib/\n> >>\n> >> [need to|should be] be signed.\n> >>\n> >> While the script name I used is \"build and sign\" there's no reason you\n> couldn't just have a launchd process for the code signing and keep the R\n> build in cron.\n> >>\n> >> There are (or used to be, at least) quite a few google-able solutions\n> to other scenarios for this, the most common of which has the use of\n> Jenkins (or other build pipeline managers) to manage build pipelines for\n> macOS and iOS apps. I did a quick \"jenkins macos code sign\" and they all\n> still seem to be there (just looked at the list, didn't dig into the URLs\n> to see if they're alive).\n> >>\n> >> -boB\n> >>\n> >>> On Sep 21, 2019, at 4:16 PM, Balamuta, James Joseph <\n> balamut2 at illinois.edu> wrote:\n> >>>\n> >>> Greetings and Salutations All,\n> >>>\n> >>> I think `launchd` jobs would properly sign the installer. `launchd` is\n> Apple's re-envisioning of `cron`.\n> >>>\n> >>> So, would it be possible to port over the cron job to `launchd`?\n> >>>\n> >>> Sincerely,\n> >>>\n> >>> JJB\n> >>>\n> >>> ?On 9/20/19, 11:06 PM, \"R-SIG-Mac on behalf of Simon Urbanek\" <\n> r-sig-mac-bounces at r-project.org on behalf of simon.urbanek at R-project.org>\n> wrote:\n> >>>\n> >>>  For some reason signing doesn't work in cron jobs even if the\n> keychain is unlocked. Hence only runs that I run from the shell are\n> successfully signed (like releases). If anyone has a solution, I'd like to\n> hear it.\n> >>>\n> >>>  Cheers,\n> >>>  Simon\n> >>>\n> >>>\n> >>>> On Sep 19, 2019, at 12:55 PM, Kevin Ushey <kevinushey at gmail.com>\n> wrote:\n> >>>>\n> >>>> Hi,\n> >>>>\n> >>>> It looks like the builds of R from http://mac.r-project.org/ are\n> typically\n> >>>> not code-signed, and so one normally gets a Gatekeeper warning when\n> trying\n> >>>> to install them. E.g. I see (on macOS 10.14.6):\n> >>>>\n> >>>> ?R-3.6-branch-el-capitan.pkg? can?t be opened because it is from an\n> >>>> unidentified developer.\n> >>>>\n> >>>> Your security preferences allow installation of only apps from the App\n> >>>> Store and identified developers.\n> >>>>\n> >>>>\n> >>>> Is there any chance this might change in the future?\n> >>>>\n> >>>> Thanks,\n> >>>> Kevin\n> >>>>\n> >>>>    [[alternative HTML version deleted]]\n> >>>>\n> >>>> _______________________________________________\n> >>>> R-SIG-Mac mailing list\n> >>>> R-SIG-Mac at r-project.org\n> >>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>>>\n> >>>\n> >>>  _______________________________________________\n> >>>  R-SIG-Mac mailing list\n> >>>  R-SIG-Mac at r-project.org\n> >>>  https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>>\n> >>>\n> >>> _______________________________________________\n> >>> R-SIG-Mac mailing list\n> >>> R-SIG-Mac at r-project.org\n> >>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I can confirm the newest published installers for R on\nhttp://mac.r-project.org/ are now signed. Thanks for taking a look so\nquickly!\n\nBest,\nKevin\n\nOn Sun, Sep 22, 2019 at 6:39 PM Simon Urbanek <simon",
+      "thread_id": "thread-5ec63077335e",
+      "thread_depth": 6,
+      "month": "2019-09"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-db81b3de71fb",
+      "subject": "RSwitch 64-bit",
+      "message_count": 1,
+      "participants": [
+        "Bob Rudis"
+      ],
+      "started": "2019-09-01T14:07:34-04:00",
+      "last_reply": "2019-09-01T14:07:34-04:00",
+      "root_message_id": "msg-db81b3de71fb"
+    },
+    {
+      "id": "thread-cf331809247d",
+      "subject": "R, ape, and read.nexus()",
+      "message_count": 2,
+      "participants": [
+        "Ken Beath",
+        "Timothy Dickinson"
+      ],
+      "started": "2019-09-02T02:05:44+00:00",
+      "last_reply": "2019-09-02T12:14:17+10:00",
+      "root_message_id": "msg-cf331809247d"
+    },
+    {
+      "id": "thread-e79bf1166093",
+      "subject": "Problems running rJava in MacOS",
+      "message_count": 2,
+      "participants": [
+        "David Winsemius",
+        "Manuel Spínola"
+      ],
+      "started": "2019-09-04T17:30:08-06:00",
+      "last_reply": "2019-09-04T18:41:32-07:00",
+      "root_message_id": "msg-e79bf1166093"
+    },
+    {
+      "id": "thread-bd4d9dec2ce8",
+      "subject": "Xcode/CLT 11",
+      "message_count": 1,
+      "participants": [
+        "Prof Brian Ripley"
+      ],
+      "started": "2019-09-12T06:44:48+01:00",
+      "last_reply": "2019-09-12T06:44:48+01:00",
+      "root_message_id": "msg-bd4d9dec2ce8"
+    },
+    {
+      "id": "thread-5ec63077335e",
+      "subject": "code-signing for builds of R from the developer page?",
+      "message_count": 7,
+      "participants": [
+        "Balamuta, James Joseph",
+        "Bob Rudis",
+        "Kevin Ushey",
+        "Simon Urbanek"
+      ],
+      "started": "2019-09-19T09:55:19-07:00",
+      "last_reply": "2019-09-24T14:49:56-07:00",
+      "root_message_id": "msg-5ec63077335e"
+    },
+    {
+      "id": "thread-543cf7c6bc87",
+      "subject": "Problems with rJava fir R 3.6.1",
+      "message_count": 3,
+      "participants": [
+        "Manuel Spínola",
+        "Thomas Knox",
+        "peter dalgaard"
+      ],
+      "started": "2019-09-19T13:09:30+01:00",
+      "last_reply": "2019-09-19T09:53:49-06:00",
+      "root_message_id": "msg-543cf7c6bc87"
+    },
+    {
+      "id": "thread-f7a0da68f333",
+      "subject": "Where is \"sh\" used by \"R CMD check\"?",
+      "message_count": 3,
+      "participants": [
+        "Marc Schwartz",
+        "Spencer Graves"
+      ],
+      "started": "2019-09-20T16:02:12-05:00",
+      "last_reply": "2019-09-20T16:18:14-05:00",
+      "root_message_id": "msg-f7a0da68f333"
+    },
+    {
+      "id": "thread-8ccd9bd95bde",
+      "subject": "How to NOT remove build directory after building a package?",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "Yoshihiko Baba"
+      ],
+      "started": "2019-09-21T09:03:31+09:00",
+      "last_reply": "2019-09-20T23:56:31-04:00",
+      "root_message_id": "msg-8ccd9bd95bde"
+    }
+  ]
+}

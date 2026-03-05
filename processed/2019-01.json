@@ -1,0 +1,122 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2019-01",
+  "messages": [
+    {
+      "id": "msg-62409acdc05f",
+      "message_id": "<B8DBAD1D-F4E1-4059-8585-962EBE947F30@sh.se>",
+      "from_name": "Kai-Mikael Jää-Aro",
+      "from_email_hash": "137049ab2593c84f8ed2ce786fb9bb1df49e3951cb4c7b2fc52dff3b542dab46",
+      "date": "2019-01-24T12:53:35Z",
+      "subject": "[R-SIG-Mac] Incorrect help reference for OS X",
+      "subject_clean": "Incorrect help reference for OS X",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "On startup of R version 3.5.2 for x86_64-apple-darwin15.6.0\nI get the following:\n?WARNING: You're using a non-UTF8 locale, therefore only ASCII characters will work.\nPlease read R for Mac OS X FAQ (see Help) section 9 and adjust your system preferences accordingly.?\nI think it is section 7 that is intended.\n\n\n?\nKai-Mikael J??-Aro <kaimikael.jaaaro at sh.se>\n+46 8 608 4926\nMedia Technology and Informatics\nSchool of Natural Science, Technology and Environmental Studies\nS?dert?rn University\nSE-141 89  Huddinge\nSWEDEN",
+      "body_snippet": "On startup of R version 3.5.2 for x86_64-apple-darwin15.6.0\nI get the following:\n?WARNING: You're using a non-UTF8 locale, therefore only ASCII characters will work.\nPlease read R for Mac OS X FAQ (se",
+      "thread_id": "thread-62409acdc05f",
+      "thread_depth": 0,
+      "month": "2019-01"
+    },
+    {
+      "id": "msg-21b3200d276c",
+      "message_id": "<CABFfbXtcHrVb7hbi1+_+yBVSxqZRGh4QrGFmTkzM7rBVTuntUg@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2019-01-25T11:37:52-08:00",
+      "subject": "[R-SIG-Mac] Disable readline echo in R for mac GUI",
+      "subject_clean": "Disable readline echo in R for mac GUI",
+      "in_reply_to": "<CABFfbXsFF8PnVjXvAkEKsyRxqA=WYbTBHSWgQwoYpShKCdHx0Q@mail.gmail.com>",
+      "references": [
+        "<CABFfbXsFF8PnVjXvAkEKsyRxqA=WYbTBHSWgQwoYpShKCdHx0Q@mail.gmail.com>"
+      ],
+      "body_plain": "If anyone else is also interested in this, I found a satisfactory\nsolution to prompt for passwords in R.app using AppleScript. It is now\navailable in the 'askpass' package on CRAN.\n\n\n\nOn Thu, Nov 15, 2018 at 5:06 AM Jeroen Ooms <jeroenooms at gmail.com> wrote:\n>\n> When prompting the user for a password, we need to temporarily disable\n> echo. In a tty we can call posix stty -echo (example below). The\n> RStudio GUI has a native password entry function that can be triggered\n> via getOption('askpass'). Is there simple method to prompt for a\n> password in the R for Mac GUI (without depending on shiny or tcltk)?\n>\n> readline_password <- function(prompt = \"Please enter password\\n\"){\n>   if(isatty(stdin())){\n>     if(system('stty -echo') == 0){\n>       on.exit(system('stty echo'))\n>     }\n>   }\n>   base::readline(prompt)\n> }",
+      "body_snippet": "If anyone else is also interested in this, I found a satisfactory\nsolution to prompt for passwords in R.app using AppleScript. It is now\navailable in the 'askpass' package on CRAN.\n\n\n\nOn Thu, Nov 15, ",
+      "thread_id": "thread-21b3200d276c",
+      "thread_depth": 0,
+      "month": "2019-01"
+    },
+    {
+      "id": "msg-07e3119e3c03",
+      "message_id": "<22793E72-5EBD-4DD0-AD05-778399D073C9@depauw.edu>",
+      "from_name": "Bryan Hanson",
+      "from_email_hash": "a8281090fe3f4c60194a9bdbee79c82d7c808f157ccc9059c884ffe8cb2ccf91",
+      "date": "2019-01-28T21:30:12-05:00",
+      "subject": "[R-SIG-Mac] Extra Returns Accumulate in Console When Recalling Comands via History",
+      "subject_clean": "Extra Returns Accumulate in Console When Recalling Comands via History",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I don?t think this has been reported previously.  I?m running R 3.6 updating every few weeks.  Recently (roughly last month), I?ve noticed that for each command that is issued, an extra return is added in the console if one uses the up arrow to retrieve a previously used command from the history.\n\nTo reproduce, give a command like\n\nmean(rnorm(100))\n\nthen use the up arrow to re-run the command, and one gets an extra return in the console added for each re-running.  Simply writing a command, not using the history, doesn?t do this, so it looks like an extra return is being added when the  history is accessed.\n\nhttps://imgur.com/a/it5e9Hy <https://imgur.com/a/it5e9Hy> for a screenshot.\n\nThanks, Bryan\n\n> sessionInfo()\nR Under development (unstable) (2019-01-22 r76000)\nPlatform: x86_64-apple-darwin15.6.0 (64-bit)\nRunning under: macOS Mojave 10.14.2\n\nMatrix products: default\nBLAS: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib\nLAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_3.6.0\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I don?t think this has been reported previously.  I?m running R 3.6 updating every few weeks.  Recently (roughly last month), I?ve noticed that for each command that is issued, an extra return is adde",
+      "thread_id": "thread-07e3119e3c03",
+      "thread_depth": 0,
+      "month": "2019-01"
+    },
+    {
+      "id": "msg-b2504c91a0cb",
+      "message_id": "<CA421667-2312-461B-9E98-55C1DEB76D6F@depauw.edu>",
+      "from_name": "Bryan Hanson",
+      "from_email_hash": "a8281090fe3f4c60194a9bdbee79c82d7c808f157ccc9059c884ffe8cb2ccf91",
+      "date": "2019-01-29T10:25:19-05:00",
+      "subject": "[R-SIG-Mac] Extra Returns Accumulate in Console When Recalling Comands via History",
+      "subject_clean": "Extra Returns Accumulate in Console When Recalling Comands via History",
+      "in_reply_to": "<257C90DD-92ED-4080-B3F4-E8D7F4225712@icloud.com>",
+      "references": [
+        "<22793E72-5EBD-4DD0-AD05-778399D073C9@depauw.edu>",
+        "<257C90DD-92ED-4080-B3F4-E8D7F4225712@icloud.com>"
+      ],
+      "body_plain": "Hi Rob? I?m not reading the history on startup.  But the ?clean up history entries? box is not checked for me, I?m not sure if it ever was, nor am I clear as to what it does [? goes and does the expt ?] yes, that?s the problem.  Thank you, I?ll cc the list.  Bryan\n\n> On Jan 29, 2019, at 10:09 AM, Rob J. Goedman <goedman at icloud.com> wrote:\n> \n> Bryan,\n> \n> Could it be that your startup preferences have been changed, particularly the item 'Cleanup history entries??\n> \n> Rob J Goedman\n> goedman at icloud.com <mailto:goedman at icloud.com>\n> \n> <Screen Shot 2019-01-29 at 08.08.09.png>\n> \n> \n>> On Jan 28, 2019, at 19:30, Bryan Hanson <hanson at depauw.edu <mailto:hanson at depauw.edu>> wrote:\n>> \n>> I don?t think this has been reported previously.  I?m running R 3.6 updating every few weeks.  Recently (roughly last month), I?ve noticed that for each command that is issued, an extra return is added in the console if one uses the up arrow to retrieve a previously used command from the history.\n>> \n>> To reproduce, give a command like\n>> \n>> mean(rnorm(100))\n>> \n>> then use the up arrow to re-run the command, and one gets an extra return in the console added for each re-running.  Simply writing a command, not using the history, doesn?t do this, so it looks like an extra return is being added when the  history is accessed.\n>> \n>> https://imgur.com/a/it5e9Hy <https://imgur.com/a/it5e9Hy> <https://imgur.com/a/it5e9Hy <https://imgur.com/a/it5e9Hy>> for a screenshot.\n>> \n>> Thanks, Bryan\n>> \n>>> sessionInfo()\n>> R Under development (unstable) (2019-01-22 r76000)\n>> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>> Running under: macOS Mojave 10.14.2\n>> \n>> Matrix products: default\n>> BLAS: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib\n>> LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>> \n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> \n>> loaded via a namespace (and not attached):\n>> [1] compiler_3.6.0\n>> \n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Rob? I?m not reading the history on startup.  But the ?clean up history entries? box is not checked for me, I?m not sure if it ever was, nor am I clear as to what it does [? goes and does the expt ",
+      "thread_id": "thread-b2504c91a0cb",
+      "thread_depth": 0,
+      "month": "2019-01"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-62409acdc05f",
+      "subject": "Incorrect help reference for OS X",
+      "message_count": 1,
+      "participants": [
+        "Kai-Mikael Jää-Aro"
+      ],
+      "started": "2019-01-24T12:53:35+00:00",
+      "last_reply": "2019-01-24T12:53:35+00:00",
+      "root_message_id": "msg-62409acdc05f"
+    },
+    {
+      "id": "thread-21b3200d276c",
+      "subject": "Disable readline echo in R for mac GUI",
+      "message_count": 1,
+      "participants": [
+        "Jeroen Ooms"
+      ],
+      "started": "2019-01-25T11:37:52-08:00",
+      "last_reply": "2019-01-25T11:37:52-08:00",
+      "root_message_id": "msg-21b3200d276c"
+    },
+    {
+      "id": "thread-07e3119e3c03",
+      "subject": "Extra Returns Accumulate in Console When Recalling Comands via History",
+      "message_count": 1,
+      "participants": [
+        "Bryan Hanson"
+      ],
+      "started": "2019-01-28T21:30:12-05:00",
+      "last_reply": "2019-01-28T21:30:12-05:00",
+      "root_message_id": "msg-07e3119e3c03"
+    },
+    {
+      "id": "thread-b2504c91a0cb",
+      "subject": "Extra Returns Accumulate in Console When Recalling Comands via History",
+      "message_count": 1,
+      "participants": [
+        "Bryan Hanson"
+      ],
+      "started": "2019-01-29T10:25:19-05:00",
+      "last_reply": "2019-01-29T10:25:19-05:00",
+      "root_message_id": "msg-b2504c91a0cb"
+    }
+  ]
+}

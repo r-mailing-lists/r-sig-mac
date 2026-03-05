@@ -1,0 +1,3058 @@
+From ph||_mc@h@ne @end|ng |rom y@hoo@co@uk  Sun Jun  9 20:47:08 2024
+From: ph||_mc@h@ne @end|ng |rom y@hoo@co@uk (Phil McShane)
+Date: Sun, 9 Jun 2024 19:47:08 +0100
+Subject: [R-SIG-Mac] M3 not working with torch
+In-Reply-To: <778A3C18-A506-44B3-A48B-29767A14F5CE@R-project.org>
+References: <C878DA23-99F6-4719-85AA-487BB99F63DF@inpe.br>
+ <778A3C18-A506-44B3-A48B-29767A14F5CE@R-project.org>
+Message-ID: <C8DDF33B-4FCD-48FB-97F9-B31874FEB6F1@yahoo.co.uk>
+
+Dear Colleague			Sunday
+
+My husband died over a year ago.  Although I still use his e-mail address I would be grateful if you would remove this e-mail address from your mailing
+
+Regards			Joan McShane (Widow)
+
+
+> On 20 May 2024, at 21:48, Simon Urbanek <simon.urbanek at r-project.org> wrote:
+> 
+> Gilberto,
+> 
+> since luz is a contributed package, you should probably start first by asking the authors. Given that the torch ecosystem is quite complex and has several layers that need to work together, even if you talk to them, you probably need to add details such as exact versions used (including the torch and metal layers) and how you installed the pieces (I know you helpfully supplied sesisonInfo() but I suspect that info such as exact torch run-time is pertinent as well). Next step would be to trace the error - check the system crash reporter or run R -d lldb to find out the exact library the crash happens in which may give you more clues. I don't have any M3 machines so I can't check myself, unfortunately.
+> 
+> Cheers,
+> Simon
+> 
+> 
+> 
+>> On 21/05/2024, at 12:48 AM, Gilberto Camara <gilberto.camara at inpe.br> wrote:
+>> 
+>> Dear R-SIG-MAC
+>> 
+>> I bought a new MacBook Air with the M3 chip, which has 8 CPUs, 10 GPUs, and 16GB of integrated memory. My R `torch` apps are crashing. I have assembled an MWE that works on other Mac architectures, including MacBook Air M1 and MacMini. The OS is the same (Sonoma 14.5). The MWE follows:
+>> [...]
+>> ```
+>> The error occurs in the `luz::fit` function. Inside RStudio, the code gets stuck, and then RStudio asks to restart R. When running R from the terminal, the output is:
+>> ```{r}
+>> *** caught bus error ***
+>> address 0x16daa0000, cause 'invalid alignment'
+>> 
+>> *** caught segfault ***
+>> address 0x9, cause 'invalid permissions'
+>> zsh: segmentation fault  R
+>> ```
+>> The `sessionInfo()` output is as follows:
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+	[[alternative HTML version deleted]]
+
+
+From ken @end|ng |rom kjbe@th@|d@@u  Mon Jun 10 09:37:20 2024
+From: ken @end|ng |rom kjbe@th@|d@@u (Ken Beath)
+Date: Mon, 10 Jun 2024 17:37:20 +1000
+Subject: [R-SIG-Mac] M3 not working with torch
+In-Reply-To: <C8DDF33B-4FCD-48FB-97F9-B31874FEB6F1@yahoo.co.uk>
+References: <C878DA23-99F6-4719-85AA-487BB99F63DF@inpe.br>
+ <778A3C18-A506-44B3-A48B-29767A14F5CE@R-project.org>
+ <C8DDF33B-4FCD-48FB-97F9-B31874FEB6F1@yahoo.co.uk>
+Message-ID: <3E0D91FF-93E2-42F4-8D01-97E9B34DA1B4@kjbeath.id.au>
+
+I?m sorry to hear about your husband.
+
+To unsubscribe  you need to access https://stat.ethz.ch/mailman/listinfo/r-sig-mac 
+
+The password is contained in an e-mail which is sent regularly with the subject r-project.org mailing list memberships reminder <http://r-project.org/> or you can request the password on the webpage.
+
+Ken
+
+
+> On 10 Jun 2024, at 4:47?AM, Phil McShane via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+> 
+> Dear Colleague			Sunday
+> 
+> My husband died over a year ago.  Although I still use his e-mail address I would be grateful if you would remove this e-mail address from your mailing
+> 
+> Regards			Joan McShane (Widow)
+> 
+> 
+>> On 20 May 2024, at 21:48, Simon Urbanek <simon.urbanek at r-project.org> wrote:
+>> 
+>> Gilberto,
+>> 
+>> since luz is a contributed package, you should probably start first by asking the authors. Given that the torch ecosystem is quite complex and has several layers that need to work together, even if you talk to them, you probably need to add details such as exact versions used (including the torch and metal layers) and how you installed the pieces (I know you helpfully supplied sesisonInfo() but I suspect that info such as exact torch run-time is pertinent as well). Next step would be to trace the error - check the system crash reporter or run R -d lldb to find out the exact library the crash happens in which may give you more clues. I don't have any M3 machines so I can't check myself, unfortunately.
+>> 
+>> Cheers,
+>> Simon
+>> 
+>> 
+>> 
+>>> On 21/05/2024, at 12:48 AM, Gilberto Camara <gilberto.camara at inpe.br> wrote:
+>>> 
+>>> Dear R-SIG-MAC
+>>> 
+>>> I bought a new MacBook Air with the M3 chip, which has 8 CPUs, 10 GPUs, and 16GB of integrated memory. My R `torch` apps are crashing. I have assembled an MWE that works on other Mac architectures, including MacBook Air M1 and MacMini. The OS is the same (Sonoma 14.5). The MWE follows:
+>>> [...]
+>>> ```
+>>> The error occurs in the `luz::fit` function. Inside RStudio, the code gets stuck, and then RStudio asks to restart R. When running R from the terminal, the output is:
+>>> ```{r}
+>>> *** caught bus error ***
+>>> address 0x16daa0000, cause 'invalid alignment'
+>>> 
+>>> *** caught segfault ***
+>>> address 0x9, cause 'invalid permissions'
+>>> zsh: segmentation fault  R
+>>> ```
+>>> The `sessionInfo()` output is as follows:
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+	[[alternative HTML version deleted]]
+
+
+From pd@|gd @end|ng |rom gm@||@com  Mon Jun 10 13:43:22 2024
+From: pd@|gd @end|ng |rom gm@||@com (peter dalgaard)
+Date: Mon, 10 Jun 2024 13:43:22 +0200
+Subject: [R-SIG-Mac] M3 not working with torch
+In-Reply-To: <3E0D91FF-93E2-42F4-8D01-97E9B34DA1B4@kjbeath.id.au>
+References: <C878DA23-99F6-4719-85AA-487BB99F63DF@inpe.br>
+ <778A3C18-A506-44B3-A48B-29767A14F5CE@R-project.org>
+ <C8DDF33B-4FCD-48FB-97F9-B31874FEB6F1@yahoo.co.uk>
+ <3E0D91FF-93E2-42F4-8D01-97E9B34DA1B4@kjbeath.id.au>
+Message-ID: <315E4EBD-A906-4D48-A6E8-BC09ADE3D711@gmail.com>
+
+In cases like this, you could contact R-SIG-Mac-owner at r-project.org directly and also have them look for the email on the other r-project.org mailing lists.
+
+Obviously, they would rather have users sort this out for themselves, since it requires manual intervention for the administrator, but this is an exceptional case.
+
+- Peter D.
+
+> On 10 Jun 2024, at 09:37 , Ken Beath <ken at kjbeath.id.au> wrote:
+> 
+> I?m sorry to hear about your husband.
+> 
+> To unsubscribe  you need to access https://stat.ethz.ch/mailman/listinfo/r-sig-mac 
+> 
+> The password is contained in an e-mail which is sent regularly with the subject r-project.org mailing list memberships reminder <http://r-project.org/> or you can request the password on the webpage.
+> 
+> Ken
+> 
+> 
+>> On 10 Jun 2024, at 4:47?AM, Phil McShane via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+>> 
+>> Dear Colleague			Sunday
+>> 
+>> My husband died over a year ago.  Although I still use his e-mail address I would be grateful if you would remove this e-mail address from your mailing
+>> 
+>> Regards			Joan McShane (Widow)
+>> 
+>> 
+>>> On 20 May 2024, at 21:48, Simon Urbanek <simon.urbanek at r-project.org> wrote:
+>>> 
+>>> Gilberto,
+>>> 
+>>> since luz is a contributed package, you should probably start first by asking the authors. Given that the torch ecosystem is quite complex and has several layers that need to work together, even if you talk to them, you probably need to add details such as exact versions used (including the torch and metal layers) and how you installed the pieces (I know you helpfully supplied sesisonInfo() but I suspect that info such as exact torch run-time is pertinent as well). Next step would be to trace the error - check the system crash reporter or run R -d lldb to find out the exact library the crash happens in which may give you more clues. I don't have any M3 machines so I can't check myself, unfortunately.
+>>> 
+>>> Cheers,
+>>> Simon
+>>> 
+>>> 
+>>> 
+>>>> On 21/05/2024, at 12:48 AM, Gilberto Camara <gilberto.camara at inpe.br> wrote:
+>>>> 
+>>>> Dear R-SIG-MAC
+>>>> 
+>>>> I bought a new MacBook Air with the M3 chip, which has 8 CPUs, 10 GPUs, and 16GB of integrated memory. My R `torch` apps are crashing. I have assembled an MWE that works on other Mac architectures, including MacBook Air M1 and MacMini. The OS is the same (Sonoma 14.5). The MWE follows:
+>>>> [...]
+>>>> ```
+>>>> The error occurs in the `luz::fit` function. Inside RStudio, the code gets stuck, and then RStudio asks to restart R. When running R from the terminal, the output is:
+>>>> ```{r}
+>>>> *** caught bus error ***
+>>>> address 0x16daa0000, cause 'invalid alignment'
+>>>> 
+>>>> *** caught segfault ***
+>>>> address 0x9, cause 'invalid permissions'
+>>>> zsh: segmentation fault  R
+>>>> ```
+>>>> The `sessionInfo()` output is as follows:
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+>> 
+>> 	[[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Peter Dalgaard, Professor,
+Center for Statistics, Copenhagen Business School
+Solbjerg Plads 3, 2000 Frederiksberg, Denmark
+Phone: (+45)38153501
+Office: A 4.23
+Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
+
+
+From ken @end|ng |rom kjbe@th@com@@u  Mon Jun 10 09:07:35 2024
+From: ken @end|ng |rom kjbe@th@com@@u (kjbeath)
+Date: Mon, 10 Jun 2024 17:07:35 +1000
+Subject: [R-SIG-Mac] M3 not working with torch
+In-Reply-To: <C8DDF33B-4FCD-48FB-97F9-B31874FEB6F1@yahoo.co.uk>
+References: <C878DA23-99F6-4719-85AA-487BB99F63DF@inpe.br>
+ <778A3C18-A506-44B3-A48B-29767A14F5CE@R-project.org>
+ <C8DDF33B-4FCD-48FB-97F9-B31874FEB6F1@yahoo.co.uk>
+Message-ID: <1AD44CA8-8E2B-4629-95B2-A99BB7F75875@kjbeath.com.au>
+
+I?m sorry to hear about your husband.
+
+To unsubscribe  you need to access https://stat.ethz.ch/mailman/listinfo/r-sig-mac 
+
+The password is contained in an e-mail which is sent regularly with the subject r-project.org mailing list memberships reminder <http://r-project.org/> or you can request the password on the webpage.
+
+Ken
+
+
+> On 10 Jun 2024, at 4:47?AM, Phil McShane via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+> 
+> Dear Colleague			Sunday
+> 
+> My husband died over a year ago.  Although I still use his e-mail address I would be grateful if you would remove this e-mail address from your mailing
+> 
+> Regards			Joan McShane (Widow)
+> 
+> 
+>> On 20 May 2024, at 21:48, Simon Urbanek <simon.urbanek at r-project.org> wrote:
+>> 
+>> Gilberto,
+>> 
+>> since luz is a contributed package, you should probably start first by asking the authors. Given that the torch ecosystem is quite complex and has several layers that need to work together, even if you talk to them, you probably need to add details such as exact versions used (including the torch and metal layers) and how you installed the pieces (I know you helpfully supplied sesisonInfo() but I suspect that info such as exact torch run-time is pertinent as well). Next step would be to trace the error - check the system crash reporter or run R -d lldb to find out the exact library the crash happens in which may give you more clues. I don't have any M3 machines so I can't check myself, unfortunately.
+>> 
+>> Cheers,
+>> Simon
+>> 
+>> 
+>> 
+>>> On 21/05/2024, at 12:48 AM, Gilberto Camara <gilberto.camara at inpe.br> wrote:
+>>> 
+>>> Dear R-SIG-MAC
+>>> 
+>>> I bought a new MacBook Air with the M3 chip, which has 8 CPUs, 10 GPUs, and 16GB of integrated memory. My R `torch` apps are crashing. I have assembled an MWE that works on other Mac architectures, including MacBook Air M1 and MacMini. The OS is the same (Sonoma 14.5). The MWE follows:
+>>> [...]
+>>> ```
+>>> The error occurs in the `luz::fit` function. Inside RStudio, the code gets stuck, and then RStudio asks to restart R. When running R from the terminal, the output is:
+>>> ```{r}
+>>> *** caught bus error ***
+>>> address 0x16daa0000, cause 'invalid alignment'
+>>> 
+>>> *** caught segfault ***
+>>> address 0x9, cause 'invalid permissions'
+>>> zsh: segmentation fault  R
+>>> ```
+>>> The `sessionInfo()` output is as follows:
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+	[[alternative HTML version deleted]]
+
+
+From @pencer@gr@ve@ @end|ng |rom prod@y@e@com  Thu Jun 13 19:09:25 2024
+From: @pencer@gr@ve@ @end|ng |rom prod@y@e@com (Spencer Graves)
+Date: Thu, 13 Jun 2024 12:09:25 -0500
+Subject: [R-SIG-Mac] "R CMD build" ...Error... "processing vignette ...
+ failed with diagnostics:,
+ Pandoc is required to build R Markdown vignettes but not available."
+Message-ID: <b8e66809-8a9f-4915-852d-d0eed514a23e@prodsyse.com>
+
+Hello, All:
+
+
+	  "R CMD build" fails for me, apparently because it cannot find pandoc, 
+even though R in a command prompt finds it. This is with R 4.4.0 under 
+macOS 14.5. I get the following in a Terminal:
+
+
+___% R CMD build fda
+* checking for file ?fda/DESCRIPTION? ... OK
+* preparing ?fda?:
+* checking DESCRIPTION meta-information ... OK
+* installing the package to build vignettes
+* creating vignettes ... ERROR
+--- re-building ?BasisBasics.Rmd? using rmarkdown
+Error: processing vignette 'BasisBasics.Rmd' failed with diagnostics:
+Pandoc is required to build R Markdown vignettes but not available. 
+Please make sure it is installed.
+
+
+	  "Pandoc 3.2 already installed", per the following interaction with R 
+in said Terminal:
+	
+
+ > library(pandoc)
+ > pandoc_install()
+? Fetching Pandoc releases info from github...
+? Pandoc 3.2 already installed.
+   Use 'force = TRUE' to overwrite.
+ >
+ >
+ > pandoc_is_active()
+Error in pandoc_is_active() :
+   argument "version" is missing, with no default
+ > pandoc_is_active("system")
+[1] FALSE
+ > pandoc_locate()
+[1] "~/Library/Application Support/r-pandoc/3.2"
+
+	
+	  sessionInfo() below.
+	  Suggestions?
+	  Thanks,
+	  Spencer Graves
+
+
+ > sessionInfo()
+R version 4.4.0 (2024-04-24)
+Platform: aarch64-apple-darwin20
+Running under: macOS Sonoma 14.5
+
+Matrix products: default
+BLAS: 
+/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+
+LAPACK: 
+/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib; 
+  LAPACK version 3.12.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] pandoc_0.2.0
+
+loaded via a namespace (and not attached):
+  [1] R6_2.5.1        utf8_1.2.4      gh_1.4.1        magrittr_2.0.3
+  [5] rappdirs_0.3.3  glue_1.7.0      tibble_3.2.1    pkgconfig_2.0.3
+  [9] gitcreds_0.1.2  lifecycle_1.0.4 cli_3.6.2       fansi_1.0.6
+[13] vctrs_0.6.5     compiler_4.4.0  curl_5.2.1      pillar_1.9.0
+[17] httr2_1.0.1     rlang_1.1.4     jsonlite_1.8.8  fs_1.6.4
+
+
+From jdnewm|| @end|ng |rom dcn@d@v|@@c@@u@  Thu Jun 13 19:27:58 2024
+From: jdnewm|| @end|ng |rom dcn@d@v|@@c@@u@ (Jeff Newmiller)
+Date: Thu, 13 Jun 2024 10:27:58 -0700
+Subject: [R-SIG-Mac] "R CMD build" ...Error... "processing vignette ...
+ failed with diagnostics:,
+ Pandoc is required to build R Markdown vignettes but not available."
+In-Reply-To: <b8e66809-8a9f-4915-852d-d0eed514a23e@prodsyse.com>
+References: <b8e66809-8a9f-4915-852d-d0eed514a23e@prodsyse.com>
+Message-ID: <45DFEA8E-18A9-4F89-AB96-530B7EE4B396@dcn.davis.ca.us>
+
+Don't assume the system environment variables defined at the R command prompt are the same as the environment variables defined at the shell prompt. Various R startup scripts often alter these variables within R. It looks from my obscured position like the pandoc install directory is present in your PATH directory from the shell.
+
+On June 13, 2024 10:09:25 AM PDT, Spencer Graves <spencer.graves at prodsyse.com> wrote:
+>Hello, All:
+>
+>
+>	  "R CMD build" fails for me, apparently because it cannot find pandoc, even though R in a command prompt finds it. This is with R 4.4.0 under macOS 14.5. I get the following in a Terminal:
+>
+>
+>___% R CMD build fda
+>* checking for file ?fda/DESCRIPTION? ... OK
+>* preparing ?fda?:
+>* checking DESCRIPTION meta-information ... OK
+>* installing the package to build vignettes
+>* creating vignettes ... ERROR
+>--- re-building ?BasisBasics.Rmd? using rmarkdown
+>Error: processing vignette 'BasisBasics.Rmd' failed with diagnostics:
+>Pandoc is required to build R Markdown vignettes but not available. Please make sure it is installed.
+>
+>
+>	  "Pandoc 3.2 already installed", per the following interaction with R in said Terminal:
+>	
+>
+>> library(pandoc)
+>> pandoc_install()
+>? Fetching Pandoc releases info from github...
+>? Pandoc 3.2 already installed.
+>  Use 'force = TRUE' to overwrite.
+>>
+>>
+>> pandoc_is_active()
+>Error in pandoc_is_active() :
+>  argument "version" is missing, with no default
+>> pandoc_is_active("system")
+>[1] FALSE
+>> pandoc_locate()
+>[1] "~/Library/Application Support/r-pandoc/3.2"
+>
+>	
+>	  sessionInfo() below.
+>	  Suggestions?
+>	  Thanks,
+>	  Spencer Graves
+>
+>
+>> sessionInfo()
+>R version 4.4.0 (2024-04-24)
+>Platform: aarch64-apple-darwin20
+>Running under: macOS Sonoma 14.5
+>
+>Matrix products: default
+>BLAS: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+>LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+>
+>locale:
+>[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>
+>time zone: America/Chicago
+>tzcode source: internal
+>
+>attached base packages:
+>[1] stats     graphics  grDevices utils     datasets  methods   base
+>
+>other attached packages:
+>[1] pandoc_0.2.0
+>
+>loaded via a namespace (and not attached):
+> [1] R6_2.5.1        utf8_1.2.4      gh_1.4.1        magrittr_2.0.3
+> [5] rappdirs_0.3.3  glue_1.7.0      tibble_3.2.1    pkgconfig_2.0.3
+> [9] gitcreds_0.1.2  lifecycle_1.0.4 cli_3.6.2       fansi_1.0.6
+>[13] vctrs_0.6.5     compiler_4.4.0  curl_5.2.1      pillar_1.9.0
+>[17] httr2_1.0.1     rlang_1.1.4     jsonlite_1.8.8  fs_1.6.4
+>
+>_______________________________________________
+>R-SIG-Mac mailing list
+>R-SIG-Mac at r-project.org
+>https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+-- 
+Sent from my phone. Please excuse my brevity.
+
+
+From @pencer@gr@ve@ @end|ng |rom prod@y@e@com  Thu Jun 13 20:22:36 2024
+From: @pencer@gr@ve@ @end|ng |rom prod@y@e@com (Spencer Graves)
+Date: Thu, 13 Jun 2024 13:22:36 -0500
+Subject: [R-SIG-Mac] "R CMD build" ...Error... "processing vignette ...
+ failed with diagnostics:,
+ Pandoc is required to build R Markdown vignettes but not available."
+In-Reply-To: <45DFEA8E-18A9-4F89-AB96-530B7EE4B396@dcn.davis.ca.us>
+References: <b8e66809-8a9f-4915-852d-d0eed514a23e@prodsyse.com>
+ <45DFEA8E-18A9-4F89-AB96-530B7EE4B396@dcn.davis.ca.us>
+Message-ID: <8a37954e-98f6-4c06-8d69-14481a0fb8ad@prodsyse.com>
+
+
+
+On 6/13/24 12:27, Jeff Newmiller wrote:
+> Don't assume the system environment variables defined at the R command prompt are the same as the environment variables defined at the shell prompt. Various R startup scripts often alter these variables within R. It looks from my obscured position like the pandoc install directory is present in your PATH directory from the shell.
+
+
+echo $PATH
+/opt/homebrew/bin:/opt/homebrew/sbin:/opt/local/bin:/opt/local/sbin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/X11/bin:/Library/Apple/usr/bin:/Library/TeX/texbin
+
+
+	  I do not find "pandoc" in this path.
+
+
+	  What do you suggest I do to fix this?
+
+
+	  Thanks,
+	  Spencer Graves
+
+> 
+> On June 13, 2024 10:09:25 AM PDT, Spencer Graves <spencer.graves at prodsyse.com> wrote:
+>> Hello, All:
+>>
+>>
+>> 	  "R CMD build" fails for me, apparently because it cannot find pandoc, even though R in a command prompt finds it. This is with R 4.4.0 under macOS 14.5. I get the following in a Terminal:
+>>
+>>
+>> ___% R CMD build fda
+>> * checking for file ?fda/DESCRIPTION? ... OK
+>> * preparing ?fda?:
+>> * checking DESCRIPTION meta-information ... OK
+>> * installing the package to build vignettes
+>> * creating vignettes ... ERROR
+>> --- re-building ?BasisBasics.Rmd? using rmarkdown
+>> Error: processing vignette 'BasisBasics.Rmd' failed with diagnostics:
+>> Pandoc is required to build R Markdown vignettes but not available. Please make sure it is installed.
+>>
+>>
+>> 	  "Pandoc 3.2 already installed", per the following interaction with R in said Terminal:
+>> 	
+>>
+>>> library(pandoc)
+>>> pandoc_install()
+>> ? Fetching Pandoc releases info from github...
+>> ? Pandoc 3.2 already installed.
+>>   Use 'force = TRUE' to overwrite.
+>>>
+>>>
+>>> pandoc_is_active()
+>> Error in pandoc_is_active() :
+>>   argument "version" is missing, with no default
+>>> pandoc_is_active("system")
+>> [1] FALSE
+>>> pandoc_locate()
+>> [1] "~/Library/Application Support/r-pandoc/3.2"
+>>
+>> 	
+>> 	  sessionInfo() below.
+>> 	  Suggestions?
+>> 	  Thanks,
+>> 	  Spencer Graves
+>>
+>>
+>>> sessionInfo()
+>> R version 4.4.0 (2024-04-24)
+>> Platform: aarch64-apple-darwin20
+>> Running under: macOS Sonoma 14.5
+>>
+>> Matrix products: default
+>> BLAS: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib
+>> LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+>>
+>> locale:
+>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>>
+>> time zone: America/Chicago
+>> tzcode source: internal
+>>
+>> attached base packages:
+>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>
+>> other attached packages:
+>> [1] pandoc_0.2.0
+>>
+>> loaded via a namespace (and not attached):
+>> [1] R6_2.5.1        utf8_1.2.4      gh_1.4.1        magrittr_2.0.3
+>> [5] rappdirs_0.3.3  glue_1.7.0      tibble_3.2.1    pkgconfig_2.0.3
+>> [9] gitcreds_0.1.2  lifecycle_1.0.4 cli_3.6.2       fansi_1.0.6
+>> [13] vctrs_0.6.5     compiler_4.4.0  curl_5.2.1      pillar_1.9.0
+>> [17] httr2_1.0.1     rlang_1.1.4     jsonlite_1.8.8  fs_1.6.4
+>>
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Thu Jun 13 20:51:03 2024
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Thu, 13 Jun 2024 14:51:03 -0400
+Subject: [R-SIG-Mac] "R CMD build" ...Error... "processing vignette ...
+ failed with diagnostics:,
+ Pandoc is required to build R Markdown vignettes but not available."
+In-Reply-To: <8a37954e-98f6-4c06-8d69-14481a0fb8ad@prodsyse.com>
+References: <b8e66809-8a9f-4915-852d-d0eed514a23e@prodsyse.com>
+ <45DFEA8E-18A9-4F89-AB96-530B7EE4B396@dcn.davis.ca.us>
+ <8a37954e-98f6-4c06-8d69-14481a0fb8ad@prodsyse.com>
+Message-ID: <67d9e253-3cc7-4dcf-8e29-1296cf4d0518@gmail.com>
+
+On 2024-06-13 2:22 p.m., Spencer Graves wrote:
+> 
+> 
+> On 6/13/24 12:27, Jeff Newmiller wrote:
+>> Don't assume the system environment variables defined at the R command prompt are the same as the environment variables defined at the shell prompt. Various R startup scripts often alter these variables within R. It looks from my obscured position like the pandoc install directory is present in your PATH directory from the shell.
+> 
+> 
+> echo $PATH
+> /opt/homebrew/bin:/opt/homebrew/sbin:/opt/local/bin:/opt/local/sbin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/X11/bin:/Library/Apple/usr/bin:/Library/TeX/texbin
+> 
+> 
+> 	  I do not find "pandoc" in this path.
+> 
+> 
+> 	  What do you suggest I do to fix this?
+
+You can add it, and things should be fine.  I'd put it last, just in 
+case there's anything else in that directory that might interfere with 
+other things.  So you could do
+
+   PATH=$PATH:~/Library/Application\ Support/r-pandoc/3.2 R CMD build ...
+
+(or if you want, the equivalent that makes the PATH change permanent).
+
+Duncan Murdoch
+
+> 
+> 
+> 	  Thanks,
+> 	  Spencer Graves
+> 
+>>
+>> On June 13, 2024 10:09:25 AM PDT, Spencer Graves <spencer.graves at prodsyse.com> wrote:
+>>> Hello, All:
+>>>
+>>>
+>>> 	  "R CMD build" fails for me, apparently because it cannot find pandoc, even though R in a command prompt finds it. This is with R 4.4.0 under macOS 14.5. I get the following in a Terminal:
+>>>
+>>>
+>>> ___% R CMD build fda
+>>> * checking for file ?fda/DESCRIPTION? ... OK
+>>> * preparing ?fda?:
+>>> * checking DESCRIPTION meta-information ... OK
+>>> * installing the package to build vignettes
+>>> * creating vignettes ... ERROR
+>>> --- re-building ?BasisBasics.Rmd? using rmarkdown
+>>> Error: processing vignette 'BasisBasics.Rmd' failed with diagnostics:
+>>> Pandoc is required to build R Markdown vignettes but not available. Please make sure it is installed.
+>>>
+>>>
+>>> 	  "Pandoc 3.2 already installed", per the following interaction with R in said Terminal:
+>>> 	
+>>>
+>>>> library(pandoc)
+>>>> pandoc_install()
+>>> ? Fetching Pandoc releases info from github...
+>>> ? Pandoc 3.2 already installed.
+>>>    Use 'force = TRUE' to overwrite.
+>>>>
+>>>>
+>>>> pandoc_is_active()
+>>> Error in pandoc_is_active() :
+>>>    argument "version" is missing, with no default
+>>>> pandoc_is_active("system")
+>>> [1] FALSE
+>>>> pandoc_locate()
+>>> [1] "~/Library/Application Support/r-pandoc/3.2"
+>>>
+>>> 	
+>>> 	  sessionInfo() below.
+>>> 	  Suggestions?
+>>> 	  Thanks,
+>>> 	  Spencer Graves
+>>>
+>>>
+>>>> sessionInfo()
+>>> R version 4.4.0 (2024-04-24)
+>>> Platform: aarch64-apple-darwin20
+>>> Running under: macOS Sonoma 14.5
+>>>
+>>> Matrix products: default
+>>> BLAS: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib
+>>> LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+>>>
+>>> locale:
+>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>>>
+>>> time zone: America/Chicago
+>>> tzcode source: internal
+>>>
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>
+>>> other attached packages:
+>>> [1] pandoc_0.2.0
+>>>
+>>> loaded via a namespace (and not attached):
+>>> [1] R6_2.5.1        utf8_1.2.4      gh_1.4.1        magrittr_2.0.3
+>>> [5] rappdirs_0.3.3  glue_1.7.0      tibble_3.2.1    pkgconfig_2.0.3
+>>> [9] gitcreds_0.1.2  lifecycle_1.0.4 cli_3.6.2       fansi_1.0.6
+>>> [13] vctrs_0.6.5     compiler_4.4.0  curl_5.2.1      pillar_1.9.0
+>>> [17] httr2_1.0.1     rlang_1.1.4     jsonlite_1.8.8  fs_1.6.4
+>>>
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From @pencer@gr@ve@ @end|ng |rom prod@y@e@com  Thu Jun 13 23:00:12 2024
+From: @pencer@gr@ve@ @end|ng |rom prod@y@e@com (Spencer Graves)
+Date: Thu, 13 Jun 2024 16:00:12 -0500
+Subject: [R-SIG-Mac] "R CMD build" ...Error... "processing vignette ...
+ failed with diagnostics:,
+ Pandoc is required to build R Markdown vignettes but not available."
+In-Reply-To: <67d9e253-3cc7-4dcf-8e29-1296cf4d0518@gmail.com>
+References: <b8e66809-8a9f-4915-852d-d0eed514a23e@prodsyse.com>
+ <45DFEA8E-18A9-4F89-AB96-530B7EE4B396@dcn.davis.ca.us>
+ <8a37954e-98f6-4c06-8d69-14481a0fb8ad@prodsyse.com>
+ <67d9e253-3cc7-4dcf-8e29-1296cf4d0518@gmail.com>
+Message-ID: <86c1a8dc-21c4-4648-9197-3c3df3e4f08b@prodsyse.com>
+
+Hi, Duncan, Jeff et al.:
+
+
+	  Thanks for the help. Can I edit "R CMD" so it modifies the path? If 
+yes, how? If that's not feasible, can I create a script of my own that 
+would first change the path and then call "R CMD"?
+
+
+	  I asked Apple how to modify the path and was told they do not support 
+that.
+
+
+	  Thanks,
+	  Spencer Graves
+	
+
+On 6/13/24 13:51, Duncan Murdoch wrote:
+> On 2024-06-13 2:22 p.m., Spencer Graves wrote:
+>>
+>>
+>> On 6/13/24 12:27, Jeff Newmiller wrote:
+>>> Don't assume the system environment variables defined at the R 
+>>> command prompt are the same as the environment variables defined at 
+>>> the shell prompt. Various R startup scripts often alter these 
+>>> variables within R. It looks from my obscured position like the 
+>>> pandoc install directory is present in your PATH directory from the 
+>>> shell.
+>>
+>>
+>> echo $PATH
+>> /opt/homebrew/bin:/opt/homebrew/sbin:/opt/local/bin:/opt/local/sbin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/X11/bin:/Library/Apple/usr/bin:/Library/TeX/texbin
+>>
+>>
+>> ????? I do not find "pandoc" in this path.
+>>
+>>
+>> ????? What do you suggest I do to fix this?
+> 
+> You can add it, and things should be fine.? I'd put it last, just in 
+> case there's anything else in that directory that might interfere with 
+> other things.? So you could do
+> 
+>  ? PATH=$PATH:~/Library/Application\ Support/r-pandoc/3.2 R CMD build ...
+> 
+> (or if you want, the equivalent that makes the PATH change permanent).
+> 
+> Duncan Murdoch
+> 
+>>
+>>
+>> ????? Thanks,
+>> ????? Spencer Graves
+>>
+>>>
+>>> On June 13, 2024 10:09:25 AM PDT, Spencer Graves 
+>>> <spencer.graves at prodsyse.com> wrote:
+>>>> Hello, All:
+>>>>
+>>>>
+>>>> ????? "R CMD build" fails for me, apparently because it cannot find 
+>>>> pandoc, even though R in a command prompt finds it. This is with R 
+>>>> 4.4.0 under macOS 14.5. I get the following in a Terminal:
+>>>>
+>>>>
+>>>> ___% R CMD build fda
+>>>> * checking for file ?fda/DESCRIPTION? ... OK
+>>>> * preparing ?fda?:
+>>>> * checking DESCRIPTION meta-information ... OK
+>>>> * installing the package to build vignettes
+>>>> * creating vignettes ... ERROR
+>>>> --- re-building ?BasisBasics.Rmd? using rmarkdown
+>>>> Error: processing vignette 'BasisBasics.Rmd' failed with diagnostics:
+>>>> Pandoc is required to build R Markdown vignettes but not available. 
+>>>> Please make sure it is installed.
+>>>>
+>>>>
+>>>> ????? "Pandoc 3.2 already installed", per the following interaction 
+>>>> with R in said Terminal:
+>>>>
+>>>>
+>>>>> library(pandoc)
+>>>>> pandoc_install()
+>>>> ? Fetching Pandoc releases info from github...
+>>>> ? Pandoc 3.2 already installed.
+>>>> ?? Use 'force = TRUE' to overwrite.
+>>>>>
+>>>>>
+>>>>> pandoc_is_active()
+>>>> Error in pandoc_is_active() :
+>>>> ?? argument "version" is missing, with no default
+>>>>> pandoc_is_active("system")
+>>>> [1] FALSE
+>>>>> pandoc_locate()
+>>>> [1] "~/Library/Application Support/r-pandoc/3.2"
+>>>>
+>>>>
+>>>> ????? sessionInfo() below.
+>>>> ????? Suggestions?
+>>>> ????? Thanks,
+>>>> ????? Spencer Graves
+>>>>
+>>>>
+>>>>> sessionInfo()
+>>>> R version 4.4.0 (2024-04-24)
+>>>> Platform: aarch64-apple-darwin20
+>>>> Running under: macOS Sonoma 14.5
+>>>>
+>>>> Matrix products: default
+>>>> BLAS: 
+>>>> /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib
+>>>> LAPACK: 
+>>>> /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;? LAPACK version 3.12.0
+>>>>
+>>>> locale:
+>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>>>>
+>>>> time zone: America/Chicago
+>>>> tzcode source: internal
+>>>>
+>>>> attached base packages:
+>>>> [1] stats???? graphics? grDevices utils???? datasets? methods?? base
+>>>>
+>>>> other attached packages:
+>>>> [1] pandoc_0.2.0
+>>>>
+>>>> loaded via a namespace (and not attached):
+>>>> [1] R6_2.5.1??????? utf8_1.2.4????? gh_1.4.1??????? magrittr_2.0.3
+>>>> [5] rappdirs_0.3.3? glue_1.7.0????? tibble_3.2.1??? pkgconfig_2.0.3
+>>>> [9] gitcreds_0.1.2? lifecycle_1.0.4 cli_3.6.2?????? fansi_1.0.6
+>>>> [13] vctrs_0.6.5???? compiler_4.4.0? curl_5.2.1????? pillar_1.9.0
+>>>> [17] httr2_1.0.1???? rlang_1.1.4???? jsonlite_1.8.8? fs_1.6.4
+>>>>
+>>>> _______________________________________________
+>>>> R-SIG-Mac mailing list
+>>>> R-SIG-Mac at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>
+>>
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Fri Jun 14 09:56:15 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Fri, 14 Jun 2024 09:56:15 +0200
+Subject: [R-SIG-Mac] "R CMD build" ...Error... "processing vignette ...
+ failed with diagnostics:,
+ Pandoc is required to build R Markdown vignettes but not available."
+In-Reply-To: <86c1a8dc-21c4-4648-9197-3c3df3e4f08b@prodsyse.com>
+References: <b8e66809-8a9f-4915-852d-d0eed514a23e@prodsyse.com>
+ <45DFEA8E-18A9-4F89-AB96-530B7EE4B396@dcn.davis.ca.us>
+ <8a37954e-98f6-4c06-8d69-14481a0fb8ad@prodsyse.com>
+ <67d9e253-3cc7-4dcf-8e29-1296cf4d0518@gmail.com>
+ <86c1a8dc-21c4-4648-9197-3c3df3e4f08b@prodsyse.com>
+Message-ID: <3DA24E72-D2FB-430D-B1B8-60DF2D07766A@R-project.org>
+
+Spencer,
+
+Since you already have homebrew on your PATH you can simply run "brew install pandoc".
+
+Otherwise you can just set the path while running R CMD:
+
+PATH="~/Library/Application Support/r-pandoc/3.2:$PATH" R CMD build fda
+
+As of where to set the PATH - it depends on where you run it from - if from Terminal then just set it in ~/.profile
+
+Cheers,
+Simon
+
+
+
+> On Jun 13, 2024, at 23:00, Spencer Graves <spencer.graves at prodsyse.com> wrote:
+> 
+> Hi, Duncan, Jeff et al.:
+> 
+> 
+>  Thanks for the help. Can I edit "R CMD" so it modifies the path? If yes, how? If that's not feasible, can I create a script of my own that would first change the path and then call "R CMD"?
+> 
+> 
+>  I asked Apple how to modify the path and was told they do not support that.
+> 
+> 
+>  Thanks,
+>  Spencer Graves
+> 
+> 
+> On 6/13/24 13:51, Duncan Murdoch wrote:
+>> On 2024-06-13 2:22 p.m., Spencer Graves wrote:
+>>> 
+>>> 
+>>> On 6/13/24 12:27, Jeff Newmiller wrote:
+>>>> Don't assume the system environment variables defined at the R command prompt are the same as the environment variables defined at the shell prompt. Various R startup scripts often alter these variables within R. It looks from my obscured position like the pandoc install directory is present in your PATH directory from the shell.
+>>> 
+>>> 
+>>> echo $PATH
+>>> /opt/homebrew/bin:/opt/homebrew/sbin:/opt/local/bin:/opt/local/sbin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/X11/bin:/Library/Apple/usr/bin:/Library/TeX/texbin
+>>> 
+>>> 
+>>>       I do not find "pandoc" in this path.
+>>> 
+>>> 
+>>>       What do you suggest I do to fix this?
+>> You can add it, and things should be fine.  I'd put it last, just in case there's anything else in that directory that might interfere with other things.  So you could do
+>>   PATH=$PATH:~/Library/Application\ Support/r-pandoc/3.2 R CMD build ...
+>> (or if you want, the equivalent that makes the PATH change permanent).
+>> Duncan Murdoch
+>>> 
+>>> 
+>>>       Thanks,
+>>>       Spencer Graves
+>>> 
+>>>> 
+>>>> On June 13, 2024 10:09:25 AM PDT, Spencer Graves <spencer.graves at prodsyse.com> wrote:
+>>>>> Hello, All:
+>>>>> 
+>>>>> 
+>>>>>       "R CMD build" fails for me, apparently because it cannot find pandoc, even though R in a command prompt finds it. This is with R 4.4.0 under macOS 14.5. I get the following in a Terminal:
+>>>>> 
+>>>>> 
+>>>>> ___% R CMD build fda
+>>>>> * checking for file ?fda/DESCRIPTION? ... OK
+>>>>> * preparing ?fda?:
+>>>>> * checking DESCRIPTION meta-information ... OK
+>>>>> * installing the package to build vignettes
+>>>>> * creating vignettes ... ERROR
+>>>>> --- re-building ?BasisBasics.Rmd? using rmarkdown
+>>>>> Error: processing vignette 'BasisBasics.Rmd' failed with diagnostics:
+>>>>> Pandoc is required to build R Markdown vignettes but not available. Please make sure it is installed.
+>>>>> 
+>>>>> 
+>>>>>       "Pandoc 3.2 already installed", per the following interaction with R in said Terminal:
+>>>>> 
+>>>>> 
+>>>>>> library(pandoc)
+>>>>>> pandoc_install()
+>>>>> ? Fetching Pandoc releases info from github...
+>>>>> ? Pandoc 3.2 already installed.
+>>>>>    Use 'force = TRUE' to overwrite.
+>>>>>> 
+>>>>>> 
+>>>>>> pandoc_is_active()
+>>>>> Error in pandoc_is_active() :
+>>>>>    argument "version" is missing, with no default
+>>>>>> pandoc_is_active("system")
+>>>>> [1] FALSE
+>>>>>> pandoc_locate()
+>>>>> [1] "~/Library/Application Support/r-pandoc/3.2"
+>>>>> 
+>>>>> 
+>>>>>       sessionInfo() below.
+>>>>>       Suggestions?
+>>>>>       Thanks,
+>>>>>       Spencer Graves
+>>>>> 
+>>>>> 
+>>>>>> sessionInfo()
+>>>>> R version 4.4.0 (2024-04-24)
+>>>>> Platform: aarch64-apple-darwin20
+>>>>> Running under: macOS Sonoma 14.5
+>>>>> 
+>>>>> Matrix products: default
+>>>>> BLAS: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib
+>>>>> LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+>>>>> 
+>>>>> locale:
+>>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+>>>>> 
+>>>>> time zone: America/Chicago
+>>>>> tzcode source: internal
+>>>>> 
+>>>>> attached base packages:
+>>>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>>> 
+>>>>> other attached packages:
+>>>>> [1] pandoc_0.2.0
+>>>>> 
+>>>>> loaded via a namespace (and not attached):
+>>>>> [1] R6_2.5.1        utf8_1.2.4      gh_1.4.1        magrittr_2.0.3
+>>>>> [5] rappdirs_0.3.3  glue_1.7.0      tibble_3.2.1    pkgconfig_2.0.3
+>>>>> [9] gitcreds_0.1.2  lifecycle_1.0.4 cli_3.6.2       fansi_1.0.6
+>>>>> [13] vctrs_0.6.5     compiler_4.4.0  curl_5.2.1      pillar_1.9.0
+>>>>> [17] httr2_1.0.1     rlang_1.1.4     jsonlite_1.8.8  fs_1.6.4
+>>>>> 
+>>>>> _______________________________________________
+>>>>> R-SIG-Mac mailing list
+>>>>> R-SIG-Mac at r-project.org
+>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>>>> 
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Sat Jun 15 20:13:43 2024
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Sat, 15 Jun 2024 14:13:43 -0400
+Subject: [R-SIG-Mac] How to workaround RStudio issues
+Message-ID: <82e98fbe-2c0f-45c5-9e3f-5a82e8c3577a@gmail.com>
+
+RStudio is causing problems for rgl builds.  In particular, on my M3 
+system, I have installed the arm64 binaries and tools in 
+/opt/R/arm64/bin as recommended, and builds work fine if I run them in a 
+shell with that directory first in the PATH.
+
+However, when I try to do builds in RStudio, they fail.  I think this is 
+because it prepends /usr/local/bin to my PATH before configuring, and 
+the rgl configure script finds the x86_64 versions of some files before 
+the arm64 ones, and they don't work.  So then rgl thinks I don't have 
+X11 libs available, and builds as though I don't.
+
+This isn't the right place to ask how to fix RStudio.  I've already done 
+that in one of their forums, and I already know how to build rgl outside 
+of it.  However, I do get complaints from users who try to build rgl and 
+have the builds fail (e.g. https://github.com/dmurdoch/rgl/issues/423), 
+and I'd like to make the configure script resilient against this sort of 
+problem.  (And this might not be RStudio specific:  there are lots of 
+ways to end up with a PATH that doesn't have things in the right order.)
+
+So here are my questions:
+
+  - What is the correct way in a package configure script (or 
+configure.ac, since I use autoconf) to determine that the build is 
+happening on an arm64 Mac?
+
+  - Is it correct in a configure script to force the arm64 directory to 
+be first?  If so, how do I do that?
+
+  - How do I determine if the user really did install the arm64 files to 
+/opt/R/arm64/bin?
+
+  - Should I really be doing this, or is my system broken since my 
+/usr/local/bin directory contains things it shouldn't, or should I just 
+tell people to put /opt/R/arm64/bin first in their PATH?
+
+Duncan Murdoch
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Tue Jun 18 20:59:00 2024
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Tue, 18 Jun 2024 14:59:00 -0400
+Subject: [R-SIG-Mac] How to workaround RStudio issues
+In-Reply-To: <82e98fbe-2c0f-45c5-9e3f-5a82e8c3577a@gmail.com>
+References: <82e98fbe-2c0f-45c5-9e3f-5a82e8c3577a@gmail.com>
+Message-ID: <73a05f66-ba6b-4bd8-bc51-8fb1d6daf984@gmail.com>
+
+An update:  The RStudio bug that causes problems here is triggered by 
+setting  "Automatically activate project-local Python environments" in 
+the Python global option.  Unsetting that checkbox stops /usr/local/bin 
+from being prepended.
+
+I've decided not to try to work around this in rgl's configure script.
+
+Duncan Murdoch
+
+
+On 2024-06-15 2:13 p.m., Duncan Murdoch wrote:
+> RStudio is causing problems for rgl builds.  In particular, on my M3
+> system, I have installed the arm64 binaries and tools in
+> /opt/R/arm64/bin as recommended, and builds work fine if I run them in a
+> shell with that directory first in the PATH.
+> 
+> However, when I try to do builds in RStudio, they fail.  I think this is
+> because it prepends /usr/local/bin to my PATH before configuring, and
+> the rgl configure script finds the x86_64 versions of some files before
+> the arm64 ones, and they don't work.  So then rgl thinks I don't have
+> X11 libs available, and builds as though I don't.
+> 
+> This isn't the right place to ask how to fix RStudio.  I've already done
+> that in one of their forums, and I already know how to build rgl outside
+> of it.  However, I do get complaints from users who try to build rgl and
+> have the builds fail (e.g. https://github.com/dmurdoch/rgl/issues/423),
+> and I'd like to make the configure script resilient against this sort of
+> problem.  (And this might not be RStudio specific:  there are lots of
+> ways to end up with a PATH that doesn't have things in the right order.)
+> 
+> So here are my questions:
+> 
+>    - What is the correct way in a package configure script (or
+> configure.ac, since I use autoconf) to determine that the build is
+> happening on an arm64 Mac?
+> 
+>    - Is it correct in a configure script to force the arm64 directory to
+> be first?  If so, how do I do that?
+> 
+>    - How do I determine if the user really did install the arm64 files to
+> /opt/R/arm64/bin?
+> 
+>    - Should I really be doing this, or is my system broken since my
+> /usr/local/bin directory contains things it shouldn't, or should I just
+> tell people to put /opt/R/arm64/bin first in their PATH?
+> 
+> Duncan Murdoch
+
+
+From reve||e @end|ng |rom northwe@tern@edu  Mon Jun 24 21:50:15 2024
+From: reve||e @end|ng |rom northwe@tern@edu (William R Revelle)
+Date: Mon, 24 Jun 2024 19:50:15 +0000
+Subject: [R-SIG-Mac] How to build without suggested packages
+Message-ID: <06DF4E00-D7CD-40AA-B92B-3CD142FFDCB6@northwestern.edu>
+
+Dear R.sig mac friends,
+
+I am trying to release version 2.4.6.24 of  psych to CRAN.
+
+I received the following message from Uwe:
+
+"Thanks, without suggested packages available the checks fail, see below. Note that suggested packages should only be used conditionally on their availability. You can reproduce by setting the env var _R_CHECK_DEPENDS_ONLY_=true?
+
+Unfortunately, I am clueless on how to test my R CMD build with depends only  setting.   (Uwe?s comment implies more sophistiicated understanding than I have.)
+
+Following some helpful comments from Brian Ripley, I discovered one unstated dependency which I fixed but want to search for any others before trying again at CRAN.
+
+I had found the mac builder at CRAN which allowed to me to test, but it seems to not be responding anymore.
+
+I would like to be able to test on my mac to avoid putting pressure on the Mac builder but do not know how to do this.
+
+Any help would be appreciated.
+
+Bill
+
+
+ 
+William Revelle            personality-project.org/revelle.html
+Professor                    personality-project.org
+Department of Psychology         www.wcas.northwestern.edu/psych/
+Northwestern University            www.northwestern.edu/
+Use R for psychology                 personality-project.org/r
+It 90 seconds to midnight    www.thebulletin.org
+
+
+
+From t|m@b@te@ @end|ng |rom ed@@c@uk  Mon Jun 24 23:00:05 2024
+From: t|m@b@te@ @end|ng |rom ed@@c@uk (Timothy Bates)
+Date: Mon, 24 Jun 2024 21:00:05 +0000
+Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+Message-ID: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+
+At https://mac.r-project.org/openmp/ it  says
+"any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+
+Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+
+I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+
+require(OpenMx)
+Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+
+dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+
+The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+
+From k@@perd@n|e|h@n@en @end|ng |rom gm@||@com  Tue Jun 25 06:48:55 2024
+From: k@@perd@n|e|h@n@en @end|ng |rom gm@||@com (Kasper Daniel Hansen)
+Date: Tue, 25 Jun 2024 00:48:55 -0400
+Subject: [R-SIG-Mac] How to build without suggested packages
+In-Reply-To: <06DF4E00-D7CD-40AA-B92B-3CD142FFDCB6@northwestern.edu>
+References: <06DF4E00-D7CD-40AA-B92B-3CD142FFDCB6@northwestern.edu>
+Message-ID: <CAC2h7uvDShdJywAUCuwwejBXixonzgPqJ1-TB_pk+wYh--mmCQ@mail.gmail.com>
+
+Bill,
+
+There are multiple ways to do this. I assume you're familiar with building
+and checking your R package in the Terminal, which is done by
+ $ R CMD build packageName
+ $ R CMD check packageName_VERSION.tar.gz
+(where VERSION is the version number) and $ is the command prompt.
+
+You can set the environment variable by
+1) setting it permanently in the Terminal window by executing
+ $ export _R_CHECK_DEPENDS_ONLY_=true
+ $ R CMD build packageName
+ $ R CMD check packageName_VERSION.tar.gz
+2) setting it for one specific invocation
+ $ R CMD build packageName
+ $ _R_CHECK_DEPENDS_ONLY_=true R CMD check packageName_VERSION.tar.gz
+3) setting it in .Renviron (see manual)
+
+
+
+ $ R CMD check
+
+	[[alternative HTML version deleted]]
+
+
+From r@p@r@p@ @end|ng |rom mcw@edu  Tue Jun 25 14:20:25 2024
+From: r@p@r@p@ @end|ng |rom mcw@edu (Sparapani, Rodney)
+Date: Tue, 25 Jun 2024 12:20:25 +0000
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+Message-ID: <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+
+Hi Tim:
+
+/usr/local/lib it seems.  See the following page
+https://mac.r-project.org/openmp/
+
+--
+Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+Vice President, Wisconsin Chapter of the American Statistical Association
+Institute for Health and Equity, Division of Biostatistics
+Medical College of Wisconsin, Milwaukee Campus
+
+If this is outside of working hours, then please respond when convenient.
+
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+Date: Monday, June 24, 2024 at 4:00?PM
+To: R list <R-SIG-Mac at r-project.org>
+Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+________________________________
+
+At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+"any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+
+Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+
+I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+
+require(OpenMx)
+Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+
+dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+
+The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$>
+
+	[[alternative HTML version deleted]]
+
+
+From k@@perd@n|e|h@n@en @end|ng |rom gm@||@com  Tue Jun 25 17:34:42 2024
+From: k@@perd@n|e|h@n@en @end|ng |rom gm@||@com (Kasper Daniel Hansen)
+Date: Tue, 25 Jun 2024 11:34:42 -0400
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+Message-ID: <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+
+If you read the next couple of sentences on that page, it says
+
+The following are links to libomp OpenMP run-time built from official LLVM
+release sources using Xcode compilers. They are signed and support macOS
+10.13 (High Sierra) and higher. All tar-balls contain the system tree
+usr/local/lib and usr/local/include so the recommended installation is to
+type in Terminal:
+
+    curl -O
+https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz
+    sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+
+
+I think that is pretty clear? Note the -C / as part of the last line, that
+tells tar where to put it on the system.
+
+On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <
+r-sig-mac at r-project.org> wrote:
+
+> Hi Tim:
+>
+> /usr/local/lib it seems.  See the following page
+> https://mac.r-project.org/openmp/
+>
+> --
+> Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+> Vice President, Wisconsin Chapter of the American Statistical Association
+> Institute for Health and Equity, Division of Biostatistics
+> Medical College of Wisconsin, Milwaukee Campus
+>
+> If this is outside of working hours, then please respond when convenient.
+>
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy
+> Bates <tim.bates at ed.ac.uk>
+> Date: Monday, June 24, 2024 at 4:00?PM
+> To: R list <R-SIG-Mac at r-project.org>
+> Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> ATTENTION: This email originated from a sender outside of MCW. Use caution
+> when clicking on links or opening attachments.
+> ________________________________
+>
+> At
+> https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$
+> <
+> https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>
+> it  says
+> "any package you compile against libomp.dylib will need that run-time so
+> you have to ship it with your package or have users install it?
+>
+> Are there  any  instructions on what to do/where to put libomp.dylib so it
+> will be found?
+>
+> I?ve compiled a package (OpenMx) in which OpenMP is working locally but
+> other users get the error:
+>
+> require(OpenMx)
+> Error: package or namespace load failed for ?OpenMx? in dyn.load(file,
+> DLLpath = DLLpath, ...):
+>  unable to load shared object
+> '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+>
+> dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so,
+> 0x0006): Library not loaded:
+> /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+>
+>
+> The University of Edinburgh is a charitable body, registered in Scotland,
+> with registration number SC005336. Is e buidheann carthannais a th? ann an
+> Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+>
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$
+> <
+> https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$
+> >
+>
+>         [[alternative HTML version deleted]]
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>
+
+
+-- 
+Best,
+Kasper
+
+	[[alternative HTML version deleted]]
+
+
+From reve||e @end|ng |rom northwe@tern@edu  Tue Jun 25 18:44:40 2024
+From: reve||e @end|ng |rom northwe@tern@edu (William R Revelle)
+Date: Tue, 25 Jun 2024 16:44:40 +0000
+Subject: [R-SIG-Mac] How to build without suggested packages
+In-Reply-To: <CAC2h7uvDShdJywAUCuwwejBXixonzgPqJ1-TB_pk+wYh--mmCQ@mail.gmail.com>
+References: <06DF4E00-D7CD-40AA-B92B-3CD142FFDCB6@northwestern.edu>
+ <CAC2h7uvDShdJywAUCuwwejBXixonzgPqJ1-TB_pk+wYh--mmCQ@mail.gmail.com>
+Message-ID: <1E995B2B-8570-43B7-90F8-48E2549A3A56@northwestern.edu>
+
+Kasper,
+
+That is exactly what I was looking for (option 2)
+
+Thanks.  Now back to debugging the dependencies.
+
+Bill
+
+
+> On Jun 24, 2024, at 23:48, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:
+> 
+> Bill,
+> 
+> There are multiple ways to do this. I assume you're familiar with building
+> and checking your R package in the Terminal, which is done by
+> $ R CMD build packageName
+> $ R CMD check packageName_VERSION.tar.gz
+> (where VERSION is the version number) and $ is the command prompt.
+> 
+> You can set the environment variable by
+> 1) setting it permanently in the Terminal window by executing
+> $ export _R_CHECK_DEPENDS_ONLY_=true
+> $ R CMD build packageName
+> $ R CMD check packageName_VERSION.tar.gz
+> 2) setting it for one specific invocation
+> $ R CMD build packageName
+> $ _R_CHECK_DEPENDS_ONLY_=true R CMD check packageName_VERSION.tar.gz
+> 3) setting it in .Renviron (see manual)
+> 
+> 
+> 
+> $ R CMD check
+> 
+> [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+William Revelle            personality-project.org/revelle.html
+Professor                    personality-project.org
+Department of Psychology         www.wcas.northwestern.edu/psych/
+Northwestern University            www.northwestern.edu/
+Use R for psychology                 personality-project.org/r
+It 90 seconds to midnight    www.thebulletin.org
+
+
+From t|m@b@te@ @end|ng |rom ed@@c@uk  Wed Jun 26 07:00:42 2024
+From: t|m@b@te@ @end|ng |rom ed@@c@uk (Timothy Bates)
+Date: Wed, 26 Jun 2024 05:00:42 +0000
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+ <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+Message-ID: <PAXPR05MB82069E3185AB89DE9BEFD4B9D8D62@PAXPR05MB8206.eurprd05.prod.outlook.com>
+
+Thanks Kasper,
+I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+
+so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+Best, tim
+
+
+Sent from Outlook for iOS<https://aka.ms/o0ukef>
+________________________________
+From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+Sent: Tuesday, June 25, 2024 11:34:42 AM
+To: Sparapani, Rodney <rsparapa at mcw.edu>
+Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+
+This email was sent to you by someone outside the University.
+You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+If you read the next couple of sentences on that page, it says
+
+The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+
+    curl -O https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz
+    sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+
+
+I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+
+On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+Hi Tim:
+
+/usr/local/lib it seems.  See the following page
+https://mac.r-project.org/openmp/
+
+--
+Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+Vice President, Wisconsin Chapter of the American Statistical Association
+Institute for Health and Equity, Division of Biostatistics
+Medical College of Wisconsin, Milwaukee Campus
+
+If this is outside of working hours, then please respond when convenient.
+
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+Date: Monday, June 24, 2024 at 4:00?PM
+To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+________________________________
+
+At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+"any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+
+Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+
+I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+
+require(OpenMx)
+Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+
+dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+
+The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$>
+
+        [[alternative HTML version deleted]]
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+--
+Best,
+Kasper
+
+	[[alternative HTML version deleted]]
+
+
+From b@|@mut2 @end|ng |rom ||||no|@@edu  Wed Jun 26 07:41:16 2024
+From: b@|@mut2 @end|ng |rom ||||no|@@edu (Balamuta, James)
+Date: Wed, 26 Jun 2024 05:41:16 +0000
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <PAXPR05MB82069E3185AB89DE9BEFD4B9D8D62@PAXPR05MB8206.eurprd05.prod.outlook.com>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+ <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+ <PAXPR05MB82069E3185AB89DE9BEFD4B9D8D62@PAXPR05MB8206.eurprd05.prod.outlook.com>
+Message-ID: <IA0PR11MB7813C9C764666FA5DD5024F4EBD62@IA0PR11MB7813.namprd11.prod.outlook.com>
+
+Tim,
+
+Unfortunately, there isn't a nice way of including OpenMP for macOS within a package.  One potential avenue would be to use a `configure.ac` file to check for whether OpenMP headers are present on the macOS computer and, then, allow the correct OpenMP compilation flags to be set. However, this requires the user to compile from source instead of using a CRAN binary.
+
+Unfortunately, there isn't going to be an easier way as OpenMP on macOS with R is experimental by nature.
+
+Best regards,
+
+James
+________________________________
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+Sent: Tuesday, June 25, 2024 10:00 PM
+To: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>; Sparapani, Rodney <rsparapa at mcw.edu>
+Cc: R list <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+
+Thanks Kasper,
+I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+
+so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+Best, tim
+
+
+Sent from Outlook for iOS<https://urldefense.com/v3/__https://aka.ms/o0ukef__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbUXDuipI$ >
+________________________________
+From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+Sent: Tuesday, June 25, 2024 11:34:42 AM
+To: Sparapani, Rodney <rsparapa at mcw.edu>
+Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+
+This email was sent to you by someone outside the University.
+You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+If you read the next couple of sentences on that page, it says
+
+The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+
+    curl -O https://urldefense.com/v3/__https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$
+    sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+
+
+I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+
+On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+Hi Tim:
+
+/usr/local/lib it seems.  See the following page
+https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$
+
+--
+Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+Vice President, Wisconsin Chapter of the American Statistical Association
+Institute for Health and Equity, Division of Biostatistics
+Medical College of Wisconsin, Milwaukee Campus
+
+If this is outside of working hours, then please respond when convenient.
+
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+Date: Monday, June 24, 2024 at 4:00?PM
+To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+________________________________
+
+At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+"any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+
+Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+
+I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+
+require(OpenMx)
+Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+
+dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+
+The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$>
+
+        [[alternative HTML version deleted]]
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$
+
+
+--
+Best,
+Kasper
+
+        [[alternative HTML version deleted]]
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$
+
+	[[alternative HTML version deleted]]
+
+
+From r|p|ey @end|ng |rom @t@t@@ox@@c@uk  Wed Jun 26 11:57:12 2024
+From: r|p|ey @end|ng |rom @t@t@@ox@@c@uk (Prof Brian Ripley)
+Date: Wed, 26 Jun 2024 10:57:12 +0100
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <IA0PR11MB7813C9C764666FA5DD5024F4EBD62@IA0PR11MB7813.namprd11.prod.outlook.com>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+ <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+ <PAXPR05MB82069E3185AB89DE9BEFD4B9D8D62@PAXPR05MB8206.eurprd05.prod.outlook.com>
+ <IA0PR11MB7813C9C764666FA5DD5024F4EBD62@IA0PR11MB7813.namprd11.prod.outlook.com>
+Message-ID: <1266c33b-31fe-4e75-bada-4a6bad3d1a79@stats.ox.ac.uk>
+
+On 26/06/2024 06:41, Balamuta, James wrote:
+> Tim,
+> 
+> Unfortunately, there isn't a nice way of including OpenMP for macOS within a package.  One potential avenue would be to use a `configure.ac` file to check for whether OpenMP headers are present on the macOS computer and, then, allow the correct OpenMP compilation flags to be set. However, this requires the user to compile from source instead of using a CRAN binary.
+
+Package installation also requires the libomp.dylib, and to know where 
+to find it both when linking and loading.
+
+> Unfortunately, there isn't going to be an easier way as OpenMP on macOS with R is experimental by nature.
+
+Rather, macOS makes it deliberately hard, but those instructions are not 
+current.
+
+- The standard way for the macOS linker to record paths to a dependent 
+dylib is as an absolute path.  E.g. (arm64)
+
+% otool -L library/stats/libs/stats.so
+library/stats/libs/stats.so:
+	stats.so (compatibility version 0.0.0, current version 0.0.0)
+	/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib (compatibility version 4.4.0, current version 4.4.1)
+...
+
+That is a location that is not writeable to an end user.  However, it 
+appears that R 4.4.1 for arm64 ships with a bi-arch libomp.dylib there.
+
+auk2% file `R RHOME`/lib/libomp.dylib
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib: Mach-O 
+universal binary with 2 architectures: [x86_64:Mach-O 64-bit dynamically 
+linked shared library x86_64] [arm64:Mach-O 64-bit dynamically linked 
+shared library arm64]
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib (for 
+architecture x86_64):	Mach-O 64-bit dynamically linked shared library x86_64
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib (for 
+architecture arm64):	Mach-O 64-bit dynamically linked shared library arm64
+
+So it is likely that libomp.dylib is already available somewhere that 
+will be searched at both link and load times.  (omp.h needs to be put in 
+a suitable place, e.g. /usr/local/include for Intel, but that needs 
+admin privileges. That is only needed at compilation, so could be put 
+anywhere and -I specified.)
+
+- Another issue: That page provides multiple copies on libomp.dylib: how 
+could package installation know which is appropriate?  I do not know 
+which one was shipped with R, nor how find out.  But it suggests 
+shipping one with a package would be unsafe.
+
+It seems the OP asked the wrong question: apparently he distributed a 
+package built with R 4.3.x, and someone tried to use it on 4.4.x.  R 
+binary packages are tied to an R x.y series (as the manual would have 
+told you).
+
+I was able to build OpenMx with OpenMP on arch64 by using
+
+PKG_CPPFLAGS = -Xclang -fopenmp -I/path/to/omp.h
+
+PKG_LIBS= -lomp \
+...
+
+(Caveat: for OpenMx, <omp.h> is used so the -I adds to the system 
+include path and there is danger of conflicts. Best to use a separate 
+directory for the OpenMP headers.)
+
+And please comply with the posting guide, not send HTML and not mangle URLs.
+
+> 
+> Best regards,
+> 
+> James
+> ________________________________
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+> Sent: Tuesday, June 25, 2024 10:00 PM
+> To: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>; Sparapani, Rodney <rsparapa at mcw.edu>
+> Cc: R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> 
+> Thanks Kasper,
+> I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+> 
+> so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+> Best, tim
+> 
+> 
+> Sent from Outlook for iOS<https://urldefense.com/v3/__https://aka.ms/o0ukef__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbUXDuipI$ >
+> ________________________________
+> From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+> Sent: Tuesday, June 25, 2024 11:34:42 AM
+> To: Sparapani, Rodney <rsparapa at mcw.edu>
+> Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> 
+> This email was sent to you by someone outside the University.
+> You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+> If you read the next couple of sentences on that page, it says
+> 
+> The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+> 
+>      curl -O https://urldefense.com/v3/__https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$
+>      sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+> 
+> 
+> I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+> 
+> On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+> Hi Tim:
+> 
+> /usr/local/lib it seems.  See the following page
+> https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$
+> 
+> --
+> Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+> Vice President, Wisconsin Chapter of the American Statistical Association
+> Institute for Health and Equity, Division of Biostatistics
+> Medical College of Wisconsin, Milwaukee Campus
+> 
+> If this is outside of working hours, then please respond when convenient.
+> 
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+> Date: Monday, June 24, 2024 at 4:00?PM
+> To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+> Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+> ________________________________
+> 
+> At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+> "any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+> 
+> Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+> 
+> I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+> 
+> require(OpenMx)
+> Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+>   unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+> 
+> dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+There is a version mismatch here ....
+
+-- 
+Brian D. Ripley,                  ripley at stats.ox.ac.uk
+Emeritus Professor of Applied Statistics, University of Oxford
+
+
+From br@m@boeckx @end|ng |rom ku|euven@be  Wed Jun 26 09:36:39 2024
+From: br@m@boeckx @end|ng |rom ku|euven@be (Bram Boeckx)
+Date: Wed, 26 Jun 2024 07:36:39 +0000
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+Message-ID: <72B3DAB6-6B6F-46BF-921E-6B4DE21307C3@kuleuven.be>
+
+Dear,
+
+Thanks for your message,
+I'm currently on paternity leave until 23th of July and cannot respond to your email. Please contact my colleagues if you have questions or need assistance.
+
+Best Wishes,
+
+Bram
+
+On 25 Jun 2024, at 14:20, Sparapani, Rodney via R-SIG-Mac <R-SIG-Mac at r-project.org> wrote:
+
+Hi Tim:
+
+/usr/local/lib it seems.  See the following page
+https://mac.r-project.org/openmp/
+
+--
+Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+Vice President, Wisconsin Chapter of the American Statistical Association
+Institute for Health and Equity, Division of Biostatistics
+Medical College of Wisconsin, Milwaukee Campus
+
+If this is outside of working hours, then please respond when convenient.
+
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+Date: Monday, June 24, 2024 at 4:00?PM
+To: R list <R-SIG-Mac at r-project.org>
+Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+________________________________
+
+At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+"any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+
+Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+
+I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+
+require(OpenMx)
+Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+
+dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+
+The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$>
+
+        [[alternative HTML version deleted]]
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+	[[alternative HTML version deleted]]
+
+
+From br@m@boeckx @end|ng |rom ku|euven@be  Wed Jun 26 12:18:20 2024
+From: br@m@boeckx @end|ng |rom ku|euven@be (Bram Boeckx)
+Date: Wed, 26 Jun 2024 10:18:20 +0000
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <1266c33b-31fe-4e75-bada-4a6bad3d1a79@stats.ox.ac.uk>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+ <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+ <PAXPR05MB82069E3185AB89DE9BEFD4B9D8D62@PAXPR05MB8206.eurprd05.prod.outlook.com>
+ <IA0PR11MB7813C9C764666FA5DD5024F4EBD62@IA0PR11MB7813.namprd11.prod.outlook.com>
+ <1266c33b-31fe-4e75-bada-4a6bad3d1a79@stats.ox.ac.uk>
+Message-ID: <9B5F82F3-B07B-4A05-9ED1-419CD6924D02@kuleuven.be>
+
+Dear,
+
+Thanks for your message,
+I'm currently on paternity leave until 23th of July and cannot respond to your email. Please contact my colleagues if you have questions or need assistance.
+
+Best Wishes,
+
+Bram
+
+On 26 Jun 2024, at 11:57, Prof Brian Ripley via R-SIG-Mac <R-SIG-Mac at r-project.org> wrote:
+
+On 26/06/2024 06:41, Balamuta, James wrote:
+Tim,
+Unfortunately, there isn't a nice way of including OpenMP for macOS within a package.  One potential avenue would be to use a `configure.ac` file to check for whether OpenMP headers are present on the macOS computer and, then, allow the correct OpenMP compilation flags to be set. However, this requires the user to compile from source instead of using a CRAN binary.
+
+Package installation also requires the libomp.dylib, and to know where to find it both when linking and loading.
+
+Unfortunately, there isn't going to be an easier way as OpenMP on macOS with R is experimental by nature.
+
+Rather, macOS makes it deliberately hard, but those instructions are not current.
+
+- The standard way for the macOS linker to record paths to a dependent dylib is as an absolute path.  E.g. (arm64)
+
+% otool -L library/stats/libs/stats.so
+library/stats/libs/stats.so:
+        stats.so (compatibility version 0.0.0, current version 0.0.0)
+        /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib (compatibility version 4.4.0, current version 4.4.1)
+...
+
+That is a location that is not writeable to an end user.  However, it appears that R 4.4.1 for arm64 ships with a bi-arch libomp.dylib there.
+
+auk2% file `R RHOME`/lib/libomp.dylib
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib: Mach-O universal binary with 2 architectures: [x86_64:Mach-O 64-bit dynamically linked shared library x86_64] [arm64:Mach-O 64-bit dynamically linked shared library arm64]
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib (for architecture x86_64):   Mach-O 64-bit dynamically linked shared library x86_64
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib (for architecture arm64):    Mach-O 64-bit dynamically linked shared library arm64
+
+So it is likely that libomp.dylib is already available somewhere that will be searched at both link and load times.  (omp.h needs to be put in a suitable place, e.g. /usr/local/include for Intel, but that needs admin privileges. That is only needed at compilation, so could be put anywhere and -I specified.)
+
+- Another issue: That page provides multiple copies on libomp.dylib: how could package installation know which is appropriate?  I do not know which one was shipped with R, nor how find out.  But it suggests shipping one with a package would be unsafe.
+
+It seems the OP asked the wrong question: apparently he distributed a package built with R 4.3.x, and someone tried to use it on 4.4.x.  R binary packages are tied to an R x.y series (as the manual would have told you).
+
+I was able to build OpenMx with OpenMP on arch64 by using
+
+PKG_CPPFLAGS = -Xclang -fopenmp -I/path/to/omp.h
+
+PKG_LIBS= -lomp \
+...
+
+(Caveat: for OpenMx, <omp.h> is used so the -I adds to the system include path and there is danger of conflicts. Best to use a separate directory for the OpenMP headers.)
+
+And please comply with the posting guide, not send HTML and not mangle URLs.
+
+Best regards,
+James
+________________________________
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+Sent: Tuesday, June 25, 2024 10:00 PM
+To: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>; Sparapani, Rodney <rsparapa at mcw.edu>
+Cc: R list <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+Thanks Kasper,
+I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+Best, tim
+Sent from Outlook for iOS<https://urldefense.com/v3/__https://aka.ms/o0ukef__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbUXDuipI$ >
+________________________________
+From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+Sent: Tuesday, June 25, 2024 11:34:42 AM
+To: Sparapani, Rodney <rsparapa at mcw.edu>
+Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+This email was sent to you by someone outside the University.
+You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+If you read the next couple of sentences on that page, it says
+The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+    curl -O https://urldefense.com/v3/__https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$
+    sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+Hi Tim:
+/usr/local/lib it seems.  See the following page
+https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$
+--
+Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+Vice President, Wisconsin Chapter of the American Statistical Association
+Institute for Health and Equity, Division of Biostatistics
+Medical College of Wisconsin, Milwaukee Campus
+If this is outside of working hours, then please respond when convenient.
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+Date: Monday, June 24, 2024 at 4:00?PM
+To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+________________________________
+At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+"any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+require(OpenMx)
+Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+There is a version mismatch here ....
+
+--
+Brian D. Ripley,                  ripley at stats.ox.ac.uk
+Emeritus Professor of Applied Statistics, University of Oxford
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+	[[alternative HTML version deleted]]
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Thu Jun 27 19:16:17 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Thu, 27 Jun 2024 19:16:17 +0200
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+Message-ID: <BEB5915C-3CE3-4DED-A233-DAC349CD81A9@R-project.org>
+
+Tim,
+
+There is no need to worry about libomp.dylib on macOS with CRAN packages as libomp is already shipped with R. When the package its built on CRAN, it will be pointed correctly to the version inside R.
+
+However, in your output it seems that the problem may be that the user is using the wrong R version - the package is installed for R 4.4, but it seems to be looking for libomp in R 4.3. They are compatible, but the paths look wrong.  It is not clear to me what paths you used when building the package binary. Note that the package can only be installed for the same version that it has been compiled for. Also if you compile against libomp you have to either link against the version in R or use install_name_tool to change the linking path to make sure it points to the R version. Either way, check with tool -L to see what you are linking to.
+
+Cheers,
+Simon
+
+
+
+> On 24 Jun 2024, at 23:00, Timothy Bates <tim.bates at ed.ac.uk> wrote:
+> 
+> At https://mac.r-project.org/openmp/ it  says
+> "any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+> 
+> Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+> 
+> I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+> 
+> require(OpenMx)
+> Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+> unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+> 
+> dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+> 
+> 
+> The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Thu Jun 27 19:25:02 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Thu, 27 Jun 2024 19:25:02 +0200
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <IA0PR11MB7813C9C764666FA5DD5024F4EBD62@IA0PR11MB7813.namprd11.prod.outlook.com>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+ <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+ <PAXPR05MB82069E3185AB89DE9BEFD4B9D8D62@PAXPR05MB8206.eurprd05.prod.outlook.com>
+ <IA0PR11MB7813C9C764666FA5DD5024F4EBD62@IA0PR11MB7813.namprd11.prod.outlook.com>
+Message-ID: <37D8F70E-8835-4938-8D1B-496DC0ABFC7A@R-project.org>
+
+Most of the claims below are false - libomp is shipped with CRAN R for quite some time specifically so that packages which benefit from it significantly can enable OpenMP reasonably easily - they only need to add the flags as noted on the cited page and CRAN takes care of the rest. If there are any problems, please feel free to contact me.
+
+Cheers,
+Simon
+ 
+
+> On 26 Jun 2024, at 07:41, Balamuta, James <balamut2 at illinois.edu> wrote:
+> 
+> Tim,
+> 
+> Unfortunately, there isn't a nice way of including OpenMP for macOS within a package.  One potential avenue would be to use a `configure.ac` file to check for whether OpenMP headers are present on the macOS computer and, then, allow the correct OpenMP compilation flags to be set. However, this requires the user to compile from source instead of using a CRAN binary.
+> 
+> Unfortunately, there isn't going to be an easier way as OpenMP on macOS with R is experimental by nature.
+> 
+> Best regards,
+> 
+> James
+> ________________________________
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+> Sent: Tuesday, June 25, 2024 10:00 PM
+> To: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>; Sparapani, Rodney <rsparapa at mcw.edu>
+> Cc: R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> 
+> Thanks Kasper,
+> I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+> 
+> so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+> Best, tim
+> 
+> 
+> Sent from Outlook for iOS<https://urldefense.com/v3/__https://aka.ms/o0ukef__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbUXDuipI$ >
+> ________________________________
+> From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+> Sent: Tuesday, June 25, 2024 11:34:42 AM
+> To: Sparapani, Rodney <rsparapa at mcw.edu>
+> Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> 
+> This email was sent to you by someone outside the University.
+> You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+> If you read the next couple of sentences on that page, it says
+> 
+> The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+> 
+>    curl -O https://urldefense.com/v3/__https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$
+>    sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+> 
+> 
+> I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+> 
+> On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+> Hi Tim:
+> 
+> /usr/local/lib it seems.  See the following page
+> https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$
+> 
+> --
+> Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+> Vice President, Wisconsin Chapter of the American Statistical Association
+> Institute for Health and Equity, Division of Biostatistics
+> Medical College of Wisconsin, Milwaukee Campus
+> 
+> If this is outside of working hours, then please respond when convenient.
+> 
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+> Date: Monday, June 24, 2024 at 4:00?PM
+> To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+> Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+> ________________________________
+> 
+> At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+> "any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+> 
+> Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+> 
+> I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+> 
+> require(OpenMx)
+> Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+> unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+> 
+> dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+> 
+> 
+> The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$>
+> 
+>        [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$
+> 
+> 
+> --
+> Best,
+> Kasper
+> 
+>        [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$
+> 
+> [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From b@|@mut2 @end|ng |rom ||||no|@@edu  Thu Jun 27 23:57:01 2024
+From: b@|@mut2 @end|ng |rom ||||no|@@edu (Balamuta, James)
+Date: Thu, 27 Jun 2024 21:57:01 +0000
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <37D8F70E-8835-4938-8D1B-496DC0ABFC7A@R-project.org>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+ <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+ <PAXPR05MB82069E3185AB89DE9BEFD4B9D8D62@PAXPR05MB8206.eurprd05.prod.outlook.com>
+ <IA0PR11MB7813C9C764666FA5DD5024F4EBD62@IA0PR11MB7813.namprd11.prod.outlook.com>
+ <37D8F70E-8835-4938-8D1B-496DC0ABFC7A@R-project.org>
+Message-ID: <IA0PR11MB78139861AA12ADA102A1E39DEBD72@IA0PR11MB7813.namprd11.prod.outlook.com>
+
+Simon,
+
+I think there is a communication issue regarding OpenMP for the macOS R community. That said, I?m both thrilled and delighted that I?m wrong in this case! To my knowledge, there was never a public facing note regarding `libomp`  shipping with CRAN?s official R binary for mac, [1]. In fact, the last tracking I have with respect to OpenMP and R on macOS was its abrupt and painful removal that led to the instructions for experimental inclusion of OpenMP on mac within the developer website [2] (gently acknowledge by Prof. Ripley as being not current). This has led to a lot of lobotomization in compiled code regarding macOS that can now hopefully be adjusted for the multi-core world, [3].
+
+With this in mind, I suppose this means that we would need to revisit the `configure.ac` [3]. Potentially, as Prof. Ripley mentioned, we?re looking at including on path/detecting:
+
+`R RHOME`/lib/libomp.dylib/Library/Frameworks/R.framework/Resources/lib/libomp.dylib
+
+Thus, the package binary downloaded from CRAN would correctly set and detect cores per:
+
+# install.packages("RcppArmadillo")
+
+# Determine the number of active threads
+RcppArmadillo::armadillo_get_number_of_omp_threads()
+[1] 1
+
+# Set number of threads
+RcppArmadillo::armadillo_set_number_of_omp_threads(3)
+
+# Retrieve OpenMP threads after setting
+RcppArmadillo::armadillo_get_number_of_omp_threads()
+[1] 1
+# This should be 3.
+
+I?m happy to talk more on the list or off the list.
+
+Best,
+
+James
+
+[1]: https://cran.r-project.org/doc/manuals/r-release/NEWS.html
+[2]: https://mac.r-project.org/openmp/
+[3]: https://github.com/RcppCore/RcppArmadillo/blob/37461ba36472305c699263afc229919d37daa5e3/configure.ac#L109
+
+
+From: Simon Urbanek <simon.urbanek at R-project.org>
+Date: Thursday, June 27, 2024 at 10:25?AM
+To: Balamuta, James <balamut2 at illinois.edu>
+Cc: Timothy Bates <tim.bates at ed.ac.uk>, Kasper Daniel Hansen <kasperdanielhansen at gmail.com>, Sparapani, Rodney <rsparapa at mcw.edu>, R list <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+Most of the claims below are false - libomp is shipped with CRAN R for quite some time specifically so that packages which benefit from it significantly can enable OpenMP reasonably easily - they only need to add the flags as noted on the cited page and CRAN takes care of the rest. If there are any problems, please feel free to contact me.
+
+Cheers,
+Simon
+
+
+> On 26 Jun 2024, at 07:41, Balamuta, James <balamut2 at illinois.edu> wrote:
+>
+> Tim,
+>
+> Unfortunately, there isn't a nice way of including OpenMP for macOS within a package.  One potential avenue would be to use a `configure.ac` file to check for whether OpenMP headers are present on the macOS computer and, then, allow the correct OpenMP compilation flags to be set. However, this requires the user to compile from source instead of using a CRAN binary.
+>
+> Unfortunately, there isn't going to be an easier way as OpenMP on macOS with R is experimental by nature.
+>
+> Best regards,
+>
+> James
+> ________________________________
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+> Sent: Tuesday, June 25, 2024 10:00 PM
+> To: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>; Sparapani, Rodney <rsparapa at mcw.edu>
+> Cc: R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+>
+> Thanks Kasper,
+> I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+>
+> so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+> Best, tim
+>
+>
+> Sent from Outlook for iOS<https://urldefense.com/v3/__https://aka.ms/o0ukef__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbUXDuipI$ >
+> ________________________________
+> From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+> Sent: Tuesday, June 25, 2024 11:34:42 AM
+> To: Sparapani, Rodney <rsparapa at mcw.edu>
+> Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+>
+> This email was sent to you by someone outside the University.
+> You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+> If you read the next couple of sentences on that page, it says
+>
+> The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+>
+>    curl -O https://urldefense.com/v3/__https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$>
+>    sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+>
+>
+> I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+>
+> On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+> Hi Tim:
+>
+> /usr/local/lib it seems.  See the following page
+> https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$>
+>
+> --
+> Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+> Vice President, Wisconsin Chapter of the American Statistical Association
+> Institute for Health and Equity, Division of Biostatistics
+> Medical College of Wisconsin, Milwaukee Campus
+>
+> If this is outside of working hours, then please respond when convenient.
+>
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+> Date: Monday, June 24, 2024 at 4:00?PM
+> To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+> Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+> ________________________________
+>
+> At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$><https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$%3chttps:/urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$%3e>  it  says
+> "any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+>
+> Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+>
+> I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+>
+> require(OpenMx)
+> Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+> unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+>
+> dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+>
+>
+> The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$><https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$%3chttps:/urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$%3e>
+>
+>        [[alternative HTML version deleted]]
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$>
+>
+>
+> --
+> Best,
+> Kasper
+>
+>        [[alternative HTML version deleted]]
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$>
+>
+> [[alternative HTML version deleted]]
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!9XPrFiayt1-V0BmNqWv4wn0V_G6ZIC6DgkviDYpRV4s-dmAnj9Qp_QFEHPG5dbO-Sk0IhdfC3lB0qeeJBDE2ann7kz0eS7A$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!9XPrFiayt1-V0BmNqWv4wn0V_G6ZIC6DgkviDYpRV4s-dmAnj9Qp_QFEHPG5dbO-Sk0IhdfC3lB0qeeJBDE2ann7kz0eS7A$>
+
+	[[alternative HTML version deleted]]
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Fri Jun 28 09:30:56 2024
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Fri, 28 Jun 2024 09:30:56 +0200
+Subject: [R-SIG-Mac] 
+ procedure to ship libomp.dylib run-time with package
+In-Reply-To: <IA0PR11MB78139861AA12ADA102A1E39DEBD72@IA0PR11MB7813.namprd11.prod.outlook.com>
+References: <AF8C667D-D717-47A3-B908-8DC752E36F7F@ed.ac.uk>
+ <CO6PR01MB7452D70E5347FF54842A376ECBD52@CO6PR01MB7452.prod.exchangelabs.com>
+ <CAC2h7uv7jfQHJme0DmaVTC=zppKf5b2oRSwUeqPa2eef3_krew@mail.gmail.com>
+ <PAXPR05MB82069E3185AB89DE9BEFD4B9D8D62@PAXPR05MB8206.eurprd05.prod.outlook.com>
+ <IA0PR11MB7813C9C764666FA5DD5024F4EBD62@IA0PR11MB7813.namprd11.prod.outlook.com>
+ <37D8F70E-8835-4938-8D1B-496DC0ABFC7A@R-project.org>
+ <IA0PR11MB78139861AA12ADA102A1E39DEBD72@IA0PR11MB7813.namprd11.prod.outlook.com>
+Message-ID: <FC09980F-3E1C-4707-B064-143F30D4325F@R-project.org>
+
+
+
+> On 27 Jun 2024, at 23:57, Balamuta, James <balamut2 at illinois.edu> wrote:
+> 
+> Simon,
+>  I think there is a communication issue regarding OpenMP for the macOS R community. That said, I?m both thrilled and delighted that I?m wrong in this case! To my knowledge, there was never a public facing note regarding `libomp`  shipping with CRAN?s official R binary for mac, [1]. In fact, the last tracking I have with respect to OpenMP and R on macOS was its abrupt and painful removal that led to the instructions for experimental inclusion of OpenMP on mac within the developer website [2] (gently acknowledge by Prof. Ripley as being not current). This has led to a lot of lobotomization in compiled code regarding macOS that can now hopefully be adjusted for the multi-core world, [3].
+>  With this in mind, I suppose this means that we would need to revisit the `configure.ac` [3]. Potentially, as Prof. Ripley mentioned, we?re looking at including on path/detecting:
+>  `R RHOME`/lib/libomp.dylib/Library/Frameworks/R.framework/Resources/lib/libomp.dylib
+
+
+That's entirely unnecessary - you should not be requiring specific file paths - that's not how linking tests work. All the instructions are on the OpenMP page for years - it is as simple as -lomp (which is standard almost everywhere). The only non-standard requirement compared to other platforms is that instead of -fopemp in C flags the package should also check for -Xclang -fopenmp.
+
+If a package explicitly disables OpenMP for Apple compilers, it is its deliberate choice - it was never necessary. The whole point of configure scripts is to detect functionality by testing it and use it if available.
+
+Cheers,
+Simon
+
+
+>  Thus, the package binary downloaded from CRAN would correctly set and detect cores per:
+>  # install.packages("RcppArmadillo")
+>  # Determine the number of active threads
+> RcppArmadillo::armadillo_get_number_of_omp_threads()
+> [1] 1
+>  # Set number of threads
+> RcppArmadillo::armadillo_set_number_of_omp_threads(3)
+>  # Retrieve OpenMP threads after setting
+> RcppArmadillo::armadillo_get_number_of_omp_threads()
+> [1] 1
+> # This should be 3.
+>  I?m happy to talk more on the list or off the list.  Best,
+>  James
+>  [1]: https://cran.r-project.org/doc/manuals/r-release/NEWS.html
+> [2]: https://mac.r-project.org/openmp/
+> [3]: https://github.com/RcppCore/RcppArmadillo/blob/37461ba36472305c699263afc229919d37daa5e3/configure.ac#L109
+>   From: Simon Urbanek <simon.urbanek at R-project.org>
+> Date: Thursday, June 27, 2024 at 10:25?AM
+> To: Balamuta, James <balamut2 at illinois.edu>
+> Cc: Timothy Bates <tim.bates at ed.ac.uk>, Kasper Daniel Hansen <kasperdanielhansen at gmail.com>, Sparapani, Rodney <rsparapa at mcw.edu>, R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> Most of the claims below are false - libomp is shipped with CRAN R for quite some time specifically so that packages which benefit from it significantly can enable OpenMP reasonably easily - they only need to add the flags as noted on the cited page and CRAN takes care of the rest. If there are any problems, please feel free to contact me.
+> 
+> Cheers,
+> Simon
+>  
+> 
+> > On 26 Jun 2024, at 07:41, Balamuta, James <balamut2 at illinois.edu> wrote:
+> > 
+> > Tim,
+> > 
+> > Unfortunately, there isn't a nice way of including OpenMP for macOS within a package.  One potential avenue would be to use a `configure.ac` file to check for whether OpenMP headers are present on the macOS computer and, then, allow the correct OpenMP compilation flags to be set. However, this requires the user to compile from source instead of using a CRAN binary.
+> > 
+> > Unfortunately, there isn't going to be an easier way as OpenMP on macOS with R is experimental by nature.
+> > 
+> > Best regards,
+> > 
+> > James
+> > ________________________________
+> > From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+> > Sent: Tuesday, June 25, 2024 10:00 PM
+> > To: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>; Sparapani, Rodney <rsparapa at mcw.edu>
+> > Cc: R list <R-SIG-Mac at r-project.org>
+> > Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> > 
+> > Thanks Kasper,
+> > I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+> > 
+> > so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+> > Best, tim
+> > 
+> > 
+> > Sent from Outlook for iOS<https://urldefense.com/v3/__https://aka.ms/o0ukef__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbUXDuipI$ >
+> > ________________________________
+> > From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+> > Sent: Tuesday, June 25, 2024 11:34:42 AM
+> > To: Sparapani, Rodney <rsparapa at mcw.edu>
+> > Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+> > Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> > 
+> > This email was sent to you by someone outside the University.
+> > You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+> > If you read the next couple of sentences on that page, it says
+> > 
+> > The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+> > 
+> >    curl -O https://urldefense.com/v3/__https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$
+> >    sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+> > 
+> > 
+> > I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+> > 
+> > On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+> > Hi Tim:
+> > 
+> > /usr/local/lib it seems.  See the following page
+> > https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$
+> > 
+> > --
+> > Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+> > Vice President, Wisconsin Chapter of the American Statistical Association
+> > Institute for Health and Equity, Division of Biostatistics
+> > Medical College of Wisconsin, Milwaukee Campus
+> > 
+> > If this is outside of working hours, then please respond when convenient.
+> > 
+> > From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+> > Date: Monday, June 24, 2024 at 4:00?PM
+> > To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+> > Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> > ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+> > ________________________________
+> > 
+> > At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+> > "any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+> > 
+> > Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+> > 
+> > I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+> > 
+> > require(OpenMx)
+> > Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+> > unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+> > 
+> > dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+> > 
+> > 
+> > The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+> > _______________________________________________
+> > R-SIG-Mac mailing list
+> > R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+> > https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$>
+> > 
+> >        [[alternative HTML version deleted]]
+> > 
+> > _______________________________________________
+> > R-SIG-Mac mailing list
+> > R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>
+> > https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$
+> > 
+> > 
+> > --
+> > Best,
+> > Kasper
+> > 
+> >        [[alternative HTML version deleted]]
+> > 
+> > _______________________________________________
+> > R-SIG-Mac mailing list
+> > R-SIG-Mac at r-project.org
+> > https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbYOwLI1d$
+> > 
+> > [[alternative HTML version deleted]]
+> > 
+> > _______________________________________________
+> > R-SIG-Mac mailing list
+> > R-SIG-Mac at r-project.org
+> > https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!DZ3fjg!9XPrFiayt1-V0BmNqWv4wn0V_G6ZIC6DgkviDYpRV4s-dmAnj9Qp_QFEHPG5dbO-Sk0IhdfC3lB0qeeJBDE2ann7kz0eS7A$
+
+
+From chr|@t|@n @end|ng |rom echo||m@nn@ch  Sun Jun 30 17:24:00 2024
+From: chr|@t|@n @end|ng |rom echo||m@nn@ch (Christian Hoffmann)
+Date: Sun, 30 Jun 2024 17:24:00 +0200
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 255, Issue 11
+In-Reply-To: <mailman.15220.2609.1719473332.1268.r-sig-mac@r-project.org>
+References: <mailman.15220.2609.1719473332.1268.r-sig-mac@r-project.org>
+Message-ID: <87A7B03F-CEC5-4785-A462-3790DB1A5295@echoffmann.ch>
+
+Cancel subscription, please. 
+Von meinem iPhone gesendet
+
+> Am 27.06.2024 um 09:49 schrieb r-sig-mac-request at r-project.org:
+> 
+> ?Send R-SIG-Mac mailing list submissions to
+>    r-sig-mac at r-project.org
+> 
+> To subscribe or unsubscribe via the World Wide Web, visit
+>    https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> or, via email, send a message with subject or body 'help' to
+>    r-sig-mac-request at r-project.org
+> 
+> You can reach the person managing the list at
+>    r-sig-mac-owner at r-project.org
+> 
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of R-SIG-Mac digest..."
+> 
+> 
+> Today's Topics:
+> 
+>   1. Re:   procedure to ship libomp.dylib run-time with package
+>      (Bram Boeckx)
+>   2. Re:   procedure to ship libomp.dylib run-time with package
+>      (Bram Boeckx)
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Wed, 26 Jun 2024 07:36:39 +0000
+> From: Bram Boeckx <bram.boeckx at kuleuven.be>
+> To: "Sparapani, Rodney via R-SIG-Mac" <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac]  procedure to ship libomp.dylib run-time with
+>    package
+> Message-ID: <72B3DAB6-6B6F-46BF-921E-6B4DE21307C3 at kuleuven.be>
+> Content-Type: text/plain; charset="utf-8"
+> 
+> Dear,
+> 
+> Thanks for your message,
+> I'm currently on paternity leave until 23th of July and cannot respond to your email. Please contact my colleagues if you have questions or need assistance.
+> 
+> Best Wishes,
+> 
+> Bram
+> 
+> On 25 Jun 2024, at 14:20, Sparapani, Rodney via R-SIG-Mac <R-SIG-Mac at r-project.org> wrote:
+> 
+> Hi Tim:
+> 
+> /usr/local/lib it seems.  See the following page
+> https://mac.r-project.org/openmp/
+> 
+> --
+> Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+> Vice President, Wisconsin Chapter of the American Statistical Association
+> Institute for Health and Equity, Division of Biostatistics
+> Medical College of Wisconsin, Milwaukee Campus
+> 
+> If this is outside of working hours, then please respond when convenient.
+> 
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+> Date: Monday, June 24, 2024 at 4:00?PM
+> To: R list <R-SIG-Mac at r-project.org>
+> Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+> ________________________________
+> 
+> At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+> "any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+> 
+> Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+> 
+> I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+> 
+> require(OpenMx)
+> Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+> unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+> 
+> dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+> 
+> 
+> The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$>
+> 
+>        [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+>    [[alternative HTML version deleted]]
+> 
+> 
+> 
+> ------------------------------
+> 
+> Message: 2
+> Date: Wed, 26 Jun 2024 10:18:20 +0000
+> From: Bram Boeckx <bram.boeckx at kuleuven.be>
+> To: Prof Brian Ripley via R-SIG-Mac <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac]  procedure to ship libomp.dylib run-time with
+>    package
+> Message-ID: <9B5F82F3-B07B-4A05-9ED1-419CD6924D02 at kuleuven.be>
+> Content-Type: text/plain; charset="utf-8"
+> 
+> Dear,
+> 
+> Thanks for your message,
+> I'm currently on paternity leave until 23th of July and cannot respond to your email. Please contact my colleagues if you have questions or need assistance.
+> 
+> Best Wishes,
+> 
+> Bram
+> 
+> On 26 Jun 2024, at 11:57, Prof Brian Ripley via R-SIG-Mac <R-SIG-Mac at r-project.org> wrote:
+> 
+> On 26/06/2024 06:41, Balamuta, James wrote:
+> Tim,
+> Unfortunately, there isn't a nice way of including OpenMP for macOS within a package.  One potential avenue would be to use a `configure.ac` file to check for whether OpenMP headers are present on the macOS computer and, then, allow the correct OpenMP compilation flags to be set. However, this requires the user to compile from source instead of using a CRAN binary.
+> 
+> Package installation also requires the libomp.dylib, and to know where to find it both when linking and loading.
+> 
+> Unfortunately, there isn't going to be an easier way as OpenMP on macOS with R is experimental by nature.
+> 
+> Rather, macOS makes it deliberately hard, but those instructions are not current.
+> 
+> - The standard way for the macOS linker to record paths to a dependent dylib is as an absolute path.  E.g. (arm64)
+> 
+> % otool -L library/stats/libs/stats.so
+> library/stats/libs/stats.so:
+>        stats.so (compatibility version 0.0.0, current version 0.0.0)
+>        /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib (compatibility version 4.4.0, current version 4.4.1)
+> ...
+> 
+> That is a location that is not writeable to an end user.  However, it appears that R 4.4.1 for arm64 ships with a bi-arch libomp.dylib there.
+> 
+> auk2% file `R RHOME`/lib/libomp.dylib
+> /Library/Frameworks/R.framework/Resources/lib/libomp.dylib: Mach-O universal binary with 2 architectures: [x86_64:Mach-O 64-bit dynamically linked shared library x86_64] [arm64:Mach-O 64-bit dynamically linked shared library arm64]
+> /Library/Frameworks/R.framework/Resources/lib/libomp.dylib (for architecture x86_64):   Mach-O 64-bit dynamically linked shared library x86_64
+> /Library/Frameworks/R.framework/Resources/lib/libomp.dylib (for architecture arm64):    Mach-O 64-bit dynamically linked shared library arm64
+> 
+> So it is likely that libomp.dylib is already available somewhere that will be searched at both link and load times.  (omp.h needs to be put in a suitable place, e.g. /usr/local/include for Intel, but that needs admin privileges. That is only needed at compilation, so could be put anywhere and -I specified.)
+> 
+> - Another issue: That page provides multiple copies on libomp.dylib: how could package installation know which is appropriate?  I do not know which one was shipped with R, nor how find out.  But it suggests shipping one with a package would be unsafe.
+> 
+> It seems the OP asked the wrong question: apparently he distributed a package built with R 4.3.x, and someone tried to use it on 4.4.x.  R binary packages are tied to an R x.y series (as the manual would have told you).
+> 
+> I was able to build OpenMx with OpenMP on arch64 by using
+> 
+> PKG_CPPFLAGS = -Xclang -fopenmp -I/path/to/omp.h
+> 
+> PKG_LIBS= -lomp \
+> ...
+> 
+> (Caveat: for OpenMx, <omp.h> is used so the -I adds to the system include path and there is danger of conflicts. Best to use a separate directory for the OpenMP headers.)
+> 
+> And please comply with the posting guide, not send HTML and not mangle URLs.
+> 
+> Best regards,
+> James
+> ________________________________
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+> Sent: Tuesday, June 25, 2024 10:00 PM
+> To: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>; Sparapani, Rodney <rsparapa at mcw.edu>
+> Cc: R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> Thanks Kasper,
+> I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+> so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+> Best, tim
+> Sent from Outlook for iOS<https://urldefense.com/v3/__https://aka.ms/o0ukef__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbUXDuipI$ >
+> ________________________________
+> From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+> Sent: Tuesday, June 25, 2024 11:34:42 AM
+> To: Sparapani, Rodney <rsparapa at mcw.edu>
+> Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+> Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> This email was sent to you by someone outside the University.
+> You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+> If you read the next couple of sentences on that page, it says
+> The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+>    curl -O https://urldefense.com/v3/__https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$
+>    sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+> I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+> On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+> Hi Tim:
+> /usr/local/lib it seems.  See the following page
+> https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$
+> --
+> Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+> Vice President, Wisconsin Chapter of the American Statistical Association
+> Institute for Health and Equity, Division of Biostatistics
+> Medical College of Wisconsin, Milwaukee Campus
+> If this is outside of working hours, then please respond when convenient.
+> From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+> Date: Monday, June 24, 2024 at 4:00?PM
+> To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+> Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+> ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+> ________________________________
+> At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+> "any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+> Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+> I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+> require(OpenMx)
+> Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+> unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+> dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+> 
+> There is a version mismatch here ....
+> 
+> --
+> Brian D. Ripley,                  ripley at stats.ox.ac.uk
+> Emeritus Professor of Applied Statistics, University of Oxford
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+>    [[alternative HTML version deleted]]
+> 
+> 
+> 
+> ------------------------------
+> 
+> Subject: Digest Footer
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> 
+> ------------------------------
+> 
+> End of R-SIG-Mac Digest, Vol 255, Issue 11
+> ******************************************
+
+
+From br@m@boeckx @end|ng |rom ku|euven@be  Sun Jun 30 21:07:57 2024
+From: br@m@boeckx @end|ng |rom ku|euven@be (Bram Boeckx)
+Date: Sun, 30 Jun 2024 19:07:57 +0000
+Subject: [R-SIG-Mac] R-SIG-Mac Digest, Vol 255, Issue 11
+In-Reply-To: <87A7B03F-CEC5-4785-A462-3790DB1A5295@echoffmann.ch>
+References: <mailman.15220.2609.1719473332.1268.r-sig-mac@r-project.org>
+ <87A7B03F-CEC5-4785-A462-3790DB1A5295@echoffmann.ch>
+Message-ID: <AFDA451B-A390-4655-B4ED-C62121322105@kuleuven.be>
+
+Dear,
+
+Thanks for your message,
+I'm currently on paternity leave until 23th of July and cannot respond to your email. Please contact my colleagues if you have questions or need assistance.
+
+Best Wishes,
+
+Bram
+
+On 30 Jun 2024, at 17:24, Christian Hoffmann via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+
+Cancel subscription, please.
+Von meinem iPhone gesendet
+
+Am 27.06.2024 um 09:49 schrieb r-sig-mac-request at r-project.org:
+
+?Send R-SIG-Mac mailing list submissions to
+  r-sig-mac at r-project.org
+
+To subscribe or unsubscribe via the World Wide Web, visit
+  https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+or, via email, send a message with subject or body 'help' to
+  r-sig-mac-request at r-project.org
+
+You can reach the person managing the list at
+  r-sig-mac-owner at r-project.org
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of R-SIG-Mac digest..."
+
+
+Today's Topics:
+
+ 1. Re:   procedure to ship libomp.dylib run-time with package
+    (Bram Boeckx)
+ 2. Re:   procedure to ship libomp.dylib run-time with package
+    (Bram Boeckx)
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Wed, 26 Jun 2024 07:36:39 +0000
+From: Bram Boeckx <bram.boeckx at kuleuven.be>
+To: "Sparapani, Rodney via R-SIG-Mac" <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac]  procedure to ship libomp.dylib run-time with
+  package
+Message-ID: <72B3DAB6-6B6F-46BF-921E-6B4DE21307C3 at kuleuven.be>
+Content-Type: text/plain; charset="utf-8"
+
+Dear,
+
+Thanks for your message,
+I'm currently on paternity leave until 23th of July and cannot respond to your email. Please contact my colleagues if you have questions or need assistance.
+
+Best Wishes,
+
+Bram
+
+On 25 Jun 2024, at 14:20, Sparapani, Rodney via R-SIG-Mac <R-SIG-Mac at r-project.org> wrote:
+
+Hi Tim:
+
+/usr/local/lib it seems.  See the following page
+https://mac.r-project.org/openmp/
+
+--
+Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+Vice President, Wisconsin Chapter of the American Statistical Association
+Institute for Health and Equity, Division of Biostatistics
+Medical College of Wisconsin, Milwaukee Campus
+
+If this is outside of working hours, then please respond when convenient.
+
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+Date: Monday, June 24, 2024 at 4:00?PM
+To: R list <R-SIG-Mac at r-project.org>
+Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+________________________________
+
+At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+"any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+
+Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+
+I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+
+require(OpenMx)
+Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+
+dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+
+The University of Edinburgh is a charitable body, registered in Scotland, with registration number SC005336. Is e buidheann carthannais a th? ann an Oilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://urldefense.com/v3/__https://stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$<https://urldefense.com/v3/__https:/stat.ethz.ch/mailman/listinfo/r-sig-mac__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGdICDldE$>
+
+      [[alternative HTML version deleted]]
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+  [[alternative HTML version deleted]]
+
+
+
+------------------------------
+
+Message: 2
+Date: Wed, 26 Jun 2024 10:18:20 +0000
+From: Bram Boeckx <bram.boeckx at kuleuven.be>
+To: Prof Brian Ripley via R-SIG-Mac <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac]  procedure to ship libomp.dylib run-time with
+  package
+Message-ID: <9B5F82F3-B07B-4A05-9ED1-419CD6924D02 at kuleuven.be>
+Content-Type: text/plain; charset="utf-8"
+
+Dear,
+
+Thanks for your message,
+I'm currently on paternity leave until 23th of July and cannot respond to your email. Please contact my colleagues if you have questions or need assistance.
+
+Best Wishes,
+
+Bram
+
+On 26 Jun 2024, at 11:57, Prof Brian Ripley via R-SIG-Mac <R-SIG-Mac at r-project.org> wrote:
+
+On 26/06/2024 06:41, Balamuta, James wrote:
+Tim,
+Unfortunately, there isn't a nice way of including OpenMP for macOS within a package.  One potential avenue would be to use a `configure.ac` file to check for whether OpenMP headers are present on the macOS computer and, then, allow the correct OpenMP compilation flags to be set. However, this requires the user to compile from source instead of using a CRAN binary.
+
+Package installation also requires the libomp.dylib, and to know where to find it both when linking and loading.
+
+Unfortunately, there isn't going to be an easier way as OpenMP on macOS with R is experimental by nature.
+
+Rather, macOS makes it deliberately hard, but those instructions are not current.
+
+- The standard way for the macOS linker to record paths to a dependent dylib is as an absolute path.  E.g. (arm64)
+
+% otool -L library/stats/libs/stats.so
+library/stats/libs/stats.so:
+      stats.so (compatibility version 0.0.0, current version 0.0.0)
+      /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib (compatibility version 4.4.0, current version 4.4.1)
+...
+
+That is a location that is not writeable to an end user.  However, it appears that R 4.4.1 for arm64 ships with a bi-arch libomp.dylib there.
+
+auk2% file `R RHOME`/lib/libomp.dylib
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib: Mach-O universal binary with 2 architectures: [x86_64:Mach-O 64-bit dynamically linked shared library x86_64] [arm64:Mach-O 64-bit dynamically linked shared library arm64]
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib (for architecture x86_64):   Mach-O 64-bit dynamically linked shared library x86_64
+/Library/Frameworks/R.framework/Resources/lib/libomp.dylib (for architecture arm64):    Mach-O 64-bit dynamically linked shared library arm64
+
+So it is likely that libomp.dylib is already available somewhere that will be searched at both link and load times.  (omp.h needs to be put in a suitable place, e.g. /usr/local/include for Intel, but that needs admin privileges. That is only needed at compilation, so could be put anywhere and -I specified.)
+
+- Another issue: That page provides multiple copies on libomp.dylib: how could package installation know which is appropriate?  I do not know which one was shipped with R, nor how find out.  But it suggests shipping one with a package would be unsafe.
+
+It seems the OP asked the wrong question: apparently he distributed a package built with R 4.3.x, and someone tried to use it on 4.4.x.  R binary packages are tied to an R x.y series (as the manual would have told you).
+
+I was able to build OpenMx with OpenMP on arch64 by using
+
+PKG_CPPFLAGS = -Xclang -fopenmp -I/path/to/omp.h
+
+PKG_LIBS= -lomp \
+...
+
+(Caveat: for OpenMx, <omp.h> is used so the -I adds to the system include path and there is danger of conflicts. Best to use a separate directory for the OpenMP headers.)
+
+And please comply with the posting guide, not send HTML and not mangle URLs.
+
+Best regards,
+James
+________________________________
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org> on behalf of Timothy Bates <tim.bates at ed.ac.uk>
+Sent: Tuesday, June 25, 2024 10:00 PM
+To: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>; Sparapani, Rodney <rsparapa at mcw.edu>
+Cc: R list <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+Thanks Kasper,
+I read those lines and had installed the openmp software as instructed. It all works fine for me. But users don?t have my usr/ folder, not can a package write to their usr/ folder.
+so what is confusing is how the user will get this lib. Where should make place libraries like libomp within the package so that if a user merely install.packages() it, the library will be found and loaded?
+Best, tim
+Sent from Outlook for iOS<https://urldefense.com/v3/__https://aka.ms/o0ukef__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbUXDuipI$ >
+________________________________
+From: Kasper Daniel Hansen <kasperdanielhansen at gmail.com>
+Sent: Tuesday, June 25, 2024 11:34:42 AM
+To: Sparapani, Rodney <rsparapa at mcw.edu>
+Cc: Timothy Bates <tim.bates at ed.ac.uk>; R list <R-SIG-Mac at r-project.org>
+Subject: Re: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+This email was sent to you by someone outside the University.
+You should only click on links or attachments if you are certain that the email is genuine and the content is safe.
+If you read the next couple of sentences on that page, it says
+The following are links to libomp OpenMP run-time built from official LLVM release sources using Xcode compilers. They are signed and support macOS 10.13 (High Sierra) and higher. All tar-balls contain the system tree usr/local/lib and usr/local/include so the recommended installation is to type in Terminal:
+  curl -O https://urldefense.com/v3/__https://mac.r-project.org/openmp/openmp-14.0.6-darwin20-Release.tar.gz__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbWfUKf7B$
+  sudo tar fvxz openmp-14.0.6-darwin20-Release.tar.gz -C /
+I think that is pretty clear? Note the -C / as part of the last line, that tells tar where to put it on the system.
+On Tue, Jun 25, 2024 at 8:20?AM Sparapani, Rodney via R-SIG-Mac <r-sig-mac at r-project.org<mailto:r-sig-mac at r-project.org>> wrote:
+Hi Tim:
+/usr/local/lib it seems.  See the following page
+https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!DZ3fjg!_OUXHENJ_6aGlU-humThmTaUR5okhDKW2EGEY49AjJ4AN8eXBWtZCWE3O01pnyxbRpGQDhCl8MMLThVBbaQGheD_$
+--
+Rodney Sparapani, Associate Professor of Biostatistics, He/Him/His
+Vice President, Wisconsin Chapter of the American Statistical Association
+Institute for Health and Equity, Division of Biostatistics
+Medical College of Wisconsin, Milwaukee Campus
+If this is outside of working hours, then please respond when convenient.
+From: R-SIG-Mac <r-sig-mac-bounces at r-project.org<mailto:r-sig-mac-bounces at r-project.org>> on behalf of Timothy Bates <tim.bates at ed.ac.uk<mailto:tim.bates at ed.ac.uk>>
+Date: Monday, June 24, 2024 at 4:00?PM
+To: R list <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>
+Subject: [R-SIG-Mac] procedure to ship libomp.dylib run-time with package
+ATTENTION: This email originated from a sender outside of MCW. Use caution when clicking on links or opening attachments.
+________________________________
+At https://urldefense.com/v3/__https://mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$<https://urldefense.com/v3/__https:/mac.r-project.org/openmp/__;!!H8mHWRdzp34!4HZ0uFxJQ121gF_TnX99OuMlgIXM600pq8wCbWruoLsdLTtaFgRB5_gMopCtxD0N9M4tUOO-7hBGADHx1sk$>  it  says
+"any package you compile against libomp.dylib will need that run-time so you have to ship it with your package or have users install it?
+Are there  any  instructions on what to do/where to put libomp.dylib so it will be found?
+I?ve compiled a package (OpenMx) in which OpenMP is working locally but other users get the error:
+require(OpenMx)
+Error: package or namespace load failed for ?OpenMx? in dyn.load(file, DLLpath = DLLpath, ...):
+unable to load shared object '/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so':
+dlopen(/Users/***/Library/R/x86_64/4.4/library/OpenMx/libs/OpenMx.so, 0x0006): Library not loaded: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libomp.dylib
+
+There is a version mismatch here ....
+
+--
+Brian D. Ripley,                  ripley at stats.ox.ac.uk
+Emeritus Professor of Applied Statistics, University of Oxford
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+  [[alternative HTML version deleted]]
+
+
+
+------------------------------
+
+Subject: Digest Footer
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+------------------------------
+
+End of R-SIG-Mac Digest, Vol 255, Issue 11
+******************************************
+
+_______________________________________________
+R-SIG-Mac mailing list
+R-SIG-Mac at r-project.org
+https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+	[[alternative HTML version deleted]]
+
+

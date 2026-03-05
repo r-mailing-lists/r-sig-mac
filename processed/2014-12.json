@@ -1,0 +1,753 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2014-12",
+  "messages": [
+    {
+      "id": "msg-0be888b1cfd4",
+      "message_id": "<CAKL8G3Gfgg9=X4yTP7L35_f=xet8Mk4b478jpRtXEujNDDtY3Q@mail.gmail.com>",
+      "from_name": "Jorge I Velez",
+      "from_email_hash": "060ad10c3f62d22ec62f72e51d33b6bd4b3864499ca6dc0a5646c2e462af1f3d",
+      "date": "2014-12-03T09:15:42+11:00",
+      "subject": "[R-SIG-Mac] X11 and Yosemite",
+      "subject_clean": "X11 and Yosemite",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear all,\n\nI recently updated my OS to Yosemite (v 10.10.1)\n\nI installed XQuartz from http://xquartz.macosforge.org/landing/ and\nfollowed the suggestion at\nhttp://stackoverflow.com/questions/26489928/cant-load-x11-in-r-after-os-x-yosemite-upgrade\n However, when I tried\n\nR> plot(rnorm(10))\n\nthe following error shows up:\n\nError in (function (display = \"\", width, height, pointsize, gamma, bg,  :\n  X11 module cannot be loaded\nIn addition: Warning message:\nIn (function (display = \"\", width, height, pointsize, gamma, bg,  :\n  unable to load shared object\n'/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n  dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6):\nLibrary not loaded: /usr/local/lib/libcairo.2.dylib\n  Referenced from:\n/Library/Frameworks/R.framework/Resources/modules//R_X11.so\n  Reason: image not found\n\nWhen I looked at /Library/Frameworks/R.framework/Resources/modules/ I could\nactually see the R_X11.so file in there.   The X11.app is located at\n/Applications/Utilities and runs with no problems when initialised.\n\nCould somebody please point me in the right direction to solve this?\nBelow is my sessionInfo() and output from capabilities().\n\nThank you very much for your time.\n\nBest regards,\nJorge Velez\n\n\nR> sessionInfo()\nR version 3.1.1 (2014-07-10)\nPlatform: x86_64-apple-darwin13.4.0 (64-bit)\n\nlocale:\n[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8\n\nattached base packages:\n[1] graphics  grDevices utils     datasets  parallel  compiler  stats\n[8] methods   base\n\nother attached packages:\n[1] lme4_1.1-7       Rcpp_0.11.3      Matrix_1.1-4     data.table_1.9.4\n[5] ggplot2_1.0.0\n\nloaded via a namespace (and not attached):\n [1] chron_2.3-45     colorspace_1.2-4 digest_0.6.4     grid_3.1.1\n [5] gtable_0.1.2     lattice_0.20-29  MASS_7.3-35      minqa_1.2.4\n [9] munsell_0.4.2    nlme_3.1-117     nloptr_1.0.4     plyr_1.8.1\n[13] proto_0.3-10     reshape2_1.4     scales_0.2.4     splines_3.1.1\n[17] stringr_0.6.2\n\nR> capabilities()\n    jpeg      png     tiff    tcltk      X11     aqua http/ftp  sockets\n    TRUE     TRUE    FALSE     TRUE    FALSE     TRUE     TRUE     TRUE\n  libxml     fifo   cledit    iconv      NLS  profmem    cairo\n    TRUE     TRUE     TRUE     TRUE     TRUE     TRUE     TRUE\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear all,\n\nI recently updated my OS to Yosemite (v 10.10.1)\n\nI installed XQuartz from http://xquartz.macosforge.org/landing/ and\nfollowed the suggestion at\nhttp://stackoverflow.com/questions/26489928/",
+      "thread_id": "thread-0be888b1cfd4",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-06d98d4b2d1d",
+      "message_id": "<82941E72-3871-46B5-BAAF-035BB25E511A@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-12-02T17:32:57-05:00",
+      "subject": "[R-SIG-Mac] X11 and Yosemite",
+      "subject_clean": "X11 and Yosemite",
+      "in_reply_to": "<CAKL8G3Gfgg9=X4yTP7L35_f=xet8Mk4b478jpRtXEujNDDtY3Q@mail.gmail.com>",
+      "references": [
+        "<CAKL8G3Gfgg9=X4yTP7L35_f=xet8Mk4b478jpRtXEujNDDtY3Q@mail.gmail.com>"
+      ],
+      "body_plain": "First, please make sure you upgrade at least to R 3.1.2 since pervious version are not fully Yosemite-compatible.\n\nSecond, the hack you're mentioning is not necessary if you installed the correct R version, so make sure you have downloaded the Mavericks/Yosemite build.\n\nThird, please check that you don't have 3rd-party libraries installed that would conflict with R or XQuartz. R itself doesn't link to libcairo.2.dylib, so that missing dependency likely comes from some 3rd party library that gets loaded instead of the correct ones. If in doubt, rename /usr/local to something else to verify if erroneous libraries there are breaking your system.\n\nCheers,\nSimon\n\n\n> On Dec 2, 2014, at 5:15 PM, Jorge I Velez <jorgeivanvelez at gmail.com> wrote:\n> \n> Dear all,\n> \n> I recently updated my OS to Yosemite (v 10.10.1)\n> \n> I installed XQuartz from http://xquartz.macosforge.org/landing/ and\n> followed the suggestion at\n> http://stackoverflow.com/questions/26489928/cant-load-x11-in-r-after-os-x-yosemite-upgrade\n> However, when I tried\n> \n> R> plot(rnorm(10))\n> \n> the following error shows up:\n> \n> Error in (function (display = \"\", width, height, pointsize, gamma, bg,  :\n>  X11 module cannot be loaded\n> In addition: Warning message:\n> In (function (display = \"\", width, height, pointsize, gamma, bg,  :\n>  unable to load shared object\n> '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n>  dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6):\n> Library not loaded: /usr/local/lib/libcairo.2.dylib\n>  Referenced from:\n> /Library/Frameworks/R.framework/Resources/modules//R_X11.so\n>  Reason: image not found\n> \n> When I looked at /Library/Frameworks/R.framework/Resources/modules/ I could\n> actually see the R_X11.so file in there.   The X11.app is located at\n> /Applications/Utilities and runs with no problems when initialised.\n> \n> Could somebody please point me in the right direction to solve this?\n> Below is my sessionInfo() and output from capabilities().\n> \n> Thank you very much for your time.\n> \n> Best regards,\n> Jorge Velez\n> \n> \n> R> sessionInfo()\n> R version 3.1.1 (2014-07-10)\n> Platform: x86_64-apple-darwin13.4.0 (64-bit)\n> \n> locale:\n> [1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8\n> \n> attached base packages:\n> [1] graphics  grDevices utils     datasets  parallel  compiler  stats\n> [8] methods   base\n> \n> other attached packages:\n> [1] lme4_1.1-7       Rcpp_0.11.3      Matrix_1.1-4     data.table_1.9.4\n> [5] ggplot2_1.0.0\n> \n> loaded via a namespace (and not attached):\n> [1] chron_2.3-45     colorspace_1.2-4 digest_0.6.4     grid_3.1.1\n> [5] gtable_0.1.2     lattice_0.20-29  MASS_7.3-35      minqa_1.2.4\n> [9] munsell_0.4.2    nlme_3.1-117     nloptr_1.0.4     plyr_1.8.1\n> [13] proto_0.3-10     reshape2_1.4     scales_0.2.4     splines_3.1.1\n> [17] stringr_0.6.2\n> \n> R> capabilities()\n>    jpeg      png     tiff    tcltk      X11     aqua http/ftp  sockets\n>    TRUE     TRUE    FALSE     TRUE    FALSE     TRUE     TRUE     TRUE\n>  libxml     fifo   cledit    iconv      NLS  profmem    cairo\n>    TRUE     TRUE     TRUE     TRUE     TRUE     TRUE     TRUE\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "First, please make sure you upgrade at least to R 3.1.2 since pervious version are not fully Yosemite-compatible.\n\nSecond, the hack you're mentioning is not necessary if you installed the correct R ve",
+      "thread_id": "thread-0be888b1cfd4",
+      "thread_depth": 1,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-4b7eef67ead9",
+      "message_id": "<CAKL8G3FtOj5iTok7jfr7bM35M5eER7i=30a2_qyZ2rh=WWYT1Q@mail.gmail.com>",
+      "from_name": "Jorge I Velez",
+      "from_email_hash": "060ad10c3f62d22ec62f72e51d33b6bd4b3864499ca6dc0a5646c2e462af1f3d",
+      "date": "2014-12-03T09:43:59+11:00",
+      "subject": "[R-SIG-Mac] X11 and Yosemite",
+      "subject_clean": "X11 and Yosemite",
+      "in_reply_to": "<82941E72-3871-46B5-BAAF-035BB25E511A@r-project.org>",
+      "references": [
+        "<CAKL8G3Gfgg9=X4yTP7L35_f=xet8Mk4b478jpRtXEujNDDtY3Q@mail.gmail.com>",
+        "<82941E72-3871-46B5-BAAF-035BB25E511A@r-project.org>"
+      ],
+      "body_plain": "Thank you very much, Simon.  Installing R 3.1.2 solved it.\n\nBest,\nJorge.-\n\n\nOn Wed, Dec 3, 2014 at 9:32 AM, Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n\n> First, please make sure you upgrade at least to R 3.1.2 since pervious\n> version are not fully Yosemite-compatible.\n>\n> Second, the hack you're mentioning is not necessary if you installed the\n> correct R version, so make sure you have downloaded the Mavericks/Yosemite\n> build.\n>\n> Third, please check that you don't have 3rd-party libraries installed that\n> would conflict with R or XQuartz. R itself doesn't link to\n> libcairo.2.dylib, so that missing dependency likely comes from some 3rd\n> party library that gets loaded instead of the correct ones. If in doubt,\n> rename /usr/local to something else to verify if erroneous libraries there\n> are breaking your system.\n>\n> Cheers,\n> Simon\n>\n>\n> > On Dec 2, 2014, at 5:15 PM, Jorge I Velez <jorgeivanvelez at gmail.com>\n> wrote:\n> >\n> > Dear all,\n> >\n> > I recently updated my OS to Yosemite (v 10.10.1)\n> >\n> > I installed XQuartz from http://xquartz.macosforge.org/landing/ and\n> > followed the suggestion at\n> >\n> http://stackoverflow.com/questions/26489928/cant-load-x11-in-r-after-os-x-yosemite-upgrade\n> > However, when I tried\n> >\n> > R> plot(rnorm(10))\n> >\n> > the following error shows up:\n> >\n> > Error in (function (display = \"\", width, height, pointsize, gamma, bg,  :\n> >  X11 module cannot be loaded\n> > In addition: Warning message:\n> > In (function (display = \"\", width, height, pointsize, gamma, bg,  :\n> >  unable to load shared object\n> > '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n> >  dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6):\n> > Library not loaded: /usr/local/lib/libcairo.2.dylib\n> >  Referenced from:\n> > /Library/Frameworks/R.framework/Resources/modules//R_X11.so\n> >  Reason: image not found\n> >\n> > When I looked at /Library/Frameworks/R.framework/Resources/modules/ I\n> could\n> > actually see the R_X11.so file in there.   The X11.app is located at\n> > /Applications/Utilities and runs with no problems when initialised.\n> >\n> > Could somebody please point me in the right direction to solve this?\n> > Below is my sessionInfo() and output from capabilities().\n> >\n> > Thank you very much for your time.\n> >\n> > Best regards,\n> > Jorge Velez\n> >\n> >\n> > R> sessionInfo()\n> > R version 3.1.1 (2014-07-10)\n> > Platform: x86_64-apple-darwin13.4.0 (64-bit)\n> >\n> > locale:\n> > [1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8\n> >\n> > attached base packages:\n> > [1] graphics  grDevices utils     datasets  parallel  compiler  stats\n> > [8] methods   base\n> >\n> > other attached packages:\n> > [1] lme4_1.1-7       Rcpp_0.11.3      Matrix_1.1-4     data.table_1.9.4\n> > [5] ggplot2_1.0.0\n> >\n> > loaded via a namespace (and not attached):\n> > [1] chron_2.3-45     colorspace_1.2-4 digest_0.6.4     grid_3.1.1\n> > [5] gtable_0.1.2     lattice_0.20-29  MASS_7.3-35      minqa_1.2.4\n> > [9] munsell_0.4.2    nlme_3.1-117     nloptr_1.0.4     plyr_1.8.1\n> > [13] proto_0.3-10     reshape2_1.4     scales_0.2.4     splines_3.1.1\n> > [17] stringr_0.6.2\n> >\n> > R> capabilities()\n> >    jpeg      png     tiff    tcltk      X11     aqua http/ftp  sockets\n> >    TRUE     TRUE    FALSE     TRUE    FALSE     TRUE     TRUE     TRUE\n> >  libxml     fifo   cledit    iconv      NLS  profmem    cairo\n> >    TRUE     TRUE     TRUE     TRUE     TRUE     TRUE     TRUE\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thank you very much, Simon.  Installing R 3.1.2 solved it.\n\nBest,\nJorge.-\n\n\nOn Wed, Dec 3, 2014 at 9:32 AM, Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n\n> First, please make sure you upgrade",
+      "thread_id": "thread-0be888b1cfd4",
+      "thread_depth": 2,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-0b3ef824d2a2",
+      "message_id": "<F494DA4A-39B4-461E-8969-B7BD35694CED@gmail.com>",
+      "from_name": "Oscar Ramírez A",
+      "from_email_hash": "da3f8662824d689df5530987d375acebcb74bbef80a1010cb96ac304200a6dc9",
+      "date": "2014-12-03T03:19:35Z",
+      "subject": "[R-SIG-Mac] \"I running Rstudio, using Mac os but in virtual Parallel Windows\"",
+      "subject_clean": "\"I running Rstudio, using Mac os but in virtual Parallel Windows\"",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "\"I running Rstudio, using Mac os but in virtual Parallel Windows?\n\nWhen i Try to load packages. Running in Rstudio. the following message appears. But not when I use only R. \n\nError in library(\"Rcmdr\", lib.loc = \"\\\\psf/Home/Documents/R/win-library/3.1\") : \n  no library trees found in 'lib.loc'\n\n\nHow can I fixed?\n\nGreeting\n\nOscar Ram?rez\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "\"I running Rstudio, using Mac os but in virtual Parallel Windows?\n\nWhen i Try to load packages. Running in Rstudio. the following message appears. But not when I use only R. \n\nError in library(\"Rcmdr\"",
+      "thread_id": "thread-0b3ef824d2a2",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-777c72dbb677",
+      "message_id": "<75A8DEE6-652F-47F8-8DE5-17E16018E983@utoronto.ca>",
+      "from_name": "Boris Steipe",
+      "from_email_hash": "a41454b3645a140f39702275c1d4fca3b980a9fdf0861e407154805ae728380d",
+      "date": "2014-12-04T10:40:59-05:00",
+      "subject": "[R-SIG-Mac] Check-for-updates didn't realize 3.1.1 is not current",
+      "subject_clean": "Check-for-updates didn't realize 3.1.1 is not current",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I've recently been getting freezes while editing a script file and noticed on this list that the current R version is 3.1.2 (I was on 3.1.1). \"Check for updates\" had reported R 3.1.1 as being up to date. I downloaded the package from CRAN via the Web interface and it installed without a problem. I'll follow up on the freezes if necessary, for now I just wanted to report this anomaly of the updater, in case it's not a user error on my side.\n\nCheers,\nBoris",
+      "body_snippet": "I've recently been getting freezes while editing a script file and noticed on this list that the current R version is 3.1.2 (I was on 3.1.1). \"Check for updates\" had reported R 3.1.1 as being up to da",
+      "thread_id": "thread-777c72dbb677",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-b42d58fce934",
+      "message_id": "<11DA76DC-CE69-4139-9E84-63F9595A0D66@utoronto.ca>",
+      "from_name": "Boris Steipe",
+      "from_email_hash": "a41454b3645a140f39702275c1d4fca3b980a9fdf0861e407154805ae728380d",
+      "date": "2014-12-04T15:16:27-05:00",
+      "subject": "[R-SIG-Mac] R Freezes while Document editing",
+      "subject_clean": "R Freezes while Document editing",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "For a couple of days I have been seeing a (system generated) warning after I open a document, when I change focus into that document:\n  2014-12-04 15:05:21.336 R[73463:707] *** \n  WARNING: Method convertPointFromBase: in class NSView is deprecated on 10.7\n  and later. It should not be used in new applications.\n\nThis occurs also if the document is empty, however not with a document that has been freshly created in a new session.\n\nAs well, I have experienced freezes (application not responding) right after R displays the segfault message, while\nediting the script file. The freezes are intermittent, after about an hour of coding or so - I can't reproduce them\nyet.\n\nUpdating to 3.1.2 has solved neither of the problems.\n\nIs this a known problem? Is there anything I can contribute to get it solved?\nThanks!\nBoris\n\n\n-----\nMac OS 10.9.5\nR version 3.1.2 (2014-10-31)\nPlatform: x86_64-apple-darwin13.4.0 (64-bit)\n\nlocale:\n[1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base",
+      "body_snippet": "For a couple of days I have been seeing a (system generated) warning after I open a document, when I change focus into that document:\n  2014-12-04 15:05:21.336 R[73463:707] *** \n  WARNING: Method conv",
+      "thread_id": "thread-b42d58fce934",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-cd798521a4b2",
+      "message_id": "<F9BB1891-F688-4459-8381-B1D60AEBF1DB@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "d2573f0c0a474184a9d96c815fc6bf37ff7c6392082069d810139c562d5a6f71",
+      "date": "2014-12-04T23:06:52+01:00",
+      "subject": "[R-SIG-Mac] R Freezes while Document editing",
+      "subject_clean": "R Freezes while Document editing",
+      "in_reply_to": "<11DA76DC-CE69-4139-9E84-63F9595A0D66@utoronto.ca>",
+      "references": [
+        "<11DA76DC-CE69-4139-9E84-63F9595A0D66@utoronto.ca>"
+      ],
+      "body_plain": "> On 04 Dec 2014, at 21:16 , Boris Steipe <boris.steipe at utoronto.ca> wrote:\n> \n> For a couple of days I have been seeing a (system generated) warning after I open a document, when I change focus into that document:\n>  2014-12-04 15:05:21.336 R[73463:707] *** \n>  WARNING: Method convertPointFromBase: in class NSView is deprecated on 10.7\n>  and later. It should not be used in new applications.\n> \n> This occurs also if the document is empty, however not with a document that has been freshly created in a new session.\n> \n> As well, I have experienced freezes (application not responding) right after R displays the segfault message, while\n> editing the script file. The freezes are intermittent, after about an hour of coding or so - I can't reproduce them\n> yet.\n> \n> Updating to 3.1.2 has solved neither of the problems.\n> \n> Is this a known problem? Is there anything I can contribute to get it solved?\n> Thanks!\n> Boris\n\nIt's a warning. A programming paradigm used in older versions of OS X fell from favor in version 10.7. We still maintain a Snow Leopard (i.e. OS X 10.6) build. The question is whether the intended paradigm replacement actually works in 10.6; otherwise, it could be undesirable to maintain two different codes for the two different builds.\n\nI don't see the warning as related to any segfault? Being able to continue work following a segfault would be quite unusual so I suspect that you're using the term incorrectly.\n\nIf you want to contribute, you might dig into the source code for R.app and figure out what it is that needs to be replaced and by what. And then whether the \"what\" is present in the Snow Leopard toolchain. The closest I can get is stuff like this:\n\nhttp://oleb.net/blog/2011/08/whats-new-for-developers-in-lion-part-2/\n\nMind you, Simon might already know all about this and just needs to get around to sorting things out.\n\n\n> \n> \n> -----\n> Mac OS 10.9.5\n> R version 3.1.2 (2014-10-31)\n> Platform: x86_64-apple-darwin13.4.0 (64-bit)\n> \n> locale:\n> [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base     \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "> On 04 Dec 2014, at 21:16 , Boris Steipe <boris.steipe at utoronto.ca> wrote:\n> \n> For a couple of days I have been seeing a (system generated) warning after I open a document, when I change focus in",
+      "thread_id": "thread-b42d58fce934",
+      "thread_depth": 1,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-def916a0ecd0",
+      "message_id": "<92FE54AE-8D7B-4B14-A9E2-BF37FF9C2E44@utoronto.ca>",
+      "from_name": "Boris Steipe",
+      "from_email_hash": "a41454b3645a140f39702275c1d4fca3b980a9fdf0861e407154805ae728380d",
+      "date": "2014-12-04T23:43:20-05:00",
+      "subject": "[R-SIG-Mac] R Freezes while Document editing",
+      "subject_clean": "R Freezes while Document editing",
+      "in_reply_to": "<F9BB1891-F688-4459-8381-B1D60AEBF1DB@gmail.com>",
+      "references": [
+        "<11DA76DC-CE69-4139-9E84-63F9595A0D66@utoronto.ca>",
+        "<F9BB1891-F688-4459-8381-B1D60AEBF1DB@gmail.com>"
+      ],
+      "body_plain": "Ah - sorry if this was unclear:\nI don't know if the warning is related to the segfault. I just started noticing both at about the same time.\nWhen the segfault occurs, R is frozen. The console displays an options dialogue for shutting it down, but accepts no input.\n\nWith several more freezes today a pattern seems to emerge: once I have edited for a while, the freeze happens when I select a part of a line of code.\n\n\nB.\n\nOn Dec 4, 2014, at 5:06 PM, peter dalgaard <pdalgd at gmail.com> wrote:\n\n>> \n>> On 04 Dec 2014, at 21:16 , Boris Steipe <boris.steipe at utoronto.ca> wrote:\n>> \n>> For a couple of days I have been seeing a (system generated) warning after I open a document, when I change focus into that document:\n>> 2014-12-04 15:05:21.336 R[73463:707] *** \n>> WARNING: Method convertPointFromBase: in class NSView is deprecated on 10.7\n>> and later. It should not be used in new applications.\n>> \n>> This occurs also if the document is empty, however not with a document that has been freshly created in a new session.\n>> \n>> As well, I have experienced freezes (application not responding) right after R displays the segfault message, while\n>> editing the script file. The freezes are intermittent, after about an hour of coding or so - I can't reproduce them\n>> yet.\n>> \n>> Updating to 3.1.2 has solved neither of the problems.\n>> \n>> Is this a known problem? Is there anything I can contribute to get it solved?\n>> Thanks!\n>> Boris\n> \n> It's a warning. A programming paradigm used in older versions of OS X fell from favor in version 10.7. We still maintain a Snow Leopard (i.e. OS X 10.6) build. The question is whether the intended paradigm replacement actually works in 10.6; otherwise, it could be undesirable to maintain two different codes for the two different builds.\n> \n> I don't see the warning as related to any segfault? Being able to continue work following a segfault would be quite unusual so I suspect that you're using the term incorrectly.\n> \n> If you want to contribute, you might dig into the source code for R.app and figure out what it is that needs to be replaced and by what. And then whether the \"what\" is present in the Snow Leopard toolchain. The closest I can get is stuff like this:\n> \n> http://oleb.net/blog/2011/08/whats-new-for-developers-in-lion-part-2/\n> \n> Mind you, Simon might already know all about this and just needs to get around to sorting things out.\n> \n> \n>> \n>> \n>> -----\n>> Mac OS 10.9.5\n>> R version 3.1.2 (2014-10-31)\n>> Platform: x86_64-apple-darwin13.4.0 (64-bit)\n>> \n>> locale:\n>> [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> -- \n> Peter Dalgaard, Professor,\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Ah - sorry if this was unclear:\nI don't know if the warning is related to the segfault. I just started noticing both at about the same time.\nWhen the segfault occurs, R is frozen. The console displays",
+      "thread_id": "thread-b42d58fce934",
+      "thread_depth": 2,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-4c2f06e2e36a",
+      "message_id": "<CAHT0qpQFEWD_4EYtse7e0+_FAHHUFuJwiby0=ykC=ZH0Ve-FCw@mail.gmail.com>",
+      "from_name": "John Magnotti",
+      "from_email_hash": "4905ee66e4f47cb760b2efac67965c2a0ec6b18b9aa8f900d2b11fdd2cd6b1eb",
+      "date": "2014-12-04T23:13:20-06:00",
+      "subject": "[R-SIG-Mac] R Freezes while Document editing",
+      "subject_clean": "R Freezes while Document editing",
+      "in_reply_to": "<92FE54AE-8D7B-4B14-A9E2-BF37FF9C2E44@utoronto.ca>",
+      "references": [
+        "<11DA76DC-CE69-4139-9E84-63F9595A0D66@utoronto.ca>",
+        "<F9BB1891-F688-4459-8381-B1D60AEBF1DB@gmail.com>",
+        "<92FE54AE-8D7B-4B14-A9E2-BF37FF9C2E44@utoronto.ca>"
+      ],
+      "body_plain": "If it helps, a colleague of mine and I also get the freezing + segfaults a\nfew times a day. They also occur while typing into the code editor in R.app\n[both of us are using R version 3.1.2 (2014-10-31); Platform:\nx86_64-apple-darwin13.4.0 (64-bit) ].\n\nThey seem to be more frequent while trying to use command+z (undo) several\ntimes in a row. Maybe some thread is scanning/parsing the file after each\nchange and it can't keep up with rapid undo?\n\n\nJohn\n\nOn Thu, Dec 4, 2014 at 10:43 PM, Boris Steipe <boris.steipe at utoronto.ca>\nwrote:\n\n> Ah - sorry if this was unclear:\n> I don't know if the warning is related to the segfault. I just started\n> noticing both at about the same time.\n> When the segfault occurs, R is frozen. The console displays an options\n> dialogue for shutting it down, but accepts no input.\n>\n> With several more freezes today a pattern seems to emerge: once I have\n> edited for a while, the freeze happens when I select a part of a line of\n> code.\n>\n>\n> B.\n>\n> On Dec 4, 2014, at 5:06 PM, peter dalgaard <pdalgd at gmail.com> wrote:\n>\n> >>\n> >> On 04 Dec 2014, at 21:16 , Boris Steipe <boris.steipe at utoronto.ca>\n> wrote:\n> >>\n> >> For a couple of days I have been seeing a (system generated) warning\n> after I open a document, when I change focus into that document:\n> >> 2014-12-04 15:05:21.336 R[73463:707] ***\n> >> WARNING: Method convertPointFromBase: in class NSView is deprecated on\n> 10.7\n> >> and later. It should not be used in new applications.\n> >>\n> >> This occurs also if the document is empty, however not with a document\n> that has been freshly created in a new session.\n> >>\n> >> As well, I have experienced freezes (application not responding) right\n> after R displays the segfault message, while\n> >> editing the script file. The freezes are intermittent, after about an\n> hour of coding or so - I can't reproduce them\n> >> yet.\n> >>\n> >> Updating to 3.1.2 has solved neither of the problems.\n> >>\n> >> Is this a known problem? Is there anything I can contribute to get it\n> solved?\n> >> Thanks!\n> >> Boris\n> >\n> > It's a warning. A programming paradigm used in older versions of OS X\n> fell from favor in version 10.7. We still maintain a Snow Leopard (i.e. OS\n> X 10.6) build. The question is whether the intended paradigm replacement\n> actually works in 10.6; otherwise, it could be undesirable to maintain two\n> different codes for the two different builds.\n> >\n> > I don't see the warning as related to any segfault? Being able to\n> continue work following a segfault would be quite unusual so I suspect that\n> you're using the term incorrectly.\n> >\n> > If you want to contribute, you might dig into the source code for R.app\n> and figure out what it is that needs to be replaced and by what. And then\n> whether the \"what\" is present in the Snow Leopard toolchain. The closest I\n> can get is stuff like this:\n> >\n> > http://oleb.net/blog/2011/08/whats-new-for-developers-in-lion-part-2/\n> >\n> > Mind you, Simon might already know all about this and just needs to get\n> around to sorting things out.\n> >\n> >\n> >>\n> >>\n> >> -----\n> >> Mac OS 10.9.5\n> >> R version 3.1.2 (2014-10-31)\n> >> Platform: x86_64-apple-darwin13.4.0 (64-bit)\n> >>\n> >> locale:\n> >> [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n> >>\n> >> attached base packages:\n> >> [1] stats     graphics  grDevices utils     datasets  methods   base\n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> > --\n> > Peter Dalgaard, Professor,\n> > Center for Statistics, Copenhagen Business School\n> > Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> > Phone: (+45)38153501\n> > Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "If it helps, a colleague of mine and I also get the freezing + segfaults a\nfew times a day. They also occur while typing into the code editor in R.app\n[both of us are using R version 3.1.2 (2014-10-31",
+      "thread_id": "thread-b42d58fce934",
+      "thread_depth": 3,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-6def00669af7",
+      "message_id": "<CAMLNaBZw65VdWnDpQkc5MUBVcqnoZMgHV3QjfW3SDnF_Qi_=tw@mail.gmail.com>",
+      "from_name": "john d",
+      "from_email_hash": "94318335382d8fc344f696bcfd1c0e96f383898aaa54ad42721a38e8cacaf81d",
+      "date": "2014-12-05T10:03:31-02:00",
+      "subject": "[R-SIG-Mac] XPCErrorDescription",
+      "subject_clean": "XPCErrorDescription",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi there,\n\nI keep getting error messages like this one:\n\n2014-12-04 21:26:39.155 R[50233:30990798] Communications error:\n<OS_xpc_error: <error: 0x7fff752fcb60> { count = 1, contents =\n\"XPCErrorDescription\" => <string: 0x7fff752fcfa8> { length = 22, contents =\n\"Connection interrupted\" }\n}>\n\n\nAny suggestions?\n\nI'm running R 3.1.2 on Mavericks.\n\nthanks!\n\nJohn\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi there,\n\nI keep getting error messages like this one:\n\n2014-12-04 21:26:39.155 R[50233:30990798] Communications error:\n<OS_xpc_error: <error: 0x7fff752fcb60> { count = 1, contents =\n\"XPCErrorDescrip",
+      "thread_id": "thread-6def00669af7",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-95a5b23e39ff",
+      "message_id": "<FEFDA47D-08B8-4FFD-B13E-B1EF1AA7055C@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-12-05T09:46:26-05:00",
+      "subject": "[R-SIG-Mac] Check-for-updates didn't realize 3.1.1 is not current",
+      "subject_clean": "Check-for-updates didn't realize 3.1.1 is not current",
+      "in_reply_to": "<75A8DEE6-652F-47F8-8DE5-17E16018E983@utoronto.ca>",
+      "references": [
+        "<75A8DEE6-652F-47F8-8DE5-17E16018E983@utoronto.ca>"
+      ],
+      "body_plain": "On Dec 4, 2014, at 10:40 AM, Boris Steipe <boris.steipe at utoronto.ca> wrote:\n> \n> I've recently been getting freezes while editing a script file and noticed on this list that the current R version is 3.1.2 (I was on 3.1.1). \"Check for updates\" had reported R 3.1.1 as being up to date. I downloaded the package from CRAN via the Web interface and it installed without a problem. I'll follow up on the freezes if necessary, for now I just wanted to report this anomaly of the updater, in case it's not a user error on my side.\n> \n\nThanks, I forgot to bump the version in the file on CRAN that defines the current version. Done now.\n\nThanks,\nSimon\n\n\n> Cheers,\n> Boris\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Dec 4, 2014, at 10:40 AM, Boris Steipe <boris.steipe at utoronto.ca> wrote:\n> \n> I've recently been getting freezes while editing a script file and noticed on this list that the current R version i",
+      "thread_id": "thread-777c72dbb677",
+      "thread_depth": 1,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-172d2d95c772",
+      "message_id": "<596FF6CB-ECA0-46E1-8DB1-1BD88DCBA1DA@bio.uminho.pt>",
+      "from_name": "Pedro Gomes",
+      "from_email_hash": "97a163e8a83057e6d02dc90e20c276cce0e330dd0b25a9cab1dbcf91fe7b3fcb",
+      "date": "2014-12-18T21:52:23Z",
+      "subject": "[R-SIG-Mac] vegan failed to load under Mac OS X Mavericks",
+      "subject_clean": "vegan failed to load under Mac OS X Mavericks",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi\n\nWhen trying to load Vegan in R 3.1.2 under under Mac OS X Mavericks I get the following error. Any idea why?\n\n\"starting httpd help server ... done\nError : .onLoad failed in loadNamespace() for 'tcltk', details:\n  call: dyn.load(file, DLLpath = DLLpath, ...)\n  error: unable to load shared object '/Library/Frameworks/R.framework/Versions/3.1/Resources/library/tcltk/libs/tcltk.so':\n  dlopen(/Library/Frameworks/R.framework/Versions/3.1/Resources/library/tcltk/libs/tcltk.so, 10): Library not loaded: /usr/X11/lib/libXft.2.dylib\n  Referenced from: /usr/local/lib/libtk8.6.dylib\n  Reason: image not found\nIn addition: Warning message:\nrunning command ''otool' -L '/Library/Frameworks/R.framework/Resources/library/tcltk/libs//tcltk.so'' had status 69 \nError: package or namespace load failed for ?vegan?\n\nAgreeing to the Xcode/iOS license requires admin privileges, please re-run as root via sudo.\"\n\nregards\n\nPedro Gomes\n\n\n\n\n\n\n\nCBMA - Molecular and Environmental Biology Centre\nSPVS ? SOCIEDADE PORTUGUESA DE VIDA SELVAGEM\nBiology Department\nMinho University\nCampus de Gualtar\n4710-074 Braga\nPORTUGAL\nPhone: 351-253 604040\nFax: 351-253 678980\ne-mail: pagomes at bio.uminho.pt <mailto:clucas at bio.uminho.pt>\n\n\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20141218/f0471b67/attachment-0001.html>\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: image001.jpg\nType: image/jpeg\nSize: 1479 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20141218/f0471b67/attachment-0001.jpg>\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: image001.png\nType: image/png\nSize: 7251 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20141218/f0471b67/attachment-0001.png>",
+      "body_snippet": "Hi\n\nWhen trying to load Vegan in R 3.1.2 under under Mac OS X Mavericks I get the following error. Any idea why?\n\n\"starting httpd help server ... done\nError : .onLoad failed in loadNamespace() for 'tc",
+      "thread_id": "thread-172d2d95c772",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-767dec104bcb",
+      "message_id": "<54971DBF.9030602@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2014-12-21T14:21:35-05:00",
+      "subject": "[R-SIG-Mac] OpenFile Dialog hangs",
+      "subject_clean": "OpenFile Dialog hangs",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This just started out of the blue:  If I select, say, \"Open Recent\" and \npick a file from the list, the file opens just fine.\n\nBut if I select \"Open,\"  then the dialog box opens, but the file list \nnever gets filled in, I get the spinning beach ball, and never recover.\n\nI took the precaution of turning off DefaultFolder; same problem.\n\nI can execute \"SaveAs\" without any problem.\n\nI am running Yosemite 10.10.1, R 3.1.2, and as I said up until 2 hours \nago all was just fine.    I even rebooted the machine and reinstalled R; \nno change.\n\nThe entire \"hang\" file (from /Library/Logs/DiagnosticReports) is huge so \nhere's the top portion. PLease let me know if there is some specific \nsection that could help diagnose this problem . -- or if someone would \nlike me to email the zipped file.\n\nthanks\nCarl\n\n\n\n\nDate/Time:       2014-12-21 13:07:11 -0500\nOS Version:      10.10.1 (Build 14B25)\nArchitecture:    x86_64\nReport Version:  21\n\nCommand:         R\nPath:            /Applications/R.app/Contents/MacOS/R\nVersion:         R 3.1.2 GUI 1.65 Mavericks build (6833)\nParent:          launchd [1]\nPID:             1010\n\nEvent:           hang\nDuration:        1.80s (process was unresponsive for 144 seconds before \nsampling)\nSteps:           19 (100ms sampling interval)\n\nHardware model:  iMac9,1\nActive cpus:     2\n\nFan speed:       1350 rpm\n\n--------------------------------------------------\nTimeline format: stacks are sorted chronologically\nUse -i and -heavy to re-report with count sorting\n--------------------------------------------------\n\nHeaviest stack for the main thread of the target process:\n   19  start + 1 (libdyld.dylib + 13769) [0x7fff9501b5c9]\n   19  main + 819 (R + 6547) [0x10a477993]\n   19  -[REngine runREPL] + 138 (R + 75898) [0x10a48887a]\n   19  run_REngineRmainloop + 295 (R + 123703) [0x10a494337]\n   19  ??? (<FB7F246D-65AE-35E3-87A5-12D703F71C54> + 897903) [0x10a66236f]\n   19  Re_ReadConsole + 185 (R + 65753) [0x10a4860d9]\n   19  -[RController handleReadConsole:] + 186 (R + 26922) [0x10a47c92a]\n   19  -[RController doProcessEvents:] + 221 (R + 50381) [0x10a4824cd]\n   19  -[NSApplication sendEvent:] + 4035 (AppKit + 1619867) \n[0x7fff92afa79b]\n   19  -[NSApplication _handleKeyEquivalent:] + 920 (AppKit + 2132165) \n[0x7fff92b778c5]\n   19  -[NSMenu performKeyEquivalent:] + 359 (AppKit + 2147119) \n[0x7fff92b7b32f]\n   19  _os_activity_initiate + 75 (libsystem_trace.dylib + 3287) \n[0x7fff961e3cd7]\n   19  -[NSCarbonMenuImpl performActionWithHighlightingForItemAtIndex:] \n+ 114 (AppKit + 2151159) [0x7fff92b7c2f7]\n   19  -[NSMenuItem _corePerformAction] + 382 (AppKit + 2151898) \n[0x7fff92b7c5da]\n   19  -[NSApplication sendAction:to:from:] + 410 (AppKit + 2045079) \n[0x7fff92b62497]\n   19  _os_activity_initiate + 75 (libsystem_trace.dylib + 3287) \n[0x7fff961e3cd7]\n   19  -[RController openDocument:] + 194 (R + 47954) [0x10a481b52]\n   19  -[NSSavePanel runModal] + 282 (AppKit + 6111181) [0x7fff92f42fcd]\n   19  -[NSApplication runModalForWindow:] + 119 (AppKit + 3305862) \n[0x7fff92c96186]\n   19  -[NSApplication _realDoModalLoop:peek:] + 666 (AppKit + 3312599) \n[0x7fff92c97bd7]\n   19  -[NSApplication nextEventMatchingMask:untilDate:inMode:dequeue:] \n+ 194 (AppKit + 147072) [0x7fff92992e80]\n   19  _DPSNextEvent + 964 (AppKit + 149201) [0x7fff929936d1]\n   19  _BlockUntilNextEventMatchingListInModeWithFilter + 71 (HIToolbox \n+ 188411) [0x7fff97952ffb]\n   19  ReceiveNextEventCommon + 179 (HIToolbox + 188606) [0x7fff979530be]\n   19  RunCurrentEventLoopInMode + 235 (HIToolbox + 189503) [0x7fff9795343f]\n   19  CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) [0x7fff8e9ca838]\n   19  __CFRunLoopRun + 872 (CoreFoundation + 466408) [0x7fff8e9cade8]\n   19  __CFRunLoopDoObservers + 368 (CoreFoundation + 523488) \n[0x7fff8e9d8ce0]\n   19  __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + \n23 (CoreFoundation + 523655) [0x7fff8e9d8d87]\n   19  __38-[NSApplication setWindowsNeedUpdate:]_block_invoke2508 + 76 \n(AppKit + 3556895) [0x7fff92cd361f]\n   19  -[NSApplication updateWindows] + 86 (AppKit + 160649) \n[0x7fff92996389]\n   19  +[NSTextInputContext currentInputContext] + 140 (AppKit + 162532) \n[0x7fff92996ae4]\n   19  -[FI_TListView inputContext] + 29 (FinderKit + 1312876) \n[0x7fff8b09786c]\n   19  +[FI_TFloatingInputWindowController singleton] + 80 (FinderKit + \n664266) [0x7fff8aff92ca]\n   19  -[FI_TFloatingInputWindow init] + 668 (FinderKit + 665781) \n[0x7fff8aff98b5]\n   19  -[NSWindow _setFrameCommon:display:stashSize:] + 2801 (AppKit + \n1132460) [0x7fff92a837ac]\n   19  -[NSNotificationCenter postNotificationName:object:userInfo:] + \n66 (Foundation + 11937) [0x7fff8f920ea1]\n   19  _CFXNotificationPost + 3140 (CoreFoundation + 65972) [0x7fff8e9691b4]\n   19  __CFNOTIFICATIONCENTER_IS_CALLING_OUT_TO_AN_OBSERVER__ + 12 \n(CoreFoundation + 1174716) [0x7fff8ea77cbc]\n   19  -[RDocumentWinCtrl setStatusLineText:] + 430 (R + 208030) \n[0x10a4a8c9e]\n   19  -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 278 (Foundation + \n436921) [0x7fff8f988ab9]\n   19  CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) [0x7fff8e9ca838]\n   19  __CFRunLoopRun + 872 (CoreFoundation + 466408) [0x7fff8e9cade8]\n   19  __CFRunLoopDoObservers + 368 (CoreFoundation + 523488) \n[0x7fff8e9d8ce0]\n   19  __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + \n23 (CoreFoundation + 523655) [0x7fff8e9d8d87]\n   19  ___NSPostActiveFirstResponderChanged_block_invoke + 29 (AppKit + \n1585278) [0x7fff92af207e]\n   19  +[_NSAutomaticFocusRing setActiveFirstResponderChanged] + 37 \n(AppKit + 1585431) [0x7fff92af2117]\n   19  +[NSTextInputContext currentInputContext] + 140 (AppKit + 162532) \n[0x7fff92996ae4]\n   19  -[FI_TListView inputContext] + 29 (FinderKit + 1312876) \n[0x7fff8b09786c]\n   19  +[FI_TFloatingInputWindowController singleton] + 28 (FinderKit + \n664214) [0x7fff8aff9296]\n   19  __psynch_mutexwait + 10 (libsystem_kernel.dylib + 90466) \n[0x7fff95560162]\n  *19  psynch_mtxcontinue + 0 (pthread + 22095) [0xffffff7f8108964f]\n\n\nProcess:         R [1010]\nPath:            /Applications/R.app/Contents/MacOS/R\nArchitecture:    x86_64\nParent:          launchd [1]\nUID:             502\nTask size:       38975 pages (+1)\nCPU Time:        0.005s\nNote:            Unresponsive for 144 seconds before sampling\nNote:            2 idle work queue threads omitted\n\n   Thread 0x351d       DispatchQueue 1     19 samples (1-19)   priority 39\n   <frontmost, thread QoS user interactive, boosted, received importance \ndonation from WindowServer [267], IO policy important>\n   19  start + 1 (libdyld.dylib + 13769) [0x7fff9501b5c9] 1-19\n     19  main + 819 (R + 6547) [0x10a477993] 1-19\n       19  -[REngine runREPL] + 138 (R + 75898) [0x10a48887a] 1-19\n         19  run_REngineRmainloop + 295 (R + 123703) [0x10a494337] 1-19\n           19  ??? (<FB7F246D-65AE-35E3-87A5-12D703F71C54> + 897903) \n[0x10a66236f] 1-19\n             19  Re_ReadConsole + 185 (R + 65753) [0x10a4860d9] 1-19\n               19  -[RController handleReadConsole:] + 186 (R + 26922) \n[0x10a47c92a] 1-19\n                 19  -[RController doProcessEvents:] + 221 (R + 50381) \n[0x10a4824cd] 1-19\n                   19  -[NSApplication sendEvent:] + 4035 (AppKit + \n1619867) [0x7fff92afa79b] 1-19\n                     19  -[NSApplication _handleKeyEquivalent:] + 920 \n(AppKit + 2132165) [0x7fff92b778c5] 1-19\n                       19  -[NSMenu performKeyEquivalent:] + 359 (AppKit \n+ 2147119) [0x7fff92b7b32f] 1-19\n                         19  _os_activity_initiate + 75 \n(libsystem_trace.dylib + 3287) [0x7fff961e3cd7] 1-19\n                           19  -[NSCarbonMenuImpl \nperformActionWithHighlightingForItemAtIndex:] + 114 (AppKit + 2151159) \n[0x7fff92b7c2f7] 1-19\n                             19  -[NSMenuItem _corePerformAction] + 382 \n(AppKit + 2151898) [0x7fff92b7c5da] 1-19\n                               19  -[NSApplication sendAction:to:from:] \n+ 410 (AppKit + 2045079) [0x7fff92b62497] 1-19\n                                 19  _os_activity_initiate + 75 \n(libsystem_trace.dylib + 3287) [0x7fff961e3cd7] 1-19\n                                   19  -[RController openDocument:] + \n194 (R + 47954) [0x10a481b52] 1-19\n                                     19  -[NSSavePanel runModal] + 282 \n(AppKit + 6111181) [0x7fff92f42fcd] 1-19\n                                       19  -[NSApplication \nrunModalForWindow:] + 119 (AppKit + 3305862) [0x7fff92c96186] 1-19\n                                         19  -[NSApplication \n_realDoModalLoop:peek:] + 666 (AppKit + 3312599) [0x7fff92c97bd7] 1-19\n                                           19  -[NSApplication \nnextEventMatchingMask:untilDate:inMode:dequeue:] + 194 (AppKit + 147072) \n[0x7fff92992e80] 1-19\n                                             19  _DPSNextEvent + 964 \n(AppKit + 149201) [0x7fff929936d1] 1-19\n                                               19 \n_BlockUntilNextEventMatchingListInModeWithFilter + 71 (HIToolbox + \n188411) [0x7fff97952ffb] 1-19\n                                                 19 \nReceiveNextEventCommon + 179 (HIToolbox + 188606) [0x7fff979530be] 1-19\n                                                   19 \nRunCurrentEventLoopInMode + 235 (HIToolbox + 189503) [0x7fff9795343f] 1-19\n                                                     19 \nCFRunLoopRunSpecific + 296 (CoreFoundation + 464952) [0x7fff8e9ca838] 1-19\n                                                       19 \n__CFRunLoopRun + 872 (CoreFoundation + 466408) [0x7fff8e9cade8] 1-19\n                                                         19 \n__CFRunLoopDoObservers + 368 (CoreFoundation + 523488) [0x7fff8e9d8ce0] 1-19\n                                                           19 \n__CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + 23 \n(CoreFoundation + 523655) [0x7fff8e9d8d87] 1-19\n                                                             19 \n__38-[NSApplication setWindowsNeedUpdate:]_block_invoke2508 + 76 (AppKit \n+ 3556895) [0x7fff92cd361f] 1-19\n                                                               19 \n-[NSApplication updateWindows] + 86 (AppKit + 160649) [0x7fff92996389] 1-19\n                                                                 19 \n+[NSTextInputContext currentInputContext] + 140 (AppKit + 162532) \n[0x7fff92996ae4] 1-19\n                                                                   19 \n-[FI_TListView inputContext] + 29 (FinderKit + 1312876) [0x7fff8b09786c] \n1-19\n                                                                     19 \n  +[FI_TFloatingInputWindowController singleton] + 80 (FinderKit + \n664266) [0x7fff8aff92ca] 1-19\n \n19  -[FI_TFloatingInputWindow init] + 668 (FinderKit + 665781) \n[0x7fff8aff98b5] 1-19\n \n  19  -[NSWindow _setFrameCommon:display:stashSize:] + 2801 (AppKit + \n1132460) [0x7fff92a837ac] 1-19\n \n    19  -[NSNotificationCenter postNotificationName:object:userInfo:] + \n66 (Foundation + 11937) [0x7fff8f920ea1] 1-19\n \n      19  _CFXNotificationPost + 3140 (CoreFoundation + 65972) \n[0x7fff8e9691b4] 1-19\n \n        19  __CFNOTIFICATIONCENTER_IS_CALLING_OUT_TO_AN_OBSERVER__ + 12 \n(CoreFoundation + 1174716) [0x7fff8ea77cbc] 1-19\n \n          19  -[RDocumentWinCtrl setStatusLineText:] + 430 (R + 208030) \n[0x10a4a8c9e] 1-19\n \n            19  -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 278 \n(Foundation + 436921) [0x7fff8f988ab9] 1-19\n \n              19  CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) \n[0x7fff8e9ca838] 1-19\n \n                19  __CFRunLoopRun + 872 (CoreFoundation + 466408) \n[0x7fff8e9cade8] 1-19\n \n                  19  __CFRunLoopDoObservers + 368 (CoreFoundation + \n523488) [0x7fff8e9d8ce0] 1-19\n \n                    19 \n__CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + 23 \n(CoreFoundation + 523655) [0x7fff8e9d8d87] 1-19\n \n                      19 \n___NSPostActiveFirstResponderChanged_block_invoke + 29 (AppKit + \n1585278) [0x7fff92af207e] 1-19\n \n                        19  +[_NSAutomaticFocusRing \nsetActiveFirstResponderChanged] + 37 (AppKit + 1585431) [0x7fff92af2117] \n1-19\n \n                          19  +[NSTextInputContext currentInputContext] \n+ 140 (AppKit + 162532) [0x7fff92996ae4] 1-19\n \n                            19  -[FI_TListView inputContext] + 29 \n(FinderKit + 1312876) [0x7fff8b09786c] 1-19\n \n                              19  +[FI_TFloatingInputWindowController \nsingleton] + 28 (FinderKit + 664214) [0x7fff8aff9296] 1-19\n \n                                19  __psynch_mutexwait + 10 \n(libsystem_kernel.dylib + 90466) [0x7fff95560162] 1-19\n \n                                 *19  psynch_mtxcontinue + 0 (pthread + \n22095) [0xffffff7f8108964f] 1-19\n\n   Thread 0x352a       DispatchQueue 2     19 samples (1-19)   priority 47\n   <frontmost, thread QoS user interactive, boosted, received importance \ndonation from WindowServer [267], IO policy important>\n   19  _dispatch_mgr_thread + 52 (libdispatch.dylib + 19050) \n[0x7fff98440a6a] 1-19\n     19  kevent64 + 10 (libsystem_kernel.dylib + 94766) [0x7fff9556122e] \n1-19\n      *19  ??? (kernel + 6000416) [0xffffff80007b8f20] 1-19\n\n   Thread 0x35d7       DispatchQueue 731   19 samples (1-19)   priority \n37         cpu time 0.001s\n   <frontmost, thread QoS user initiated, boosted, received importance \ndonation from WindowServer [267], IO policy important>\n   19  start_wqthread + 13 (libsystem_pthread.dylib + 5281) \n[0x7fff8aed24a1] 1-19\n     19  _pthread_wqthread + 729 (libsystem_pthread.dylib + 14027) \n[0x7fff8aed46cb] 1-19\n       19  _dispatch_worker_thread3 + 91 (libdispatch.dylib + 77796) \n[0x7fff9844efe4] 1-19\n         19  _dispatch_root_queue_drain + 463 (libdispatch.dylib + \n18103) [0x7fff984406b7] 1-19\n           19  _dispatch_queue_invoke + 202 (libdispatch.dylib + 28364) \n[0x7fff98442ecc] 1-19\n             19  _dispatch_queue_drain + 1100 (libdispatch.dylib + \n21349) [0x7fff98441365] 1-19\n               19  _dispatch_client_callout + 8 (libdispatch.dylib + \n7187) [0x7fff9843dc13] 1-19\n                 19  _dispatch_call_block_and_release + 12 \n(libdispatch.dylib + 25379) [0x7fff98442323] 1-19\n                   19 \n___ZN22IAsynchronousOperation19PerformAsyncOnQueueEP16dispatch_queue_sy_block_invoke \n+ 31 (FinderKit + 768156) [0x7fff8b01289c] 1-19\n                     19 \nTNodeEngineNotificationHandler::FirstStepOnSecondaryThread() + 24 \n(FinderKit + 2170890) [0x7fff8b16900a] 1-19\n                       19  TNodeInsertionHandler::FirstStep() + 182 \n(FinderKit + 2187256) [0x7fff8b16cff8] 1-19\n                         19  TFENodeIterator::Init(TFENode const&, \nTNodeObserver const*, IterateOver, bool volatile*) + 472 (FinderKit + \n356274) [0x7fff8afadfb2] 1-19\n                           19 \nTOpenSyncCompletedObserver::WaitForOpenSyncCompleted(bool volatile&) + \n85 (FinderKit + 359269) [0x7fff8afaeb65] 1-19\n                             19 \nTConditionVariable::WaitWithTimeout(TMutex&, unsigned long long, bool&) \n+ 69 (FinderKit + 869903) [0x7fff8b02b60f] 1-19\n                               19  __psynch_cvwait + 10 \n(libsystem_kernel.dylib + 90418) [0x7fff95560132] 1-19\n                                *19  psynch_cvcontinue + 0 (pthread + \n27077) [0xffffff7f8108a9c5] 1-19\n\n   Thread 0x35a9       DispatchQueue 758   19 samples (1-19)   priority 37\n   <frontmost, thread QoS user initiated, boosted, received importance \ndonation from WindowServer [267], IO policy important>\n   19  start_wqthread + 13 (libsystem_pthread.dylib + 5281) \n[0x7fff8aed24a1] 1-19\n     19  _pthread_wqthread + 729 (libsystem_pthread.dylib + 14027) \n[0x7fff8aed46cb] 1-19\n       19  _dispatch_worker_thread3 + 91 (libdispatch.dylib + 77796) \n[0x7fff9844efe4] 1-19\n         19  _dispatch_root_queue_drain + 463 (libdispatch.dylib + \n18103) [0x7fff984406b7] 1-19\n           19  _dispatch_queue_invoke + 202 (libdispatch.dylib + 28364) \n[0x7fff98442ecc] 1-19\n             19  _dispatch_queue_drain + 1100 (libdispatch.dylib + \n21349) [0x7fff98441365] 1-19\n               19  _dispatch_client_callout + 8 (libdispatch.dylib + \n7187) [0x7fff9843dc13] 1-19\n                 19  __NSOQSchedule_f + 184 (Foundation + 33187) \n[0x7fff8f9261a3] 1-19\n                   19  -[__NSOperationInternal _start:] + 653 \n(Foundation + 34204) [0x7fff8f92659c] 1-19\n                     19  -[NSBlockOperation main] + 97 (Foundation + \n170245) [0x7fff8f947905] 1-19\n                       19 \n__NSBLOCKOPERATION_IS_CALLING_OUT_TO_A_BLOCK__ + 7 (Foundation + \n1299176) [0x7fff8fa5b2e8] 1-19\n                         19 \n____NSAppKitFinalizeThreadData_block_invoke_2 + 94 (AppKit + 3575553) \n[0x7fff92cd7f01] 1-19\n                           19  -[NSObject(NSThreadPerformAdditions) \nperformSelectorOnMainThread:withObject:waitUntilDone:] + 131 (Foundation \n+ 203440) [0x7fff8f94fab0] 1-19\n                             19  -[NSObject(NSThreadPerformAdditions) \nperformSelector:onThread:withObject:waitUntilDone:modes:] + 823 \n(Foundation + 204585) [0x7fff8f94ff29] 1-19\n                               19  -[NSCondition wait] + 237 (Foundation \n+ 419977) [0x7fff8f984889] 1-19\n                                 19  __psynch_cvwait + 10 \n(libsystem_kernel.dylib + 90418) [0x7fff95560132] 1-19\n                                  *19  psynch_cvcontinue + 0 (pthread + \n27077) [0xffffff7f8108a9c5] 1-19\n\n   Thread 0x3548       19 samples (1-19)   priority 31\n   <frontmost, thread QoS legacy, boosted, received importance donation \nfrom WindowServer [267], IO policy important>\n   19  thread_start + 13 (libsystem_pthread.dylib + 5297) \n[0x7fff8aed24b1] 1-19\n     19  _pthread_start + 176 (libsystem_pthread.dylib + 12921) \n[0x7fff8aed4279] 1-19\n       19  _pthread_body + 131 (libsystem_pthread.dylib + 13052) \n[0x7fff8aed42fc] 1-19\n         19  __NSThread__main__ + 1345 (Foundation + 428922) \n[0x7fff8f986b7a] 1-19\n           19  __select + 10 (libsystem_kernel.dylib + 91126) \n[0x7fff955603f6] 1-19\n            *19  ??? (kernel + 6154000) [0xffffff80007de710] 1-19\n\n   Thread 0x3554       19 samples (1-19)   priority 47         cpu time \n0.003s\n   <frontmost, thread QoS user interactive, boosted, received importance \ndonation from WindowServer [267], IO policy important>\n   19  thread_start + 13 (libsystem_pthread.dylib + 5297) \n[0x7fff8aed24b1] 1-19\n     19  _pthread_start + 176 (libsystem_pthread.dylib + 12921) \n[0x7fff8aed4279] 1-19\n       19  _pthread_body + 131 (libsystem_pthread.dylib + 13052) \n[0x7fff8aed42fc] 1-19\n         19  _NSEventThread + 137 (AppKit + 1603495) [0x7fff92af67a7] 1-19\n           19  CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) \n[0x7fff8e9ca838] 1-19\n             19  __CFRunLoopRun + 1371 (CoreFoundation + 466907) \n[0x7fff8e9cafdb] 1-19\n               19  __CFRunLoopServiceMachPort + 212 (CoreFoundation + \n469780) [0x7fff8e9cbb14] 1-19\n                 19  mach_msg_trap + 10 (libsystem_kernel.dylib + 70958) \n[0x7fff9555b52e] 1-19\n                  *19  ipc_mqueue_receive_continue + 0 (kernel + \n1209328) [0xffffff80003273f0] 1-19\n\n   Binary Images:\n          0x10a476000 -        0x10a500fff  org.R-project.R R 3.1.2 GUI \n1.65 Mavericks build (6833) <8D0A7411-6A1A-3BA8-898F-CC5B621FC4D1> \n/Applications/R.app/Contents/MacOS/R\n          0x10a587000 -                ???  ??? \n                             <FB7F246D-65AE-35E3-87A5-12D703F71C54>\n       0x7fff8aed1000 -     0x7fff8aedafff  libsystem_pthread.dylib \n(105.1.4)                       <26B1897F-0CD3-30F3-B55A-37CB45062D73> \n/usr/lib/system/libsystem_pthread.dylib\n       0x7fff8af57000 -     0x7fff8b27efff  com.apple.FinderKit 1.3.1 \n(1.3.1)                       <A5625503-616F-3382-8F27-D963113098B5> \n/System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit\n       0x7fff8e959000 -     0x7fff8eceffff  com.apple.CoreFoundation 6.9 \n(1151.16)                  <F2B088AF-A5C6-3FAE-9EB4-7931AF6359E4> \n/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation\n       0x7fff8f91e000 -     0x7fff8fc4cfff  com.apple.Foundation 6.9 \n(1151.16)                      <18EDD673-A010-3E99-956E-DA594CE1FA80> \n/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation\n       0x7fff9296f000 -     0x7fff934b0fff  com.apple.AppKit 6.9 \n(1343.16) \n<C98DB43F-4245-3E6E-A4EE-37DAEE33E174> \n/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit\n       0x7fff95018000 -     0x7fff9501bfff  libdyld.dylib (353.2.1) \n                             <19FAF435-C165-3374-9DEF-D7BBA7D61DB6> \n/usr/lib/system/libdyld.dylib\n       0x7fff9554a000 -     0x7fff95567fff  libsystem_kernel.dylib \n(2782.1.97)                      <93E0E0A9-75B6-3904-BB4E-4BC7C05F4B6B> \n  /usr/lib/system/libsystem_kernel.dylib\n       0x7fff961e3000 -     0x7fff961e9fff  libsystem_trace.dylib \n(72.1.3)                          <A9E6B7D8-C327-3742-AC54-86C94218B1DF> \n  /usr/lib/system/libsystem_trace.dylib\n       0x7fff97925000 -     0x7fff97c27fff  com.apple.HIToolbox 2.1.1 \n(756)                         <9DD121B5-B7EB-3C43-8155-61A4417F8E9A> \n/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox\n       0x7fff9843c000 -     0x7fff98466fff  libdispatch.dylib (442.1.4) \n                             <502CF32B-669B-3709-8862-08188225E4F0> \n/usr/lib/system/libdispatch.dylib\n  *0xffffff7f81084000 - 0xffffff7f8108cfff  com.apple.kec.pthread 1.0 \n(1)                           <DB4D4632-FD2B-3FAE-86D3-3432DCDB7FA9> \n/System/Library/Extensions/pthread.kext/Contents/MacOS/pthread\n  *0xffffff8000200000 - 0xffffff80009fffff  kernel (2782.1.97) \n                             <89E10306-BC78-3A3B-955C-7C4922577E61> \n/System/Library/Kernels/kernel\n\n\n-- \n\nSent from a parallel universe almost, but not entirely,\nnothing at all like this one.",
+      "body_snippet": "This just started out of the blue:  If I select, say, \"Open Recent\" and \npick a file from the list, the file opens just fine.\n\nBut if I select \"Open,\"  then the dialog box opens, but the file list \nne",
+      "thread_id": "thread-767dec104bcb",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-19422d395aa6",
+      "message_id": "<549723FE.3090306@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2014-12-21T14:48:14-05:00",
+      "subject": "[R-SIG-Mac] OpenFile hang; fixed not solved",
+      "subject_clean": "OpenFile hang; fixed not solved",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Pursuant to my last post:\n\nI tracked down and deleted all the following support files, all of which \nare in  \"~/Library/Preferences\"\n\norg.R-project.R copy.plist\norg.R-project.R.LSSharedFileList.plist\norg.R-project.R.plist\norg.R-project.R.savedState\n\nR now works correctly.  I don't know which of these files was corrupted, \nso if anyone has some suggestions as to the forensic studies :-) I could \ndo, I'd appreciate it.\n\nIn any case, I'm functional again.\n\nCarl\n\n\n-- \n\nSent from a parallel universe almost, but not entirely,\nnothing at all like this one.",
+      "body_snippet": "Pursuant to my last post:\n\nI tracked down and deleted all the following support files, all of which \nare in  \"~/Library/Preferences\"\n\norg.R-project.R copy.plist\norg.R-project.R.LSSharedFileList.plist\n",
+      "thread_id": "thread-19422d395aa6",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-3acda8438a64",
+      "message_id": "<301755C9-B99A-4693-ADAD-518083070FBF@yahoo.com>",
+      "from_name": "Sakai Tena",
+      "from_email_hash": "5cb25ae36e0b1b5f84949ef01a212962247c5f3eaac4992706fc57b9fd4c981e",
+      "date": "2014-12-21T14:54:40-06:00",
+      "subject": "[R-SIG-Mac] OpenFile Dialog hangs",
+      "subject_clean": "OpenFile Dialog hangs",
+      "in_reply_to": "<54971DBF.9030602@witthoft.com>",
+      "references": [
+        "<54971DBF.9030602@witthoft.com>"
+      ],
+      "body_plain": "> On Dec 21, 2014, at 1:21 PM, Carl Witthoft <carl at witthoft.com> wrote:\n> \n> This just started out of the blue:  If I select, say, \"Open Recent\" and pick a file from the list, the file opens just fine.\n> \n> But if I select \"Open,\"  then the dialog box opens, but the file list never gets filled in, I get the spinning beach ball, and never recover.\n> \n> I took the precaution of turning off DefaultFolder; same problem.\n> \n> I can execute \"SaveAs\" without any problem.\n> \n> I am running Yosemite 10.10.1, R 3.1.2, and as I said up until 2 hours ago all was just fine.    I even rebooted the machine and reinstalled R; no change.\n> \n> The entire \"hang\" file (from /Library/Logs/DiagnosticReports) is huge so here's the top portion. PLease let me know if there is some specific section that could help diagnose this problem . -- or if someone would like me to email the zipped file.\n> \n> thanks\n> Carl\n> \n> \n> \n> \n> Date/Time:       2014-12-21 13:07:11 -0500\n> OS Version:      10.10.1 (Build 14B25)\n> Architecture:    x86_64\n> Report Version:  21\n> \n> Command:         R\n> Path:            /Applications/R.app/Contents/MacOS/R\n> Version:         R 3.1.2 GUI 1.65 Mavericks build (6833)\n> Parent:          launchd [1]\n> PID:             1010\n> \n> Event:           hang\n> Duration:        1.80s (process was unresponsive for 144 seconds before sampling)\n> Steps:           19 (100ms sampling interval)\n> \n> Hardware model:  iMac9,1\n> Active cpus:     2\n> \n> Fan speed:       1350 rpm\n> \n> --------------------------------------------------\n> Timeline format: stacks are sorted chronologically\n> Use -i and -heavy to re-report with count sorting\n> --------------------------------------------------\n> \n> Heaviest stack for the main thread of the target process:\n>  19  start + 1 (libdyld.dylib + 13769) [0x7fff9501b5c9]\n>  19  main + 819 (R + 6547) [0x10a477993]\n>  19  -[REngine runREPL] + 138 (R + 75898) [0x10a48887a]\n>  19  run_REngineRmainloop + 295 (R + 123703) [0x10a494337]\n>  19  ??? (<FB7F246D-65AE-35E3-87A5-12D703F71C54> + 897903) [0x10a66236f]\n>  19  Re_ReadConsole + 185 (R + 65753) [0x10a4860d9]\n>  19  -[RController handleReadConsole:] + 186 (R + 26922) [0x10a47c92a]\n>  19  -[RController doProcessEvents:] + 221 (R + 50381) [0x10a4824cd]\n>  19  -[NSApplication sendEvent:] + 4035 (AppKit + 1619867) [0x7fff92afa79b]\n>  19  -[NSApplication _handleKeyEquivalent:] + 920 (AppKit + 2132165) [0x7fff92b778c5]\n>  19  -[NSMenu performKeyEquivalent:] + 359 (AppKit + 2147119) [0x7fff92b7b32f]\n>  19  _os_activity_initiate + 75 (libsystem_trace.dylib + 3287) [0x7fff961e3cd7]\n>  19  -[NSCarbonMenuImpl performActionWithHighlightingForItemAtIndex:] + 114 (AppKit + 2151159) [0x7fff92b7c2f7]\n>  19  -[NSMenuItem _corePerformAction] + 382 (AppKit + 2151898) [0x7fff92b7c5da]\n>  19  -[NSApplication sendAction:to:from:] + 410 (AppKit + 2045079) [0x7fff92b62497]\n>  19  _os_activity_initiate + 75 (libsystem_trace.dylib + 3287) [0x7fff961e3cd7]\n>  19  -[RController openDocument:] + 194 (R + 47954) [0x10a481b52]\n>  19  -[NSSavePanel runModal] + 282 (AppKit + 6111181) [0x7fff92f42fcd]\n>  19  -[NSApplication runModalForWindow:] + 119 (AppKit + 3305862) [0x7fff92c96186]\n>  19  -[NSApplication _realDoModalLoop:peek:] + 666 (AppKit + 3312599) [0x7fff92c97bd7]\n>  19  -[NSApplication nextEventMatchingMask:untilDate:inMode:dequeue:] + 194 (AppKit + 147072) [0x7fff92992e80]\n>  19  _DPSNextEvent + 964 (AppKit + 149201) [0x7fff929936d1]\n>  19  _BlockUntilNextEventMatchingListInModeWithFilter + 71 (HIToolbox + 188411) [0x7fff97952ffb]\n>  19  ReceiveNextEventCommon + 179 (HIToolbox + 188606) [0x7fff979530be]\n>  19  RunCurrentEventLoopInMode + 235 (HIToolbox + 189503) [0x7fff9795343f]\n>  19  CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) [0x7fff8e9ca838]\n>  19  __CFRunLoopRun + 872 (CoreFoundation + 466408) [0x7fff8e9cade8]\n>  19  __CFRunLoopDoObservers + 368 (CoreFoundation + 523488) [0x7fff8e9d8ce0]\n>  19  __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + 23 (CoreFoundation + 523655) [0x7fff8e9d8d87]\n>  19  __38-[NSApplication setWindowsNeedUpdate:]_block_invoke2508 + 76 (AppKit + 3556895) [0x7fff92cd361f]\n>  19  -[NSApplication updateWindows] + 86 (AppKit + 160649) [0x7fff92996389]\n>  19  +[NSTextInputContext currentInputContext] + 140 (AppKit + 162532) [0x7fff92996ae4]\n>  19  -[FI_TListView inputContext] + 29 (FinderKit + 1312876) [0x7fff8b09786c]\n>  19  +[FI_TFloatingInputWindowController singleton] + 80 (FinderKit + 664266) [0x7fff8aff92ca]\n>  19  -[FI_TFloatingInputWindow init] + 668 (FinderKit + 665781) [0x7fff8aff98b5]\n>  19  -[NSWindow _setFrameCommon:display:stashSize:] + 2801 (AppKit + 1132460) [0x7fff92a837ac]\n>  19  -[NSNotificationCenter postNotificationName:object:userInfo:] + 66 (Foundation + 11937) [0x7fff8f920ea1]\n>  19  _CFXNotificationPost + 3140 (CoreFoundation + 65972) [0x7fff8e9691b4]\n>  19  __CFNOTIFICATIONCENTER_IS_CALLING_OUT_TO_AN_OBSERVER__ + 12 (CoreFoundation + 1174716) [0x7fff8ea77cbc]\n>  19  -[RDocumentWinCtrl setStatusLineText:] + 430 (R + 208030) [0x10a4a8c9e]\n>  19  -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 278 (Foundation + 436921) [0x7fff8f988ab9]\n>  19  CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) [0x7fff8e9ca838]\n>  19  __CFRunLoopRun + 872 (CoreFoundation + 466408) [0x7fff8e9cade8]\n>  19  __CFRunLoopDoObservers + 368 (CoreFoundation + 523488) [0x7fff8e9d8ce0]\n>  19  __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + 23 (CoreFoundation + 523655) [0x7fff8e9d8d87]\n>  19  ___NSPostActiveFirstResponderChanged_block_invoke + 29 (AppKit + 1585278) [0x7fff92af207e]\n>  19  +[_NSAutomaticFocusRing setActiveFirstResponderChanged] + 37 (AppKit + 1585431) [0x7fff92af2117]\n>  19  +[NSTextInputContext currentInputContext] + 140 (AppKit + 162532) [0x7fff92996ae4]\n>  19  -[FI_TListView inputContext] + 29 (FinderKit + 1312876) [0x7fff8b09786c]\n>  19  +[FI_TFloatingInputWindowController singleton] + 28 (FinderKit + 664214) [0x7fff8aff9296]\n>  19  __psynch_mutexwait + 10 (libsystem_kernel.dylib + 90466) [0x7fff95560162]\n> *19  psynch_mtxcontinue + 0 (pthread + 22095) [0xffffff7f8108964f]\n> \n> \n> Process:         R [1010]\n> Path:            /Applications/R.app/Contents/MacOS/R\n> Architecture:    x86_64\n> Parent:          launchd [1]\n> UID:             502\n> Task size:       38975 pages (+1)\n> CPU Time:        0.005s\n> Note:            Unresponsive for 144 seconds before sampling\n> Note:            2 idle work queue threads omitted\n> \n>  Thread 0x351d       DispatchQueue 1     19 samples (1-19)   priority 39\n>  <frontmost, thread QoS user interactive, boosted, received importance donation from WindowServer [267], IO policy important>\n>  19  start + 1 (libdyld.dylib + 13769) [0x7fff9501b5c9] 1-19\n>    19  main + 819 (R + 6547) [0x10a477993] 1-19\n>      19  -[REngine runREPL] + 138 (R + 75898) [0x10a48887a] 1-19\n>        19  run_REngineRmainloop + 295 (R + 123703) [0x10a494337] 1-19\n>          19  ??? (<FB7F246D-65AE-35E3-87A5-12D703F71C54> + 897903) [0x10a66236f] 1-19\n>            19  Re_ReadConsole + 185 (R + 65753) [0x10a4860d9] 1-19\n>              19  -[RController handleReadConsole:] + 186 (R + 26922) [0x10a47c92a] 1-19\n>                19  -[RController doProcessEvents:] + 221 (R + 50381) [0x10a4824cd] 1-19\n>                  19  -[NSApplication sendEvent:] + 4035 (AppKit + 1619867) [0x7fff92afa79b] 1-19\n>                    19  -[NSApplication _handleKeyEquivalent:] + 920 (AppKit + 2132165) [0x7fff92b778c5] 1-19\n>                      19  -[NSMenu performKeyEquivalent:] + 359 (AppKit + 2147119) [0x7fff92b7b32f] 1-19\n>                        19  _os_activity_initiate + 75 (libsystem_trace.dylib + 3287) [0x7fff961e3cd7] 1-19\n>                          19  -[NSCarbonMenuImpl performActionWithHighlightingForItemAtIndex:] + 114 (AppKit + 2151159) [0x7fff92b7c2f7] 1-19\n>                            19  -[NSMenuItem _corePerformAction] + 382 (AppKit + 2151898) [0x7fff92b7c5da] 1-19\n>                              19  -[NSApplication sendAction:to:from:] + 410 (AppKit + 2045079) [0x7fff92b62497] 1-19\n>                                19  _os_activity_initiate + 75 (libsystem_trace.dylib + 3287) [0x7fff961e3cd7] 1-19\n>                                  19  -[RController openDocument:] + 194 (R + 47954) [0x10a481b52] 1-19\n>                                    19  -[NSSavePanel runModal] + 282 (AppKit + 6111181) [0x7fff92f42fcd] 1-19\n>                                      19  -[NSApplication runModalForWindow:] + 119 (AppKit + 3305862) [0x7fff92c96186] 1-19\n>                                        19  -[NSApplication _realDoModalLoop:peek:] + 666 (AppKit + 3312599) [0x7fff92c97bd7] 1-19\n>                                          19  -[NSApplication nextEventMatchingMask:untilDate:inMode:dequeue:] + 194 (AppKit + 147072) [0x7fff92992e80] 1-19\n>                                            19  _DPSNextEvent + 964 (AppKit + 149201) [0x7fff929936d1] 1-19\n>                                              19 _BlockUntilNextEventMatchingListInModeWithFilter + 71 (HIToolbox + 188411) [0x7fff97952ffb] 1-19\n>                                                19 ReceiveNextEventCommon + 179 (HIToolbox + 188606) [0x7fff979530be] 1-19\n>                                                  19 RunCurrentEventLoopInMode + 235 (HIToolbox + 189503) [0x7fff9795343f] 1-19\n>                                                    19 CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) [0x7fff8e9ca838] 1-19\n>                                                      19 __CFRunLoopRun + 872 (CoreFoundation + 466408) [0x7fff8e9cade8] 1-19\n>                                                        19 __CFRunLoopDoObservers + 368 (CoreFoundation + 523488) [0x7fff8e9d8ce0] 1-19\n>                                                          19 __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + 23 (CoreFoundation + 523655) [0x7fff8e9d8d87] 1-19\n>                                                            19 __38-[NSApplication setWindowsNeedUpdate:]_block_invoke2508 + 76 (AppKit + 3556895) [0x7fff92cd361f] 1-19\n>                                                              19 -[NSApplication updateWindows] + 86 (AppKit + 160649) [0x7fff92996389] 1-19\n>                                                                19 +[NSTextInputContext currentInputContext] + 140 (AppKit + 162532) [0x7fff92996ae4] 1-19\n>                                                                  19 -[FI_TListView inputContext] + 29 (FinderKit + 1312876) [0x7fff8b09786c] 1-19\n>                                                                    19  +[FI_TFloatingInputWindowController singleton] + 80 (FinderKit + 664266) [0x7fff8aff92ca] 1-19\n> 19  -[FI_TFloatingInputWindow init] + 668 (FinderKit + 665781) [0x7fff8aff98b5] 1-19\n> 19  -[NSWindow _setFrameCommon:display:stashSize:] + 2801 (AppKit + 1132460) [0x7fff92a837ac] 1-19\n>   19  -[NSNotificationCenter postNotificationName:object:userInfo:] + 66 (Foundation + 11937) [0x7fff8f920ea1] 1-19\n>     19  _CFXNotificationPost + 3140 (CoreFoundation + 65972) [0x7fff8e9691b4] 1-19\n>       19  __CFNOTIFICATIONCENTER_IS_CALLING_OUT_TO_AN_OBSERVER__ + 12 (CoreFoundation + 1174716) [0x7fff8ea77cbc] 1-19\n>         19  -[RDocumentWinCtrl setStatusLineText:] + 430 (R + 208030) [0x10a4a8c9e] 1-19\n>           19  -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 278 (Foundation + 436921) [0x7fff8f988ab9] 1-19\n>             19  CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) [0x7fff8e9ca838] 1-19\n>               19  __CFRunLoopRun + 872 (CoreFoundation + 466408) [0x7fff8e9cade8] 1-19\n>                 19  __CFRunLoopDoObservers + 368 (CoreFoundation + 523488) [0x7fff8e9d8ce0] 1-19\n>                   19 __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + 23 (CoreFoundation + 523655) [0x7fff8e9d8d87] 1-19\n>                     19 ___NSPostActiveFirstResponderChanged_block_invoke + 29 (AppKit + 1585278) [0x7fff92af207e] 1-19\n>                       19  +[_NSAutomaticFocusRing setActiveFirstResponderChanged] + 37 (AppKit + 1585431) [0x7fff92af2117] 1-19\n>                         19  +[NSTextInputContext currentInputContext] + 140 (AppKit + 162532) [0x7fff92996ae4] 1-19\n>                           19  -[FI_TListView inputContext] + 29 (FinderKit + 1312876) [0x7fff8b09786c] 1-19\n>                             19  +[FI_TFloatingInputWindowController singleton] + 28 (FinderKit + 664214) [0x7fff8aff9296] 1-19\n>                               19  __psynch_mutexwait + 10 (libsystem_kernel.dylib + 90466) [0x7fff95560162] 1-19\n>                                *19  psynch_mtxcontinue + 0 (pthread + 22095) [0xffffff7f8108964f] 1-19\n> \n>  Thread 0x352a       DispatchQueue 2     19 samples (1-19)   priority 47\n>  <frontmost, thread QoS user interactive, boosted, received importance donation from WindowServer [267], IO policy important>\n>  19  _dispatch_mgr_thread + 52 (libdispatch.dylib + 19050) [0x7fff98440a6a] 1-19\n>    19  kevent64 + 10 (libsystem_kernel.dylib + 94766) [0x7fff9556122e] 1-19\n>     *19  ??? (kernel + 6000416) [0xffffff80007b8f20] 1-19\n> \n>  Thread 0x35d7       DispatchQueue 731   19 samples (1-19)   priority 37         cpu time 0.001s\n>  <frontmost, thread QoS user initiated, boosted, received importance donation from WindowServer [267], IO policy important>\n>  19  start_wqthread + 13 (libsystem_pthread.dylib + 5281) [0x7fff8aed24a1] 1-19\n>    19  _pthread_wqthread + 729 (libsystem_pthread.dylib + 14027) [0x7fff8aed46cb] 1-19\n>      19  _dispatch_worker_thread3 + 91 (libdispatch.dylib + 77796) [0x7fff9844efe4] 1-19\n>        19  _dispatch_root_queue_drain + 463 (libdispatch.dylib + 18103) [0x7fff984406b7] 1-19\n>          19  _dispatch_queue_invoke + 202 (libdispatch.dylib + 28364) [0x7fff98442ecc] 1-19\n>            19  _dispatch_queue_drain + 1100 (libdispatch.dylib + 21349) [0x7fff98441365] 1-19\n>              19  _dispatch_client_callout + 8 (libdispatch.dylib + 7187) [0x7fff9843dc13] 1-19\n>                19  _dispatch_call_block_and_release + 12 (libdispatch.dylib + 25379) [0x7fff98442323] 1-19\n>                  19 ___ZN22IAsynchronousOperation19PerformAsyncOnQueueEP16dispatch_queue_sy_block_invoke + 31 (FinderKit + 768156) [0x7fff8b01289c] 1-19\n>                    19 TNodeEngineNotificationHandler::FirstStepOnSecondaryThread() + 24 (FinderKit + 2170890) [0x7fff8b16900a] 1-19\n>                      19  TNodeInsertionHandler::FirstStep() + 182 (FinderKit + 2187256) [0x7fff8b16cff8] 1-19\n>                        19  TFENodeIterator::Init(TFENode const&, TNodeObserver const*, IterateOver, bool volatile*) + 472 (FinderKit + 356274) [0x7fff8afadfb2] 1-19\n>                          19 TOpenSyncCompletedObserver::WaitForOpenSyncCompleted(bool volatile&) + 85 (FinderKit + 359269) [0x7fff8afaeb65] 1-19\n>                            19 TConditionVariable::WaitWithTimeout(TMutex&, unsigned long long, bool&) + 69 (FinderKit + 869903) [0x7fff8b02b60f] 1-19\n>                              19  __psynch_cvwait + 10 (libsystem_kernel.dylib + 90418) [0x7fff95560132] 1-19\n>                               *19  psynch_cvcontinue + 0 (pthread + 27077) [0xffffff7f8108a9c5] 1-19\n> \n>  Thread 0x35a9       DispatchQueue 758   19 samples (1-19)   priority 37\n>  <frontmost, thread QoS user initiated, boosted, received importance donation from WindowServer [267], IO policy important>\n>  19  start_wqthread + 13 (libsystem_pthread.dylib + 5281) [0x7fff8aed24a1] 1-19\n>    19  _pthread_wqthread + 729 (libsystem_pthread.dylib + 14027) [0x7fff8aed46cb] 1-19\n>      19  _dispatch_worker_thread3 + 91 (libdispatch.dylib + 77796) [0x7fff9844efe4] 1-19\n>        19  _dispatch_root_queue_drain + 463 (libdispatch.dylib + 18103) [0x7fff984406b7] 1-19\n>          19  _dispatch_queue_invoke + 202 (libdispatch.dylib + 28364) [0x7fff98442ecc] 1-19\n>            19  _dispatch_queue_drain + 1100 (libdispatch.dylib + 21349) [0x7fff98441365] 1-19\n>              19  _dispatch_client_callout + 8 (libdispatch.dylib + 7187) [0x7fff9843dc13] 1-19\n>                19  __NSOQSchedule_f + 184 (Foundation + 33187) [0x7fff8f9261a3] 1-19\n>                  19  -[__NSOperationInternal _start:] + 653 (Foundation + 34204) [0x7fff8f92659c] 1-19\n>                    19  -[NSBlockOperation main] + 97 (Foundation + 170245) [0x7fff8f947905] 1-19\n>                      19 __NSBLOCKOPERATION_IS_CALLING_OUT_TO_A_BLOCK__ + 7 (Foundation + 1299176) [0x7fff8fa5b2e8] 1-19\n>                        19 ____NSAppKitFinalizeThreadData_block_invoke_2 + 94 (AppKit + 3575553) [0x7fff92cd7f01] 1-19\n>                          19  -[NSObject(NSThreadPerformAdditions) performSelectorOnMainThread:withObject:waitUntilDone:] + 131 (Foundation + 203440) [0x7fff8f94fab0] 1-19\n>                            19  -[NSObject(NSThreadPerformAdditions) performSelector:onThread:withObject:waitUntilDone:modes:] + 823 (Foundation + 204585) [0x7fff8f94ff29] 1-19\n>                              19  -[NSCondition wait] + 237 (Foundation + 419977) [0x7fff8f984889] 1-19\n>                                19  __psynch_cvwait + 10 (libsystem_kernel.dylib + 90418) [0x7fff95560132] 1-19\n>                                 *19  psynch_cvcontinue + 0 (pthread + 27077) [0xffffff7f8108a9c5] 1-19\n> \n>  Thread 0x3548       19 samples (1-19)   priority 31\n>  <frontmost, thread QoS legacy, boosted, received importance donation from WindowServer [267], IO policy important>\n>  19  thread_start + 13 (libsystem_pthread.dylib + 5297) [0x7fff8aed24b1] 1-19\n>    19  _pthread_start + 176 (libsystem_pthread.dylib + 12921) [0x7fff8aed4279] 1-19\n>      19  _pthread_body + 131 (libsystem_pthread.dylib + 13052) [0x7fff8aed42fc] 1-19\n>        19  __NSThread__main__ + 1345 (Foundation + 428922) [0x7fff8f986b7a] 1-19\n>          19  __select + 10 (libsystem_kernel.dylib + 91126) [0x7fff955603f6] 1-19\n>           *19  ??? (kernel + 6154000) [0xffffff80007de710] 1-19\n> \n>  Thread 0x3554       19 samples (1-19)   priority 47         cpu time 0.003s\n>  <frontmost, thread QoS user interactive, boosted, received importance donation from WindowServer [267], IO policy important>\n>  19  thread_start + 13 (libsystem_pthread.dylib + 5297) [0x7fff8aed24b1] 1-19\n>    19  _pthread_start + 176 (libsystem_pthread.dylib + 12921) [0x7fff8aed4279] 1-19\n>      19  _pthread_body + 131 (libsystem_pthread.dylib + 13052) [0x7fff8aed42fc] 1-19\n>        19  _NSEventThread + 137 (AppKit + 1603495) [0x7fff92af67a7] 1-19\n>          19  CFRunLoopRunSpecific + 296 (CoreFoundation + 464952) [0x7fff8e9ca838] 1-19\n>            19  __CFRunLoopRun + 1371 (CoreFoundation + 466907) [0x7fff8e9cafdb] 1-19\n>              19  __CFRunLoopServiceMachPort + 212 (CoreFoundation + 469780) [0x7fff8e9cbb14] 1-19\n>                19  mach_msg_trap + 10 (libsystem_kernel.dylib + 70958) [0x7fff9555b52e] 1-19\n>                 *19  ipc_mqueue_receive_continue + 0 (kernel + 1209328) [0xffffff80003273f0] 1-19\n> \n>  Binary Images:\n>         0x10a476000 -        0x10a500fff  org.R-project.R R 3.1.2 GUI 1.65 Mavericks build (6833) <8D0A7411-6A1A-3BA8-898F-CC5B621FC4D1> /Applications/R.app/Contents/MacOS/R\n>         0x10a587000 -                ???  ???                             <FB7F246D-65AE-35E3-87A5-12D703F71C54>\n>      0x7fff8aed1000 -     0x7fff8aedafff  libsystem_pthread.dylib (105.1.4)                       <26B1897F-0CD3-30F3-B55A-37CB45062D73> /usr/lib/system/libsystem_pthread.dylib\n>      0x7fff8af57000 -     0x7fff8b27efff  com.apple.FinderKit 1.3.1 (1.3.1)                       <A5625503-616F-3382-8F27-D963113098B5> /System/Library/PrivateFrameworks/FinderKit.framework/Versions/A/FinderKit\n>      0x7fff8e959000 -     0x7fff8eceffff  com.apple.CoreFoundation 6.9 (1151.16)                  <F2B088AF-A5C6-3FAE-9EB4-7931AF6359E4> /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation\n>      0x7fff8f91e000 -     0x7fff8fc4cfff  com.apple.Foundation 6.9 (1151.16)                      <18EDD673-A010-3E99-956E-DA594CE1FA80> /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation\n>      0x7fff9296f000 -     0x7fff934b0fff  com.apple.AppKit 6.9 (1343.16) <C98DB43F-4245-3E6E-A4EE-37DAEE33E174> /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit\n>      0x7fff95018000 -     0x7fff9501bfff  libdyld.dylib (353.2.1)                             <19FAF435-C165-3374-9DEF-D7BBA7D61DB6> /usr/lib/system/libdyld.dylib\n>      0x7fff9554a000 -     0x7fff95567fff  libsystem_kernel.dylib (2782.1.97)                      <93E0E0A9-75B6-3904-BB4E-4BC7C05F4B6B>  /usr/lib/system/libsystem_kernel.dylib\n>      0x7fff961e3000 -     0x7fff961e9fff  libsystem_trace.dylib (72.1.3)                          <A9E6B7D8-C327-3742-AC54-86C94218B1DF>  /usr/lib/system/libsystem_trace.dylib\n>      0x7fff97925000 -     0x7fff97c27fff  com.apple.HIToolbox 2.1.1 (756)                         <9DD121B5-B7EB-3C43-8155-61A4417F8E9A> /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox\n>      0x7fff9843c000 -     0x7fff98466fff  libdispatch.dylib (442.1.4)                             <502CF32B-669B-3709-8862-08188225E4F0> /usr/lib/system/libdispatch.dylib\n> *0xffffff7f81084000 - 0xffffff7f8108cfff  com.apple.kec.pthread 1.0 (1)                           <DB4D4632-FD2B-3FAE-86D3-3432DCDB7FA9> /System/Library/Extensions/pthread.kext/Contents/MacOS/pthread\n> *0xffffff8000200000 - 0xffffff80009fffff  kernel (2782.1.97)                             <89E10306-BC78-3A3B-955C-7C4922577E61> /System/Library/Kernels/kernel\n> \n> \n> -- \n> \n> Sent from a parallel universe almost, but not entirely,\n> nothing at all like this one.\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> On Dec 21, 2014, at 1:21 PM, Carl Witthoft <carl at witthoft.com> wrote:\n> \n> This just started out of the blue:  If I select, say, \"Open Recent\" and pick a file from the list, the file opens just f",
+      "thread_id": "thread-767dec104bcb",
+      "thread_depth": 1,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-63270c1744a8",
+      "message_id": "<5499851B.70802@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2014-12-23T10:07:07-05:00",
+      "subject": "[R-SIG-Mac] corrupted plist file again",
+      "subject_clean": "corrupted plist file again",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\nI got the same corruption problem again that causes a spinning beachball \nhang when I try to open a file via the \"Open\" dialog window.\n\nThis time I traced it down to a specific plist file, and have posted the \nbad file to my GitHub account:\n\nhttps://github.com/cellocgw/Rgoodies/blob/master/BADorg.R-project.R.LSSharedFileList.plist\n\nIf someone could take a look and see what happened to that file (or if a \n\"bad\" file name somehow is causing the problem, e.g.), I'd be very greatful.\n\nthanks\nCarl\n\n-- \n\nSent from a parallel universe almost, but not entirely,\nnothing at all like this one.",
+      "body_snippet": "Hi,\nI got the same corruption problem again that causes a spinning beachball \nhang when I try to open a file via the \"Open\" dialog window.\n\nThis time I traced it down to a specific plist file, and hav",
+      "thread_id": "thread-63270c1744a8",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-a05514f8e969",
+      "message_id": "<D1CBB879-7563-44E1-90B4-A7CEAAEDE993@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-12-23T11:36:21-05:00",
+      "subject": "[R-SIG-Mac] corrupted plist file again",
+      "subject_clean": "corrupted plist file again",
+      "in_reply_to": "<5499851B.70802@witthoft.com>",
+      "references": [
+        "<5499851B.70802@witthoft.com>"
+      ],
+      "body_plain": "Carl,\n\nI cannot replicate it even with your file. \"Hang\" in open dialog are typically caused by the system - e.g. waiting for disks mounted etc. - R is simply waiting for the system (LS/Finder) to gather information about all disks. I suspect you may be accessing some disk (virtual or real) that has issues. The plist only has recent files, so I don't think it's directly involved - the only thing I can think of is that it may be directing the UI to the bad location. Is there anything you can think of that would cause volume access issues on your system? (network mounts, virutal disks, etc.)\n\nCheers,\nSimon\n\n\n> \n> On Dec 23, 2014, at 10:07 AM, Carl Witthoft <carl at witthoft.com> wrote:\n> \n> Hi,\n> I got the same corruption problem again that causes a spinning beachball hang when I try to open a file via the \"Open\" dialog window.\n> \n> This time I traced it down to a specific plist file, and have posted the bad file to my GitHub account:\n> \n> https://github.com/cellocgw/Rgoodies/blob/master/BADorg.R-project.R.LSSharedFileList.plist\n> \n> If someone could take a look and see what happened to that file (or if a \"bad\" file name somehow is causing the problem, e.g.), I'd be very greatful.\n> \n> thanks\n> Carl\n> \n> -- \n> \n> Sent from a parallel universe almost, but not entirely,\n> nothing at all like this one.\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Carl,\n\nI cannot replicate it even with your file. \"Hang\" in open dialog are typically caused by the system - e.g. waiting for disks mounted etc. - R is simply waiting for the system (LS/Finder) to gat",
+      "thread_id": "thread-63270c1744a8",
+      "thread_depth": 1,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-1b9bf440c49a",
+      "message_id": "<5499A380.8010300@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2014-12-23T12:16:48-05:00",
+      "subject": "[R-SIG-Mac] corrupted plist file again",
+      "subject_clean": "corrupted plist file again",
+      "in_reply_to": "<D1CBB879-7563-44E1-90B4-A7CEAAEDE993@r-project.org>",
+      "references": [
+        "<5499851B.70802@witthoft.com>",
+        "<D1CBB879-7563-44E1-90B4-A7CEAAEDE993@r-project.org>"
+      ],
+      "body_plain": "Hmm... The reason I suspected the file is that every time I delete this \nplist file, everything is OK again. However:\n\nOther than some mystery \"Shared\" volume called \"8e402800000\" which my \nOSX desktop tells me \"connection failed,\" I don't have any oddball \nmounts.   I'm unable to collect any info on that volume, and I can't \neject, unmount, or connect to it, so I dunno what it is, but it is true \nthat when I run \"GetInfo\", the FinderInfo window goes into a spin while \n\"Fetching more info\" so possibly that is the headache.\n\nAny idea how I can remove that alleged volume from my Network list?  It \ndoesn't show up as ejectable.\n\nTerminal % ls -a /Volumes doesn't show any other entries,btw.\n\n\n\n\nOn 12/23/14 11:36 AM, Simon Urbanek wrote:\n> Carl,\n>\n> I cannot replicate it even with your file. \"Hang\" in open dialog are typically caused by the system - e.g. waiting for disks mounted etc. - R is simply waiting for the system (LS/Finder) to gather information about all disks. I suspect you may be accessing some disk (virtual or real) that has issues. The plist only has recent files, so I don't think it's directly involved - the only thing I can think of is that it may be directing the UI to the bad location. Is there anything you can think of that would cause volume access issues on your system? (network mounts, virutal disks, etc.)\n>\n> Cheers,\n> Simon\n>\n>\n>>\n>> On Dec 23, 2014, at 10:07 AM, Carl Witthoft <carl at witthoft.com> wrote:\n>>\n>> Hi,\n>> I got the same corruption problem again that causes a spinning beachball hang when I try to open a file via the \"Open\" dialog window.\n>>\n>> This time I traced it down to a specific plist file, and have posted the bad file to my GitHub account:\n>>\n>> https://github.com/cellocgw/Rgoodies/blob/master/BADorg.R-project.R.LSSharedFileList.plist\n>>\n>> If someone could take a look and see what happened to that file (or if a \"bad\" file name somehow is causing the problem, e.g.), I'd be very greatful.\n>>\n>> thanks\n>> Carl\n>>\n>> --\n>>\n>> Sent from a parallel universe almost, but not entirely,\n>> nothing at all like this one.\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n\n-- \n\nSent from a parallel universe almost, but not entirely,\nnothing at all like this one.",
+      "body_snippet": "Hmm... The reason I suspected the file is that every time I delete this \nplist file, everything is OK again. However:\n\nOther than some mystery \"Shared\" volume called \"8e402800000\" which my \nOSX deskto",
+      "thread_id": "thread-63270c1744a8",
+      "thread_depth": 2,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-376f45726654",
+      "message_id": "<5499E8F1.2030404@witthoft.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "f619e7b7b6ab3ea8e30cd9f4fa57551702b736d8b5fecd0fc69a3ee7607ea26d",
+      "date": "2014-12-23T17:13:05-05:00",
+      "subject": "[R-SIG-Mac] apparently solved: hang on Open Dialog box",
+      "subject_clean": "apparently solved: hang on Open Dialog box",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I think I've solved the problem.  I have been using FinderPop for ages \nsans problems, but the R.app-specific problem described previously went \naway as soon as I added R.app to the list of excluded applications for \nFinderPop.\n\nDunno why this is, but hardly worth asking anyone to dive into the R.app \nsource code (or FinderPop ) to fix.\n\nThanks to Simon for running some tests at his end.\n\nCarl\n\nOn 12/23/14 11:36 AM, Simon Urbanek wrote:\n> Carl,\n>\n> I cannot replicate it even with your file. \"Hang\" in open dialog are\n> typically caused by the system - e.g. waiting for disks mounted etc.\n> - R is simply waiting for the system (LS/Finder) to gather\n> information about all disks. I suspect you may be accessing some disk\n> (virtual or real) that has issues. The plist only has recent files,\n> so I don't think it's directly involved - the only thing I can think\n> of is that it may be directing the UI to the bad location. Is there\n> anything you can think of that would cause volume access issues on\n> your system? (network mounts, virutal disks, etc.)\n>\n> Cheers, Simon\n>\n>\n\n\n>\n> On Dec 23, 2014, at 10:07 AM, Carl Witthoft <carl at witthoft.com>\n> wrote:\n>\n> Hi, I got the same corruption problem again that causes a spinning\nbeachball hang when I try to open a file via the \"Open\" dialog window.\n>\n> This time I traced it down to a specific plist file, and have posted\nthe bad file to my GitHub account:\n>\n>\nhttps://github.com/cellocgw/Rgoodies/blob/master/BADorg.R-project.R.LSSharedFileList.plist\n>\n> If someone could take a look and see what happened to that file (or\n> if\na \"bad\" file name somehow is causing the problem, e.g.), I'd be very\ngreatful.\n>\n> thanks Carl\n\n-- \n\nSent from a parallel universe almost, but not entirely,\nnothing at all like this one.",
+      "body_snippet": "I think I've solved the problem.  I have been using FinderPop for ages \nsans problems, but the R.app-specific problem described previously went \naway as soon as I added R.app to the list of excluded a",
+      "thread_id": "thread-376f45726654",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-e634000b4f6b",
+      "message_id": "<CAHkxROagVVk2hYvSZziayFKr+-VmMSBFGk1gm72fbBwKK1Mvrg@mail.gmail.com>",
+      "from_name": "Ralph O'Brien",
+      "from_email_hash": "b130a5a0d521b68ae30b5e6f64ca799ce8345d72ca13a6628f755e22cc52c169",
+      "date": "2014-12-24T09:37:58-05:00",
+      "subject": "[R-SIG-Mac] Is Yosemite now \"safe\" for most of us?",
+      "subject_clean": "Is Yosemite now \"safe\" for most of us?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The missives about running R/Rstudio under Yosemite seem to have died down.\n\nFor the vast majority of us who are \"vanilla\" uses of the current versions\nof R and Rstudio, is Yosemite (10.10.current) now as safe as Mavericks\n(10.9.current)?\n\nI'm hoping a single short response from one of the R-on-Mac leaders will\ngive me (and thousands more) either a green or red light at this point.\n\nThanks for all the great work you do.\n\nRalph O'Brien, PhD\nRetired Professor of Biostatistics\nCase Western Reserve University\n(but still keenly professionally active)\n910.553.4224; Cell: 216.312.3203\n\n*?Tell me and I forget, teach me and I may remember, involve me and I\nlearn.?*\n\n        *? Benjamin Franklin*\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "The missives about running R/Rstudio under Yosemite seem to have died down.\n\nFor the vast majority of us who are \"vanilla\" uses of the current versions\nof R and Rstudio, is Yosemite (10.10.current) no",
+      "thread_id": "thread-e634000b4f6b",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-bfabe8e719fd",
+      "message_id": "<CABdHhvFJjN20W3yg05k-w730yJueRTHj0btMaQSX=+4uKkddzg@mail.gmail.com>",
+      "from_name": "Hadley Wickham",
+      "from_email_hash": "78ed178a2a834406115d2917490a5d6eb6217493116357bc9bb8ae3e96968152",
+      "date": "2014-12-25T15:16:58+13:00",
+      "subject": "[R-SIG-Mac] Is Yosemite now \"safe\" for most of us?",
+      "subject_clean": "Is Yosemite now \"safe\" for most of us?",
+      "in_reply_to": "<CAHkxROagVVk2hYvSZziayFKr+-VmMSBFGk1gm72fbBwKK1Mvrg@mail.gmail.com>",
+      "references": [
+        "<CAHkxROagVVk2hYvSZziayFKr+-VmMSBFGk1gm72fbBwKK1Mvrg@mail.gmail.com>"
+      ],
+      "body_plain": "Yes, the bugs have been well and truly worked out.\n\nHadley\n\nOn Thursday, December 25, 2014, Ralph O'Brien <obrienralph at gmail.com> wrote:\n\n> The missives about running R/Rstudio under Yosemite seem to have died down.\n>\n> For the vast majority of us who are \"vanilla\" uses of the current versions\n> of R and Rstudio, is Yosemite (10.10.current) now as safe as Mavericks\n> (10.9.current)?\n>\n> I'm hoping a single short response from one of the R-on-Mac leaders will\n> give me (and thousands more) either a green or red light at this point.\n>\n> Thanks for all the great work you do.\n>\n> Ralph O'Brien, PhD\n> Retired Professor of Biostatistics\n> Case Western Reserve University\n> (but still keenly professionally active)\n> 910.553.4224; Cell: 216.312.3203\n>\n> *?Tell me and I forget, teach me and I may remember, involve me and I\n> learn.?*\n>\n>         *? Benjamin Franklin*\n>\n>         [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org <javascript:;>\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nhttp://had.co.nz/\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Yes, the bugs have been well and truly worked out.\n\nHadley\n\nOn Thursday, December 25, 2014, Ralph O'Brien <obrienralph at gmail.com> wrote:\n\n> The missives about running R/Rstudio under Yosemite seem ",
+      "thread_id": "thread-e634000b4f6b",
+      "thread_depth": 1,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-1804f467199c",
+      "message_id": "<549BC233.1090304@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-12-25T07:52:19Z",
+      "subject": "[R-SIG-Mac] Is Yosemite now \"safe\" for most of us?",
+      "subject_clean": "Is Yosemite now \"safe\" for most of us?",
+      "in_reply_to": "<CABdHhvFJjN20W3yg05k-w730yJueRTHj0btMaQSX=+4uKkddzg@mail.gmail.com>",
+      "references": [
+        "<CAHkxROagVVk2hYvSZziayFKr+-VmMSBFGk1gm72fbBwKK1Mvrg@mail.gmail.com>",
+        "<CABdHhvFJjN20W3yg05k-w730yJueRTHj0btMaQSX=+4uKkddzg@mail.gmail.com>"
+      ],
+      "body_plain": "On 25/12/2014 02:16, Hadley Wickham wrote:\n> Yes, the bugs have been well and truly worked out.\n\nWorked around, more precisely.\n\nThere are still bugs in Yosemite's handling of environment variables, \nand R >= 3.1.2 has workarounds that resolve some of those.  But they can \nstill bite when building R or installing packages.\n\nI have found that\n\nunsetenv FOO\nsetenv FOO value\n\nresolved the issues I had.  (csh syntax, works in bash too.)\n\nIf you upgrade to Yosemite, do ensure that you have read the current \nR-admin manual and re-install the software it recommends.  We have found \nthat what needed to be reinstalled varied between nominally identical \nsystems ... \nhttp://cran.r-project.org/doc/manuals/r-devel/R-admin.html#OS-X .\n\n>\n> Hadley\n>\n> On Thursday, December 25, 2014, Ralph O'Brien <obrienralph at gmail.com> wrote:\n>\n>> The missives about running R/Rstudio under Yosemite seem to have died down.\n>>\n>> For the vast majority of us who are \"vanilla\" uses of the current versions\n>> of R and Rstudio, is Yosemite (10.10.current) now as safe as Mavericks\n>> (10.9.current)?\n>>\n>> I'm hoping a single short response from one of the R-on-Mac leaders will\n>> give me (and thousands more) either a green or red light at this point.\n>>\n>> Thanks for all the great work you do.\n>>\n>> Ralph O'Brien, PhD\n>> Retired Professor of Biostatistics\n>> Case Western Reserve University\n>> (but still keenly professionally active)\n>> 910.553.4224; Cell: 216.312.3203\n>>\n>> *?Tell me and I forget, teach me and I may remember, involve me and I\n>> learn.?*\n>>\n>>          *? Benjamin Franklin*\n>>\n>>          [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org <javascript:;>\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford\n1 South Parks Road, Oxford OX1 3TG, UK",
+      "body_snippet": "On 25/12/2014 02:16, Hadley Wickham wrote:\n> Yes, the bugs have been well and truly worked out.\n\nWorked around, more precisely.\n\nThere are still bugs in Yosemite's handling of environment variables, \n",
+      "thread_id": "thread-e634000b4f6b",
+      "thread_depth": 2,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-8c410bf4f760",
+      "message_id": "<4ED8E439-2782-4E80-A9C5-7CDB9308C460@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "d2573f0c0a474184a9d96c815fc6bf37ff7c6392082069d810139c562d5a6f71",
+      "date": "2014-12-25T12:52:07+01:00",
+      "subject": "[R-SIG-Mac] Is Yosemite now \"safe\" for most of us?",
+      "subject_clean": "Is Yosemite now \"safe\" for most of us?",
+      "in_reply_to": "<549BC233.1090304@stats.ox.ac.uk>",
+      "references": [
+        "<CAHkxROagVVk2hYvSZziayFKr+-VmMSBFGk1gm72fbBwKK1Mvrg@mail.gmail.com>",
+        "<CABdHhvFJjN20W3yg05k-w730yJueRTHj0btMaQSX=+4uKkddzg@mail.gmail.com>",
+        "<549BC233.1090304@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Also notice that Yosemite itself still has issues that were not or were only partially resolved in 10.10.1. I currently see\n\nPeter-Dalgaards-MacBook-Air-2:BUILD pd$ \n\nwhich is better than 10.10.0 where I was up to -26 at some point, but the upgrade apparently  didn't resolve this (machine detecting itself as another machine) completely.\n\nRather more infuriating is that the UI is laggy, in particular, Finder can get so slow that it becomes nigh-on impossible to scroll to and select a simple file. I'm sure Brian would be (is being?) driven nuts by inertia of the zoom feature. Periodic reboots help, but this is supposed to be Unix...\n\nAnd Firefox still doesn't speak Java - it detects the plugin, then claims that it is missing when you go to a page that uses it. Fortunately, the two sites that I needed it for have both switched to Javascript.\n\n- Peter D.\n\n> On 25 Dec 2014, at 08:52 , Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> On 25/12/2014 02:16, Hadley Wickham wrote:\n>> Yes, the bugs have been well and truly worked out.\n> \n> Worked around, more precisely.\n> \n> There are still bugs in Yosemite's handling of environment variables, and R >= 3.1.2 has workarounds that resolve some of those.  But they can still bite when building R or installing packages.\n> \n> I have found that\n> \n> unsetenv FOO\n> setenv FOO value\n> \n> resolved the issues I had.  (csh syntax, works in bash too.)\n> \n> If you upgrade to Yosemite, do ensure that you have read the current R-admin manual and re-install the software it recommends.  We have found that what needed to be reinstalled varied between nominally identical systems ... http://cran.r-project.org/doc/manuals/r-devel/R-admin.html#OS-X .\n> \n>> \n>> Hadley\n>> \n>> On Thursday, December 25, 2014, Ralph O'Brien <obrienralph at gmail.com> wrote:\n>> \n>>> The missives about running R/Rstudio under Yosemite seem to have died down.\n>>> \n>>> For the vast majority of us who are \"vanilla\" uses of the current versions\n>>> of R and Rstudio, is Yosemite (10.10.current) now as safe as Mavericks\n>>> (10.9.current)?\n>>> \n>>> I'm hoping a single short response from one of the R-on-Mac leaders will\n>>> give me (and thousands more) either a green or red light at this point.\n>>> \n>>> Thanks for all the great work you do.\n>>> \n>>> Ralph O'Brien, PhD\n>>> Retired Professor of Biostatistics\n>>> Case Western Reserve University\n>>> (but still keenly professionally active)\n>>> 910.553.4224; Cell: 216.312.3203\n>>> \n>>> *?Tell me and I forget, teach me and I may remember, involve me and I\n>>> learn.?*\n>>> \n>>>         *? Benjamin Franklin*\n>>> \n>>>         [[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org <javascript:;>\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> \n> \n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n> 1 South Parks Road, Oxford OX1 3TG, UK\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Also notice that Yosemite itself still has issues that were not or were only partially resolved in 10.10.1. I currently see\n\nPeter-Dalgaards-MacBook-Air-2:BUILD pd$ \n\nwhich is better than 10.10.0 wher",
+      "thread_id": "thread-e634000b4f6b",
+      "thread_depth": 3,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-81a0e5c1331e",
+      "message_id": "<549C3821.7090507@univ-reims.fr>",
+      "from_name": "Ivan Calandra",
+      "from_email_hash": "964eb5a73ffff6218493e4739415f52af0c3d29a6f625fd12ebb0e2268b1516f",
+      "date": "2014-12-25T17:15:29+01:00",
+      "subject": "[R-SIG-Mac] tcltk",
+      "subject_clean": "tcltk",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear useRs,\n\nI have just upgraded to R 3.1.2 for MacOS 10.6.8 (with the binary for \nSnow Leopard).\n\nEverything is fine except that I get an error when loading TclTk:\n >library(tcltk)\nError : .onLoad a ?chou? dans loadNamespace() pour 'tcltk', d?tails :\n   appel : system2(\"otool\", c(\"-L\", shQuote(DLL)), stdout = TRUE)\n   erreur : erreur lors de l'ex?cution d'une commande\nErreur : le chargement du package ou de l'espace de noms a ?chou? pour \n?tcltk?\nsh: otool: command not found\n\nWhat could be wrong? If needed I can translate the error. I had no \nproblem with R 3.1.1.\n\nThanks in advance and Merry Christmas!\nIvan\n\n\n\n\nHere is my session info:\n > sessionInfo()\nR version 3.1.2 (2014-10-31)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] fr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods base\n\n\n\n-- \nIvan Calandra, ATER\nUniversity of Reims Champagne-Ardenne\nGEGENA? - EA 3795\nCREA - 2 esplanade Roland Garros\n51100 Reims, France\n+33(0)3 26 77 36 89\nivan.calandra at univ-reims.fr\nhttps://www.researchgate.net/profile/Ivan_Calandra",
+      "body_snippet": "Dear useRs,\n\nI have just upgraded to R 3.1.2 for MacOS 10.6.8 (with the binary for \nSnow Leopard).\n\nEverything is fine except that I get an error when loading TclTk:\n >library(tcltk)\nError : .onLoad a",
+      "thread_id": "thread-81a0e5c1331e",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-4985514719b6",
+      "message_id": "<62AF756A-8C9D-4341-8440-DA6F3BD3D663@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-12-25T14:48:11-05:00",
+      "subject": "[R-SIG-Mac] Is Yosemite now \"safe\" for most of us?",
+      "subject_clean": "Is Yosemite now \"safe\" for most of us?",
+      "in_reply_to": "<4ED8E439-2782-4E80-A9C5-7CDB9308C460@gmail.com>",
+      "references": [
+        "<CAHkxROagVVk2hYvSZziayFKr+-VmMSBFGk1gm72fbBwKK1Mvrg@mail.gmail.com>",
+        "<CABdHhvFJjN20W3yg05k-w730yJueRTHj0btMaQSX=+4uKkddzg@mail.gmail.com>",
+        "<549BC233.1090304@stats.ox.ac.uk>",
+        "<4ED8E439-2782-4E80-A9C5-7CDB9308C460@gmail.com>"
+      ],
+      "body_plain": "Yes, there is still quite a list of issues with Yosemite itself (Java, Mail, ...) - although we have covered most known issues on the R side, I wouldn't call Yosemite itself a stable OS yet. If you don't have to upgrade (family sharing and other new features) then I wouldn't recommend it at this point.\n\nCheers,\nSimon\n\n\nOn Dec 25, 2014, at 6:52 AM, peter dalgaard <pdalgd at gmail.com> wrote:\n\n> Also notice that Yosemite itself still has issues that were not or were only partially resolved in 10.10.1. I currently see\n> \n> Peter-Dalgaards-MacBook-Air-2:BUILD pd$ \n> \n> which is better than 10.10.0 where I was up to -26 at some point, but the upgrade apparently  didn't resolve this (machine detecting itself as another machine) completely.\n> \n> Rather more infuriating is that the UI is laggy, in particular, Finder can get so slow that it becomes nigh-on impossible to scroll to and select a simple file. I'm sure Brian would be (is being?) driven nuts by inertia of the zoom feature. Periodic reboots help, but this is supposed to be Unix...\n> \n> And Firefox still doesn't speak Java - it detects the plugin, then claims that it is missing when you go to a page that uses it. Fortunately, the two sites that I needed it for have both switched to Javascript.\n> \n> - Peter D.\n> \n>> On 25 Dec 2014, at 08:52 , Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>> \n>> On 25/12/2014 02:16, Hadley Wickham wrote:\n>>> Yes, the bugs have been well and truly worked out.\n>> \n>> Worked around, more precisely.\n>> \n>> There are still bugs in Yosemite's handling of environment variables, and R >= 3.1.2 has workarounds that resolve some of those.  But they can still bite when building R or installing packages.\n>> \n>> I have found that\n>> \n>> unsetenv FOO\n>> setenv FOO value\n>> \n>> resolved the issues I had.  (csh syntax, works in bash too.)\n>> \n>> If you upgrade to Yosemite, do ensure that you have read the current R-admin manual and re-install the software it recommends.  We have found that what needed to be reinstalled varied between nominally identical systems ... http://cran.r-project.org/doc/manuals/r-devel/R-admin.html#OS-X .\n>> \n>>> \n>>> Hadley\n>>> \n>>> On Thursday, December 25, 2014, Ralph O'Brien <obrienralph at gmail.com> wrote:\n>>> \n>>>> The missives about running R/Rstudio under Yosemite seem to have died down.\n>>>> \n>>>> For the vast majority of us who are \"vanilla\" uses of the current versions\n>>>> of R and Rstudio, is Yosemite (10.10.current) now as safe as Mavericks\n>>>> (10.9.current)?\n>>>> \n>>>> I'm hoping a single short response from one of the R-on-Mac leaders will\n>>>> give me (and thousands more) either a green or red light at this point.\n>>>> \n>>>> Thanks for all the great work you do.\n>>>> \n>>>> Ralph O'Brien, PhD\n>>>> Retired Professor of Biostatistics\n>>>> Case Western Reserve University\n>>>> (but still keenly professionally active)\n>>>> 910.553.4224; Cell: 216.312.3203\n>>>> \n>>>> *?Tell me and I forget, teach me and I may remember, involve me and I\n>>>> learn.?*\n>>>> \n>>>>        *? Benjamin Franklin*\n>>>> \n>>>>        [[alternative HTML version deleted]]\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org <javascript:;>\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>>> \n>> \n>> \n>> -- \n>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>> Emeritus Professor of Applied Statistics, University of Oxford\n>> 1 South Parks Road, Oxford OX1 3TG, UK\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> -- \n> Peter Dalgaard, Professor,\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Yes, there is still quite a list of issues with Yosemite itself (Java, Mail, ...) - although we have covered most known issues on the R side, I wouldn't call Yosemite itself a stable OS yet. If you do",
+      "thread_id": "thread-e634000b4f6b",
+      "thread_depth": 4,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-b64eab03e5b5",
+      "message_id": "<A4BE6EF5-4045-4845-B27B-FDD0AD484C31@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-12-25T15:51:08-05:00",
+      "subject": "[R-SIG-Mac] tcltk",
+      "subject_clean": "tcltk",
+      "in_reply_to": "<549C3821.7090507@univ-reims.fr>",
+      "references": [
+        "<549C3821.7090507@univ-reims.fr>"
+      ],
+      "body_plain": "Most recent tcltk is trying to detect the source of Tcl/Tk using otool to make sure all necessary libraries are present. However, older system don't have otool installed by default so this will fail if you don't have Xcode installed which provides otool. It seems that this is the case on your machine, installing Xcode command line tools should fix the issue.\n\nCheers,\nSimon\n\n\nOn Dec 25, 2014, at 11:15 AM, Ivan Calandra <ivan.calandra at univ-reims.fr> wrote:\n\n> Dear useRs,\n> \n> I have just upgraded to R 3.1.2 for MacOS 10.6.8 (with the binary for Snow Leopard).\n> \n> Everything is fine except that I get an error when loading TclTk:\n> >library(tcltk)\n> Error : .onLoad a ?chou? dans loadNamespace() pour 'tcltk', d?tails :\n>  appel : system2(\"otool\", c(\"-L\", shQuote(DLL)), stdout = TRUE)\n>  erreur : erreur lors de l'ex?cution d'une commande\n> Erreur : le chargement du package ou de l'espace de noms a ?chou? pour ?tcltk?\n> sh: otool: command not found\n> \n> What could be wrong? If needed I can translate the error. I had no problem with R 3.1.1.\n> \n> Thanks in advance and Merry Christmas!\n> Ivan\n> \n> \n> \n> \n> Here is my session info:\n> > sessionInfo()\n> R version 3.1.2 (2014-10-31)\n> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n> \n> locale:\n> [1] fr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods base\n> \n> \n> \n> -- \n> Ivan Calandra, ATER\n> University of Reims Champagne-Ardenne\n> GEGENA? - EA 3795\n> CREA - 2 esplanade Roland Garros\n> 51100 Reims, France\n> +33(0)3 26 77 36 89\n> ivan.calandra at univ-reims.fr\n> https://www.researchgate.net/profile/Ivan_Calandra\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Most recent tcltk is trying to detect the source of Tcl/Tk using otool to make sure all necessary libraries are present. However, older system don't have otool installed by default so this will fail i",
+      "thread_id": "thread-81a0e5c1331e",
+      "thread_depth": 1,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-649f71ed7c4e",
+      "message_id": "<549D1B94.6030602@univ-reims.fr>",
+      "from_name": "Ivan Calandra",
+      "from_email_hash": "964eb5a73ffff6218493e4739415f52af0c3d29a6f625fd12ebb0e2268b1516f",
+      "date": "2014-12-26T09:25:56+01:00",
+      "subject": "[R-SIG-Mac] tcltk",
+      "subject_clean": "tcltk",
+      "in_reply_to": "<A4BE6EF5-4045-4845-B27B-FDD0AD484C31@r-project.org>",
+      "references": [
+        "<549C3821.7090507@univ-reims.fr>",
+        "<A4BE6EF5-4045-4845-B27B-FDD0AD484C31@r-project.org>"
+      ],
+      "body_plain": "Thank you Simon for your answer.\nBut I cannot find Xcode for MacOS 10.6...\nAnd by the way, why did it work with R3.1.1?\n\nIvan\n\n--\nIvan Calandra, ATER\nUniversity of Reims Champagne-Ardenne\nGEGENA? - EA 3795\nCREA - 2 esplanade Roland Garros\n51100 Reims, France\n+33(0)3 26 77 36 89\nivan.calandra at univ-reims.fr\nhttps://www.researchgate.net/profile/Ivan_Calandra\n\nLe 25/12/14 21:51, Simon Urbanek a ?crit :\n> Most recent tcltk is trying to detect the source of Tcl/Tk using otool to make sure all necessary libraries are present. However, older system don't have otool installed by default so this will fail if you don't have Xcode installed which provides otool. It seems that this is the case on your machine, installing Xcode command line tools should fix the issue.\n>\n> Cheers,\n> Simon\n>\n>\n> On Dec 25, 2014, at 11:15 AM, Ivan Calandra <ivan.calandra at univ-reims.fr> wrote:\n>\n>> Dear useRs,\n>>\n>> I have just upgraded to R 3.1.2 for MacOS 10.6.8 (with the binary for Snow Leopard).\n>>\n>> Everything is fine except that I get an error when loading TclTk:\n>>> library(tcltk)\n>> Error : .onLoad a ?chou? dans loadNamespace() pour 'tcltk', d?tails :\n>>   appel : system2(\"otool\", c(\"-L\", shQuote(DLL)), stdout = TRUE)\n>>   erreur : erreur lors de l'ex?cution d'une commande\n>> Erreur : le chargement du package ou de l'espace de noms a ?chou? pour ?tcltk?\n>> sh: otool: command not found\n>>\n>> What could be wrong? If needed I can translate the error. I had no problem with R 3.1.1.\n>>\n>> Thanks in advance and Merry Christmas!\n>> Ivan\n>>\n>>\n>>\n>>\n>> Here is my session info:\n>>> sessionInfo()\n>> R version 3.1.2 (2014-10-31)\n>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>\n>> locale:\n>> [1] fr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods base\n>>\n>>\n>>\n>> -- \n>> Ivan Calandra, ATER\n>> University of Reims Champagne-Ardenne\n>> GEGENA? - EA 3795\n>> CREA - 2 esplanade Roland Garros\n>> 51100 Reims, France\n>> +33(0)3 26 77 36 89\n>> ivan.calandra at univ-reims.fr\n>> https://www.researchgate.net/profile/Ivan_Calandra\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Thank you Simon for your answer.\nBut I cannot find Xcode for MacOS 10.6...\nAnd by the way, why did it work with R3.1.1?\n\nIvan\n\n--\nIvan Calandra, ATER\nUniversity of Reims Champagne-Ardenne\nGEGENA? - EA",
+      "thread_id": "thread-81a0e5c1331e",
+      "thread_depth": 2,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-64aacb8d1cc4",
+      "message_id": "<D698743E-0EB5-4B28-971E-2C6B1048753A@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2014-12-26T15:28:13-05:00",
+      "subject": "[R-SIG-Mac] tcltk",
+      "subject_clean": "tcltk",
+      "in_reply_to": "<549D1B94.6030602@univ-reims.fr>",
+      "references": [
+        "<549C3821.7090507@univ-reims.fr>",
+        "<A4BE6EF5-4045-4845-B27B-FDD0AD484C31@r-project.org>",
+        "<549D1B94.6030602@univ-reims.fr>"
+      ],
+      "body_plain": "On Dec 26, 2014, at 3:25 AM, Ivan Calandra <ivan.calandra at univ-reims.fr> wrote:\n\n> Thank you Simon for your answer.\n> But I cannot find Xcode for MacOS 10.6...\n\nGo to\n\nhttps://developer.apple.com/downloads\n\nand search for Xcode 4.2\n\nor use\n\nhttps://developer.apple.com/devcenter/download.action?path=/Developer_Tools/xcode_4.2_with_ios_5_sdk/xcode_4.2_and_ios_5_sdk_for_snow_leopard.dmg\n\n\n\n> And by the way, why did it work with R3.1.1?\n> \n\nBecause this check is new in R 3.1.2. I think we may modify the check to not fail if otool is not installed.\n\nCheers,\nSimon\n\n\n\n> Ivan\n> \n> --\n> Ivan Calandra, ATER\n> University of Reims Champagne-Ardenne\n> GEGENA? - EA 3795\n> CREA - 2 esplanade Roland Garros\n> 51100 Reims, France\n> +33(0)3 26 77 36 89\n> ivan.calandra at univ-reims.fr\n> https://www.researchgate.net/profile/Ivan_Calandra\n> \n> Le 25/12/14 21:51, Simon Urbanek a ?crit :\n>> Most recent tcltk is trying to detect the source of Tcl/Tk using otool to make sure all necessary libraries are present. However, older system don't have otool installed by default so this will fail if you don't have Xcode installed which provides otool. It seems that this is the case on your machine, installing Xcode command line tools should fix the issue.\n>> \n>> Cheers,\n>> Simon\n>> \n>> \n>> On Dec 25, 2014, at 11:15 AM, Ivan Calandra <ivan.calandra at univ-reims.fr> wrote:\n>> \n>>> Dear useRs,\n>>> \n>>> I have just upgraded to R 3.1.2 for MacOS 10.6.8 (with the binary for Snow Leopard).\n>>> \n>>> Everything is fine except that I get an error when loading TclTk:\n>>>> library(tcltk)\n>>> Error : .onLoad a ?chou? dans loadNamespace() pour 'tcltk', d?tails :\n>>>  appel : system2(\"otool\", c(\"-L\", shQuote(DLL)), stdout = TRUE)\n>>>  erreur : erreur lors de l'ex?cution d'une commande\n>>> Erreur : le chargement du package ou de l'espace de noms a ?chou? pour ?tcltk?\n>>> sh: otool: command not found\n>>> \n>>> What could be wrong? If needed I can translate the error. I had no problem with R 3.1.1.\n>>> \n>>> Thanks in advance and Merry Christmas!\n>>> Ivan\n>>> \n>>> \n>>> \n>>> \n>>> Here is my session info:\n>>>> sessionInfo()\n>>> R version 3.1.2 (2014-10-31)\n>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>> \n>>> locale:\n>>> [1] fr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8\n>>> \n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods base\n>>> \n>>> \n>>> \n>>> -- \n>>> Ivan Calandra, ATER\n>>> University of Reims Champagne-Ardenne\n>>> GEGENA? - EA 3795\n>>> CREA - 2 esplanade Roland Garros\n>>> 51100 Reims, France\n>>> +33(0)3 26 77 36 89\n>>> ivan.calandra at univ-reims.fr\n>>> https://www.researchgate.net/profile/Ivan_Calandra\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Dec 26, 2014, at 3:25 AM, Ivan Calandra <ivan.calandra at univ-reims.fr> wrote:\n\n> Thank you Simon for your answer.\n> But I cannot find Xcode for MacOS 10.6...\n\nGo to\n\nhttps://developer.apple.com/d",
+      "thread_id": "thread-81a0e5c1331e",
+      "thread_depth": 3,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-4a6d3e9d8d55",
+      "message_id": "<549E4990.80801@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2014-12-27T05:54:24Z",
+      "subject": "[R-SIG-Mac] tcltk",
+      "subject_clean": "tcltk",
+      "in_reply_to": "<D698743E-0EB5-4B28-971E-2C6B1048753A@r-project.org>",
+      "references": [
+        "<549C3821.7090507@univ-reims.fr>",
+        "<A4BE6EF5-4045-4845-B27B-FDD0AD484C31@r-project.org>",
+        "<549D1B94.6030602@univ-reims.fr>",
+        "<D698743E-0EB5-4B28-971E-2C6B1048753A@r-project.org>"
+      ],
+      "body_plain": "On 26/12/2014 20:28, Simon Urbanek wrote:\n> On Dec 26, 2014, at 3:25 AM, Ivan Calandra <ivan.calandra at univ-reims.fr> wrote:\n>\n>> Thank you Simon for your answer.\n>> But I cannot find Xcode for MacOS 10.6...\n>\n> Go to\n>\n> https://developer.apple.com/downloads\n>\n> and search for Xcode 4.2\n>\n> or use\n>\n> https://developer.apple.com/devcenter/download.action?path=/Developer_Tools/xcode_4.2_with_ios_5_sdk/xcode_4.2_and_ios_5_sdk_for_snow_leopard.dmg\n>\n>\n>\n>> And by the way, why did it work with R3.1.1?\n>>\n>\n> Because this check is new in R 3.1.2. I think we may modify the check to not fail if otool is not installed.\n\nWe already had in R-patched, so an alternative is to install 3.1.2 \npatched from http://r.research.att.com/\n\n\n> Cheers,\n> Simon\n>\n>\n>\n>> Ivan\n>>\n>> --\n>> Ivan Calandra, ATER\n>> University of Reims Champagne-Ardenne\n>> GEGENA? - EA 3795\n>> CREA - 2 esplanade Roland Garros\n>> 51100 Reims, France\n>> +33(0)3 26 77 36 89\n>> ivan.calandra at univ-reims.fr\n>> https://www.researchgate.net/profile/Ivan_Calandra\n>>\n>> Le 25/12/14 21:51, Simon Urbanek a ?crit :\n>>> Most recent tcltk is trying to detect the source of Tcl/Tk using otool to make sure all necessary libraries are present. However, older system don't have otool installed by default so this will fail if you don't have Xcode installed which provides otool. It seems that this is the case on your machine, installing Xcode command line tools should fix the issue.\n>>>\n>>> Cheers,\n>>> Simon\n>>>\n>>>\n>>> On Dec 25, 2014, at 11:15 AM, Ivan Calandra <ivan.calandra at univ-reims.fr> wrote:\n>>>\n>>>> Dear useRs,\n>>>>\n>>>> I have just upgraded to R 3.1.2 for MacOS 10.6.8 (with the binary for Snow Leopard).\n>>>>\n>>>> Everything is fine except that I get an error when loading TclTk:\n>>>>> library(tcltk)\n>>>> Error : .onLoad a ?chou? dans loadNamespace() pour 'tcltk', d?tails :\n>>>>   appel : system2(\"otool\", c(\"-L\", shQuote(DLL)), stdout = TRUE)\n>>>>   erreur : erreur lors de l'ex?cution d'une commande\n>>>> Erreur : le chargement du package ou de l'espace de noms a ?chou? pour ?tcltk?\n>>>> sh: otool: command not found\n>>>>\n>>>> What could be wrong? If needed I can translate the error. I had no problem with R 3.1.1.\n>>>>\n>>>> Thanks in advance and Merry Christmas!\n>>>> Ivan\n>>>>\n>>>>\n>>>>\n>>>>\n>>>> Here is my session info:\n>>>>> sessionInfo()\n>>>> R version 3.1.2 (2014-10-31)\n>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>>\n>>>> locale:\n>>>> [1] fr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8\n>>>>\n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods base\n>>>>\n>>>>\n>>>>\n>>>> --\n>>>> Ivan Calandra, ATER\n>>>> University of Reims Champagne-Ardenne\n>>>> GEGENA? - EA 3795\n>>>> CREA - 2 esplanade Roland Garros\n>>>> 51100 Reims, France\n>>>> +33(0)3 26 77 36 89\n>>>> ivan.calandra at univ-reims.fr\n>>>> https://www.researchgate.net/profile/Ivan_Calandra\n>>>>\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford\n1 South Parks Road, Oxford OX1 3TG, UK",
+      "body_snippet": "On 26/12/2014 20:28, Simon Urbanek wrote:\n> On Dec 26, 2014, at 3:25 AM, Ivan Calandra <ivan.calandra at univ-reims.fr> wrote:\n>\n>> Thank you Simon for your answer.\n>> But I cannot find Xcode for MacO",
+      "thread_id": "thread-81a0e5c1331e",
+      "thread_depth": 4,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-79334549ee87",
+      "message_id": "<1128957188.11557.1419775481461.JavaMail.zimbra@openanalytics.eu>",
+      "from_name": "Tobias Verbeke",
+      "from_email_hash": "d8ce0b0ad904b2359671d0a196360fdd14f7f73c5f013a12fb723fd16d2abab4",
+      "date": "2014-12-28T15:04:41+01:00",
+      "subject": "[R-SIG-Mac] compile R on Mac OS 10.9.4 with cairo support",
+      "subject_clean": "compile R on Mac OS 10.9.4 with cairo support",
+      "in_reply_to": "<3E1322C4-ABAE-477F-8696-B1A1F55BA4A5@r-project.org>",
+      "references": [
+        "<1801972854.144375.1408808599427.JavaMail.zimbra@openanalytics.eu>",
+        "<53FADFC3.8080001@stats.ox.ac.uk>",
+        "<3E1322C4-ABAE-477F-8696-B1A1F55BA4A5@r-project.org>"
+      ],
+      "body_plain": "Dear Simon, Dear Prof. Ripley,\n\n----- Original Message -----\n> From: \"Simon Urbanek\" <simon.urbanek at r-project.org>\n> To: \"Prof Brian Ripley\" <ripley at stats.ox.ac.uk>, \"Tobias Verbeke\" <tobias.verbeke at openanalytics.eu>\n> Cc: r-sig-mac at r-project.org\n> Sent: Monday, August 25, 2014 4:41:42 PM\n> Subject: Re: [R-SIG-Mac] compile R on Mac OS 10.9.4 with cairo support\n> \n> \n> On Aug 25, 2014, at 3:03 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> > On 23/08/2014 16:43, Tobias Verbeke wrote:\n> >> Dear list,\n> >> \n> >> I'm trying to compile R from source on Mac OS 10.9.4 using the flags from\n> >> \n> >> https://svn.r-project.org/R-dev-web/trunk/QA/Simon/R-build/conf.mavericks-x86_64\n> >> \n> >> I untarred the following libraries from http://r.research.att.com/libs/\n> >> \n> >> gfortran-4.8.2-darwin13.tar.bz2\n> >> tcl8.6.0-darwin10-x86_64.tar.gz\n> >> tk8.6.0-darwin10-x86_64.tar.gz\n> >> freetype-2.5.3-darwin10-bin2.tar.gz\n> >> pkg-config-0.25-darwin9-bin3.tar.gz\n> >> fontconfig-2.11.1-darwin10-bin2.tar.gz\n> >> fontconfig-2.11.1-add.tar.gz\n> >> cairo-1.12.16-darwin10-bin2.tar.gz\n> >> jpeg-v8d-darwin9-bin4.tar.gz\n> >> libpng-1.5.18-darwin10-bin2.tar.gz\n> >> tiff-4.0.3-darwin10-bin2.tar.gz\n> >> pixman-0.32.4-darwin10-bin2.tar.gz\n> >> xz-5.0.5-darwin10-bin2.tar.gz\n> >> \n> >> Then I applied the patch from\n> >> http://r.research.att.com/libs/cairo-1.12.16-darwin13-static-pkgconfig.patch\n> >> using\n> >> \n> >> cd /usr/local/lib/pkgconfig\n> >> sudo curl -O\n> >> http://r.research.att.com/libs/cairo-1.12.16-darwin13-static-pkgconfig.patch\n> >> sudo patch < cairo-1.12.16-darwin13-static-pkgconfig.patch\n> >> \n> >> Some patches are rejected and the resulting 'fontconfig.pc.rej' looks as\n> >> follows:\n> >> \n> >> ***************\n> >> *** 13,18 ****\n> >>   Version: 2.11.0\n> >>   Requires:  freetype2\n> >>   Requires.private:  libxml-2.0\n> >> - Libs: -L${libdir} -lfontconfig\n> >> - Libs.private:  -L/usr/local/lib -lfreetype    -lxml2\n> >>   Cflags: -I${includedir}  -I/usr/local/include/freetype2\n> >>   -I/usr/local/include/libpng15    -I/usr/include/libxml2\n> >> --- 13,18 ----\n> >>   Version: 2.11.0\n> >>   Requires:  freetype2\n> >>   Requires.private:  libxml-2.0\n> >> + Libs: /usr/local/lib/libfontconfig.a\n> >> + Libs.private:  /usr/local/lib/libfreetype.a -lxml2\n> >>   Cflags: -I${includedir}  -I/usr/local/include/freetype2\n> >>   -I/usr/local/include/libpng15    -I/usr/include/libxml2\n> >> \n> >> Compilation itself goes fine, but I do not succeed in getting proper cairo\n> >> support.\n> >> \n> >> The config.log has the following:\n> >> \n> >> checking whether pkg-config knows about cairo... yes\n> >> Package libxml-2.0 was not found in the pkg-config search path.\n> >> Perhaps you should add the directory containing `libxml-2.0.pc'\n> >> to the PKG_CONFIG_PATH environment variable\n> >> Package 'libxml-2.0', required by 'Fontconfig', not found\n> >> Package libxml-2.0 was not found in the pkg-config search path.\n> >> Perhaps you should add the directory containing `libxml-2.0.pc'\n> >> to the PKG_CONFIG_PATH environment variable\n> >> Package 'libxml-2.0', required by 'Fontconfig', not found\n> >> Package libxml-2.0 was not found in the pkg-config search path.\n> >> Perhaps you should add the directory containing `libxml-2.0.pc'\n> >> to the PKG_CONFIG_PATH environment variable\n> >> Package 'libxml-2.0', required by 'Fontconfig', not found\n> >> Package libxml-2.0 was not found in the pkg-config search path.\n> >> Perhaps you should add the directory containing `libxml-2.0.pc'\n> >> to the PKG_CONFIG_PATH environment variable\n> >> Package 'libxml-2.0', required by 'Fontconfig', not found\n> >> checking whether cairo is >= 1.2 and works... no\n> >> \n> >> Executing\n> >> \n> >> sudo find / -name libxml-2.0.pc\n> >> \n> >> does not give any results.\n> >> \n> >> I must have overlooked something. Is there other information I can\n> >> provide?\n> > \n> > Apple overlooked something.  The pkg-config you are using is not provided\n> > by Apple, and Apple does not provide pkg-config files for the software it\n> > provides[*] where installing from sources would do so.\n> > \n> > I do have a /usr/local/lib/pkgconfig/libxml-2.0.pc, containing\n> > \n> > prefix=/usr\n> > exec_prefix=${prefix}\n> > libdir=${exec_prefix}/lib\n> > includedir=${prefix}/include\n> > modules=1\n> > \n> > Name: libXML\n> > Version: 2.9.1\n> > Description: libXML library version2.\n> > Requires:\n> > Libs: -L${libdir} -lxml2\n> > Libs.private:  -lpthread -lz  -liconv -lm\n> > Cflags: -I${includedir}/libxml2\n> > \n> > from a source installation of libxml2.\n> > \n> > [*] Strangely, /usr/lib/pkgconfig is not quite empty on my box.\n> > \n> \n> Indeed, I have\n> \n> $ ls -l /usr/lib/pkgconfig/\n> total 32\n> -rw-r--r--  1 root  wheel   329 Dec  6  2013 apr-1.pc\n> -rw-r--r--  1 root  wheel   446 Dec  6  2013 apr-util-1.pc\n> -rw-r--r--  1 root  wheel   239 Dec  6  2013 libcrypto.pc\n> -rw-r--r--  1 root  wheel  1803 Mar 26 16:16 libcurl.pc\n> -rw-r--r--  1 root  wheel   327 Dec  6  2013 libedit.pc\n> -rw-r--r--  1 root  wheel   275 Mar 26 16:17 libexslt.pc\n> -rw-r--r--  1 root  wheel  3591 Dec  6  2013 libiodbc.pc\n> -rw-r--r--  1 root  wheel   268 Dec  6  2013 libpcre.pc\n> -rw-r--r--  1 root  wheel   301 Dec  6  2013 libpcreposix.pc\n> -rw-r--r--  1 root  wheel   254 Dec  6  2013 libssl.pc\n> -rw-r--r--  1 root  wheel   268 Mar 26 16:17 libxml-2.0.pc\n> -rw-r--r--  1 root  wheel   265 Mar 26 16:17 libxslt.pc\n> -rw-r--r--  1 root  wheel   264 Dec  6  2013 openssl.pc\n> \n> Those are all for system libraries. But I can't really tell where they come\n> from - some of them are from the base system:\n> \n> $ pkgutil --file-info /usr/lib/pkgconfig/libpcre.pc\n> volume: /\n> path: /usr/lib/pkgconfig/libpcre.pc\n> \n> pkgid: com.apple.pkg.Essentials\n> pkg-version: 10.9.0.1.1.1306847324\n> install-time: 1386365859\n> \n> but the one in question doesn't have a record:\n> \n> $ pkgutil --file-info /usr/lib/pkgconfig/libxml-2.0.pc\n> volume: /\n> path: /usr/lib/pkgconfig/libxml-2.0.pc\n> \n> I have put the ones without provenance into\n> \n> http://r.research.att.com/libs/pkgconfig-system-stubs-darwin13.tar.gz\n> \n> in case they are useful\n\nThese indeed proved to be useful and I can now compile successfully.\n\nMany thanks for your help and I wish you a joyous holiday season!\n\nKind regards,\nTobias",
+      "body_snippet": "Dear Simon, Dear Prof. Ripley,\n\n----- Original Message -----\n> From: \"Simon Urbanek\" <simon.urbanek at r-project.org>\n> To: \"Prof Brian Ripley\" <ripley at stats.ox.ac.uk>, \"Tobias Verbeke\" <tobias.ver",
+      "thread_id": "thread-79334549ee87",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-b262466425c6",
+      "message_id": "<CE609206-2E79-4029-B635-F0B03DAFABE8@gmail.com>",
+      "from_name": "Rafael",
+      "from_email_hash": "57ee888596a9cd15cab55a82ba66b43e81f8ab02746a856141075dc802d40ce9",
+      "date": "2014-12-29T15:37:05-02:00",
+      "subject": "[R-SIG-Mac] Error installing the package packfor in Yosemite Max OS",
+      "subject_clean": "Error installing the package packfor in Yosemite Max OS",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am having problems installing the Package packfor form source in Mac OS X Yosemite in the R software. I know that the package depends on fortran compiler, so I installed the gfortran available in CRAN but it does not affect anything. Bellow I am reproducing the error log. \n\nplease if anyone has any advice on this would be much appreciated. \n\nThanks in advance\n\n\n> install.packages(\"~/Downloads/packfor_0.0-8.tar\", repos = NULL,type=\"source\")\n* installing *source* package ?packfor? ...\n** libs\nclang -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c forward.c -o forward.o\nforward.c:411:3: warning: implicit declaration of function 'dgesvd_' is invalid in C99 [-Wimplicit-function-declaration]\n  F77_CALL(dgesvd)(&jobu, &jobvt,&size, &size,A, &size, D,U,&size,V,&size,&work1, &lwork,&error);\n  ^\n/Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:82:22: note: expanded from macro 'F77_CALL'\n# define F77_CALL(x)    x ## _\n                        ^\n<scratch space>:8:1: note: expanded from here\ndgesvd_\n^\nforward.c:421:43: warning: data argument not used by format string [-Wformat-extra-args]\n      fprintf(stderr, \"error in dinvG: \", error);\n                      ~~~~~~~~~~~~~~~~~~  ^\n/Library/Frameworks/R.framework/Resources/include/R_ext/Error.h:51:15: note: expanded from macro 'error'\n#define error Rf_error\n              ^\n2 warnings generated.\nclang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o packfor.so forward.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/lib/gcc/x86_64-apple-darwin13.0.0/4.8.2 -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\nWarning message:\nIn install.packages(\"~/Downloads/packfor_0.0-8.tar\", repos = NULL,  :\n  installation of package ?/Users/rafael/Downloads/packfor_0.0-8.tar? had non-zero exit status\nld: warning: directory not found for option '-L/usr/local/lib/gcc/x86_64-apple-darwin13.0.0/4.8.2'\nld: library not found for -lquadmath\nclang: error: linker command failed with exit code 1 (use -v to see invocation)\nmake: *** [packfor.so] Error 1\nERROR: compilation failed for package ?packfor?\n* removing ?/Library/Frameworks/R.framework/Versions/3.1/Resources/library/packfor?\n\n\n\n-- \nProf. Dr. Rafael Dettogni Guariento\nProfessor Adjunto n?vel I\nTel: (067) 3345-7336 <tel:%28067%29%203345-7336>\nUniversidade Federal do Mato Grosso do Sul - Centro de Ci?ncias Biol?gicas e da Sa?de (CCBS)\nCidade Universit?ria S/N    Caixa Postal: 549\nCEP: 79070-900\nCampo Grande - MS, Brasil\n\nhttp://lattes.cnpq.br/1463776084744636 <http://lattes.cnpq.br/1463776084744636>\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I am having problems installing the Package packfor form source in Mac OS X Yosemite in the R software. I know that the package depends on fortran compiler, so I installed the gfortran available in CR",
+      "thread_id": "thread-b262466425c6",
+      "thread_depth": 0,
+      "month": "2014-12"
+    },
+    {
+      "id": "msg-05ff76890809",
+      "message_id": "<CALZD3up6TQ-0aw9F9OWi7-E-P6KHW0=Ysmax2aE937dnxtNDgA@mail.gmail.com>",
+      "from_name": "Rafael Guariento",
+      "from_email_hash": "68a560d8a58a16b01dc73e475362d1f892bc4721c43984823a7eb52fa0c36446",
+      "date": "2014-12-29T15:57:40-02:00",
+      "subject": "[R-SIG-Mac] Error installing the package packfor in Yosemite Max OS",
+      "subject_clean": "Error installing the package packfor in Yosemite Max OS",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "am having problems installing the Package packfor form source in Mac OS X\nYosemite in the R software. I know that the package depends on fortran\ncompiler, so I installed the gfortran available in CRAN but it does not\naffect anything. Bellow I am reproducing the error log.\n\nplease if anyone has any advice on this would be much appreciated.\n\nThanks in advance\n\n\n> install.packages(\"~/Downloads/packfor_0.0-8.tar\", repos =\nNULL,type=\"source\")\n\n* installing *source* package ?packfor? ...\n\n** libs\n\nclang -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG\n -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include\n -fPIC  -Wall -mtune=core2 -g -O2  -c forward.c -o forward.o\n\nforward.c:411:3: warning: implicit declaration of function 'dgesvd_' is\ninvalid in C99 [-Wimplicit-function-declaration]\n\n  F77_CALL(dgesvd)(&jobu, &jobvt,&size, &size,A, &size,\nD,U,&size,V,&size,&work1, &lwork,&error);\n\n  ^\n\n/Library/Frameworks/R.framework/Resources/include/R_ext/RS.h:82:22: note:\nexpanded from macro 'F77_CALL'\n\n# define F77_CALL(x)    x ## _\n\n                        ^\n\n<scratch space>:8:1: note: expanded from here\n\ndgesvd_\n\n^\n\nforward.c:421:43: warning: data argument not used by format string\n[-Wformat-extra-args]\n\n      fprintf(stderr, \"error in dinvG: \", error);\n\n                      ~~~~~~~~~~~~~~~~~~  ^\n\n/Library/Frameworks/R.framework/Resources/include/R_ext/Error.h:51:15:\nnote: expanded from macro 'error'\n\n#define error Rf_error\n\n              ^\n\n2 warnings generated.\n\nclang -dynamiclib -Wl,-headerpad_max_install_names -undefined\ndynamic_lookup -single_module -multiply_defined suppress\n-L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o\npackfor.so forward.o -L/Library/Frameworks/R.framework/Resources/lib\n-lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas\n-L/usr/local/lib/gcc/x86_64-apple-darwin13.0.0/4.8.2 -lgfortran -lquadmath\n-lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n-Wl,CoreFoundation\n\nWarning message:\n\nIn install.packages(\"~/Downloads/packfor_0.0-8.tar\", repos = NULL,  :\n\n  installation of package ?/Users/rafael/Downloads/packfor_0.0-8.tar? had\nnon-zero exit status\n\nld: warning: directory not found for option\n'-L/usr/local/lib/gcc/x86_64-apple-darwin13.0.0/4.8.2'\n\nld: library not found for -lquadmath\n\nclang: error: linker command failed with exit code 1 (use -v to see\ninvocation)\n\nmake: *** [packfor.so] Error 1\n\nERROR: compilation failed for package ?packfor?\n\n* removing\n?/Library/Frameworks/R.framework/Versions/3.1/Resources/library/packfor?\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "am having problems installing the Package packfor form source in Mac OS X\nYosemite in the R software. I know that the package depends on fortran\ncompiler, so I installed the gfortran available in CRAN",
+      "thread_id": "thread-05ff76890809",
+      "thread_depth": 0,
+      "month": "2014-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-0b3ef824d2a2",
+      "subject": "\"I running Rstudio, using Mac os but in virtual Parallel Windows\"",
+      "message_count": 1,
+      "participants": [
+        "Oscar Ramírez A"
+      ],
+      "started": "2014-12-03T03:19:35+00:00",
+      "last_reply": "2014-12-03T03:19:35+00:00",
+      "root_message_id": "msg-0b3ef824d2a2"
+    },
+    {
+      "id": "thread-0be888b1cfd4",
+      "subject": "X11 and Yosemite",
+      "message_count": 3,
+      "participants": [
+        "Jorge I Velez",
+        "Simon Urbanek"
+      ],
+      "started": "2014-12-03T09:15:42+11:00",
+      "last_reply": "2014-12-03T09:43:59+11:00",
+      "root_message_id": "msg-0be888b1cfd4"
+    },
+    {
+      "id": "thread-777c72dbb677",
+      "subject": "Check-for-updates didn't realize 3.1.1 is not current",
+      "message_count": 2,
+      "participants": [
+        "Boris Steipe",
+        "Simon Urbanek"
+      ],
+      "started": "2014-12-04T10:40:59-05:00",
+      "last_reply": "2014-12-05T09:46:26-05:00",
+      "root_message_id": "msg-777c72dbb677"
+    },
+    {
+      "id": "thread-b42d58fce934",
+      "subject": "R Freezes while Document editing",
+      "message_count": 4,
+      "participants": [
+        "Boris Steipe",
+        "John Magnotti",
+        "peter dalgaard"
+      ],
+      "started": "2014-12-04T15:16:27-05:00",
+      "last_reply": "2014-12-04T23:13:20-06:00",
+      "root_message_id": "msg-b42d58fce934"
+    },
+    {
+      "id": "thread-6def00669af7",
+      "subject": "XPCErrorDescription",
+      "message_count": 1,
+      "participants": [
+        "john d"
+      ],
+      "started": "2014-12-05T10:03:31-02:00",
+      "last_reply": "2014-12-05T10:03:31-02:00",
+      "root_message_id": "msg-6def00669af7"
+    },
+    {
+      "id": "thread-172d2d95c772",
+      "subject": "vegan failed to load under Mac OS X Mavericks",
+      "message_count": 1,
+      "participants": [
+        "Pedro Gomes"
+      ],
+      "started": "2014-12-18T21:52:23+00:00",
+      "last_reply": "2014-12-18T21:52:23+00:00",
+      "root_message_id": "msg-172d2d95c772"
+    },
+    {
+      "id": "thread-767dec104bcb",
+      "subject": "OpenFile Dialog hangs",
+      "message_count": 2,
+      "participants": [
+        "Carl Witthoft",
+        "Sakai Tena"
+      ],
+      "started": "2014-12-21T14:21:35-05:00",
+      "last_reply": "2014-12-21T14:54:40-06:00",
+      "root_message_id": "msg-767dec104bcb"
+    },
+    {
+      "id": "thread-19422d395aa6",
+      "subject": "OpenFile hang; fixed not solved",
+      "message_count": 1,
+      "participants": [
+        "Carl Witthoft"
+      ],
+      "started": "2014-12-21T14:48:14-05:00",
+      "last_reply": "2014-12-21T14:48:14-05:00",
+      "root_message_id": "msg-19422d395aa6"
+    },
+    {
+      "id": "thread-63270c1744a8",
+      "subject": "corrupted plist file again",
+      "message_count": 3,
+      "participants": [
+        "Carl Witthoft",
+        "Simon Urbanek"
+      ],
+      "started": "2014-12-23T10:07:07-05:00",
+      "last_reply": "2014-12-23T12:16:48-05:00",
+      "root_message_id": "msg-63270c1744a8"
+    },
+    {
+      "id": "thread-376f45726654",
+      "subject": "apparently solved: hang on Open Dialog box",
+      "message_count": 1,
+      "participants": [
+        "Carl Witthoft"
+      ],
+      "started": "2014-12-23T17:13:05-05:00",
+      "last_reply": "2014-12-23T17:13:05-05:00",
+      "root_message_id": "msg-376f45726654"
+    },
+    {
+      "id": "thread-e634000b4f6b",
+      "subject": "Is Yosemite now \"safe\" for most of us?",
+      "message_count": 5,
+      "participants": [
+        "Hadley Wickham",
+        "Prof Brian Ripley",
+        "Ralph O'Brien",
+        "Simon Urbanek",
+        "peter dalgaard"
+      ],
+      "started": "2014-12-24T09:37:58-05:00",
+      "last_reply": "2014-12-25T14:48:11-05:00",
+      "root_message_id": "msg-e634000b4f6b"
+    },
+    {
+      "id": "thread-81a0e5c1331e",
+      "subject": "tcltk",
+      "message_count": 5,
+      "participants": [
+        "Ivan Calandra",
+        "Prof Brian Ripley",
+        "Simon Urbanek"
+      ],
+      "started": "2014-12-25T17:15:29+01:00",
+      "last_reply": "2014-12-27T05:54:24+00:00",
+      "root_message_id": "msg-81a0e5c1331e"
+    },
+    {
+      "id": "thread-79334549ee87",
+      "subject": "compile R on Mac OS 10.9.4 with cairo support",
+      "message_count": 1,
+      "participants": [
+        "Tobias Verbeke"
+      ],
+      "started": "2014-12-28T15:04:41+01:00",
+      "last_reply": "2014-12-28T15:04:41+01:00",
+      "root_message_id": "msg-79334549ee87"
+    },
+    {
+      "id": "thread-b262466425c6",
+      "subject": "Error installing the package packfor in Yosemite Max OS",
+      "message_count": 1,
+      "participants": [
+        "Rafael"
+      ],
+      "started": "2014-12-29T15:37:05-02:00",
+      "last_reply": "2014-12-29T15:37:05-02:00",
+      "root_message_id": "msg-b262466425c6"
+    },
+    {
+      "id": "thread-05ff76890809",
+      "subject": "Error installing the package packfor in Yosemite Max OS",
+      "message_count": 1,
+      "participants": [
+        "Rafael Guariento"
+      ],
+      "started": "2014-12-29T15:57:40-02:00",
+      "last_reply": "2014-12-29T15:57:40-02:00",
+      "root_message_id": "msg-05ff76890809"
+    }
+  ]
+}

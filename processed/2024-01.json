@@ -1,0 +1,209 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2024-01",
+  "messages": [
+    {
+      "id": "msg-02d58d578636",
+      "message_id": "<CABFfbXswfjj3dWg3+2SaWMBS8rQVLW6SiMZ_3wXRcpSf31edvw@mail.gmail.com>",
+      "from_name": "Jeroen Ooms",
+      "from_email_hash": "6d6b57f7dfdacdb11068763c49af518a12f1ee23bc379f749098f057c1d6df69",
+      "date": "2024-01-02T20:21:56+01:00",
+      "subject": "[R-SIG-Mac] Cross compilation and linking without -undefined",
+      "subject_clean": "Cross compilation and linking without -undefined",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "R on MacOS defaults to linking with \"-undefined dynamic_lookup\" when\nbuilding packages, which suppresses linking errors due to undefined\nsymbols. Undefined symbols often indicate that the package has omitted\na required library in PKG_LIBS, or that the architecture of the static\nlib does not match the target. When this happens, CMD INSTALL usually\nfails to load the package dylib in the subsequent \"test-load\" step,\nunless the undefined symbols are already preloaded in the process via\nbase R (e.g. zlib, iconv, etc) in which case it goes unnoticed.\n\nI was wondering what is the benefit of suppressing linking errors this\nway? Afaik R does not do this on other platforms. A failure at the\n\"test-load\" step gives a cryptic error indicating only the mangled\nname of the first undefined symbol. The linker can provide much nicer\nerror messages, detailing the names and locations of undefined\nsymbols.\n\nAnother motivation for looking into this is to support cross compiling\nof R packages on MacOS. We are exploring several ways to cross compile\nR packages, including:\n\n  macos-x86_64 -> macos-arm64 (by overriding -arch in Makeconf)\n  linux-x86_64 -> macos-x86_64 (using osxcross)\n  linux-x86_64 -> macos-arm64 (using osxcross)\n\nThe main challenge with cross compiling is that we cannot test-load\nthe R package on the host machine, so we always have to build with\n--no-test-load. However this is dangerous in combination with the\n\"-undefined\" flag, because we don't catch undefined symbols anymore.\n\nUnfortunately undefined symbols are a common problem when cross\ncompiling, because some packages mistakenly assume host == target, and\nthen build/link a lib for the wrong arch. If we don't catch this, we\nend up shipping broken binary R packages to end-users, which we want\nto prevent.\n\nTo remedy this, I am testing to build packages using the same setup as\nCRAN (MacOSX11.sdk + libs from\nhttps://mac.r-project.org/bin/darwin20/) but without the \"-undefined\ndynamic_lookup\" flag, like so:\n\n  sed -i.bak 's/-undefined dynamic_lookup//g' $(R RHOME)/etc/Makeconf\n\nThis works fine for almost all packages. Some do reveal a linking\nproblem, but these are mostly real bugs and easily fixable. For\nexample the httpuv package fails with:\n\nld: Undefined symbols:\n  _deflate, referenced from:\n      GZipDataSource::getData(unsigned long) in gzipdatasource.o\n      GZipDataSource::deflateNext() in gzipdatasource.o\n  _deflateEnd, referenced from:\n      GZipDataSource::~GZipDataSource() in gzipdatasource.o\n\nNote how the above message from the linker is very clear in what is\nmissing and where. This error is accurate, because httpuv indeed calls\nexternal libz, but fails to set \"-lz\" in PKG_LIBS. This was never\nnoticed because libz.dylib is preloaded in R, hence the test-load does\nnot notice the bug.\n\nAnother example is 'arrow' which was missing \"-framework Security\" in\nPKG_LIBS. This will be fixed in the upcoming CRAN release. There were\na few more of such cases where PKG_LIBS was missing some lib of\nFramework, but they are mostly fixable.\n\nOne problem I have not solved is the RcppParallel package, which\nbundles another library (libtbb) which is not linked but lazy-loaded\n(not sure why). This causes linking errors or some other packages that\nhave LinkingTo: RcppParallel. Perhaps this can be solved by providing\na static libtbb via the cran recipes, such that RcppParallel does not\nhave to bundle one.\n\nIt would be really nice if eventually R could remove \"-undefined\" from\nthe default linker flags when building R packages. This makes build\nlogs more informative and easier to debug, and forces packages to\nspecify complete linker flags, which will eventually enable safer\ncross-compiling (including of universal binaries).",
+      "body_snippet": "R on MacOS defaults to linking with \"-undefined dynamic_lookup\" when\nbuilding packages, which suppresses linking errors due to undefined\nsymbols. Undefined symbols often indicate that the package has ",
+      "thread_id": "thread-02d58d578636",
+      "thread_depth": 0,
+      "month": "2024-01"
+    },
+    {
+      "id": "msg-f0a97a672b8c",
+      "message_id": "<1acde9d4-7bbb-4654-a073-33dabf92b1cb@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2024-01-03T07:11:53Z",
+      "subject": "[R-SIG-Mac] Cross compilation and linking without -undefined",
+      "subject_clean": "Cross compilation and linking without -undefined",
+      "in_reply_to": "<CABFfbXswfjj3dWg3+2SaWMBS8rQVLW6SiMZ_3wXRcpSf31edvw@mail.gmail.com>",
+      "references": [
+        "<CABFfbXswfjj3dWg3+2SaWMBS8rQVLW6SiMZ_3wXRcpSf31edvw@mail.gmail.com>"
+      ],
+      "body_plain": "This is just a default.  AFAICS it is set in DYLIB_LDFLAGS and you can \nset that as you wish - it is documented in config.site.\n\nThat cross-compilation cannot test-load is a major reason not to use it \nand why support for packages was downplayed on Windows.\n\nOn 02/01/2024 19:21, Jeroen Ooms wrote:\n> R on MacOS defaults to linking with \"-undefined dynamic_lookup\" when\n> building packages, which suppresses linking errors due to undefined\n> symbols. Undefined symbols often indicate that the package has omitted\n> a required library in PKG_LIBS, or that the architecture of the static\n> lib does not match the target. When this happens, CMD INSTALL usually\n> fails to load the package dylib in the subsequent \"test-load\" step,\n> unless the undefined symbols are already preloaded in the process via\n> base R (e.g. zlib, iconv, etc) in which case it goes unnoticed.\n> \n> I was wondering what is the benefit of suppressing linking errors this\n> way? Afaik R does not do this on other platforms. A failure at the\n> \"test-load\" step gives a cryptic error indicating only the mangled\n> name of the first undefined symbol. The linker can provide much nicer\n> error messages, detailing the names and locations of undefined\n> symbols.\n\nIt may, but it often does not.  Frequently test-loading shows issues in \ncomplex C++-using packages: you mention 'arrow' and that is a current \n(and frequent) failure on Linux.\n\n> Another motivation for looking into this is to support cross compiling\n> of R packages on MacOS. We are exploring several ways to cross compile\n> R packages, including:\n> \n>    macos-x86_64 -> macos-arm64 (by overriding -arch in Makeconf)\n>    linux-x86_64 -> macos-x86_64 (using osxcross)\n>    linux-x86_64 -> macos-arm64 (using osxcross)\n> \n> The main challenge with cross compiling is that we cannot test-load\n> the R package on the host machine, so we always have to build with\n> --no-test-load. However this is dangerous in combination with the\n> \"-undefined\" flag, because we don't catch undefined symbols anymore.\n> \n> Unfortunately undefined symbols are a common problem when cross\n> compiling, because some packages mistakenly assume host == target, and\n> then build/link a lib for the wrong arch. If we don't catch this, we\n> end up shipping broken binary R packages to end-users, which we want\n> to prevent.\n> \n> To remedy this, I am testing to build packages using the same setup as\n> CRAN (MacOSX11.sdk + libs from\n> https://mac.r-project.org/bin/darwin20/) but without the \"-undefined\n> dynamic_lookup\" flag, like so:\n> \n>    sed -i.bak 's/-undefined dynamic_lookup//g' $(R RHOME)/etc/Makeconf\n> \n> This works fine for almost all packages. Some do reveal a linking\n> problem, but these are mostly real bugs and easily fixable. For\n> example the httpuv package fails with:\n> \n> ld: Undefined symbols:\n>    _deflate, referenced from:\n>        GZipDataSource::getData(unsigned long) in gzipdatasource.o\n>        GZipDataSource::deflateNext() in gzipdatasource.o\n>    _deflateEnd, referenced from:\n>        GZipDataSource::~GZipDataSource() in gzipdatasource.o\n> \n> Note how the above message from the linker is very clear in what is\n> missing and where. This error is accurate, because httpuv indeed calls\n> external libz, but fails to set \"-lz\" in PKG_LIBS. This was never\n> noticed because libz.dylib is preloaded in R, hence the test-load does\n> not notice the bug.\n> \n> Another example is 'arrow' which was missing \"-framework Security\" in\n> PKG_LIBS. This will be fixed in the upcoming CRAN release. There were\n> a few more of such cases where PKG_LIBS was missing some lib of\n> Framework, but they are mostly fixable.\n> \n> One problem I have not solved is the RcppParallel package, which\n> bundles another library (libtbb) which is not linked but lazy-loaded\n> (not sure why). This causes linking errors or some other packages that\n> have LinkingTo: RcppParallel. Perhaps this can be solved by providing\n> a static libtbb via the cran recipes, such that RcppParallel does not\n> have to bundle one.\n> \n> It would be really nice if eventually R could remove \"-undefined\" from\n> the default linker flags when building R packages. This makes build\n> logs more informative and easier to debug, and forces packages to\n> specify complete linker flags, which will eventually enable safer\n> cross-compiling (including of universal binaries).\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "This is just a default.  AFAICS it is set in DYLIB_LDFLAGS and you can \nset that as you wish - it is documented in config.site.\n\nThat cross-compilation cannot test-load is a major reason not to use it",
+      "thread_id": "thread-02d58d578636",
+      "thread_depth": 1,
+      "month": "2024-01"
+    },
+    {
+      "id": "msg-d7354e3e33d4",
+      "message_id": "<861613641.1097332.1705846183686@mail.yahoo.com>",
+      "from_name": "Brodie Gaslam",
+      "from_email_hash": "671f5402c186de5945c34deb8b8157b8adc470325b32745c09602547421baa39",
+      "date": "2024-01-21T14:09:43Z",
+      "subject": "[R-SIG-Mac] Arm 64 Nightly Build URL Missing",
+      "subject_clean": "Arm 64 Nightly Build URL Missing",
+      "in_reply_to": "<1703932861.712273.1697900843506@mail.yahoo.com>",
+      "references": [
+        "<1703932861.712273.1697900843506.ref@mail.yahoo.com>",
+        "<1703932861.712273.1697900843506@mail.yahoo.com>"
+      ],
+      "body_plain": "Hi,\n\nIn addition to the missing link described below, it looks like the nightly build tar.gz has not been updated since 2023-10-30.? This corresponds to the build log[1].? The x86-64 version seems to have a much more recent version (2024-01-19).? I have other methods of running R-devel so this is just an FYI.\n\nBest,\n\nB.\n\nPS: the current arm64 version is 2023-10-30 r85440, which interestingly is a bit newer than the one I reported in the prior e-mail.\n\n[1]: https://mac.r-project.org/logs/log-R-devel.big-sur.arm64.html\n\n\n\n\n\n\nOn Saturday, October 21, 2023 at 11:07:23 AM EDT, Brodie Gaslam <brodie.gaslam at yahoo.com> wrote: \n\n\n\n\n\nHi,\n\nFor some reason the URL in the nightly builds[1] table for the arm64 tar.gz is missing.? The actual tar.gz is there if I start with the x86 URL and modify it, but it is an older version r85331 vs r85355.? Not a big deal at all on my account, just an FYI.\n\nThanks for all the hard work of keeping up this infrastructure.? It is really helpful to me.\n\nBest,\n\nB.\n\n[1]: https://mac.r-project.org/#nightly",
+      "body_snippet": "Hi,\n\nIn addition to the missing link described below, it looks like the nightly build tar.gz has not been updated since 2023-10-30.? This corresponds to the build log[1].? The x86-64 version seems to ",
+      "thread_id": "thread-d7354e3e33d4",
+      "thread_depth": 0,
+      "month": "2024-01"
+    },
+    {
+      "id": "msg-7f8194ebadd8",
+      "message_id": "<BA2C1437-F696-4C63-9D47-8857F66EF002@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2024-01-22T12:22:37+13:00",
+      "subject": "[R-SIG-Mac] Arm 64 Nightly Build URL Missing",
+      "subject_clean": "Arm 64 Nightly Build URL Missing",
+      "in_reply_to": "<861613641.1097332.1705846183686@mail.yahoo.com>",
+      "references": [
+        "<1703932861.712273.1697900843506.ref@mail.yahoo.com>",
+        "<1703932861.712273.1697900843506@mail.yahoo.com>",
+        "<861613641.1097332.1705846183686@mail.yahoo.com>"
+      ],
+      "body_plain": "Brodie,\n\nthanks. There was a problem between the two build VMs where the x86_64 one could overwrite arm64's content with a stale content before they got branched. This should now be fixed - each should be supplying only its own part.\n\nCheers,\nSimon\n\n\n\n> On Jan 22, 2024, at 3:09 AM, Brodie Gaslam via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hi,\n> \n> In addition to the missing link described below, it looks like the nightly build tar.gz has not been updated since 2023-10-30.  This corresponds to the build log[1].  The x86-64 version seems to have a much more recent version (2024-01-19).  I have other methods of running R-devel so this is just an FYI.\n> \n> Best,\n> \n> B.\n> \n> PS: the current arm64 version is 2023-10-30 r85440, which interestingly is a bit newer than the one I reported in the prior e-mail.\n> \n> [1]: https://mac.r-project.org/logs/log-R-devel.big-sur.arm64.html\n> \n> \n> \n> \n> \n> \n> On Saturday, October 21, 2023 at 11:07:23 AM EDT, Brodie Gaslam <brodie.gaslam at yahoo.com> wrote: \n> \n> \n> \n> \n> \n> Hi,\n> \n> For some reason the URL in the nightly builds[1] table for the arm64 tar.gz is missing.  The actual tar.gz is there if I start with the x86 URL and modify it, but it is an older version r85331 vs r85355.  Not a big deal at all on my account, just an FYI.\n> \n> Thanks for all the hard work of keeping up this infrastructure.  It is really helpful to me.\n> \n> Best,\n> \n> B.\n> \n> [1]: https://mac.r-project.org/#nightly\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Brodie,\n\nthanks. There was a problem between the two build VMs where the x86_64 one could overwrite arm64's content with a stale content before they got branched. This should now be fixed - each shoul",
+      "thread_id": "thread-d7354e3e33d4",
+      "thread_depth": 1,
+      "month": "2024-01"
+    },
+    {
+      "id": "msg-206c8939baf8",
+      "message_id": "<66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>",
+      "from_name": "Wright, Erik Scott",
+      "from_email_hash": "759e1afb1c1fa86b65a0d2ea1b76de0b3fd9398c91bf7f02bc0a3c2284abde5d",
+      "date": "2024-01-22T14:41:26Z",
+      "subject": "[R-SIG-Mac] Miniature plot windows",
+      "subject_clean": "Miniature plot windows",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all,\n\nI recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.\n\nFor example, my screen measures about 13.5\" x 8.8\" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0\" x 2.0\".\n\nIt is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.\n\nAny suggestions would be appreciated.\n\nErik\n\nR version 4.3.2 (2023-10-31)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS Sonoma 14.2.1",
+      "body_snippet": "Hi all,\n\nI recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.\n\nFor example, my screen measures about 13.5\" x 8.8\" with a ruler. When I create a new plot with plot(1:10) o",
+      "thread_id": "thread-206c8939baf8",
+      "thread_depth": 0,
+      "month": "2024-01"
+    },
+    {
+      "id": "msg-d6ceaaa570f6",
+      "message_id": "<4D5CDD4D-2D69-4BEB-88DB-822E14F5C01E@depauw.edu>",
+      "from_name": "Bryan Hanson",
+      "from_email_hash": "a8281090fe3f4c60194a9bdbee79c82d7c808f157ccc9059c884ffe8cb2ccf91",
+      "date": "2024-01-22T08:06:25-07:00",
+      "subject": "[R-SIG-Mac] Miniature plot windows",
+      "subject_clean": "Miniature plot windows",
+      "in_reply_to": "<66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>",
+      "references": [
+        "<66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>"
+      ],
+      "body_plain": "Just guessing here, but did you re-install/update XQuartz?  That?s recommended for new hardware and significant jumps in the R version.\n\nBryan\n\n> On Jan 22, 2024, at 7:41?AM, Wright, Erik Scott <ESWRIGHT at pitt.edu> wrote:\n> \n> Hi all,\n> \n> I recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.\n> \n> For example, my screen measures about 13.5\" x 8.8\" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0\" x 2.0\".\n> \n> It is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.\n> \n> Any suggestions would be appreciated.\n> \n> Erik\n> \n> R version 4.3.2 (2023-10-31)\n> Platform: aarch64-apple-darwin20 (64-bit)\n> Running under: macOS Sonoma 14.2.1\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n=============\nBryan A. Hanson\nProf. Emeritus, DePauw University\nChemistry & Biochemistry\nhanson at depauw.edu\nprofbryanhanson at gmail.com\nNerdy blog: ChemoSpec.org\nI?m at GMT -7 year round\n\n\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Just guessing here, but did you re-install/update XQuartz?  That?s recommended for new hardware and significant jumps in the R version.\n\nBryan\n\n> On Jan 22, 2024, at 7:41?AM, Wright, Erik Scott <ESWRI",
+      "thread_id": "thread-206c8939baf8",
+      "thread_depth": 1,
+      "month": "2024-01"
+    },
+    {
+      "id": "msg-803527c5f1a3",
+      "message_id": "<740EF615-46C9-40F1-ACE4-B2DF0C7095B4@pitt.edu>",
+      "from_name": "Wright, Erik Scott",
+      "from_email_hash": "759e1afb1c1fa86b65a0d2ea1b76de0b3fd9398c91bf7f02bc0a3c2284abde5d",
+      "date": "2024-01-22T16:14:47Z",
+      "subject": "[R-SIG-Mac] Miniature plot windows",
+      "subject_clean": "Miniature plot windows",
+      "in_reply_to": "<4D5CDD4D-2D69-4BEB-88DB-822E14F5C01E@depauw.edu>",
+      "references": [
+        "<66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>",
+        "<4D5CDD4D-2D69-4BEB-88DB-822E14F5C01E@depauw.edu>"
+      ],
+      "body_plain": "I was able to fix the problem by adding to my .Rprofile\n\nsetHook(packageEvent(\"grDevices\", \"onLoad\"),\n        function(...) grDevices::quartz.options(dpi=127))\n\nThis creates a 7\" x 7\" plot by default after restarting R. The 127 is the screen's native dpi (254) divided by 2.\n\nI'm not sure where .External(C_Quartz, ...) is getting dpi from when it is NULL (the default), but the value was too small apparently.\n\nErik\n\n\nOn Jan 22, 2024, at 10:06?AM, Bryan Hanson <hanson at depauw.edu> wrote:\n\nJust guessing here, but did you re-install/update XQuartz?  That?s recommended for new hardware and significant jumps in the R version.\n\nBryan\n\nOn Jan 22, 2024, at 7:41?AM, Wright, Erik Scott <ESWRIGHT at pitt.edu<mailto:ESWRIGHT at pitt.edu>> wrote:\n\nHi all,\n\nI recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.\n\nFor example, my screen measures about 13.5\" x 8.8\" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0\" x 2.0\".\n\nIt is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.\n\nAny suggestions would be appreciated.\n\nErik\n\nR version 4.3.2 (2023-10-31)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS Sonoma 14.2.1\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n=============\nBryan A. Hanson\nProf. Emeritus, DePauw University\nChemistry & Biochemistry\nhanson at depauw.edu<mailto:hanson at depauw.edu>\nprofbryanhanson at gmail.com<mailto:profbryanhanson at gmail.com>\nNerdy blog: ChemoSpec.org<http://chemospec.org/>\nI?m at GMT -7 year round\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I was able to fix the problem by adding to my .Rprofile\n\nsetHook(packageEvent(\"grDevices\", \"onLoad\"),\n        function(...) grDevices::quartz.options(dpi=127))\n\nThis creates a 7\" x 7\" plot by default ",
+      "thread_id": "thread-206c8939baf8",
+      "thread_depth": 2,
+      "month": "2024-01"
+    },
+    {
+      "id": "msg-fa444f9422ef",
+      "message_id": "<54931EEF-773B-4F17-A667-AA91CF285E55@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2024-01-23T10:27:07+13:00",
+      "subject": "[R-SIG-Mac] Miniature plot windows",
+      "subject_clean": "Miniature plot windows",
+      "in_reply_to": "<66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>",
+      "references": [
+        "<66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>"
+      ],
+      "body_plain": "Erik,\n\nthanks, this is very unusual. Can you, please, send me more details about your setup? Please run the following two lines in Terminal and send me the full output:\n\nsystem_profiler SPHardwareDataType | grep Model\nsystem_profiler SPDisplaysDataType\n\nThen in R run the following code and also include the result:\n\ninline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID(); CGSize ds = CGDisplayScreenSize(md); Rprintf(\"%.2f x %.2f -> %d x %d\\\\n\", ds.width/25.4, ds.height/25.4, (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md)); return R_NilValue;','#include <ApplicationServices/ApplicationServices.h>')()\n\nThis should result in something like this (install the inline package if you don't have it and you will also need command line tools which you can get by running\nxcode-select --install\nin Terminal if you don't have them):\n\n> inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID(); CGSize ds = CGDisplayScreenSize(md); Rprintf(\"%.2f x %.2f -> %d x %d\\\\n\", ds.width/25.4, ds.height/25.4, (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md)); return R_NilValue;','#include <ApplicationServices/ApplicationServices.h>')()\n23.54 x 13.24 -> 2048 x 1152\n\nThis shows the physical size of the screen (in inches) and the current resolution.\n\nThe Quartz dpi setting is NULL by default which means \"detect from hardware\" which works on all Macs I have seen so the fact that it is way off is odd. The code above is how the dimensions are determined.\n\nCheers,\nSimon\n\nPS: if the email processing mangled the above code here is a broken-down version that hopefully doesn't get mangled:\n\ninline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID();\nCGSize ds = CGDisplayScreenSize(md);\nRprintf(\"%.2f x %.2f -> %d x %d\\\\n\", ds.width/25.4, ds.height/25.4,\n  (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md));\nreturn R_NilValue;',\n'#include <ApplicationServices/ApplicationServices.h>')()\n\n\n\n> On Jan 23, 2024, at 3:41 AM, Wright, Erik Scott <ESWRIGHT at pitt.edu> wrote:\n> \n> Hi all,\n> \n> I recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.\n> \n> For example, my screen measures about 13.5\" x 8.8\" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0\" x 2.0\".\n> \n> It is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.\n> \n> Any suggestions would be appreciated.\n> \n> Erik\n> \n> R version 4.3.2 (2023-10-31)\n> Platform: aarch64-apple-darwin20 (64-bit)\n> Running under: macOS Sonoma 14.2.1\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Erik,\n\nthanks, this is very unusual. Can you, please, send me more details about your setup? Please run the following two lines in Terminal and send me the full output:\n\nsystem_profiler SPHardwareData",
+      "thread_id": "thread-206c8939baf8",
+      "thread_depth": 1,
+      "month": "2024-01"
+    },
+    {
+      "id": "msg-aa33a4188d28",
+      "message_id": "<02FD59F2-7981-4000-9116-B5BAF72DAB79@pitt.edu>",
+      "from_name": "Wright, Erik Scott",
+      "from_email_hash": "759e1afb1c1fa86b65a0d2ea1b76de0b3fd9398c91bf7f02bc0a3c2284abde5d",
+      "date": "2024-01-22T22:06:09Z",
+      "subject": "[R-SIG-Mac] Miniature plot windows",
+      "subject_clean": "Miniature plot windows",
+      "in_reply_to": "<54931EEF-773B-4F17-A667-AA91CF285E55@R-project.org>",
+      "references": [
+        "<66ED601E-9409-4E53-A77A-6EEBBC7943D8@pitt.edu>",
+        "<54931EEF-773B-4F17-A667-AA91CF285E55@R-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\nThanks for all you do to support R on Mac OS.\n\n***\n\nsystem_profiler SPHardwareDataType | grep Model\n\n      Model Name: MacBook Pro\n      Model Identifier: Mac15,9\n      Model Number: MUW63LL/A\n\n***\n\nsystem_profiler SPDisplaysDataType\n\nGraphics/Displays:\n\n    Apple M3 Max:\n\n      Chipset Model: Apple M3 Max\n      Type: GPU\n      Bus: Built-In\n      Total Number of Cores: 40\n      Vendor: Apple (0x106b)\n      Metal Support: Metal 3\n      Displays:\n        Color LCD:\n          Display Type: Built-in Liquid Retina XDR Display\n          Resolution: 3456 x 2234 Retina\n          Main Display: Yes\n          Mirror: Off\n          Online: Yes\n          Automatically Adjust Brightness: Yes\n          Connection Type: Internal\n\n***\n\ninline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID();\nCGSize ds = CGDisplayScreenSize(md);\nRprintf(\"%.2f x %.2f -> %d x %d\\\\n\", ds.width/25.4, ds.height/25.4,\n (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md));\nreturn R_NilValue;',\n'#include <ApplicationServices/ApplicationServices.h>')()\n\n13.55 x 8.76 -> 1728 x 1117\nNULL\n\n***\n\nPlease let me know if anything else would be useful.\n\nErik\n\n\n> On Jan 22, 2024, at 4:27?PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n>\n> Erik,\n>\n> thanks, this is very unusual. Can you, please, send me more details about your setup? Please run the following two lines in Terminal and send me the full output:\n>\n> system_profiler SPHardwareDataType | grep Model\n> system_profiler SPDisplaysDataType\n>\n> Then in R run the following code and also include the result:\n>\n> inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID(); CGSize ds = CGDisplayScreenSize(md); Rprintf(\"%.2f x %.2f -> %d x %d\\\\n\", ds.width/25.4, ds.height/25.4, (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md)); return R_NilValue;','#include <ApplicationServices/ApplicationServices.h>')()\n>\n> This should result in something like this (install the inline package if you don't have it and you will also need command line tools which you can get by running\n> xcode-select --install\n> in Terminal if you don't have them):\n>\n>> inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID(); CGSize ds = CGDisplayScreenSize(md); Rprintf(\"%.2f x %.2f -> %d x %d\\\\n\", ds.width/25.4, ds.height/25.4, (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md)); return R_NilValue;','#include <ApplicationServices/ApplicationServices.h>')()\n> 23.54 x 13.24 -> 2048 x 1152\n>\n> This shows the physical size of the screen (in inches) and the current resolution.\n>\n> The Quartz dpi setting is NULL by default which means \"detect from hardware\" which works on all Macs I have seen so the fact that it is way off is odd. The code above is how the dimensions are determined.\n>\n> Cheers,\n> Simon\n>\n> PS: if the email processing mangled the above code here is a broken-down version that hopefully doesn't get mangled:\n>\n> inline::cfunction(,'CGDirectDisplayID md = CGMainDisplayID();\n> CGSize ds = CGDisplayScreenSize(md);\n> Rprintf(\"%.2f x %.2f -> %d x %d\\\\n\", ds.width/25.4, ds.height/25.4,\n>  (int)CGDisplayPixelsWide(md), (int)CGDisplayPixelsHigh(md));\n> return R_NilValue;',\n> '#include <ApplicationServices/ApplicationServices.h>')()\n>\n>\n>\n>> On Jan 23, 2024, at 3:41 AM, Wright, Erik Scott <ESWRIGHT at pitt.edu> wrote:\n>>\n>> Hi all,\n>>\n>> I recently upgraded to a new Macbook Pro (Nov 23). Now every plot is miniaturized.\n>>\n>> For example, my screen measures about 13.5\" x 8.8\" with a ruler. When I create a new plot with plot(1:10) or quartz(height=7, width=7), the plot measures 2.0\" x 2.0\".\n>>\n>> It is simple enough to initialize larger plot windows with dev.new or quartz(height=24.5, width=24.5), but the points and font stay miniaturized. Of course, I could rescale every single plot feature by 3.5-fold, but that seems like an inefficient solution.\n>>\n>> Any suggestions would be appreciated.\n>>\n>> Erik\n>>\n>> R version 4.3.2 (2023-10-31)\n>> Platform: aarch64-apple-darwin20 (64-bit)\n>> Running under: macOS Sonoma 14.2.1\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>",
+      "body_snippet": "Hi Simon,\n\nThanks for all you do to support R on Mac OS.\n\n***\n\nsystem_profiler SPHardwareDataType | grep Model\n\n      Model Name: MacBook Pro\n      Model Identifier: Mac15,9\n      Model Number: MUW63L",
+      "thread_id": "thread-206c8939baf8",
+      "thread_depth": 2,
+      "month": "2024-01"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-02d58d578636",
+      "subject": "Cross compilation and linking without -undefined",
+      "message_count": 2,
+      "participants": [
+        "Jeroen Ooms",
+        "Prof Brian Ripley"
+      ],
+      "started": "2024-01-02T20:21:56+01:00",
+      "last_reply": "2024-01-03T07:11:53+00:00",
+      "root_message_id": "msg-02d58d578636"
+    },
+    {
+      "id": "thread-d7354e3e33d4",
+      "subject": "Arm 64 Nightly Build URL Missing",
+      "message_count": 2,
+      "participants": [
+        "Brodie Gaslam",
+        "Simon Urbanek"
+      ],
+      "started": "2024-01-21T14:09:43+00:00",
+      "last_reply": "2024-01-22T12:22:37+13:00",
+      "root_message_id": "msg-d7354e3e33d4"
+    },
+    {
+      "id": "thread-206c8939baf8",
+      "subject": "Miniature plot windows",
+      "message_count": 5,
+      "participants": [
+        "Bryan Hanson",
+        "Simon Urbanek",
+        "Wright, Erik Scott"
+      ],
+      "started": "2024-01-22T14:41:26+00:00",
+      "last_reply": "2024-01-22T22:06:09+00:00",
+      "root_message_id": "msg-206c8939baf8"
+    }
+  ]
+}

@@ -1,0 +1,838 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2016-09",
+  "messages": [
+    {
+      "id": "msg-e53290fed084",
+      "message_id": "<CA71CDE6-1CBB-4280-A99B-84B46C9D4C10@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "2c82e49cec3a0e6d46b74506949217eb854acf022855b79b114564c976a5593f",
+      "date": "2016-09-01T09:43:20+10:00",
+      "subject": "[R-SIG-Mac] Problems with R CMD config",
+      "subject_clean": "Problems with R CMD config",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I?m trying to use STAN which uses R CMD config to check the availability of the compilers.\n\nThis works fine on my MacBook but on my iMac I have the documents on a separate hard drive. Within R CMD config it uses the location of the home  folder which because of my choice of name of hard drive has a space in it, and that causes problems with the batch file. In the following the volume should be Ken Main.\n\nKens-iMac:~ kjbeath1$ R CMD config CXX\nmake: /Volumes/Ken: No such file or directory\nmake: *** No rule to make target `/Volumes/Ken'.  Stop.\n\nFor those who are wondering why I don?t just change the name, this produces problems with other software.\n\nAny ideas on a solution?",
+      "body_snippet": "I?m trying to use STAN which uses R CMD config to check the availability of the compilers.\n\nThis works fine on my MacBook but on my iMac I have the documents on a separate hard drive. Within R CMD con",
+      "thread_id": "thread-e53290fed084",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-bc2d6d68e22f",
+      "message_id": "<899e2fea-540c-fb6d-87d6-7b9e939ceb60@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2016-09-01T08:46:16+01:00",
+      "subject": "[R-SIG-Mac] Problems with R CMD config",
+      "subject_clean": "Problems with R CMD config",
+      "in_reply_to": "<CA71CDE6-1CBB-4280-A99B-84B46C9D4C10@kjbeath.com.au>",
+      "references": [
+        "<CA71CDE6-1CBB-4280-A99B-84B46C9D4C10@kjbeath.com.au>"
+      ],
+      "body_plain": "On 01/09/2016 00:43, Ken Beath wrote:\n> I?m trying to use STAN which uses R CMD config to check the availability of the compilers.\n>\n> This works fine on my MacBook but on my iMac I have the documents on a separate hard drive. Within R CMD config it uses the location of the home  folder which because of my choice of name of hard drive has a space in it, and that causes problems with the batch file. In the following the volume should be Ken Main.\n>\n> Kens-iMac:~ kjbeath1$ R CMD config CXX\n> make: /Volumes/Ken: No such file or directory\n> make: *** No rule to make target `/Volumes/Ken'.  Stop.\n>\n> For those who are wondering why I don?t just change the name, this produces problems with other software.\n>\n> Any ideas on a solution?\n\nEdit the script config.\n\nWe have nothing to reproduce here (what is your home directory?), but I \nam guessing that in\n\n     elif test -f \"${HOME}/.R/Makevars-${R_PLATFORM}\"; then\n       makefiles=\"${makefiles} -f ${HOME}/.R/Makevars-${R_PLATFORM}\"\n     elif test -f \"${HOME}/.R/Makevars\"; then\n       makefiles=\"${makefiles} -f ${HOME}/.R/Makevars\"\n\nyou need \\\"${HOME}\\\" twice.\n\nOr set R_MAKEVARS_USER to a path without spaces.\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 01/09/2016 00:43, Ken Beath wrote:\n> I?m trying to use STAN which uses R CMD config to check the availability of the compilers.\n>\n> This works fine on my MacBook but on my iMac I have the documents",
+      "thread_id": "thread-e53290fed084",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-017c8c89292c",
+      "message_id": "<DB23D7D6-7DA7-4D3F-9073-C729772F5568@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "2c82e49cec3a0e6d46b74506949217eb854acf022855b79b114564c976a5593f",
+      "date": "2016-09-01T18:57:27+10:00",
+      "subject": "[R-SIG-Mac] Problems with R CMD config",
+      "subject_clean": "Problems with R CMD config",
+      "in_reply_to": "<899e2fea-540c-fb6d-87d6-7b9e939ceb60@stats.ox.ac.uk>",
+      "references": [
+        "<CA71CDE6-1CBB-4280-A99B-84B46C9D4C10@kjbeath.com.au>",
+        "<899e2fea-540c-fb6d-87d6-7b9e939ceb60@stats.ox.ac.uk>"
+      ],
+      "body_plain": "> On 1 Sep 2016, at 5:46 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> On 01/09/2016 00:43, Ken Beath wrote:\n>> I?m trying to use STAN which uses R CMD config to check the availability of the compilers.\n>> \n>> This works fine on my MacBook but on my iMac I have the documents on a separate hard drive. Within R CMD config it uses the location of the home  folder which because of my choice of name of hard drive has a space in it, and that causes problems with the batch file. In the following the volume should be Ken Main.\n>> \n>> Kens-iMac:~ kjbeath1$ R CMD config CXX\n>> make: /Volumes/Ken: No such file or directory\n>> make: *** No rule to make target `/Volumes/Ken'.  Stop.\n>> \n>> For those who are wondering why I don?t just change the name, this produces problems with other software.\n>> \n>> Any ideas on a solution?\n> \n> Edit the script config.\n> \n> We have nothing to reproduce here (what is your home directory?), but I am guessing that in\n> \n>    elif test -f \"${HOME}/.R/Makevars-${R_PLATFORM}\"; then\n>      makefiles=\"${makefiles} -f ${HOME}/.R/Makevars-${R_PLATFORM}\"\n>    elif test -f \"${HOME}/.R/Makevars\"; then\n>      makefiles=\"${makefiles} -f ${HOME}/.R/Makevars\"\n> \n> you need \\\"${HOME}\\\" twice.\n> \n\nYes, works perfectly.",
+      "body_snippet": "> On 1 Sep 2016, at 5:46 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> On 01/09/2016 00:43, Ken Beath wrote:\n>> I?m trying to use STAN which uses R CMD config to check the availability ",
+      "thread_id": "thread-e53290fed084",
+      "thread_depth": 2,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-c6f4ef5bfe27",
+      "message_id": "<C9ED8594-9004-489F-88FF-87F073660597@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2016-09-01T11:58:42-07:00",
+      "subject": "[R-SIG-Mac] RcppArmadillo errors",
+      "subject_clean": "RcppArmadillo errors",
+      "in_reply_to": "<BFAEFDD5-AA9C-4995-92A4-2C965233F250@gmail.com>",
+      "references": [
+        "<BFAEFDD5-AA9C-4995-92A4-2C965233F250@gmail.com>"
+      ],
+      "body_plain": "> On Aug 27, 2016, at 5:35 AM, Oskar Knapik <oknapik at gmail.com> wrote:\n> \n> Dear all\n> \n> I am having some problems with your package.\n> \n> It looks that I can't load it on my Mac computer (OS X El Capitan 10.11.6)\n> \n> I got the following errors:\n> Error in dyn.load(file, DLLpath = DLLpath, ...) : \n> can't load shared object\n> '/Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so':\n>  dlopen(/Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so, 6): Library not loaded: /Library/Frameworks/R.framework/Versions/3.3/Resources/lib/libRlapack.dylib\n>  Referenced from: /Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so\n>  Reason: image not found\n> \n> The newest OS X doesn't support X11 (I am not sure if you use it)\n\nXQuartz is the X11 for the Mac:\n\nhttps://www.xquartz.org/\n\nThis error can be found on SO and I think the second answer (to just (re-?) install XQuartz) is the correct one.\n\nhttp://stackoverflow.com/questions/26489928/cant-load-x11-in-r-after-os-x-yosemite-upgrade\n\n-- \nDavid.\n> \n> I am also trying to install the package on Microsoft R\n> https://mran.microsoft.com <https://mran.microsoft.com/>\n> \n> \n> Below the errors from the installation:\n> \n> install.packages(\"RcppArmadillo\", verbose=T)\n> Installing package into ?/Users/oknapik/Library/R/3.3/library?\n> (as ?lib? is unspecified)\n> system (cmd0): /Library/Frameworks/R.framework/Resources/bin/R CMD INSTALL\n> trying URL 'https://mran.revolutionanalytics.com/snapshot/2016-07-01/src/contrib/RcppArmadillo_0.7.100.3.1.tar.gz <https://mran.revolutionanalytics.com/snapshot/2016-07-01/src/contrib/RcppArmadillo_0.7.100.3.1.tar.gz>'\n> Content type 'application/octet-stream' length 1055712 bytes (1.0 MB)\n> ==================================================\n> downloaded 1.0 MB\n> \n> foundpkgs: RcppArmadillo, /var/folders/mr/_t437jvd5v5fty4z3pypn_yc0000gn/T//RtmpPj3WB7/downloaded_packages/RcppArmadillo_0.7.100.3.1.tar.gz\n> files: /var/folders/mr/_t437jvd5v5fty4z3pypn_yc0000gn/T//RtmpPj3WB7/downloaded_packages/RcppArmadillo_0.7.100.3.1.tar.gz\n> Warning\n> In command 'doTryCatch(return(expr), name, parentenv, handler)':\n>  can't load the shared object  '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n>  dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6): Symbol not found: _CGBitmapContextCreate\n>  Referenced from: /Library/Frameworks/R.framework/Resources/modules//R_X11.so\n>  Expected in: flat namespace\n> in /Library/Frameworks/R.framework/Resources/modules//R_X11.so\n> * installing *source* package ?RcppArmadillo? ...\n> ** package ?RcppArmadillo? has been sucessuflly unpacked and  MD5 soms were checked\n> checking whether the C++ compiler works... yes\n> checking for C++ compiler default output file name... a.out\n> checking for suffix of executables... \n> checking whether we are cross compiling... no\n> checking for suffix of object files... o\n> checking whether we are using the GNU C++ compiler... yes\n> checking whether clang++ accepts -g... yes\n> checking how to run the C++ preprocessor... clang++ -E\n> checking whether we are using the GNU C++ compiler... (cached) yes\n> checking whether clang++ accepts -g... (cached) yes\n> checking whether g++ version is sufficient... checking LAPACK_LIBS... system LAPACK found\n> configure: creating ./config.status\n> config.status: creating inst/include/RcppArmadilloLapack.h\n> ** libs\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATION -Wall -mtune=core2 -g -O2 -I/opt/X11/include -I\"/Users/oknapik/Library/R/3.3/library/Rcpp/include\"  -I../inst/include -fPIC  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATIN -Wall -mtune=core2 -g -O2 -I/opt/X11/include -framework CoreFoundation -framework CoreGraphics -framework CoreText  -c RcppArmadillo.cpp -o RcppArmadillo.o\n> clang: warning: -framework CoreFoundation: 'linker' input unused\n> clang: warning: -framework CoreGraphics: 'linker' input unused\n> clang: warning: -framework CoreText: 'linker' input unused\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATION -Wall -mtune=core2 -g -O2 -I/opt/X11/include -I\"/Users/oknapik/Library/R/3.3/library/Rcpp/include\"  -I../inst/include -fPIC  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATIN -Wall -mtune=core2 -g -O2 -I/opt/X11/include -framework CoreFoundation -framework CoreGraphics -framework CoreText  -c RcppExports.cpp -o RcppExports.o\n> clang: warning: -framework CoreFoundation: 'linker' input unused\n> clang: warning: -framework CoreGraphics: 'linker' input unused\n> clang: warning: -framework CoreText: 'linker' input unused\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATION -Wall -mtune=core2 -g -O2 -I/opt/X11/include -I\"/Users/oknapik/Library/R/3.3/library/Rcpp/include\"  -I../inst/include -fPIC  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATIN -Wall -mtune=core2 -g -O2 -I/opt/X11/include -framework CoreFoundation -framework CoreGraphics -framework CoreText  -c fastLm.cpp -o fastLm.o\n> clang: warning: -framework CoreFoundation: 'linker' input unused\n> clang: warning: -framework CoreGraphics: 'linker' input unused\n> clang: warning: -framework CoreText: 'linker' input unused\n> clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/lib -o RcppArmadillo.so RcppArmadillo.o RcppExports.o fastLm.o -framework Accelerate -L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3/x86_64 -L/usr/local/lib/x86_64 -L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3 -L/usr/local/lib -lgfortran -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\n> ld: warning: directory not found for option '-L/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/lib'\n> ld: warning: directory not found for option '-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3/x86_64'\n> ld: warning: directory not found for option '-L/usr/local/lib/x86_64'\n> ld: warning: directory not found for option '-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3'\n> ld: library not found for -lgfortran\n> clang: error: linker command failed with exit code 1 (use -v to see invocation)\n> make: *** [RcppArmadillo.so] Error 1\n> ERROR: compilation failed for package ?RcppArmadillo?\n> * removing ?/Users/oknapik/Library/R/3.3/library/RcppArmadillo?\n> * restoring previous ?/Users/oknapik/Library/R/3.3/library/RcppArmadillo?\n> Warning in install.packages :\n>  installation of package ?RcppArmadillo? had non-zero exit status\n> \n> \n> \n> I would be very grateful for help.\n> \n> Best,\n> Oskar\n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA",
+      "body_snippet": "> On Aug 27, 2016, at 5:35 AM, Oskar Knapik <oknapik at gmail.com> wrote:\n> \n> Dear all\n> \n> I am having some problems with your package.\n> \n> It looks that I can't load it on my Mac computer (OS X El",
+      "thread_id": "thread-c6f4ef5bfe27",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-389c3c671298",
+      "message_id": "<934D49A8-6F8E-4441-AA75-7BAD8034BE0F@gmail.com>",
+      "from_name": "Michael Weylandt",
+      "from_email_hash": "44e8775a589b9ef81880469e200f3cce307c7180b4289ca1696a578afb772b3a",
+      "date": "2016-09-01T14:26:38-05:00",
+      "subject": "[R-SIG-Mac] RcppArmadillo errors",
+      "subject_clean": "RcppArmadillo errors",
+      "in_reply_to": "<BFAEFDD5-AA9C-4995-92A4-2C965233F250@gmail.com>",
+      "references": [
+        "<BFAEFDD5-AA9C-4995-92A4-2C965233F250@gmail.com>"
+      ],
+      "body_plain": "> On Aug 27, 2016, at 7:35 AM, Oskar Knapik <oknapik at gmail.com> wrote:\n> \n> Dear all\n> \n> I am having some problems with your package.\n> \n> It looks that I can't load it on my Mac computer (OS X El Capitan 10.11.6)\n> \n> I got the following errors:\n> Error in dyn.load(file, DLLpath = DLLpath, ...) : \n> can't load shared object\n> '/Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so':\n>  dlopen(/Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so, 6): Library not loaded: /Library/Frameworks/R.framework/Versions/3.3/Resources/lib/libRlapack.dylib\n>  Referenced from: /Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so\n>  Reason: image not found\n> \n> The newest OS X doesn't support X11 (I am not sure if you use it)\n> \n> I am also trying to install the package on Microsoft R\n> https://mran.microsoft.com <https://mran.microsoft.com/>\n> \n> \n> Below the errors from the installation:\n> \n> install.packages(\"RcppArmadillo\", verbose=T)\n> Installing package into ?/Users/oknapik/Library/R/3.3/library?\n> (as ?lib? is unspecified)\n> system (cmd0): /Library/Frameworks/R.framework/Resources/bin/R CMD INSTALL\n> trying URL 'https://mran.revolutionanalytics.com/snapshot/2016-07-01/src/contrib/RcppArmadillo_0.7.100.3.1.tar.gz <https://mran.revolutionanalytics.com/snapshot/2016-07-01/src/contrib/RcppArmadillo_0.7.100.3.1.tar.gz>'\n> Content type 'application/octet-stream' length 1055712 bytes (1.0 MB)\n> ==================================================\n> downloaded 1.0 MB\n> \n> foundpkgs: RcppArmadillo, /var/folders/mr/_t437jvd5v5fty4z3pypn_yc0000gn/T//RtmpPj3WB7/downloaded_packages/RcppArmadillo_0.7.100.3.1.tar.gz\n> files: /var/folders/mr/_t437jvd5v5fty4z3pypn_yc0000gn/T//RtmpPj3WB7/downloaded_packages/RcppArmadillo_0.7.100.3.1.tar.gz\n> Warning\n> In command 'doTryCatch(return(expr), name, parentenv, handler)':\n>  can't load the shared object  '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n>  dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6): Symbol not found: _CGBitmapContextCreate\n>  Referenced from: /Library/Frameworks/R.framework/Resources/modules//R_X11.so\n>  Expected in: flat namespace\n> in /Library/Frameworks/R.framework/Resources/modules//R_X11.so\n> * installing *source* package ?RcppArmadillo? ...\n> ** package ?RcppArmadillo? has been sucessuflly unpacked and  MD5 soms were checked\n> checking whether the C++ compiler works... yes\n> checking for C++ compiler default output file name... a.out\n> checking for suffix of executables... \n> checking whether we are cross compiling... no\n> checking for suffix of object files... o\n> checking whether we are using the GNU C++ compiler... yes\n> checking whether clang++ accepts -g... yes\n> checking how to run the C++ preprocessor... clang++ -E\n> checking whether we are using the GNU C++ compiler... (cached) yes\n> checking whether clang++ accepts -g... (cached) yes\n> checking whether g++ version is sufficient... checking LAPACK_LIBS... system LAPACK found\n> configure: creating ./config.status\n> config.status: creating inst/include/RcppArmadilloLapack.h\n> ** libs\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATION -Wall -mtune=core2 -g -O2 -I/opt/X11/include -I\"/Users/oknapik/Library/R/3.3/library/Rcpp/include\"  -I../inst/include -fPIC  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATIN -Wall -mtune=core2 -g -O2 -I/opt/X11/include -framework CoreFoundation -framework CoreGraphics -framework CoreText  -c RcppArmadillo.cpp -o RcppArmadillo.o\n> clang: warning: -framework CoreFoundation: 'linker' input unused\n> clang: warning: -framework CoreGraphics: 'linker' input unused\n> clang: warning: -framework CoreText: 'linker' input unused\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATION -Wall -mtune=core2 -g -O2 -I/opt/X11/include -I\"/Users/oknapik/Library/R/3.3/library/Rcpp/include\"  -I../inst/include -fPIC  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATIN -Wall -mtune=core2 -g -O2 -I/opt/X11/include -framework CoreFoundation -framework CoreGraphics -framework CoreText  -c RcppExports.cpp -o RcppExports.o\n> clang: warning: -framework CoreFoundation: 'linker' input unused\n> clang: warning: -framework CoreGraphics: 'linker' input unused\n> clang: warning: -framework CoreText: 'linker' input unused\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATION -Wall -mtune=core2 -g -O2 -I/opt/X11/include -I\"/Users/oknapik/Library/R/3.3/library/Rcpp/include\"  -I../inst/include -fPIC  -I/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/include -DU_STATIC_IMPLEMENTATIN -Wall -mtune=core2 -g -O2 -I/opt/X11/include -framework CoreFoundation -framework CoreGraphics -framework CoreText  -c fastLm.cpp -o fastLm.o\n> clang: warning: -framework CoreFoundation: 'linker' input unused\n> clang: warning: -framework CoreGraphics: 'linker' input unused\n> clang: warning: -framework CoreText: 'linker' input unused\n> clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/lib -o RcppArmadillo.so RcppArmadillo.o RcppExports.o fastLm.o -framework Accelerate -L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3/x86_64 -L/usr/local/lib/x86_64 -L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3 -L/usr/local/lib -lgfortran -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\n> ld: warning: directory not found for option '-L/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/lib'\n> ld: warning: directory not found for option '-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3/x86_64'\n> ld: warning: directory not found for option '-L/usr/local/lib/x86_64'\n> ld: warning: directory not found for option '-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3'\n> ld: library not found for -lgfortran\n> clang: error: linker command failed with exit code 1 (use -v to see invocation)\n\nLooks like you need gfortran. \n\nI believe the instructions at \n\nhttp://stackoverflow.com/a/25912049\n\nare still current. \n\nMW\n\n\n> make: *** [RcppArmadillo.so] Error 1\n> ERROR: compilation failed for package ?RcppArmadillo?\n> * removing ?/Users/oknapik/Library/R/3.3/library/RcppArmadillo?\n> * restoring previous ?/Users/oknapik/Library/R/3.3/library/RcppArmadillo?\n> Warning in install.packages :\n>  installation of package ?RcppArmadillo? had non-zero exit status\n> \n> \n> \n> I would be very grateful for help.\n> \n> Best,\n> Oskar\n>    [[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> On Aug 27, 2016, at 7:35 AM, Oskar Knapik <oknapik at gmail.com> wrote:\n> \n> Dear all\n> \n> I am having some problems with your package.\n> \n> It looks that I can't load it on my Mac computer (OS X El",
+      "thread_id": "thread-389c3c671298",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-2b0bd1c063e3",
+      "message_id": "<16AA5B35-80FA-4AB0-A42D-6CC3CA743029@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "e3a7b8eb6067ea7800bca3bfc3867dc752c8c60a378f21755e53d6893a6080bc",
+      "date": "2016-09-01T12:40:10-07:00",
+      "subject": "[R-SIG-Mac] RcppArmadillo errors",
+      "subject_clean": "RcppArmadillo errors",
+      "in_reply_to": "<C9ED8594-9004-489F-88FF-87F073660597@comcast.net>",
+      "references": [
+        "<BFAEFDD5-AA9C-4995-92A4-2C965233F250@gmail.com>",
+        "<C9ED8594-9004-489F-88FF-87F073660597@comcast.net>"
+      ],
+      "body_plain": "> On Sep 1, 2016, at 11:58 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n> \n>> On Aug 27, 2016, at 5:35 AM, Oskar Knapik <oknapik at gmail.com> wrote:\n>> \n>> Dear all\n>> \n>> I am having some problems with your package.\n>> \n>> It looks that I can't load it on my Mac computer (OS X El Capitan 10.11.6)\n>> \n>> I got the following errors:\n>> Error in dyn.load(file, DLLpath = DLLpath, ...) : \n>> can't load shared object\n>> '/Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so':\n>> dlopen(/Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so, 6): Library not loaded: /Library/Frameworks/R.framework/Versions/3.3/Resources/lib/libRlapack.dylib\n>> Referenced from: /Users/oknapik/Library/R/3.3/library/RcppArmadillo/libs/RcppArmadillo.so\n>> Reason: image not found\n>> \n>> The newest OS X doesn't support X11 (I am not sure if you use it)\n> \n> XQuartz is the X11 for the Mac:\n> \n> https://www.xquartz.org/\n> \n> This error can be found on SO and I think the second answer (to just (re-?) install XQuartz) is the correct one.\n> \n> http://stackoverflow.com/questions/26489928/cant-load-x11-in-r-after-os-x-yosemite-upgrade\n> \n> -- \n> David.\n>> \n>> I am also trying to install the package on Microsoft R\n>> https://mran.microsoft.com <https://mran.microsoft.com/>\n>> \n>> \n>> Below the errors from the installation:\n>> \n>> install.packages(\"RcppArmadillo\", verbose=T)\n>> Installing package into ?/Users/oknapik/Library/R/3.3/library?\n>> (as ?lib? is unspecified)\n>> system (cmd0): /Library/Frameworks/R.framework/Resources/bin/R CMD INSTALL\n>> trying URL 'https://mran.revolutionanalytics.com/snapshot/2016-07-01/src/contrib/RcppArmadillo_0.7.100.3.1.tar.gz <https://mran.revolutionanalytics.com/snapshot/2016-07-01/src/contrib/RcppArmadillo_0.7.100.3.1.tar.gz>'\n>> Content type 'application/octet-stream' length 1055712 bytes (1.0 MB)\n>> ==================================================\n>> downloaded 1.0 MB\n>> \n>> foundpkgs: RcppArmadillo, /var/folders/mr/_t437jvd5v5fty4z3pypn_yc0000gn/T//RtmpPj3WB7/downloaded_packages/RcppArmadillo_0.7.100.3.1.tar.gz\n>> files: /var/folders/mr/_t437jvd5v5fty4z3pypn_yc0000gn/T//RtmpPj3WB7/downloaded_packages/RcppArmadillo_0.7.100.3.1.tar.gz\n>> Warning\n>> In command 'doTryCatch(return(expr), name, parentenv, handler)':\n>> can't load the shared object  '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n\nsnipped\n\n>> ld: warning: directory not found for option '-L/private/var/root/jenkins/workspace/External-R-3.3.1/vendor/build/lib'\n>> ld: warning: directory not found for option '-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3/x86_64'\n>> ld: warning: directory not found for option '-L/usr/local/lib/x86_64'\n>> ld: warning: directory not found for option '-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3'\n>> ld: library not found for -lgfortran\n>> clang: error: linker command failed with exit code 1 (use -v to see invocation)\n\nApologies for the noise. \n\nThe XQuartz concern wasn't the actual error. I didn't read down far enough. Appears you do have an earlier version of RcppArmadillo although it's not clear which one it might be. I was able to install both a binary (RcppArmadillo_0.7.400.2.0.tgz) and from source: https://cran.cnr.berkeley.edu/src/contrib/RcppArmadillo_0.7.400.2.0.tar.gz  without difficulty. (No warnings.)  That appears to be the current version that would install from CRAN and it's also the one I see at MRAN: https://mran.microsoft.com/src/contrib/RcppArmadillo_0.7.400.2.0.tar.gz\n\nYou are installing a somewhat older version. Using https://mran.microsoft.com made me wonder if you may have an earlier version of R distributed by Microsoft, although your directory naming suggests they have now \"caught up\". The \"standard\" version of Fortran for the Mac is at http://r.research.att.com/tools/   The MRAN distribution is not entirely standar. I have not heard of discrepancies with Fortran dependencies in the past.\n\n-- David\n\n\n>> make: *** [RcppArmadillo.so] Error 1\n>> ERROR: compilation failed for package ?RcppArmadillo?\n>> * removing ?/Users/oknapik/Library/R/3.3/library/RcppArmadillo?\n>> * restoring previous ?/Users/oknapik/Library/R/3.3/library/RcppArmadillo?\n>> Warning in install.packages :\n>> installation of package ?RcppArmadillo? had non-zero exit status\n>> \n>> \n>> \n>> I would be very grateful for help.\n>> \n>> Best,\n>> Oskar\n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> David Winsemius\n> Alameda, CA, USA\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA",
+      "body_snippet": "> On Sep 1, 2016, at 11:58 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n> \n>> On Aug 27, 2016, at 5:35 AM, Oskar Knapik <oknapik at gmail.com> wrote:\n>> \n>> Dear all\n>> \n>> I am having so",
+      "thread_id": "thread-c6f4ef5bfe27",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-b53912838262",
+      "message_id": "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "359868c91f72f8b2eefe60027d20f064ed111f9c2fbc00e33a1d837cc16d6732",
+      "date": "2016-09-06T16:34:44-05:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This is a question about how to find a lost library needed for the gurobi R package.\nGurobi is a optimization system with various frontends including to R.\nEven though I realize that few of you use, or may even know about, gurobi I hope\nthat there may be  some generic advice ? my first  dubious attempts, contrary to Simon?s\nperiodic advice that use of DYLD_LIBRARY_PATH is frowned upon,  have proven futile.\nHere is the basic story:\n\nI've installed gurobi and its license file and this seems to work on a test problem from the command line,\nbut I would like to use the R package interface and have installed the R binary package that comes with\nthe gurobi download on a R 3.3.0 system on an osx 10.11.5 machine,   As far as I can see there is no\nsource version of the R package available.   The package ?seems to? install, but I now see in R:\n\n> library(gurobi)\nLoading required package: gurobi\nLoading required package: slam\nError in dyn.load(file, DLLpath = DLLpath, ...) : \n  unable to load shared object '/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so':\n  dlopen(/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so, 6): Library not loaded: libgurobi65.so\n  Referenced from: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so\n  Reason: image not found\n\nthe library libgurobi65.so is sitting in /usr/local/lib so I don't understand why the\nR process can't find it -- this is what the R package library thinks:\n\nyzzy: otool -L g*\n\ngurobi.so:\n\tgurobi.so (compatibility version 0.0.0, current version 0.0.0)\n\tlibgurobi65.so (compatibility version 6.5.0, current version 6.5.2)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)\n\t/Library/Frameworks/R.framework/Versions/3.2/Resources/lib/libR.dylib (compatibility version 3.2.0, current version 3.2.2)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 855.17.0)\n\nMany thanks for your help,\nRoger\n\nurl:    www.econ.uiuc.edu/~roger            Roger Koenker\nemail    rkoenker at uiuc.edu            Department of Economics\nvox:     217-333-4558                University of Illinois\nfax:       217-244-6678                Urbana, IL 61801",
+      "body_snippet": "This is a question about how to find a lost library needed for the gurobi R package.\nGurobi is a optimization system with various frontends including to R.\nEven though I realize that few of you use, o",
+      "thread_id": "thread-b53912838262",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-ea3437c98a7d",
+      "message_id": "<m2k2eoqj16.fsf@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2016-09-07T09:13:41+02:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu> (Roger Koenker's message of \"Tue, 6 Sep 2016 16:34:44 -0500\")",
+      "references": [
+        "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>"
+      ],
+      "body_plain": "Roger Koenker <rkoenker at illinois.edu> writes:\n\n> This is a question about how to find a lost library needed for the gurobi R package.\n> Gurobi is a optimization system with various frontends including to R.\n> Even though I realize that few of you use, or may even know about, gurobi I hope\n> that there may be  some generic advice ? my first  dubious attempts, contrary to Simon?s\n> periodic advice that use of DYLD_LIBRARY_PATH is frowned upon,  have proven futile.\n> Here is the basic story:\n>\n> I've installed gurobi and its license file and this seems to work on a test problem from the command line,\n> but I would like to use the R package interface and have installed the R binary package that comes with\n> the gurobi download on a R 3.3.0 system on an osx 10.11.5 machine,   As far as I can see there is no\n> source version of the R package available.   The package ?seems to? install, but I now see in R:\n>\n>> library(gurobi)\n> Loading required package: gurobi\n> Loading required package: slam\n> Error in dyn.load(file, DLLpath = DLLpath, ...) : \n>   unable to load shared object '/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so':\n>   dlopen(/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so, 6): Library not loaded: libgurobi65.so\n>   Referenced from: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so\n>   Reason: image not found\n>\n> the library libgurobi65.so is sitting in /usr/local/lib so I don't understand why the\n> R process can't find it -- this is what the R package library thinks:\n\nThis indicates, that you installed gurobi using homebrew?\n\nHow did you install the R package? Did you install it as a binary? If\nyes, then install it type=\"source\" so that it is compiled with the\ncorrect library paths.\n\nIf both assumptions are wrong: how did you install R, gurobi and the R\npackages?\n\nCheers,\n\nRainer\n\n>\n> yzzy: otool -L g*\n>\n> gurobi.so:\n> \tgurobi.so (compatibility version 0.0.0, current version 0.0.0)\n> \tlibgurobi65.so (compatibility version 6.5.0, current version 6.5.2)\n> \t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)\n> \t/Library/Frameworks/R.framework/Versions/3.2/Resources/lib/libR.dylib (compatibility version 3.2.0, current version 3.2.2)\n> \t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 855.17.0)\n>\n> Many thanks for your help,\n> Roger\n>\n> url:    www.econ.uiuc.edu/~roger            Roger Koenker\n> email    rkoenker at uiuc.edu            Department of Economics\n> vox:     217-333-4558                University of Illinois\n> fax:       217-244-6678                Urbana, IL 61801\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nRainer M. Krug\nemail: Rainer<at>krugs<dot>de\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 454 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20160907/7c8d33cc/attachment.bin>",
+      "body_snippet": "Roger Koenker <rkoenker at illinois.edu> writes:\n\n> This is a question about how to find a lost library needed for the gurobi R package.\n> Gurobi is a optimization system with various frontends includ",
+      "thread_id": "thread-b53912838262",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-97f3fc4e0c84",
+      "message_id": "<m2fupcqiy2.fsf@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2016-09-07T09:15:33+02:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu> (Roger Koenker's message of \"Tue, 6 Sep 2016 16:34:44 -0500\")",
+      "references": [
+        "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>"
+      ],
+      "body_plain": "Roger Koenker <rkoenker at illinois.edu> writes:\n\n> This is a question about how to find a lost library needed for the gurobi R package.\n> Gurobi is a optimization system with various frontends including to R.\n> Even though I realize that few of you use, or may even know about, gurobi I hope\n> that there may be  some generic advice ? my first  dubious attempts, contrary to Simon?s\n> periodic advice that use of DYLD_LIBRARY_PATH is frowned upon,  have proven futile.\n> Here is the basic story:\n\nI just saw that gurobi is a commercial package which comes with their\nown R interface - I would ask on their mailing list.\n\nCheers,\n\nRainer\n\n\n>\n> I've installed gurobi and its license file and this seems to work on a test problem from the command line,\n> but I would like to use the R package interface and have installed the R binary package that comes with\n> the gurobi download on a R 3.3.0 system on an osx 10.11.5 machine,   As far as I can see there is no\n> source version of the R package available.   The package ?seems to? install, but I now see in R:\n>\n>> library(gurobi)\n> Loading required package: gurobi\n> Loading required package: slam\n> Error in dyn.load(file, DLLpath = DLLpath, ...) : \n>   unable to load shared object '/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so':\n>   dlopen(/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so, 6): Library not loaded: libgurobi65.so\n>   Referenced from: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so\n>   Reason: image not found\n>\n> the library libgurobi65.so is sitting in /usr/local/lib so I don't understand why the\n> R process can't find it -- this is what the R package library thinks:\n>\n> yzzy: otool -L g*\n>\n> gurobi.so:\n> \tgurobi.so (compatibility version 0.0.0, current version 0.0.0)\n> \tlibgurobi65.so (compatibility version 6.5.0, current version 6.5.2)\n> \t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)\n> \t/Library/Frameworks/R.framework/Versions/3.2/Resources/lib/libR.dylib (compatibility version 3.2.0, current version 3.2.2)\n> \t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 855.17.0)\n>\n> Many thanks for your help,\n> Roger\n>\n> url:    www.econ.uiuc.edu/~roger            Roger Koenker\n> email    rkoenker at uiuc.edu            Department of Economics\n> vox:     217-333-4558                University of Illinois\n> fax:       217-244-6678                Urbana, IL 61801\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nRainer M. Krug\nemail: Rainer<at>krugs<dot>de\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 454 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20160907/bdb65f91/attachment.bin>",
+      "body_snippet": "Roger Koenker <rkoenker at illinois.edu> writes:\n\n> This is a question about how to find a lost library needed for the gurobi R package.\n> Gurobi is a optimization system with various frontends includ",
+      "thread_id": "thread-b53912838262",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-407734a97f91",
+      "message_id": "<A785EA6C-C496-405B-BCF7-C7523CAB2EEA@beck.net>",
+      "from_name": "Dominik Beck",
+      "from_email_hash": "9510e5b94e750be0255c7313bb126517250b096c14fc67aa97ff4f088e18f332",
+      "date": "2016-09-07T09:55:03+02:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": "<m2k2eoqj16.fsf@krugs.de>",
+      "references": [
+        "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>",
+        "<m2k2eoqj16.fsf@krugs.de>"
+      ],
+      "body_plain": "Please look here: http://apple.stackexchange.com/questions/208764/cant-write-to-usr-lib\n\nSounds like a security feature OS X El Capitan.\n\nBest regards,\nDominik\n\nSent from my iPhone, pls excuse typos and brevity.\n\n> On 07.09.2016, at 09:13, Rainer M Krug <Rainer at krugs.de> wrote:\n> \n> Roger Koenker <rkoenker at illinois.edu> writes:\n> \n>> This is a question about how to find a lost library needed for the gurobi R package.\n>> Gurobi is a optimization system with various frontends including to R.\n>> Even though I realize that few of you use, or may even know about, gurobi I hope\n>> that there may be  some generic advice ? my first  dubious attempts, contrary to Simon?s\n>> periodic advice that use of DYLD_LIBRARY_PATH is frowned upon,  have proven futile.\n>> Here is the basic story:\n>> \n>> I've installed gurobi and its license file and this seems to work on a test problem from the command line,\n>> but I would like to use the R package interface and have installed the R binary package that comes with\n>> the gurobi download on a R 3.3.0 system on an osx 10.11.5 machine,   As far as I can see there is no\n>> source version of the R package available.   The package ?seems to? install, but I now see in R:\n>> \n>>> library(gurobi)\n>> Loading required package: gurobi\n>> Loading required package: slam\n>> Error in dyn.load(file, DLLpath = DLLpath, ...) : \n>>  unable to load shared object '/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so':\n>>  dlopen(/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so, 6): Library not loaded: libgurobi65.so\n>>  Referenced from: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so\n>>  Reason: image not found\n>> \n>> the library libgurobi65.so is sitting in /usr/local/lib so I don't understand why the\n>> R process can't find it -- this is what the R package library thinks:\n> \n> This indicates, that you installed gurobi using homebrew?\n> \n> How did you install the R package? Did you install it as a binary? If\n> yes, then install it type=\"source\" so that it is compiled with the\n> correct library paths.\n> \n> If both assumptions are wrong: how did you install R, gurobi and the R\n> packages?\n> \n> Cheers,\n> \n> Rainer\n> \n>> \n>> yzzy: otool -L g*\n>> \n>> gurobi.so:\n>>    gurobi.so (compatibility version 0.0.0, current version 0.0.0)\n>>    libgurobi65.so (compatibility version 6.5.0, current version 6.5.2)\n>>    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)\n>>    /Library/Frameworks/R.framework/Versions/3.2/Resources/lib/libR.dylib (compatibility version 3.2.0, current version 3.2.2)\n>>    /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 855.17.0)\n>> \n>> Many thanks for your help,\n>> Roger\n>> \n>> url:    www.econ.uiuc.edu/~roger            Roger Koenker\n>> email    rkoenker at uiuc.edu            Department of Economics\n>> vox:     217-333-4558                University of Illinois\n>> fax:       217-244-6678                Urbana, IL 61801\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> -- \n> Rainer M. Krug\n> email: Rainer<at>krugs<dot>de\n> PGP: 0x0F52F982\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Please look here: http://apple.stackexchange.com/questions/208764/cant-write-to-usr-lib\n\nSounds like a security feature OS X El Capitan.\n\nBest regards,\nDominik\n\nSent from my iPhone, pls excuse typos a",
+      "thread_id": "thread-b53912838262",
+      "thread_depth": 2,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-34f6c6896080",
+      "message_id": "<D66E3972-382B-415A-BB5F-0D01B7F87445@illinois.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "359868c91f72f8b2eefe60027d20f064ed111f9c2fbc00e33a1d837cc16d6732",
+      "date": "2016-09-07T07:18:08-05:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": "<8f544abd00014b0db8367b51d39e167b@CHIHT1.ad.uillinois.edu>",
+      "references": [
+        "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>",
+        "<8f544abd00014b0db8367b51d39e167b@CHIHT1.ad.uillinois.edu>"
+      ],
+      "body_plain": "> On Sep 7, 2016, at 2:13 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n> \n> Roger Koenker <rkoenker at illinois.edu> writes:\n> \n> \n> This indicates, that you installed gurobi using homebrew?\n\nNo, I don?t use homebrew,  it was installed from the dmg downloaded\nfrom the gurobi website.\n> \n> How did you install the R package? Did you install it as a binary? If\n> yes, then install it type=\"source\" so that it is compiled with the\n> correct library paths.\n\nThe gurobi download includes a mac binary and I installed that ? as\nfar as I can tell there is no publicly available source version.\n> \n> If both assumptions are wrong: how did you install R, gurobi and the R\n> packages?\n> \n> Cheers,\n> \n> Rainer\n>",
+      "body_snippet": "> On Sep 7, 2016, at 2:13 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n> \n> Roger Koenker <rkoenker at illinois.edu> writes:\n> \n> \n> This indicates, that you installed gurobi using homebrew?\n\nNo, I d",
+      "thread_id": "thread-34f6c6896080",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-0370e8b39990",
+      "message_id": "<E0E49BFA-8A78-4D3B-9F15-7F18B0A5D43F@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "1c0c26ffdc63f8bcd27163d1af93be76a2c5ad37789d7759468aa44285929e74",
+      "date": "2016-09-07T08:09:57-05:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": "<D66E3972-382B-415A-BB5F-0D01B7F87445@illinois.edu>",
+      "references": [
+        "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>",
+        "<8f544abd00014b0db8367b51d39e167b@CHIHT1.ad.uillinois.edu>",
+        "<D66E3972-382B-415A-BB5F-0D01B7F87445@illinois.edu>"
+      ],
+      "body_plain": "> On Sep 7, 2016, at 7:18 AM, Roger Koenker <rkoenker at illinois.edu> wrote:\n> \n> \n> \n>> On Sep 7, 2016, at 2:13 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n>> \n>> Roger Koenker <rkoenker at illinois.edu> writes:\n>> \n>> \n>> This indicates, that you installed gurobi using homebrew?\n> \n> No, I don?t use homebrew,  it was installed from the dmg downloaded\n> from the gurobi website.\n>> \n>> How did you install the R package? Did you install it as a binary? If\n>> yes, then install it type=\"source\" so that it is compiled with the\n>> correct library paths.\n> \n> The gurobi download includes a mac binary and I installed that ? as\n> far as I can tell there is no publicly available source version.\n>> \n>> If both assumptions are wrong: how did you install R, gurobi and the R\n>> packages?\n>> \n>> Cheers,\n>> \n>> Rainer\n>> \n\n\nRoger,\n\nAccording to this PDF:\n\n  http://www.gurobi.com/documentation/6.5/quickstart_mac.pdf\n\nthere appears to be instructions on page 88 pertaining to R and for installing a source package for Linux in addition to the Mac binary (.tgz). So there does appear to be some availability of a source version.\n\nSince the package appears to be from a third party who is a commercial vendor at some level, as Rainer noted, it may be prudent to contact them directly or via their Google support group.\n\nRegards,\n\nMarc Schwartz",
+      "body_snippet": "> On Sep 7, 2016, at 7:18 AM, Roger Koenker <rkoenker at illinois.edu> wrote:\n> \n> \n> \n>> On Sep 7, 2016, at 2:13 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n>> \n>> Roger Koenker <rkoenker at illino",
+      "thread_id": "thread-34f6c6896080",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-1896592b47bf",
+      "message_id": "<m2wpinq2cp.fsf@krugs.de>",
+      "from_name": "Rainer M Krug",
+      "from_email_hash": "157e56ae6c387b32c26749d4c5a2fa1f3d30fe259f3a41322190852de6c6c637",
+      "date": "2016-09-07T15:13:58+02:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": "<D66E3972-382B-415A-BB5F-0D01B7F87445@illinois.edu> (Roger Koenker's message of \"Wed, 7 Sep 2016 07:18:08 -0500\")",
+      "references": [
+        "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>",
+        "<8f544abd00014b0db8367b51d39e167b@CHIHT1.ad.uillinois.edu>",
+        "<D66E3972-382B-415A-BB5F-0D01B7F87445@illinois.edu>"
+      ],
+      "body_plain": "Roger Koenker <rkoenker at illinois.edu> writes:\n\n>> On Sep 7, 2016, at 2:13 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n>> \n>> Roger Koenker <rkoenker at illinois.edu> writes:\n>> \n>> \n>> This indicates, that you installed gurobi using homebrew?\n>\n> No, I don?t use homebrew,  it was installed from the dmg downloaded\n> from the gurobi website.\n\nIn that case you should contact their support.\n\nRainer\n\n>> \n>> How did you install the R package? Did you install it as a binary? If\n>> yes, then install it type=\"source\" so that it is compiled with the\n>> correct library paths.\n>\n> The gurobi download includes a mac binary and I installed that ? as\n> far as I can tell there is no publicly available source version.\n>> \n>> If both assumptions are wrong: how did you install R, gurobi and the R\n>> packages?\n>> \n>> Cheers,\n>> \n>> Rainer\n>> \n>\n\n-- \nRainer M. Krug\nemail: Rainer<at>krugs<dot>de\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 454 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20160907/5f937af6/attachment.bin>",
+      "body_snippet": "Roger Koenker <rkoenker at illinois.edu> writes:\n\n>> On Sep 7, 2016, at 2:13 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n>> \n>> Roger Koenker <rkoenker at illinois.edu> writes:\n>> \n>> \n>> This indic",
+      "thread_id": "thread-34f6c6896080",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-acb441ccb6b9",
+      "message_id": "<185C95EF-CD86-45E8-90CF-829FCC21C2BE@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-09-07T11:16:27-04:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>",
+      "references": [
+        "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>"
+      ],
+      "body_plain": "> On Sep 6, 2016, at 5:34 PM, Roger Koenker <rkoenker at illinois.edu> wrote:\n> \n> This is a question about how to find a lost library needed for the gurobi R package.\n> Gurobi is a optimization system with various frontends including to R.\n> Even though I realize that few of you use, or may even know about, gurobi I hope\n> that there may be  some generic advice ? my first  dubious attempts, contrary to Simon?s\n> periodic advice that use of DYLD_LIBRARY_PATH is frowned upon,  have proven futile.\n> Here is the basic story:\n> \n> I've installed gurobi and its license file and this seems to work on a test problem from the command line,\n> but I would like to use the R package interface and have installed the R binary package that comes with\n> the gurobi download on a R 3.3.0 system on an osx 10.11.5 machine,   As far as I can see there is no\n> source version of the R package available.   The package ?seems to? install, but I now see in R:\n> \n>> library(gurobi)\n> Loading required package: gurobi\n> Loading required package: slam\n> Error in dyn.load(file, DLLpath = DLLpath, ...) : \n>  unable to load shared object '/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so':\n>  dlopen(/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so, 6): Library not loaded: libgurobi65.so\n>  Referenced from: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so\n>  Reason: image not found\n> \n> the library libgurobi65.so is sitting in /usr/local/lib so I don't understand why the\n> R process can't find it\n\n\nPossibly because gurobi authors have no idea about OS X? The library should include its location in its ID field and also .so is not the correct extension for a OS X library - it's not Linux :). So if you still have some trust in that product, you can try \n\nsudo install_name_tool -id /usr/local/lib/libgurobi65.so /usr/local/lib/libgurobi65.so\n\nand the re-compile the R package and cross your fingers that it will work. Alternatively, if you can't compile it yourself, you can manually force the correct path in the package via\n\ninstall_name_tool -change libgurobi65.so /usr/local/lib/libgurobi65.so /Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so\n\nbut as other said, you should really ask them to fix their product ;).\n\nCheers,\nSimon\n\n\n> -- this is what the R package library thinks:\n> \n> yzzy: otool -L g*\n> \n> gurobi.so:\n> \tgurobi.so (compatibility version 0.0.0, current version 0.0.0)\n> \tlibgurobi65.so (compatibility version 6.5.0, current version 6.5.2)\n> \t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)\n> \t/Library/Frameworks/R.framework/Versions/3.2/Resources/lib/libR.dylib (compatibility version 3.2.0, current version 3.2.2)\n> \t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 855.17.0)\n> \n> Many thanks for your help,\n> Roger\n> \n> url:    www.econ.uiuc.edu/~roger            Roger Koenker\n> email    rkoenker at uiuc.edu            Department of Economics\n> vox:     217-333-4558                University of Illinois\n> fax:       217-244-6678                Urbana, IL 61801\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> On Sep 6, 2016, at 5:34 PM, Roger Koenker <rkoenker at illinois.edu> wrote:\n> \n> This is a question about how to find a lost library needed for the gurobi R package.\n> Gurobi is a optimization syste",
+      "thread_id": "thread-b53912838262",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-08f8f41747ee",
+      "message_id": "<CB24D0D0-DB6E-4E28-8AE6-2828BFC19DD2@illinois.edu>",
+      "from_name": "Roger Koenker",
+      "from_email_hash": "359868c91f72f8b2eefe60027d20f064ed111f9c2fbc00e33a1d837cc16d6732",
+      "date": "2016-09-07T15:20:15-05:00",
+      "subject": "[R-SIG-Mac] Lost Library ?",
+      "subject_clean": "Lost Library ?",
+      "in_reply_to": "<df6da8d0a84d4defb20fe1c6b5686c28@CITESHT4.ad.uillinois.edu>",
+      "references": [
+        "<B2DF09F6-7A68-4CED-864D-188BB52BD9A6@illinois.edu>",
+        "<df6da8d0a84d4defb20fe1c6b5686c28@CITESHT4.ad.uillinois.edu>"
+      ],
+      "body_plain": "Thanks Simon, your last suggestion resolves the issue nicely for the moment, I am pursuing\nit with the gurobi folks,  I thought that this was a reputable outfit, but I?m beginning to have \ndoubts.\n\nRoger\n\nurl:    www.econ.uiuc.edu/~roger            Roger Koenker\nemail    rkoenker at uiuc.edu            Department of Economics\nvox:     217-333-4558                University of Illinois\nfax:       217-244-6678                Urbana, IL 61801\n\n> On Sep 7, 2016, at 10:16 AM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n>> \n>> On Sep 6, 2016, at 5:34 PM, Roger Koenker <rkoenker at illinois.edu> wrote:\n>> \n>> This is a question about how to find a lost library needed for the gurobi R package.\n>> Gurobi is a optimization system with various frontends including to R.\n>> Even though I realize that few of you use, or may even know about, gurobi I hope\n>> that there may be  some generic advice ? my first  dubious attempts, contrary to Simon?s\n>> periodic advice that use of DYLD_LIBRARY_PATH is frowned upon,  have proven futile.\n>> Here is the basic story:\n>> \n>> I've installed gurobi and its license file and this seems to work on a test problem from the command line,\n>> but I would like to use the R package interface and have installed the R binary package that comes with\n>> the gurobi download on a R 3.3.0 system on an osx 10.11.5 machine,   As far as I can see there is no\n>> source version of the R package available.   The package ?seems to? install, but I now see in R:\n>> \n>>> library(gurobi)\n>> Loading required package: gurobi\n>> Loading required package: slam\n>> Error in dyn.load(file, DLLpath = DLLpath, ...) : \n>> unable to load shared object '/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so':\n>> dlopen(/Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so, 6): Library not loaded: libgurobi65.so\n>> Referenced from: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so\n>> Reason: image not found\n>> \n>> the library libgurobi65.so is sitting in /usr/local/lib so I don't understand why the\n>> R process can't find it\n> \n> \n> Possibly because gurobi authors have no idea about OS X? The library should include its location in its ID field and also .so is not the correct extension for a OS X library - it's not Linux :). So if you still have some trust in that product, you can try \n> \n> sudo install_name_tool -id /usr/local/lib/libgurobi65.so /usr/local/lib/libgurobi65.so\n> \n> and the re-compile the R package and cross your fingers that it will work. Alternatively, if you can't compile it yourself, you can manually force the correct path in the package via\n> \n> install_name_tool -change libgurobi65.so /usr/local/lib/libgurobi65.so /Library/Frameworks/R.framework/Versions/3.3/Resources/library/gurobi/libs/gurobi.so\n> \n> but as other said, you should really ask them to fix their product ;).\n> \n> Cheers,\n> Simon\n> \n> \n>> -- this is what the R package library thinks:\n>> \n>> yzzy: otool -L g*\n>> \n>> gurobi.so:\n>> \tgurobi.so (compatibility version 0.0.0, current version 0.0.0)\n>> \tlibgurobi65.so (compatibility version 6.5.0, current version 6.5.2)\n>> \t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)\n>> \t/Library/Frameworks/R.framework/Versions/3.2/Resources/lib/libR.dylib (compatibility version 3.2.0, current version 3.2.2)\n>> \t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 855.17.0)\n>> \n>> Many thanks for your help,\n>> Roger\n>> \n>> url:    www.econ.uiuc.edu/~roger            Roger Koenker\n>> email    rkoenker at uiuc.edu            Department of Economics\n>> vox:     217-333-4558                University of Illinois\n>> fax:       217-244-6678                Urbana, IL 61801\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Thanks Simon, your last suggestion resolves the issue nicely for the moment, I am pursuing\nit with the gurobi folks,  I thought that this was a reputable outfit, but I?m beginning to have \ndoubts.\n\nRo",
+      "thread_id": "thread-08f8f41747ee",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-e8735cc9a25f",
+      "message_id": "<F4CCBEC2-1C68-40E9-8C8B-1D4495A155BA@gmail.com>",
+      "from_name": "rmendelss gmail",
+      "from_email_hash": "bc448133e5a081887aa343adf3d8ae983a4b1f937f3ca42c16c298cb310f3b3d",
+      "date": "2016-09-20T11:59:25-07:00",
+      "subject": "[R-SIG-Mac] MacOS Sierra",
+      "subject_clean": "MacOS Sierra",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi All:\n\nJust wanted to double-check, before I even think about an upgrade, if the present version of R works with the new release of MacOS Sierra.\n\nThanks for any information.\n\n-Roy",
+      "body_snippet": "Hi All:\n\nJust wanted to double-check, before I even think about an upgrade, if the present version of R works with the new release of MacOS Sierra.\n\nThanks for any information.\n\n-Roy",
+      "thread_id": "thread-e8735cc9a25f",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-69bc2227475b",
+      "message_id": "<CAA-FpKXw-pU=GWUqcXGBFVOE+f41KLiAacZjJseyG9__xyxeXw@mail.gmail.com>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "06069ff8bf65af0cc1ddc4f9da6c2a365b90baa3c37e0a4c63565522e5804ed8",
+      "date": "2016-09-21T09:19:05-04:00",
+      "subject": "[R-SIG-Mac] macOS Sierra",
+      "subject_clean": "macOS Sierra",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "As an FYI to those pondering upgrading to Sierra, I've been testing R 3.3.1\nin a VM under Sierra since the betas and migrated a few key production\nsystems over to the GM earlier this week and have been running production\ncode on them using CRAN 3.3.1 macOS binaries and AT&T macOS R-devel\nbinaries and haven't seen any issues script-wise or R GUI-wise (I don't use\nR GUI that often, though).\n\nI haven't tested Homebrew R yet but that's a plan for the weekend (we have\nsome endpoint users who prefer Homebrew R installs and I have production\ncode that needs to run on them as well).\n\nWhile not R-specific, the preview builds of RStudio are also working fine\napart from some font rendering issues which I believe are due to the way\nmacOS Sierra webkit handles font ligatures (I use Fira Code for proper\narrows amongst other glyphs).\n\nSince I hadn't seen anything regarding this I figured it might be useful\ninformation for those considering the nascent OS update.\n\n-Bob\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "As an FYI to those pondering upgrading to Sierra, I've been testing R 3.3.1\nin a VM under Sierra since the betas and migrated a few key production\nsystems over to the GM earlier this week and have bee",
+      "thread_id": "thread-69bc2227475b",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-e1dcef6e1f6f",
+      "message_id": "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2016-09-22T07:39:28+01:00",
+      "subject": "[R-SIG-Mac] Experiences with macOS Sierra",
+      "subject_clean": "Experiences with macOS Sierra",
+      "in_reply_to": "<9169747f-9bdb-74d8-d201-5306a2e07049@stats.ox.ac.uk>",
+      "references": [
+        "<9169747f-9bdb-74d8-d201-5306a2e07049@stats.ox.ac.uk>"
+      ],
+      "body_plain": "So far I have encountered few problems.  R.app runs but I do not \nnormally use it so my tests were minimal.\n\nMy observations are about installing packages from source.\n\n- It seems Apple has been tidying up, and I had ca 20GB more free space \nafter upgrading (which is worthwhile on my MBA with a 128GB SSD).  It \nseems that includes removing some headers, including those for openssl \n(used by packages PKI and RSclient - package opensssl uses its own). \nThis is but the latest instance in a long-term trend, e.g. iodbc, pcre \nand liblzma have libraries but no headers.\n\n- Finally the POSIX 2008 function clock_gettime is supported (and will \nbe used by R): but package scrypt calls it incorrectly.\n\nXcode 8 is available for EL Capitan but I would caution against using it \nthere (despite it being pushed as an update from the AppStore).  AFAICS \n(and googling will find other reports) it defaults to the macOS 10.12 \nSDK and that declares functions such as clock_gettime not available in \nEl Capitan.  (I believe that R checks thoroughly enough not to be caught \nby this.)\n\nThere is a further problem with Xcode 8, also seen on Sierra.  Packages \nusing xml2-config (such as XML) fail to install.  Apple modified \nxml2-config to look on the SDK path, which means packages using it \nattempt to link to .tbd files rather than .dylibs.  Which should be OK \nbut the supplied .tbd attempt to link to libraries removed in Sierra and \nso linking fails. (This is not a problem with the version 8 of the \nCommand Line Tools, only available for Sierra.)\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "So far I have encountered few problems.  R.app runs but I do not \nnormally use it so my tests were minimal.\n\nMy observations are about installing packages from source.\n\n- It seems Apple has been tidyi",
+      "thread_id": "thread-e1dcef6e1f6f",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-66b361b5ac77",
+      "message_id": "<CAA-FpKWHs4=gdP+q9kVVPDKcjQfuvvpdO_GQwUBthQ4OO52m0Q@mail.gmail.com>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "06069ff8bf65af0cc1ddc4f9da6c2a365b90baa3c37e0a4c63565522e5804ed8",
+      "date": "2016-09-22T07:11:41-04:00",
+      "subject": "[R-SIG-Mac] MacOS Sierra",
+      "subject_clean": "MacOS Sierra",
+      "in_reply_to": "<F4CCBEC2-1C68-40E9-8C8B-1D4495A155BA@gmail.com>",
+      "references": [
+        "<F4CCBEC2-1C68-40E9-8C8B-1D4495A155BA@gmail.com>"
+      ],
+      "body_plain": "Hey Roy,\n\nAye. If you look at recent R-SIG-Mac messages, I gave a report on this\nyesterday.\n\nNo issues with 3.2, 3.3.1 or R-devel on 10.12 (so far).\n\n-Bob\n\nOn Tue, Sep 20, 2016 at 2:59 PM, rmendelss gmail <rmendelss at gmail.com>\nwrote:\n\n> Hi All:\n>\n> Just wanted to double-check, before I even think about an upgrade, if the\n> present version of R works with the new release of MacOS Sierra.\n>\n> Thanks for any information.\n>\n> -Roy\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hey Roy,\n\nAye. If you look at recent R-SIG-Mac messages, I gave a report on this\nyesterday.\n\nNo issues with 3.2, 3.3.1 or R-devel on 10.12 (so far).\n\n-Bob\n\nOn Tue, Sep 20, 2016 at 2:59 PM, rmendelss g",
+      "thread_id": "thread-e8735cc9a25f",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-d0fed2cf6a35",
+      "message_id": "<CAA-FpKX3rPNg+4xQ=chkZotDHhQZkZnMbuKq4vjAS346HVSZwA@mail.gmail.com>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "06069ff8bf65af0cc1ddc4f9da6c2a365b90baa3c37e0a4c63565522e5804ed8",
+      "date": "2016-09-22T07:14:38-04:00",
+      "subject": "[R-SIG-Mac] Experiences with macOS Sierra",
+      "subject_clean": "Experiences with macOS Sierra",
+      "in_reply_to": "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>",
+      "references": [
+        "<9169747f-9bdb-74d8-d201-5306a2e07049@stats.ox.ac.uk>",
+        "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>"
+      ],
+      "body_plain": "The detailed update is very much appreciated Prof Ripley.\n\nMany thanks!\n\n-Bob\n\nOn Thu, Sep 22, 2016 at 2:39 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk>\nwrote:\n\n> So far I have encountered few problems.  R.app runs but I do not normally\n> use it so my tests were minimal.\n>\n> My observations are about installing packages from source.\n>\n> - It seems Apple has been tidying up, and I had ca 20GB more free space\n> after upgrading (which is worthwhile on my MBA with a 128GB SSD).  It seems\n> that includes removing some headers, including those for openssl (used by\n> packages PKI and RSclient - package opensssl uses its own). This is but the\n> latest instance in a long-term trend, e.g. iodbc, pcre and liblzma have\n> libraries but no headers.\n>\n> - Finally the POSIX 2008 function clock_gettime is supported (and will be\n> used by R): but package scrypt calls it incorrectly.\n>\n> Xcode 8 is available for EL Capitan but I would caution against using it\n> there (despite it being pushed as an update from the AppStore).  AFAICS\n> (and googling will find other reports) it defaults to the macOS 10.12 SDK\n> and that declares functions such as clock_gettime not available in El\n> Capitan.  (I believe that R checks thoroughly enough not to be caught by\n> this.)\n>\n> There is a further problem with Xcode 8, also seen on Sierra.  Packages\n> using xml2-config (such as XML) fail to install.  Apple modified\n> xml2-config to look on the SDK path, which means packages using it attempt\n> to link to .tbd files rather than .dylibs.  Which should be OK but the\n> supplied .tbd attempt to link to libraries removed in Sierra and so linking\n> fails. (This is not a problem with the version 8 of the Command Line Tools,\n> only available for Sierra.)\n>\n> --\n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "The detailed update is very much appreciated Prof Ripley.\n\nMany thanks!\n\n-Bob\n\nOn Thu, Sep 22, 2016 at 2:39 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk>\nwrote:\n\n> So far I have encountered few pro",
+      "thread_id": "thread-e1dcef6e1f6f",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-f448ac180d54",
+      "message_id": "<B81D07C1-25FF-4287-8249-761105FB361F@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "1c0c26ffdc63f8bcd27163d1af93be76a2c5ad37789d7759468aa44285929e74",
+      "date": "2016-09-22T07:38:07-05:00",
+      "subject": "[R-SIG-Mac] Experiences with macOS Sierra",
+      "subject_clean": "Experiences with macOS Sierra",
+      "in_reply_to": "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>",
+      "references": [
+        "<9169747f-9bdb-74d8-d201-5306a2e07049@stats.ox.ac.uk>",
+        "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>"
+      ],
+      "body_plain": "> On Sep 22, 2016, at 1:39 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> So far I have encountered few problems.  R.app runs but I do not normally use it so my tests were minimal.\n> \n> My observations are about installing packages from source.\n> \n> - It seems Apple has been tidying up, and I had ca 20GB more free space after upgrading (which is worthwhile on my MBA with a 128GB SSD).  It seems that includes removing some headers, including those for openssl (used by packages PKI and RSclient - package opensssl uses its own). This is but the latest instance in a long-term trend, e.g. iodbc, pcre and liblzma have libraries but no headers.\n> \n> - Finally the POSIX 2008 function clock_gettime is supported (and will be used by R): but package scrypt calls it incorrectly.\n> \n> Xcode 8 is available for EL Capitan but I would caution against using it there (despite it being pushed as an update from the AppStore).  AFAICS (and googling will find other reports) it defaults to the macOS 10.12 SDK and that declares functions such as clock_gettime not available in El Capitan.  (I believe that R checks thoroughly enough not to be caught by this.)\n> \n> There is a further problem with Xcode 8, also seen on Sierra.  Packages using xml2-config (such as XML) fail to install.  Apple modified xml2-config to look on the SDK path, which means packages using it attempt to link to .tbd files rather than .dylibs.  Which should be OK but the supplied .tbd attempt to link to libraries removed in Sierra and so linking fails. (This is not a problem with the version 8 of the Command Line Tools, only available for Sierra.)\n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n\n\nThanks Prof. Ripley.\n\nJust to add another voice, I have not had any issues with R under Sierra.\n\nI did a clean install of R 3.3.1, after completely deleting the prior installation. I then re-installed XQuartz and installed a fairly substantial number of CRAN packages, which includes RODBC installed from source.\n\nI do not typically use the default R GUI, but use ESS. In the latter case, I am now using Emacs 25.1 and the only issue that I have had so far, is that vertically scrolling a large file using either the built-in TrackPad on my MacBook Pro or my external TrackPad, results in overly sensitive scrolling. I barely need to move my fingers on the TrackPad and the file buffer scrolls a very large amount rapidly. I tried this using Emacs 24.5 and the behavior is the same, so this is not unique to Emacs 25.1 and seems to be a change under Sierra. \n\nA Google search, so far, does not reveal any reports on this and I do not have this behavior in any other apps. I have made some temporary changes to my .emacs file relative to scrolling, which helps to slow scrolling, but it is not ideal yet. There are no settings pertaining to the TrackPad in System Preferences that appear to be relevant.\n\nI will keep playing around with this and perhaps post to the Emacs support list, as it is not clear if there is a bug in Sierra causing this, or there is a need for a change in Emacs itself or .emacs settings relative to scrolling to modify this behavior. There are posts on the Emacs list where folks were using Sierra betas, but no mention of this behavior as far as I can see.\n\nRegards,\n\nMarc Schwartz",
+      "body_snippet": "> On Sep 22, 2016, at 1:39 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> So far I have encountered few problems.  R.app runs but I do not normally use it so my tests were minimal.\n> \n> ",
+      "thread_id": "thread-e1dcef6e1f6f",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-948b662301ad",
+      "message_id": "<CAC2h7uuj8N16HbQmOQS3entykrr_xNoV30Qvfx3r8085sgV5aw@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "b2b45a5f3ad330d8561a4711d1f95ff6a445243a303a83a7a709685fab3e068c",
+      "date": "2016-09-22T09:01:24-04:00",
+      "subject": "[R-SIG-Mac] Experiences with macOS Sierra",
+      "subject_clean": "Experiences with macOS Sierra",
+      "in_reply_to": "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>",
+      "references": [
+        "<9169747f-9bdb-74d8-d201-5306a2e07049@stats.ox.ac.uk>",
+        "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Thanks for the work on this, especially the comment on xml2.  I had noticed\nproblems with xml2 while compiling Emacs 25.1 using the new Xcode on El\nCapitan, but I have not had time to track it down.\n\nBest,\nKasper\n\nOn Thu, Sep 22, 2016 at 2:39 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk>\nwrote:\n\n> So far I have encountered few problems.  R.app runs but I do not normally\n> use it so my tests were minimal.\n>\n> My observations are about installing packages from source.\n>\n> - It seems Apple has been tidying up, and I had ca 20GB more free space\n> after upgrading (which is worthwhile on my MBA with a 128GB SSD).  It seems\n> that includes removing some headers, including those for openssl (used by\n> packages PKI and RSclient - package opensssl uses its own). This is but the\n> latest instance in a long-term trend, e.g. iodbc, pcre and liblzma have\n> libraries but no headers.\n>\n> - Finally the POSIX 2008 function clock_gettime is supported (and will be\n> used by R): but package scrypt calls it incorrectly.\n>\n> Xcode 8 is available for EL Capitan but I would caution against using it\n> there (despite it being pushed as an update from the AppStore).  AFAICS\n> (and googling will find other reports) it defaults to the macOS 10.12 SDK\n> and that declares functions such as clock_gettime not available in El\n> Capitan.  (I believe that R checks thoroughly enough not to be caught by\n> this.)\n>\n> There is a further problem with Xcode 8, also seen on Sierra.  Packages\n> using xml2-config (such as XML) fail to install.  Apple modified\n> xml2-config to look on the SDK path, which means packages using it attempt\n> to link to .tbd files rather than .dylibs.  Which should be OK but the\n> supplied .tbd attempt to link to libraries removed in Sierra and so linking\n> fails. (This is not a problem with the version 8 of the Command Line Tools,\n> only available for Sierra.)\n>\n> --\n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks for the work on this, especially the comment on xml2.  I had noticed\nproblems with xml2 while compiling Emacs 25.1 using the new Xcode on El\nCapitan, but I have not had time to track it down.\n\n",
+      "thread_id": "thread-e1dcef6e1f6f",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-499ea9292611",
+      "message_id": "<8e233d0e-c54d-efca-fa50-eca085033109@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2016-09-23T12:18:29+01:00",
+      "subject": "[R-SIG-Mac] Experiences with macOS Sierra",
+      "subject_clean": "Experiences with macOS Sierra",
+      "in_reply_to": "<CAC2h7uuj8N16HbQmOQS3entykrr_xNoV30Qvfx3r8085sgV5aw@mail.gmail.com>",
+      "references": [
+        "<9169747f-9bdb-74d8-d201-5306a2e07049@stats.ox.ac.uk>",
+        "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>",
+        "<CAC2h7uuj8N16HbQmOQS3entykrr_xNoV30Qvfx3r8085sgV5aw@mail.gmail.com>"
+      ],
+      "body_plain": "On 22/09/2016 14:01, Kasper Daniel Hansen wrote:\n> Thanks for the work on this, especially the comment on xml2.  I had\n> noticed problems with xml2 while compiling Emacs 25.1 using the new\n> Xcode on El Capitan, but I have not had time to track it down.\n\nI had found a workaround for Xcode 8 on El Capitan: copy \n/usr/bin/xml2-config to somewhere earlier on your path (~/bin in my \ncase) and edit line 3 from\n\nprefix=$(xcrun -show-sdk-path)/usr\n\nto\n\nprefix=/usr\n\n\n>\n> Best,\n> Kasper\n>\n> On Thu, Sep 22, 2016 at 2:39 AM, Prof Brian Ripley\n> <ripley at stats.ox.ac.uk <mailto:ripley at stats.ox.ac.uk>> wrote:\n>\n>     So far I have encountered few problems.  R.app runs but I do not\n>     normally use it so my tests were minimal.\n>\n>     My observations are about installing packages from source.\n>\n>     - It seems Apple has been tidying up, and I had ca 20GB more free\n>     space after upgrading (which is worthwhile on my MBA with a 128GB\n>     SSD).  It seems that includes removing some headers, including those\n>     for openssl (used by packages PKI and RSclient - package opensssl\n>     uses its own). This is but the latest instance in a long-term trend,\n>     e.g. iodbc, pcre and liblzma have libraries but no headers.\n>\n>     - Finally the POSIX 2008 function clock_gettime is supported (and\n>     will be used by R): but package scrypt calls it incorrectly.\n>\n>     Xcode 8 is available for EL Capitan but I would caution against\n>     using it there (despite it being pushed as an update from the\n>     AppStore).  AFAICS (and googling will find other reports) it\n>     defaults to the macOS 10.12 SDK and that declares functions such as\n>     clock_gettime not available in El Capitan.  (I believe that R checks\n>     thoroughly enough not to be caught by this.)\n>\n>     There is a further problem with Xcode 8, also seen on Sierra.\n>     Packages using xml2-config (such as XML) fail to install.  Apple\n>     modified xml2-config to look on the SDK path, which means packages\n>     using it attempt to link to .tbd files rather than .dylibs.  Which\n>     should be OK but the supplied .tbd attempt to link to libraries\n>     removed in Sierra and so linking fails. (This is not a problem with\n>     the version 8 of the Command Line Tools, only available for Sierra.)\n>\n>     --\n>     Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>     <mailto:ripley at stats.ox.ac.uk>\n>     Emeritus Professor of Applied Statistics, University of Oxford\n>\n>     _______________________________________________\n>     R-SIG-Mac mailing list\n>     R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n>     https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>     <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>\n>\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 22/09/2016 14:01, Kasper Daniel Hansen wrote:\n> Thanks for the work on this, especially the comment on xml2.  I had\n> noticed problems with xml2 while compiling Emacs 25.1 using the new\n> Xcode on ",
+      "thread_id": "thread-e1dcef6e1f6f",
+      "thread_depth": 2,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-1a9bac7da92f",
+      "message_id": "<CAA-FpKXDeF3rgZyQ7TXHt+rhPaS2McVMAwjmrs4ML=1WFP258A@mail.gmail.com>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "06069ff8bf65af0cc1ddc4f9da6c2a365b90baa3c37e0a4c63565522e5804ed8",
+      "date": "2016-09-23T10:59:34-04:00",
+      "subject": "[R-SIG-Mac] Experiences with macOS Sierra",
+      "subject_clean": "Experiences with macOS Sierra",
+      "in_reply_to": "<8e233d0e-c54d-efca-fa50-eca085033109@stats.ox.ac.uk>",
+      "references": [
+        "<9169747f-9bdb-74d8-d201-5306a2e07049@stats.ox.ac.uk>",
+        "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>",
+        "<CAC2h7uuj8N16HbQmOQS3entykrr_xNoV30Qvfx3r8085sgV5aw@mail.gmail.com>",
+        "<8e233d0e-c54d-efca-fa50-eca085033109@stats.ox.ac.uk>"
+      ],
+      "body_plain": "I've finally had some time to look at the local build status for some\ncompiled packages I have locally and also some that are on CRAN after the\nSierra upgrade (and also the 10.12.1 patch which I'm also testing).\n\nThis isn't a warning for my own code but from usage of a now deprecated\nfunction in R.framework:\n\nIn file included from\n/Library/Frameworks/R.framework/Versions/3.3/Resources/library/AsioHeaders/include/asio/detail/fenced_block.hpp:24:\n/Library/Frameworks/R.framework/Versions/3.3/Resources/library/AsioHeaders/include/asio/detail/macos_fenced_block.hpp:45:5:\nwarning: 'OSMemoryBarrier' is deprecated: first deprecated in macOS 10.12 -\nUse std::atomic_thread_fence() from <atomic> instead\n[-Wdeprecated-declarations]\n    OSMemoryBarrier();\n    ^\n/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include/libkern/OSAtomicDeprecated.h:749:9:\nnote: 'OSMemoryBarrier' has been explicitly marked deprecated here\nvoid    OSMemoryBarrier( void );\n\nPassing this on just in case this hasn't come up with CRAN macOS checks for\nthe R Core team.\n\n-Bob\n\nOn Fri, Sep 23, 2016 at 7:18 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk>\nwrote:\n\n> On 22/09/2016 14:01, Kasper Daniel Hansen wrote:\n>\n>> Thanks for the work on this, especially the comment on xml2.  I had\n>> noticed problems with xml2 while compiling Emacs 25.1 using the new\n>> Xcode on El Capitan, but I have not had time to track it down.\n>>\n>\n> I had found a workaround for Xcode 8 on El Capitan: copy\n> /usr/bin/xml2-config to somewhere earlier on your path (~/bin in my case)\n> and edit line 3 from\n>\n> prefix=$(xcrun -show-sdk-path)/usr\n>\n> to\n>\n> prefix=/usr\n>\n>\n>\n>> Best,\n>> Kasper\n>>\n>> On Thu, Sep 22, 2016 at 2:39 AM, Prof Brian Ripley\n>> <ripley at stats.ox.ac.uk <mailto:ripley at stats.ox.ac.uk>> wrote:\n>>\n>>     So far I have encountered few problems.  R.app runs but I do not\n>>     normally use it so my tests were minimal.\n>>\n>>     My observations are about installing packages from source.\n>>\n>>     - It seems Apple has been tidying up, and I had ca 20GB more free\n>>     space after upgrading (which is worthwhile on my MBA with a 128GB\n>>     SSD).  It seems that includes removing some headers, including those\n>>     for openssl (used by packages PKI and RSclient - package opensssl\n>>     uses its own). This is but the latest instance in a long-term trend,\n>>     e.g. iodbc, pcre and liblzma have libraries but no headers.\n>>\n>>     - Finally the POSIX 2008 function clock_gettime is supported (and\n>>     will be used by R): but package scrypt calls it incorrectly.\n>>\n>>     Xcode 8 is available for EL Capitan but I would caution against\n>>     using it there (despite it being pushed as an update from the\n>>     AppStore).  AFAICS (and googling will find other reports) it\n>>     defaults to the macOS 10.12 SDK and that declares functions such as\n>>     clock_gettime not available in El Capitan.  (I believe that R checks\n>>     thoroughly enough not to be caught by this.)\n>>\n>>     There is a further problem with Xcode 8, also seen on Sierra.\n>>     Packages using xml2-config (such as XML) fail to install.  Apple\n>>     modified xml2-config to look on the SDK path, which means packages\n>>     using it attempt to link to .tbd files rather than .dylibs.  Which\n>>     should be OK but the supplied .tbd attempt to link to libraries\n>>     removed in Sierra and so linking fails. (This is not a problem with\n>>     the version 8 of the Command Line Tools, only available for Sierra.)\n>>\n>>     --\n>>     Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>     <mailto:ripley at stats.ox.ac.uk>\n>>     Emeritus Professor of Applied Statistics, University of Oxford\n>>\n>>     _______________________________________________\n>>     R-SIG-Mac mailing list\n>>     R-SIG-Mac at r-project.org <mailto:R-SIG-Mac at r-project.org>\n>>     https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>     <https://stat.ethz.ch/mailman/listinfo/r-sig-mac>\n>>\n>>\n>>\n>\n> --\n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I've finally had some time to look at the local build status for some\ncompiled packages I have locally and also some that are on CRAN after the\nSierra upgrade (and also the 10.12.1 patch which I'm als",
+      "thread_id": "thread-e1dcef6e1f6f",
+      "thread_depth": 3,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-33a35d1e502b",
+      "message_id": "<AFDEB399-1080-40D0-900F-CBAE32F6829D@me.com>",
+      "from_name": "Marc Schwartz",
+      "from_email_hash": "1c0c26ffdc63f8bcd27163d1af93be76a2c5ad37789d7759468aa44285929e74",
+      "date": "2016-09-23T22:19:23-05:00",
+      "subject": "[R-SIG-Mac] Experiences with macOS Sierra",
+      "subject_clean": "Experiences with macOS Sierra",
+      "in_reply_to": "<B81D07C1-25FF-4287-8249-761105FB361F@me.com>",
+      "references": [
+        "<9169747f-9bdb-74d8-d201-5306a2e07049@stats.ox.ac.uk>",
+        "<e46f88d2-336b-d3d8-1a13-2dc9a2fb0ec7@stats.ox.ac.uk>",
+        "<B81D07C1-25FF-4287-8249-761105FB361F@me.com>"
+      ],
+      "body_plain": "<snip>\n\nHi All,\n\nIn follow up to my post yesterday and subsequent to an offline exchange with Rodney, I am posting some additional information that I located today.\n\nFirst, for those who may be having scrolling issues with Logitech mice specifically under Sierra, there are some known issues as reported here:\n\n  http://www.macrumors.com/2016/09/22/wrecked-scrolling-logitech-mice/ <http://www.macrumors.com/2016/09/22/wrecked-scrolling-logitech-mice/>\n\nwith an update to the LCC apparently posted by Logitech yesterday here:\n\n  http://support.logitech.com/en_us/software/logitech-control-center-for-macintosh-os-x <http://support.logitech.com/en_us/software/logitech-control-center-for-macintosh-os-x>\n\nThat is not relevant to my scrolling issues, as I have Apple TrackPads both internally and externally, but this may be helpful to Logitech users.\n\nThat being said, today I found the following posts in the Apple Support Community Forums:\n\n  https://discussions.apple.com/thread/7659385?start=0&tstart=0 <https://discussions.apple.com/thread/7659385?start=0&tstart=0>\n\nand:\n\n  https://discussions.apple.com/thread/7679256?start=0&tstart=0 <https://discussions.apple.com/thread/7679256?start=0&tstart=0>\n\nwhich would seem to suggest some application specific hypersensitive scrolling and other issues. So the issue with Emacs/ESS that I observe may not be unique given these other reports and may support the notion of a Sierra issue. \n\nFor those using Emacs, I now have the following in my .emacs file:\n\n  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil))) ;; one line at a time  \n  (setq mouse-wheel-progressive-speed nil) ;; 'nil' for do not accelerate scrolling\n  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse\n  (setq scroll-step 1) ;; keyboard scroll one line at a time\n\nNote that the second line above disables scroll acceleration in Emacs, which is a double-edged sword. It makes scrolling tolerable as compared to having acceleration enabled, however for long source files, it is far too slow.\n\nI also tried adjusting:\n\n  (setq scroll-conservatively 100000)\n\nwith acceleration enabled, where larger numbers are supposed to aid in smoothing scrolling, but it has no apparent effect on the behavior I observe.\n\nI am still experimenting with other settings but have not found anything that comes close to desired behavior. One option, with acceleration disabled, is to increase the number of lines scrolled in the first line to something like:\n\n  (setq mouse-wheel-scroll-amount '(3 ((shift) . 1) ((control) . nil))) ;; three lines at a time\n\nbut scrolling becomes \"jumpier\" as that first number increases, so use with caution. The number after '(shift) .' affects the speed of scrolling with the SHIFT key pressed.\n\nHope that this may be helpful to some.\n\nRegards,\n\nMarc Schwartz\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "<snip>\n\nHi All,\n\nIn follow up to my post yesterday and subsequent to an offline exchange with Rodney, I am posting some additional information that I located today.\n\nFirst, for those who may be having",
+      "thread_id": "thread-e1dcef6e1f6f",
+      "thread_depth": 2,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-28fec20fe51c",
+      "message_id": "<CAA-FpKW7qD4=uE1TydGvXBSrvyWcvCs0NxeZDXh8VKM54K0gmg@mail.gmail.com>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "06069ff8bf65af0cc1ddc4f9da6c2a365b90baa3c37e0a4c63565522e5804ed8",
+      "date": "2016-09-27T20:55:25-04:00",
+      "subject": "[R-SIG-Mac] APFS report",
+      "subject_clean": "APFS report",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I finally had some cycles to format a few spare external drives as APFS\nvolumes.\n\nI didn't expect R to behave badly and I was proven correct that it works\nwith directories & files on APFS volumes equally as well as it's HFS+\ncounterpart.\n\nYou have to use command-line tools to format APFS volumes and Apple makes\nsure you know that all your data might disappear, so I don't expect folks\nwill be using it any time soon.\n\nThere are many very appealing features of the new filesystem, but for macOS\nfolk the biggest one is going to be case-sensitivity. Again, thankfully R\noperates at a layer that makes this not an issue.\n\nI'll be moving about 4 TB of data to APFS volumes this week and giving it a\ngood stress test. If there are any issues that aren't Apple's issues, I'll\npost an update.\n\n-Bob\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I finally had some cycles to format a few spare external drives as APFS\nvolumes.\n\nI didn't expect R to behave badly and I was proven correct that it works\nwith directories & files on APFS volumes equa",
+      "thread_id": "thread-28fec20fe51c",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-870e9e29a9db",
+      "message_id": "<F55CF494-FE03-48A8-A1B6-E8FCBFFDE623@une.edu>",
+      "from_name": "Joseph Kunkel",
+      "from_email_hash": "0281183a444a30f254367edc9697ccf65b44589f600010fad40f575b7c5594f4",
+      "date": "2016-09-28T21:26:50Z",
+      "subject": "[R-SIG-Mac] Problem using the R.app GUI Package Installer",
+      "subject_clean": "Problem using the R.app GUI Package Installer",
+      "in_reply_to": "<3BE88701-EAE2-48CE-82E0-BF608825DF1E@une.edu>",
+      "references": [
+        "<mailman.3026.1458164019.3865.r-sig-mac@r-project.org>",
+        "<3BE88701-EAE2-48CE-82E0-BF608825DF1E@une.edu>"
+      ],
+      "body_plain": "I got this error message working under R version 3.3.0  trying to use the Mac [R.app GUI 1.68 (7238) x86_64-apple-darwin13.4.0]  Packages & Data/ Package Installer\n\nR error message:\nWarning: unable to access index for repository http://cran.at.r-project.org/bin/macosx/mavericks/contrib/3.3:  cannot open URL 'http://cran.at.r-project.org/bin/macosx/mavericks/contrib/3.3/PACKAGES'\n\nI checked for upgrades and installed R version 3.3.1\n\nI got the same error message once again.\n\nLuckily I remembered that I could install libraries from within R and thus used:\n\n> install.packages('RCurl', dependencies=TRUE, repos='http://cran.rstudio.com/')\n\nBut I am wondering if the malfunction of the GUI approach is something I can fix or is temporary?\n\nJoe\n\n-?.  .? ?.  .><((((?>?.  .? ?.  .><((((?>?.  .? ?.  .><((((?> .??.? >=-       =?}}}}}><\nJoseph G. Kunkel, Research Professor\n112A Marine Science Center\nUniversity of New England\nBiddeford ME 04005\nhttp://www.bio.umass.edu/biology/kunkel/\n\nThis e-mail may contain information that is privileged and confidential. If you suspect that you were not the intended recipient, please delete it and notify the sender as soon as possible.",
+      "body_snippet": "I got this error message working under R version 3.3.0  trying to use the Mac [R.app GUI 1.68 (7238) x86_64-apple-darwin13.4.0]  Packages & Data/ Package Installer\n\nR error message:\nWarning: unable to",
+      "thread_id": "thread-870e9e29a9db",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-b3b8c22b5b76",
+      "message_id": "<d61ed452-444a-5866-b799-b7c81dcd0e5a@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "17e1fcd7901e6a11dc6bc3ede542d46252611499631dfb4199936939fda2e399",
+      "date": "2016-09-28T18:13:15-04:00",
+      "subject": "[R-SIG-Mac] Problem using the R.app GUI Package Installer",
+      "subject_clean": "Problem using the R.app GUI Package Installer",
+      "in_reply_to": "<F55CF494-FE03-48A8-A1B6-E8FCBFFDE623@une.edu>",
+      "references": [
+        "<mailman.3026.1458164019.3865.r-sig-mac@r-project.org>",
+        "<3BE88701-EAE2-48CE-82E0-BF608825DF1E@une.edu>",
+        "<F55CF494-FE03-48A8-A1B6-E8FCBFFDE623@une.edu>"
+      ],
+      "body_plain": "On 28/09/2016 5:26 PM, Joseph Kunkel wrote:\n> I got this error message working under R version 3.3.0  trying to use the Mac [R.app GUI 1.68 (7238) x86_64-apple-darwin13.4.0]  Packages & Data/ Package Installer\n>\n> R error message:\n> Warning: unable to access index for repository http://cran.at.r-project.org/bin/macosx/mavericks/contrib/3.3:  cannot open URL 'http://cran.at.r-project.org/bin/macosx/mavericks/contrib/3.3/PACKAGES'\n>\n> I checked for upgrades and installed R version 3.3.1\n>\n> I got the same error message once again.\n>\n> Luckily I remembered that I could install libraries from within R and thus used:\n>\n>> install.packages('RCurl', dependencies=TRUE, repos='http://cran.rstudio.com/')\n>\n> But I am wondering if the malfunction of the GUI approach is something I can fix or is temporary?\n>\n\nThat was probably a temporary problem, or a local network problem for \nyou:  I can get the URL to open.\n\nBut in general, to change the default mirror in R.app, run \nchooseCRANmirror() in the console.  I forget whether that changes it for \nthe session or permanently.\n\nDuncan Murdoch",
+      "body_snippet": "On 28/09/2016 5:26 PM, Joseph Kunkel wrote:\n> I got this error message working under R version 3.3.0  trying to use the Mac [R.app GUI 1.68 (7238) x86_64-apple-darwin13.4.0]  Packages & Data/ Package ",
+      "thread_id": "thread-870e9e29a9db",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-0e056305b1c8",
+      "message_id": "<094D7079-A843-4E12-90F5-9DEFD4AA682B@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "2c82e49cec3a0e6d46b74506949217eb854acf022855b79b114564c976a5593f",
+      "date": "2016-09-29T08:32:09+10:00",
+      "subject": "[R-SIG-Mac] Problem using the R.app GUI Package Installer",
+      "subject_clean": "Problem using the R.app GUI Package Installer",
+      "in_reply_to": "<d61ed452-444a-5866-b799-b7c81dcd0e5a@gmail.com>",
+      "references": [
+        "<mailman.3026.1458164019.3865.r-sig-mac@r-project.org>",
+        "<3BE88701-EAE2-48CE-82E0-BF608825DF1E@une.edu>",
+        "<F55CF494-FE03-48A8-A1B6-E8FCBFFDE623@une.edu>",
+        "<d61ed452-444a-5866-b799-b7c81dcd0e5a@gmail.com>"
+      ],
+      "body_plain": "In the Install Packages dialog there is an Other Repository option and that seems to be permanent.\n\nIt can also be changed in the Preferences.\n\n> On 29 Sep. 2016, at 8:13 am, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> On 28/09/2016 5:26 PM, Joseph Kunkel wrote:\n>> I got this error message working under R version 3.3.0  trying to use the Mac [R.app GUI 1.68 (7238) x86_64-apple-darwin13.4.0]  Packages & Data/ Package Installer\n>> \n>> R error message:\n>> Warning: unable to access index for repository http://cran.at.r-project.org/bin/macosx/mavericks/contrib/3.3:  cannot open URL 'http://cran.at.r-project.org/bin/macosx/mavericks/contrib/3.3/PACKAGES'\n>> \n>> I checked for upgrades and installed R version 3.3.1\n>> \n>> I got the same error message once again.\n>> \n>> Luckily I remembered that I could install libraries from within R and thus used:\n>> \n>>> install.packages('RCurl', dependencies=TRUE, repos='http://cran.rstudio.com/')\n>> \n>> But I am wondering if the malfunction of the GUI approach is something I can fix or is temporary?\n>> \n> \n> That was probably a temporary problem, or a local network problem for you:  I can get the URL to open.\n> \n> But in general, to change the default mirror in R.app, run chooseCRANmirror() in the console.  I forget whether that changes it for the session or permanently.\n> \n> Duncan Murdoch\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "In the Install Packages dialog there is an Other Repository option and that seems to be permanent.\n\nIt can also be changed in the Preferences.\n\n> On 29 Sep. 2016, at 8:13 am, Duncan Murdoch <murdoch.d",
+      "thread_id": "thread-870e9e29a9db",
+      "thread_depth": 2,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-d826b3765451",
+      "message_id": "<E0019891-75A9-46B2-8812-6AADD214F188@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2016-09-29T20:38:20-04:00",
+      "subject": "[R-SIG-Mac] [Rd] Web site for MacOSX R-devel precompiled version",
+      "subject_clean": "Web site for MacOSX R-devel precompiled version",
+      "in_reply_to": "<3E9938CF-CBCA-4D01-B6DC-63B4616BA36F@r-project.org>",
+      "references": [
+        "<c4292d67-7636-4463-8f4f-d4d9b6bb5878@yahoo.fr>",
+        "<3E9938CF-CBCA-4D01-B6DC-63B4616BA36F@r-project.org>"
+      ],
+      "body_plain": "[Moving to R-SIG-Mac where it belongs]\n\nThe machine building 10.6 binaries has died and since it was responsible for merging the 10.9 and 10.6 binaries to the website it means neither were published. 10.9 binaries are now up.\n\n\n\n> On Sep 29, 2016, at 2:09 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> \n>> On Sep 29, 2016, at 8:42 AM, Marc Girondot via R-devel <r-devel at r-project.org> wrote:\n>> \n>> From several years, I used this site http://r.research.att.com to get a precompiled version of macosx R-devol but the most recent version is frozen at the 18/8 build (r 71112).\n>> \n>> Is there an alternative (except than compile myself !) ?\n>> \n> \n> It is the official build - there may be other alternatives but they are not supported by us. The fact that is didn't update would be best reported so we can look into this. I just checked and the build are still working:\n> \n> $ ls -l *.pkg\n> -rw-r--r--  1 urbanek  admin  77935686 Sep 28 23:32 R-devel-mavericks.pkg\n> \n> but it seems that there is a problem with signing the package. I'll look into it.\n> \n> Cheers,\n> Simon\n> \n> \n>> \n>> Thanks,\n>> \n>> Marc\n>> \n>> ______________________________________________\n>> R-devel at r-project.org mailing list\n>> https://stat.ethz.ch/mailman/listinfo/r-devel\n>> \n> \n> ______________________________________________\n> R-devel at r-project.org mailing list\n> https://stat.ethz.ch/mailman/listinfo/r-devel\n>",
+      "body_snippet": "[Moving to R-SIG-Mac where it belongs]\n\nThe machine building 10.6 binaries has died and since it was responsible for merging the 10.9 and 10.6 binaries to the website it means neither were published. ",
+      "thread_id": "thread-d826b3765451",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-3b9e0431b630",
+      "message_id": "<01F23636-F9DB-4FC9-85BC-FE553BE14E75@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "2c82e49cec3a0e6d46b74506949217eb854acf022855b79b114564c976a5593f",
+      "date": "2016-09-30T18:31:05+10:00",
+      "subject": "[R-SIG-Mac] Fortran on MacOS Sierra",
+      "subject_clean": "Fortran on MacOS Sierra",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I tried to build frailtypack from source using R 3.3.1 and it failed with the following message (after a ridiculous amount of warnings)\n\ngfortran-4.8 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o frailtypack.so Adonnees.o AparamMultive.o Aparameters.o aGhermite.o aaOptim.o aaOptimres.o aaUseFunction.o aaUseFunctionG.o aamarq98o.o additive.o afuncpasres.o ahrmsym.o aresidusMartingale.o atestWald.o distance.o epoce.o epoce_log.o epoce_long.o frailtypack.o funcpaG_tps.o funcpaGcpm.o funcpaGcpm_intcens.o funcpaGcpm_log.o funcpaGsplines.o funcpaGsplines_intcens.o funcpaGsplines_log.o funcpaGweib.o funcpaGweib_intcens.o funcpaGweib_log.o funcpaMultivCpm.o funcpaMultivSplines.o funcpaMultivWeib.o funcpaacpm.o funcpaasplines.o funcpaaweib.o funcpaj_tps.o funcpajcpm.o funcpajcpm_log.o funcpajgeneral.o funcpajlongisplines.o funcpajlongiweib.o funcpajsplines.o funcpajsplines_fam.o funcpajsplines_intcens.o funcpajsplines_log.o funcpajweib.o funcpajweib_fam.o funcpajweib_intcens.o funcpajweib_log.o f... <truncated>\ngfortran-4.8: warning: couldn?t understand kern.osversion ?16.0.0\nld: library not found for -ldylib1.o\ncollect2: error: ld returned 1 exit status\nmake: *** [frailtypack.so] Error 1\nERROR: compilation failed for package ?frailtypack?\n\nI was going to attempt the build with gfortran 4.2 but haven?t been able to revert back from 4.8\n\nSo does it happen with 4.2 and if not, how can I revert back?\n\nIf not is this an R problem or the package?",
+      "body_snippet": "I tried to build frailtypack from source using R 3.3.1 and it failed with the following message (after a ridiculous amount of warnings)\n\ngfortran-4.8 -dynamiclib -Wl,-headerpad_max_install_names -unde",
+      "thread_id": "thread-3b9e0431b630",
+      "thread_depth": 0,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-b6ebe0698de9",
+      "message_id": "<044019ba-ab67-a7c3-366e-d3f3e01288e5@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2016-09-30T10:04:34+01:00",
+      "subject": "[R-SIG-Mac] Fortran on MacOS Sierra",
+      "subject_clean": "Fortran on MacOS Sierra",
+      "in_reply_to": "<01F23636-F9DB-4FC9-85BC-FE553BE14E75@kjbeath.com.au>",
+      "references": [
+        "<01F23636-F9DB-4FC9-85BC-FE553BE14E75@kjbeath.com.au>"
+      ],
+      "body_plain": "This seems to be Sierra, which has 'tidied up' system libraries.\n\nThe recommendation for El Capitan at http://coudert.name/software.html \nalso works correctly on Sierra. (See the manual, preferably before posting.)\n\nThere are good reasons why the posting guide asks for 'at a minimum' the \noutput of sessionInfo() ....\n\nOn 30/09/2016 09:31, Ken Beath wrote:\n> I tried to build frailtypack from source using R 3.3.1 and it failed with the following message (after a ridiculous amount of warnings)\n>\n> gfortran-4.8 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o frailtypack.so Adonnees.o AparamMultive.o Aparameters.o aGhermite.o aaOptim.o aaOptimres.o aaUseFunction.o aaUseFunctionG.o aamarq98o.o additive.o afuncpasres.o ahrmsym.o aresidusMartingale.o atestWald.o distance.o epoce.o epoce_log.o epoce_long.o frailtypack.o funcpaG_tps.o funcpaGcpm.o funcpaGcpm_intcens.o funcpaGcpm_log.o funcpaGsplines.o funcpaGsplines_intcens.o funcpaGsplines_log.o funcpaGweib.o funcpaGweib_intcens.o funcpaGweib_log.o funcpaMultivCpm.o funcpaMultivSplines.o funcpaMultivWeib.o funcpaacpm.o funcpaasplines.o funcpaaweib.o funcpaj_tps.o funcpajcpm.o funcpajcpm_log.o funcpajgeneral.o funcpajlongisplines.o funcpajlongiweib.o funcpajsplines.o funcpajsplines_fam.o funcpajsplines_intcens.o funcpajsplines_log.o funcpajweib.o funcpajweib_fam.o funcpajweib_intcens.o funcpajweib_log.o f... <truncated>\n> gfortran-4.8: warning: couldn?t understand kern.osversion ?16.0.0\n> ld: library not found for -ldylib1.o\n> collect2: error: ld returned 1 exit status\n> make: *** [frailtypack.so] Error 1\n> ERROR: compilation failed for package ?frailtypack?\n>\n> I was going to attempt the build with gfortran 4.2 but haven?t been able to revert back from 4.8\n>\n> So does it happen with 4.2 and if not, how can I revert back?\n>\n> If not is this an R problem or the package?\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "This seems to be Sierra, which has 'tidied up' system libraries.\n\nThe recommendation for El Capitan at http://coudert.name/software.html \nalso works correctly on Sierra. (See the manual, preferably be",
+      "thread_id": "thread-3b9e0431b630",
+      "thread_depth": 1,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-7d0c7427e738",
+      "message_id": "<CAA-FpKW9k1VvthUmK=Ei4=y3jRv_sgHkC8U296W=xyjXJ0nyQg@mail.gmail.com>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "06069ff8bf65af0cc1ddc4f9da6c2a365b90baa3c37e0a4c63565522e5804ed8",
+      "date": "2016-09-30T07:26:02-04:00",
+      "subject": "[R-SIG-Mac] Fortran on MacOS Sierra",
+      "subject_clean": "Fortran on MacOS Sierra",
+      "in_reply_to": "<044019ba-ab67-a7c3-366e-d3f3e01288e5@stats.ox.ac.uk>",
+      "references": [
+        "<01F23636-F9DB-4FC9-85BC-FE553BE14E75@kjbeath.com.au>",
+        "<044019ba-ab67-a7c3-366e-d3f3e01288e5@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Coudert's packages are unsigned which seems like a significant oversight\nand a CRAN manual entry recommending installing unsigned binaries does not\nsit well with me and may not work in the next macOS release.\n\nKen: to avoid you having to dig you need to download <\nhttp://coudert.name/software/gfortran-6.1-ElCapitan.dmg> and install it,\noverriding the security warning (ugh).\n\nYou then need to add this to your ~/.R/Makevars (or to the site one)\n\nF77 = /usr/local/gfortran/bin/gfortran\nFC = /usr/local/gfortran/bin/gfortran\nFLIBS = -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0\n-L/usr/local/gfortran/lib -lgfortran -lquadmath -lm\n\nYou'll still get the massive amount of warnings (they aren't harmful) but\nthe pkg will compile/install from source.\n\n\nOn Fri, Sep 30, 2016 at 5:04 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk>\nwrote:\n\n> This seems to be Sierra, which has 'tidied up' system libraries.\n>\n> The recommendation for El Capitan at http://coudert.name/software.html\n> also works correctly on Sierra. (See the manual, preferably before posting.)\n>\n> There are good reasons why the posting guide asks for 'at a minimum' the\n> output of sessionInfo() ....\n>\n> On 30/09/2016 09:31, Ken Beath wrote:\n>\n>> I tried to build frailtypack from source using R 3.3.1 and it failed with\n>> the following message (after a ridiculous amount of warnings)\n>>\n>> gfortran-4.8 -dynamiclib -Wl,-headerpad_max_install_names -undefined\n>> dynamic_lookup -single_module -multiply_defined suppress\n>> -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o\n>> frailtypack.so Adonnees.o AparamMultive.o Aparameters.o aGhermite.o\n>> aaOptim.o aaOptimres.o aaUseFunction.o aaUseFunctionG.o aamarq98o.o\n>> additive.o afuncpasres.o ahrmsym.o aresidusMartingale.o atestWald.o\n>> distance.o epoce.o epoce_log.o epoce_long.o frailtypack.o funcpaG_tps.o\n>> funcpaGcpm.o funcpaGcpm_intcens.o funcpaGcpm_log.o funcpaGsplines.o\n>> funcpaGsplines_intcens.o funcpaGsplines_log.o funcpaGweib.o\n>> funcpaGweib_intcens.o funcpaGweib_log.o funcpaMultivCpm.o\n>> funcpaMultivSplines.o funcpaMultivWeib.o funcpaacpm.o funcpaasplines.o\n>> funcpaaweib.o funcpaj_tps.o funcpajcpm.o funcpajcpm_log.o funcpajgeneral.o\n>> funcpajlongisplines.o funcpajlongiweib.o funcpajsplines.o\n>> funcpajsplines_fam.o funcpajsplines_intcens.o funcpajsplines_log.o\n>> funcpajweib.o funcpajweib_fam.o funcpajweib_intcens.o funcpajweib_log.o\n>> f... <truncated>\n>> gfortran-4.8: warning: couldn?t understand kern.osversion ?16.0.0\n>> ld: library not found for -ldylib1.o\n>> collect2: error: ld returned 1 exit status\n>> make: *** [frailtypack.so] Error 1\n>> ERROR: compilation failed for package ?frailtypack?\n>>\n>> I was going to attempt the build with gfortran 4.2 but haven?t been able\n>> to revert back from 4.8\n>>\n>> So does it happen with 4.2 and if not, how can I revert back?\n>>\n>> If not is this an R problem or the package?\n>>\n>\n> --\n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Coudert's packages are unsigned which seems like a significant oversight\nand a CRAN manual entry recommending installing unsigned binaries does not\nsit well with me and may not work in the next macOS ",
+      "thread_id": "thread-3b9e0431b630",
+      "thread_depth": 2,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-06566318933d",
+      "message_id": "<A1EAAAF5-90C2-4016-8C95-8D433EACB86E@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "2c82e49cec3a0e6d46b74506949217eb854acf022855b79b114564c976a5593f",
+      "date": "2016-09-30T22:26:28+10:00",
+      "subject": "[R-SIG-Mac] Fortran on MacOS Sierra",
+      "subject_clean": "Fortran on MacOS Sierra",
+      "in_reply_to": "<CAA-FpKW9k1VvthUmK=Ei4=y3jRv_sgHkC8U296W=xyjXJ0nyQg@mail.gmail.com>",
+      "references": [
+        "<01F23636-F9DB-4FC9-85BC-FE553BE14E75@kjbeath.com.au>",
+        "<044019ba-ab67-a7c3-366e-d3f3e01288e5@stats.ox.ac.uk>",
+        "<CAA-FpKW9k1VvthUmK=Ei4=y3jRv_sgHkC8U296W=xyjXJ0nyQg@mail.gmail.com>"
+      ],
+      "body_plain": "Thanks, yes I sorted it out. I?d read the bit on Makevars but it just didn?t seem what I wanted.\n\nThere are some problems with the 10.12.1 beta which affect built libraries but at the moment I will just hope they go away.\n\nKen\n\n> On 30 Sep. 2016, at 9:26 pm, Bob Rudis <bob at rud.is> wrote:\n> \n> Coudert's packages are unsigned which seems like a significant oversight and a CRAN manual entry recommending installing unsigned binaries does not sit well with me and may not work in the next macOS release.\n> \n> Ken: to avoid you having to dig you need to download <http://coudert.name/software/gfortran-6.1-ElCapitan.dmg> and install it, overriding the security warning (ugh).\n> \n> You then need to add this to your ~/.R/Makevars (or to the site one)\n> \n> F77 = /usr/local/gfortran/bin/gfortran\n> FC = /usr/local/gfortran/bin/gfortran\n> FLIBS = -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm\n> \n> You'll still get the massive amount of warnings (they aren't harmful) but the pkg will compile/install from source.\n> \n> \n> On Fri, Sep 30, 2016 at 5:04 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> This seems to be Sierra, which has 'tidied up' system libraries.\n> \n> The recommendation for El Capitan at http://coudert.name/software.html also works correctly on Sierra. (See the manual, preferably before posting.)\n> \n> There are good reasons why the posting guide asks for 'at a minimum' the output of sessionInfo() ....\n> \n> On 30/09/2016 09:31, Ken Beath wrote:\n> I tried to build frailtypack from source using R 3.3.1 and it failed with the following message (after a ridiculous amount of warnings)\n> \n> gfortran-4.8 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o frailtypack.so Adonnees.o AparamMultive.o Aparameters.o aGhermite.o aaOptim.o aaOptimres.o aaUseFunction.o aaUseFunctionG.o aamarq98o.o additive.o afuncpasres.o ahrmsym.o aresidusMartingale.o atestWald.o distance.o epoce.o epoce_log.o epoce_long.o frailtypack.o funcpaG_tps.o funcpaGcpm.o funcpaGcpm_intcens.o funcpaGcpm_log.o funcpaGsplines.o funcpaGsplines_intcens.o funcpaGsplines_log.o funcpaGweib.o funcpaGweib_intcens.o funcpaGweib_log.o funcpaMultivCpm.o funcpaMultivSplines.o funcpaMultivWeib.o funcpaacpm.o funcpaasplines.o funcpaaweib.o funcpaj_tps.o funcpajcpm.o funcpajcpm_log.o funcpajgeneral.o funcpajlongisplines.o funcpajlongiweib.o funcpajsplines.o funcpajsplines_fam.o funcpajsplines_intcens.o funcpajsplines_log.o funcpajweib.o funcpajweib_fam.o funcpajweib_intcens.o funcpajweib_log.o f... <truncated>\n> gfortran-4.8: warning: couldn?t understand kern.osversion ?16.0.0\n> ld: library not found for -ldylib1.o\n> collect2: error: ld returned 1 exit status\n> make: *** [frailtypack.so] Error 1\n> ERROR: compilation failed for package ?frailtypack?\n> \n> I was going to attempt the build with gfortran 4.2 but haven?t been able to revert back from 4.8\n> \n> So does it happen with 4.2 and if not, how can I revert back?\n> \n> If not is this an R problem or the package?\n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Thanks, yes I sorted it out. I?d read the bit on Makevars but it just didn?t seem what I wanted.\n\nThere are some problems with the 10.12.1 beta which affect built libraries but at the moment I will ju",
+      "thread_id": "thread-3b9e0431b630",
+      "thread_depth": 3,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-f027da7972ec",
+      "message_id": "<CAA-FpKXzSv-Xx7pff5uz-cVQEU70WYnK=uCctaSqsrcuRb4A1w@mail.gmail.com>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "06069ff8bf65af0cc1ddc4f9da6c2a365b90baa3c37e0a4c63565522e5804ed8",
+      "date": "2016-09-30T08:46:18-04:00",
+      "subject": "[R-SIG-Mac] Fortran on MacOS Sierra",
+      "subject_clean": "Fortran on MacOS Sierra",
+      "in_reply_to": "<A1EAAAF5-90C2-4016-8C95-8D433EACB86E@kjbeath.com.au>",
+      "references": [
+        "<01F23636-F9DB-4FC9-85BC-FE553BE14E75@kjbeath.com.au>",
+        "<044019ba-ab67-a7c3-366e-d3f3e01288e5@stats.ox.ac.uk>",
+        "<CAA-FpKW9k1VvthUmK=Ei4=y3jRv_sgHkC8U296W=xyjXJ0nyQg@mail.gmail.com>",
+        "<A1EAAAF5-90C2-4016-8C95-8D433EACB86E@kjbeath.com.au>"
+      ],
+      "body_plain": "Glad you're up and running!\n\n?If you have some specific examples I can try to reproduce (and report) as\nI load the betas (I'm on beta 2 now).\n\n-Bob\n\nOn Fri, Sep 30, 2016 at 8:26 AM, Ken Beath <ken at kjbeath.com.au> wrote:\n\n> Thanks, yes I sorted it out. I?d read the bit on Makevars but it just\n> didn?t seem what I wanted.\n>\n> There are some problems with the 10.12.1 beta which affect built libraries\n> but at the moment I will just hope they go away.\n>\n> Ken\n>\n> > On 30 Sep. 2016, at 9:26 pm, Bob Rudis <bob at rud.is> wrote:\n> >\n> > Coudert's packages are unsigned which seems like a significant oversight\n> and a CRAN manual entry recommending installing unsigned binaries does not\n> sit well with me and may not work in the next macOS release.\n> >\n> > Ken: to avoid you having to dig you need to download <\n> http://coudert.name/software/gfortran-6.1-ElCapitan.dmg> and install it,\n> overriding the security warning (ugh).\n> >\n> > You then need to add this to your ~/.R/Makevars (or to the site one)\n> >\n> > F77 = /usr/local/gfortran/bin/gfortran\n> > FC = /usr/local/gfortran/bin/gfortran\n> > FLIBS = -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0\n> -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm\n> >\n> > You'll still get the massive amount of warnings (they aren't harmful)\n> but the pkg will compile/install from source.\n> >\n> >\n> > On Fri, Sep 30, 2016 at 5:04 AM, Prof Brian Ripley <\n> ripley at stats.ox.ac.uk> wrote:\n> > This seems to be Sierra, which has 'tidied up' system libraries.\n> >\n> > The recommendation for El Capitan at http://coudert.name/software.html\n> also works correctly on Sierra. (See the manual, preferably before posting.)\n> >\n> > There are good reasons why the posting guide asks for 'at a minimum' the\n> output of sessionInfo() ....\n> >\n> > On 30/09/2016 09:31, Ken Beath wrote:\n> > I tried to build frailtypack from source using R 3.3.1 and it failed\n> with the following message (after a ridiculous amount of warnings)\n> >\n> > gfortran-4.8 -dynamiclib -Wl,-headerpad_max_install_names -undefined\n> dynamic_lookup -single_module -multiply_defined suppress\n> -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o\n> frailtypack.so Adonnees.o AparamMultive.o Aparameters.o aGhermite.o\n> aaOptim.o aaOptimres.o aaUseFunction.o aaUseFunctionG.o aamarq98o.o\n> additive.o afuncpasres.o ahrmsym.o aresidusMartingale.o atestWald.o\n> distance.o epoce.o epoce_log.o epoce_long.o frailtypack.o funcpaG_tps.o\n> funcpaGcpm.o funcpaGcpm_intcens.o funcpaGcpm_log.o funcpaGsplines.o\n> funcpaGsplines_intcens.o funcpaGsplines_log.o funcpaGweib.o\n> funcpaGweib_intcens.o funcpaGweib_log.o funcpaMultivCpm.o\n> funcpaMultivSplines.o funcpaMultivWeib.o funcpaacpm.o funcpaasplines.o\n> funcpaaweib.o funcpaj_tps.o funcpajcpm.o funcpajcpm_log.o funcpajgeneral.o\n> funcpajlongisplines.o funcpajlongiweib.o funcpajsplines.o\n> funcpajsplines_fam.o funcpajsplines_intcens.o funcpajsplines_log.o\n> funcpajweib.o funcpajweib_fam.o funcpajweib_intcens.o funcpajweib_log.o\n> f... <truncated>\n> > gfortran-4.8: warning: couldn?t understand kern.osversion ?16.0.0\n> > ld: library not found for -ldylib1.o\n> > collect2: error: ld returned 1 exit status\n> > make: *** [frailtypack.so] Error 1\n> > ERROR: compilation failed for package ?frailtypack?\n> >\n> > I was going to attempt the build with gfortran 4.2 but haven?t been able\n> to revert back from 4.8\n> >\n> > So does it happen with 4.2 and if not, how can I revert back?\n> >\n> > If not is this an R problem or the package?\n> >\n> > --\n> > Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> > Emeritus Professor of Applied Statistics, University of Oxford\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Glad you're up and running!\n\n?If you have some specific examples I can try to reproduce (and report) as\nI load the betas (I'm on beta 2 now).\n\n-Bob\n\nOn Fri, Sep 30, 2016 at 8:26 AM, Ken Beath <ken at ",
+      "thread_id": "thread-3b9e0431b630",
+      "thread_depth": 4,
+      "month": "2016-09"
+    },
+    {
+      "id": "msg-64ee74006152",
+      "message_id": "<0371BCEB-F23F-4C59-ACB0-B2C1648E314B@kjbeath.com.au>",
+      "from_name": "Ken Beath",
+      "from_email_hash": "2c82e49cec3a0e6d46b74506949217eb854acf022855b79b114564c976a5593f",
+      "date": "2016-09-30T22:57:47+10:00",
+      "subject": "[R-SIG-Mac] Fortran on MacOS Sierra",
+      "subject_clean": "Fortran on MacOS Sierra",
+      "in_reply_to": "<CAA-FpKXzSv-Xx7pff5uz-cVQEU70WYnK=uCctaSqsrcuRb4A1w@mail.gmail.com>",
+      "references": [
+        "<01F23636-F9DB-4FC9-85BC-FE553BE14E75@kjbeath.com.au>",
+        "<044019ba-ab67-a7c3-366e-d3f3e01288e5@stats.ox.ac.uk>",
+        "<CAA-FpKW9k1VvthUmK=Ei4=y3jRv_sgHkC8U296W=xyjXJ0nyQg@mail.gmail.com>",
+        "<A1EAAAF5-90C2-4016-8C95-8D433EACB86E@kjbeath.com.au>",
+        "<CAA-FpKXzSv-Xx7pff5uz-cVQEU70WYnK=uCctaSqsrcuRb4A1w@mail.gmail.com>"
+      ],
+      "body_plain": "lme4 and fastGHQuad\n\nKen\n\n> On 30 Sep. 2016, at 10:46 pm, Bob Rudis <bob at rud.is> wrote:\n> \n> Glad you're up and running!\n> \n> ?If you have some specific examples I can try to reproduce (and report) as I load the betas (I'm on beta 2 now).\n> \n> -Bob\n> \n> On Fri, Sep 30, 2016 at 8:26 AM, Ken Beath <ken at kjbeath.com.au> wrote:\n> Thanks, yes I sorted it out. I?d read the bit on Makevars but it just didn?t seem what I wanted.\n> \n> There are some problems with the 10.12.1 beta which affect built libraries but at the moment I will just hope they go away.\n> \n> Ken\n> \n> > On 30 Sep. 2016, at 9:26 pm, Bob Rudis <bob at rud.is> wrote:\n> >\n> > Coudert's packages are unsigned which seems like a significant oversight and a CRAN manual entry recommending installing unsigned binaries does not sit well with me and may not work in the next macOS release.\n> >\n> > Ken: to avoid you having to dig you need to download <http://coudert.name/software/gfortran-6.1-ElCapitan.dmg> and install it, overriding the security warning (ugh).\n> >\n> > You then need to add this to your ~/.R/Makevars (or to the site one)\n> >\n> > F77 = /usr/local/gfortran/bin/gfortran\n> > FC = /usr/local/gfortran/bin/gfortran\n> > FLIBS = -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm\n> >\n> > You'll still get the massive amount of warnings (they aren't harmful) but the pkg will compile/install from source.\n> >\n> >\n> > On Fri, Sep 30, 2016 at 5:04 AM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> > This seems to be Sierra, which has 'tidied up' system libraries.\n> >\n> > The recommendation for El Capitan at http://coudert.name/software.html also works correctly on Sierra. (See the manual, preferably before posting.)\n> >\n> > There are good reasons why the posting guide asks for 'at a minimum' the output of sessionInfo() ....\n> >\n> > On 30/09/2016 09:31, Ken Beath wrote:\n> > I tried to build frailtypack from source using R 3.3.1 and it failed with the following message (after a ridiculous amount of warnings)\n> >\n> > gfortran-4.8 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o frailtypack.so Adonnees.o AparamMultive.o Aparameters.o aGhermite.o aaOptim.o aaOptimres.o aaUseFunction.o aaUseFunctionG.o aamarq98o.o additive.o afuncpasres.o ahrmsym.o aresidusMartingale.o atestWald.o distance.o epoce.o epoce_log.o epoce_long.o frailtypack.o funcpaG_tps.o funcpaGcpm.o funcpaGcpm_intcens.o funcpaGcpm_log.o funcpaGsplines.o funcpaGsplines_intcens.o funcpaGsplines_log.o funcpaGweib.o funcpaGweib_intcens.o funcpaGweib_log.o funcpaMultivCpm.o funcpaMultivSplines.o funcpaMultivWeib.o funcpaacpm.o funcpaasplines.o funcpaaweib.o funcpaj_tps.o funcpajcpm.o funcpajcpm_log.o funcpajgeneral.o funcpajlongisplines.o funcpajlongiweib.o funcpajsplines.o funcpajsplines_fam.o funcpajsplines_intcens.o funcpajsplines_log.o funcpajweib.o funcpajweib_fam.o funcpajweib_intcens.o funcpajweib_log.o f... <truncated>\n> > gfortran-4.8: warning: couldn?t understand kern.osversion ?16.0.0\n> > ld: library not found for -ldylib1.o\n> > collect2: error: ld returned 1 exit status\n> > make: *** [frailtypack.so] Error 1\n> > ERROR: compilation failed for package ?frailtypack?\n> >\n> > I was going to attempt the build with gfortran 4.2 but haven?t been able to revert back from 4.8\n> >\n> > So does it happen with 4.2 and if not, how can I revert back?\n> >\n> > If not is this an R problem or the package?\n> >\n> > --\n> > Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> > Emeritus Professor of Applied Statistics, University of Oxford\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> \n> \n>",
+      "body_snippet": "lme4 and fastGHQuad\n\nKen\n\n> On 30 Sep. 2016, at 10:46 pm, Bob Rudis <bob at rud.is> wrote:\n> \n> Glad you're up and running!\n> \n> ?If you have some specific examples I can try to reproduce (and report)",
+      "thread_id": "thread-3b9e0431b630",
+      "thread_depth": 5,
+      "month": "2016-09"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-e53290fed084",
+      "subject": "Problems with R CMD config",
+      "message_count": 3,
+      "participants": [
+        "Ken Beath",
+        "Prof Brian Ripley"
+      ],
+      "started": "2016-09-01T09:43:20+10:00",
+      "last_reply": "2016-09-01T18:57:27+10:00",
+      "root_message_id": "msg-e53290fed084"
+    },
+    {
+      "id": "thread-c6f4ef5bfe27",
+      "subject": "RcppArmadillo errors",
+      "message_count": 2,
+      "participants": [
+        "David Winsemius"
+      ],
+      "started": "2016-09-01T11:58:42-07:00",
+      "last_reply": "2016-09-01T12:40:10-07:00",
+      "root_message_id": "msg-c6f4ef5bfe27"
+    },
+    {
+      "id": "thread-389c3c671298",
+      "subject": "RcppArmadillo errors",
+      "message_count": 1,
+      "participants": [
+        "Michael Weylandt"
+      ],
+      "started": "2016-09-01T14:26:38-05:00",
+      "last_reply": "2016-09-01T14:26:38-05:00",
+      "root_message_id": "msg-389c3c671298"
+    },
+    {
+      "id": "thread-b53912838262",
+      "subject": "Lost Library ?",
+      "message_count": 5,
+      "participants": [
+        "Dominik Beck",
+        "Rainer M Krug",
+        "Roger Koenker",
+        "Simon Urbanek"
+      ],
+      "started": "2016-09-06T16:34:44-05:00",
+      "last_reply": "2016-09-07T11:16:27-04:00",
+      "root_message_id": "msg-b53912838262"
+    },
+    {
+      "id": "thread-34f6c6896080",
+      "subject": "Lost Library ?",
+      "message_count": 3,
+      "participants": [
+        "Marc Schwartz",
+        "Rainer M Krug",
+        "Roger Koenker"
+      ],
+      "started": "2016-09-07T07:18:08-05:00",
+      "last_reply": "2016-09-07T15:13:58+02:00",
+      "root_message_id": "msg-34f6c6896080"
+    },
+    {
+      "id": "thread-08f8f41747ee",
+      "subject": "Lost Library ?",
+      "message_count": 1,
+      "participants": [
+        "Roger Koenker"
+      ],
+      "started": "2016-09-07T15:20:15-05:00",
+      "last_reply": "2016-09-07T15:20:15-05:00",
+      "root_message_id": "msg-08f8f41747ee"
+    },
+    {
+      "id": "thread-e8735cc9a25f",
+      "subject": "MacOS Sierra",
+      "message_count": 2,
+      "participants": [
+        "Bob Rudis",
+        "rmendelss gmail"
+      ],
+      "started": "2016-09-20T11:59:25-07:00",
+      "last_reply": "2016-09-22T07:11:41-04:00",
+      "root_message_id": "msg-e8735cc9a25f"
+    },
+    {
+      "id": "thread-69bc2227475b",
+      "subject": "macOS Sierra",
+      "message_count": 1,
+      "participants": [
+        "Bob Rudis"
+      ],
+      "started": "2016-09-21T09:19:05-04:00",
+      "last_reply": "2016-09-21T09:19:05-04:00",
+      "root_message_id": "msg-69bc2227475b"
+    },
+    {
+      "id": "thread-e1dcef6e1f6f",
+      "subject": "Experiences with macOS Sierra",
+      "message_count": 7,
+      "participants": [
+        "Bob Rudis",
+        "Kasper Daniel Hansen",
+        "Marc Schwartz",
+        "Prof Brian Ripley"
+      ],
+      "started": "2016-09-22T07:39:28+01:00",
+      "last_reply": "2016-09-23T22:19:23-05:00",
+      "root_message_id": "msg-e1dcef6e1f6f"
+    },
+    {
+      "id": "thread-28fec20fe51c",
+      "subject": "APFS report",
+      "message_count": 1,
+      "participants": [
+        "Bob Rudis"
+      ],
+      "started": "2016-09-27T20:55:25-04:00",
+      "last_reply": "2016-09-27T20:55:25-04:00",
+      "root_message_id": "msg-28fec20fe51c"
+    },
+    {
+      "id": "thread-870e9e29a9db",
+      "subject": "Problem using the R.app GUI Package Installer",
+      "message_count": 3,
+      "participants": [
+        "Duncan Murdoch",
+        "Joseph Kunkel",
+        "Ken Beath"
+      ],
+      "started": "2016-09-28T21:26:50+00:00",
+      "last_reply": "2016-09-29T08:32:09+10:00",
+      "root_message_id": "msg-870e9e29a9db"
+    },
+    {
+      "id": "thread-d826b3765451",
+      "subject": "Web site for MacOSX R-devel precompiled version",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2016-09-29T20:38:20-04:00",
+      "last_reply": "2016-09-29T20:38:20-04:00",
+      "root_message_id": "msg-d826b3765451"
+    },
+    {
+      "id": "thread-3b9e0431b630",
+      "subject": "Fortran on MacOS Sierra",
+      "message_count": 6,
+      "participants": [
+        "Bob Rudis",
+        "Ken Beath",
+        "Prof Brian Ripley"
+      ],
+      "started": "2016-09-30T18:31:05+10:00",
+      "last_reply": "2016-09-30T22:57:47+10:00",
+      "root_message_id": "msg-3b9e0431b630"
+    }
+  ]
+}

@@ -1,0 +1,884 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2021-08",
+  "messages": [
+    {
+      "id": "msg-eb763a6b4219",
+      "message_id": "<fd73c8ee-e04b-4b46-b686-6ed199cdb5b9@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2021-08-06T16:12:24-05:00",
+      "subject": "[R-SIG-Mac] In svg(\"tst.svg\") : failed to load cairo DLL",
+      "subject_clean": "In svg(\"tst.svg\") : failed to load cairo DLL",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello:\n\n\n\t  In R 4.1.0 under macOS 11.4, 'svg(\"tst.svg\")' says, \"failed to load \ncairo DLL\".\n\n\n\t  This works fine under Windows 10.  (I tested under RStudio 1.4.1106, \nR terminal and R Console all with the same results.)\n\n\n\t  The first time I try \"svg('tst.svg')\" in a new R session, I get a \nlonger message;  see below for that and for sessionInfo().  When I \nrepeat \"svg('tst.svg')\", I get only \"failed to load cairo DLL\".\n\n\n\t  Suggestions?\n\t  Thanks,\n\t  Spencer Graves\n\n\nsvg('tst.svg')\nWarning messages:\n1: In grSoftVersion() :\n   unable to load shared object \n'/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n   dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, \n6): Library not loaded: /opt/X11/lib/libSM.6.dylib\n   Referenced from: \n/Library/Frameworks/R.framework/Versions/4.1/Resources/modules/R_X11.so\n   Reason: image not found\n2: In cairoVersion() :\n   unable to load shared object \n'/Library/Frameworks/R.framework/Resources/library/grDevices/libs//cairo.so':\n \ndlopen(/Library/Frameworks/R.framework/Resources/library/grDevices/libs//cairo.so, \n6): Library not loaded: /opt/X11/lib/libXrender.1.dylib\n   Referenced from: \n/Library/Frameworks/R.framework/Versions/4.1/Resources/library/grDevices/libs/cairo.so\n   Reason: image not found\n3: In svg(\"tst.svg\") : failed to load cairo DLL\n > sessionInfo()\nR version 4.1.0 (2021-05-18)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 10.16\n\nMatrix products: default\nLAPACK: \n/Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nloaded via a namespace (and not attached):\n[1] compiler_4.1.0 tools_4.1.0\n >",
+      "body_snippet": "Hello:\n\n\n\t  In R 4.1.0 under macOS 11.4, 'svg(\"tst.svg\")' says, \"failed to load \ncairo DLL\".\n\n\n\t  This works fine under Windows 10.  (I tested under RStudio 1.4.1106, \nR terminal and R Console all wit",
+      "thread_id": "thread-eb763a6b4219",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-8fcc84422217",
+      "message_id": "<d227523a-1857-2db7-1678-041db5ac3e0a@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-08-07T06:05:14+01:00",
+      "subject": "[R-SIG-Mac] In svg(\"tst.svg\") : failed to load cairo DLL",
+      "subject_clean": "In svg(\"tst.svg\") : failed to load cairo DLL",
+      "in_reply_to": "<fd73c8ee-e04b-4b46-b686-6ed199cdb5b9@prodsyse.com>",
+      "references": [
+        "<fd73c8ee-e04b-4b46-b686-6ed199cdb5b9@prodsyse.com>"
+      ],
+      "body_plain": "Install (or re-install) XQuartz.  As the R-admin manual ?4 says\n\nVarious parts of the build require XQuartz to be installed: see \nhttps://www.xquartz.org/releases.  These include the tcltk package and \nthe X11 device: attempting to use these without XQuartz will if possible \nremind you. This is also needed for some builds of the \ncairographics-based devices (which are not often used on macOS) such as \npng(type = \"cairo\").\n\nsvg() is a cairographics-based device .\n\n\n\nOn 06/08/2021 22:12, Spencer Graves wrote:\n> Hello:\n> \n> \n>  ????? In R 4.1.0 under macOS 11.4, 'svg(\"tst.svg\")' says, \"failed to \n> load cairo DLL\".\n> \n> \n>  ????? This works fine under Windows 10.? (I tested under RStudio \n> 1.4.1106, R terminal and R Console all with the same results.)\n> \n> \n>  ????? The first time I try \"svg('tst.svg')\" in a new R session, I get a \n> longer message;? see below for that and for sessionInfo().? When I \n> repeat \"svg('tst.svg')\", I get only \"failed to load cairo DLL\".\n> \n> \n>  ????? Suggestions?\n>  ????? Thanks,\n>  ????? Spencer Graves\n> \n> \n> svg('tst.svg')\n> Warning messages:\n> 1: In grSoftVersion() :\n>  ? unable to load shared object \n> '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n>  ? dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, \n> 6): Library not loaded: /opt/X11/lib/libSM.6.dylib\n>  ? Referenced from: \n> /Library/Frameworks/R.framework/Versions/4.1/Resources/modules/R_X11.so\n>  ? Reason: image not found\n> 2: In cairoVersion() :\n>  ? unable to load shared object \n> '/Library/Frameworks/R.framework/Resources/library/grDevices/libs//cairo.so': \n> \n> \n> dlopen(/Library/Frameworks/R.framework/Resources/library/grDevices/libs//cairo.so, \n> 6): Library not loaded: /opt/X11/lib/libXrender.1.dylib\n>  ? Referenced from: \n> /Library/Frameworks/R.framework/Versions/4.1/Resources/library/grDevices/libs/cairo.so \n> \n>  ? Reason: image not found\n> 3: In svg(\"tst.svg\") : failed to load cairo DLL\n>  > sessionInfo()\n> R version 4.1.0 (2021-05-18)\n> Platform: x86_64-apple-darwin17.0 (64-bit)\n> Running under: macOS Big Sur 10.16\n> \n> Matrix products: default\n> LAPACK: \n> /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] stats???? graphics? grDevices utils???? datasets? methods?? base\n> \n> loaded via a namespace (and not attached):\n> [1] compiler_4.1.0 tools_4.1.0\n>  >\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "Install (or re-install) XQuartz.  As the R-admin manual ?4 says\n\nVarious parts of the build require XQuartz to be installed: see \nhttps://www.xquartz.org/releases.  These include the tcltk package and",
+      "thread_id": "thread-eb763a6b4219",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-a090a89c0d4f",
+      "message_id": "<1895c964-5e4e-f0dc-6eaa-8bc62482b92a@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2021-08-07T08:41:09-05:00",
+      "subject": "[R-SIG-Mac] In svg(\"tst.svg\") : failed to load cairo DLL",
+      "subject_clean": "In svg(\"tst.svg\") : failed to load cairo DLL",
+      "in_reply_to": "<d227523a-1857-2db7-1678-041db5ac3e0a@stats.ox.ac.uk>",
+      "references": [
+        "<fd73c8ee-e04b-4b46-b686-6ed199cdb5b9@prodsyse.com>",
+        "<d227523a-1857-2db7-1678-041db5ac3e0a@stats.ox.ac.uk>"
+      ],
+      "body_plain": "This, Prof. Ripley.  That fixed the problem.  Spencer Graves\n\n\nOn 8/7/21 12:05 AM, Prof Brian Ripley wrote:\n> Install (or re-install) XQuartz.? As the R-admin manual ?4 says\n> \n> Various parts of the build require XQuartz to be installed: see \n> https://www.xquartz.org/releases.? These include the tcltk package and \n> the X11 device: attempting to use these without XQuartz will if possible \n> remind you. This is also needed for some builds of the \n> cairographics-based devices (which are not often used on macOS) such as \n> png(type = \"cairo\").\n> \n> svg() is a cairographics-based device .\n> \n> \n> \n> On 06/08/2021 22:12, Spencer Graves wrote:\n>> Hello:\n>>\n>>\n>> ?????? In R 4.1.0 under macOS 11.4, 'svg(\"tst.svg\")' says, \"failed to \n>> load cairo DLL\".\n>>\n>>\n>> ?????? This works fine under Windows 10.? (I tested under RStudio \n>> 1.4.1106, R terminal and R Console all with the same results.)\n>>\n>>\n>> ?????? The first time I try \"svg('tst.svg')\" in a new R session, I get \n>> a longer message;? see below for that and for sessionInfo().? When I \n>> repeat \"svg('tst.svg')\", I get only \"failed to load cairo DLL\".\n>>\n>>\n>> ?????? Suggestions?\n>> ?????? Thanks,\n>> ?????? Spencer Graves\n>>\n>>\n>> svg('tst.svg')\n>> Warning messages:\n>> 1: In grSoftVersion() :\n>> ?? unable to load shared object \n>> '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n>> ?? dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, \n>> 6): Library not loaded: /opt/X11/lib/libSM.6.dylib\n>> ?? Referenced from: \n>> /Library/Frameworks/R.framework/Versions/4.1/Resources/modules/R_X11.so\n>> ?? Reason: image not found\n>> 2: In cairoVersion() :\n>> ?? unable to load shared object \n>> '/Library/Frameworks/R.framework/Resources/library/grDevices/libs//cairo.so': \n>>\n>>\n>> dlopen(/Library/Frameworks/R.framework/Resources/library/grDevices/libs//cairo.so, \n>> 6): Library not loaded: /opt/X11/lib/libXrender.1.dylib\n>> ?? Referenced from: \n>> /Library/Frameworks/R.framework/Versions/4.1/Resources/library/grDevices/libs/cairo.so \n>>\n>> ?? Reason: image not found\n>> 3: In svg(\"tst.svg\") : failed to load cairo DLL\n>> ?> sessionInfo()\n>> R version 4.1.0 (2021-05-18)\n>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>> Running under: macOS Big Sur 10.16\n>>\n>> Matrix products: default\n>> LAPACK: \n>> /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib \n>>\n>>\n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>\n>> attached base packages:\n>> [1] stats???? graphics? grDevices utils???? datasets? methods?? base\n>>\n>> loaded via a namespace (and not attached):\n>> [1] compiler_4.1.0 tools_4.1.0\n>> ?>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "This, Prof. Ripley.  That fixed the problem.  Spencer Graves\n\n\nOn 8/7/21 12:05 AM, Prof Brian Ripley wrote:\n> Install (or re-install) XQuartz.? As the R-admin manual ?4 says\n> \n> Various parts of the ",
+      "thread_id": "thread-eb763a6b4219",
+      "thread_depth": 2,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-acc18988f1ec",
+      "message_id": "<285edc56-83af-cbfc-1d46-6a1a8b893999@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2021-08-07T08:43:56-05:00",
+      "subject": "[R-SIG-Mac] In svg(\"tst.svg\") : failed to load cairo DLL",
+      "subject_clean": "In svg(\"tst.svg\") : failed to load cairo DLL",
+      "in_reply_to": "<d227523a-1857-2db7-1678-041db5ac3e0a@stats.ox.ac.uk>",
+      "references": [
+        "<fd73c8ee-e04b-4b46-b686-6ed199cdb5b9@prodsyse.com>",
+        "<d227523a-1857-2db7-1678-041db5ac3e0a@stats.ox.ac.uk>"
+      ],
+      "body_plain": "THANKS, Prof. Ripley.  That fixed the problem.  Spencer Graves\n\n\n[please excuse a problem with delayed detection of an error with \nautocomplete.]\n\n\nOn 8/7/21 12:05 AM, Prof Brian Ripley wrote:\n> Install (or re-install) XQuartz.? As the R-admin manual ?4 says\n> \n> Various parts of the build require XQuartz to be installed: see \n> https://www.xquartz.org/releases.? These include the tcltk package and \n> the X11 device: attempting to use these without XQuartz will if possible \n> remind you. This is also needed for some builds of the \n> cairographics-based devices (which are not often used on macOS) such as \n> png(type = \"cairo\").\n> \n> svg() is a cairographics-based device .\n> \n> \n> \n> On 06/08/2021 22:12, Spencer Graves wrote:\n>> Hello:\n>>\n>>\n>> ?????? In R 4.1.0 under macOS 11.4, 'svg(\"tst.svg\")' says, \"failed to \n>> load cairo DLL\".\n>>\n>>\n>> ?????? This works fine under Windows 10.? (I tested under RStudio \n>> 1.4.1106, R terminal and R Console all with the same results.)\n>>\n>>\n>> ?????? The first time I try \"svg('tst.svg')\" in a new R session, I get \n>> a longer message;? see below for that and for sessionInfo().? When I \n>> repeat \"svg('tst.svg')\", I get only \"failed to load cairo DLL\".\n>>\n>>\n>> ?????? Suggestions?\n>> ?????? Thanks,\n>> ?????? Spencer Graves\n>>\n>>\n>> svg('tst.svg')\n>> Warning messages:\n>> 1: In grSoftVersion() :\n>> ?? unable to load shared object \n>> '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':\n>> ?? dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, \n>> 6): Library not loaded: /opt/X11/lib/libSM.6.dylib\n>> ?? Referenced from: \n>> /Library/Frameworks/R.framework/Versions/4.1/Resources/modules/R_X11.so\n>> ?? Reason: image not found\n>> 2: In cairoVersion() :\n>> ?? unable to load shared object \n>> '/Library/Frameworks/R.framework/Resources/library/grDevices/libs//cairo.so': \n>>\n>>\n>> dlopen(/Library/Frameworks/R.framework/Resources/library/grDevices/libs//cairo.so, \n>> 6): Library not loaded: /opt/X11/lib/libXrender.1.dylib\n>> ?? Referenced from: \n>> /Library/Frameworks/R.framework/Versions/4.1/Resources/library/grDevices/libs/cairo.so \n>>\n>> ?? Reason: image not found\n>> 3: In svg(\"tst.svg\") : failed to load cairo DLL\n>> ?> sessionInfo()\n>> R version 4.1.0 (2021-05-18)\n>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>> Running under: macOS Big Sur 10.16\n>>\n>> Matrix products: default\n>> LAPACK: \n>> /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib \n>>\n>>\n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>\n>> attached base packages:\n>> [1] stats???? graphics? grDevices utils???? datasets? methods?? base\n>>\n>> loaded via a namespace (and not attached):\n>> [1] compiler_4.1.0 tools_4.1.0\n>> ?>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "THANKS, Prof. Ripley.  That fixed the problem.  Spencer Graves\n\n\n[please excuse a problem with delayed detection of an error with \nautocomplete.]\n\n\nOn 8/7/21 12:05 AM, Prof Brian Ripley wrote:\n> Insta",
+      "thread_id": "thread-eb763a6b4219",
+      "thread_depth": 2,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-66586f322c1f",
+      "message_id": "<91718503-A8AD-4D47-BBE8-2AD345D288B4@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-10T08:28:33+12:00",
+      "subject": "[R-SIG-Mac] Problem with createDataPartition",
+      "subject_clean": "Problem with createDataPartition",
+      "in_reply_to": "<24849.23240.990585.50197@stat.math.ethz.ch>",
+      "references": [
+        "<266E76D2-1E9D-4767-9CFE-E83B9F304F08@icloud.com>",
+        "<24849.23240.990585.50197@stat.math.ethz.ch>"
+      ],
+      "body_plain": "Richard, \n\nRcpp has made an ABI-breaking change in 1.0.7 so you need to re-install all packages that use Rcpp (i.e. not only Rcpp itself but all other packages).\n\nOne way to re-install all packages is to use something like\n\ninstall.packages(rownames(installed.packages()), type='binary')\n\nIf you want to install only Rcpp dependencies then something like this should work:\n\ndeps = tools:::CRAN_package_reverse_dependencies_with_maintainers(\"Rcpp\")[,\"Package\"]\nhave = rownames(installed.packages())\ninstall.packages(have[have %in% deps], type='binary')\n\nCheers,\nSimon\n\n\n\n> On Aug 10, 2021, at 4:41 AM, Martin Maechler <maechler at stat.math.ethz.ch> wrote:\n> \n>>>>>> RoqueRichard  \n>>>>>>    on Thu, 5 Aug 2021 12:54:36 +0800 writes:\n> \n> Dear Richard,\n> you sent all this to   r-sig-mac-owner at r-project.org\n> \n> but you really should re-send it to the mailing list, i.e.\n> \n> r-sig-mac at r-project.org\n> \n> Best,\n> Martin\n> \n>> Hi,\n> \n>> Im currently using R4.1.0 version on Mac OS. I tried using\n>> the createDataPartition function but got the following\n>> reply:\n> \n>>> test_index <- createDataPartition(y, times = 1, p = 0.5,\n>>> list = FALSE)\n> \n>> Error in split_indices(as.integer(splitv), attr(splitv,\n>> \"n\")) : function 'Rcpp_precious_remove' not provided by\n>> package ?Rcpp'\n> \n>> Is the Rcpp outdated? If so, could you advise how to\n>> update Rcpp?\n> \n>> Thanks a lot for any assistance you can provide.  Richard\n>",
+      "body_snippet": "Richard, \n\nRcpp has made an ABI-breaking change in 1.0.7 so you need to re-install all packages that use Rcpp (i.e. not only Rcpp itself but all other packages).\n\nOne way to re-install all packages is",
+      "thread_id": "thread-66586f322c1f",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-0d255550481e",
+      "message_id": "<B903A2C8-06A1-4B82-A471-712B6CECA5EE@icloud.com>",
+      "from_name": "RoqueRichard",
+      "from_email_hash": "2c897075cad0a905d141a4b7079f993374fc8f21f4778d191e588e5812b881c4",
+      "date": "2021-08-10T11:57:53+08:00",
+      "subject": "[R-SIG-Mac] Problem with createDataPartition",
+      "subject_clean": "Problem with createDataPartition",
+      "in_reply_to": "<91718503-A8AD-4D47-BBE8-2AD345D288B4@R-project.org>",
+      "references": [
+        "<266E76D2-1E9D-4767-9CFE-E83B9F304F08@icloud.com>",
+        "<24849.23240.990585.50197@stat.math.ethz.ch>",
+        "<91718503-A8AD-4D47-BBE8-2AD345D288B4@R-project.org>"
+      ],
+      "body_plain": "Hi Simon and Martin,\n\nMany thanks for your assistance and much appreciate it. The system is now working well\n\nHave a good day!\n\nKind regards,\nRichard\n\n> On 10 Aug 2021, at 4:28 AM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Richard, \n> \n> Rcpp has made an ABI-breaking change in 1.0.7 so you need to re-install all packages that use Rcpp (i.e. not only Rcpp itself but all other packages).\n> \n> One way to re-install all packages is to use something like\n> \n> install.packages(rownames(installed.packages()), type='binary')\n> \n> If you want to install only Rcpp dependencies then something like this should work:\n> \n> deps = tools:::CRAN_package_reverse_dependencies_with_maintainers(\"Rcpp\")[,\"Package\"]\n> have = rownames(installed.packages())\n> install.packages(have[have %in% deps], type='binary')\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On Aug 10, 2021, at 4:41 AM, Martin Maechler <maechler at stat.math.ethz.ch> wrote:\n>> \n>>>>>>> RoqueRichard  \n>>>>>>>   on Thu, 5 Aug 2021 12:54:36 +0800 writes:\n>> \n>> Dear Richard,\n>> you sent all this to   r-sig-mac-owner at r-project.org\n>> \n>> but you really should re-send it to the mailing list, i.e.\n>> \n>> r-sig-mac at r-project.org\n>> \n>> Best,\n>> Martin\n>> \n>>> Hi,\n>> \n>>> Im currently using R4.1.0 version on Mac OS. I tried using\n>>> the createDataPartition function but got the following\n>>> reply:\n>> \n>>>> test_index <- createDataPartition(y, times = 1, p = 0.5,\n>>>> list = FALSE)\n>> \n>>> Error in split_indices(as.integer(splitv), attr(splitv,\n>>> \"n\")) : function 'Rcpp_precious_remove' not provided by\n>>> package ?Rcpp'\n>> \n>>> Is the Rcpp outdated? If so, could you advise how to\n>>> update Rcpp?\n>> \n>>> Thanks a lot for any assistance you can provide.  Richard\n>> \n>",
+      "body_snippet": "Hi Simon and Martin,\n\nMany thanks for your assistance and much appreciate it. The system is now working well\n\nHave a good day!\n\nKind regards,\nRichard\n\n> On 10 Aug 2021, at 4:28 AM, Simon Urbanek <simo",
+      "thread_id": "thread-66586f322c1f",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-9b4cd4385587",
+      "message_id": "<2C06C4AE-F0EF-47B8-A4FF-551DD8FF1790@mac.com>",
+      "from_name": "Joey Reid",
+      "from_email_hash": "18729a070719e2e48697096a5dcffc3ee9f98644b6f90f2e2d0876104624bfae",
+      "date": "2021-08-11T12:31:35-05:00",
+      "subject": "[R-SIG-Mac] Can't make odbc FreeTDS connections in R.app, can with RStudio, /usr/local/bin/R, Rscript",
+      "subject_clean": "Can't make odbc FreeTDS connections in R.app, can with RStudio, /usr/local/bin/R, Rscript",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I?m experiencing some weirdness with database connections using R 4.1 on macOS 11.5.1 and the `odbc` package with the FreeTDS driver. I can replicate the problem on my coworker?s Mac with R 4.0 (macOS 11, not sure which version). \n\nRunning this code works fine on the command line (or with RStudio, /usr/local/bin/R), /usr/local/bin/Rscript -e ?library(odbc); con = dbConnect(odbc(), 'GISLibrary'); dbGetQuery(con, ?select 1 num?); dbDisconnect(con)?\n\nBut the connection fails with the exact same code in R.app (I?ve tried R.app rev 7976 and 7982). I often get a segfault, like \"address 0x7f975f481cb0, cause 'memory not mapped??. The connection works fine with the ODBC Driver 17 for SQL Server in all execution environments.\n\nThe connection also fails in some environments (rmarkdown::render, Rscript -e) if I load the package sf before making the first connection attempt, e.g., Rscript -e \"library(odbc); library(sf);  con = dbConnect(odbc(), 'GISLibrary'); dbGetQuery(con, 'select 1 num'); dbDisconnect(con);\". If I delay loading sf until after I?ve successfully made a connection with the FreeTDS driver I can continue to make connections.\n\nI saw the recent post about breaking ABI changes in the Rcpp package, so I followed the instructions to re-install all packages that depend on Rcpp. That did not solve the problem.\n\nThanks,\n\nJoey Reid",
+      "body_snippet": "I?m experiencing some weirdness with database connections using R 4.1 on macOS 11.5.1 and the `odbc` package with the FreeTDS driver. I can replicate the problem on my coworker?s Mac with R 4.0 (macOS",
+      "thread_id": "thread-9b4cd4385587",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-85ac6bc9e238",
+      "message_id": "<2FA7B954-DB9C-4AE3-B0CC-518AEABE6055@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-12T08:55:06+12:00",
+      "subject": "[R-SIG-Mac] Can't make odbc FreeTDS connections in R.app, can with RStudio, /usr/local/bin/R, Rscript",
+      "subject_clean": "Can't make odbc FreeTDS connections in R.app, can with RStudio, /usr/local/bin/R, Rscript",
+      "in_reply_to": "<2C06C4AE-F0EF-47B8-A4FF-551DD8FF1790@mac.com>",
+      "references": [
+        "<2C06C4AE-F0EF-47B8-A4FF-551DD8FF1790@mac.com>"
+      ],
+      "body_plain": "Joey,\n\nit is hard to say - it could be a bug in the driver. I would recommend using lldb to find the trace so you know where it happens - it would be anywhere from the odbc package, odbc library or the driver. If there is a difference, also check if you are loading the same versions of packages in each (cf .libPaths()) and which libraries are used. You could use JDBC with jTDS instead to see if that works better (or a native driver if it exists).\n\nCheers,\nSimon\n\n\n\n> On 12/08/2021, at 5:31 AM, Joey Reid via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> I?m experiencing some weirdness with database connections using R 4.1 on macOS 11.5.1 and the `odbc` package with the FreeTDS driver. I can replicate the problem on my coworker?s Mac with R 4.0 (macOS 11, not sure which version). \n> \n> Running this code works fine on the command line (or with RStudio, /usr/local/bin/R), /usr/local/bin/Rscript -e ?library(odbc); con = dbConnect(odbc(), 'GISLibrary'); dbGetQuery(con, ?select 1 num?); dbDisconnect(con)?\n> \n> But the connection fails with the exact same code in R.app (I?ve tried R.app rev 7976 and 7982). I often get a segfault, like \"address 0x7f975f481cb0, cause 'memory not mapped??. The connection works fine with the ODBC Driver 17 for SQL Server in all execution environments.\n> \n> The connection also fails in some environments (rmarkdown::render, Rscript -e) if I load the package sf before making the first connection attempt, e.g., Rscript -e \"library(odbc); library(sf);  con = dbConnect(odbc(), 'GISLibrary'); dbGetQuery(con, 'select 1 num'); dbDisconnect(con);\". If I delay loading sf until after I?ve successfully made a connection with the FreeTDS driver I can continue to make connections.\n> \n> I saw the recent post about breaking ABI changes in the Rcpp package, so I followed the instructions to re-install all packages that depend on Rcpp. That did not solve the problem.\n> \n> Thanks,\n> \n> Joey Reid\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Joey,\n\nit is hard to say - it could be a bug in the driver. I would recommend using lldb to find the trace so you know where it happens - it would be anywhere from the odbc package, odbc library or th",
+      "thread_id": "thread-9b4cd4385587",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-e41d5102e5ba",
+      "message_id": "<OS4P279MB0338C3488867BB3B3FB544CCA9FA9@OS4P279MB0338.NORP279.PROD.OUTLOOK.COM>",
+      "from_name": "Eirik Thorsnes",
+      "from_email_hash": "4537f07031672051b0395101c5fcb49c556ddb1301c9c227b1576f926316bb24",
+      "date": "2021-08-13T13:42:12Z",
+      "subject": "[R-SIG-Mac] R pkg 4.1.1 no longer accepted as notarized by Apple",
+      "subject_clean": "R pkg 4.1.1 no longer accepted as notarized by Apple",
+      "in_reply_to": null,
+      "references": [
+        "<f6f0e88d-c12f-4631-98af-0f6d03be384e.fa6dfdc9-15a0-4f78-ade3-dcb0570b0c9e.03dba4bc-c8d5-457e-b3e2-9e37261521b9@emailsignatures365.codetwo.com>"
+      ],
+      "body_plain": "Hi,\n\nThe R-4.1.1.pkg is not notarized:\n\n% spctl -a -vvv -t install R-4.1.1.pkg\nR-4.1.1.pkg: rejected\nsource=Unnotarized Developer ID\norigin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n\nWhereas 4.1.0 looks good:\n\n% spctl -a -vvv -t install R-4.1.0.pkg\nR-4.1.0.pkg: accepted\nsource=Notarized Developer ID\norigin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n\nRegards,\nEirik\n\n[cid:norce_426cc920-64ab-4893-95d0-c29d5dab670c.png]\n\nNORCE Norwegian Research Centre AS\nnorceresearch.no<https://www.norceresearch.no/>\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20210813/d0f45e27/attachment.html>\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: norce_426cc920-64ab-4893-95d0-c29d5dab670c.png\nType: image/png\nSize: 2503 bytes\nDesc: norce_426cc920-64ab-4893-95d0-c29d5dab670c.png\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20210813/d0f45e27/attachment.png>",
+      "body_snippet": "Hi,\n\nThe R-4.1.1.pkg is not notarized:\n\n% spctl -a -vvv -t install R-4.1.1.pkg\nR-4.1.1.pkg: rejected\nsource=Unnotarized Developer ID\norigin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n\nWhereas ",
+      "thread_id": "thread-e41d5102e5ba",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-d373b119a691",
+      "message_id": "<752b77d9-3d15-72a5-a6f9-c4cf1a8eb965@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-08-14T07:17:46+01:00",
+      "subject": "[R-SIG-Mac]  R pkg 4.1.1 no longer accepted as notarized by Apple",
+      "subject_clean": "R pkg 4.1.1 no longer accepted as notarized by Apple",
+      "in_reply_to": "<OS4P279MB0338C3488867BB3B3FB544CCA9FA9@OS4P279MB0338.NORP279.PROD.OUTLOOK.COM>",
+      "references": [
+        "<f6f0e88d-c12f-4631-98af-0f6d03be384e.fa6dfdc9-15a0-4f78-ade3-dcb0570b0c9e.03dba4bc-c8d5-457e-b3e2-9e37261521b9@emailsignatures365.codetwo.com>",
+        "<OS4P279MB0338C3488867BB3B3FB544CCA9FA9@OS4P279MB0338.NORP279.PROD.OUTLOOK.COM>"
+      ],
+      "body_plain": "On 13/08/2021 14:42, Eirik Thorsnes wrote:\n> Hi,\n> \n> The R-4.1.1.pkg is not notarized:\n\nAnd that has been reported and Simon has fixed it (online, and an \nupdated .pkg is on its way to the CRAN main site for those without \nInternet access).  I was able to install the original .pkg on Thursday \n(but not Weds) and now get\n\n% spctl -a -vvv -t install R-4.1.1.pkg\nR-4.1.1.pkg: accepted\nsource=Notarized Developer ID\n\n\n> \n> % spctl -a -vvv -t install R-4.1.1.pkg\n> \n> R-4.1.1.pkg: rejected\n> \n> source=Unnotarized Developer ID\n> \n> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n> \n> Whereas 4.1.0 looks good:\n> \n> % spctl -a -vvv -t install R-4.1.0.pkg\n> \n> R-4.1.0.pkg: accepted\n> \n> source=Notarized Developer ID\n> \n> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n> \n> Regards,\n> \n> Eirik\n> \n> NORCE Norwegian Research Centre AS\n> norceresearch.no <https://www.norceresearch.no/>\n\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 13/08/2021 14:42, Eirik Thorsnes wrote:\n> Hi,\n> \n> The R-4.1.1.pkg is not notarized:\n\nAnd that has been reported and Simon has fixed it (online, and an \nupdated .pkg is on its way to the CRAN main ",
+      "thread_id": "thread-e41d5102e5ba",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-d2428d9e03ac",
+      "message_id": "<CAK8G+nArKYLcc9UAb8pFdqGg2hBPF0UM1=igy2Wx5K5LdsO6SQ@mail.gmail.com>",
+      "from_name": "Clement Kent",
+      "from_email_hash": "893d452dd83bb5baf4a57a0ab6ab00f831cbfff27d8bce66cb1a54e2f0197b6d",
+      "date": "2021-08-14T14:22:43-04:00",
+      "subject": "[R-SIG-Mac] R-4.1.1-arm64.pkg (notarized and signed) not recognized as notarized",
+      "subject_clean": "R-4.1.1-arm64.pkg (notarized and signed) not recognized as notarized",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Probably same cause as previously reported \"[R-SIG-Mac] R pkg 4.1.1 no\nlonger accepted as notarized by Apple\n<https://stat.ethz.ch/pipermail/r-sig-mac/2021-August/014139.html>\".\n\nI'm on Big Sur 11.4, MacBook Pro 13\" with M1 chip. The arm64.pkg sha-1 was\nok after download today, XQuartz is newly installed, but got\n\"*?R-4.1.1-arm64.pkg?\ncan?t be opened because Apple cannot check it for malicious software.\"*\n\n*Cheers,*\n*Clement Kent*\n\n\n\n*Clement Kent, Ph.D.*\n*Adjunct Professor, Dept. of Biology*\n*York University, Canada*\n\n*https://biology.gradstudies.yorku.ca/faculty/clement-kent/\n<https://biology.gradstudies.yorku.ca/faculty/clement-kent/>*\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Probably same cause as previously reported \"[R-SIG-Mac] R pkg 4.1.1 no\nlonger accepted as notarized by Apple\n<https://stat.ethz.ch/pipermail/r-sig-mac/2021-August/014139.html>\".\n\nI'm on Big Sur 11.4, ",
+      "thread_id": "thread-d2428d9e03ac",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-901ceb0b0c82",
+      "message_id": "<F051EFA1-A887-4C54-B7AE-0CD33E2DE4EF@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-15T08:07:27+12:00",
+      "subject": "[R-SIG-Mac] R 4.1.1 installer Apple notarization",
+      "subject_clean": "R 4.1.1 installer Apple notarization",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The R 4.1.1 package installers have not been notarized when first released, however, the notarization has been completed after the release. The notarization receipts have been then added to the packages, so the most current releases have the following hashes:\n\nMD5:MD5(base/R-4.1.1.pkg)= 0e9684e8fc9c8a5eda675aef99c6a6ee\nMD5:MD5(big-sur-arm64/base/R-4.1.1-arm64.pkg)= f7a249c9a4b5f32efbfd44b821a6a846\n\nSHA1:SHA1(base/R-4.1.1.pkg)= d0eed7d0755bc80911acb616508d41e1396f810e\nSHA1:SHA1(big-sur-arm64/base/R-4.1.1-arm64.pkg)= e58f4b78f9e4d347a12cc9160ee69d3d23e69f3b\n\nYou can check your download for the receipt by comparing the hash above. The actual contents of the released packages are identical, they only vary by the absence or presence of the notarization receipt which allows off-line notarization check. If in doubt, you can always download from http://mac.R-project.org/bin/macosx which has always the latest version.\n\nIf you use the files without receipts from Aug 10, they will install since the package itself was notarized, but you will need internet connection to allow installer to pull the notarization receipt from Apple.\n\nCheers,\nSimon",
+      "body_snippet": "The R 4.1.1 package installers have not been notarized when first released, however, the notarization has been completed after the release. The notarization receipts have been then added to the packag",
+      "thread_id": "thread-901ceb0b0c82",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-15b3a77b0744",
+      "message_id": "<0af0fb87-63ea-f5b3-e978-7a59f02f1c27@ucsd.edu>",
+      "from_name": "John Helly",
+      "from_email_hash": "46289ab7f7d77c32c62abb74e65e008a58bfcfadca9aa9e8c980061bd051c7b2",
+      "date": "2021-08-14T16:43:51-10:00",
+      "subject": "[R-SIG-Mac] R.app spontaneously switching windows during editing",
+      "subject_clean": "R.app spontaneously switching windows during editing",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Aloha.\n\nApparently since I switched to Big Sur, R has begun spontaneously \nswitching the active window from console to editor back and forth for no \nobvious reason.? This disrupts editing and has almost destroyed whole \nediting files due to the deletion of highlighted lines (a different \nbehavior that has always been dangerous but is exacerbated by the \nwindow-switching).\n\nI've looked at the default settings in the Preferences and can't see or \nchange anything that seems to affect this behavior. I've tried turning \noff everything that might be doing it (e.g., matching delimiters) and I \ncan't find anything or anyone else that complains about this. Am I the \nonly one?\n\nAny suggestions for debugging this would be welcome.? sessionInfo below.\n\nJ. Helly.\n\n-- John Helly, University of California, San Diego / San Diego \nSupercomputer Center / Scripps Institution of Oceanography / 760 840 \n8660 mobile / http://www.sdsc.edu/~hellyj ORCID ID: \norcid.org/0000-0002-3779-0603\n\n\n\n > sessionInfo()\nR version 4.1.0 (2021-05-18)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 11.4\n\nMatrix products: default\nBLAS: \n/Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib\nLAPACK: \n/Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats???? graphics? grDevices utils???? datasets? methods base\n\nother attached packages:\n ?[1] Hmisc_4.5-0????? Formula_1.2-4??? survival_3.2-11 lattice_0.20-44? \nrunner_0.4.0???? GGally_2.1.2 rpart.plot_3.0.9\n ?[8] rpart_4.1-15???? stargazer_5.2.2? texreg_1.37.5 factoextra_1.0.7 \nforcats_0.5.1??? stringr_1.4.0??? dplyr_1.0.6\n[15] purrr_0.3.4????? readr_1.4.0????? tidyr_1.1.3 tibble_3.1.2???? \ntidyverse_1.3.1? tables_0.9.6???? reshape2_1.4.4\n[22] plyr_1.8.6?????? ggplot2_3.3.5\n\nloaded via a namespace (and not attached):\n ?[1] fs_1.5.0??????????? lubridate_1.7.10??? RColorBrewer_1.1-2 \nhttr_1.4.2????????? tools_4.1.0???????? backports_1.2.1\n ?[7] utf8_1.2.1????????? R6_2.5.0??????????? DBI_1.1.1 \ncolorspace_2.0-1??? nnet_7.3-16???????? withr_2.4.2\n[13] tidyselect_1.1.1??? gridExtra_2.3?????? curl_4.3.1 \ncompiler_4.1.0????? cli_2.5.0?????????? rvest_1.0.0\n[19] htmlTable_2.2.1???? xml2_1.3.2????????? labeling_0.4.2 \nscales_1.1.1??????? checkmate_2.0.0???? digest_0.6.27\n[25] foreign_0.8-81????? rio_0.5.27????????? base64enc_0.1-3 \njpeg_0.1-8.1??????? pkgconfig_2.0.3???? htmltools_0.5.1.1\n[31] dbplyr_2.1.1??????? htmlwidgets_1.5.3?? rlang_0.4.11 \nreadxl_1.3.1??????? rstudioapi_0.13???? generics_0.1.0\n[37] farver_2.1.0??????? jsonlite_1.7.2????? zip_2.2.0 \ncar_3.0-11????????? magrittr_2.0.1????? Matrix_1.3-3\n[43] Rcpp_1.0.6????????? munsell_0.5.0?????? fansi_0.5.0 \nabind_1.4-5???????? lifecycle_1.0.0???? stringi_1.6.2\n[49] carData_3.0-4?????? grid_4.1.0????????? parallel_4.1.0 \nggrepel_0.9.1?????? crayon_1.4.1??????? haven_2.4.1\n[55] splines_4.1.0?????? hms_1.1.0?????????? knitr_1.33 \nps_1.6.0??????????? pillar_1.6.1??????? ggpubr_0.4.0\n[61] ggsignif_0.6.2????? reprex_2.0.0??????? glue_1.4.2 \nlatticeExtra_0.6-29 data.table_1.14.0?? modelr_0.1.8\n[67] png_0.1-7?????????? vctrs_0.3.8???????? cellranger_1.1.0 \ngtable_0.3.0??????? reshape_0.8.8?????? assertthat_0.2.1\n[73] openxlsx_4.2.4????? xfun_0.23?????????? broom_0.7.6 \nrstatix_0.7.0?????? cluster_2.1.2?????? ellipsis_0.3.2\n >\n\n-- \nJohn Helly, University of California, San Diego / San Diego Supercomputer Center / Scripps Institution of Oceanography / 760 840 8660 mobile / http://www.sdsc.edu/~hellyj\nORCID ID: orcid.org/0000-0002-3779-0603\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Aloha.\n\nApparently since I switched to Big Sur, R has begun spontaneously \nswitching the active window from console to editor back and forth for no \nobvious reason.? This disrupts editing and has almo",
+      "thread_id": "thread-15b3a77b0744",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-cbd11a4d61ed",
+      "message_id": "<cf15ada7d9581b91651e10ca460b49a7@philipsmith.ca>",
+      "from_name": "phii m@iii@g oii phiiipsmith@c@",
+      "from_email_hash": "2a2e9e1e5a725e288781903d4a21483060dad35a2352fcbd52f878ef89b6eb72",
+      "date": "2021-08-15T10:04:28-04:00",
+      "subject": "[R-SIG-Mac] Difficulties with R-Studio",
+      "subject_clean": "Difficulties with R-Studio",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I use the R-Studio app, Version 1.4.1103, for my R programming work on \nmacOS Big Sur version 11.5. I find that the app switches from one window \nto another (within the app) sometimes, without a request that it do so. \nSometimes I work for a long session and this does not occur, but at \nother times it does, yet I cannot find an explanation.  I had the same \nproblem with previous versions of R. The problem is annoying, but the \napp is so good I have been putting up with it.\n\nDo others face the same problem? I suppose it is likely an issue within \nR-Studio, since it does not occur with any other app. But is there \nanything I can do in my macOS configuration to solve the problem?\n\nPhilip",
+      "body_snippet": "I use the R-Studio app, Version 1.4.1103, for my R programming work on \nmacOS Big Sur version 11.5. I find that the app switches from one window \nto another (within the app) sometimes, without a reque",
+      "thread_id": "thread-cbd11a4d61ed",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-e8e214aebee7",
+      "message_id": "<CABtg=KkPJJVB3-dbP9h=VbTjy-xKnmLYhWNd5=c_M6vbewMiqw@mail.gmail.com>",
+      "from_name": "Gábor Csárdi",
+      "from_email_hash": "79df10281c8db01a49e04a2604925829b32dce62a7d5cf4b6eb242379d9b1158",
+      "date": "2021-08-15T16:54:03+02:00",
+      "subject": "[R-SIG-Mac] Difficulties with R-Studio",
+      "subject_clean": "Difficulties with R-Studio",
+      "in_reply_to": "<cf15ada7d9581b91651e10ca460b49a7@philipsmith.ca>",
+      "references": [
+        "<cf15ada7d9581b91651e10ca460b49a7@philipsmith.ca>"
+      ],
+      "body_plain": "This has never happened to me (except when I touch the touchpad\naccidentally :), so unfortunately I don't have an answer, just some\ntips.\n\nRStudio has an online forum. If you don't get an answer here in a\ncouple of days, you might want to try to ask your question there:\nhttps://community.rstudio.com/\n\nYou can try the latest daily build from https://dailies.rstudio.com/\n\nRStudio has an API that R code (including R packages) can use to\nswitch panels. Is it possible that you are using some R package that\ndoes that?\n\nGabor\n\nOn Sun, Aug 15, 2021 at 4:04 PM <phil at philipsmith.ca> wrote:\n>\n> I use the R-Studio app, Version 1.4.1103, for my R programming work on\n> macOS Big Sur version 11.5. I find that the app switches from one window\n> to another (within the app) sometimes, without a request that it do so.\n> Sometimes I work for a long session and this does not occur, but at\n> other times it does, yet I cannot find an explanation.  I had the same\n> problem with previous versions of R. The problem is annoying, but the\n> app is so good I have been putting up with it.\n>\n> Do others face the same problem? I suppose it is likely an issue within\n> R-Studio, since it does not occur with any other app. But is there\n> anything I can do in my macOS configuration to solve the problem?\n>\n> Philip\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "This has never happened to me (except when I touch the touchpad\naccidentally :), so unfortunately I don't have an answer, just some\ntips.\n\nRStudio has an online forum. If you don't get an answer here ",
+      "thread_id": "thread-cbd11a4d61ed",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-8df205d5d285",
+      "message_id": "<9940179D-16F2-4523-9F5A-EA5B7B23A3DE@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-16T07:45:52+12:00",
+      "subject": "[R-SIG-Mac]  R.app spontaneously switching windows during editing",
+      "subject_clean": "R.app spontaneously switching windows during editing",
+      "in_reply_to": "<0af0fb87-63ea-f5b3-e978-7a59f02f1c27@ucsd.edu>",
+      "references": [
+        "<0af0fb87-63ea-f5b3-e978-7a59f02f1c27@ucsd.edu>"
+      ],
+      "body_plain": "John,\n\nThank you for the report. We have not changed anything recently so it's likely some odd behaviour by the macOS. I'll try to reproduce and will get back to you.\n\nCheers,\nSimon\n\n\n\n> On Aug 15, 2021, at 14:43, John Helly via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Aloha.\n> \n> Apparently since I switched to Big Sur, R has begun spontaneously \n> switching the active window from console to editor back and forth for no \n> obvious reason.  This disrupts editing and has almost destroyed whole \n> editing files due to the deletion of highlighted lines (a different \n> behavior that has always been dangerous but is exacerbated by the \n> window-switching).\n> \n> I've looked at the default settings in the Preferences and can't see or \n> change anything that seems to affect this behavior. I've tried turning \n> off everything that might be doing it (e.g., matching delimiters) and I \n> can't find anything or anyone else that complains about this. Am I the \n> only one?\n> \n> Any suggestions for debugging this would be welcome.  sessionInfo below.\n> \n> J. Helly.\n> \n> -- John Helly, University of California, San Diego / San Diego \n> Supercomputer Center / Scripps Institution of Oceanography / 760 840 \n> 8660 mobile / http://www.sdsc.edu/~hellyj ORCID ID: \n> orcid.org/0000-0002-3779-0603\n> \n> \n> \n>> sessionInfo()\n> R version 4.1.0 (2021-05-18)\n> Platform: x86_64-apple-darwin17.0 (64-bit)\n> Running under: macOS Big Sur 11.4\n> \n> Matrix products: default\n> BLAS: \n> /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib\n> LAPACK: \n> /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods base\n> \n> other attached packages:\n>  [1] Hmisc_4.5-0      Formula_1.2-4    survival_3.2-11 lattice_0.20-44  \n> runner_0.4.0     GGally_2.1.2 rpart.plot_3.0.9\n>  [8] rpart_4.1-15     stargazer_5.2.2  texreg_1.37.5 factoextra_1.0.7 \n> forcats_0.5.1    stringr_1.4.0    dplyr_1.0.6\n> [15] purrr_0.3.4      readr_1.4.0      tidyr_1.1.3 tibble_3.1.2     \n> tidyverse_1.3.1  tables_0.9.6     reshape2_1.4.4\n> [22] plyr_1.8.6       ggplot2_3.3.5\n> \n> loaded via a namespace (and not attached):\n>  [1] fs_1.5.0            lubridate_1.7.10    RColorBrewer_1.1-2 \n> httr_1.4.2          tools_4.1.0         backports_1.2.1\n>  [7] utf8_1.2.1          R6_2.5.0            DBI_1.1.1 \n> colorspace_2.0-1    nnet_7.3-16         withr_2.4.2\n> [13] tidyselect_1.1.1    gridExtra_2.3       curl_4.3.1 \n> compiler_4.1.0      cli_2.5.0           rvest_1.0.0\n> [19] htmlTable_2.2.1     xml2_1.3.2          labeling_0.4.2 \n> scales_1.1.1        checkmate_2.0.0     digest_0.6.27\n> [25] foreign_0.8-81      rio_0.5.27          base64enc_0.1-3 \n> jpeg_0.1-8.1        pkgconfig_2.0.3     htmltools_0.5.1.1\n> [31] dbplyr_2.1.1        htmlwidgets_1.5.3   rlang_0.4.11 \n> readxl_1.3.1        rstudioapi_0.13     generics_0.1.0\n> [37] farver_2.1.0        jsonlite_1.7.2      zip_2.2.0 \n> car_3.0-11          magrittr_2.0.1      Matrix_1.3-3\n> [43] Rcpp_1.0.6          munsell_0.5.0       fansi_0.5.0 \n> abind_1.4-5         lifecycle_1.0.0     stringi_1.6.2\n> [49] carData_3.0-4       grid_4.1.0          parallel_4.1.0 \n> ggrepel_0.9.1       crayon_1.4.1        haven_2.4.1\n> [55] splines_4.1.0       hms_1.1.0           knitr_1.33 \n> ps_1.6.0            pillar_1.6.1        ggpubr_0.4.0\n> [61] ggsignif_0.6.2      reprex_2.0.0        glue_1.4.2 \n> latticeExtra_0.6-29 data.table_1.14.0   modelr_0.1.8\n> [67] png_0.1-7           vctrs_0.3.8         cellranger_1.1.0 \n> gtable_0.3.0        reshape_0.8.8       assertthat_0.2.1\n> [73] openxlsx_4.2.4      xfun_0.23           broom_0.7.6 \n> rstatix_0.7.0       cluster_2.1.2       ellipsis_0.3.2\n>> \n> \n> -- \n> John Helly, University of California, San Diego / San Diego Supercomputer Center / Scripps Institution of Oceanography / 760 840 8660 mobile / http://www.sdsc.edu/~hellyj\n> ORCID ID: orcid.org/0000-0002-3779-0603\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "John,\n\nThank you for the report. We have not changed anything recently so it's likely some odd behaviour by the macOS. I'll try to reproduce and will get back to you.\n\nCheers,\nSimon\n\n\n\n> On Aug 15, 20",
+      "thread_id": "thread-15b3a77b0744",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-c9cf37e0d35d",
+      "message_id": "<4EAFB80E-E363-4D16-B2B7-2DB43744B891@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-16T13:49:34+12:00",
+      "subject": "[R-SIG-Mac]  R.app spontaneously switching windows during editing",
+      "subject_clean": "R.app spontaneously switching windows during editing",
+      "in_reply_to": "<9940179D-16F2-4523-9F5A-EA5B7B23A3DE@R-project.org>",
+      "references": [
+        "<0af0fb87-63ea-f5b3-e978-7a59f02f1c27@ucsd.edu>",
+        "<9940179D-16F2-4523-9F5A-EA5B7B23A3DE@R-project.org>"
+      ],
+      "body_plain": "John,\n\nI tried to reproduce on macOS 11.4, but failed to so far. Can you send us the details on your setup, e.g., is this a MacBook or a mini etc? Also what exactly is the sequence - i.e. what were you doing and what happened?\n\nOne thing I noted, however, is that if you use a trackpad have tap-to-click enabled, it's amazingly easy to accidentally click on another windows while you're typing on MacBooks since your hands are hovering very close to the touch pad. To see if that makes a difference, disable the tap-to-click in the trackpad system preferences.\n\nFWIW the behavior in the text editing is defined by Apple and the OS, so things like replacing the selection are UI standards by Apple. You can always use Undo in case you select and replace something inadvertently.\n\nThanks,\nSimon\n\n\n\n> On 16/08/2021, at 7:45 AM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> \n> John,\n> \n> Thank you for the report. We have not changed anything recently so it's likely some odd behaviour by the macOS. I'll try to reproduce and will get back to you.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On Aug 15, 2021, at 14:43, John Helly via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n>> \n>> Aloha.\n>> \n>> Apparently since I switched to Big Sur, R has begun spontaneously \n>> switching the active window from console to editor back and forth for no \n>> obvious reason.  This disrupts editing and has almost destroyed whole \n>> editing files due to the deletion of highlighted lines (a different \n>> behavior that has always been dangerous but is exacerbated by the \n>> window-switching).\n>> \n>> I've looked at the default settings in the Preferences and can't see or \n>> change anything that seems to affect this behavior. I've tried turning \n>> off everything that might be doing it (e.g., matching delimiters) and I \n>> can't find anything or anyone else that complains about this. Am I the \n>> only one?\n>> \n>> Any suggestions for debugging this would be welcome.  sessionInfo below.\n>> \n>> J. Helly.\n>> \n>> -- John Helly, University of California, San Diego / San Diego \n>> Supercomputer Center / Scripps Institution of Oceanography / 760 840 \n>> 8660 mobile / http://www.sdsc.edu/~hellyj ORCID ID: \n>> orcid.org/0000-0002-3779-0603\n>> \n>> \n>> \n>>> sessionInfo()\n>> R version 4.1.0 (2021-05-18)\n>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>> Running under: macOS Big Sur 11.4\n>> \n>> Matrix products: default\n>> BLAS: \n>> /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib\n>> LAPACK: \n>> /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib\n>> \n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods base\n>> \n>> other attached packages:\n>> [1] Hmisc_4.5-0      Formula_1.2-4    survival_3.2-11 lattice_0.20-44  \n>> runner_0.4.0     GGally_2.1.2 rpart.plot_3.0.9\n>> [8] rpart_4.1-15     stargazer_5.2.2  texreg_1.37.5 factoextra_1.0.7 \n>> forcats_0.5.1    stringr_1.4.0    dplyr_1.0.6\n>> [15] purrr_0.3.4      readr_1.4.0      tidyr_1.1.3 tibble_3.1.2     \n>> tidyverse_1.3.1  tables_0.9.6     reshape2_1.4.4\n>> [22] plyr_1.8.6       ggplot2_3.3.5\n>> \n>> loaded via a namespace (and not attached):\n>> [1] fs_1.5.0            lubridate_1.7.10    RColorBrewer_1.1-2 \n>> httr_1.4.2          tools_4.1.0         backports_1.2.1\n>> [7] utf8_1.2.1          R6_2.5.0            DBI_1.1.1 \n>> colorspace_2.0-1    nnet_7.3-16         withr_2.4.2\n>> [13] tidyselect_1.1.1    gridExtra_2.3       curl_4.3.1 \n>> compiler_4.1.0      cli_2.5.0           rvest_1.0.0\n>> [19] htmlTable_2.2.1     xml2_1.3.2          labeling_0.4.2 \n>> scales_1.1.1        checkmate_2.0.0     digest_0.6.27\n>> [25] foreign_0.8-81      rio_0.5.27          base64enc_0.1-3 \n>> jpeg_0.1-8.1        pkgconfig_2.0.3     htmltools_0.5.1.1\n>> [31] dbplyr_2.1.1        htmlwidgets_1.5.3   rlang_0.4.11 \n>> readxl_1.3.1        rstudioapi_0.13     generics_0.1.0\n>> [37] farver_2.1.0        jsonlite_1.7.2      zip_2.2.0 \n>> car_3.0-11          magrittr_2.0.1      Matrix_1.3-3\n>> [43] Rcpp_1.0.6          munsell_0.5.0       fansi_0.5.0 \n>> abind_1.4-5         lifecycle_1.0.0     stringi_1.6.2\n>> [49] carData_3.0-4       grid_4.1.0          parallel_4.1.0 \n>> ggrepel_0.9.1       crayon_1.4.1        haven_2.4.1\n>> [55] splines_4.1.0       hms_1.1.0           knitr_1.33 \n>> ps_1.6.0            pillar_1.6.1        ggpubr_0.4.0\n>> [61] ggsignif_0.6.2      reprex_2.0.0        glue_1.4.2 \n>> latticeExtra_0.6-29 data.table_1.14.0   modelr_0.1.8\n>> [67] png_0.1-7           vctrs_0.3.8         cellranger_1.1.0 \n>> gtable_0.3.0        reshape_0.8.8       assertthat_0.2.1\n>> [73] openxlsx_4.2.4      xfun_0.23           broom_0.7.6 \n>> rstatix_0.7.0       cluster_2.1.2       ellipsis_0.3.2\n>>> \n>> \n>> -- \n>> John Helly, University of California, San Diego / San Diego Supercomputer Center / Scripps Institution of Oceanography / 760 840 8660 mobile / http://www.sdsc.edu/~hellyj\n>> ORCID ID: orcid.org/0000-0002-3779-0603\n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "John,\n\nI tried to reproduce on macOS 11.4, but failed to so far. Can you send us the details on your setup, e.g., is this a MacBook or a mini etc? Also what exactly is the sequence - i.e. what were yo",
+      "thread_id": "thread-15b3a77b0744",
+      "thread_depth": 2,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-fdbc01777f3e",
+      "message_id": "<E3F4D6DA-C4E0-429E-8929-92875C727F44@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "960cf691f34cc2709527dabb6de874fb0a4c64edacd6eb5108b4fb7e2aa36670",
+      "date": "2021-08-15T22:19:56-07:00",
+      "subject": "[R-SIG-Mac] Difficulties with R-Studio",
+      "subject_clean": "Difficulties with R-Studio",
+      "in_reply_to": "<CABtg=KkPJJVB3-dbP9h=VbTjy-xKnmLYhWNd5=c_M6vbewMiqw@mail.gmail.com>",
+      "references": [
+        "<CABtg=KkPJJVB3-dbP9h=VbTjy-xKnmLYhWNd5=c_M6vbewMiqw@mail.gmail.com>"
+      ],
+      "body_plain": "Happens to me all the time on a Linux installation using Rstudio.   There?s some sort of mouse action that pulls up a screen to do something with the xml or http substrate of the IDE. The R.app IDE is much less unpredictable. \n\n? \nDavid. \n\nSent from my iPhone\n\n> On Aug 15, 2021, at 7:54 AM, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n> ?This has never happened to me (except when I touch the touchpad\n> accidentally :), so unfortunately I don't have an answer, just some\n> tips.\n> \n> RStudio has an online forum. If you don't get an answer here in a\n> couple of days, you might want to try to ask your question there:\n> https://community.rstudio.com/\n> \n> You can try the latest daily build from https://dailies.rstudio.com/\n> \n> RStudio has an API that R code (including R packages) can use to\n> switch panels. Is it possible that you are using some R package that\n> does that?\n> \n> Gabor\n> \n>> On Sun, Aug 15, 2021 at 4:04 PM <phil at philipsmith.ca> wrote:\n>> \n>> I use the R-Studio app, Version 1.4.1103, for my R programming work on\n>> macOS Big Sur version 11.5. I find that the app switches from one window\n>> to another (within the app) sometimes, without a request that it do so.\n>> Sometimes I work for a long session and this does not occur, but at\n>> other times it does, yet I cannot find an explanation.  I had the same\n>> problem with previous versions of R. The problem is annoying, but the\n>> app is so good I have been putting up with it.\n>> \n>> Do others face the same problem? I suppose it is likely an issue within\n>> R-Studio, since it does not occur with any other app. But is there\n>> anything I can do in my macOS configuration to solve the problem?\n>> \n>> Philip\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Happens to me all the time on a Linux installation using Rstudio.   There?s some sort of mouse action that pulls up a screen to do something with the xml or http substrate of the IDE. The R.app IDE is",
+      "thread_id": "thread-cbd11a4d61ed",
+      "thread_depth": 2,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-03dddb37af9b",
+      "message_id": "<CAMY0nH5vH6LEfP3FF56BTHbjkNTXtbKqK2308jTw2CZ+DEUy=w@mail.gmail.com>",
+      "from_name": "Michal Ben-Nun",
+      "from_email_hash": "b2fc8007a77649e89caef2fdf463147632a0413a411950630784c2e1fc343465",
+      "date": "2021-08-18T15:52:49-07:00",
+      "subject": "[R-SIG-Mac] sf installation problem under Mac OS 11 - Big Sur",
+      "subject_clean": "sf installation problem under Mac OS 11 - Big Sur",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI installed R 4.10 on my Mac OS 11.3.1\n\nI am trying to install 'sf' and 'rgdal'",
+      "body_snippet": "Hi,\n\nI installed R 4.10 on my Mac OS 11.3.1\n\nI am trying to install 'sf' and 'rgdal'",
+      "thread_id": "thread-03dddb37af9b",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-344dd82010fd",
+      "message_id": "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+      "from_name": "Richard M. Heiberger",
+      "from_email_hash": "f2902bb7bf4e430670d9aab08348d4228400c239dd91133544c0c61925c5c4ef",
+      "date": "2021-08-19T03:56:56Z",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "R version 4.1.1 Patched (2021-08-13 r80752)\n aarch64-apple-darwin20        \n\n> library(rgl)\nError in dyn.load(dynlib <- getDynlib(dir)) : \n  unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n  dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n  Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n  Expected in: flat namespace\n in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so",
+      "body_snippet": "R version 4.1.1 Patched (2021-08-13 r80752)\n aarch64-apple-darwin20        \n\n> library(rgl)\nError in dyn.load(dynlib <- getDynlib(dir)) : \n  unable to load shared object '/Library/Frameworks/R.framewo",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-8e18581a5148",
+      "message_id": "<4E76C39B-7FCA-467D-B8BF-7D62866144AB@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-19T18:19:59+12:00",
+      "subject": "[R-SIG-Mac] sf installation problem under Mac OS 11 - Big Sur",
+      "subject_clean": "sf installation problem under Mac OS 11 - Big Sur",
+      "in_reply_to": "<CAMY0nH5vH6LEfP3FF56BTHbjkNTXtbKqK2308jTw2CZ+DEUy=w@mail.gmail.com>",
+      "references": [
+        "<CAMY0nH5vH6LEfP3FF56BTHbjkNTXtbKqK2308jTw2CZ+DEUy=w@mail.gmail.com>"
+      ],
+      "body_plain": "Michal,\n\nthose instructions work for released CRAN R. Apparently, that's not what you are using - if you want to compile sf and gdal from sources, that is more challenging and you have to install all its dependencies first. In the output below you're missing at the very least the PROJ4/6 library - it may not be the only thing you're missing, so make sure you read the errors and install all necessary dependencies.\n\nCheers,\nSimon\n\n\n\n> On Aug 19, 2021, at 10:52 AM, Michal Ben-Nun <mbennun at predsci.com> wrote:\n> \n> Hi,\n> \n> I installed R 4.10 on my Mac OS 11.3.1\n> \n> I am trying to install 'sf' and 'rgdal'\n> \n> From the mailing list I understood that this command should work:\n> \n> install.packages(c(\"rgdal\",\"sf\"),,\"https://mac.R-project.org\n> <https://mac.r-project.org/>\")\n> \n> However I am still getting an error, see below.\n> \n> Any suggestions would be welcome.\n> \n> Thanks,\n> Michal\n> \n> p.s. I am using macports NOT brew\n> \n>> install.packages(c(\"rgdal\",\"sf\"),,\"https://mac.R-project.org\")\n> Installing packages into ?/Users/michal/Library/R/x86_64/4.1/library?\n> (as ?lib? is unspecified)\n> trying URL 'https://mac.R-project.org/src/contrib/rgdal_1.5-23.tar.gz'\n> Content type 'application/octet-stream' length 4393536 bytes (4.2 MB)\n> ==================================================\n> downloaded 4.2 MB\n> \n> trying URL 'https://mac.R-project.org/src/contrib/sf_1.0-2.tar.gz'\n> Content type 'application/octet-stream' length 3645982 bytes (3.5 MB)\n> ==================================================\n> downloaded 3.5 MB\n> \n> * installing *source* package ?rgdal? ...\n> ** package ?rgdal? successfully unpacked and MD5 sums checked\n> ** using staged installation\n> configure: R_HOME: /opt/local/Library/Frameworks/R.framework/Resources\n> configure: CC: /opt/local/bin/clang-mp-12\n> configure: CXX: /opt/local/bin/clang++-mp-12 -std=gnu++14\n> configure: CFLAGS: -pipe -Os\n> -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch x86_64\n> configure: CPPFLAGS: -I/opt/local/include\n> -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk\n> configure: CXXFLAGS: -pipe -Os -stdlib=libc++\n> -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch x86_64\n> configure: LDFLAGS: -L/opt/local/lib -Wl,-headerpad_max_install_names\n> -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch\n> x86_64\n> configure: LDFLAGS: -L/opt/local/lib -Wl,-headerpad_max_install_names\n> -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch\n> x86_64\n> configure: CXX11 is: /opt/local/bin/clang++-mp-12, CXX11STD is: -std=gnu++11\n> configure: CXX is: /opt/local/bin/clang++-mp-12 -std=gnu++11\n> configure: C++11 support available\n> configure: rgdal: 1.5-23\n> checking for /usr/bin/svnversion... no\n> configure: svn revision: 1121\n> checking for gdal-config... /opt/local/bin/gdal-config\n> checking gdal-config usability... yes\n> configure: GDAL: 3.3.0\n> checking GDAL version >= 1.11.4... yes\n> checking GDAL version <= 2.5 or >= 3.0... yes\n> checking GDAL: linking with --libs only... yes\n> checking GDAL: gdal-config data directory readable... yes\n> checking GDAL: /opt/local/share/gdal/stateplane.csv readable... yes\n> configure: pkg-config proj not available\n>  set PKG_CONFIG_PATH to the directory containing proj.pc\n> configure: PROJ version not determined using pkg-config proj\n> configure: PROJ CPP flags:  -I/opt/local/include\n> configure: PROJ LIBS:  -lproj\n> checking PROJ header API:... yes\n> configure: API to be used as yet undetermined, searching ...\n> configure: error: API to be used not found\n> ERROR: configuration failed for package ?rgdal?\n> * removing ?/Users/michal/Library/R/x86_64/4.1/library/rgdal?\n> * installing *source* package ?sf? ...\n> ** package ?sf? successfully unpacked and MD5 sums checked\n> ** using staged installation\n> configure: CC: /opt/local/bin/clang-mp-12\n> configure: CXX: /opt/local/bin/clang++-mp-12 -std=gnu++11\n> checking for gdal-config... /opt/local/bin/gdal-config\n> checking gdal-config usability... yes\n> configure: GDAL: 3.3.0\n> checking GDAL version >= 2.0.1... yes\n> checking for gcc... /opt/local/bin/clang-mp-12\n> checking whether the C compiler works... yes\n> checking for C compiler default output file name... a.out\n> checking for suffix of executables...\n> checking whether we are cross compiling... no\n> checking for suffix of object files... o\n> checking whether we are using the GNU C compiler... yes\n> checking whether /opt/local/bin/clang-mp-12 accepts -g... yes\n> checking for /opt/local/bin/clang-mp-12 option to accept ISO C89... none\n> needed\n> checking how to run the C preprocessor... /opt/local/bin/clang-mp-12 -E\n> checking for grep that handles long lines and -e... /usr/bin/grep\n> checking for egrep... /usr/bin/grep -E\n> checking for ANSI C header files... yes\n> checking for sys/types.h... yes\n> checking for sys/stat.h... yes\n> checking for stdlib.h... yes\n> checking for string.h... yes\n> checking for memory.h... yes\n> checking for strings.h... yes\n> checking for inttypes.h... yes\n> checking for stdint.h... yes\n> checking for unistd.h... yes\n> checking gdal.h usability... yes\n> checking gdal.h presence... yes\n> checking for gdal.h... yes\n> checking GDAL: linking with --libs only... yes\n> checking GDAL: /opt/local/share/gdal/pcs.csv readable... no\n> checking GDAL: checking whether PROJ is available for linking:... yes\n> checking GDAL: checking whether PROJ is available fur running:... yes\n> configure: GDAL: 3.3.0\n> checking proj.h usability... no\n> checking proj.h presence... no\n> checking for proj.h... no\n> checking proj_api.h usability... no\n> checking proj_api.h presence... no\n> checking for proj_api.h... no\n> configure: error: proj_api.h not found in standard or given locations.\n> ERROR: configuration failed for package ?sf?\n> * removing ?/Users/michal/Library/R/x86_64/4.1/library/sf?\n> \n> The downloaded source packages are in\n> ?/private/var/folders/07/47hs0f_j187393z5drwshbm00000gn/T/RtmpsD9V5a/downloaded_packages?\n> Warning messages:\n> 1: In install.packages(c(\"rgdal\", \"sf\"), , \"https://mac.R-project.org\") :\n>  installation of package ?rgdal? had non-zero exit status\n> 2: In install.packages(c(\"rgdal\", \"sf\"), , \"https://mac.R-project.org\") :\n>  installation of package ?sf? had non-zero exit status\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Michal,\n\nthose instructions work for released CRAN R. Apparently, that's not what you are using - if you want to compile sf and gdal from sources, that is more challenging and you have to install all ",
+      "thread_id": "thread-03dddb37af9b",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-057a915861dc",
+      "message_id": "<048c9bd2-445f-3dee-324b-11c1a6ac27a0@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-08-19T07:28:40+01:00",
+      "subject": "[R-SIG-Mac] sf installation problem under Mac OS 11 - Big Sur",
+      "subject_clean": "sf installation problem under Mac OS 11 - Big Sur",
+      "in_reply_to": "<CAMY0nH5vH6LEfP3FF56BTHbjkNTXtbKqK2308jTw2CZ+DEUy=w@mail.gmail.com>",
+      "references": [
+        "<CAMY0nH5vH6LEfP3FF56BTHbjkNTXtbKqK2308jTw2CZ+DEUy=w@mail.gmail.com>"
+      ],
+      "body_plain": "On 18/08/2021 23:52, Michal Ben-Nun wrote:\n> Hi,\n> \n> I installed R 4.10 on my Mac OS 11.3.1\n\nPresumably R 4.1.0.\n> \n> I am trying to install 'sf' and 'rgdal'\n> \n>>From the mailing list I understood that this command should work:\n> \n> install.packages(c(\"rgdal\",\"sf\"),,\"https://mac.R-project.org\n> <https://mac.r-project.org/>\")\n> \n> However I am still getting an error, see below.\n> \n> Any suggestions would be welcome.\n> \n> Thanks,\n> Michal\n> \n> p.s. I am using macports NOT brew\n\nAsking on R-sig-geo would be appropriate as macports/Homebrew are \ngeneric Unix-alike systems.\n\nHint: rgdal has\n\nSystemRequirements: PROJ (>= 4.8.0, https://proj.org/download.html) and \nGDAL (>= 1.11.4, https://gdal.org/download.html), with versions either \n(A) PROJ < 6 and GDAL < 3 or (B) PROJ >= 6 and GDAL >= 3.\n\nand it seems you have not installed PROJ\n\n\n\n> \n>> install.packages(c(\"rgdal\",\"sf\"),,\"https://mac.R-project.org\")\n> Installing packages into ?/Users/michal/Library/R/x86_64/4.1/library?\n> (as ?lib? is unspecified)\n> trying URL 'https://mac.R-project.org/src/contrib/rgdal_1.5-23.tar.gz'\n> Content type 'application/octet-stream' length 4393536 bytes (4.2 MB)\n> ==================================================\n> downloaded 4.2 MB\n> \n> trying URL 'https://mac.R-project.org/src/contrib/sf_1.0-2.tar.gz'\n> Content type 'application/octet-stream' length 3645982 bytes (3.5 MB)\n> ==================================================\n> downloaded 3.5 MB\n> \n> * installing *source* package ?rgdal? ...\n> ** package ?rgdal? successfully unpacked and MD5 sums checked\n> ** using staged installation\n> configure: R_HOME: /opt/local/Library/Frameworks/R.framework/Resources\n> configure: CC: /opt/local/bin/clang-mp-12\n> configure: CXX: /opt/local/bin/clang++-mp-12 -std=gnu++14\n> configure: CFLAGS: -pipe -Os\n> -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch x86_64\n> configure: CPPFLAGS: -I/opt/local/include\n> -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk\n> configure: CXXFLAGS: -pipe -Os -stdlib=libc++\n> -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch x86_64\n> configure: LDFLAGS: -L/opt/local/lib -Wl,-headerpad_max_install_names\n> -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch\n> x86_64\n> configure: LDFLAGS: -L/opt/local/lib -Wl,-headerpad_max_install_names\n> -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch\n> x86_64\n> configure: CXX11 is: /opt/local/bin/clang++-mp-12, CXX11STD is: -std=gnu++11\n> configure: CXX is: /opt/local/bin/clang++-mp-12 -std=gnu++11\n> configure: C++11 support available\n> configure: rgdal: 1.5-23\n> checking for /usr/bin/svnversion... no\n> configure: svn revision: 1121\n> checking for gdal-config... /opt/local/bin/gdal-config\n> checking gdal-config usability... yes\n> configure: GDAL: 3.3.0\n> checking GDAL version >= 1.11.4... yes\n> checking GDAL version <= 2.5 or >= 3.0... yes\n> checking GDAL: linking with --libs only... yes\n> checking GDAL: gdal-config data directory readable... yes\n> checking GDAL: /opt/local/share/gdal/stateplane.csv readable... yes\n> configure: pkg-config proj not available\n>    set PKG_CONFIG_PATH to the directory containing proj.pc\n> configure: PROJ version not determined using pkg-config proj\n> configure: PROJ CPP flags:  -I/opt/local/include\n> configure: PROJ LIBS:  -lproj\n> checking PROJ header API:... yes\n> configure: API to be used as yet undetermined, searching ...\n> configure: error: API to be used not found\n> ERROR: configuration failed for package ?rgdal?\n> * removing ?/Users/michal/Library/R/x86_64/4.1/library/rgdal?\n> * installing *source* package ?sf? ...\n> ** package ?sf? successfully unpacked and MD5 sums checked\n> ** using staged installation\n> configure: CC: /opt/local/bin/clang-mp-12\n> configure: CXX: /opt/local/bin/clang++-mp-12 -std=gnu++11\n> checking for gdal-config... /opt/local/bin/gdal-config\n> checking gdal-config usability... yes\n> configure: GDAL: 3.3.0\n> checking GDAL version >= 2.0.1... yes\n> checking for gcc... /opt/local/bin/clang-mp-12\n> checking whether the C compiler works... yes\n> checking for C compiler default output file name... a.out\n> checking for suffix of executables...\n> checking whether we are cross compiling... no\n> checking for suffix of object files... o\n> checking whether we are using the GNU C compiler... yes\n> checking whether /opt/local/bin/clang-mp-12 accepts -g... yes\n> checking for /opt/local/bin/clang-mp-12 option to accept ISO C89... none\n> needed\n> checking how to run the C preprocessor... /opt/local/bin/clang-mp-12 -E\n> checking for grep that handles long lines and -e... /usr/bin/grep\n> checking for egrep... /usr/bin/grep -E\n> checking for ANSI C header files... yes\n> checking for sys/types.h... yes\n> checking for sys/stat.h... yes\n> checking for stdlib.h... yes\n> checking for string.h... yes\n> checking for memory.h... yes\n> checking for strings.h... yes\n> checking for inttypes.h... yes\n> checking for stdint.h... yes\n> checking for unistd.h... yes\n> checking gdal.h usability... yes\n> checking gdal.h presence... yes\n> checking for gdal.h... yes\n> checking GDAL: linking with --libs only... yes\n> checking GDAL: /opt/local/share/gdal/pcs.csv readable... no\n> checking GDAL: checking whether PROJ is available for linking:... yes\n> checking GDAL: checking whether PROJ is available fur running:... yes\n> configure: GDAL: 3.3.0\n> checking proj.h usability... no\n> checking proj.h presence... no\n> checking for proj.h... no\n> checking proj_api.h usability... no\n> checking proj_api.h presence... no\n> checking for proj_api.h... no\n> configure: error: proj_api.h not found in standard or given locations.\n> ERROR: configuration failed for package ?sf?\n> * removing ?/Users/michal/Library/R/x86_64/4.1/library/sf?\n> \n> The downloaded source packages are in\n> ?/private/var/folders/07/47hs0f_j187393z5drwshbm00000gn/T/RtmpsD9V5a/downloaded_packages?\n> Warning messages:\n> 1: In install.packages(c(\"rgdal\", \"sf\"), , \"https://mac.R-project.org\") :\n>    installation of package ?rgdal? had non-zero exit status\n> 2: In install.packages(c(\"rgdal\", \"sf\"), , \"https://mac.R-project.org\") :\n>    installation of package ?sf? had non-zero exit status\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 18/08/2021 23:52, Michal Ben-Nun wrote:\n> Hi,\n> \n> I installed R 4.10 on my Mac OS 11.3.1\n\nPresumably R 4.1.0.\n> \n> I am trying to install 'sf' and 'rgdal'\n> \n>>From the mailing list I understood t",
+      "thread_id": "thread-03dddb37af9b",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-27e735b2f627",
+      "message_id": "<4d8c37cf-42b3-2dda-b3de-9dc7aa3dda5f@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-08-19T09:36:18+01:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>"
+      ],
+      "body_plain": "On 19/08/2021 04:56, Richard M. Heiberger wrote:\n>   R version 4.1.1 Patched (2021-08-13 r80752)\n>   aarch64-apple-darwin20\n> \n>> library(rgl)\n> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>    unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>    dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>    Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>    Expected in: flat namespace\n>   in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n\nThis is short of details: where did you get that R from and how did you \ninstall rgl?\n\nMy best guess is that that the CRAN binary package needs rebuilding (and \nmaybe others that use freetype2).  It seems that rgl does not itself \nlink to libfreetype2, and in recent builds that depends on libharfbuzz \n(my guess being that 4.1.0 was not using such a build. 4.1.1 is).\n\nA source-package install would probably work if you get the libs needed \nfrom https://mac.r-project.org/libs-arm64/.\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 19/08/2021 04:56, Richard M. Heiberger wrote:\n>   R version 4.1.1 Patched (2021-08-13 r80752)\n>   aarch64-apple-darwin20\n> \n>> library(rgl)\n> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>    unab",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-d9d4a04679b0",
+      "message_id": "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2021-08-19T04:40:44-04:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>"
+      ],
+      "body_plain": "s\nOn 18/08/2021 11:56 p.m., Richard M. Heiberger wrote:\n>   R version 4.1.1 Patched (2021-08-13 r80752)\n>   aarch64-apple-darwin20\n> \n>> library(rgl)\n> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>    unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>    dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>    Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>    Expected in: flat namespace\n>   in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n\nThat looks like a symbol in the harfbuzz lib.  rgl doesn't reference it \ndirectly, I think FreeType does.  I don't know what you need to do to \nfix this, but maybe that's enough of a hint.\n\nDuncan Murdoch",
+      "body_snippet": "s\nOn 18/08/2021 11:56 p.m., Richard M. Heiberger wrote:\n>   R version 4.1.1 Patched (2021-08-13 r80752)\n>   aarch64-apple-darwin20\n> \n>> library(rgl)\n> Error in dyn.load(dynlib <- getDynlib(dir)) :\n> ",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-f7a5bbac8ce7",
+      "message_id": "<0055CDE6-4624-4C18-B6B2-E8E6A9ECBB23@collocations.de>",
+      "from_name": "Stefan Evert",
+      "from_email_hash": "37e383762e5cc983a3042ab8f08c7ae8141238da895e1b7e5406ac4e2a2a1b12",
+      "date": "2021-08-19T11:54:47+02:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+        "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>"
+      ],
+      "body_plain": "> On 19 Aug 2021, at 10:40, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n>> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>>   unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>>   dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>>   Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>   Expected in: flat namespace\n>>  in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n> \n> That looks like a symbol in the harfbuzz lib.  rgl doesn't reference it directly, I think FreeType does.  I don't know what you need to do to fix this, but maybe that's enough of a hint.\n\nI just ran into the same problem with a M1 MacBook and XQuartz 2.8.1 installed.  My MacBook has no developer tools installed, not even XCode ? just R, \"rgl\" (and various other packages) from CRAN, and XQuartz. \n\nXQuartz doesn't include libharfbuzz, so I doubt that it's libfreetype depends on it.  Any chance that the CRAN machine that builds the aarch64 binary package links against some other version of freetype that pulls in the dependency?\n\nBest,\nStefan",
+      "body_snippet": "> On 19 Aug 2021, at 10:40, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n>> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>>   unable to load shared object '/Library/Frameworks/R.framework/V",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 2,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-29cd9f41c6ae",
+      "message_id": "<CAMY0nH534+u_V3G=CmFr0neDOSPz39uLY_pnNR7vb9=TpKncuw@mail.gmail.com>",
+      "from_name": "Michal Ben-Nun",
+      "from_email_hash": "b2fc8007a77649e89caef2fdf463147632a0413a411950630784c2e1fc343465",
+      "date": "2021-08-19T09:32:29-07:00",
+      "subject": "[R-SIG-Mac] sf installation problem under Mac OS 11 - Big Sur",
+      "subject_clean": "sf installation problem under Mac OS 11 - Big Sur",
+      "in_reply_to": "<4E76C39B-7FCA-467D-B8BF-7D62866144AB@R-project.org>",
+      "references": [
+        "<CAMY0nH5vH6LEfP3FF56BTHbjkNTXtbKqK2308jTw2CZ+DEUy=w@mail.gmail.com>",
+        "<4E76C39B-7FCA-467D-B8BF-7D62866144AB@R-project.org>"
+      ],
+      "body_plain": "I was able to install the packages after setting the environment\nvariable PKG_CONFIG_PATH to the location of proj.pc\n\n\nOn Wed, Aug 18, 2021 at 11:20 PM Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n\n> Michal,\n>\n> those instructions work for released CRAN R. Apparently, that's not what\n> you are using - if you want to compile sf and gdal from sources, that is\n> more challenging and you have to install all its dependencies first. In the\n> output below you're missing at the very least the PROJ4/6 library - it may\n> not be the only thing you're missing, so make sure you read the errors and\n> install all necessary dependencies.\n>\n> Cheers,\n> Simon\n>\n>\n>\n> > On Aug 19, 2021, at 10:52 AM, Michal Ben-Nun <mbennun at predsci.com>\n> wrote:\n> >\n> > Hi,\n> >\n> > I installed R 4.10 on my Mac OS 11.3.1\n> >\n> > I am trying to install 'sf' and 'rgdal'\n> >\n> > From the mailing list I understood that this command should work:\n> >\n> > install.packages(c(\"rgdal\",\"sf\"),,\"https://mac.R-project.org\n> > <https://mac.r-project.org/>\")\n> >\n> > However I am still getting an error, see below.\n> >\n> > Any suggestions would be welcome.\n> >\n> > Thanks,\n> > Michal\n> >\n> > p.s. I am using macports NOT brew\n> >\n> >> install.packages(c(\"rgdal\",\"sf\"),,\"https://mac.R-project.org\")\n> > Installing packages into ?/Users/michal/Library/R/x86_64/4.1/library?\n> > (as ?lib? is unspecified)\n> > trying URL 'https://mac.R-project.org/src/contrib/rgdal_1.5-23.tar.gz'\n> > Content type 'application/octet-stream' length 4393536 bytes (4.2 MB)\n> > ==================================================\n> > downloaded 4.2 MB\n> >\n> > trying URL 'https://mac.R-project.org/src/contrib/sf_1.0-2.tar.gz'\n> > Content type 'application/octet-stream' length 3645982 bytes (3.5 MB)\n> > ==================================================\n> > downloaded 3.5 MB\n> >\n> > * installing *source* package ?rgdal? ...\n> > ** package ?rgdal? successfully unpacked and MD5 sums checked\n> > ** using staged installation\n> > configure: R_HOME: /opt/local/Library/Frameworks/R.framework/Resources\n> > configure: CC: /opt/local/bin/clang-mp-12\n> > configure: CXX: /opt/local/bin/clang++-mp-12 -std=gnu++14\n> > configure: CFLAGS: -pipe -Os\n> > -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch\n> x86_64\n> > configure: CPPFLAGS: -I/opt/local/include\n> > -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk\n> > configure: CXXFLAGS: -pipe -Os -stdlib=libc++\n> > -isysroot/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk -arch\n> x86_64\n> > configure: LDFLAGS: -L/opt/local/lib -Wl,-headerpad_max_install_names\n> > -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk\n> -arch\n> > x86_64\n> > configure: LDFLAGS: -L/opt/local/lib -Wl,-headerpad_max_install_names\n> > -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX11.sdk\n> -arch\n> > x86_64\n> > configure: CXX11 is: /opt/local/bin/clang++-mp-12, CXX11STD is:\n> -std=gnu++11\n> > configure: CXX is: /opt/local/bin/clang++-mp-12 -std=gnu++11\n> > configure: C++11 support available\n> > configure: rgdal: 1.5-23\n> > checking for /usr/bin/svnversion... no\n> > configure: svn revision: 1121\n> > checking for gdal-config... /opt/local/bin/gdal-config\n> > checking gdal-config usability... yes\n> > configure: GDAL: 3.3.0\n> > checking GDAL version >= 1.11.4... yes\n> > checking GDAL version <= 2.5 or >= 3.0... yes\n> > checking GDAL: linking with --libs only... yes\n> > checking GDAL: gdal-config data directory readable... yes\n> > checking GDAL: /opt/local/share/gdal/stateplane.csv readable... yes\n> > configure: pkg-config proj not available\n> >  set PKG_CONFIG_PATH to the directory containing proj.pc\n> > configure: PROJ version not determined using pkg-config proj\n> > configure: PROJ CPP flags:  -I/opt/local/include\n> > configure: PROJ LIBS:  -lproj\n> > checking PROJ header API:... yes\n> > configure: API to be used as yet undetermined, searching ...\n> > configure: error: API to be used not found\n> > ERROR: configuration failed for package ?rgdal?\n> > * removing ?/Users/michal/Library/R/x86_64/4.1/library/rgdal?\n> > * installing *source* package ?sf? ...\n> > ** package ?sf? successfully unpacked and MD5 sums checked\n> > ** using staged installation\n> > configure: CC: /opt/local/bin/clang-mp-12\n> > configure: CXX: /opt/local/bin/clang++-mp-12 -std=gnu++11\n> > checking for gdal-config... /opt/local/bin/gdal-config\n> > checking gdal-config usability... yes\n> > configure: GDAL: 3.3.0\n> > checking GDAL version >= 2.0.1... yes\n> > checking for gcc... /opt/local/bin/clang-mp-12\n> > checking whether the C compiler works... yes\n> > checking for C compiler default output file name... a.out\n> > checking for suffix of executables...\n> > checking whether we are cross compiling... no\n> > checking for suffix of object files... o\n> > checking whether we are using the GNU C compiler... yes\n> > checking whether /opt/local/bin/clang-mp-12 accepts -g... yes\n> > checking for /opt/local/bin/clang-mp-12 option to accept ISO C89... none\n> > needed\n> > checking how to run the C preprocessor... /opt/local/bin/clang-mp-12 -E\n> > checking for grep that handles long lines and -e... /usr/bin/grep\n> > checking for egrep... /usr/bin/grep -E\n> > checking for ANSI C header files... yes\n> > checking for sys/types.h... yes\n> > checking for sys/stat.h... yes\n> > checking for stdlib.h... yes\n> > checking for string.h... yes\n> > checking for memory.h... yes\n> > checking for strings.h... yes\n> > checking for inttypes.h... yes\n> > checking for stdint.h... yes\n> > checking for unistd.h... yes\n> > checking gdal.h usability... yes\n> > checking gdal.h presence... yes\n> > checking for gdal.h... yes\n> > checking GDAL: linking with --libs only... yes\n> > checking GDAL: /opt/local/share/gdal/pcs.csv readable... no\n> > checking GDAL: checking whether PROJ is available for linking:... yes\n> > checking GDAL: checking whether PROJ is available fur running:... yes\n> > configure: GDAL: 3.3.0\n> > checking proj.h usability... no\n> > checking proj.h presence... no\n> > checking for proj.h... no\n> > checking proj_api.h usability... no\n> > checking proj_api.h presence... no\n> > checking for proj_api.h... no\n> > configure: error: proj_api.h not found in standard or given locations.\n> > ERROR: configuration failed for package ?sf?\n> > * removing ?/Users/michal/Library/R/x86_64/4.1/library/sf?\n> >\n> > The downloaded source packages are in\n> >\n> ?/private/var/folders/07/47hs0f_j187393z5drwshbm00000gn/T/RtmpsD9V5a/downloaded_packages?\n> > Warning messages:\n> > 1: In install.packages(c(\"rgdal\", \"sf\"), , \"https://mac.R-project.org\")\n> :\n> >  installation of package ?rgdal? had non-zero exit status\n> > 2: In install.packages(c(\"rgdal\", \"sf\"), , \"https://mac.R-project.org\")\n> :\n> >  installation of package ?sf? had non-zero exit status\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I was able to install the packages after setting the environment\nvariable PKG_CONFIG_PATH to the location of proj.pc\n\n\nOn Wed, Aug 18, 2021 at 11:20 PM Simon Urbanek <simon.urbanek at r-project.org>\nw",
+      "thread_id": "thread-03dddb37af9b",
+      "thread_depth": 2,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-f5ea9e1c5b68",
+      "message_id": "<8DF6882A-050E-40EE-81CF-DDACEA071F09@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-20T10:08:34+12:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<0055CDE6-4624-4C18-B6B2-E8E6A9ECBB23@collocations.de>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+        "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>",
+        "<0055CDE6-4624-4C18-B6B2-E8E6A9ECBB23@collocations.de>"
+      ],
+      "body_plain": "R (and the CRAN builds) use more recent static freetype with harfbuzz support so it does not depend for those in XQuartz.\n\nThe issue is that rgl doesn't use sufficient flags to compile against freetype since it misses the dependencies - in fact is fails checks,\nhttps://www.r-project.org/nosvn/R.check/r-release-macos-arm64/rgl-00check.html\n\npkg-config has to be used with --static --libs otherwise the linking doesn't have all the dependencies included that are necessary:\n\n$ pkg-config freetype2 --libs\n-L/opt/R/arm64/lib -lfreetype \n\n$ pkg-config freetype2 --static --libs\n-L/opt/R/arm64/lib -lfreetype -lbz2 -lpng16 -lz -lharfbuzz -lm -lglib-2.0 -lintl -liconv -lm -Wl,-framework,CoreFoundation -Wl,-framework,Carbon -Wl,-framework,Foundation -Wl,-framework,AppKit -lpcre \n\nThe CRAN binaries are built against static libraries to make sure the user doesn't have to install 3rd party dependencies.\nIt looks line rgl does the right thing for libpng but not for freetype.\n\nCheers,\nSimon\n\n\n\n> On Aug 19, 2021, at 9:54 PM, Stefan Evert <stefanML at collocations.de> wrote:\n> \n> \n> \n>> On 19 Aug 2021, at 10:40, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>> \n>>> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>>>  unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>>>  dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>>>  Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>  Expected in: flat namespace\n>>> in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>> \n>> That looks like a symbol in the harfbuzz lib.  rgl doesn't reference it directly, I think FreeType does.  I don't know what you need to do to fix this, but maybe that's enough of a hint.\n> \n> I just ran into the same problem with a M1 MacBook and XQuartz 2.8.1 installed.  My MacBook has no developer tools installed, not even XCode ? just R, \"rgl\" (and various other packages) from CRAN, and XQuartz. \n> \n> XQuartz doesn't include libharfbuzz, so I doubt that it's libfreetype depends on it.  Any chance that the CRAN machine that builds the aarch64 binary package links against some other version of freetype that pulls in the dependency?\n> \n> Best,\n> Stefan\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "R (and the CRAN builds) use more recent static freetype with harfbuzz support so it does not depend for those in XQuartz.\n\nThe issue is that rgl doesn't use sufficient flags to compile against freetyp",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 3,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-28b385a87fc6",
+      "message_id": "<761864b5-c106-6517-7bb0-7c03fc70b8d6@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2021-08-19T19:43:46-04:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<8DF6882A-050E-40EE-81CF-DDACEA071F09@R-project.org>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+        "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>",
+        "<0055CDE6-4624-4C18-B6B2-E8E6A9ECBB23@collocations.de>",
+        "<8DF6882A-050E-40EE-81CF-DDACEA071F09@R-project.org>"
+      ],
+      "body_plain": "Thanks Simon (and Prof Ripley, offline).  The --static modifier needs to \nbe added in two places in configure.ac, which leads to it being added in \ntwo places in configure.\n\nIf anyone wants to build from source, you could get the CRAN release \nplus this modification using\n\n   remotes::install_github(\"dmurdoch/rgl at configpatch\")\n\nDuncan Murdoch\n\n\nOn 19/08/2021 6:08 p.m., Simon Urbanek wrote:\n> R (and the CRAN builds) use more recent static freetype with harfbuzz support so it does not depend for those in XQuartz.\n> \n> The issue is that rgl doesn't use sufficient flags to compile against freetype since it misses the dependencies - in fact is fails checks,\n> https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/rgl-00check.html\n> \n> pkg-config has to be used with --static --libs otherwise the linking doesn't have all the dependencies included that are necessary:\n> \n> $ pkg-config freetype2 --libs\n> -L/opt/R/arm64/lib -lfreetype\n> \n> $ pkg-config freetype2 --static --libs\n> -L/opt/R/arm64/lib -lfreetype -lbz2 -lpng16 -lz -lharfbuzz -lm -lglib-2.0 -lintl -liconv -lm -Wl,-framework,CoreFoundation -Wl,-framework,Carbon -Wl,-framework,Foundation -Wl,-framework,AppKit -lpcre\n> \n> The CRAN binaries are built against static libraries to make sure the user doesn't have to install 3rd party dependencies.\n> It looks line rgl does the right thing for libpng but not for freetype.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On Aug 19, 2021, at 9:54 PM, Stefan Evert <stefanML at collocations.de> wrote:\n>>\n>>\n>>\n>>> On 19 Aug 2021, at 10:40, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>>\n>>>> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>>>>   unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>>>>   dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>>>>   Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>>   Expected in: flat namespace\n>>>> in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>\n>>> That looks like a symbol in the harfbuzz lib.  rgl doesn't reference it directly, I think FreeType does.  I don't know what you need to do to fix this, but maybe that's enough of a hint.\n>>\n>> I just ran into the same problem with a M1 MacBook and XQuartz 2.8.1 installed.  My MacBook has no developer tools installed, not even XCode ? just R, \"rgl\" (and various other packages) from CRAN, and XQuartz.\n>>\n>> XQuartz doesn't include libharfbuzz, so I doubt that it's libfreetype depends on it.  Any chance that the CRAN machine that builds the aarch64 binary package links against some other version of freetype that pulls in the dependency?\n>>\n>> Best,\n>> Stefan\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>",
+      "body_snippet": "Thanks Simon (and Prof Ripley, offline).  The --static modifier needs to \nbe added in two places in configure.ac, which leads to it being added in \ntwo places in configure.\n\nIf anyone wants to build f",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 4,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-06e49281b44d",
+      "message_id": "<C2918D8A-FF4B-4E51-9CEE-3427DF1D8183@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-20T12:57:32+12:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<761864b5-c106-6517-7bb0-7c03fc70b8d6@gmail.com>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+        "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>",
+        "<0055CDE6-4624-4C18-B6B2-E8E6A9ECBB23@collocations.de>",
+        "<8DF6882A-050E-40EE-81CF-DDACEA071F09@R-project.org>",
+        "<761864b5-c106-6517-7bb0-7c03fc70b8d6@gmail.com>"
+      ],
+      "body_plain": "Duncan,\n\nusing that checkout I get\n\n* checking package dependencies ... ERROR\nPackage suggested but not available: ?webshot2?\n\nbut otherwise it works as advertised.\n\nHowever, I just found out that there is another problem in R that rgl exposed. Using non-session terminal:\n\n> png(\"/tmp/1.png\", type=\"quartz\")\n> plot(1)\nWarning in axis(side = side, at = at, labels = labels, ...) :\n  no font could be found for family \"Arial\"\n\nso requests for fonts using Quartz-back-end without an UI session fail. It works fine inside a session, but since checks are normally run without a session that explains the check failures. I can run checks in a session, so I think that's what I'll do for now.\n\nNow, back to rgl - so checks can be run in a session, but oddly, rgl manages to segfault XQuartz in the checks. I don't think it's rgl's fault - more likely something in XQuartz (a TCP connection shouldn't be able to segfault the other end...).\n\nAnyway, so if you can post the fixed release I'd be happy the recompile and publish manually.\n\nCheers,\nSimon\n\nPS: I found yet another problem - XQuartz has moved the location of fonts from X11/lib to X11/shared so our fontconfig configuration in R needs to add that directory as well. So all is all this has highlighted quite a few related issues ;)\n\n\n\n> On Aug 20, 2021, at 11:43 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> Thanks Simon (and Prof Ripley, offline).  The --static modifier needs to be added in two places in configure.ac, which leads to it being added in two places in configure.\n> \n> If anyone wants to build from source, you could get the CRAN release plus this modification using\n> \n>  remotes::install_github(\"dmurdoch/rgl at configpatch\")\n> \n> Duncan Murdoch\n> \n> \n> On 19/08/2021 6:08 p.m., Simon Urbanek wrote:\n>> R (and the CRAN builds) use more recent static freetype with harfbuzz support so it does not depend for those in XQuartz.\n>> The issue is that rgl doesn't use sufficient flags to compile against freetype since it misses the dependencies - in fact is fails checks,\n>> https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/rgl-00check.html\n>> pkg-config has to be used with --static --libs otherwise the linking doesn't have all the dependencies included that are necessary:\n>> $ pkg-config freetype2 --libs\n>> -L/opt/R/arm64/lib -lfreetype\n>> $ pkg-config freetype2 --static --libs\n>> -L/opt/R/arm64/lib -lfreetype -lbz2 -lpng16 -lz -lharfbuzz -lm -lglib-2.0 -lintl -liconv -lm -Wl,-framework,CoreFoundation -Wl,-framework,Carbon -Wl,-framework,Foundation -Wl,-framework,AppKit -lpcre\n>> The CRAN binaries are built against static libraries to make sure the user doesn't have to install 3rd party dependencies.\n>> It looks line rgl does the right thing for libpng but not for freetype.\n>> Cheers,\n>> Simon\n>>> On Aug 19, 2021, at 9:54 PM, Stefan Evert <stefanML at collocations.de> wrote:\n>>> \n>>> \n>>> \n>>>> On 19 Aug 2021, at 10:40, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>>> \n>>>>> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>>>>>  unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>>>>>  dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>>>>>  Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>>>  Expected in: flat namespace\n>>>>> in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>> \n>>>> That looks like a symbol in the harfbuzz lib.  rgl doesn't reference it directly, I think FreeType does.  I don't know what you need to do to fix this, but maybe that's enough of a hint.\n>>> \n>>> I just ran into the same problem with a M1 MacBook and XQuartz 2.8.1 installed.  My MacBook has no developer tools installed, not even XCode ? just R, \"rgl\" (and various other packages) from CRAN, and XQuartz.\n>>> \n>>> XQuartz doesn't include libharfbuzz, so I doubt that it's libfreetype depends on it.  Any chance that the CRAN machine that builds the aarch64 binary package links against some other version of freetype that pulls in the dependency?\n>>> \n>>> Best,\n>>> Stefan\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>",
+      "body_snippet": "Duncan,\n\nusing that checkout I get\n\n* checking package dependencies ... ERROR\nPackage suggested but not available: ?webshot2?\n\nbut otherwise it works as advertised.\n\nHowever, I just found out that the",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 5,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-abc44d9ef1c6",
+      "message_id": "<8d3c4daf-0fa7-632c-b24c-1d248c4cb7cd@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2021-08-20T08:05:17-04:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<C2918D8A-FF4B-4E51-9CEE-3427DF1D8183@R-project.org>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+        "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>",
+        "<0055CDE6-4624-4C18-B6B2-E8E6A9ECBB23@collocations.de>",
+        "<8DF6882A-050E-40EE-81CF-DDACEA071F09@R-project.org>",
+        "<761864b5-c106-6517-7bb0-7c03fc70b8d6@gmail.com>",
+        "<C2918D8A-FF4B-4E51-9CEE-3427DF1D8183@R-project.org>"
+      ],
+      "body_plain": "On 19/08/2021 8:57 p.m., Simon Urbanek wrote:\n> Duncan,\n> \n> using that checkout I get\n> \n> * checking package dependencies ... ERROR\n> Package suggested but not available: ?webshot2?\n\nwebshot2 still hasn't been sent to CRAN, so I've been putting tarballs \non a Drat repos, and the DESCRIPTION has this:\n\n   Additional_repositories:  https://dmurdoch.github.io/drat\n\nDo you know if your check looked in that repos and didn't see it, or did \nit not look there?\n\nBTW, the reason I am including a non-CRAN package is because it has \nseveral advantages over the internal rgl.snapshot.  rgl.snapshot \nrequires that the scene be displayed on a local screen so it can't run \non a headless machine; it also uses the very old rendering built in to \nrgl's in-R display, so typically produces poorer quality screenshots \nthan webshot2 produces.  The main disadvantages of webshot2 are that \nit's not on CRAN and it's typically quite a bit slower than rgl.snapshot.\n\n> \n> but otherwise it works as advertised.\n> \n> However, I just found out that there is another problem in R that rgl exposed. Using non-session terminal:\n> \n>> png(\"/tmp/1.png\", type=\"quartz\")\n>> plot(1)\n> Warning in axis(side = side, at = at, labels = labels, ...) :\n>    no font could be found for family \"Arial\"\n> \n> so requests for fonts using Quartz-back-end without an UI session fail. It works fine inside a session, but since checks are normally run without a session that explains the check failures. I can run checks in a session, so I think that's what I'll do for now.\n> \n> Now, back to rgl - so checks can be run in a session, but oddly, rgl manages to segfault XQuartz in the checks. I don't think it's rgl's fault - more likely something in XQuartz (a TCP connection shouldn't be able to segfault the other end...).\n\nI don't have an ARM machine to test on, but on my machine when running \nin lldb I see messages like these on startup:\n\n2021-08-20 08:00:26.791865-0400 R[79608:1971631] flock failed to lock \nmaps file: errno = 35\n2021-08-20 08:00:26.796823-0400 R[79608:1971631] flock failed to lock \nmaps file: errno = 35\n\nand when I actually do some plotting I see lots like these:\n\n2021-08-20 08:00:47.459884-0400 R[79608:1971542] \napple_glx_create_context: ac 0x100a99830 ac->context_obj 0x106f4ea00\n2021-08-20 08:00:47.460043-0400 R[79608:1971542] \napple_glx_drawable_create: new drawable 0x103363e00\n2021-08-20 08:00:47.461620-0400 R[79608:1971542] create_surface: created \na surface for drawable 0x600067 with uid 49\n2021-08-20 08:00:47.461657-0400 R[79608:1971542] surface_make_current: \nac->context_obj 0x106f4ea00 s->surface_id 9\n2021-08-20 08:00:47.462172-0400 R[79608:1971542] surface_make_current: \ndrawable 0x600067\n2021-08-20 08:00:47.462203-0400 R[79608:1971542] applegl_bind_context: \nerror NO\n2021-08-20 08:00:47.469827-0400 R[79608:1971542] caller is the same \nthread for uid 49\n2021-08-20 08:00:47.470001-0400 R[79608:1971542] surface notify updated 0\n2021-08-20 08:00:47.470340-0400 R[79608:1971542] caller is the same \nthread for uid 49\n\nThey don't seem to lead to any problems, but maybe on an ARM they're \nmore serious.\n\n\n\n> \n> Anyway, so if you can post the fixed release I'd be happy the recompile and publish manually.\n\nOkay, I'll package it up and send it to CRAN.\n\nDuncan Murdoch\n\n> \n> Cheers,\n> Simon\n> \n> PS: I found yet another problem - XQuartz has moved the location of fonts from X11/lib to X11/shared so our fontconfig configuration in R needs to add that directory as well. So all is all this has highlighted quite a few related issues ;)\n> \n> \n> \n>> On Aug 20, 2021, at 11:43 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>\n>> Thanks Simon (and Prof Ripley, offline).  The --static modifier needs to be added in two places in configure.ac, which leads to it being added in two places in configure.\n>>\n>> If anyone wants to build from source, you could get the CRAN release plus this modification using\n>>\n>>   remotes::install_github(\"dmurdoch/rgl at configpatch\")\n>>\n>> Duncan Murdoch\n>>\n>>\n>> On 19/08/2021 6:08 p.m., Simon Urbanek wrote:\n>>> R (and the CRAN builds) use more recent static freetype with harfbuzz support so it does not depend for those in XQuartz.\n>>> The issue is that rgl doesn't use sufficient flags to compile against freetype since it misses the dependencies - in fact is fails checks,\n>>> https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/rgl-00check.html\n>>> pkg-config has to be used with --static --libs otherwise the linking doesn't have all the dependencies included that are necessary:\n>>> $ pkg-config freetype2 --libs\n>>> -L/opt/R/arm64/lib -lfreetype\n>>> $ pkg-config freetype2 --static --libs\n>>> -L/opt/R/arm64/lib -lfreetype -lbz2 -lpng16 -lz -lharfbuzz -lm -lglib-2.0 -lintl -liconv -lm -Wl,-framework,CoreFoundation -Wl,-framework,Carbon -Wl,-framework,Foundation -Wl,-framework,AppKit -lpcre\n>>> The CRAN binaries are built against static libraries to make sure the user doesn't have to install 3rd party dependencies.\n>>> It looks line rgl does the right thing for libpng but not for freetype.\n>>> Cheers,\n>>> Simon\n>>>> On Aug 19, 2021, at 9:54 PM, Stefan Evert <stefanML at collocations.de> wrote:\n>>>>\n>>>>\n>>>>\n>>>>> On 19 Aug 2021, at 10:40, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>>>>\n>>>>>> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>>>>>>   unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>>>>>>   dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>>>>>>   Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>>>>   Expected in: flat namespace\n>>>>>> in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>>>\n>>>>> That looks like a symbol in the harfbuzz lib.  rgl doesn't reference it directly, I think FreeType does.  I don't know what you need to do to fix this, but maybe that's enough of a hint.\n>>>>\n>>>> I just ran into the same problem with a M1 MacBook and XQuartz 2.8.1 installed.  My MacBook has no developer tools installed, not even XCode ? just R, \"rgl\" (and various other packages) from CRAN, and XQuartz.\n>>>>\n>>>> XQuartz doesn't include libharfbuzz, so I doubt that it's libfreetype depends on it.  Any chance that the CRAN machine that builds the aarch64 binary package links against some other version of freetype that pulls in the dependency?\n>>>>\n>>>> Best,\n>>>> Stefan\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>\n>>\n>",
+      "body_snippet": "On 19/08/2021 8:57 p.m., Simon Urbanek wrote:\n> Duncan,\n> \n> using that checkout I get\n> \n> * checking package dependencies ... ERROR\n> Package suggested but not available: ?webshot2?\n\nwebshot2 still ",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 6,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-c26141596512",
+      "message_id": "<f386dba1-6621-e736-164f-f4390bf5b0c3@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2021-08-21T12:28:03-04:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<C2918D8A-FF4B-4E51-9CEE-3427DF1D8183@R-project.org>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+        "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>",
+        "<0055CDE6-4624-4C18-B6B2-E8E6A9ECBB23@collocations.de>",
+        "<8DF6882A-050E-40EE-81CF-DDACEA071F09@R-project.org>",
+        "<761864b5-c106-6517-7bb0-7c03fc70b8d6@gmail.com>",
+        "<C2918D8A-FF4B-4E51-9CEE-3427DF1D8183@R-project.org>"
+      ],
+      "body_plain": "The rgl patch was accepted by CRAN an hour ago, so you should see it soon.\n\nDuncan Murdoch\n\nOn 19/08/2021 8:57 p.m., Simon Urbanek wrote:\n> Duncan,\n> \n> using that checkout I get\n> \n> * checking package dependencies ... ERROR\n> Package suggested but not available: ?webshot2?\n> \n> but otherwise it works as advertised.\n> \n> However, I just found out that there is another problem in R that rgl exposed. Using non-session terminal:\n> \n>> png(\"/tmp/1.png\", type=\"quartz\")\n>> plot(1)\n> Warning in axis(side = side, at = at, labels = labels, ...) :\n>    no font could be found for family \"Arial\"\n> \n> so requests for fonts using Quartz-back-end without an UI session fail. It works fine inside a session, but since checks are normally run without a session that explains the check failures. I can run checks in a session, so I think that's what I'll do for now.\n> \n> Now, back to rgl - so checks can be run in a session, but oddly, rgl manages to segfault XQuartz in the checks. I don't think it's rgl's fault - more likely something in XQuartz (a TCP connection shouldn't be able to segfault the other end...).\n> \n> Anyway, so if you can post the fixed release I'd be happy the recompile and publish manually.\n> \n> Cheers,\n> Simon\n> \n> PS: I found yet another problem - XQuartz has moved the location of fonts from X11/lib to X11/shared so our fontconfig configuration in R needs to add that directory as well. So all is all this has highlighted quite a few related issues ;)\n> \n> \n> \n>> On Aug 20, 2021, at 11:43 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>\n>> Thanks Simon (and Prof Ripley, offline).  The --static modifier needs to be added in two places in configure.ac, which leads to it being added in two places in configure.\n>>\n>> If anyone wants to build from source, you could get the CRAN release plus this modification using\n>>\n>>   remotes::install_github(\"dmurdoch/rgl at configpatch\")\n>>\n>> Duncan Murdoch\n>>\n>>\n>> On 19/08/2021 6:08 p.m., Simon Urbanek wrote:\n>>> R (and the CRAN builds) use more recent static freetype with harfbuzz support so it does not depend for those in XQuartz.\n>>> The issue is that rgl doesn't use sufficient flags to compile against freetype since it misses the dependencies - in fact is fails checks,\n>>> https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/rgl-00check.html\n>>> pkg-config has to be used with --static --libs otherwise the linking doesn't have all the dependencies included that are necessary:\n>>> $ pkg-config freetype2 --libs\n>>> -L/opt/R/arm64/lib -lfreetype\n>>> $ pkg-config freetype2 --static --libs\n>>> -L/opt/R/arm64/lib -lfreetype -lbz2 -lpng16 -lz -lharfbuzz -lm -lglib-2.0 -lintl -liconv -lm -Wl,-framework,CoreFoundation -Wl,-framework,Carbon -Wl,-framework,Foundation -Wl,-framework,AppKit -lpcre\n>>> The CRAN binaries are built against static libraries to make sure the user doesn't have to install 3rd party dependencies.\n>>> It looks line rgl does the right thing for libpng but not for freetype.\n>>> Cheers,\n>>> Simon\n>>>> On Aug 19, 2021, at 9:54 PM, Stefan Evert <stefanML at collocations.de> wrote:\n>>>>\n>>>>\n>>>>\n>>>>> On 19 Aug 2021, at 10:40, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>>>>\n>>>>>> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>>>>>>   unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>>>>>>   dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>>>>>>   Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>>>>   Expected in: flat namespace\n>>>>>> in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>>>\n>>>>> That looks like a symbol in the harfbuzz lib.  rgl doesn't reference it directly, I think FreeType does.  I don't know what you need to do to fix this, but maybe that's enough of a hint.\n>>>>\n>>>> I just ran into the same problem with a M1 MacBook and XQuartz 2.8.1 installed.  My MacBook has no developer tools installed, not even XCode ? just R, \"rgl\" (and various other packages) from CRAN, and XQuartz.\n>>>>\n>>>> XQuartz doesn't include libharfbuzz, so I doubt that it's libfreetype depends on it.  Any chance that the CRAN machine that builds the aarch64 binary package links against some other version of freetype that pulls in the dependency?\n>>>>\n>>>> Best,\n>>>> Stefan\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>\n>>\n>",
+      "body_snippet": "The rgl patch was accepted by CRAN an hour ago, so you should see it soon.\n\nDuncan Murdoch\n\nOn 19/08/2021 8:57 p.m., Simon Urbanek wrote:\n> Duncan,\n> \n> using that checkout I get\n> \n> * checking packa",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 6,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-09029a3988f9",
+      "message_id": "<B73968EE-5A06-4B04-98BC-2306BA0C0896@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-08-22T14:26:00+12:00",
+      "subject": "[R-SIG-Mac] rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "subject_clean": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "in_reply_to": "<f386dba1-6621-e736-164f-f4390bf5b0c3@gmail.com>",
+      "references": [
+        "<4E569115-B7FA-4AAB-AC21-822B225D564B@temple.edu>",
+        "<672d8751-a71b-ffa2-2cf9-e11b34d55422@gmail.com>",
+        "<0055CDE6-4624-4C18-B6B2-E8E6A9ECBB23@collocations.de>",
+        "<8DF6882A-050E-40EE-81CF-DDACEA071F09@R-project.org>",
+        "<761864b5-c106-6517-7bb0-7c03fc70b8d6@gmail.com>",
+        "<C2918D8A-FF4B-4E51-9CEE-3427DF1D8183@R-project.org>",
+        "<f386dba1-6621-e736-164f-f4390bf5b0c3@gmail.com>"
+      ],
+      "body_plain": "Duncan,\n\nthanks, update received and it did pass checks on M1 so the binary is now on CRAN.\n\nThanks,\nSimon\n\n\n> On Aug 22, 2021, at 4:28 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> The rgl patch was accepted by CRAN an hour ago, so you should see it soon.\n> \n> Duncan Murdoch\n> \n> On 19/08/2021 8:57 p.m., Simon Urbanek wrote:\n>> Duncan,\n>> using that checkout I get\n>> * checking package dependencies ... ERROR\n>> Package suggested but not available: ?webshot2?\n>> but otherwise it works as advertised.\n>> However, I just found out that there is another problem in R that rgl exposed. Using non-session terminal:\n>>> png(\"/tmp/1.png\", type=\"quartz\")\n>>> plot(1)\n>> Warning in axis(side = side, at = at, labels = labels, ...) :\n>>   no font could be found for family \"Arial\"\n>> so requests for fonts using Quartz-back-end without an UI session fail. It works fine inside a session, but since checks are normally run without a session that explains the check failures. I can run checks in a session, so I think that's what I'll do for now.\n>> Now, back to rgl - so checks can be run in a session, but oddly, rgl manages to segfault XQuartz in the checks. I don't think it's rgl's fault - more likely something in XQuartz (a TCP connection shouldn't be able to segfault the other end...).\n>> Anyway, so if you can post the fixed release I'd be happy the recompile and publish manually.\n>> Cheers,\n>> Simon\n>> PS: I found yet another problem - XQuartz has moved the location of fonts from X11/lib to X11/shared so our fontconfig configuration in R needs to add that directory as well. So all is all this has highlighted quite a few related issues ;)\n>>> On Aug 20, 2021, at 11:43 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>> \n>>> Thanks Simon (and Prof Ripley, offline).  The --static modifier needs to be added in two places in configure.ac, which leads to it being added in two places in configure.\n>>> \n>>> If anyone wants to build from source, you could get the CRAN release plus this modification using\n>>> \n>>>  remotes::install_github(\"dmurdoch/rgl at configpatch\")\n>>> \n>>> Duncan Murdoch\n>>> \n>>> \n>>> On 19/08/2021 6:08 p.m., Simon Urbanek wrote:\n>>>> R (and the CRAN builds) use more recent static freetype with harfbuzz support so it does not depend for those in XQuartz.\n>>>> The issue is that rgl doesn't use sufficient flags to compile against freetype since it misses the dependencies - in fact is fails checks,\n>>>> https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/rgl-00check.html\n>>>> pkg-config has to be used with --static --libs otherwise the linking doesn't have all the dependencies included that are necessary:\n>>>> $ pkg-config freetype2 --libs\n>>>> -L/opt/R/arm64/lib -lfreetype\n>>>> $ pkg-config freetype2 --static --libs\n>>>> -L/opt/R/arm64/lib -lfreetype -lbz2 -lpng16 -lz -lharfbuzz -lm -lglib-2.0 -lintl -liconv -lm -Wl,-framework,CoreFoundation -Wl,-framework,Carbon -Wl,-framework,Foundation -Wl,-framework,AppKit -lpcre\n>>>> The CRAN binaries are built against static libraries to make sure the user doesn't have to install 3rd party dependencies.\n>>>> It looks line rgl does the right thing for libpng but not for freetype.\n>>>> Cheers,\n>>>> Simon\n>>>>> On Aug 19, 2021, at 9:54 PM, Stefan Evert <stefanML at collocations.de> wrote:\n>>>>> \n>>>>> \n>>>>> \n>>>>>> On 19 Aug 2021, at 10:40, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>>>>> \n>>>>>>> Error in dyn.load(dynlib <- getDynlib(dir)) :\n>>>>>>>  unable to load shared object '/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so':\n>>>>>>>  dlopen(/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so, 6): Symbol not found: _hb_buffer_add_utf8\n>>>>>>>  Referenced from: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>>>>>  Expected in: flat namespace\n>>>>>>> in /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/rgl/libs/rgl.so\n>>>>>> \n>>>>>> That looks like a symbol in the harfbuzz lib.  rgl doesn't reference it directly, I think FreeType does.  I don't know what you need to do to fix this, but maybe that's enough of a hint.\n>>>>> \n>>>>> I just ran into the same problem with a M1 MacBook and XQuartz 2.8.1 installed.  My MacBook has no developer tools installed, not even XCode ? just R, \"rgl\" (and various other packages) from CRAN, and XQuartz.\n>>>>> \n>>>>> XQuartz doesn't include libharfbuzz, so I doubt that it's libfreetype depends on it.  Any chance that the CRAN machine that builds the aarch64 binary package links against some other version of freetype that pulls in the dependency?\n>>>>> \n>>>>> Best,\n>>>>> Stefan\n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>> \n>>> \n>",
+      "body_snippet": "Duncan,\n\nthanks, update received and it did pass checks on M1 so the binary is now on CRAN.\n\nThanks,\nSimon\n\n\n> On Aug 22, 2021, at 4:28 AM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> The",
+      "thread_id": "thread-344dd82010fd",
+      "thread_depth": 7,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-44d12ef4020b",
+      "message_id": "<64da8d68-b296-6a26-1ce3-6c45d4859bc8@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-08-27T08:41:25+01:00",
+      "subject": "[R-SIG-Mac] sessionInfo on Monterey",
+      "subject_clean": "sessionInfo on Monterey",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "One oddity is that the CRAN Intel binary build of R (or any other built \nunder 10.x) when run on Big Sur reports\n\n > sessionInfo()\nR version 4.1.1 (2021-08-10)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 10.16\n...\n\nbecause the system call used reports '10.16'.\n\nIf anyone running a beta of Monterey has the CRAN binary installed, for \ncompleteness I would appreciate seeing what is reported.\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "One oddity is that the CRAN Intel binary build of R (or any other built \nunder 10.x) when run on Big Sur reports\n\n > sessionInfo()\nR version 4.1.1 (2021-08-10)\nPlatform: x86_64-apple-darwin17.0 (64-bi",
+      "thread_id": "thread-44d12ef4020b",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-f392503684d1",
+      "message_id": "<252614B3-D3AB-4FE8-81CE-8129D7930216@deleeuwpdx.net>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "f7e04e56b1362113a06aaaffcd8b778e24f7e8d3d243137593a0e588ad6931ef",
+      "date": "2021-08-27T11:25:34-07:00",
+      "subject": "[R-SIG-Mac] R-SIG-Mac Digest, Vol 221, Issue 14",
+      "subject_clean": "R-SIG-Mac Digest, Vol 221, Issue 14",
+      "in_reply_to": "<mailman.14374.3.1630058401.54830.r-sig-mac@r-project.org>",
+      "references": [
+        "<mailman.14374.3.1630058401.54830.r-sig-mac@r-project.org>"
+      ],
+      "body_plain": "OS\n\nSystem Version:\tmacOS 12.0 (21A5304g)\nKernel Version:\tDarwin 21.0.0\n\nsessionInfo (CRAN binary)\n\nR version 4.1.1 (2021-08-10)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 10.16\n\n\n> On Aug 27, 2021, at 03:00, r-sig-mac-request at r-project.org wrote:\n> \n> sessionInfo on Monterey (Prof Brian Ripley)\n\n------------------------------------------------------------------\nJan de Leeuw, Distinguished Professor Emeritus, UCLA Statistics \nhttps://jansweb.netlify.app ******** https://github.com/deleeuw\n------------------------------------------------------------------\nRemember, no matter where you go, there you are. (Buckaroo Banzai)\n\n\n\n\n\n\n\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "OS\n\nSystem Version:\tmacOS 12.0 (21A5304g)\nKernel Version:\tDarwin 21.0.0\n\nsessionInfo (CRAN binary)\n\nR version 4.1.1 (2021-08-10)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur",
+      "thread_id": "thread-f392503684d1",
+      "thread_depth": 0,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-9c252a32da65",
+      "message_id": "<f2870789-a0dd-4ac7-c27e-55433bb912a4@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2021-08-27T19:55:01+01:00",
+      "subject": "[R-SIG-Mac] R-SIG-Mac Digest, Vol 221, Issue 14",
+      "subject_clean": "R-SIG-Mac Digest, Vol 221, Issue 14",
+      "in_reply_to": "<252614B3-D3AB-4FE8-81CE-8129D7930216@deleeuwpdx.net>",
+      "references": [
+        "<mailman.14374.3.1630058401.54830.r-sig-mac@r-project.org>",
+        "<252614B3-D3AB-4FE8-81CE-8129D7930216@deleeuwpdx.net>"
+      ],
+      "body_plain": "On 27/08/2021 19:25, Jan de Leeuw wrote:\n> OS\n> \n> System Version:\tmacOS 12.0 (21A5304g)\n> Kernel Version:\tDarwin 21.0.0\n> \n> sessionInfo (CRAN binary)\n> \n> R version 4.1.1 (2021-08-10)\n> Platform: x86_64-apple-darwin17.0 (64-bit)\n> Running under: macOS Big Sur 10.16\n\nThanks.\n\n> \n> \n>> On Aug 27, 2021, at 03:00, r-sig-mac-request at r-project.org wrote:\n>>\n>> sessionInfo on Monterey (Prof Brian Ripley)\n> \n> ------------------------------------------------------------------\n> Jan de Leeuw, Distinguished Professor Emeritus, UCLA Statistics\n> https://jansweb.netlify.app ******** https://github.com/deleeuw\n> ------------------------------------------------------------------\n> Remember, no matter where you go, there you are. (Buckaroo Banzai)\n> \n> \n> \n> \n> \n> \n> \n> \n> \n> \n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 27/08/2021 19:25, Jan de Leeuw wrote:\n> OS\n> \n> System Version:\tmacOS 12.0 (21A5304g)\n> Kernel Version:\tDarwin 21.0.0\n> \n> sessionInfo (CRAN binary)\n> \n> R version 4.1.1 (2021-08-10)\n> Platform: x8",
+      "thread_id": "thread-f392503684d1",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-9e7e0fcfc2b1",
+      "message_id": "<CAA-FpKUth=gqyVNSM6tRoLhmavjWz29aVAFJyToE1RibzEpXmg@mail.gmail.com>",
+      "from_name": "Bob Rudis",
+      "from_email_hash": "1825b2a2b76d0395326fce49d356e345a27463d5516c4e24d619f31bfed1b0e6",
+      "date": "2021-08-28T02:00:17-04:00",
+      "subject": "[R-SIG-Mac] sessionInfo on Monterey",
+      "subject_clean": "sessionInfo on Monterey",
+      "in_reply_to": "<64da8d68-b296-6a26-1ce3-6c45d4859bc8@stats.ox.ac.uk>",
+      "references": [
+        "<64da8d68-b296-6a26-1ce3-6c45d4859bc8@stats.ox.ac.uk>"
+      ],
+      "body_plain": "arm64:\n\nR version 4.1.1 Patched (2021-08-13 r80752)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS Monterey 12.0\n\n\nx86_64:\n\nR version 4.1.1 Patched (2021-08-10 r80733)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 10.16\n\nOn Fri, Aug 27, 2021 at 3:42 AM Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>\n> One oddity is that the CRAN Intel binary build of R (or any other built\n> under 10.x) when run on Big Sur reports\n>\n>  > sessionInfo()\n> R version 4.1.1 (2021-08-10)\n> Platform: x86_64-apple-darwin17.0 (64-bit)\n> Running under: macOS Big Sur 10.16\n> ...\n>\n> because the system call used reports '10.16'.\n>\n> If anyone running a beta of Monterey has the CRAN binary installed, for\n> completeness I would appreciate seeing what is reported.\n>\n> --\n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "arm64:\n\nR version 4.1.1 Patched (2021-08-13 r80752)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS Monterey 12.0\n\n\nx86_64:\n\nR version 4.1.1 Patched (2021-08-10 r80733)\nPlatform: x86_64",
+      "thread_id": "thread-44d12ef4020b",
+      "thread_depth": 1,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-a74a69fba4a7",
+      "message_id": "<8F1C4689-E7F7-42A5-B6F7-6D1C97E3F789@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2021-08-28T14:36:56+02:00",
+      "subject": "[R-SIG-Mac] sessionInfo on Monterey",
+      "subject_clean": "sessionInfo on Monterey",
+      "in_reply_to": "<CAA-FpKUth=gqyVNSM6tRoLhmavjWz29aVAFJyToE1RibzEpXmg@mail.gmail.com>",
+      "references": [
+        "<64da8d68-b296-6a26-1ce3-6c45d4859bc8@stats.ox.ac.uk>",
+        "<CAA-FpKUth=gqyVNSM6tRoLhmavjWz29aVAFJyToE1RibzEpXmg@mail.gmail.com>"
+      ],
+      "body_plain": "Odd indeed. A local build of mine has\n\n> sessionInfo()\nR version 4.1.0 Patched (2021-05-25 r80389)\nPlatform: x86_64-apple-darwin20.5.0 (64-bit)\nRunning under: macOS Big Sur 11.5.2\n\n(Obvsly not up-to-the minute, and my build tools are likely not either on this machine...)\n\n- pd\n\n> On 28 Aug 2021, at 08:00 , Bob Rudis <bob at rud.is> wrote:\n> \n> arm64:\n> \n> R version 4.1.1 Patched (2021-08-13 r80752)\n> Platform: aarch64-apple-darwin20 (64-bit)\n> Running under: macOS Monterey 12.0\n> \n> \n> x86_64:\n> \n> R version 4.1.1 Patched (2021-08-10 r80733)\n> Platform: x86_64-apple-darwin17.0 (64-bit)\n> Running under: macOS Big Sur 10.16\n> \n> On Fri, Aug 27, 2021 at 3:42 AM Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>> \n>> One oddity is that the CRAN Intel binary build of R (or any other built\n>> under 10.x) when run on Big Sur reports\n>> \n>>> sessionInfo()\n>> R version 4.1.1 (2021-08-10)\n>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>> Running under: macOS Big Sur 10.16\n>> ...\n>> \n>> because the system call used reports '10.16'.\n>> \n>> If anyone running a beta of Monterey has the CRAN binary installed, for\n>> completeness I would appreciate seeing what is reported.\n>> \n>> --\n>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>> Emeritus Professor of Applied Statistics, University of Oxford\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Odd indeed. A local build of mine has\n\n> sessionInfo()\nR version 4.1.0 Patched (2021-05-25 r80389)\nPlatform: x86_64-apple-darwin20.5.0 (64-bit)\nRunning under: macOS Big Sur 11.5.2\n\n(Obvsly not up-to-t",
+      "thread_id": "thread-44d12ef4020b",
+      "thread_depth": 2,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-a87aa7584da7",
+      "message_id": "<97b6ce91-b5e2-f920-0bc8-52a7e9298054@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2021-08-28T11:25:36-05:00",
+      "subject": "[R-SIG-Mac] sessionInfo on Monterey",
+      "subject_clean": "sessionInfo on Monterey",
+      "in_reply_to": "<8F1C4689-E7F7-42A5-B6F7-6D1C97E3F789@gmail.com>",
+      "references": [
+        "<64da8d68-b296-6a26-1ce3-6c45d4859bc8@stats.ox.ac.uk>",
+        "<CAA-FpKUth=gqyVNSM6tRoLhmavjWz29aVAFJyToE1RibzEpXmg@mail.gmail.com>",
+        "<8F1C4689-E7F7-42A5-B6F7-6D1C97E3F789@gmail.com>"
+      ],
+      "body_plain": "I updated yesterday to macOS Big Sur 11.5.2,\n\n\n> sessionInfo()\nR version 4.1.0 (2021-05-18)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 10.16\n\n\nI just upgraded to 4.1.1 with the same results:\n\n\n > sessionInfo()\nR version 4.1.1 (2021-08-10)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 10.16\n\n\n\t  Hope this helps.\n\t  Spencer Graves\n\n\nOn 8/28/21 7:36 AM, peter dalgaard wrote:\n> Odd indeed. A local build of mine has\n> \n>> sessionInfo()\n> R version 4.1.0 Patched (2021-05-25 r80389)\n> Platform: x86_64-apple-darwin20.5.0 (64-bit)\n> Running under: macOS Big Sur 11.5.2\n> \n> (Obvsly not up-to-the minute, and my build tools are likely not either on this machine...)\n> \n> - pd\n> \n>> On 28 Aug 2021, at 08:00 , Bob Rudis <bob at rud.is> wrote:\n>>\n>> arm64:\n>>\n>> R version 4.1.1 Patched (2021-08-13 r80752)\n>> Platform: aarch64-apple-darwin20 (64-bit)\n>> Running under: macOS Monterey 12.0\n>>\n>>\n>> x86_64:\n>>\n>> R version 4.1.1 Patched (2021-08-10 r80733)\n>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>> Running under: macOS Big Sur 10.16\n>>\n>> On Fri, Aug 27, 2021 at 3:42 AM Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>>>\n>>> One oddity is that the CRAN Intel binary build of R (or any other built\n>>> under 10.x) when run on Big Sur reports\n>>>\n>>>> sessionInfo()\n>>> R version 4.1.1 (2021-08-10)\n>>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>>> Running under: macOS Big Sur 10.16\n>>> ...\n>>>\n>>> because the system call used reports '10.16'.\n>>>\n>>> If anyone running a beta of Monterey has the CRAN binary installed, for\n>>> completeness I would appreciate seeing what is reported.\n>>>\n>>> --\n>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>> Emeritus Professor of Applied Statistics, University of Oxford\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "I updated yesterday to macOS Big Sur 11.5.2,\n\n\n> sessionInfo()\nR version 4.1.0 (2021-05-18)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 10.16\n\n\nI just upgraded to 4.1.1 wit",
+      "thread_id": "thread-44d12ef4020b",
+      "thread_depth": 3,
+      "month": "2021-08"
+    },
+    {
+      "id": "msg-1c27b838fbfc",
+      "message_id": "<08F660D5-7CFF-483F-8322-63B201FC85C8@xs4all.nl>",
+      "from_name": "Berend Hasselman",
+      "from_email_hash": "17a9f9a08e46a88b44ead0b1767633a861c70fd505a5c038522133ba3f4cbdd2",
+      "date": "2021-08-28T20:57:18+02:00",
+      "subject": "[R-SIG-Mac] sessionInfo on Monterey",
+      "subject_clean": "sessionInfo on Monterey",
+      "in_reply_to": "<97b6ce91-b5e2-f920-0bc8-52a7e9298054@prodsyse.com>",
+      "references": [
+        "<64da8d68-b296-6a26-1ce3-6c45d4859bc8@stats.ox.ac.uk>",
+        "<CAA-FpKUth=gqyVNSM6tRoLhmavjWz29aVAFJyToE1RibzEpXmg@mail.gmail.com>",
+        "<8F1C4689-E7F7-42A5-B6F7-6D1C97E3F789@gmail.com>",
+        "<97b6ce91-b5e2-f920-0bc8-52a7e9298054@prodsyse.com>"
+      ],
+      "body_plain": "Just now upgraded to macOS 11.5.2\n\n> sessionInfo()\n\nR version 4.1.1 (2021-08-10)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 11.5.2\n\nBerend hasselman\n\n\n> R version 4.1.0 (2021-05-18)\n> Platform: x86_64-apple-darwin17.0 (64-bit)\n> Running under: macOS Big Sur 10.16\n> \n> \n> I just upgraded to 4.1.1 with the same results:\n> \n> \n> > sessionInfo()\n> R version 4.1.1 (2021-08-10)\n> Platform: x86_64-apple-darwin17.0 (64-bit)\n> Running under: macOS Big Sur 10.16\n> \n> \n> \t  Hope this helps.\n> \t  Spencer Graves\n> \n> \n> On 8/28/21 7:36 AM, peter dalgaard wrote:\n>> Odd indeed. A local build of mine has\n>>> sessionInfo()\n>> R version 4.1.0 Patched (2021-05-25 r80389)\n>> Platform: x86_64-apple-darwin20.5.0 (64-bit)\n>> Running under: macOS Big Sur 11.5.2\n>> (Obvsly not up-to-the minute, and my build tools are likely not either on this machine...)\n>> - pd\n>>> On 28 Aug 2021, at 08:00 , Bob Rudis <bob at rud.is> wrote:\n>>> \n>>> arm64:\n>>> \n>>> R version 4.1.1 Patched (2021-08-13 r80752)\n>>> Platform: aarch64-apple-darwin20 (64-bit)\n>>> Running under: macOS Monterey 12.0\n>>> \n>>> \n>>> x86_64:\n>>> \n>>> R version 4.1.1 Patched (2021-08-10 r80733)\n>>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>>> Running under: macOS Big Sur 10.16\n>>> \n>>> On Fri, Aug 27, 2021 at 3:42 AM Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>>>> \n>>>> One oddity is that the CRAN Intel binary build of R (or any other built\n>>>> under 10.x) when run on Big Sur reports\n>>>> \n>>>>> sessionInfo()\n>>>> R version 4.1.1 (2021-08-10)\n>>>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>>>> Running under: macOS Big Sur 10.16\n>>>> ...\n>>>> \n>>>> because the system call used reports '10.16'.\n>>>> \n>>>> If anyone running a beta of Monterey has the CRAN binary installed, for\n>>>> completeness I would appreciate seeing what is reported.\n>>>> \n>>>> --\n>>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>>> Emeritus Professor of Applied Statistics, University of Oxford\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Just now upgraded to macOS 11.5.2\n\n> sessionInfo()\n\nR version 4.1.1 (2021-08-10)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 11.5.2\n\nBerend hasselman\n\n\n> R version 4.1.0 (2",
+      "thread_id": "thread-44d12ef4020b",
+      "thread_depth": 4,
+      "month": "2021-08"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-eb763a6b4219",
+      "subject": "In svg(\"tst.svg\") : failed to load cairo DLL",
+      "message_count": 4,
+      "participants": [
+        "Prof Brian Ripley",
+        "Spencer Graves"
+      ],
+      "started": "2021-08-06T16:12:24-05:00",
+      "last_reply": "2021-08-07T08:43:56-05:00",
+      "root_message_id": "msg-eb763a6b4219"
+    },
+    {
+      "id": "thread-66586f322c1f",
+      "subject": "Problem with createDataPartition",
+      "message_count": 2,
+      "participants": [
+        "RoqueRichard",
+        "Simon Urbanek"
+      ],
+      "started": "2021-08-10T08:28:33+12:00",
+      "last_reply": "2021-08-10T11:57:53+08:00",
+      "root_message_id": "msg-66586f322c1f"
+    },
+    {
+      "id": "thread-9b4cd4385587",
+      "subject": "Can't make odbc FreeTDS connections in R.app, can with RStudio, /usr/local/bin/R, Rscript",
+      "message_count": 2,
+      "participants": [
+        "Joey Reid",
+        "Simon Urbanek"
+      ],
+      "started": "2021-08-11T12:31:35-05:00",
+      "last_reply": "2021-08-12T08:55:06+12:00",
+      "root_message_id": "msg-9b4cd4385587"
+    },
+    {
+      "id": "thread-e41d5102e5ba",
+      "subject": "R pkg 4.1.1 no longer accepted as notarized by Apple",
+      "message_count": 2,
+      "participants": [
+        "Eirik Thorsnes",
+        "Prof Brian Ripley"
+      ],
+      "started": "2021-08-13T13:42:12+00:00",
+      "last_reply": "2021-08-14T07:17:46+01:00",
+      "root_message_id": "msg-e41d5102e5ba"
+    },
+    {
+      "id": "thread-d2428d9e03ac",
+      "subject": "R-4.1.1-arm64.pkg (notarized and signed) not recognized as notarized",
+      "message_count": 1,
+      "participants": [
+        "Clement Kent"
+      ],
+      "started": "2021-08-14T14:22:43-04:00",
+      "last_reply": "2021-08-14T14:22:43-04:00",
+      "root_message_id": "msg-d2428d9e03ac"
+    },
+    {
+      "id": "thread-15b3a77b0744",
+      "subject": "R.app spontaneously switching windows during editing",
+      "message_count": 3,
+      "participants": [
+        "John Helly",
+        "Simon Urbanek"
+      ],
+      "started": "2021-08-14T16:43:51-10:00",
+      "last_reply": "2021-08-16T13:49:34+12:00",
+      "root_message_id": "msg-15b3a77b0744"
+    },
+    {
+      "id": "thread-901ceb0b0c82",
+      "subject": "R 4.1.1 installer Apple notarization",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2021-08-15T08:07:27+12:00",
+      "last_reply": "2021-08-15T08:07:27+12:00",
+      "root_message_id": "msg-901ceb0b0c82"
+    },
+    {
+      "id": "thread-cbd11a4d61ed",
+      "subject": "Difficulties with R-Studio",
+      "message_count": 3,
+      "participants": [
+        "David Winsemius",
+        "Gábor Csárdi",
+        "phii m@iii@g oii phiiipsmith@c@"
+      ],
+      "started": "2021-08-15T10:04:28-04:00",
+      "last_reply": "2021-08-15T22:19:56-07:00",
+      "root_message_id": "msg-cbd11a4d61ed"
+    },
+    {
+      "id": "thread-03dddb37af9b",
+      "subject": "sf installation problem under Mac OS 11 - Big Sur",
+      "message_count": 4,
+      "participants": [
+        "Michal Ben-Nun",
+        "Prof Brian Ripley",
+        "Simon Urbanek"
+      ],
+      "started": "2021-08-18T15:52:49-07:00",
+      "last_reply": "2021-08-19T09:32:29-07:00",
+      "root_message_id": "msg-03dddb37af9b"
+    },
+    {
+      "id": "thread-344dd82010fd",
+      "subject": "rgl in R version 4.1.1 Patched (2021-08-13 r80752)",
+      "message_count": 10,
+      "participants": [
+        "Duncan Murdoch",
+        "Prof Brian Ripley",
+        "Richard M. Heiberger",
+        "Simon Urbanek",
+        "Stefan Evert"
+      ],
+      "started": "2021-08-19T03:56:56+00:00",
+      "last_reply": "2021-08-22T14:26:00+12:00",
+      "root_message_id": "msg-344dd82010fd"
+    },
+    {
+      "id": "thread-44d12ef4020b",
+      "subject": "sessionInfo on Monterey",
+      "message_count": 5,
+      "participants": [
+        "Berend Hasselman",
+        "Bob Rudis",
+        "Prof Brian Ripley",
+        "Spencer Graves",
+        "peter dalgaard"
+      ],
+      "started": "2021-08-27T08:41:25+01:00",
+      "last_reply": "2021-08-28T20:57:18+02:00",
+      "root_message_id": "msg-44d12ef4020b"
+    },
+    {
+      "id": "thread-f392503684d1",
+      "subject": "R-SIG-Mac Digest, Vol 221, Issue 14",
+      "message_count": 2,
+      "participants": [
+        "Jan de Leeuw",
+        "Prof Brian Ripley"
+      ],
+      "started": "2021-08-27T11:25:34-07:00",
+      "last_reply": "2021-08-27T19:55:01+01:00",
+      "root_message_id": "msg-f392503684d1"
+    }
+  ]
+}

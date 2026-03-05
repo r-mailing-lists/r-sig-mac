@@ -1,0 +1,94 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2024-03",
+  "messages": [
+    {
+      "id": "msg-acf6012c3f0a",
+      "message_id": "<CADEmQoXNWDLHNOyXPUBawdHELbjD2gugfX5AmF3C_pdH5VJrPg@mail.gmail.com>",
+      "from_name": "YV B",
+      "from_email_hash": "f0e273e28a845949e0880cad6a3174787dd67387f81cd0b3463826a733aab524",
+      "date": "2024-03-24T22:54:47+01:00",
+      "subject": "[R-SIG-Mac] error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "subject_clean": "error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I'm running R 4.3.3 GUI 1.80 Big Sur Intel build (8340) and RStudio Version\n2023.12.1+402 on macOS Sonoma Version 14.4 (23E214) Intel Core i7.\n\nI downloaded the package of robustbase\n- macosx/big-sur-x86_64/contrib/4.3/robustbase_0.99-2.tgz .\n, and tried to install it.\n\nAfter installing it through Tools/Install Packages,\nit shows up in the Packages tab.\n\nClicking on the checkbox results in\n```\n> install.packages(?path/to/robustbase_0.99-2.tgz\", repos = NULL, type =\n.Platform$pkgType)\n> library(robustbase)\nError: package or namespace load failed for ?robustbase? in get(Info[i, 1],\nenvir = env):\nlazy-load database\n'/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library/robustbase/R/robustbase.rdb'\nis corrupt\nIn addition: Warning message:\nIn get(Info[i, 1], envir = env) : internal error -3 in R_decompress1\n```\n\nI've reported this to r-project tracker. They cannot help me because this\nis not due to a problem of the source. Could you help me solving this\nproblem?\n\nThank you.\n\nY V\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I'm running R 4.3.3 GUI 1.80 Big Sur Intel build (8340) and RStudio Version\n2023.12.1+402 on macOS Sonoma Version 14.4 (23E214) Intel Core i7.\n\nI downloaded the package of robustbase\n- macosx/big-sur-",
+      "thread_id": "thread-acf6012c3f0a",
+      "thread_depth": 0,
+      "month": "2024-03"
+    },
+    {
+      "id": "msg-9029f01a9579",
+      "message_id": "<04364a28-89be-405c-bf73-dae97cc769d5@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2024-03-25T06:20:03-04:00",
+      "subject": "[R-SIG-Mac] error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "subject_clean": "error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "in_reply_to": "<CADEmQoXNWDLHNOyXPUBawdHELbjD2gugfX5AmF3C_pdH5VJrPg@mail.gmail.com>",
+      "references": [
+        "<CADEmQoXNWDLHNOyXPUBawdHELbjD2gugfX5AmF3C_pdH5VJrPg@mail.gmail.com>"
+      ],
+      "body_plain": "I would simplify things, and leave RStudio out of the process.  Start \nR.app, and run\n\n   install.packages(\"robustbase\")\n   library(robustbase)\n\nand let us know what happens.  I just ran those commands in MacOS \nMonterey and R 4.3.1, and saw this:\n\n > install.packages(\"robustbase\")\ntrying URL \n'https://cloud.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.3/robustbase_0.99-2.tgz'\nContent type 'application/x-gzip' length 3221520 bytes (3.1 MB)\n==================================================\ndownloaded 3.1 MB\n\n\nThe downloaded binary packages are in\n\t/var/folders/d6/s97fjjxd3_9353x_lwb692100000gn/T//RtmptD64D6/downloaded_packages\n > library(robustbase)\nWarning message:\npackage ?robustbase? was built under R version 4.3.2\n\nso it worked with just a warning because I'm using an old version of R.\n\nDuncan Murdoch\n\n\n\nOn 24/03/2024 5:54 p.m., YV B wrote:\n> I'm running R 4.3.3 GUI 1.80 Big Sur Intel build (8340) and RStudio Version\n> 2023.12.1+402 on macOS Sonoma Version 14.4 (23E214) Intel Core i7.\n> \n> I downloaded the package of robustbase\n> - macosx/big-sur-x86_64/contrib/4.3/robustbase_0.99-2.tgz .\n> , and tried to install it.\n> \n> After installing it through Tools/Install Packages,\n> it shows up in the Packages tab.\n> \n> Clicking on the checkbox results in\n> ```\n>> install.packages(?path/to/robustbase_0.99-2.tgz\", repos = NULL, type =\n> .Platform$pkgType)\n>> library(robustbase)\n> Error: package or namespace load failed for ?robustbase? in get(Info[i, 1],\n> envir = env):\n> lazy-load database\n> '/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library/robustbase/R/robustbase.rdb'\n> is corrupt\n> In addition: Warning message:\n> In get(Info[i, 1], envir = env) : internal error -3 in R_decompress1\n> ```\n> \n> I've reported this to r-project tracker. They cannot help me because this\n> is not due to a problem of the source. Could you help me solving this\n> problem?\n> \n> Thank you.\n> \n> Y V\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I would simplify things, and leave RStudio out of the process.  Start \nR.app, and run\n\n   install.packages(\"robustbase\")\n   library(robustbase)\n\nand let us know what happens.  I just ran those command",
+      "thread_id": "thread-acf6012c3f0a",
+      "thread_depth": 1,
+      "month": "2024-03"
+    },
+    {
+      "id": "msg-247b70961911",
+      "message_id": "<EF6EE2E9-7F93-4476-BE1A-501FABF6EA8C@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2024-03-26T11:56:54+13:00",
+      "subject": "[R-SIG-Mac] error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "subject_clean": "error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "in_reply_to": "<CADEmQoXNWDLHNOyXPUBawdHELbjD2gugfX5AmF3C_pdH5VJrPg@mail.gmail.com>",
+      "references": [
+        "<CADEmQoXNWDLHNOyXPUBawdHELbjD2gugfX5AmF3C_pdH5VJrPg@mail.gmail.com>"
+      ],
+      "body_plain": "Y V,\n\nas Duncan pointed out this is usually a problem with the RStudio session. Quit RStudio, re-install the package (if in doubt, use R), quit R and re-start RStudio.\n\nCheers,\nSimon\n\n\n> On 25/03/2024, at 10:54 AM, YV B <omykcs at gmail.com> wrote:\n> \n> I'm running R 4.3.3 GUI 1.80 Big Sur Intel build (8340) and RStudio Version\n> 2023.12.1+402 on macOS Sonoma Version 14.4 (23E214) Intel Core i7.\n> \n> I downloaded the package of robustbase\n> - macosx/big-sur-x86_64/contrib/4.3/robustbase_0.99-2.tgz .\n> , and tried to install it.\n> \n> After installing it through Tools/Install Packages,\n> it shows up in the Packages tab.\n> \n> Clicking on the checkbox results in\n> ```\n>> install.packages(?path/to/robustbase_0.99-2.tgz\", repos = NULL, type =\n> .Platform$pkgType)\n>> library(robustbase)\n> Error: package or namespace load failed for ?robustbase? in get(Info[i, 1],\n> envir = env):\n> lazy-load database\n> '/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library/robustbase/R/robustbase.rdb'\n> is corrupt\n> In addition: Warning message:\n> In get(Info[i, 1], envir = env) : internal error -3 in R_decompress1\n> ```\n> \n> I've reported this to r-project tracker. They cannot help me because this\n> is not due to a problem of the source. Could you help me solving this\n> problem?\n> \n> Thank you.\n> \n> Y V\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Y V,\n\nas Duncan pointed out this is usually a problem with the RStudio session. Quit RStudio, re-install the package (if in doubt, use R), quit R and re-start RStudio.\n\nCheers,\nSimon\n\n\n> On 25/03/2024",
+      "thread_id": "thread-acf6012c3f0a",
+      "thread_depth": 1,
+      "month": "2024-03"
+    },
+    {
+      "id": "msg-0f4e571a0b59",
+      "message_id": "<CAJXgQP12_QwcUwX7f7407bVJkWgQiya=p-AO=SSgWZLi0ADROg@mail.gmail.com>",
+      "from_name": "Kevin Ushey",
+      "from_email_hash": "c0bffc799bd95bf26caa6b1c9abdc3f8fdc556eac7399824869756688d2f0689",
+      "date": "2024-03-25T17:11:04-07:00",
+      "subject": "[R-SIG-Mac] error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "subject_clean": "error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "in_reply_to": "<EF6EE2E9-7F93-4476-BE1A-501FABF6EA8C@R-project.org>",
+      "references": [
+        "<CADEmQoXNWDLHNOyXPUBawdHELbjD2gugfX5AmF3C_pdH5VJrPg@mail.gmail.com>",
+        "<EF6EE2E9-7F93-4476-BE1A-501FABF6EA8C@R-project.org>"
+      ],
+      "body_plain": "Issues of this sort typically occur if a package is updated or\nreinstalled while it is already loaded. See also:\nhttps://bugs.r-project.org/show_bug.cgi?id=16644\n\nThe simplest resolution is to restart R after installing a package.\n\nBest,\nKevin\n\nOn Mon, Mar 25, 2024 at 3:57?PM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n> Y V,\n>\n> as Duncan pointed out this is usually a problem with the RStudio session. Quit RStudio, re-install the package (if in doubt, use R), quit R and re-start RStudio.\n>\n> Cheers,\n> Simon\n>\n>\n> > On 25/03/2024, at 10:54 AM, YV B <omykcs at gmail.com> wrote:\n> >\n> > I'm running R 4.3.3 GUI 1.80 Big Sur Intel build (8340) and RStudio Version\n> > 2023.12.1+402 on macOS Sonoma Version 14.4 (23E214) Intel Core i7.\n> >\n> > I downloaded the package of robustbase\n> > - macosx/big-sur-x86_64/contrib/4.3/robustbase_0.99-2.tgz .\n> > , and tried to install it.\n> >\n> > After installing it through Tools/Install Packages,\n> > it shows up in the Packages tab.\n> >\n> > Clicking on the checkbox results in\n> > ```\n> >> install.packages(?path/to/robustbase_0.99-2.tgz\", repos = NULL, type =\n> > .Platform$pkgType)\n> >> library(robustbase)\n> > Error: package or namespace load failed for ?robustbase? in get(Info[i, 1],\n> > envir = env):\n> > lazy-load database\n> > '/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library/robustbase/R/robustbase.rdb'\n> > is corrupt\n> > In addition: Warning message:\n> > In get(Info[i, 1], envir = env) : internal error -3 in R_decompress1\n> > ```\n> >\n> > I've reported this to r-project tracker. They cannot help me because this\n> > is not due to a problem of the source. Could you help me solving this\n> > problem?\n> >\n> > Thank you.\n> >\n> > Y V\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Issues of this sort typically occur if a package is updated or\nreinstalled while it is already loaded. See also:\nhttps://bugs.r-project.org/show_bug.cgi?id=16644\n\nThe simplest resolution is to restart",
+      "thread_id": "thread-acf6012c3f0a",
+      "thread_depth": 2,
+      "month": "2024-03"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-acf6012c3f0a",
+      "subject": "error when installing the robustbase package (robustbase.rdb is corrupt)",
+      "message_count": 4,
+      "participants": [
+        "Duncan Murdoch",
+        "Kevin Ushey",
+        "Simon Urbanek",
+        "YV B"
+      ],
+      "started": "2024-03-24T22:54:47+01:00",
+      "last_reply": "2024-03-25T17:11:04-07:00",
+      "root_message_id": "msg-acf6012c3f0a"
+    }
+  ]
+}

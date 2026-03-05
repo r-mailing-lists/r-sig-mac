@@ -1,0 +1,909 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2002-05",
+  "messages": [
+    {
+      "id": "msg-76a17fd14ab6",
+      "message_id": "<13627FC6-5E70-11D6-A394-003065CC4CB8@mclink.it>",
+      "from_name": "Stefano Iacus",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2002-05-03T10:30:50+02:00",
+      "subject": "[R-SIG-Mac]Mirror is up to date now",
+      "subject_clean": "Mirror is up to date now",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Now you can found (Carbon) R 1.5.0 on CRAN.\nWe apologize for a small incovenient with mirroring.\n\nStefano",
+      "body_snippet": "Now you can found (Carbon) R 1.5.0 on CRAN.\nWe apologize for a small incovenient with mirroring.\n\nStefano",
+      "thread_id": "thread-76a17fd14ab6",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-7b6944fed19d",
+      "message_id": "<Pine.GSO.4.43.0205051441560.530-100000@jade.saintmarys.edu>",
+      "from_name": "David A Richmond",
+      "from_email_hash": "9158a5425f79d01b6d544e046274e8e82b4f58f3b3c70a0f3cdfca4d04454f07",
+      "date": "2002-05-05T14:44:54-05:00",
+      "subject": "[R-SIG-Mac]making 1.5.0 on Darwin",
+      "subject_clean": "making 1.5.0 on Darwin",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\tI just downloaded the new R 1.5.0 source package, expanded it into\n/usr/local/ and did './configure' and 'make'. configure seemed to go ok,\nand make worked away for a while, compiling various files, but balked when\nasked to compile \"Rdynload.c\". (see below) Any idea what's going on?\n\ndave r\n\ncc -no-cpp-precomp -I. -I../../src/include -I../../src/include\n-I/usr/local/include -DHAVE_CONFIG_H   -g -O2 -c Rdynload.c -o Rdynload.o\nRdynload.c: In function `R_FindSymbol':\nRdynload.c:942: (Each undeclared identifier is reported only once\nRdynload.c:942: for each function it appears in.)\nmake[3]: *** [Rdynload.o] Error 1\nmake[2]: *** [R] Error 2\nmake[1]: *** [R] Error 1\nmake: *** [R] Error 1\n\n\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|David Richmond                It works on a          |\n+ Dept. of Sociology          complex scientific      +\n|Saint Mary's College          principle, known as    |\n+ Notre Dame, IN 46556               \"pot luck.\"      +\n|574-284-4517                    - The Doctor         |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+",
+      "body_snippet": "Hi,\n\tI just downloaded the new R 1.5.0 source package, expanded it into\n/usr/local/ and did './configure' and 'make'. configure seemed to go ok,\nand make worked away for a while, compiling various fil",
+      "thread_id": "thread-7b6944fed19d",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-839e6c38859f",
+      "message_id": "<054B4890-6073-11D6-9425-003065CC4CB8@mclink.it>",
+      "from_name": "Stefano Iacus",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2002-05-05T23:56:58+02:00",
+      "subject": "[R-SIG-Mac]making 1.5.0 on Darwin",
+      "subject_clean": "making 1.5.0 on Darwin",
+      "in_reply_to": "<Pine.GSO.4.43.0205051441560.530-100000@jade.saintmarys.edu>",
+      "references": [],
+      "body_plain": "There's no need to unpack it on /usr/local you can just use your own dir.\n\nBTW, I have encountered the same problem yesterday working for the \nquartz device.\n\nLuke  suggested me to use the following setup\n\n./configure CPPFLAGS=\"-I/sw/include\" LDFLAGS=\"-L/sw/lib/\"\n\nor, if you want to build everything,\n\n/configure CPPFLAGS=\"-I/sw/include\" LDFLAGS=\"-L/sw/lib/\" \n--with-tcl-config=/sw/lib/tclConfig.sh --with-tk-\nconfig=/sw/lib/tkConfig.sh --with-gnome --with-gnome-\nincludes=/sw/include/gnome-1.0\n\n\nIt is assumed that you have installed something via fink such as the \nlibtool. Fink puts everything in the folder /sw.\n\nLet us know if it works.\n\nStefano\n\nOn Domenica, maggio 5, 2002, at 09:44 , David A Richmond wrote:\n\n> Hi,\n> \tI just downloaded the new R 1.5.0 source package, expanded it into\n> /usr/local/ and did './configure' and 'make'. configure seemed to go ok,\n> and make worked away for a while, compiling various files, but balked \n> when\n> asked to compile \"Rdynload.c\". (see below) Any idea what's going on?\n>\n> dave r\n>\n> cc -no-cpp-precomp -I. -I../../src/include -I../../src/include\n> -I/usr/local/include -DHAVE_CONFIG_H   -g -O2 -c Rdynload.c -o \n> Rdynload.o\n> Rdynload.c: In function `R_FindSymbol':\n> Rdynload.c:942: (Each undeclared identifier is reported only once\n> Rdynload.c:942: for each function it appears in.)\n> make[3]: *** [Rdynload.o] Error 1\n> make[2]: *** [R] Error 2\n> make[1]: *** [R] Error 1\n> make: *** [R] Error 1\n>\n>\n> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n> |David Richmond                It works on a          |\n> + Dept. of Sociology          complex scientific      +\n> |Saint Mary's College          principle, known as    |\n> + Notre Dame, IN 46556               \"pot luck.\"      +\n> |574-284-4517                    - The Doctor         |\n> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "There's no need to unpack it on /usr/local you can just use your own dir.\n\nBTW, I have encountered the same problem yesterday working for the \nquartz device.\n\nLuke  suggested me to use the following s",
+      "thread_id": "thread-7b6944fed19d",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-7b8841d1714a",
+      "message_id": "<Pine.GSO.4.43.0205052253500.7632-100000@jade.saintmarys.edu>",
+      "from_name": "David A Richmond",
+      "from_email_hash": "9158a5425f79d01b6d544e046274e8e82b4f58f3b3c70a0f3cdfca4d04454f07",
+      "date": "2002-05-05T22:54:49-05:00",
+      "subject": "[R-SIG-Mac]making 1.5.0 on Darwin",
+      "subject_clean": "making 1.5.0 on Darwin",
+      "in_reply_to": "<054B4890-6073-11D6-9425-003065CC4CB8@mclink.it>",
+      "references": [],
+      "body_plain": "It worked!\n\n(I used just ./configure CPPFLAGS=\"-I/sw/include\" LDFLAGS=\"-L/sw/lib/\" )\n\nThanks!\n\n\n\nOn Sun, 5 May 2002, Stefano Iacus wrote:\n\n> There's no need to unpack it on /usr/local you can just use your own dir.\n>\n> BTW, I have encountered the same problem yesterday working for the\n> quartz device.\n>\n> Luke  suggested me to use the following setup\n>\n> ./configure CPPFLAGS=\"-I/sw/include\" LDFLAGS=\"-L/sw/lib/\"\n>\n> or, if you want to build everything,\n>\n> /configure CPPFLAGS=\"-I/sw/include\" LDFLAGS=\"-L/sw/lib/\"\n> --with-tcl-config=/sw/lib/tclConfig.sh --with-tk-\n> config=/sw/lib/tkConfig.sh --with-gnome --with-gnome-\n> includes=/sw/include/gnome-1.0\n>\n>\n> It is assumed that you have installed something via fink such as the\n> libtool. Fink puts everything in the folder /sw.\n>\n> Let us know if it works.\n>\n> Stefano\n>\n> On Domenica, maggio 5, 2002, at 09:44 , David A Richmond wrote:\n>\n> > Hi,\n> > \tI just downloaded the new R 1.5.0 source package, expanded it into\n> > /usr/local/ and did './configure' and 'make'. configure seemed to go ok,\n> > and make worked away for a while, compiling various files, but balked\n> > when\n> > asked to compile \"Rdynload.c\". (see below) Any idea what's going on?\n> >\n> > dave r\n> >\n> > cc -no-cpp-precomp -I. -I../../src/include -I../../src/include\n> > -I/usr/local/include -DHAVE_CONFIG_H   -g -O2 -c Rdynload.c -o\n> > Rdynload.o\n> > Rdynload.c: In function `R_FindSymbol':\n> > Rdynload.c:942: (Each undeclared identifier is reported only once\n> > Rdynload.c:942: for each function it appears in.)\n> > make[3]: *** [Rdynload.o] Error 1\n> > make[2]: *** [R] Error 2\n> > make[1]: *** [R] Error 1\n> > make: *** [R] Error 1\n> >\n> >\n> > +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n> > |David Richmond                It works on a          |\n> > + Dept. of Sociology          complex scientific      +\n> > |Saint Mary's College          principle, known as    |\n> > + Notre Dame, IN 46556               \"pot luck.\"      +\n> > |574-284-4517                    - The Doctor         |\n> > +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac@stat.math.ethz.ch\n> > http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|David Richmond                It works on a          |\n+ Dept. of Sociology          complex scientific      +\n|Saint Mary's College          principle, known as    |\n+ Notre Dame, IN 46556               \"pot luck.\"      +\n|574-284-4517                    - The Doctor         |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+",
+      "body_snippet": "It worked!\n\n(I used just ./configure CPPFLAGS=\"-I/sw/include\" LDFLAGS=\"-L/sw/lib/\" )\n\nThanks!\n\n\n\nOn Sun, 5 May 2002, Stefano Iacus wrote:\n\n> There's no need to unpack it on /usr/local you can just use",
+      "thread_id": "thread-7b6944fed19d",
+      "thread_depth": 2,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-c8945be639da",
+      "message_id": "<Pine.GSO.4.10.10205071731160.5480-100000@quetelet.stat.ucla.edu>",
+      "from_name": "Roger Peng",
+      "from_email_hash": "cdbe68faee5d48519650c5720313de11fa752260256c4c22aca3cfe905330834",
+      "date": "2002-05-07T17:32:09-07:00",
+      "subject": "[R-SIG-Mac]making 1.5.0 on Darwin",
+      "subject_clean": "making 1.5.0 on Darwin",
+      "in_reply_to": "<Pine.GSO.4.43.0205051441560.530-100000@jade.saintmarys.edu>",
+      "references": [],
+      "body_plain": "I believe this error occurs when you are missing the dlcompat library.\nHowever, it may be hiding somewhere in the /sw directory.\n\n-roger\n_______________________________\nUCLA Department of Statistics\nrpeng@stat.ucla.edu\nhttp://www.stat.ucla.edu/~rpeng\n\nOn Sun, 5 May 2002, David A Richmond wrote:\n\n> Hi,\n> \tI just downloaded the new R 1.5.0 source package, expanded it into\n> /usr/local/ and did './configure' and 'make'. configure seemed to go ok,\n> and make worked away for a while, compiling various files, but balked when\n> asked to compile \"Rdynload.c\". (see below) Any idea what's going on?\n> \n> dave r\n> \n> cc -no-cpp-precomp -I. -I../../src/include -I../../src/include\n> -I/usr/local/include -DHAVE_CONFIG_H   -g -O2 -c Rdynload.c -o Rdynload.o\n> Rdynload.c: In function `R_FindSymbol':\n> Rdynload.c:942: (Each undeclared identifier is reported only once\n> Rdynload.c:942: for each function it appears in.)\n> make[3]: *** [Rdynload.o] Error 1\n> make[2]: *** [R] Error 2\n> make[1]: *** [R] Error 1\n> make: *** [R] Error 1\n> \n> \n> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n> |David Richmond                It works on a          |\n> + Dept. of Sociology          complex scientific      +\n> |Saint Mary's College          principle, known as    |\n> + Notre Dame, IN 46556               \"pot luck.\"      +\n> |574-284-4517                    - The Doctor         |\n> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "I believe this error occurs when you are missing the dlcompat library.\nHowever, it may be hiding somewhere in the /sw directory.\n\n-roger\n_______________________________\nUCLA Department of Statistics\nr",
+      "thread_id": "thread-7b6944fed19d",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-f6c5ec451bbd",
+      "message_id": "<D46FE5FC-639E-11D6-B27D-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-09T15:48:07-07:00",
+      "subject": "[R-SIG-Mac]R-1.5.0 for Darwin",
+      "subject_clean": "R-1.5.0 for Darwin",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "ftp://gifi.stat.ucla.edu/pub/R\n\nCurrently it only has the base distribution. Unpack in /usr/local. In\naddition you may need many dylibs from fink. This version has\nsupport for gnome, but not for atlas yet. It also has libR.dylib.\nRecommended packages will come later.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "ftp://gifi.stat.ucla.edu/pub/R\n\nCurrently it only has the base distribution. Unpack in /usr/local. In\naddition you may need many dylibs from fink. This version has\nsupport for gnome, but not for atlas",
+      "thread_id": "thread-f6c5ec451bbd",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-ca4dfe6009cc",
+      "message_id": "<4E359AA8-63D4-11D6-A02B-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-09T22:10:55-07:00",
+      "subject": "[R-SIG-Mac]R-1.5.0 for Darwin",
+      "subject_clean": "R-1.5.0 for Darwin",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Now at ftp://gifi.stat.ucla.edu/pub/R\n\n-rw-r--r--    1 deleeuw  staff     8852662 May  9 19:30 \nR-1.5.0-darwin-base.tar.gz\n-rw-r--r--    1 deleeuw  staff    31666621 May  9 19:24 \nR-1.5.0-darwin-full.tar.gz\n-rw-r--r--    1 deleeuw  staff     3877089 May  9 19:26 \nR-1.5.0-darwin-recommended.tar.gz\n\nHere \"recommended\" has the recommended packages (only, not the base) and\n\"full\" has (almost) all CRAN packages (including the recommended ones).\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Now at ftp://gifi.stat.ucla.edu/pub/R\n\n-rw-r--r--    1 deleeuw  staff     8852662 May  9 19:30 \nR-1.5.0-darwin-base.tar.gz\n-rw-r--r--    1 deleeuw  staff    31666621 May  9 19:24 \nR-1.5.0-darwin-full.",
+      "thread_id": "thread-ca4dfe6009cc",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-1b05bed4797f",
+      "message_id": "<665993B5-63E6-11D6-984F-003065CC4CB8@mclink.it>",
+      "from_name": "Stefano Iacus",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2002-05-10T09:20:26+02:00",
+      "subject": "[R-SIG-Mac]Darwin R 1.5.0",
+      "subject_clean": "Darwin R 1.5.0",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Jan's files are now uploaded to CRAN. They will soon mirrored in in \nbin/macosx directory on CRAN.\n\nstefano",
+      "body_snippet": "Jan's files are now uploaded to CRAN. They will soon mirrored in in \nbin/macosx directory on CRAN.\n\nstefano",
+      "thread_id": "thread-1b05bed4797f",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-af6517f37282",
+      "message_id": "<4B2F342B-64A5-11D6-BE69-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-10T23:06:54-07:00",
+      "subject": "[R-SIG-Mac]Rmpi",
+      "subject_clean": "Rmpi",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Rmpi.tar.gz, a compiled version of Rmpi using lam-6.5.5, is now in\nftp://gifi.stat.ucla.edu/pub/R. Unpack in the R library directory.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Rmpi.tar.gz, a compiled version of Rmpi using lam-6.5.5, is now in\nftp://gifi.stat.ucla.edu/pub/R. Unpack in the R library directory.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statisti",
+      "thread_id": "thread-af6517f37282",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-16efa97e53ab",
+      "message_id": "<46484B6C-650C-11D6-850D-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-11T11:24:04-07:00",
+      "subject": "[R-SIG-Mac]more packages",
+      "subject_clean": "more packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "ftp://gifi.stat.ucla.edu/pub/R\n\ncontains binaries for packages that require some separate handling.\nCurrently it has Rmpi, RMySQL, tkrplot. These packages will be\nwrapped in the full distribution at some later point.\n\nA number of CRAN packages still do not compile, because of problems\nwith atlas and/or the fortran compiler. These are Matrix, RQuantLib,\nand subselect.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "ftp://gifi.stat.ucla.edu/pub/R\n\ncontains binaries for packages that require some separate handling.\nCurrently it has Rmpi, RMySQL, tkrplot. These packages will be\nwrapped in the full distribution at s",
+      "thread_id": "thread-16efa97e53ab",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-6ddd360fdc13",
+      "message_id": "<AFF7ED4C-6514-11D6-850D-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-11T12:24:18-07:00",
+      "subject": "[R-SIG-Mac]new packages",
+      "subject_clean": "new packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "ftp://gifi.stat.ucla.edu/pub/R\n\nnow has rsprng and the lindsey packages for repeated measures,\ngeneralized nonlinear models, stable distributions, and ordinal\nregression.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "ftp://gifi.stat.ucla.edu/pub/R\n\nnow has rsprng and the lindsey packages for repeated measures,\ngeneralized nonlinear models, stable distributions, and ordinal\nregression.\n===\nJan de Leeuw; Professor a",
+      "thread_id": "thread-6ddd360fdc13",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-fcd495b0990b",
+      "message_id": "<3C8D9105-6521-11D6-B42B-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-11T13:54:07-07:00",
+      "subject": "[R-SIG-Mac]R-1.5.0 for Darwin/X11",
+      "subject_clean": "R-1.5.0 for Darwin/X11",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Some reorganization, and some additional packages.\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0\n\nnow contains\n\n-rw-r--r--    1 deleeuw  admin     8852662 May  9 19:30 base.tar.gz\n-rw-r--r--    1 deleeuw  admin    25718851 May 11 13:43 cran.tar.gz\n-rw-r--r--    1 deleeuw  admin      379121 May 11 13:43 develop.tar.gz\n-rw-r--r--    1 deleeuw  admin     1194831 May 11 12:19 lindsey.tar.gz\n-rw-r--r--    1 deleeuw  admin     1028015 May 11 13:43 omegahat.tar.gz\n-rw-r--r--    1 deleeuw  admin     3877089 May  9 19:26 \nrecommended.tar.gz\n\nhere \"cran\" contains additional cran contributed packages (and not\nthe recommended ones or the base)\n\ndevelop contains develop packages from cran (currently regexp,\nRandomFields, and dseplus)\n\nomegahat contains omegahat packages (currently RSPython,\nRGtk, RObjectTables)\n\nlindsey has the lindsey and lindsey packages\n\nbase and recommended have base and recommended\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Some reorganization, and some additional packages.\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0\n\nnow contains\n\n-rw-r--r--    1 deleeuw  admin     8852662 May  9 19:30 base.tar.gz\n-rw-r--r--    1 deleeuw  adm",
+      "thread_id": "thread-fcd495b0990b",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-ba55c9586e85",
+      "message_id": "<D24B86C4-661F-11D6-9AF2-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-12T20:16:31-07:00",
+      "subject": "[R-SIG-Mac]packages",
+      "subject_clean": "packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "ftp://gifi.stat.ucla.edu/pub/R-1.5.0 now contains harrell.tar.gz\nwhich has Frank Harrell's  Hmisc and Design packages.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "ftp://gifi.stat.ucla.edu/pub/R-1.5.0 now contains harrell.tar.gz\nwhich has Frank Harrell's  Hmisc and Design packages.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 94",
+      "thread_id": "thread-ba55c9586e85",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-27b290c57cc8",
+      "message_id": "<37C63978-66C6-11D6-ACA8-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-13T16:07:37-07:00",
+      "subject": "[R-SIG-Mac]packages, packages",
+      "subject_clean": "packages, packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "added at ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n\nRSPerl\nsubselect\nbioconductor (the essential and recommended packages)\n\nI am currently uploading a new version of the base package,\nwhich is compiled with atlas support. It will be a lot faster on\ncomputations with a lot of linear algebra.\n\nNot included so far from CRAN contributed\n\nMatrix (problems with the FORTRAN compiler)\nRQuantlib (I don't have financial problems)\nROracle (don't have Oracle)\nRSQLite (don't have that either)\n\nNot included from OmegaHat: quite a lot, most prominently\nSJava.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "added at ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n\nRSPerl\nsubselect\nbioconductor (the essential and recommended packages)\n\nI am currently uploading a new version of the base package,\nwhich is compiled wit",
+      "thread_id": "thread-27b290c57cc8",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-fca084574fbd",
+      "message_id": "<878z6noblk.fsf@jeeves.blindglobe.net>",
+      "from_name": "A.J. Rossini",
+      "from_email_hash": "e38e01ad6ef7554feaf1446fbf732417739f2726ef60f5377d3a8dfe80e4b2ad",
+      "date": "2002-05-13T16:46:15-07:00",
+      "subject": "[R-SIG-Mac]packages, packages",
+      "subject_clean": "packages, packages",
+      "in_reply_to": "<37C63978-66C6-11D6-ACA8-000393860F3C@stat.ucla.edu>",
+      "references": [
+        "<37C63978-66C6-11D6-ACA8-000393860F3C@stat.ucla.edu>"
+      ],
+      "body_plain": ">>>>> \"jan\" == Jan de Leeuw <deleeuw@stat.ucla.edu> writes:\n\n    jan> added at ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n    jan> RSPerl\n    jan> subselect\n    jan> bioconductor (the essential and recommended packages)\n\nThanks... I'm running behind.  I think they are okay, BUT am not\nsure... (I \"released\" them, and so I've got concerns since I was (am?)\na bit overburdened...).\n\n    jan> Not included from OmegaHat: quite a lot, most prominently\n    jan> SJava.\n\nLet me know if you solve that.  I'm actually getting a slow but\nmemory-full iMac sometime soon, instead of a Sony laptop, so will be\ninterested in how Mac OSX works with R...\n\nbest,\n-tony\n\n-- \nA.J. Rossini\t\t\t\tRsrch. Asst. Prof. of Biostatistics\nU. of Washington Biostatistics\t\trossini@u.washington.edu\t\nFHCRC/SCHARP/HIV Vaccine Trials Net\trossini@scharp.org\n-------------- http://software.biostat.washington.edu/ ----------------\nFHCRC: M-W: 206-667-7025 (fax=4812)|Voicemail is pretty sketchy/use Email\nUW:   Th: 206-543-1044 (fax=3286)|Change last 4 digits of phone to FAX\n(my friday location is usually completely unpredictable.)",
+      "body_snippet": ">>>>> \"jan\" == Jan de Leeuw <deleeuw@stat.ucla.edu> writes:\n\n    jan> added at ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n    jan> RSPerl\n    jan> subselect\n    jan> bioconductor (the essential and recommen",
+      "thread_id": "thread-27b290c57cc8",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-44b56278c679",
+      "message_id": "<257001A2-6702-11D6-8346-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-13T23:16:36-07:00",
+      "subject": "[R-SIG-Mac]packages, packages",
+      "subject_clean": "packages, packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n\nThe atlas-based R (with gnome) is now in R-1.5.0.tar.gz.\nIt is optimized for a G4 (in fact a dual 1Mhz machine). You may\nnot see great gains on other machines.\n\nPackages are reorganized in directories, with package\nfoo in a file foo.tar.gz.\n\nObserve that the ftpd on gifi is wuftpd, which means you can say\nin your ftp client \"get OmegaHat.tar.gz\" and this will package the\ndirectory OmegaHat and download all files in that directory.\n\nThe base packages are already in R.tar.gz, so I eliminated them from\nthe contributed directory.\n\nThis new setup makes it easier to see what has been changed or\nadded, and you can still download things in bunches. In fact, if\nyou move to pub and say \"get R-1.5.0.tar.gz\" you will download\neverything. There are now 180 packages.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n\nThe atlas-based R (with gnome) is now in R-1.5.0.tar.gz.\nIt is optimized for a G4 (in fact a dual 1Mhz machine). You may\nnot see great gains on other machines.\n\nP",
+      "thread_id": "thread-44b56278c679",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-6aa342042265",
+      "message_id": "<D2E4DAAF-6702-11D6-8346-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-13T23:21:27-07:00",
+      "subject": "[R-SIG-Mac]Re: [StatCompute] packages, packages",
+      "subject_clean": "[StatCompute] packages, packages",
+      "in_reply_to": "<257001A2-6702-11D6-8346-000393860F3C@stat.ucla.edu>",
+      "references": [],
+      "body_plain": "I mean:\n\nThe atlas-based R (with gnome) is now in\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0/R.tar.gz\n\nOn Monday, May 13, 2002, at 11:16 PM, Jan de Leeuw wrote:\n\n> ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n>\n> The atlas-based R (with gnome) is now in R-1.5.0.tar.gz.\n> It is optimized for a G4 (in fact a dual 1Mhz machine). You may\n> not see great gains on other machines.\n>\n> Packages are reorganized in directories, with package\n> foo in a file foo.tar.gz.\n>\n> Observe that the ftpd on gifi is wuftpd, which means you can say\n> in your ftp client \"get OmegaHat.tar.gz\" and this will package the\n> directory OmegaHat and download all files in that directory.\n>\n> The base packages are already in R.tar.gz, so I eliminated them from\n> the contributed directory.\n>\n> This new setup makes it easier to see what has been changed or\n> added, and you can still download things in bunches. In fact, if\n> you move to pub and say \"get R-1.5.0.tar.gz\" you will download\n> everything. There are now 180 packages.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================\n>\n> _______________________________________________\n> StatCompute mailing list\n> StatCompute@lists.stat.ucla.edu\n> http://lists.stat.ucla.edu/mailman/listinfo.cgi/statcompute\n>",
+      "body_snippet": "I mean:\n\nThe atlas-based R (with gnome) is now in\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0/R.tar.gz\n\nOn Monday, May 13, 2002, at 11:16 PM, Jan de Leeuw wrote:\n\n> ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n>\n> ",
+      "thread_id": "thread-44b56278c679",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-823d1bdd6949",
+      "message_id": "<2D50434A-6719-11D6-AA2B-003065CC4CB8@mclink.it>",
+      "from_name": "Stefano Iacus",
+      "from_email_hash": "442ea91401f7720a48b62ca98d7f4191beec705c2145d22525ce7c555a2f6f32",
+      "date": "2002-05-14T11:01:28+02:00",
+      "subject": "[R-SIG-Mac]Quartz device for Darwin R (MacOS X)",
+      "subject_clean": "Quartz device for Darwin R (MacOS X)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This announce is for Mac R developers mostly.\n\nI have just updated the R-devel repository with a brand new quartz() \ndevice.\nThis will allow the Darwin build of R to display graphics without the \nneed of X11.\n\nThe device is in its first release so it is needed more feedback as \npossible to let it become the true natural graphics device of Darwin R.\n\n\nYou should try to build R from the R-devel sources.\n\nPlease read the R-admin manual on how to build Darwin R for details, but \ntwo more things have to be done to let this version of R-devel to build \nunder OSX.\n\nThe first is to add the \"-framework Carbon\" to the linker options.\n\nOnce R is built, your have to rename bin/help as something else \notherwise R will not launch properly.\n\nWe are working for a better configuration process to avoid these last to \nsteps.\n\n\nTo use the quartz device simply open it with quartz(). See the man page \nfor the options ?quartz.\n\nLooking forward for your comments,\n\n\t\t\t\t\t\t\tStefano\n\np.s. one remark: the graphic window is not resizable and cannot be moved \nat the moment so don't send feedback on this.",
+      "body_snippet": "This announce is for Mac R developers mostly.\n\nI have just updated the R-devel repository with a brand new quartz() \ndevice.\nThis will allow the Darwin build of R to display graphics without the \nneed",
+      "thread_id": "thread-823d1bdd6949",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-da105a04c7ac",
+      "message_id": "<F97DAA29-6769-11D6-96A1-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-14T11:39:50-07:00",
+      "subject": "[R-SIG-Mac]r-devel with quartz device",
+      "subject_clean": "r-devel with quartz device",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "ftp://gifi.stat.ucla.edu/pub/R-devel.tar.gz\n\nunpack in its own folder, start with bin/R\n\nactually, even nicer (if you have the gnome dylibs and\na rootless window mananer such as OroborosX) say\n\"R --gui=gnome\" and then in the R window say\nquartz() and demo(graphics).\n\nbeautiful\n\nthis version does not have libR.dylib and help is\ndisabled.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "ftp://gifi.stat.ucla.edu/pub/R-devel.tar.gz\n\nunpack in its own folder, start with bin/R\n\nactually, even nicer (if you have the gnome dylibs and\na rootless window mananer such as OroborosX) say\n\"R --gu",
+      "thread_id": "thread-da105a04c7ac",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-e56dd325e900",
+      "message_id": "<D76673A8-6883-11D6-B9F6-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-15T21:17:31-07:00",
+      "subject": "[R-SIG-Mac]packages, packages",
+      "subject_clean": "packages, packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I added compressed binaries for some more of the BioConductor\npackages. That's in\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0/miscellaneous/Bioconductor\n\nAlso, my message yesterday about\n\nftp://gifi.stat.ucla.edu/pub/R-devel.tar.gz\n\nmight have suggested to some that one needs X11 (or even gnome)\nto run this. In fact, you don't. Just mkdir ~/R-quartz, move yourself \nand the file\nthere in a terminal window, tar zxf R-devel.tar.gz, and start with bin/R,\nand then quartz(). I merely suggested that the quartz device can be\nused together with the X11 device and with the gnome GUI.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "I added compressed binaries for some more of the BioConductor\npackages. That's in\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0/miscellaneous/Bioconductor\n\nAlso, my message yesterday about\n\nftp://gifi.stat.uc",
+      "thread_id": "thread-e56dd325e900",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-839727d5f660",
+      "message_id": "<p05111701b908cb736f75@[192.168.1.100]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "3f67aeb8040dc0cb60e453c86d06ce72b80c5637463e0d8236fb1a24d131e642",
+      "date": "2002-05-16T06:52:00-07:00",
+      "subject": "[R-SIG-Mac]Problem building 1.5.0 from sources",
+      "subject_clean": "Problem building 1.5.0 from sources",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have Jan de Leeuw's build of Darwin R 1.5.0 installed and running \nhappily; thank you very much.\n\nI would also like to be able to build from sources. I do this on a \nSolaris machine at work, but haven't been able to do it on either of \ntwo OS X machines.\n\nI've included a ton of output below, but here's one error message \nfrom the make step that may be a major clue:\n     symbol _tgoto used from dynamic library \n/usr/lib/libm.dylib(tgoto.o) not from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_tgoto.o)\nwhich suggests a version mismatch. /usr/lib/libm.dylib is from the \nDeveloper Tools.\n\nThere are also many error messages of this form:\n\n/usr/bin/ld: warning unused multiple definitions of symbol _matherr\narithmetic.o definition of _matherr in section (__TEXT,__text)\n/usr/lib/libm.dylib(s_matherr.o) unused definition of _matherr\n/usr/bin/ld: warning unused multiple definitions of symbol _regerror\nregex.o definition of _regerror in section (__TEXT,__text)\n/usr/lib/libm.dylib(regerror.o) unused definition of _regerror\n\nWhat am I doing wrong? Or what's wrong with what's installed in my system?\n\nThanks for any suggestions.\n-Don\n\n\nI am inclined to infer that since I previously installed R 1.4.1 from \nfink I already have all extra libraries and whatnot that R needs, \ninstalled from fink. And everything in fink that I believe R uses is \nup to date.\n\nDavid Richmond forwarded a tip from Luke and Stefano that I'm sure \ncleared up some problems. But not all.\n\n\nconfigure command  (I actually tried it first with the LDFLAGS and \nCPPFLAGS supplied in config.site, makes no difference):\n         ../source/configure --prefix=/Users/macq/R/R-1.5.0 \nCPPFLAGS=\"-I/sw/include\" LDFLAGS=\"-L/sw/lib\" \n--with-tcl-config=/sw/lib/tclConfig.sh \n--with-tk-config=/sw/lib/tkConfig.sh > & dhm.config.log\n\nOutput from configure doesn't have any messages that I can recognize \nas indicating trouble.\n(I compared my Makeconf file with David's and there are only trivial \ndifferences; thank you David)\n\nWhat version of the Developer Tools should I have??? I have the \nDecember 2001, which as far as I know is the latest non-beta version.\nShould I have used fink to remove 1.4.1 first?\n\n\nThe output from make starts with this:\n\nmake[1]: Nothing to be done for `R'.\nmake[1]: Nothing to be done for `R'.\nmake[2]: Nothing to be done for `R'.\nmake[1]: Nothing to be done for `R'.\nmkdir -p -- ../share/R\nmkdir -p -- ../share/make\n\n[already, this is puzzling; \"Nothing to be done\" makes no sense when \nnothing has been done yet except configure]\n\nOutput from make looks good for quite a while. Then:\n\ncc -no-cpp-precomp -I. -I../../src/include \n-I../../../source/src/include -I/sw/include -DHAVE_CONFIG_H   -g -O2 \n-c ../../../source/src/main/names.c -o names.o\nIn file included from ../../../source/src/main/names.c:27:\n../../../source/src/include/Defn.h:385: warning: variable `R_FunTab' \nis implicitly extern\n\nand still later\n\ncc -no-cpp-precomp -I. -I../../src/include \n-I../../../source/src/include -I/sw/include -DHAVE_CONFIG_H   -g -O2 \n-c ../../../source/src/main/names.c -o names.o\nIn file included from ../../../source/src/main/names.c:27:\n../../../source/src/include/Defn.h:385: warning: variable `R_FunTab' \nis implicitly extern\n\nThen towards the end a whole slew of bad looking messages:\n\ncc  -L/sw/lib -o R.bin  CConverters.o Rdynload.o RNG.o apply.o \narithmetic.o array.o attrib.o base.o bind.o builtin.o character.o \ncoerce.o colors.o complex.o connections.o context.o cov.o cum.o dcf.o \ndatetime.o debug.o devPS.o devPicTeX.o deparse.o deriv.o devices.o \ndotcode.o dounzip.o dstruct.o duplicate.o engine.o envir.o errors.o \neval.o format.o fourier.o gram.o gram-ex.o graphics.o identical.o \ninternet.o iosupport.o lapack.o list.o logic.o main.o match.o \nmemory.o model.o names.o objects.o optim.o optimize.o options.o par.o \npaste.o platform.o plot.o plot3d.o plotmath.o print.o printarray.o \nprintvector.o printutils.o qsort.o random.o regex.o relop.o \nsaveload.o scan.o seq.o serialize.o size.o sort.o source.o split.o \nsprintf.o subassign.o subscript.o subset.o summary.o unique.o util.o \nversion.o vfonts.o xxxpr.o ../unix/libunix.a ../appl/libappl.a \n../nmath/libnmath.a  -lf77blas -latlas -L/sw/lib -lreadline -ldl \n-lncurses -lm -lg2c -lcc_dynamic -lSystem   -lbz2 -lz -lreadline -ldl \n-lncurses -lm\n/usr/bin/ld: warning multiple definitions of symbol _regcomp\nregex.o definition of _regcomp in section (__TEXT,__text)\n/usr/lib/libm.dylib(regcomp.o) definition of _regcomp\n/usr/bin/ld: warning multiple definitions of symbol _regexec\nregex.o definition of _regexec in section (__TEXT,__text)\n/usr/lib/libm.dylib(regexec.o) definition of _regexec\n/usr/bin/ld: warning multiple definitions of symbol _regfree\nregex.o definition of _regfree in section (__TEXT,__text)\n/usr/lib/libm.dylib(regfree.o) definition of _regfree\n/usr/bin/ld: warning multiple definitions of symbol _UP\n/sw/lib/libreadline.dylib(terminal.so) definition of _UP\n/usr/lib/libm.dylib(curses.o) definition of _UP\n/usr/bin/ld: warning multiple definitions of symbol _PC\n/sw/lib/libreadline.dylib(terminal.so) definition of _PC\n/usr/lib/libm.dylib(curses.o) definition of _PC\n/usr/bin/ld: warning multiple definitions of symbol _BC\n/sw/lib/libreadline.dylib(terminal.so) definition of _BC\n/usr/lib/libm.dylib(curses.o) definition of _BC\n/usr/bin/ld: warning suggest use of -bind_at_load, as lazy binding \nmay result in errors or different symbols being used\nsymbol _tgoto used from dynamic library /usr/lib/libm.dylib(tgoto.o) \nnot from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_tgoto.o)\nsymbol _tputs used from dynamic library /usr/lib/libm.dylib(tputs.o) \nnot from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_tputs.o)\nsymbol _ospeed used from dynamic library /usr/lib/libm.dylib(tputs.o) \nnot from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_tputs.o)\nsymbol _tgetflag used from dynamic library \n/usr/lib/libm.dylib(termcap.o) not from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_termcap.o)\nsymbol _tgetent used from dynamic library \n/usr/lib/libm.dylib(termcap.o) not from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_termcap.o)\nsymbol _tgetnum used from dynamic library \n/usr/lib/libm.dylib(termcap.o) not from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_termcap.o)\nsymbol _tgetstr used from dynamic library \n/usr/lib/libm.dylib(termcap.o) not from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_termcap.o)\nsymbol _curscr used from dynamic library \n/usr/lib/libm.dylib(curses.o) not from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_data.o)\nsymbol _stdscr used from dynamic library \n/usr/lib/libm.dylib(curses.o) not from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_data.o)\nsymbol _COLS used from dynamic library /usr/lib/libm.dylib(curses.o) \nnot from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_setup.o)\nsymbol _LINES used from dynamic library /usr/lib/libm.dylib(curses.o) \nnot from earlier dynamic library \n/sw/lib/libncurses.dylib.5(lib_setup.o)\n/usr/bin/ld: warning unused multiple definitions of symbol _matherr\narithmetic.o definition of _matherr in section (__TEXT,__text)\n/usr/lib/libm.dylib(s_matherr.o) unused definition of _matherr\n/usr/bin/ld: warning unused multiple definitions of symbol _regerror\nregex.o definition of _regerror in section (__TEXT,__text)\n/usr/lib/libm.dylib(regerror.o) unused definition of _regerror\n/usr/bin/ld: warning unused multiple definitions of symbol _signgam\n\"link editor\" definition of _signgam in section (__DATA,__common)\n/usr/lib/libm.dylib(s_signgam.o) unused definition of _signgam\n/usr/bin/ld: warning unused multiple definitions of symbol _BC\n/sw/lib/libreadline.dylib(terminal.so) definition of _BC\n/sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _BC\n/usr/bin/ld: warning unused multiple definitions of symbol _PC\n/sw/lib/libreadline.dylib(terminal.so) definition of _PC\n/sw/lib/libncurses.dylib(lib_tputs.o) unused definition of _PC\n/usr/bin/ld: warning unused multiple definitions of symbol _UP\n/sw/lib/libreadline.dylib(terminal.so) definition of _UP\n/sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _UP\n/usr/bin/ld: warning unused multiple definitions of symbol _tgoto\n/usr/lib/libm.dylib(tgoto.o) definition of _tgoto\n/sw/lib/libncurses.dylib(lib_tgoto.o) unused definition of _tgoto\n/usr/bin/ld: warning unused multiple definitions of symbol _tputs\n/usr/lib/libm.dylib(tputs.o) definition of _tputs\n/sw/lib/libncurses.dylib(lib_tputs.o) unused definition of _tputs\n/usr/bin/ld: warning unused multiple definitions of symbol _ospeed\n/usr/lib/libm.dylib(tputs.o) definition of _ospeed\n/sw/lib/libncurses.dylib(lib_tputs.o) unused definition of _ospeed\n/usr/bin/ld: warning unused multiple definitions of symbol _tgetflag\n/usr/lib/libm.dylib(termcap.o) definition of _tgetflag\n/sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _tgetflag\n/usr/bin/ld: warning unused multiple definitions of symbol _tgetent\n/usr/lib/libm.dylib(termcap.o) definition of _tgetent\n/sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _tgetent\n/usr/bin/ld: warning unused multiple definitions of symbol _tgetnum\n/usr/lib/libm.dylib(termcap.o) definition of _tgetnum\n/sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _tgetnum\n/usr/bin/ld: warning unused multiple definitions of symbol _tgetstr\n/usr/lib/libm.dylib(termcap.o) definition of _tgetstr\n/sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _tgetstr\n/usr/bin/ld: warning unused multiple definitions of symbol _curscr\n/usr/lib/libm.dylib(curses.o) definition of _curscr\n/sw/lib/libncurses.dylib(lib_data.o) unused definition of _curscr\n/usr/bin/ld: warning unused multiple definitions of symbol _stdscr\n/usr/lib/libm.dylib(curses.o) definition of _stdscr\n/sw/lib/libncurses.dylib(lib_data.o) unused definition of _stdscr\n/usr/bin/ld: warning unused multiple definitions of symbol _COLS\n/usr/lib/libm.dylib(curses.o) definition of _COLS\n/sw/lib/libncurses.dylib(lib_setup.o) unused definition of _COLS\n/usr/bin/ld: warning unused multiple definitions of symbol _LINES\n/usr/lib/libm.dylib(curses.o) definition of _LINES\n/sw/lib/libncurses.dylib(lib_setup.o) unused definition of _LINES\n\nand a bit later\n\ncc -bundle -bundle_loader ../../../bin/R.bin -L/sw/lib -o R_X11.so \ndataentry.lo devX11.lo rotated.lo rbitmap.lo  -lSM -lICE \n-L/usr/X11R6/lib -lX11   -ljpeg -lpng -lz  -lbz2 -lz -lreadline -ldl \n-lncurses -lm\n/usr/bin/ld: warning multiple definitions of symbol _regcomp\n../../../bin/R.bin definition of _regcomp\n/usr/lib/libm.dylib(regcomp.o) definition of _regcomp\n\nAnd finally at the end:\n\ncc -no-cpp-precomp -I../../../../include -I/sw/include \n-I/usr/X11R6/include -I/sw/include   -fno-common  -g -O2 -c \n../../../../../source/src/library/tcltk/src/tcltk.c -o tcltk.o\ncc -bundle -bundle_loader ../../../../bin/R.bin  -o tcltk.so tcltk.o \n-L/sw/lib -lm\n/usr/bin/ld: Undefined symbols:\n_TclFreeObj\n_Tcl_CreateCommand\n_Tcl_CreateInterp\n_Tcl_DoOneEvent\n_Tcl_Eval\n_Tcl_GetDoubleFromObj\n_Tcl_GetIntFromObj\n_Tcl_GetObjResult\n_Tcl_GetString\n_Tcl_GetVar2Ex\n_Tcl_Init\n_Tcl_ListObjAppendElement\n_Tcl_ListObjGetElements\n_Tcl_NewDoubleObj\n_Tcl_NewIntObj\n_Tcl_NewObj\n_Tcl_SetResult\n_Tcl_SetStringObj\n_Tcl_SetVar2Ex\n_Tcl_StaticPackage\n_Tk_Init\n_Tk_SafeInit\n/usr/bin/ld: warning unused multiple definitions of symbol _matherr\n../../../../bin/R.bin definition of _matherr\n/usr/lib/libm.dylib(s_matherr.o) unused definition of _matherr\n/usr/bin/ld: warning unused multiple definitions of symbol _regcomp\n../../../../bin/R.bin definition of _regcomp\n/usr/lib/libm.dylib(regcomp.o) unused definition of _regcomp\n/usr/bin/ld: warning unused multiple definitions of symbol _regerror\n../../../../bin/R.bin definition of _regerror\n/usr/lib/libm.dylib(regerror.o) unused definition of _regerror\n/usr/bin/ld: warning unused multiple definitions of symbol _regexec\n../../../../bin/R.bin definition of _regexec\n/usr/lib/libm.dylib(regexec.o) unused definition of _regexec\n/usr/bin/ld: warning unused multiple definitions of symbol _regfree\n../../../../bin/R.bin definition of _regfree\n/usr/lib/libm.dylib(regfree.o) unused definition of _regfree\n/usr/bin/ld: warning unused multiple definitions of symbol _signgam\n../../../../bin/R.bin definition of _signgam\n/usr/lib/libm.dylib(s_signgam.o) unused definition of _signgam\nmake[5]: *** [tcltk.so] Error 1\nmake[4]: *** [all] Error 2\nmake[3]: *** [all] Error 1\nmake[2]: *** [R] Error 1\nmake[1]: *** [R] Error 1\nmake: *** [R] Error 1\n\n-- \n-------------------------\nDon MacQueen\ndmacq@ucscalumni.com\nCalifornia, USA\n-------------------------",
+      "body_snippet": "I have Jan de Leeuw's build of Darwin R 1.5.0 installed and running \nhappily; thank you very much.\n\nI would also like to be able to build from sources. I do this on a \nSolaris machine at work, but hav",
+      "thread_id": "thread-839727d5f660",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-69af050564eb",
+      "message_id": "<p05111701b909749b0a08@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "7d8b6f6b0be33863977585caaf9f22b0178ad0d94c5b6d1dc8ac0b8e71fbe3f1",
+      "date": "2002-05-16T08:00:15-07:00",
+      "subject": "[R-SIG-Mac]packages, packages",
+      "subject_clean": "packages, packages",
+      "in_reply_to": "<D76673A8-6883-11D6-B9F6-000393860F3C@stat.ucla.edu>",
+      "references": [
+        "<D76673A8-6883-11D6-B9F6-000393860F3C@stat.ucla.edu>"
+      ],
+      "body_plain": "Following the instructions for R-quartz (and after editing RHOME in \nbin/R), I get this:\n\nR-quartz[131]% ./bin/R\ndyld: /Users/macq/R/R-quartz/bin/R.bin can't open library: \n/sw/lib/libpcre.0.dylib  (No such file or directory, errno = 2)\n\nI don't know what fink package is responsible for libpcre.0.dylib, though.\nCan someone tell me?\n\nThanks\n-Don\n\nAt 9:17 PM -0700 5/15/02, Jan de Leeuw wrote:\n>I added compressed binaries for some more of the BioConductor\n>packages. That's in\n>\n>ftp://gifi.stat.ucla.edu/pub/R-1.5.0/miscellaneous/Bioconductor\n>\n>Also, my message yesterday about\n>\n>ftp://gifi.stat.ucla.edu/pub/R-devel.tar.gz\n>\n>might have suggested to some that one needs X11 (or even gnome)\n>to run this. In fact, you don't. Just mkdir ~/R-quartz, move \n>yourself and the file\n>there in a terminal window, tar zxf R-devel.tar.gz, and start with bin/R,\n>and then quartz(). I merely suggested that the quartz device can be\n>used together with the X11 device and with the gnome GUI.\n>===\n>Jan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n>US mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\n>phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\n>homepage: http://www.stat.ucla.edu/~deleeuw\n>========================================================\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n>========================================================\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA\n--------------------------------------",
+      "body_snippet": "Following the instructions for R-quartz (and after editing RHOME in \nbin/R), I get this:\n\nR-quartz[131]% ./bin/R\ndyld: /Users/macq/R/R-quartz/bin/R.bin can't open library: \n/sw/lib/libpcre.0.dylib  (N",
+      "thread_id": "thread-e56dd325e900",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-6d8f18d00fa7",
+      "message_id": "<20020516100416.A10089@nokomis.stat.umn.edu>",
+      "from_name": "Luke Tierney",
+      "from_email_hash": "122e02a593d41fa62b6dab459eafee83b77d39d4cd3661f0f888f99aadb07b10",
+      "date": "2002-05-16T10:04:16-05:00",
+      "subject": "[R-SIG-Mac]Problem building 1.5.0 from sources",
+      "subject_clean": "Problem building 1.5.0 from sources",
+      "in_reply_to": "<p05111701b908cb736f75@[192.168.1.100]>; from dmacq@ucscalumni.com on Thu, May 16, 2002 at 06:52:00AM -0700",
+      "references": [
+        "<p05111701b908cb736f75@[192.168.1.100]>"
+      ],
+      "body_plain": "On Thu, May 16, 2002 at 06:52:00AM -0700, Don MacQueen wrote:\n> I have Jan de Leeuw's build of Darwin R 1.5.0 installed and running \n> happily; thank you very much.\n> \n> I would also like to be able to build from sources. I do this on a \n> Solaris machine at work, but haven't been able to do it on either of \n> two OS X machines.\n> \n> I've included a ton of output below, but here's one error message \n> from the make step that may be a major clue:\n>      symbol _tgoto used from dynamic library \n> /usr/lib/libm.dylib(tgoto.o) not from earlier dynamic library \n> /sw/lib/libncurses.dylib.5(lib_tgoto.o)\n> which suggests a version mismatch. /usr/lib/libm.dylib is from the \n> Developer Tools.\n> \n> There are also many error messages of this form:\n> \n\nIt looks to me that the only place you actually fail is at the end in\nbuilding tcltk.  I think this means methods has been built, and as\nthat runs R for dumping methods it should mean that you have a\nfunctioning R at this point.  You might check that.\n\nLook at the second cc line below, the one that creates tcltk.so:\n\n> cc -no-cpp-precomp -I../../../../include -I/sw/include \n> -I/usr/X11R6/include -I/sw/include   -fno-common  -g -O2 -c \n> ../../../../../source/src/library/tcltk/src/tcltk.c -o tcltk.o\n> cc -bundle -bundle_loader ../../../../bin/R.bin  -o tcltk.so tcltk.o \n> -L/sw/lib -lm\n> /usr/bin/ld: Undefined symbols:\n> _TclFreeObj\n> _Tcl_CreateCommand\n> ....\n\nYou can see that it is not linking in the tcl and tk libraries, which\nexplains the unresolved symbols.  What you need to figure out is why\nit is not linking in those libraries.  Looking at the way the make\nfile is constructed it would appear that configure has gotten confused\ninto thinkining you have tcl/tk but at the same time not being able to\nfind the libraries.\n\nI would try starting from scratch with a clean untar of the sources.\nThen try to build without Tcl/TK support and make sure that works.\nThen see if you can configure it to use tcl/tk.  Look carefully at\nwhat configure reports in config.log and see if you can make sense of\nthat.\n\nOn my system, which uses a fairly bleeding edge fink, I have three\ntcltk packages: tcltk, tcltk-dev, and tcltk-shlibs.  The fink folks\nseem to have been rearrranging the way they pack these things\nrecently, so there is a possibility that you have not go al the stuff\nyou need to build with tcltk--you might check that your packages are\nup to date.\n\nOne other point to be aware of on Mac OS X, though it does not seem to\nbe the issue here, is that Mac OS X uses a rather idiosyncratic way of\nmanaging shared libraries.  Some would argue that their mechanism is\nhighly advanced and superior to anything else out there; others might\ngive a less complementary description.  At any rate, there is a slew\nof environment variables that control how dynamic linking works (see\nman dyld).  There is also a fink package, libxpg4 that seems to set\ntwo of these, DYLD_INSERT_LIBRARIES and DYLD_FORCE_FLAT_NAMESPACE.\nUnfortunately R will not run when DYLD_FORCE_FLAT_NAMESPACE is set\nbecause of a variable defined both in libcurses and libreadline.4.2.\nThis may be a transient issue, and may not apply if you are using a\nmore stable version of fink, but the point is: be aware that setting\nof the DYLD_??? variables given in man dyld may affect whether R runs\nor not, so check for these if you have problems.\n\nluke\n\n-- \nLuke Tierney\nUniversity of Minnesota                      Phone:           612-625-7843\nSchool of Statistics                         Fax:             612-624-8868\n313 Ford Hall, 224 Church St. S.E.           email:      luke@stat.umn.edu\nMinneapolis, MN 55455 USA                    WWW:  http://www.stat.umn.edu",
+      "body_snippet": "On Thu, May 16, 2002 at 06:52:00AM -0700, Don MacQueen wrote:\n> I have Jan de Leeuw's build of Darwin R 1.5.0 installed and running \n> happily; thank you very much.\n> \n> I would also like to be able t",
+      "thread_id": "thread-839727d5f660",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-c1feb82017a2",
+      "message_id": "<8DF7B14F-68E0-11D6-9764-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-16T08:21:11-07:00",
+      "subject": "[R-SIG-Mac]Re: Slight problem with R-quartz",
+      "subject_clean": "Slight problem with R-quartz",
+      "in_reply_to": "<p05111700b9097381c812@[128.115.153.6]>",
+      "references": [],
+      "body_plain": "Yes, stupid of me. You need to edit bin/R and replace R_HOME  by\nwhatever works for you.\n\nOn Thursday, May 16, 2002, at 07:33 AM, Don MacQueen wrote:\n\n> Jan, I think something's not quite right!\n>\n> R-quartz[128]% ./bin/R\n> R_HOME (`/Users/deleeuw/MyStuff/Develop/R/R-devel') not found\n>\n> I think I can fix this by editing the R shell script. Will let you know.\n>\n> -Don\n>\n>> I added compressed binaries for some more of the BioConductor\n>> packages. That's in\n>>\n>> ftp://gifi.stat.ucla.edu/pub/R-1.5.0/miscellaneous/Bioconductor\n>>\n>> Also, my message yesterday about\n>>\n>> ftp://gifi.stat.ucla.edu/pub/R-devel.tar.gz\n>>\n>> might have suggested to some that one needs X11 (or even gnome)\n>> to run this. In fact, you don't. Just mkdir ~/R-quartz, move yourself \n>> and the file\n>> there in a terminal window, tar zxf R-devel.tar.gz, and start with \n>> bin/R,\n>> and then quartz(). I merely suggested that the quartz device can be\n>> used together with the X11 device and with the gnome GUI.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> -- --------------------------------------\n> Don MacQueen\n> Environmental Protection Department\n> Lawrence Livermore National Laboratory\n> Livermore, CA, USA\n> --------------------------------------\n>",
+      "body_snippet": "Yes, stupid of me. You need to edit bin/R and replace R_HOME  by\nwhatever works for you.\n\nOn Thursday, May 16, 2002, at 07:33 AM, Don MacQueen wrote:\n\n> Jan, I think something's not quite right!\n>\n> R",
+      "thread_id": "thread-c1feb82017a2",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-3d5dd238679c",
+      "message_id": "<A3250690-68E4-11D6-9764-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-16T08:50:25-07:00",
+      "subject": "[R-SIG-Mac]packages, packages",
+      "subject_clean": "packages, packages",
+      "in_reply_to": "<p05111701b909749b0a08@[128.115.153.6]>",
+      "references": [],
+      "body_plain": "it's pcre, the perl compatible regular expression package\n\nOn Thursday, May 16, 2002, at 08:00 AM, Don MacQueen wrote:\n\n> Following the instructions for R-quartz (and after editing RHOME in \n> bin/R), I get this:\n>\n> R-quartz[131]% ./bin/R\n> dyld: /Users/macq/R/R-quartz/bin/R.bin can't open library: \n> /sw/lib/libpcre.0.dylib  (No such file or directory, errno = 2)\n>\n> I don't know what fink package is responsible for libpcre.0.dylib, \n> though.\n> Can someone tell me?\n>\n> Thanks\n> -Don\n>\n> At 9:17 PM -0700 5/15/02, Jan de Leeuw wrote:\n>> I added compressed binaries for some more of the BioConductor\n>> packages. That's in\n>>\n>> ftp://gifi.stat.ucla.edu/pub/R-1.5.0/miscellaneous/Bioconductor\n>>\n>> Also, my message yesterday about\n>>\n>> ftp://gifi.stat.ucla.edu/pub/R-devel.tar.gz\n>>\n>> might have suggested to some that one needs X11 (or even gnome)\n>> to run this. In fact, you don't. Just mkdir ~/R-quartz, move yourself \n>> and the file\n>> there in a terminal window, tar zxf R-devel.tar.gz, and start with \n>> bin/R,\n>> and then quartz(). I merely suggested that the quartz device can be\n>> used together with the X11 device and with the gnome GUI.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> -- --------------------------------------\n> Don MacQueen\n> Environmental Protection Department\n> Lawrence Livermore National Laboratory\n> Livermore, CA, USA\n> --------------------------------------\n>",
+      "body_snippet": "it's pcre, the perl compatible regular expression package\n\nOn Thursday, May 16, 2002, at 08:00 AM, Don MacQueen wrote:\n\n> Following the instructions for R-quartz (and after editing RHOME in \n> bin/R),",
+      "thread_id": "thread-e56dd325e900",
+      "thread_depth": 2,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-7e80d329bdd5",
+      "message_id": "<4B1E0140-68E5-11D6-9764-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-16T08:55:06-07:00",
+      "subject": "[R-SIG-Mac]Problem building 1.5.0 from sources",
+      "subject_clean": "Problem building 1.5.0 from sources",
+      "in_reply_to": "<p05111701b908cb736f75@[192.168.1.100]>",
+      "references": [],
+      "body_plain": "a. see if libxpg4 is installed by fink. if it is, remove it.\nb. start a new shell\nc. rebuild tcltk from fink, just to be sure\nd. get a fresh R-1.5.0\ne. do a configure/make\n\nthe regular expression  etc warnings are harmless\n\nOn Thursday, May 16, 2002, at 06:52 AM, Don MacQueen wrote:\n\n> I have Jan de Leeuw's build of Darwin R 1.5.0 installed and running \n> happily; thank you very much.\n>\n> I would also like to be able to build from sources. I do this on a \n> Solaris machine at work, but haven't been able to do it on either of \n> two OS X machines.\n>\n> I've included a ton of output below, but here's one error message from \n> the make step that may be a major clue:\n>     symbol _tgoto used from dynamic library \n> /usr/lib/libm.dylib(tgoto.o) not from earlier dynamic library \n> /sw/lib/libncurses.dylib.5(lib_tgoto.o)\n> which suggests a version mismatch. /usr/lib/libm.dylib is from the \n> Developer Tools.\n>\n> There are also many error messages of this form:\n>\n> /usr/bin/ld: warning unused multiple definitions of symbol _matherr\n> arithmetic.o definition of _matherr in section (__TEXT,__text)\n> /usr/lib/libm.dylib(s_matherr.o) unused definition of _matherr\n> /usr/bin/ld: warning unused multiple definitions of symbol _regerror\n> regex.o definition of _regerror in section (__TEXT,__text)\n> /usr/lib/libm.dylib(regerror.o) unused definition of _regerror\n>\n> What am I doing wrong? Or what's wrong with what's installed in my \n> system?\n>\n> Thanks for any suggestions.\n> -Don\n>\n>\n> I am inclined to infer that since I previously installed R 1.4.1 from \n> fink I already have all extra libraries and whatnot that R needs, \n> installed from fink. And everything in fink that I believe R uses is up \n> to date.\n>\n> David Richmond forwarded a tip from Luke and Stefano that I'm sure \n> cleared up some problems. But not all.\n>\n>\n> configure command  (I actually tried it first with the LDFLAGS and \n> CPPFLAGS supplied in config.site, makes no difference):\n>         ../source/configure --prefix=/Users/macq/R/R-1.5.0 \n> CPPFLAGS=\"-I/sw/include\" LDFLAGS=\"-L/sw/lib\" --with-tcl-\n> config=/sw/lib/tclConfig.sh --with-tk-config=/sw/lib/tkConfig.sh > & \n> dhm.config.log\n>\n> Output from configure doesn't have any messages that I can recognize as \n> indicating trouble.\n> (I compared my Makeconf file with David's and there are only trivial \n> differences; thank you David)\n>\n> What version of the Developer Tools should I have??? I have the \n> December 2001, which as far as I know is the latest non-beta version.\n> Should I have used fink to remove 1.4.1 first?\n>\n>\n> The output from make starts with this:\n>\n> make[1]: Nothing to be done for `R'.\n> make[1]: Nothing to be done for `R'.\n> make[2]: Nothing to be done for `R'.\n> make[1]: Nothing to be done for `R'.\n> mkdir -p -- ../share/R\n> mkdir -p -- ../share/make\n>\n> [already, this is puzzling; \"Nothing to be done\" makes no sense when \n> nothing has been done yet except configure]\n>\n> Output from make looks good for quite a while. Then:\n>\n> cc -no-cpp-precomp -I. -I../../src/include \n> -I../../../source/src/include -I/sw/include -DHAVE_CONFIG_H   -g -O2 -c \n> ../../../source/src/main/names.c -o names.o\n> In file included from ../../../source/src/main/names.c:27:\n> ../../../source/src/include/Defn.h:385: warning: variable `R_FunTab' is \n> implicitly extern\n>\n> and still later\n>\n> cc -no-cpp-precomp -I. -I../../src/include \n> -I../../../source/src/include -I/sw/include -DHAVE_CONFIG_H   -g -O2 -c \n> ../../../source/src/main/names.c -o names.o\n> In file included from ../../../source/src/main/names.c:27:\n> ../../../source/src/include/Defn.h:385: warning: variable `R_FunTab' is \n> implicitly extern\n>\n> Then towards the end a whole slew of bad looking messages:\n>\n> cc  -L/sw/lib -o R.bin  CConverters.o Rdynload.o RNG.o apply.o \n> arithmetic.o array.o attrib.o base.o bind.o builtin.o character.o \n> coerce.o colors.o complex.o connections.o context.o cov.o cum.o dcf.o \n> datetime.o debug.o devPS.o devPicTeX.o deparse.o deriv.o devices.o \n> dotcode.o dounzip.o dstruct.o duplicate.o engine.o envir.o errors.o \n> eval.o format.o fourier.o gram.o gram-ex.o graphics.o identical.o \n> internet.o iosupport.o lapack.o list.o logic.o main.o match.o memory.o \n> model.o names.o objects.o optim.o optimize.o options.o par.o paste.o \n> platform.o plot.o plot3d.o plotmath.o print.o printarray.o \n> printvector.o printutils.o qsort.o random.o regex.o relop.o saveload.o \n> scan.o seq.o serialize.o size.o sort.o source.o split.o sprintf.o \n> subassign.o subscript.o subset.o summary.o unique.o util.o version.o \n> vfonts.o xxxpr.o ../unix/libunix.a ../appl/libappl.a \n> ../nmath/libnmath.a  -lf77blas -latlas -L/sw/lib -lreadline -ldl \n> -lncurses -lm -lg2c -lcc_dynamic -lSystem   -lbz2 -lz -lreadline -ldl \n> -lncurses -lm\n> /usr/bin/ld: warning multiple definitions of symbol _regcomp\n> regex.o definition of _regcomp in section (__TEXT,__text)\n> /usr/lib/libm.dylib(regcomp.o) definition of _regcomp\n> /usr/bin/ld: warning multiple definitions of symbol _regexec\n> regex.o definition of _regexec in section (__TEXT,__text)\n> /usr/lib/libm.dylib(regexec.o) definition of _regexec\n> /usr/bin/ld: warning multiple definitions of symbol _regfree\n> regex.o definition of _regfree in section (__TEXT,__text)\n> /usr/lib/libm.dylib(regfree.o) definition of _regfree\n> /usr/bin/ld: warning multiple definitions of symbol _UP\n> /sw/lib/libreadline.dylib(terminal.so) definition of _UP\n> /usr/lib/libm.dylib(curses.o) definition of _UP\n> /usr/bin/ld: warning multiple definitions of symbol _PC\n> /sw/lib/libreadline.dylib(terminal.so) definition of _PC\n> /usr/lib/libm.dylib(curses.o) definition of _PC\n> /usr/bin/ld: warning multiple definitions of symbol _BC\n> /sw/lib/libreadline.dylib(terminal.so) definition of _BC\n> /usr/lib/libm.dylib(curses.o) definition of _BC\n> /usr/bin/ld: warning suggest use of -bind_at_load, as lazy binding may \n> result in errors or different symbols being used\n> symbol _tgoto used from dynamic library /usr/lib/libm.dylib(tgoto.o) \n> not from earlier dynamic library /sw/lib/libncurses.dylib.5(lib_tgoto.o)\n> symbol _tputs used from dynamic library /usr/lib/libm.dylib(tputs.o) \n> not from earlier dynamic library /sw/lib/libncurses.dylib.5(lib_tputs.o)\n> symbol _ospeed used from dynamic library /usr/lib/libm.dylib(tputs.o) \n> not from earlier dynamic library /sw/lib/libncurses.dylib.5(lib_tputs.o)\n> symbol _tgetflag used from dynamic library \n> /usr/lib/libm.dylib(termcap.o) not from earlier dynamic library \n> /sw/lib/libncurses.dylib.5(lib_termcap.o)\n> symbol _tgetent used from dynamic library \n> /usr/lib/libm.dylib(termcap.o) not from earlier dynamic library \n> /sw/lib/libncurses.dylib.5(lib_termcap.o)\n> symbol _tgetnum used from dynamic library \n> /usr/lib/libm.dylib(termcap.o) not from earlier dynamic library \n> /sw/lib/libncurses.dylib.5(lib_termcap.o)\n> symbol _tgetstr used from dynamic library \n> /usr/lib/libm.dylib(termcap.o) not from earlier dynamic library \n> /sw/lib/libncurses.dylib.5(lib_termcap.o)\n> symbol _curscr used from dynamic library /usr/lib/libm.dylib(curses.o) \n> not from earlier dynamic library /sw/lib/libncurses.dylib.5(lib_data.o)\n> symbol _stdscr used from dynamic library /usr/lib/libm.dylib(curses.o) \n> not from earlier dynamic library /sw/lib/libncurses.dylib.5(lib_data.o)\n> symbol _COLS used from dynamic library /usr/lib/libm.dylib(curses.o) \n> not from earlier dynamic library /sw/lib/libncurses.dylib.5(lib_setup.o)\n> symbol _LINES used from dynamic library /usr/lib/libm.dylib(curses.o) \n> not from earlier dynamic library /sw/lib/libncurses.dylib.5(lib_setup.o)\n> /usr/bin/ld: warning unused multiple definitions of symbol _matherr\n> arithmetic.o definition of _matherr in section (__TEXT,__text)\n> /usr/lib/libm.dylib(s_matherr.o) unused definition of _matherr\n> /usr/bin/ld: warning unused multiple definitions of symbol _regerror\n> regex.o definition of _regerror in section (__TEXT,__text)\n> /usr/lib/libm.dylib(regerror.o) unused definition of _regerror\n> /usr/bin/ld: warning unused multiple definitions of symbol _signgam\n> \"link editor\" definition of _signgam in section (__DATA,__common)\n> /usr/lib/libm.dylib(s_signgam.o) unused definition of _signgam\n> /usr/bin/ld: warning unused multiple definitions of symbol _BC\n> /sw/lib/libreadline.dylib(terminal.so) definition of _BC\n> /sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _BC\n> /usr/bin/ld: warning unused multiple definitions of symbol _PC\n> /sw/lib/libreadline.dylib(terminal.so) definition of _PC\n> /sw/lib/libncurses.dylib(lib_tputs.o) unused definition of _PC\n> /usr/bin/ld: warning unused multiple definitions of symbol _UP\n> /sw/lib/libreadline.dylib(terminal.so) definition of _UP\n> /sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _UP\n> /usr/bin/ld: warning unused multiple definitions of symbol _tgoto\n> /usr/lib/libm.dylib(tgoto.o) definition of _tgoto\n> /sw/lib/libncurses.dylib(lib_tgoto.o) unused definition of _tgoto\n> /usr/bin/ld: warning unused multiple definitions of symbol _tputs\n> /usr/lib/libm.dylib(tputs.o) definition of _tputs\n> /sw/lib/libncurses.dylib(lib_tputs.o) unused definition of _tputs\n> /usr/bin/ld: warning unused multiple definitions of symbol _ospeed\n> /usr/lib/libm.dylib(tputs.o) definition of _ospeed\n> /sw/lib/libncurses.dylib(lib_tputs.o) unused definition of _ospeed\n> /usr/bin/ld: warning unused multiple definitions of symbol _tgetflag\n> /usr/lib/libm.dylib(termcap.o) definition of _tgetflag\n> /sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _tgetflag\n> /usr/bin/ld: warning unused multiple definitions of symbol _tgetent\n> /usr/lib/libm.dylib(termcap.o) definition of _tgetent\n> /sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _tgetent\n> /usr/bin/ld: warning unused multiple definitions of symbol _tgetnum\n> /usr/lib/libm.dylib(termcap.o) definition of _tgetnum\n> /sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _tgetnum\n> /usr/bin/ld: warning unused multiple definitions of symbol _tgetstr\n> /usr/lib/libm.dylib(termcap.o) definition of _tgetstr\n> /sw/lib/libncurses.dylib(lib_termcap.o) unused definition of _tgetstr\n> /usr/bin/ld: warning unused multiple definitions of symbol _curscr\n> /usr/lib/libm.dylib(curses.o) definition of _curscr\n> /sw/lib/libncurses.dylib(lib_data.o) unused definition of _curscr\n> /usr/bin/ld: warning unused multiple definitions of symbol _stdscr\n> /usr/lib/libm.dylib(curses.o) definition of _stdscr\n> /sw/lib/libncurses.dylib(lib_data.o) unused definition of _stdscr\n> /usr/bin/ld: warning unused multiple definitions of symbol _COLS\n> /usr/lib/libm.dylib(curses.o) definition of _COLS\n> /sw/lib/libncurses.dylib(lib_setup.o) unused definition of _COLS\n> /usr/bin/ld: warning unused multiple definitions of symbol _LINES\n> /usr/lib/libm.dylib(curses.o) definition of _LINES\n> /sw/lib/libncurses.dylib(lib_setup.o) unused definition of _LINES\n>\n> and a bit later\n>\n> cc -bundle -bundle_loader ../../../bin/R.bin -L/sw/lib -o R_X11.so \n> dataentry.lo devX11.lo rotated.lo rbitmap.lo  -lSM -lICE \n> -L/usr/X11R6/lib -lX11   -ljpeg -lpng -lz  -lbz2 -lz -lreadline -ldl \n> -lncurses -lm\n> /usr/bin/ld: warning multiple definitions of symbol _regcomp\n> ../../../bin/R.bin definition of _regcomp\n> /usr/lib/libm.dylib(regcomp.o) definition of _regcomp\n>\n> And finally at the end:\n>\n> cc -no-cpp-precomp -I../../../../include -I/sw/include \n> -I/usr/X11R6/include -I/sw/include   -fno-common  -g -O2 -c \n> ../../../../../source/src/library/tcltk/src/tcltk.c -o tcltk.o\n> cc -bundle -bundle_loader ../../../../bin/R.bin  -o tcltk.so tcltk.o \n> -L/sw/lib -lm\n> /usr/bin/ld: Undefined symbols:\n> _TclFreeObj\n> _Tcl_CreateCommand\n> _Tcl_CreateInterp\n> _Tcl_DoOneEvent\n> _Tcl_Eval\n> _Tcl_GetDoubleFromObj\n> _Tcl_GetIntFromObj\n> _Tcl_GetObjResult\n> _Tcl_GetString\n> _Tcl_GetVar2Ex\n> _Tcl_Init\n> _Tcl_ListObjAppendElement\n> _Tcl_ListObjGetElements\n> _Tcl_NewDoubleObj\n> _Tcl_NewIntObj\n> _Tcl_NewObj\n> _Tcl_SetResult\n> _Tcl_SetStringObj\n> _Tcl_SetVar2Ex\n> _Tcl_StaticPackage\n> _Tk_Init\n> _Tk_SafeInit\n> /usr/bin/ld: warning unused multiple definitions of symbol _matherr\n> ./../../../bin/R.bin definition of _matherr\n> /usr/lib/libm.dylib(s_matherr.o) unused definition of _matherr\n> /usr/bin/ld: warning unused multiple definitions of symbol _regcomp\n> ../../../../bin/R.bin definition of _regcomp\n> /usr/lib/libm.dylib(regcomp.o) unused definition of _regcomp\n> /usr/bin/ld: warning unused multiple definitions of symbol _regerror\n> ../../../../bin/R.bin definition of _regerror\n> /usr/lib/libm.dylib(regerror.o) unused definition of _regerror\n> /usr/bin/ld: warning unused multiple definitions of symbol _regexec\n> ../../../../bin/R.bin definition of _regexec\n> /usr/lib/libm.dylib(regexec.o) unused definition of _regexec\n> /usr/bin/ld: warning unused multiple definitions of symbol _regfree\n> ../../../../bin/R.bin definition of _regfree\n> /usr/lib/libm.dylib(regfree.o) unused definition of _regfree\n> /usr/bin/ld: warning unused multiple definitions of symbol _signgam\n> ../../../../bin/R.bin definition of _signgam\n> /usr/lib/libm.dylib(s_signgam.o) unused definition of _signgam\n> make[5]: *** [tcltk.so] Error 1\n> make[4]: *** [all] Error 2\n> make[3]: *** [all] Error 1\n> make[2]: *** [R] Error 1\n> make[1]: *** [R] Error 1\n> make: *** [R] Error 1\n>\n> -- -------------------------\n> Don MacQueen\n> dmacq@ucscalumni.com\n> California, USA\n> -------------------------\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "a. see if libxpg4 is installed by fink. if it is, remove it.\nb. start a new shell\nc. rebuild tcltk from fink, just to be sure\nd. get a fresh R-1.5.0\ne. do a configure/make\n\nthe regular expression  etc",
+      "thread_id": "thread-839727d5f660",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-3a2c4e815496",
+      "message_id": "<p05111707b909bd7c1eb8@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "7d8b6f6b0be33863977585caaf9f22b0178ad0d94c5b6d1dc8ac0b8e71fbe3f1",
+      "date": "2002-05-16T14:00:38-07:00",
+      "subject": "[R-SIG-Mac]Problem building 1.5.0 from sources",
+      "subject_clean": "Problem building 1.5.0 from sources",
+      "in_reply_to": "<20020516100416.A10089@nokomis.stat.umn.edu>",
+      "references": [
+        "<p05111701b908cb736f75@[192.168.1.100]>",
+        "<20020516100416.A10089@nokomis.stat.umn.edu>"
+      ],
+      "body_plain": "I'm not having much success here. Well, some.\n\nAs Luke suggested, building without tcltk is successful.\n\nBut I can't get tcltk support.\n\nI have run fink selfupdate, and updated tcltk from fink:\n\nlib[171]% fink list | grep tcl\n     blt             2.4y-1      Toolkit for tcl/tk\n  i  tcltk           8.3.3-6     Tcl (Tool Command Language, pronounced tick...\n\nMy \"fink list\" doesn't show tcltk-shlibs. Is it neccesary? Is it in unstable?\n\n\nHere are more details. The bottom line is, I've tried a variety of \nconfiguration options, described below, but none have worked.\n\nPerhaps someone could send me a copy of config.log from a successful \nbuild with tcltk support?\n\nThanks\n-Don\n\nIn config.site I have\n\n    CPPFLAGS='-I/sw/include'\n    LDFLAGS='-L/sw/lib'\nand\n    TCLTK_LIBS='-L/sw/lib'\n    TCLTK_CPPFLAGS='-I/sw/include'\n\nIn  /sw/lib there is plenty of tcl/tk stuff\n\nlib[175]% pwd\n/sw/lib\nlib[176]% ls *tcl*\nlibtcl.dylib@     libtclstub.a@    tclConfig.sh\nlibtcl8.3.dylib*  libtclstub8.3.a\n\ntcl:\n./         history.tcl  ldAix       package.tcl   tclIndex\n../        http1.0/     ldAout.tcl  parray.tcl    tcltest1.0/\nauto.tcl   http2.3/     msgcat1.1/  safe.tcl      word.tcl\nencoding/  init.tcl     opt0.4/     tclAppInit.c\n\ntcl8.3:\n/         history.tcl  ldAix       package.tcl   tclIndex\n../        http1.0/     ldAout.tcl  parray.tcl    tcltest1.0/\nauto.tcl   http2.3/     msgcat1.1/  safe.tcl      word.tcl\nencoding/  init.tcl     opt0.4/     tclAppInit.c\n\nI have tried it with and without these two configure options:\n    --with-tcl-config=/sw/lib/tclConfig.sh\n    --with-tk-config=/sw/lib/tkConfig.sh\n\nSomething that doesn't look right is this, from config.log\n   ac_cv_env_TCLTK_CPPFLAGS_set=''\n   ac_cv_env_TCLTK_CPPFLAGS_value=''\n   ac_cv_env_TCLTK_LIBS_set=''\n   ac_cv_env_TCLTK_LIBS_value=''\ndespite having set them in config.site. Adding them to the configure \ncommand line changes those lines in config.log, but make still \ndoesn't succeed.\n\n\nError messages in the output from make, like before, start with\ncc -no-cpp-precomp -I../../../../include -I/sw/include \n-I/usr/X11R6/include -I/sw/include   -fno-common  -g -O2 -c \n../../../../../source/src/library/tcltk/src/tcltk.c -o tcltk.o\ncc -bundle -bundle_loader ../../../../bin/R.bin  -o tcltk.so tcltk.o \n-L/sw/lib -lm\n/usr/bin/ld: Undefined symbols:\n_TclFreeObj\n_Tcl_CreateCommand\n_Tcl_CreateInterp\n\n\nLooking for some of the undefined symbols, they seem to be there, \nthough I don't know what the \"T\" and \"U\" codes indicate.\n\nlib[177]% nm libtcl.dylib | grep Tcl_CreateC\n0000d5a8 T _Tcl_CreateCommand\n00036500 T _Tcl_CreateChannel\n0003ad80 T _Tcl_CreateChannelHandler\n00035e5c T _Tcl_CreateCloseHandler\n          U _Tcl_CreateCloseHandler\n          U _Tcl_CreateCommand\n          U _Tcl_CreateChannel\n          U _Tcl_CreateChannelHandler\n          U _Tcl_CreateCloseHandler\n          U _Tcl_CreateCommand\n          U _Tcl_CreateChannel\n          U _Tcl_CreateChannel\n\n\nlib[178]% nm libtcl.dylib | grep Tcl_CreateI\n0000c840 T _Tcl_CreateInterp\n          U _Tcl_CreateInterp\n          U _Tcl_CreateInterp\n          U _Tcl_CreateInterp\n\n\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA\n--------------------------------------",
+      "body_snippet": "I'm not having much success here. Well, some.\n\nAs Luke suggested, building without tcltk is successful.\n\nBut I can't get tcltk support.\n\nI have run fink selfupdate, and updated tcltk from fink:\n\nlib[1",
+      "thread_id": "thread-839727d5f660",
+      "thread_depth": 2,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-b03ecdcdad21",
+      "message_id": "<Pine.SGI.4.44.0205161501090.554645-100000@rgmiller.Stanford.EDU>",
+      "from_name": "Susan Holmes",
+      "from_email_hash": "95b1823dde756fbb51a6e69816961de922020d2ba87ca0bfd8ec5ec687214acb",
+      "date": "2002-05-16T15:03:28-07:00",
+      "subject": "[R-SIG-Mac]libs",
+      "subject_clean": "libs",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I tried the install but I am missing the new\nreadline library, I then tried to update\nusing fink, and all hell has broken loose\nsince then, since the version of\nfink I have doesn't self-update....\nand so on\n(let's  not talk about it-)\nHowever Jan,\nIf you could be so good\nas to deposit the readline dylibs in the dylibs\nrepository, this might help me start working\nagain and stop fooling with fink.\nThanks\nSusan",
+      "body_snippet": "I tried the install but I am missing the new\nreadline library, I then tried to update\nusing fink, and all hell has broken loose\nsince then, since the version of\nfink I have doesn't self-update....\nand",
+      "thread_id": "thread-b03ecdcdad21",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-79eb76895341",
+      "message_id": "<3EBE98FE-6930-11D6-BEA7-00039364CC92@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-16T17:51:38-07:00",
+      "subject": "[R-SIG-Mac]libs",
+      "subject_clean": "libs",
+      "in_reply_to": "<Pine.SGI.4.44.0205161501090.554645-100000@rgmiller.Stanford.EDU>",
+      "references": [],
+      "body_plain": "I will construct a new dylibs directory on\n\nftp://gifi.stat.ucla.edu/pub\n\n--- Jan\nOn Thursday, May 16, 2002, at 03:03 PM, Susan Holmes wrote:\n\n>\n> I tried the install but I am missing the new\n> readline library, I then tried to update\n> using fink, and all hell has broken loose\n> since then, since the version of\n> fink I have doesn't self-update....\n> and so on\n> (let's  not talk about it-)\n> However Jan,\n> If you could be so good\n> as to deposit the readline dylibs in the dylibs\n> repository, this might help me start working\n> again and stop fooling with fink.\n> Thanks\n> Susan\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "I will construct a new dylibs directory on\n\nftp://gifi.stat.ucla.edu/pub\n\n--- Jan\nOn Thursday, May 16, 2002, at 03:03 PM, Susan Holmes wrote:\n\n>\n> I tried the install but I am missing the new\n> readli",
+      "thread_id": "thread-b03ecdcdad21",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-34b7b2ef0362",
+      "message_id": "<904D233D-6942-11D6-BB5A-00039364CC92@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-16T20:02:46-07:00",
+      "subject": "[R-SIG-Mac]R on Jaguar",
+      "subject_clean": "R on Jaguar",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Just for the fun of it I compiled R-1,5,0 and R-devel with the Quartz\ndevice on Jaguar (i.e. Mac OS X 10.2), linking cc and gcc to gcc2.\nR-1.5.0 works fine, but devQuartz.c no longer compiles because\nfenv.h is no longer there. Stefano, what did you need from fenv.h ?\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Just for the fun of it I compiled R-1,5,0 and R-devel with the Quartz\ndevice on Jaguar (i.e. Mac OS X 10.2), linking cc and gcc to gcc2.\nR-1.5.0 works fine, but devQuartz.c no longer compiles because\n",
+      "thread_id": "thread-34b7b2ef0362",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-812b01d020de",
+      "message_id": "<1.0.2.200205171125.19824@mclink.it>",
+      "from_name": "Stefano Iacus",
+      "from_email_hash": "a44f40f4da4a23572b3afed5307ecf3b83797490eff2aaa39f93b3cc535a4fe4",
+      "date": "2002-05-17T11:27:02+02:00",
+      "subject": "[R-SIG-Mac]R on Jaguar",
+      "subject_clean": "R on Jaguar",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "> ==========================\n> Date: Thu, 16 May 2002 20:02:46 -0700\n> From: Jan de Leeuw <deleeuw@stat.ucla.edu>\n> To: r-sig-mac@stat.math.ethz.ch\n> Cc: statcompute@gamma.stat.ucla.edu\n> Subject: [R-SIG-Mac]R on Jaguar\n> ==========================\n> \n> Just for the fun of it I compiled R-1,5,0 and R-devel with the \n> Quartz\n> device on Jaguar (i.e. Mac OS X 10.2), linking cc and gcc to \n> gcc2.\n> R-1.5.0 works fine, but devQuartz.c no longer compiles because\n> fenv.h is no longer there. Stefano, what did you need from fenv.h \n> ?\n\nnothing! Where do I include it ?\n\nstefano\n\n> ===\n> Jan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n> US mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\n> homepage: http://www.stat.ucla.edu/~deleeuw\n> ========================================================\n>            No matter where you go, there you are. --- Buckaroo \n> Banzai\n>                     http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n> ========================================================\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "> ==========================\n> Date: Thu, 16 May 2002 20:02:46 -0700\n> From: Jan de Leeuw <deleeuw@stat.ucla.edu>\n> To: r-sig-mac@stat.math.ethz.ch\n> Cc: statcompute@gamma.stat.ucla.edu\n> Subject: [R-",
+      "thread_id": "thread-812b01d020de",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-eedd858439d7",
+      "message_id": "<7B608116-6C0F-11D6-B48B-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-20T09:34:40-07:00",
+      "subject": "[R-SIG-Mac]packages,packages",
+      "subject_clean": "packages,packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Updated the binaries of Frank Harrells Hmisc and Design packages.\n\nUpdated the binaries for spatstat, e1071, ipred, lattice, RMySQL,\nbootstrap.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Updated the binaries of Frank Harrells Hmisc and Design packages.\n\nUpdated the binaries for spatstat, e1071, ipred, lattice, RMySQL,\nbootstrap.\n===\nJan de Leeuw; Professor and Chair, UCLA Department o",
+      "thread_id": "thread-eedd858439d7",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-71edfced6ff0",
+      "message_id": "<D8EDA09E-6EA9-11D6-9F03-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-23T17:04:42-07:00",
+      "subject": "[R-SIG-Mac]packages,packages",
+      "subject_clean": "packages,packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "ftp://gifi.stat.ucla.edu/pub/R-1.5.0/recommended\n\nupdates for mgcv and survival\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0/contributed\n\nupdates and new packages:\n\nPTAk\nbrlr\nDBI\nodesolve\nwaveslim\nsgeostat\nXML\nstrucchange\nacepack\nbqtl\nexactRankTests\ngee\nmaxstat\nRandomFields\n\nI have also compiled a version of R-devel with (a) Quartz, (b) libR.dylib, and (c)\nsupport for atlas. This will be uploaded later today to\n\nftp://gifi.stat.ucla.edu/pub/",
+      "body_snippet": "ftp://gifi.stat.ucla.edu/pub/R-1.5.0/recommended\n\nupdates for mgcv and survival\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0/contributed\n\nupdates and new packages:\n\nPTAk\nbrlr\nDBI\nodesolve\nwaveslim\nsgeostat\nX",
+      "thread_id": "thread-71edfced6ff0",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-42f8f26a5170",
+      "message_id": "<BBE09605-6F57-11D6-AA19-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-24T13:49:25-07:00",
+      "subject": "[R-SIG-Mac]R-devel.tar.gz",
+      "subject_clean": "R-devel.tar.gz",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "--Apple-Mail-3-1016492950\nContent-Transfer-Encoding: 7bit\nContent-Type: text/plain;\n\tcharset=US-ASCII;\n\tformat=flowed\n\nThis file has now arrived at ftp://gifi.stat.ucla.edu/pub. It has\nsupport for the Quartz device, it has libR.dylib, gnome-support,\nand it uses atlas. Unpack in /usr/local/lib/R, edit bin/R\nappropriately and copy it to /usr/local/bin.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================\n\n--Apple-Mail-3-1016492950\nContent-Transfer-Encoding: 7bit\nContent-Type: text/enriched;\n\tcharset=US-ASCII\n\nThis file has now arrived at ftp://gifi.stat.ucla.edu/pub. It has\n\nsupport for the Quartz device, it has libR.dylib, gnome-support,\n\nand it uses atlas. Unpack in /usr/local/lib/R, edit bin/R\n\nappropriately and copy it to /usr/local/bin.\n\n<color><param>0000,6363,1212</param>===\n\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\n\nphone (310)-825-9550;  fax (310)-206-5658;  email:\ndeleeuw@stat.ucla.edu\n\nhomepage:\n</color><underline><color><param>1A1A,1A1A,FFFF</param>http://www.stat.ucla.edu/~deleeuw</color></underline><color><param>0000,6363,1212</param>\n\n========================================================\n\n          No matter where you go, there you are. --- Buckaroo Banzai\n\n                  \n</color><underline><color><param>1A1A,1A1A,FFFF</param>http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au</color></underline><color><param>0000,6363,1212</param>\n\n========================================================\n\n</color>\n--Apple-Mail-3-1016492950--",
+      "body_snippet": "--Apple-Mail-3-1016492950\nContent-Transfer-Encoding: 7bit\nContent-Type: text/plain;\n\tcharset=US-ASCII;\n\tformat=flowed\n\nThis file has now arrived at ftp://gifi.stat.ucla.edu/pub. It has\nsupport for the",
+      "thread_id": "thread-42f8f26a5170",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-2991a1c88714",
+      "message_id": "<Pine.SGI.4.44.0205272137350.878797-100000@rgmiller.Stanford.EDU>",
+      "from_name": "Susan Holmes",
+      "from_email_hash": "95b1823dde756fbb51a6e69816961de922020d2ba87ca0bfd8ec5ec687214acb",
+      "date": "2002-05-27T21:41:12-07:00",
+      "subject": "[R-SIG-Mac]packages,packages",
+      "subject_clean": "packages,packages",
+      "in_reply_to": "<D8EDA09E-6EA9-11D6-9F03-000393860F3C@stat.ucla.edu>",
+      "references": [],
+      "body_plain": "Jan,\nI dowloaded the new R-devel for Mac,\nI finally updating my readline and prc packages,\nand R actually boots (almost...then crashes because\nnow I am having a problem with the _strptime\nvariable missing)\n\ndyld: /Users/susan/R/R-devel/bin/R.bin Undefined symbols:\n/Users/susan/R/R-devel/bin/R.bin undefined reference to _strptime expected\nto be defined in /usr/lib/libSystem.B.dylib\n\n\n: anyone know what I haven't\ninstalled that I should have?\nThanks\nSusan\n\n\nOn Thu, 23 May 2002, Jan de Leeuw wrote:\n\n> ftp://gifi.stat.ucla.edu/pub/R-1.5.0/recommended\n>\n> updates for mgcv and survival\n>\n> ftp://gifi.stat.ucla.edu/pub/R-1.5.0/contributed\n>\n> updates and new packages:\n>\n> I have also compiled a version of R-devel with (a) Quartz, (b) libR.dylib, and (c)\n> support for atlas. This will be uploaded later today to\n>\n> ftp://gifi.stat.ucla.edu/pub/\n>\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Jan,\nI dowloaded the new R-devel for Mac,\nI finally updating my readline and prc packages,\nand R actually boots (almost...then crashes because\nnow I am having a problem with the _strptime\nvariable mis",
+      "thread_id": "thread-71edfced6ff0",
+      "thread_depth": 1,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-f7c8ed8d6186",
+      "message_id": "<14F3691E-71FE-11D6-A8D3-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-27T22:45:14-07:00",
+      "subject": "[R-SIG-Mac]packages,packages",
+      "subject_clean": "packages,packages",
+      "in_reply_to": "<Pine.SGI.4.44.0205272137350.878797-100000@rgmiller.Stanford.EDU>",
+      "references": [],
+      "body_plain": "--Apple-Mail-9--839642473\nContent-Transfer-Encoding: 7bit\nContent-Type: text/plain;\n\tcharset=US-ASCII;\n\tformat=flowed\n\nSusan\n\nI guess I know what's wrong. This version was compiled on\nJaguar (OS X 10.2), which has strptime in libSystem, but\n10.1.x probably hasn't.\n\nI'll do something about this.\n\n-- Jan\n\nOn Monday, May 27, 2002, at 09:41 PM, Susan Holmes wrote:\n\n>\n> Jan,\n> I dowloaded the new R-devel for Mac,\n> I finally updating my readline and prc packages,\n> and R actually boots (almost...then crashes because\n> now I am having a problem with the _strptime\n> variable missing)\n>\n> dyld: /Users/susan/R/R-devel/bin/R.bin Undefined symbols:\n> /Users/susan/R/R-devel/bin/R.bin undefined reference to _strptime expected\n> to be defined in /usr/lib/libSystem.B.dylib\n>\n>\n> : anyone know what I haven't\n> installed that I should have?\n> Thanks\n> Susan\n>\n>\n> On Thu, 23 May 2002, Jan de Leeuw wrote:\n>\n>> ftp://gifi.stat.ucla.edu/pub/R-1.5.0/recommended\n>>\n>> updates for mgcv and survival\n>>\n>> ftp://gifi.stat.ucla.edu/pub/R-1.5.0/contributed\n>>\n>> updates and new packages:\n>>\n>> I have also compiled a version of R-devel with (a) Quartz, (b) libR.dylib, and (c)\n>> support for atlas. This will be uploaded later today to\n>>\n>> ftp://gifi.stat.ucla.edu/pub/\n>>\n>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> http://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================\n\n\n--Apple-Mail-9--839642473\nContent-Transfer-Encoding: 7bit\nContent-Type: text/enriched;\n\tcharset=US-ASCII\n\nSusan\n\n\nI guess I know what's wrong. This version was compiled on\n\nJaguar (OS X 10.2), which has strptime in libSystem, but\n\n10.1.x probably hasn't.\n\n\nI'll do something about this.\n\n\n-- Jan\n\n\nOn Monday, May 27, 2002, at 09:41 PM, Susan Holmes wrote:\n\n\n<excerpt>\n\nJan,\n\nI dowloaded the new R-devel for Mac,\n\nI finally updating my readline and prc packages,\n\nand R actually boots (almost...then crashes because\n\nnow I am having a problem with the _strptime\n\nvariable missing)\n\n\ndyld: /Users/susan/R/R-devel/bin/R.bin Undefined symbols:\n\n/Users/susan/R/R-devel/bin/R.bin undefined reference to _strptime\nexpected\n\nto be defined in /usr/lib/libSystem.B.dylib\n\n\n\n: anyone know what I haven't\n\ninstalled that I should have?\n\nThanks\n\nSusan\n\n\n\nOn Thu, 23 May 2002, Jan de Leeuw wrote:\n\n\n<excerpt>ftp://gifi.stat.ucla.edu/pub/R-1.5.0/recommended\n\n\nupdates for mgcv and survival\n\n\nftp://gifi.stat.ucla.edu/pub/R-1.5.0/contributed\n\n\nupdates and new packages:\n\n\nI have also compiled a version of R-devel with (a) Quartz, (b)\nlibR.dylib, and (c)\n\nsupport for atlas. This will be uploaded later today to\n\n\nftp://gifi.stat.ucla.edu/pub/\n\n\n\n\n_______________________________________________\n\nR-SIG-Mac mailing list\n\nR-SIG-Mac@stat.math.ethz.ch\n\nhttp://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n</excerpt>\n\n\n</excerpt><color><param>0000,6363,1212</param>===\n\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\n\nphone (310)-825-9550;  fax (310)-206-5658;  email:\ndeleeuw@stat.ucla.edu\n\nhomepage:\n</color><underline><color><param>1A1A,1A1A,FFFF</param>http://www.stat.ucla.edu/~deleeuw</color></underline><color><param>0000,6363,1212</param>\n\n========================================================\n\n          No matter where you go, there you are. --- Buckaroo Banzai\n\n                  \n</color><underline><color><param>1A1A,1A1A,FFFF</param>http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au</color></underline><color><param>0000,6363,1212</param>\n\n========================================================\n\n</color>\n\n\n--Apple-Mail-9--839642473--",
+      "body_snippet": "--Apple-Mail-9--839642473\nContent-Transfer-Encoding: 7bit\nContent-Type: text/plain;\n\tcharset=US-ASCII;\n\tformat=flowed\n\nSusan\n\nI guess I know what's wrong. This version was compiled on\nJaguar (OS X 10.",
+      "thread_id": "thread-71edfced6ff0",
+      "thread_depth": 2,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-c773b06bc9d6",
+      "message_id": "<80AC954F-7206-11D6-A8D3-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-27T23:45:30-07:00",
+      "subject": "[R-SIG-Mac]R-devel (recompile)",
+      "subject_clean": "R-devel (recompile)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "--Apple-Mail-11--836025769\nContent-Transfer-Encoding: 7bit\nContent-Type: text/plain;\n\tcharset=US-ASCII;\n\tformat=flowed\n\nThe version of R-devel.tar.gz now in ftp://gifi.stat.ucla.edu/pub\nhas been compiled on gifi, which is my Cube running OS X 10.5.1.\n\nThis means it uses a non-threaded atlas (1 CPU), and it still has the\nQuartz device and libR.dylib. It will be useful to more people than\nthe previous one.\n\nDon't forget to change R_HOME_DIR in bin/R and to put a copy\nof bin/R in your path.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================\n\n--Apple-Mail-11--836025769\nContent-Transfer-Encoding: 7bit\nContent-Type: text/enriched;\n\tcharset=US-ASCII\n\nThe version of R-devel.tar.gz now in ftp://gifi.stat.ucla.edu/pub\n\nhas been compiled on gifi, which is my Cube running OS X 10.5.1.\n\n\nThis means it uses a non-threaded atlas (1 CPU), and it still has the\n\nQuartz device and libR.dylib. It will be useful to more people than\n\nthe previous one.\n\n\nDon't forget to change R_HOME_DIR in bin/R and to put a copy\n\nof bin/R in your path.\n\n<color><param>0000,6363,1212</param>===\n\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\n\nphone (310)-825-9550;  fax (310)-206-5658;  email:\ndeleeuw@stat.ucla.edu\n\nhomepage:\n</color><underline><color><param>1A1A,1A1A,FFFF</param>http://www.stat.ucla.edu/~deleeuw</color></underline><color><param>0000,6363,1212</param>\n\n========================================================\n\n          No matter where you go, there you are. --- Buckaroo Banzai\n\n                  \n</color><underline><color><param>1A1A,1A1A,FFFF</param>http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au</color></underline><color><param>0000,6363,1212</param>\n\n========================================================\n\n</color>\n--Apple-Mail-11--836025769--",
+      "body_snippet": "--Apple-Mail-11--836025769\nContent-Transfer-Encoding: 7bit\nContent-Type: text/plain;\n\tcharset=US-ASCII;\n\tformat=flowed\n\nThe version of R-devel.tar.gz now in ftp://gifi.stat.ucla.edu/pub\nhas been compi",
+      "thread_id": "thread-c773b06bc9d6",
+      "thread_depth": 0,
+      "month": "2002-05"
+    },
+    {
+      "id": "msg-27e9ffc4cdfe",
+      "message_id": "<B8AB9B61-7345-11D6-AA53-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "59a1e3d24a4d17014651921c954560da2e7ad5132d0ea3d38e11e0c3e1dd9a92",
+      "date": "2002-05-29T13:50:34-07:00",
+      "subject": "[R-SIG-Mac]packages,packages",
+      "subject_clean": "packages,packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Upgraded in ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n\nin contributed: XML, gee, geoRglm, scatterplot3d, evd, car\nin recommended: foreign\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://www.stat.ucla.edu/~deleeuw\n========================================================\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://www.stat.ucla.edu/~deleeuw/sounds/nomatter.au\n========================================================",
+      "body_snippet": "Upgraded in ftp://gifi.stat.ucla.edu/pub/R-1.5.0\n\nin contributed: XML, gee, geoRglm, scatterplot3d, evd, car\nin recommended: foreign\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistic",
+      "thread_id": "thread-27e9ffc4cdfe",
+      "thread_depth": 0,
+      "month": "2002-05"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-76a17fd14ab6",
+      "subject": "Mirror is up to date now",
+      "message_count": 1,
+      "participants": [
+        "Stefano Iacus"
+      ],
+      "started": "2002-05-03T10:30:50+02:00",
+      "last_reply": "2002-05-03T10:30:50+02:00",
+      "root_message_id": "msg-76a17fd14ab6"
+    },
+    {
+      "id": "thread-7b6944fed19d",
+      "subject": "making 1.5.0 on Darwin",
+      "message_count": 4,
+      "participants": [
+        "David A Richmond",
+        "Roger Peng",
+        "Stefano Iacus"
+      ],
+      "started": "2002-05-05T14:44:54-05:00",
+      "last_reply": "2002-05-07T17:32:09-07:00",
+      "root_message_id": "msg-7b6944fed19d"
+    },
+    {
+      "id": "thread-f6c5ec451bbd",
+      "subject": "R-1.5.0 for Darwin",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-09T15:48:07-07:00",
+      "last_reply": "2002-05-09T15:48:07-07:00",
+      "root_message_id": "msg-f6c5ec451bbd"
+    },
+    {
+      "id": "thread-ca4dfe6009cc",
+      "subject": "R-1.5.0 for Darwin",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-09T22:10:55-07:00",
+      "last_reply": "2002-05-09T22:10:55-07:00",
+      "root_message_id": "msg-ca4dfe6009cc"
+    },
+    {
+      "id": "thread-1b05bed4797f",
+      "subject": "Darwin R 1.5.0",
+      "message_count": 1,
+      "participants": [
+        "Stefano Iacus"
+      ],
+      "started": "2002-05-10T09:20:26+02:00",
+      "last_reply": "2002-05-10T09:20:26+02:00",
+      "root_message_id": "msg-1b05bed4797f"
+    },
+    {
+      "id": "thread-af6517f37282",
+      "subject": "Rmpi",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-10T23:06:54-07:00",
+      "last_reply": "2002-05-10T23:06:54-07:00",
+      "root_message_id": "msg-af6517f37282"
+    },
+    {
+      "id": "thread-16efa97e53ab",
+      "subject": "more packages",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-11T11:24:04-07:00",
+      "last_reply": "2002-05-11T11:24:04-07:00",
+      "root_message_id": "msg-16efa97e53ab"
+    },
+    {
+      "id": "thread-6ddd360fdc13",
+      "subject": "new packages",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-11T12:24:18-07:00",
+      "last_reply": "2002-05-11T12:24:18-07:00",
+      "root_message_id": "msg-6ddd360fdc13"
+    },
+    {
+      "id": "thread-fcd495b0990b",
+      "subject": "R-1.5.0 for Darwin/X11",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-11T13:54:07-07:00",
+      "last_reply": "2002-05-11T13:54:07-07:00",
+      "root_message_id": "msg-fcd495b0990b"
+    },
+    {
+      "id": "thread-ba55c9586e85",
+      "subject": "packages",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-12T20:16:31-07:00",
+      "last_reply": "2002-05-12T20:16:31-07:00",
+      "root_message_id": "msg-ba55c9586e85"
+    },
+    {
+      "id": "thread-27b290c57cc8",
+      "subject": "packages, packages",
+      "message_count": 2,
+      "participants": [
+        "A.J. Rossini",
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-13T16:07:37-07:00",
+      "last_reply": "2002-05-13T16:46:15-07:00",
+      "root_message_id": "msg-27b290c57cc8"
+    },
+    {
+      "id": "thread-44b56278c679",
+      "subject": "packages, packages",
+      "message_count": 2,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-13T23:16:36-07:00",
+      "last_reply": "2002-05-13T23:21:27-07:00",
+      "root_message_id": "msg-44b56278c679"
+    },
+    {
+      "id": "thread-823d1bdd6949",
+      "subject": "Quartz device for Darwin R (MacOS X)",
+      "message_count": 1,
+      "participants": [
+        "Stefano Iacus"
+      ],
+      "started": "2002-05-14T11:01:28+02:00",
+      "last_reply": "2002-05-14T11:01:28+02:00",
+      "root_message_id": "msg-823d1bdd6949"
+    },
+    {
+      "id": "thread-da105a04c7ac",
+      "subject": "r-devel with quartz device",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-14T11:39:50-07:00",
+      "last_reply": "2002-05-14T11:39:50-07:00",
+      "root_message_id": "msg-da105a04c7ac"
+    },
+    {
+      "id": "thread-e56dd325e900",
+      "subject": "packages, packages",
+      "message_count": 3,
+      "participants": [
+        "Don MacQueen",
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-15T21:17:31-07:00",
+      "last_reply": "2002-05-16T08:50:25-07:00",
+      "root_message_id": "msg-e56dd325e900"
+    },
+    {
+      "id": "thread-839727d5f660",
+      "subject": "Problem building 1.5.0 from sources",
+      "message_count": 4,
+      "participants": [
+        "Don MacQueen",
+        "Jan de Leeuw",
+        "Luke Tierney"
+      ],
+      "started": "2002-05-16T06:52:00-07:00",
+      "last_reply": "2002-05-16T14:00:38-07:00",
+      "root_message_id": "msg-839727d5f660"
+    },
+    {
+      "id": "thread-c1feb82017a2",
+      "subject": "Slight problem with R-quartz",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-16T08:21:11-07:00",
+      "last_reply": "2002-05-16T08:21:11-07:00",
+      "root_message_id": "msg-c1feb82017a2"
+    },
+    {
+      "id": "thread-b03ecdcdad21",
+      "subject": "libs",
+      "message_count": 2,
+      "participants": [
+        "Jan de Leeuw",
+        "Susan Holmes"
+      ],
+      "started": "2002-05-16T15:03:28-07:00",
+      "last_reply": "2002-05-16T17:51:38-07:00",
+      "root_message_id": "msg-b03ecdcdad21"
+    },
+    {
+      "id": "thread-34b7b2ef0362",
+      "subject": "R on Jaguar",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-16T20:02:46-07:00",
+      "last_reply": "2002-05-16T20:02:46-07:00",
+      "root_message_id": "msg-34b7b2ef0362"
+    },
+    {
+      "id": "thread-812b01d020de",
+      "subject": "R on Jaguar",
+      "message_count": 1,
+      "participants": [
+        "Stefano Iacus"
+      ],
+      "started": "2002-05-17T11:27:02+02:00",
+      "last_reply": "2002-05-17T11:27:02+02:00",
+      "root_message_id": "msg-812b01d020de"
+    },
+    {
+      "id": "thread-eedd858439d7",
+      "subject": "packages,packages",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-20T09:34:40-07:00",
+      "last_reply": "2002-05-20T09:34:40-07:00",
+      "root_message_id": "msg-eedd858439d7"
+    },
+    {
+      "id": "thread-71edfced6ff0",
+      "subject": "packages,packages",
+      "message_count": 3,
+      "participants": [
+        "Jan de Leeuw",
+        "Susan Holmes"
+      ],
+      "started": "2002-05-23T17:04:42-07:00",
+      "last_reply": "2002-05-27T22:45:14-07:00",
+      "root_message_id": "msg-71edfced6ff0"
+    },
+    {
+      "id": "thread-42f8f26a5170",
+      "subject": "R-devel.tar.gz",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-24T13:49:25-07:00",
+      "last_reply": "2002-05-24T13:49:25-07:00",
+      "root_message_id": "msg-42f8f26a5170"
+    },
+    {
+      "id": "thread-c773b06bc9d6",
+      "subject": "R-devel (recompile)",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-27T23:45:30-07:00",
+      "last_reply": "2002-05-27T23:45:30-07:00",
+      "root_message_id": "msg-c773b06bc9d6"
+    },
+    {
+      "id": "thread-27e9ffc4cdfe",
+      "subject": "packages,packages",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2002-05-29T13:50:34-07:00",
+      "last_reply": "2002-05-29T13:50:34-07:00",
+      "root_message_id": "msg-27e9ffc4cdfe"
+    }
+  ]
+}

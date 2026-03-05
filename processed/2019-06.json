@@ -1,0 +1,387 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2019-06",
+  "messages": [
+    {
+      "id": "msg-87b7cdbb390e",
+      "message_id": "<0ba34c12-ed03-9aff-b3c9-a6e90ea98ea2@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2019-06-04T16:10:17+01:00",
+      "subject": "[R-SIG-Mac] Warning on XCode / Command Line Tools 11",
+      "subject_clean": "Warning on XCode / Command Line Tools 11",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "My Mojave machine today prompted me to update to version 11 of Command \nLine Tools (apparently 'beta 1', but I am not a Beta tester).\n\nIn short: don't do that (you can revert to 10.2.1 from the URL above, at \nleast if your Apple ID has (free) developer privileges).\n\nCoreFoundation.framework has been removed (and its headers are used in a \ncouple of spots compiling R).\n\nFurther its seems that \n/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg \nis no longer included and setting CPPFLAGS did not suffice.\n\nHopefully we will have solutions in due course, but that version is \nreally for 10.15 Catalina which is months away ('in the Fall', whenever \nthat is).\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "My Mojave machine today prompted me to update to version 11 of Command \nLine Tools (apparently 'beta 1', but I am not a Beta tester).\n\nIn short: don't do that (you can revert to 10.2.1 from the URL ab",
+      "thread_id": "thread-87b7cdbb390e",
+      "thread_depth": 0,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-af2c142be4c9",
+      "message_id": "<CAC2h7utB-VLmCdfi6Gt=rJWOVRkA9E2o4YF3HLeMNXOiNLg42Q@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "d93d2b6e7e026786d1329cc362094fa8cf7678c5556ec56db24b97db9e327685",
+      "date": "2019-06-04T20:47:35-04:00",
+      "subject": "[R-SIG-Mac] Warning on XCode / Command Line Tools 11",
+      "subject_clean": "Warning on XCode / Command Line Tools 11",
+      "in_reply_to": "<0ba34c12-ed03-9aff-b3c9-a6e90ea98ea2@stats.ox.ac.uk>",
+      "references": [
+        "<0ba34c12-ed03-9aff-b3c9-a6e90ea98ea2@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Thanks a lot for checking this so quickly.\n\nI was alarmed by the label \"beta 1\", and frankly surprised that this got\npushed to my machine. I believe it is the first time system updated has\nsuggested a beta version for something on my laptop. I am wondering if this\ncould have been a mistake; it is Apple Developer Week right now.\n\nOn Tue, Jun 4, 2019 at 11:10 AM Prof Brian Ripley <ripley at stats.ox.ac.uk>\nwrote:\n\n> My Mojave machine today prompted me to update to version 11 of Command\n> Line Tools (apparently 'beta 1', but I am not a Beta tester).\n>\n> In short: don't do that (you can revert to 10.2.1 from the URL above, at\n> least if your Apple ID has (free) developer privileges).\n>\n> CoreFoundation.framework has been removed (and its headers are used in a\n> couple of spots compiling R).\n>\n> Further its seems that\n> /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg\n>\n> is no longer included and setting CPPFLAGS did not suffice.\n>\n> Hopefully we will have solutions in due course, but that version is\n> really for 10.15 Catalina which is months away ('in the Fall', whenever\n> that is).\n>\n> --\n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBest,\nKasper\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks a lot for checking this so quickly.\n\nI was alarmed by the label \"beta 1\", and frankly surprised that this got\npushed to my machine. I believe it is the first time system updated has\nsuggested a",
+      "thread_id": "thread-87b7cdbb390e",
+      "thread_depth": 1,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-717fcc44df4a",
+      "message_id": "<724CF5C4-3EDE-4827-A7EA-8EF8D88B19C0@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-06-05T16:12:49-04:00",
+      "subject": "[R-SIG-Mac] trouble loading C++-using packages on El Capitan",
+      "subject_clean": "trouble loading C++-using packages on El Capitan",
+      "in_reply_to": "<CAJXgQP0F25tEjWx6sX68RCyrae9pHzHB8K38nCzG=jkvXOmA4Q@mail.gmail.com>",
+      "references": [
+        "<CAJXgQP0F25tEjWx6sX68RCyrae9pHzHB8K38nCzG=jkvXOmA4Q@mail.gmail.com>"
+      ],
+      "body_plain": "Kevin,\n\nI cannot replicate the problem. The libraries are as provided by LLVM so they do link both the system and clang 7 dylibs. Can you give details on exact versions? Also is does this happen in R or RStudio?\n\nThanks,\nSimon\n\n\n\n> On May 30, 2019, at 12:11 PM, Kevin Ushey <kevinushey at gmail.com> wrote:\n> \n> Hi,\n> \n> Some users have reported issues when attempting to load packages using\n> C++ code on El Capitan -- for example:\n> \n> Error: package or namespace load failed for ?readr? in dyn.load(file,\n> DLLpath = DLLpath, ...):\n> unable to load shared object\n> '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/Rcpp/libs/Rcpp.so':\n> dlopen(/Library/Frameworks/R.framework/Versions/3.6/Resources/library/Rcpp/libs/Rcpp.so,\n> 6): Symbol not found: ___cxa_uncaught_exceptions\n> Referenced from:\n> /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libc++.1.dylib\n> Expected in: /usr/lib/libc++abi.dylib\n> in /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libc++.1.dylib\n> \n> The main thing that stands out to me is that /usr/lib/libc++abi.dylib\n> is being requested, rather than the libc++abi library that's\n> distributed with the macOS R binaries. I can confirm as much in my R\n> 3.6.0 installation:\n> \n> kevin at cdrv:/Library/Frameworks/R.framework/Resources/lib\n> $ otool -L libc++.1.dylib\n> libc++.1.dylib:\n>        /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libc++.1.dylib\n> (compatibility version 1.0.0, current version 1.0.0)\n>        /usr/lib/libc++abi.dylib (compatibility version 1.0.0, current\n> version 400.17.0)\n>        /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libc++abi.1.dylib\n> (compatibility version 1.0.0, current version 1.0.0)\n>        /usr/lib/libSystem.B.dylib (compatibility version 1.0.0,\n> current version 1252.200.5)\n> \n> This can be changed with install_name_tool; e.g.\n> \n> install_name_tool -change \\\n>    /usr/lib/libc++abi.dylib \\\n>    /Library/Frameworks/R.framework/Resources/lib/libc++abi.1.dylib \\\n>    /Library/Frameworks/R.framework/Resources/lib/libc++.1.dylib\n> \n> And this did fix the issue for one user\n> (https://community.rstudio.com/t/installing-packages-after-update-to-3-6-same-problem/31824)\n> \n> My question is: is the usage of the system's libc++abi intentional, or\n> should that be pointing to the bundled libc++abi?\n> \n> Thanks,\n> Kevin\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Kevin,\n\nI cannot replicate the problem. The libraries are as provided by LLVM so they do link both the system and clang 7 dylibs. Can you give details on exact versions? Also is does this happen in R ",
+      "thread_id": "thread-717fcc44df4a",
+      "thread_depth": 0,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-39bdf496725d",
+      "message_id": "<B0689902-5A6B-4B15-8689-1D79785C04F7@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2019-06-06T10:31:19+02:00",
+      "subject": "[R-SIG-Mac] Warning on XCode / Command Line Tools 11",
+      "subject_clean": "Warning on XCode / Command Line Tools 11",
+      "in_reply_to": "<0ba34c12-ed03-9aff-b3c9-a6e90ea98ea2@stats.ox.ac.uk>",
+      "references": [
+        "<0ba34c12-ed03-9aff-b3c9-a6e90ea98ea2@stats.ox.ac.uk>"
+      ],
+      "body_plain": "FWIW, no updates are suggested for the source-building machine in my office, also running Mojave. (June 5 was Constitution Day and Election Day, so I have been away from the machine until now.)\n\nWe do need to keep an eye on the tools though. My current setup is an  -um- eclectic mix (*) of old and new tools, some of which are 32 bit, and this is going to be a problem in 10.15 Catalina. I did try getting the tools better in line with Simon's setup at some point, but there were hiccups and then I ran out of time and couldn't risk collateral damage.\n\n-pd\n\n\n(*) =\"dogs dinner\"\n\n> On 4 Jun 2019, at 17:10 , Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> My Mojave machine today prompted me to update to version 11 of Command Line Tools (apparently 'beta 1', but I am not a Beta tester).\n> \n> In short: don't do that (you can revert to 10.2.1 from the URL above, at least if your Apple ID has (free) developer privileges).\n> \n> CoreFoundation.framework has been removed (and its headers are used in a couple of spots compiling R).\n> \n> Further its seems that /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg is no longer included and setting CPPFLAGS did not suffice.\n> \n> Hopefully we will have solutions in due course, but that version is really for 10.15 Catalina which is months away ('in the Fall', whenever that is).\n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "FWIW, no updates are suggested for the source-building machine in my office, also running Mojave. (June 5 was Constitution Day and Election Day, so I have been away from the machine until now.)\n\nWe do",
+      "thread_id": "thread-87b7cdbb390e",
+      "thread_depth": 1,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-847e4eea1def",
+      "message_id": "<52813442-fb0c-6b74-fc3e-f9000b78aead@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2019-06-06T10:19:04+01:00",
+      "subject": "[R-SIG-Mac] Warning on XCode / Command Line Tools 11",
+      "subject_clean": "Warning on XCode / Command Line Tools 11",
+      "in_reply_to": "<B0689902-5A6B-4B15-8689-1D79785C04F7@gmail.com>",
+      "references": [
+        "<0ba34c12-ed03-9aff-b3c9-a6e90ea98ea2@stats.ox.ac.uk>",
+        "<B0689902-5A6B-4B15-8689-1D79785C04F7@gmail.com>"
+      ],
+      "body_plain": "On 06/06/2019 09:31, peter dalgaard wrote:\n> FWIW, no updates are suggested for the source-building machine in my office, also running Mojave. (June 5 was Constitution Day and Election Day, so I have been away from the machine until now.)\n\nIt stopping nagging me yesterday afternoon, so likely it was an Apple \nsnafu.  (I heard from others who had been caught by this, and of course \nApple allows for 'automatic' updating so this could happen in the \nbackground.)\n\n> We do need to keep an eye on the tools though. My current setup is an  -um- eclectic mix (*) of old and new tools, some of which are 32 bit, and this is going to be a problem in 10.15 Catalina. I did try getting the tools better in line with Simon's setup at some point, but there were hiccups and then I ran out of time and couldn't risk collateral damage.\n\nYou have a few months yet.  The residual 32-bit applications I have are \nfrom Adobe, e.g. old uninstallers.\n\n> \n> -pd\n> \n> \n> (*) =\"dogs dinner\"\n> \n>> On 4 Jun 2019, at 17:10 , Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>>\n>> My Mojave machine today prompted me to update to version 11 of Command Line Tools (apparently 'beta 1', but I am not a Beta tester).\n>>\n>> In short: don't do that (you can revert to 10.2.1 from the URL above, at least if your Apple ID has (free) developer privileges).\n>>\n>> CoreFoundation.framework has been removed (and its headers are used in a couple of spots compiling R).\n>>\n>> Further its seems that /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg is no longer included and setting CPPFLAGS did not suffice.\n>>\n>> Hopefully we will have solutions in due course, but that version is really for 10.15 Catalina which is months away ('in the Fall', whenever that is).\n>>\n>> -- \n>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>> Emeritus Professor of Applied Statistics, University of Oxford\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 06/06/2019 09:31, peter dalgaard wrote:\n> FWIW, no updates are suggested for the source-building machine in my office, also running Mojave. (June 5 was Constitution Day and Election Day, so I have ",
+      "thread_id": "thread-87b7cdbb390e",
+      "thread_depth": 2,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-4fc55aa140da",
+      "message_id": "<CAM9CR=1jr+P=hVjpkQT+niKTRiY8pvQ2qvmChbFfpCCM5ByFCw@mail.gmail.com>",
+      "from_name": "Jon Clayden",
+      "from_email_hash": "de10dbb1c5c94d086da54b37bb348916f07770655e7b33274844b6e0ee49245c",
+      "date": "2019-06-06T11:42:35+01:00",
+      "subject": "[R-SIG-Mac] Apple Clang does support OpenMP (if libomp is available)",
+      "subject_clean": "Apple Clang does support OpenMP (if libomp is available)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear all,\n\nLack of OpenMP support in Apple?s build of Clang is cited as one\nreason for not using it in CRAN builds, but this is only partly true:\nafter installing libomp from Homebrew, I have been adding\n?-Wp,-fopenmp? to CXXFLAGS and CFLAGS (and ?-lomp? to LIBS) to my\nbuilds for a while, and everything seems to work OK.\n\nI?m not sure how far back this support goes (and I haven?t tried the\nXcode 11 tools yet), but is there any known reason not to take this\napproach, and if not, would it make sense for R?s configure script to\ntry ?-Wp,-fopenmp? when testing for OpenMP support?\n\nAll the best,\nJon",
+      "body_snippet": "Dear all,\n\nLack of OpenMP support in Apple?s build of Clang is cited as one\nreason for not using it in CRAN builds, but this is only partly true:\nafter installing libomp from Homebrew, I have been add",
+      "thread_id": "thread-4fc55aa140da",
+      "thread_depth": 0,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-cfcdcf05284a",
+      "message_id": "<9E3F1CED-00AB-44EB-A096-1C44F9238DC0@illinois.edu>",
+      "from_name": "Balamuta, James Joseph",
+      "from_email_hash": "82dcf2f1da432a4e8bd643b3d84053cea30315160b871e497d9855f747fb9e4b",
+      "date": "2019-06-06T14:11:15Z",
+      "subject": "[R-SIG-Mac] Apple Clang does support OpenMP (if libomp is available)",
+      "subject_clean": "Apple Clang does support OpenMP (if libomp is available)",
+      "in_reply_to": "<CAM9CR=1jr+P=hVjpkQT+niKTRiY8pvQ2qvmChbFfpCCM5ByFCw@mail.gmail.com>",
+      "references": [
+        "<CAM9CR=1jr+P=hVjpkQT+niKTRiY8pvQ2qvmChbFfpCCM5ByFCw@mail.gmail.com>"
+      ],
+      "body_plain": "Greetings and Salutations Jon,\n\n> Lack of OpenMP support in Apple?s build of Clang is cited as one reason for not using it in CRAN builds",
+      "body_snippet": "Greetings and Salutations Jon,\n\n> Lack of OpenMP support in Apple?s build of Clang is cited as one reason for not using it in CRAN builds",
+      "thread_id": "thread-4fc55aa140da",
+      "thread_depth": 1,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-7dcf49cb4f7c",
+      "message_id": "<CAM9CR=2Vp+ueS_NoJ=AGs9mzXx-2=bmvuE0o3JHPa27SG7WfBg@mail.gmail.com>",
+      "from_name": "Jon Clayden",
+      "from_email_hash": "de10dbb1c5c94d086da54b37bb348916f07770655e7b33274844b6e0ee49245c",
+      "date": "2019-06-06T15:24:29+01:00",
+      "subject": "[R-SIG-Mac] Apple Clang does support OpenMP (if libomp is available)",
+      "subject_clean": "Apple Clang does support OpenMP (if libomp is available)",
+      "in_reply_to": "<9E3F1CED-00AB-44EB-A096-1C44F9238DC0@illinois.edu>",
+      "references": [
+        "<CAM9CR=1jr+P=hVjpkQT+niKTRiY8pvQ2qvmChbFfpCCM5ByFCw@mail.gmail.com>",
+        "<9E3F1CED-00AB-44EB-A096-1C44F9238DC0@illinois.edu>"
+      ],
+      "body_plain": "Hi James,\n\n> > Lack of OpenMP support in Apple?s build of Clang is cited as one reason for not using it in CRAN builds\n>\n> From R 3.4.x forward, OpenMP has been enabled in CRAN builds as the toolchain is using a custom compiler.\n\nI?m aware of that, but this makes building packages from source more\ncomplicated for users in my opinion, since they also have to install\nthe custom compiler toolchains. But whatever one?s views on that, I?m\nsuggesting that one reason given for not using Apple Clang may not be\nentirely correct.\n\n> > but this is only partly true: after installing libomp ***from Homebrew***, I have been adding\n>\n> Unfortunately, both Xcode and Xcode CLI do not ship clang with support for OpenMP. By installing `libomp` from homebrew, the system is getting a clang-compliant OpenMP compiler from the llvm formula. To check, please see:\n\nNot at all. The libomp formula is standalone, with no dependency on\nthe llvm formula. See\nhttps://github.com/Homebrew/homebrew-core/blob/master/Formula/libomp.rb.\nI can assure you that I don?t have the llvm formula installed.\n\n> which clang\n\n/usr/bin/clang\n\nAll the best,\nJon",
+      "body_snippet": "Hi James,\n\n> > Lack of OpenMP support in Apple?s build of Clang is cited as one reason for not using it in CRAN builds\n>\n> From R 3.4.x forward, OpenMP has been enabled in CRAN builds as the toolchain",
+      "thread_id": "thread-4fc55aa140da",
+      "thread_depth": 2,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-566dd1ecfbdc",
+      "message_id": "<323349E7-2F46-4914-B75F-D46B98706C40@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-06-06T11:39:29-04:00",
+      "subject": "[R-SIG-Mac] Apple Clang does support OpenMP (if libomp is available)",
+      "subject_clean": "Apple Clang does support OpenMP (if libomp is available)",
+      "in_reply_to": "<CAM9CR=1jr+P=hVjpkQT+niKTRiY8pvQ2qvmChbFfpCCM5ByFCw@mail.gmail.com>",
+      "references": [
+        "<CAM9CR=1jr+P=hVjpkQT+niKTRiY8pvQ2qvmChbFfpCCM5ByFCw@mail.gmail.com>"
+      ],
+      "body_plain": "Jon,\n\nsome time ago Apple's clang has silently dropped -fopenmp so we were able to at least keep it in the flags even if it wasn't actually using it. Still, it was only dropping it, it wasn't actually generating any parallel code, so there was real point in using it. That's when we decided to use non-Apple clang since it has proper support for parallel code generation.\n\nWhat you're pointing out is that more recent clang builds from Apple now do include the OMP generation pieces (in particular the pre-processor), they just don't ship any OpenMP-related headers or libraries. The problem is that it's hard to rely on something that is unsupported and works only on some systems. We could ship libomp (we already do - no need to get it from homebrew), but, for example, the omp.h headers from clang7 don't work with Apple's clang (you do need explicit -I.. and -lomp in addition to -Wp,-fopenmp because it's not only the pre-processor that needs to know about it).\n\nAlso note that \"-Wp,-fopenmp\" is a hack - just because Apple has not patched the pre-processor and only the front-end/linker to refuse it, it doesn't mean that it actually works properly. There is no guarantee that they made changes to the code-generation which break something in OpenMP since it's not not even included in any of their tests. Hence I'd say it's a quick hack if you don't want to to install clang7 that may or may not work depending on your code, but not something I'd trust in a release.\n\nCheers,\nSimon\n\n\n\n> On Jun 6, 2019, at 6:42 AM, Jon Clayden <jon.clayden at gmail.com> wrote:\n> \n> Dear all,\n> \n> Lack of OpenMP support in Apple?s build of Clang is cited as one\n> reason for not using it in CRAN builds, but this is only partly true:\n> after installing libomp from Homebrew, I have been adding\n> ?-Wp,-fopenmp? to CXXFLAGS and CFLAGS (and ?-lomp? to LIBS) to my\n> builds for a while, and everything seems to work OK.\n> \n> I?m not sure how far back this support goes (and I haven?t tried the\n> Xcode 11 tools yet), but is there any known reason not to take this\n> approach, and if not, would it make sense for R?s configure script to\n> try ?-Wp,-fopenmp? when testing for OpenMP support?\n> \n> All the best,\n> Jon\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Jon,\n\nsome time ago Apple's clang has silently dropped -fopenmp so we were able to at least keep it in the flags even if it wasn't actually using it. Still, it was only dropping it, it wasn't actually",
+      "thread_id": "thread-4fc55aa140da",
+      "thread_depth": 1,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-182f72753269",
+      "message_id": "<b158b714-0e52-e7dc-03b6-193d223b0738@stats.ox.ac.uk>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "818dae4fdf4016331d08ab8b5065ff3f981ce989ce3ae70303f20f145d5949e1",
+      "date": "2019-06-07T07:15:52+01:00",
+      "subject": "[R-SIG-Mac] Apple Clang does support OpenMP (if libomp is available)",
+      "subject_clean": "Apple Clang does support OpenMP (if libomp is available)",
+      "in_reply_to": "<323349E7-2F46-4914-B75F-D46B98706C40@R-project.org>",
+      "references": [
+        "<CAM9CR=1jr+P=hVjpkQT+niKTRiY8pvQ2qvmChbFfpCCM5ByFCw@mail.gmail.com>",
+        "<323349E7-2F46-4914-B75F-D46B98706C40@R-project.org>"
+      ],
+      "body_plain": "On 06/06/2019 16:39, Simon Urbanek wrote:\n> Jon,\n> \n> some time ago Apple's clang has silently dropped -fopenmp so we were able to at least keep it in the flags even if it wasn't actually using it. Still, it was only dropping it, it wasn't actually generating any parallel code, so there was real point in using it. That's when we decided to use non-Apple clang since it has proper support for parallel code generation.\n> \n> What you're pointing out is that more recent clang builds from Apple now do include the OMP generation pieces (in particular the pre-processor), they just don't ship any OpenMP-related headers or libraries. The problem is that it's hard to rely on something that is unsupported and works only on some systems. We could ship libomp (we already do - no need to get it from homebrew), but, for example, the omp.h headers from clang7 don't work with Apple's clang (you do need explicit -I.. and -lomp in addition to -Wp,-fopenmp because it's not only the pre-processor that needs to know about it).\n> \n> Also note that \"-Wp,-fopenmp\" is a hack - just because Apple has not patched the pre-processor and only the front-end/linker to refuse it, it doesn't mean that it actually works properly. There is no guarantee that they made changes to the code-generation which break something in OpenMP since it's not not even included in any of their tests. Hence I'd say it's a quick hack if you don't want to to install clang7 that may or may not work depending on your code, but not something I'd trust in a release.\n\nThere is another issue: libomp is not explicitly versioned, but there \nare differences between LLVM-project releases (and there are other \nsources, and even projects which symlink other implementations to \nlibomp).  So putting -lomp in LIBS is unsafe, and part of the job of a \n-fopenmp flag when a compiler is used to link is to arrange to link to \nthe correct libomp (also at runtime).\n\nclang has not always done a good job in finding the right libomp, and it \nhas a couple of times recently adding OpenMP features which need support \nin libomp.  So whereas this may 'work OK' for one user's limited \ntesting, it may not work for all R packages (and in my experience it has \nbeen just a handful which failed).\n\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On Jun 6, 2019, at 6:42 AM, Jon Clayden <jon.clayden at gmail.com> wrote:\n>>\n>> Dear all,\n>>\n>> Lack of OpenMP support in Apple?s build of Clang is cited as one\n>> reason for not using it in CRAN builds, but this is only partly true:\n>> after installing libomp from Homebrew, I have been adding\n>> ?-Wp,-fopenmp? to CXXFLAGS and CFLAGS (and ?-lomp? to LIBS) to my\n>> builds for a while, and everything seems to work OK.\n>>\n>> I?m not sure how far back this support goes (and I haven?t tried the\n>> Xcode 11 tools yet), but is there any known reason not to take this\n>> approach, and if not, would it make sense for R?s configure script to\n>> try ?-Wp,-fopenmp? when testing for OpenMP support?\n>>\n>> All the best,\n>> Jon\n\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "On 06/06/2019 16:39, Simon Urbanek wrote:\n> Jon,\n> \n> some time ago Apple's clang has silently dropped -fopenmp so we were able to at least keep it in the flags even if it wasn't actually using it. St",
+      "thread_id": "thread-4fc55aa140da",
+      "thread_depth": 2,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-95082b9ce08c",
+      "message_id": "<3252D281-6F6F-41A8-9520-7174E1807776@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2019-06-14T13:10:43+02:00",
+      "subject": "[R-SIG-Mac] Warning on XCode / Command Line Tools 11",
+      "subject_clean": "Warning on XCode / Command Line Tools 11",
+      "in_reply_to": "<52813442-fb0c-6b74-fc3e-f9000b78aead@stats.ox.ac.uk>",
+      "references": [
+        "<0ba34c12-ed03-9aff-b3c9-a6e90ea98ea2@stats.ox.ac.uk>",
+        "<B0689902-5A6B-4B15-8689-1D79785C04F7@gmail.com>",
+        "<52813442-fb0c-6b74-fc3e-f9000b78aead@stats.ox.ac.uk>"
+      ],
+      "body_plain": "[Forgot-to-click-send-syndrome...]\n\nOK, I suspected that it might be retracted by Apple (auto-update is turned off on this machine).\n\nRe. time frame, it seems that \"Apple fall\" is like late September. I recall us getting caught  by having a release scheduled too close to be able to fix Apple-induced incompatibilities. (Presumably that was 3.4.2 on Sep 28 and the issue was time zone file location.)\n\n-pd\n\n> On 6 Jun 2019, at 11:19 , Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> On 06/06/2019 09:31, peter dalgaard wrote:\n>> FWIW, no updates are suggested for the source-building machine in my office, also running Mojave. (June 5 was Constitution Day and Election Day, so I have been away from the machine until now.)\n> \n> It stopping nagging me yesterday afternoon, so likely it was an Apple snafu.  (I heard from others who had been caught by this, and of course Apple allows for 'automatic' updating so this could happen in the background.)\n> \n>> We do need to keep an eye on the tools though. My current setup is an  -um- eclectic mix (*) of old and new tools, some of which are 32 bit, and this is going to be a problem in 10.15 Catalina. I did try getting the tools better in line with Simon's setup at some point, but there were hiccups and then I ran out of time and couldn't risk collateral damage.\n> \n> You have a few months yet.  The residual 32-bit applications I have are from Adobe, e.g. old uninstallers.\n> \n>> -pd\n>> (*) =\"dogs dinner\"\n>>> On 4 Jun 2019, at 17:10 , Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>>> \n>>> My Mojave machine today prompted me to update to version 11 of Command Line Tools (apparently 'beta 1', but I am not a Beta tester).\n>>> \n>>> In short: don't do that (you can revert to 10.2.1 from the URL above, at least if your Apple ID has (free) developer privileges).\n>>> \n>>> CoreFoundation.framework has been removed (and its headers are used in a couple of spots compiling R).\n>>> \n>>> Further its seems that /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg is no longer included and setting CPPFLAGS did not suffice.\n>>> \n>>> Hopefully we will have solutions in due course, but that version is really for 10.15 Catalina which is months away ('in the Fall', whenever that is).\n>>> \n>>> -- \n>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>> Emeritus Professor of Applied Statistics, University of Oxford\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Emeritus Professor of Applied Statistics, University of Oxford\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "[Forgot-to-click-send-syndrome...]\n\nOK, I suspected that it might be retracted by Apple (auto-update is turned off on this machine).\n\nRe. time frame, it seems that \"Apple fall\" is like late September.",
+      "thread_id": "thread-87b7cdbb390e",
+      "thread_depth": 3,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-76b26576acdc",
+      "message_id": "<c864cccc-1049-d19d-51fe-da1ce8a5bd84@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2019-06-24T00:04:29-05:00",
+      "subject": "[R-SIG-Mac] point size in svg",
+      "subject_clean": "point size in svg",
+      "in_reply_to": "<63168c7a-07b5-3ee5-281e-1274a8b43f0f@comcast.net>",
+      "references": [
+        "<2044e902-5440-678a-d845-d2d521ca428a@prodsyse.com>",
+        "<63168c7a-07b5-3ee5-281e-1274a8b43f0f@comcast.net>"
+      ],
+      "body_plain": "Hello, All:\n\n\n ????? I'm unable to control font size in plots created by \"svg\" in R \n3.6.0 on macOS Mojave 10.14.5.? Consider the following:\n\n\nsvg('cex-svg.svg')\ncex. <- 5\nplot(1:2, cex.axis=cex.)\ntext(1:2, 1:2, c('as', 'DF'),\n ????????? cex=cex.)\ndev.off()\n\n\n ??? ? When I run this in R 3.5.2 under Windows 7, it works fine.? In R \n3.6.0 under macOS 10.14.5, I get tiny fonts.? Changing \"cex.\" has no \nimpact on the result.? A question about this to R-Devel generated \nreplies from Peter Langfelder and David Winsemius, who noted that it \nworked fine under Ubuntu 18.04 (supposedly with R 3.15.2 -- probably R \n3.5.2, but I'm not sure).? I experimented with the width, height, \npointsize and family arguments for \"svg\", without solving this problem.\n\n\n ????? I believe this problem is fairly recent:? I just looked at svg \nfiles I created with R on this same computer probably last fall, and the \nfont size looks reasonable -- better than what I get today.? I'm not 100 \npercent sure, but I think I was able to control the font size with the \ncex and cex.axis arguments with those earlier versions of R and macOS.\n\n\n ????? Suggestions?\n ????? Thanks,\n ????? Spencer Graves\n\n\n#? This script worked as expected on Windows:\nsessionInfo()\nR version 3.5.2 (2018-12-20)\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\nRunning under: Windows 7 x64 (build 7601) Service Pack 1\n\nMatrix products: default\n\nlocale:\n ? [1] LC_COLLATE=English_United States.1252\n[2] LC_CTYPE=English_United States.1252\n[3] LC_MONETARY=English_United States.1252\n[4] LC_NUMERIC=C\n[5] LC_TIME=English_United States.1252\n\nattached base packages:\n ? [1] stats???? graphics? grDevices utils???? datasets\n[6] methods?? base\n\nloaded via a namespace (and not attached):\n ? [1] compiler_3.5.2 tools_3.5.2??? yaml_2.2.0\n\n\n# It failed on macOS:\n\n\n>> sessionInfo()\n>> R version 3.6.0 (2019-04-26)\n>> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>> Running under: macOS Mojave 10.14.5\n>>\n>> Matrix products: default\n>> BLAS: \n>> /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib\n>> LAPACK: \n>> /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>>\n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>\n>> attached base packages:\n>> [1] stats???? graphics? grDevices utils???? datasets\n>> [6] methods?? base\n>>\n>> other attached packages:\n>> [1] Ecdat_0.3-2 Ecfun_0.2-1\n>>\n>> ______________________________________________\n>> R-devel at r-project.org mailing list\n>> https://stat.ethz.ch/mailman/listinfo/r-devel\n>\n> ______________________________________________\n> R-devel at r-project.org mailing list\n> https://stat.ethz.ch/mailman/listinfo/r-devel\n>",
+      "body_snippet": "Hello, All:\n\n\n ????? I'm unable to control font size in plots created by \"svg\" in R \n3.6.0 on macOS Mojave 10.14.5.? Consider the following:\n\n\nsvg('cex-svg.svg')\ncex. <- 5\nplot(1:2, cex.axis=cex.)\ntex",
+      "thread_id": "thread-76b26576acdc",
+      "thread_depth": 0,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-084aebe48349",
+      "message_id": "<BC6D68BF-13B5-4900-9EDA-FF99305587F9@comcast.net>",
+      "from_name": "David Winsemius",
+      "from_email_hash": "960cf691f34cc2709527dabb6de874fb0a4c64edacd6eb5108b4fb7e2aa36670",
+      "date": "2019-06-23T22:59:45-07:00",
+      "subject": "[R-SIG-Mac] point size in svg",
+      "subject_clean": "point size in svg",
+      "in_reply_to": "<c864cccc-1049-d19d-51fe-da1ce8a5bd84@prodsyse.com>",
+      "references": [
+        "<2044e902-5440-678a-d845-d2d521ca428a@prodsyse.com>",
+        "<63168c7a-07b5-3ee5-281e-1274a8b43f0f@comcast.net>",
+        "<c864cccc-1049-d19d-51fe-da1ce8a5bd84@prodsyse.com>"
+      ],
+      "body_plain": "> On Jun 23, 2019, at 10:04 PM, Spencer Graves <spencer.graves at prodsyse.com> wrote:\n> \n> Hello, All:\n> \n> \n>       I'm unable to control font size in plots created by \"svg\" in R 3.6.0 on macOS Mojave 10.14.5.  Consider the following:\n> \n> \n> svg('cex-svg.svg')\n> cex. <- 5\n> plot(1:2, cex.axis=cex.)\n> text(1:2, 1:2, c('as', 'DF'),\n>           cex=cex.)\n> dev.off()\n> \n> \n>       When I run this in R 3.5.2 under Windows 7, it works fine.  In R 3.6.0 under macOS 10.14.5, I get tiny fonts.  Changing \"cex.\" has no impact on the result.  A question about this to R-Devel generated replies from Peter Langfelder and David Winsemius, who noted that it worked fine under Ubuntu 18.04 (supposedly with R 3.15.2 -- probably R 3.5.2, but I'm not sure).\n\nYou should be sure.\n\n>  I experimented with the width, height, pointsize and family arguments for \"svg\", without solving this problem.\n\nWith R version 3.5.1 (2018-07-02) -- \"Feather Spray\" on OS X 10.11.6 I am unable to reproduce. My Mac hardware is considered well past (Apple) end of life despite its functionality, so I cannot upgrade my OS. I'm attaching the file that is the result so Spencer can view it, although I suspect it will be scrubbed by the mail-server.\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: cex-svg.svg\nType: image/svg+xml\nSize: 26479 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20190623/9057a17d/attachment-0001.svg>\n\n-------------- next part --------------\n\n\n-- \nDavid.\n\n> \n> \n>       I believe this problem is fairly recent:  I just looked at svg files I created with R on this same computer probably last fall, and the font size looks reasonable -- better than what I get today.  I'm not 100 percent sure, but I think I was able to control the font size with the cex and cex.axis arguments with those earlier versions of R and macOS.\n> \n> \n>       Suggestions?\n>       Thanks,\n>       Spencer Graves\n> \n> \n> #  This script worked as expected on Windows:\n> sessionInfo()\n> R version 3.5.2 (2018-12-20)\n> Platform: x86_64-w64-mingw32/x64 (64-bit)\n> Running under: Windows 7 x64 (build 7601) Service Pack 1\n> \n> Matrix products: default\n> \n> locale:\n>   [1] LC_COLLATE=English_United States.1252\n> [2] LC_CTYPE=English_United States.1252\n> [3] LC_MONETARY=English_United States.1252\n> [4] LC_NUMERIC=C\n> [5] LC_TIME=English_United States.1252\n> \n> attached base packages:\n>   [1] stats     graphics  grDevices utils     datasets\n> [6] methods   base\n> \n> loaded via a namespace (and not attached):\n>   [1] compiler_3.5.2 tools_3.5.2    yaml_2.2.0\n> \n> \n> # It failed on macOS:\n> \n> \n>>> sessionInfo()\n>>> R version 3.6.0 (2019-04-26)\n>>> Platform: x86_64-apple-darwin15.6.0 (64-bit)\n>>> Running under: macOS Mojave 10.14.5\n>>> \n>>> Matrix products: default\n>>> BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib\n>>> LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib\n>>> \n>>> locale:\n>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>> \n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets\n>>> [6] methods   base\n>>> \n>>> other attached packages:\n>>> [1] Ecdat_0.3-2 Ecfun_0.2-1\n>>> \n>>> ______________________________________________\n>>> R-devel at r-project.org mailing list\n>>> https://stat.ethz.ch/mailman/listinfo/r-devel\n>> \n>> ______________________________________________\n>> R-devel at r-project.org mailing list\n>> https://stat.ethz.ch/mailman/listinfo/r-devel\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius\nAlameda, CA, USA\n\n'Any technology distinguishable from magic is insufficiently advanced.'   -Gehm's Corollary to Clarke's Third Law",
+      "body_snippet": "> On Jun 23, 2019, at 10:04 PM, Spencer Graves <spencer.graves at prodsyse.com> wrote:\n> \n> Hello, All:\n> \n> \n>       I'm unable to control font size in plots created by \"svg\" in R 3.6.0 on macOS Moja",
+      "thread_id": "thread-76b26576acdc",
+      "thread_depth": 1,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-97b124f70e2a",
+      "message_id": "<d76decc1-deeb-8812-084e-78a73d84222c@prodsyse.com>",
+      "from_name": "Spencer Graves",
+      "from_email_hash": "5203a00a66485f2d34e41482790931c4036fce81c75dfe4b9dc5c72db48bef06",
+      "date": "2019-06-24T02:25:29-05:00",
+      "subject": "[R-SIG-Mac] point size in svg",
+      "subject_clean": "point size in svg",
+      "in_reply_to": "<BC6D68BF-13B5-4900-9EDA-FF99305587F9@comcast.net>",
+      "references": [
+        "<2044e902-5440-678a-d845-d2d521ca428a@prodsyse.com>",
+        "<63168c7a-07b5-3ee5-281e-1274a8b43f0f@comcast.net>",
+        "<c864cccc-1049-d19d-51fe-da1ce8a5bd84@prodsyse.com>",
+        "<BC6D68BF-13B5-4900-9EDA-FF99305587F9@comcast.net>"
+      ],
+      "body_plain": "????? Thanks to David Winsemius for his reply.? His attachment came \nthrough and displayed consistent with the R documentation.? Thus, the \ncex.axis and cex arguments work fine with R 3.5.1 (2018-07-02) and \n\"Feather Spray\" on OS X 10.11.6, but they don't work properly with the \ncurrent version of R under the current version of macOS.\n\n\n ????? Spencer\n\n\nOn 2019-06-24 00:59, David Winsemius wrote:\n>> On Jun 23, 2019, at 10:04 PM, Spencer Graves <spencer.graves at prodsyse.com> wrote:\n>>\n>> Hello, All:\n>>\n>>\n>>        I'm unable to control font size in plots created by \"svg\" in R 3.6.0 on macOS Mojave 10.14.5.  Consider the following:\n>>\n>>\n>> svg('cex-svg.svg')\n>> cex. <- 5\n>> plot(1:2, cex.axis=cex.)\n>> text(1:2, 1:2, c('as', 'DF'),\n>>            cex=cex.)\n>> dev.off()\n>>\n>>\n>>        When I run this in R 3.5.2 under Windows 7, it works fine.  In R 3.6.0 under macOS 10.14.5, I get tiny fonts.  Changing \"cex.\" has no impact on the result.  A question about this to R-Devel generated replies from Peter Langfelder and David Winsemius, who noted that it worked fine under Ubuntu 18.04 (supposedly with R 3.15.2 -- probably R 3.5.2, but I'm not sure).\n> You should be sure.\n>\n>>   I experimented with the width, height, pointsize and family arguments for \"svg\", without solving this problem.\n> With R version 3.5.1 (2018-07-02) -- \"Feather Spray\" on OS X 10.11.6 I am unable to reproduce. My Mac hardware is considered well past (Apple) end of life despite its functionality, so I cannot upgrade my OS. I'm attaching the file that is the result so Spencer can view it, although I suspect it will be scrubbed by the mail-server.\n>\n>\n>\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "????? Thanks to David Winsemius for his reply.? His attachment came \nthrough and displayed consistent with the R documentation.? Thus, the \ncex.axis and cex arguments work fine with R 3.5.1 (2018-07-0",
+      "thread_id": "thread-76b26576acdc",
+      "thread_depth": 2,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-17819a800e9d",
+      "message_id": "<D42C8210-29BD-4602-8F68-1B898A299A6C@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2019-06-24T11:10:56+02:00",
+      "subject": "[R-SIG-Mac] point size in svg",
+      "subject_clean": "point size in svg",
+      "in_reply_to": "<d76decc1-deeb-8812-084e-78a73d84222c@prodsyse.com>",
+      "references": [
+        "<2044e902-5440-678a-d845-d2d521ca428a@prodsyse.com>",
+        "<63168c7a-07b5-3ee5-281e-1274a8b43f0f@comcast.net>",
+        "<c864cccc-1049-d19d-51fe-da1ce8a5bd84@prodsyse.com>",
+        "<BC6D68BF-13B5-4900-9EDA-FF99305587F9@comcast.net>",
+        "<d76decc1-deeb-8812-084e-78a73d84222c@prodsyse.com>"
+      ],
+      "body_plain": "Works fine for me on 10.14.5, both with CRAN-supplied 3.6.0 and locally compiled  3.6.0 Patched (2019-06-23 r76734).\n\nI suspect that you might have a font misconfiguration of sorts on your Mojave machine.\n\n-pd\n\n> On 24 Jun 2019, at 09:25 , Spencer Graves <spencer.graves at prodsyse.com> wrote:\n> \n> ?? Thanks to David Winsemius for his reply.? His attachment came \n> through and displayed consistent with the R documentation.? Thus, the \n> cex.axis and cex arguments work fine with R 3.5.1 (2018-07-02) and \n> \"Feather Spray\" on OS X 10.11.6, but they don't work properly with the \n> current version of R under the current version of macOS.\n> \n> \n> ?? Spencer\n> \n> \n> On 2019-06-24 00:59, David Winsemius wrote:\n>>> On Jun 23, 2019, at 10:04 PM, Spencer Graves <spencer.graves at prodsyse.com> wrote:\n>>> \n>>> Hello, All:\n>>> \n>>> \n>>>       I'm unable to control font size in plots created by \"svg\" in R 3.6.0 on macOS Mojave 10.14.5.  Consider the following:\n>>> \n>>> \n>>> svg('cex-svg.svg')\n>>> cex. <- 5\n>>> plot(1:2, cex.axis=cex.)\n>>> text(1:2, 1:2, c('as', 'DF'),\n>>>           cex=cex.)\n>>> dev.off()\n>>> \n>>> \n>>>       When I run this in R 3.5.2 under Windows 7, it works fine.  In R 3.6.0 under macOS 10.14.5, I get tiny fonts.  Changing \"cex.\" has no impact on the result.  A question about this to R-Devel generated replies from Peter Langfelder and David Winsemius, who noted that it worked fine under Ubuntu 18.04 (supposedly with R 3.15.2 -- probably R 3.5.2, but I'm not sure).\n>> You should be sure.\n>> \n>>>  I experimented with the width, height, pointsize and family arguments for \"svg\", without solving this problem.\n>> With R version 3.5.1 (2018-07-02) -- \"Feather Spray\" on OS X 10.11.6 I am unable to reproduce. My Mac hardware is considered well past (Apple) end of life despite its functionality, so I cannot upgrade my OS. I'm attaching the file that is the result so Spencer can view it, although I suspect it will be scrubbed by the mail-server.\n>> \n>> \n>> \n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "Works fine for me on 10.14.5, both with CRAN-supplied 3.6.0 and locally compiled  3.6.0 Patched (2019-06-23 r76734).\n\nI suspect that you might have a font misconfiguration of sorts on your Mojave mach",
+      "thread_id": "thread-76b26576acdc",
+      "thread_depth": 3,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-fc4130213a77",
+      "message_id": "<CAJ9GNamGLtVQonKa_v5HPbjGajo+sjkMBTfqnHWeNJEDuQhhXA@mail.gmail.com>",
+      "from_name": "Jan Wijffels",
+      "from_email_hash": "1f9787653eb5686284e82e53441e1ac543e8e13cb780a4bcef0b8fe23538f11c",
+      "date": "2019-06-24T14:11:17+02:00",
+      "subject": "[R-SIG-Mac] multithreading package failure?",
+      "subject_clean": "multithreading package failure?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear r-sig-mac mailing list,\n\nI don't own a Mac but I'm the maintainer of the ruimtehol R package which\nFAILS on CRAN on Mac only (see logs at\nhttps://cran.r-project.org/web/checks/check_results_ruimtehol.html)\nI would like to get rid of the FAIL note on CRAN but I'm a bit stabbing in\nthe dark about how as there is not a lot of information on the check page\non the reason of failure.\nThe package is developped at https://github.com/bnosac/ruimtehol and\nprobably the failure is due to multi-threading as the only 2 things which\nare different on MacOS is the code at\nhttps://github.com/bnosac/ruimtehol/blob/da1cd4da6bbcc6a7cc4c346989e8476f37864091/src/Starspace/src/model.cpp#L31\nand at\nhttps://github.com/bnosac/ruimtehol/blob/da1cd4da6bbcc6a7cc4c346989e8476f37864091/src/Starspace/src/model.cpp#L38\n\n\nCurrently R package ruimtehol apparently has been built fine at least\nonce on CRAN as a Mac OS a binary is available at\nhttps://CRAN.R-project.org/package=ruimtehol\nAlso R CMD check ran today on 2019/06/24 on rhub running Mac OS runs fine\nas shown in the log at\nhttps://builder.r-hub.io/status/ruimtehol_0.2.1.tar.gz-98f98671fd5fe78842e5bf463f1fe05c,\nwhich makes me wonder what is the differences in compiler setup regarding\nrhub and CRAN on Mac OS?\n\nA user of the package has managed to get the package working as shown at\nissue https://github.com/bnosac/ruimtehol/issues/10#issuecomment-458311181\nHe basically did change the compiler he used, namely did brew install llvm\nand then fixed his compiler setup as follows\n\nCC=/usr/local/opt/llvm/bin/clang #-fopenmp\nCXX=/usr/local/opt/llvm/bin/clang++ #-fopenmp\nCFLAGS=-g -O3 -Wall -pedantic -std=gnu99 -mtune=native -pipe\nCXXFLAGS=-g -O3 -Wall -pedantic -std=c++11 -mtune=native -pipe\nLDFLAGS=-L/usr/local/opt/gettext/lib -L/usr/local/opt/llvm/lib\n-Wl,-rpath,/usr/local/opt/llvm/lib\nCPPFLAGS=-I/usr/local/opt/gettext/include -I/usr/local/opt/llvm/include\n\n\nThe Makevars in the package looks like this\n\nCXX_STD = CXX11\nPKG_LIBS = -pthread\nPKG_CPPFLAGS = -pthread -DSTRICT_R_HEADERS -DBOOST_NO_AUTO_PTR -include\ncompliance.h -I./Starspace/src\n\n\nDoes anyone has a suggestion on what causes the failure of the package on\nMac OS?\n\nJan\n\nJan Wijffels\nStatistician\nwww.bnosac.be  | +32 486 611708\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear r-sig-mac mailing list,\n\nI don't own a Mac but I'm the maintainer of the ruimtehol R package which\nFAILS on CRAN on Mac only (see logs at\nhttps://cran.r-project.org/web/checks/check_results_ruimt",
+      "thread_id": "thread-fc4130213a77",
+      "thread_depth": 0,
+      "month": "2019-06"
+    },
+    {
+      "id": "msg-52965889d981",
+      "message_id": "<8F28071D-5698-452E-8603-B1BE2A0A621F@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2019-06-24T11:57:43-04:00",
+      "subject": "[R-SIG-Mac] multithreading package failure?",
+      "subject_clean": "multithreading package failure?",
+      "in_reply_to": "<CAJ9GNamGLtVQonKa_v5HPbjGajo+sjkMBTfqnHWeNJEDuQhhXA@mail.gmail.com>",
+      "references": [
+        "<CAJ9GNamGLtVQonKa_v5HPbjGajo+sjkMBTfqnHWeNJEDuQhhXA@mail.gmail.com>"
+      ],
+      "body_plain": "Jan,\n\nit fails due to timeout (i.e. the build gets killed after 30 minutes which is why you don't see any further output). So could it be that your example just take too long to finish? If it helps, this is the tail of the output:\n\n$ tail ruimtehol-Ex.Rout\n+                             dim = 25, epoch = 25, minCount = 2,\n+                             negSearchLimit = 1, maxNegSamples = 2)\nStart to initialize starspace model.\nBuild dict from input file : /tmp/RtmptpPQy0/textspace_14cc02e34905e.txt\nRead 0M words\nNumber of words in dictionary:  1274\nNumber of labels in dictionary: 0\nLoading data from file : /tmp/RtmptpPQy0/textspace_14cc02e34905e.txt\nTotal number of examples loaded : 470\n2019-06-23 12:40:46 Initialising with learning rate 0.01\n\nCheers,\nSimon\n\n\n\n> On Jun 24, 2019, at 8:11 AM, Jan Wijffels <jwijffels at bnosac.be> wrote:\n> \n> Dear r-sig-mac mailing list,\n> \n> I don't own a Mac but I'm the maintainer of the ruimtehol R package which\n> FAILS on CRAN on Mac only (see logs at\n> https://cran.r-project.org/web/checks/check_results_ruimtehol.html)\n> I would like to get rid of the FAIL note on CRAN but I'm a bit stabbing in\n> the dark about how as there is not a lot of information on the check page\n> on the reason of failure.\n> The package is developped at https://github.com/bnosac/ruimtehol and\n> probably the failure is due to multi-threading as the only 2 things which\n> are different on MacOS is the code at\n> https://github.com/bnosac/ruimtehol/blob/da1cd4da6bbcc6a7cc4c346989e8476f37864091/src/Starspace/src/model.cpp#L31\n> and at\n> https://github.com/bnosac/ruimtehol/blob/da1cd4da6bbcc6a7cc4c346989e8476f37864091/src/Starspace/src/model.cpp#L38\n> \n> \n> Currently R package ruimtehol apparently has been built fine at least\n> once on CRAN as a Mac OS a binary is available at\n> https://CRAN.R-project.org/package=ruimtehol\n> Also R CMD check ran today on 2019/06/24 on rhub running Mac OS runs fine\n> as shown in the log at\n> https://builder.r-hub.io/status/ruimtehol_0.2.1.tar.gz-98f98671fd5fe78842e5bf463f1fe05c,\n> which makes me wonder what is the differences in compiler setup regarding\n> rhub and CRAN on Mac OS?\n> \n> A user of the package has managed to get the package working as shown at\n> issue https://github.com/bnosac/ruimtehol/issues/10#issuecomment-458311181\n> He basically did change the compiler he used, namely did brew install llvm\n> and then fixed his compiler setup as follows\n> \n> CC=/usr/local/opt/llvm/bin/clang #-fopenmp\n> CXX=/usr/local/opt/llvm/bin/clang++ #-fopenmp\n> CFLAGS=-g -O3 -Wall -pedantic -std=gnu99 -mtune=native -pipe\n> CXXFLAGS=-g -O3 -Wall -pedantic -std=c++11 -mtune=native -pipe\n> LDFLAGS=-L/usr/local/opt/gettext/lib -L/usr/local/opt/llvm/lib\n> -Wl,-rpath,/usr/local/opt/llvm/lib\n> CPPFLAGS=-I/usr/local/opt/gettext/include -I/usr/local/opt/llvm/include\n> \n> \n> The Makevars in the package looks like this\n> \n> CXX_STD = CXX11\n> PKG_LIBS = -pthread\n> PKG_CPPFLAGS = -pthread -DSTRICT_R_HEADERS -DBOOST_NO_AUTO_PTR -include\n> compliance.h -I./Starspace/src\n> \n> \n> Does anyone has a suggestion on what causes the failure of the package on\n> Mac OS?\n> \n> Jan\n> \n> Jan Wijffels\n> Statistician\n> www.bnosac.be  | +32 486 611708\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Jan,\n\nit fails due to timeout (i.e. the build gets killed after 30 minutes which is why you don't see any further output). So could it be that your example just take too long to finish? If it helps, t",
+      "thread_id": "thread-fc4130213a77",
+      "thread_depth": 1,
+      "month": "2019-06"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-87b7cdbb390e",
+      "subject": "Warning on XCode / Command Line Tools 11",
+      "message_count": 5,
+      "participants": [
+        "Kasper Daniel Hansen",
+        "Prof Brian Ripley",
+        "peter dalgaard"
+      ],
+      "started": "2019-06-04T16:10:17+01:00",
+      "last_reply": "2019-06-14T13:10:43+02:00",
+      "root_message_id": "msg-87b7cdbb390e"
+    },
+    {
+      "id": "thread-717fcc44df4a",
+      "subject": "trouble loading C++-using packages on El Capitan",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2019-06-05T16:12:49-04:00",
+      "last_reply": "2019-06-05T16:12:49-04:00",
+      "root_message_id": "msg-717fcc44df4a"
+    },
+    {
+      "id": "thread-4fc55aa140da",
+      "subject": "Apple Clang does support OpenMP (if libomp is available)",
+      "message_count": 5,
+      "participants": [
+        "Balamuta, James Joseph",
+        "Jon Clayden",
+        "Prof Brian Ripley",
+        "Simon Urbanek"
+      ],
+      "started": "2019-06-06T11:42:35+01:00",
+      "last_reply": "2019-06-07T07:15:52+01:00",
+      "root_message_id": "msg-4fc55aa140da"
+    },
+    {
+      "id": "thread-76b26576acdc",
+      "subject": "point size in svg",
+      "message_count": 4,
+      "participants": [
+        "David Winsemius",
+        "Spencer Graves",
+        "peter dalgaard"
+      ],
+      "started": "2019-06-24T00:04:29-05:00",
+      "last_reply": "2019-06-24T11:10:56+02:00",
+      "root_message_id": "msg-76b26576acdc"
+    },
+    {
+      "id": "thread-fc4130213a77",
+      "subject": "multithreading package failure?",
+      "message_count": 2,
+      "participants": [
+        "Jan Wijffels",
+        "Simon Urbanek"
+      ],
+      "started": "2019-06-24T14:11:17+02:00",
+      "last_reply": "2019-06-24T11:57:43-04:00",
+      "root_message_id": "msg-fc4130213a77"
+    }
+  ]
+}

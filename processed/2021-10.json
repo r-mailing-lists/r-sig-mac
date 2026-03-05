@@ -1,0 +1,39 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2021-10",
+  "messages": [
+    {
+      "id": "msg-7507081b0de1",
+      "message_id": "<A71A0FA0-4164-42E3-9FF1-EF18E0366C5D@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-10-01T10:23:16+13:00",
+      "subject": "[R-SIG-Mac]  strange segfault error in R from command-line on Mac laptop",
+      "subject_clean": "strange segfault error in R from command-line on Mac laptop",
+      "in_reply_to": "<87e028cf-2b2a-8f6f-bff3-78753cbd5587@comcast.net>",
+      "references": [
+        "<c871ea97-6a3e-759f-9923-d3c56f30f623@math.toronto.edu>",
+        "<87e028cf-2b2a-8f6f-bff3-78753cbd5587@comcast.net>"
+      ],
+      "body_plain": "David,\n\nJeffrey said he is using Quartz and that is key here (since that initializes threads in the process). We have been handing this offline and it is a crash in readline. I cannot reproduce it so we're still tracking down the circumstances which as a bit odd (there are suddenly two threads in R that use the console but it is unclear where the second thread comes from and why is it calling the console API).\n\nCheers,\nSimon\n\n \n\n> On Oct 1, 2021, at 7:02 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n> \n> \n> On 9/29/21 11:17 AM, Jeffrey Rosenthal wrote:\n>> Hello. I often use R from the command-line (i.e. just typing \"R\") within the \"Terminal\" application on my MacBook Pro laptop.  And sometimes I get a sudden strange error \"*** caught segfault *** address 0x10, cause 'memory not mapped'\" (after which R allows me to abort/exit/etc, but not to continue).  It occurs when using the arrow or delete keys (perhaps related to readline?).  After much testing, I have found a very simple reproducible minimal example. Namely, if I start R from the command line, and then type \"plot(0)\", and then type any character (e.g. \"a\") and then the delete key, then it always triggers this error.  Does this error occur for anyone else?  Any ideas how to fix it?\n> \n> \n> I would reinstall XQuartz. The `plot(0)` command changes the focus from R to XQuartz, so the processing of the typed letter \"a\" is being handled by that system function rather than by R. On my 3 year-old MacAir running R 4.1.0 typing a letter with the system focus on a plot window produces a mild error tone, as does typing the delete key. (No crash after returning focus to the R process by mouse-clicking in the Terminal window.\n> \n> \n> -- \n> \n> David\n> \n>> \n>> I know that this problem is quite specific to my Mac laptop set-up; it does not occur on my iMac nor on my friend's Mac.  On the other hand, I did try upgrading R and that did not fix it.  My sessionInfo() output follows.  I am *not* saving R history, nor setting R_SAVEHIST, and I do *not* have any .Rhistory or .Rapp.history file in my directory.  Thank you very much for any suggestions!\n>> \n>> --------------------------------------------\n>> \n>>> sessionInfo()\n>> \n>> R version 4.0.2 (2020-06-22)\n>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>> Running under: macOS Catalina 10.15.7\n>> \n>> Matrix products: default\n>> BLAS:\n>> /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib\n>> LAPACK:\n>> /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib \n>> \n>> locale:\n>> [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods base\n>> \n>> loaded via a namespace (and not attached):\n>> [1] compiler_4.0.2\n>> \n>> ------------------------------------------------\n>>   Jeffrey S. Rosenthal\n>>   Professor of Statistics, University of Toronto\n>>   Web site: http://probability.ca/jeff/\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "David,\n\nJeffrey said he is using Quartz and that is key here (since that initializes threads in the process). We have been handing this offline and it is a crash in readline. I cannot reproduce it so ",
+      "thread_id": "thread-7507081b0de1",
+      "thread_depth": 0,
+      "month": "2021-10"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-7507081b0de1",
+      "subject": "strange segfault error in R from command-line on Mac laptop",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2021-10-01T10:23:16+13:00",
+      "last_reply": "2021-10-01T10:23:16+13:00",
+      "root_message_id": "msg-7507081b0de1"
+    }
+  ]
+}
