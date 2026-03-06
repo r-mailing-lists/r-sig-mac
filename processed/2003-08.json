@@ -1,0 +1,221 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2003-08",
+  "messages": [
+    {
+      "id": "msg-573e9eefaa8d",
+      "message_id": "<BB565AF1.2446%gwgilc@wm.edu>",
+      "from_name": "George W. Gilchrist",
+      "from_email_hash": "b1bfa7609091dcb85f83aad1747fe8f2d63952912b1e90cd7762728eb36740c2",
+      "date": "2003-08-06T13:12:44Z",
+      "subject": "[R-SIG-Mac] Making pdf files",
+      "subject_clean": "Making pdf files",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "After configuring R-1.7.1, I get the message:\n\nconfigure: WARNING: you cannot build PDF versions of the R manuals\n\nAny clue as to how I can fix this? Thanks.\n\nGeorge\n\n==================================================================\nGeorge W. Gilchrist                        Email #1: gwgilc@wm.edu\nDepartment of Biology, Box 8795          Email #2: kitesci@cox.net\nCollege of William & Mary                    Phone: (757) 221-7751\nWilliamsburg, VA 23187-8795                    Fax: (757) 221-6483\nhttp://gwgilc.people.wm.edu/",
+      "body_snippet": "After configuring R-1.7.1, I get the message:\n\nconfigure: WARNING: you cannot build PDF versions of the R manuals\n\nAny clue as to how I can fix this? Thanks.\n\nGeorge\n\n=================================",
+      "thread_id": "thread-573e9eefaa8d",
+      "thread_depth": 0,
+      "month": "2003-08"
+    },
+    {
+      "id": "msg-636183cdf0dd",
+      "message_id": "<Pine.A41.4.44.0308060718590.58026-100000@homer20.u.washington.edu>",
+      "from_name": "Thomas Lumley",
+      "from_email_hash": "fd3f6e9367b335430f74a8f6feb36e5e9d187865079d5ca2018b64dfb89dd278",
+      "date": "2003-08-06T16:22:41Z",
+      "subject": "[R-SIG-Mac] Making pdf files",
+      "subject_clean": "Making pdf files",
+      "in_reply_to": "<BB565AF1.2446%gwgilc@wm.edu>",
+      "references": [],
+      "body_plain": "On Wed, 6 Aug 2003, George W. Gilchrist wrote:\n\n> After configuring R-1.7.1, I get the message:\n>\n> configure: WARNING: you cannot build PDF versions of the R manuals\n>\n> Any clue as to how I can fix this? Thanks.\n\nYou need pdftex.  I use the teTeX distribution, and TeXShop\n http://www.uoregon.edu/~koch/texshop/texshop.html\nthough if you only use it for R documentation there may be simpler ways\n\n\t-thomas\n\nThomas Lumley\t\t\tAssoc. Professor, Biostatistics\ntlumley@u.washington.edu\tUniversity of Washington, Seattle",
+      "body_snippet": "On Wed, 6 Aug 2003, George W. Gilchrist wrote:\n\n> After configuring R-1.7.1, I get the message:\n>\n> configure: WARNING: you cannot build PDF versions of the R manuals\n>\n> Any clue as to how I can fix ",
+      "thread_id": "thread-573e9eefaa8d",
+      "thread_depth": 1,
+      "month": "2003-08"
+    },
+    {
+      "id": "msg-d1403696a581",
+      "message_id": "<5226EA02-CC84-11D7-874B-000393BDE1EC@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2003-08-12T08:08:08Z",
+      "subject": "[R-SIG-Mac] cleanest build I can think of",
+      "subject_clean": "cleanest build I can think of",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I've recently had the 'opportunity' (if you can call a dead hard drive \nthat) to rebuild my iBook from scratch and I thought I'd share my \n'building R with minimum changes' :-)\n\nNote: I use bash not tcsh, I don't remember if this syntax works\n\nFPICFLAGS=-fno-common LDFLAGS=-lcc_dynamic ./configure --enable-R-shlib \n--with-aqua --without-x --with-blas='-framework vecLib' --with-lapack\nmake CFLAGS+=-D__DEBUGGING__\n\nThis gets rid of the devQuartz.c building problems caused by \nDebugging.h and gets configure to run. Everything else is according to \nStefano's website. Obviously you'd need to make modifications for \nTcl/Tk and recommended packages and such, but this gets me up and \nrunning without having to modify files (which is good for those of us \nsyncing from R-sync :-))",
+      "body_snippet": "I've recently had the 'opportunity' (if you can call a dead hard drive \nthat) to rebuild my iBook from scratch and I thought I'd share my \n'building R with minimum changes' :-)\n\nNote: I use bash not t",
+      "thread_id": "thread-d1403696a581",
+      "thread_depth": 0,
+      "month": "2003-08"
+    },
+    {
+      "id": "msg-5c6960218f8d",
+      "message_id": "<C3C6CCA2-CC8F-11D7-861F-003065CC4CB8@mclink.it>",
+      "from_name": "Stefano Iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2003-08-12T08:39:41Z",
+      "subject": "[R-SIG-Mac] cleanest build I can think of",
+      "subject_clean": "cleanest build I can think of",
+      "in_reply_to": "<5226EA02-CC84-11D7-874B-000393BDE1EC@hsph.harvard.edu>",
+      "references": [],
+      "body_plain": "Thanks Byron, I assume you use new Devel Tool updates and nothing from \nfink?\nCan other people with new dev tools check this (for example Jan?)\nIt would be nice to update the instuction page (and R-admin in the \nfuture)\n\nsome general notes:\n1. there is no need to configure with --without-x as X11 can now be \nused from inside RAqua\n2. please use R-devel and not R-Sig-Mac as we will soon close this list \n(from R-1.8.0)\n3. me and Thomas have implemented many new code to the Aqua GUI. If you \nrsync today and reinstall RAqua you'll see these changes\n4. tcltk seems to work again but only after launching tkStartGUI()\n\nstefano\n\nOn Marted?, ago 12, 2003, at 07:17 Europe/Rome, Byron Ellis wrote:\n\n> I've recently had the 'opportunity' (if you can call a dead hard drive \n> that) to rebuild my iBook from scratch and I thought I'd share my \n> 'building R with minimum changes' :-)\n>\n> Note: I use bash not tcsh, I don't remember if this syntax works\n>\n> FPICFLAGS=-fno-common LDFLAGS=-lcc_dynamic ./configure \n> --enable-R-shlib --with-aqua --without-x --with-blas='-framework \n> vecLib' --with-lapack\n> make CFLAGS+=-D__DEBUGGING__\n>\n> This gets rid of the devQuartz.c building problems caused by \n> Debugging.h and gets configure to run. Everything else is according to \n> Stefano's website. Obviously you'd need to make modifications for \n> Tcl/Tk and recommended packages and such, but this gets me up and \n> running without having to modify files (which is good for those of us \n> syncing from R-sync :-))\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Thanks Byron, I assume you use new Devel Tool updates and nothing from \nfink?\nCan other people with new dev tools check this (for example Jan?)\nIt would be nice to update the instuction page (and R-ad",
+      "thread_id": "thread-d1403696a581",
+      "thread_depth": 1,
+      "month": "2003-08"
+    },
+    {
+      "id": "msg-2cee9bbfa5a3",
+      "message_id": "<8DA8ECD5-CCDC-11D7-874B-000393BDE1EC@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2003-08-12T17:49:10Z",
+      "subject": "[R-SIG-Mac] cleanest build I can think of",
+      "subject_clean": "cleanest build I can think of",
+      "in_reply_to": "<C3C6CCA2-CC8F-11D7-861F-003065CC4CB8@mclink.it>",
+      "references": [],
+      "body_plain": "Yes, gcc-3.3 (and the matching g77-3.3) and local builds of everything \n(well, almost I'm pretty sure my jpeglib and pnglib came from my TeX \ninstallation).\n\nAlso, upon reflection its probably better to change CPPFLAGS to \n'-I/usr/local/include -D__DEBUGGING__' rather than CFLAGS since \nCPPFLAGS is included in the .c.d rule and CFLAGS is not. I must have \nalready had the .d files sitting around.\n\n\nOn Tuesday, August 12, 2003, at 02:39 AM, Stefano Iacus wrote:\n\n> Thanks Byron, I assume you use new Devel Tool updates and nothing from \n> fink?\n> Can other people with new dev tools check this (for example Jan?)\n> It would be nice to update the instuction page (and R-admin in the \n> future)\n>\n> some general notes:\n> 1. there is no need to configure with --without-x as X11 can now be \n> used from inside RAqua\n> 2. please use R-devel and not R-Sig-Mac as we will soon close this \n> list (from R-1.8.0)\n> 3. me and Thomas have implemented many new code to the Aqua GUI. If \n> you rsync today and reinstall RAqua you'll see these changes\n> 4. tcltk seems to work again but only after launching tkStartGUI()\n>\n> stefano\n>\n> On Marted?, ago 12, 2003, at 07:17 Europe/Rome, Byron Ellis wrote:\n>\n>> I've recently had the 'opportunity' (if you can call a dead hard \n>> drive that) to rebuild my iBook from scratch and I thought I'd share \n>> my 'building R with minimum changes' :-)\n>>\n>> Note: I use bash not tcsh, I don't remember if this syntax works\n>>\n>> FPICFLAGS=-fno-common LDFLAGS=-lcc_dynamic ./configure \n>> --enable-R-shlib --with-aqua --without-x --with-blas='-framework \n>> vecLib' --with-lapack\n>> make CFLAGS+=-D__DEBUGGING__\n>>\n>> This gets rid of the devQuartz.c building problems caused by \n>> Debugging.h and gets configure to run. Everything else is according \n>> to Stefano's website. Obviously you'd need to make modifications for \n>> Tcl/Tk and recommended packages and such, but this gets me up and \n>> running without having to modify files (which is good for those of us \n>> syncing from R-sync :-))\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>",
+      "body_snippet": "Yes, gcc-3.3 (and the matching g77-3.3) and local builds of everything \n(well, almost I'm pretty sure my jpeglib and pnglib came from my TeX \ninstallation).\n\nAlso, upon reflection its probably better ",
+      "thread_id": "thread-d1403696a581",
+      "thread_depth": 2,
+      "month": "2003-08"
+    },
+    {
+      "id": "msg-d6dc8f336bf0",
+      "message_id": "<CC00F30A-D2A7-11D7-B428-000393BB6D36@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2003-08-20T02:46:34Z",
+      "subject": "[R-SIG-Mac] RAqua for Panther",
+      "subject_clean": "RAqua for Panther",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Building RAqua on Panther is a bit of a hassle, because of (minor)  \nproblems\nwith Aqua Tcl/Tk and with g77.  I have put a version in\n\nhttp://gifi.stat.ucla.edu/pub\n\nwhich uses no libraries from fink, but it uses Jeff Whittaker's fink\nversion of g77-3.3 and gas, and not Gaurav Khanna's g77-3.3\nwith the system gas. By adding some flags to the environment,\nI also build the tcltk extensions (but you still have to use\nTcl/Tk through tkStartGUI() -- see Stefano's website). This version\ncan also use x11 devices (if the X server is running) and has\nthe new version of the quartz device\n\nPut StartR in /Applications -- and not in any other place. If you\nhave a problem, I'll try to help, provided you tell me what\nConsole.app says about your problem.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n\n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "Building RAqua on Panther is a bit of a hassle, because of (minor)  \nproblems\nwith Aqua Tcl/Tk and with g77.  I have put a version in\n\nhttp://gifi.stat.ucla.edu/pub\n\nwhich uses no libraries from fink,",
+      "thread_id": "thread-d6dc8f336bf0",
+      "thread_depth": 0,
+      "month": "2003-08"
+    },
+    {
+      "id": "msg-5fdee474dc8d",
+      "message_id": "<23E94E88-D462-11D7-88AE-000393BB6D36@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2003-08-22T07:34:27Z",
+      "subject": "[R-SIG-Mac] R-devel on Panther",
+      "subject_clean": "R-devel on Panther",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Both the command line version and the Aqua version build/install\nfine on Panther B44. \"Make check\"runs fine as well.\n\nThe configure flags are\n\nconfigure --enable-R-shlib  \n--with-tcl-config=/Library/Frameworks/Tcl.framework/tclConfig.sh  \n--with-tk-config=/Library/Frameworks/Tk.framework/tkConfig.sh\n\t--with-blas='-framework vecLib' --with-lapack --with-aqua\n\nIn the environment I have\n\nFPICFLAGS=-fno-common\nLDFLAGS=-lcc_dynamic\nCPPFLAGS=-D__DEBUGGING__\nTCLTK_LIBS=-framework Tcl -framework Tk\nTCLTK_CPPFLAGS=-I/Library/Frameworks/Tcl.framework/Versions/Current/ \nHeaders -I/Library/Frameworks/Tk.framework/Versions/Current/Headers\n\nI know that the two TCLTK variables (strangely enough), the DEBUGGING  \nvariable and the FPICFLAGS are necessary.\n\nI am using the g77-3.3 from fink -- not the one from Gaurav Khanna, the  \nfink one\ncomes with a patched assembler.\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "Both the command line version and the Aqua version build/install\nfine on Panther B44. \"Make check\"runs fine as well.\n\nThe configure flags are\n\nconfigure --enable-R-shlib  \n--with-tcl-config=/Library/F",
+      "thread_id": "thread-5fdee474dc8d",
+      "thread_depth": 0,
+      "month": "2003-08"
+    },
+    {
+      "id": "msg-b123d377535d",
+      "message_id": "<835D515D-D5F5-11D7-9DD2-000393BB6D36@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2003-08-24T07:40:28Z",
+      "subject": "[R-SIG-Mac] RAqua on Panther",
+      "subject_clean": "RAqua on Panther",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Updated on gifi to Panther (OS X 10.3) version B44 and R-devel\nversion August 23. Problems with and insults about this version\nto me.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "Updated on gifi to Panther (OS X 10.3) version B44 and R-devel\nversion August 23. Problems with and insults about this version\nto me.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statisti",
+      "thread_id": "thread-b123d377535d",
+      "thread_depth": 0,
+      "month": "2003-08"
+    },
+    {
+      "id": "msg-3efbdc746590",
+      "message_id": "<CE450F0C-D98E-11D7-BEB8-000393860F3C@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2003-08-28T21:37:02Z",
+      "subject": "[R-SIG-Mac] New compilers for G5",
+      "subject_clean": "New compilers for G5",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "http://www14.software.ibm.com/webapp/download/search.jsp?rs=vacpp3\nhttp://www14.software.ibm.com/webapp/download/search.jsp?rs=xlf3\n\nIBM's XL compilers for Fortran (V 8.1) , C, C++(V 6.0) are now available\nfor OS X running on the G5.\n====\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n------------------------------------------------------------------------ \n------------------------------\n            No matter where you go, there you are. --- Buckaroo Banzai\n                     http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "http://www14.software.ibm.com/webapp/download/search.jsp?rs=vacpp3\nhttp://www14.software.ibm.com/webapp/download/search.jsp?rs=xlf3\n\nIBM's XL compilers for Fortran (V 8.1) , C, C++(V 6.0) are now avai",
+      "thread_id": "thread-3efbdc746590",
+      "thread_depth": 0,
+      "month": "2003-08"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-573e9eefaa8d",
+      "subject": "Making pdf files",
+      "message_count": 2,
+      "participants": [
+        "George W. Gilchrist",
+        "Thomas Lumley"
+      ],
+      "started": "2003-08-06T13:12:44+00:00",
+      "last_reply": "2003-08-06T16:22:41+00:00",
+      "root_message_id": "msg-573e9eefaa8d"
+    },
+    {
+      "id": "thread-d1403696a581",
+      "subject": "cleanest build I can think of",
+      "message_count": 3,
+      "participants": [
+        "Byron Ellis",
+        "Stefano Iacus"
+      ],
+      "started": "2003-08-12T08:08:08+00:00",
+      "last_reply": "2003-08-12T17:49:10+00:00",
+      "root_message_id": "msg-d1403696a581"
+    },
+    {
+      "id": "thread-d6dc8f336bf0",
+      "subject": "RAqua for Panther",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2003-08-20T02:46:34+00:00",
+      "last_reply": "2003-08-20T02:46:34+00:00",
+      "root_message_id": "msg-d6dc8f336bf0"
+    },
+    {
+      "id": "thread-5fdee474dc8d",
+      "subject": "R-devel on Panther",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2003-08-22T07:34:27+00:00",
+      "last_reply": "2003-08-22T07:34:27+00:00",
+      "root_message_id": "msg-5fdee474dc8d"
+    },
+    {
+      "id": "thread-b123d377535d",
+      "subject": "RAqua on Panther",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2003-08-24T07:40:28+00:00",
+      "last_reply": "2003-08-24T07:40:28+00:00",
+      "root_message_id": "msg-b123d377535d"
+    },
+    {
+      "id": "thread-3efbdc746590",
+      "subject": "New compilers for G5",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2003-08-28T21:37:02+00:00",
+      "last_reply": "2003-08-28T21:37:02+00:00",
+      "root_message_id": "msg-3efbdc746590"
+    }
+  ]
+}

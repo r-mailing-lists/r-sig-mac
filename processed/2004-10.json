@@ -1,0 +1,1874 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2004-10",
+  "messages": [
+    {
+      "id": "msg-0f795958bdb2",
+      "message_id": "<BD831E61.433B%mraijmakers@fmg.uva.nl>",
+      "from_name": "Maartje Raijmakers",
+      "from_email_hash": "1fc62d23d5110e15fdf3c0b1da57887dbd80ae9ff9cc8f39fa07ee6eced07b03",
+      "date": "2004-10-01T14:47:08Z",
+      "subject": "[R-SIG-Mac] gstack underflow",
+      "subject_clean": "gstack underflow",
+      "in_reply_to": "<EEE03005-0DC4-11D9-80B9-000A95A67E82@stat.ucla.edu>",
+      "references": [],
+      "body_plain": "I am using package odesolve to solve a system of ode's. For this I define a\nfunction in C that is called from the lsoda function in odesolve. With a\nlarge system I occasionally get the following warning if I run it in the\ndebugger: \n\n\"kCGErrorFailure : CGGStackRestore: gstack underflow \"\n\nCan someone help me with the  meaning of this warning and what to do about\nit?\n\nMaartje",
+      "body_snippet": "I am using package odesolve to solve a system of ode's. For this I define a\nfunction in C that is called from the lsoda function in odesolve. With a\nlarge system I occasionally get the following warni",
+      "thread_id": "thread-0f795958bdb2",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-058471d5bb7d",
+      "message_id": "<B309DA10-13F3-11D9-9359-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-01T23:49:05Z",
+      "subject": "[R-SIG-Mac] gstack underflow",
+      "subject_clean": "gstack underflow",
+      "in_reply_to": "<BD831E61.433B%mraijmakers@fmg.uva.nl>",
+      "references": [
+        "<BD831E61.433B%mraijmakers@fmg.uva.nl>"
+      ],
+      "body_plain": "Its due, I think, to the Core Graphics state stack being popped more \ntimes than it was saved. Its probably unrelated to you or R. (IIRC some \nversions of DesktopManager caused this warning to be sent.)\n\nOn Oct 1, 2004, at 5:46 AM, Maartje Raijmakers wrote:\n\n>\n> I am using package odesolve to solve a system of ode's. For this I \n> define a\n> function in C that is called from the lsoda function in odesolve. With \n> a\n> large system I occasionally get the following warning if I run it in \n> the\n> debugger:\n>\n> \"kCGErrorFailure : CGGStackRestore: gstack underflow \"\n>\n> Can someone help me with the  meaning of this warning and what to do \n> about\n> it?\n>\n> Maartje\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Its due, I think, to the Core Graphics state stack being popped more \ntimes than it was saved. Its probably unrelated to you or R. (IIRC some \nversions of DesktopManager caused this warning to be sent",
+      "thread_id": "thread-0f795958bdb2",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-864e62664a64",
+      "message_id": "<BD87294F.1C08%mraijmakers@fmg.uva.nl>",
+      "from_name": "Maartje Raijmakers",
+      "from_email_hash": "1fc62d23d5110e15fdf3c0b1da57887dbd80ae9ff9cc8f39fa07ee6eced07b03",
+      "date": "2004-10-04T16:22:58Z",
+      "subject": "[R-SIG-Mac] Memory length in C",
+      "subject_clean": "Memory length in C",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I suspect memory problems. Therefore I want to do the following, but I don't\nknow how:\n\nI use C - routines which I call from R with .C (and C routines that are\ncalled from fortran by lsoda in the odesolve package)\nOne of these C routines has as an argument a pointer to an array of doubles.\n\nNow, I want to check the length of this array within the C-routine.\nDoes anyone know how I should do that?\n\n\nRegards, Maartje",
+      "body_snippet": "I suspect memory problems. Therefore I want to do the following, but I don't\nknow how:\n\nI use C - routines which I call from R with .C (and C routines that are\ncalled from fortran by lsoda in the odes",
+      "thread_id": "thread-864e62664a64",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-e1a0a67e5747",
+      "message_id": "<A7D1AE9C-1618-11D9-A508-000A957CEFBA@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "ca28efd9ec1cfd4e8286859200079ce1b72e68c0c25c87bda988546cff431034",
+      "date": "2004-10-04T17:18:43Z",
+      "subject": "[R-SIG-Mac] Memory length in C",
+      "subject_clean": "Memory length in C",
+      "in_reply_to": "<BD87294F.1C08%mraijmakers@fmg.uva.nl>",
+      "references": [
+        "<BD87294F.1C08%mraijmakers@fmg.uva.nl>"
+      ],
+      "body_plain": "On Oct 4, 2004, at 4:22 PM, Maartje Raijmakers wrote:\n\n> I suspect memory problems. Therefore I want to do the following, but I \n> don't\n> know how:\n\nBTW: you may want to CC this to R-help (in case you didn't), because \nthis is not a Mac-specific problem.\n\n> I use C - routines which I call from R with .C (and C routines that are\n> called from fortran by lsoda in the odesolve package)\n> One of these C routines has as an argument a pointer to an array of \n> doubles.\n>\n> Now, I want to check the length of this array within the C-routine.\n> Does anyone know how I should do that?\n\nAFAIK the .C function has no way of providing the array length - this \nis one of the reasons why .Call is recommended. You can, however, \nsupply the length yourself in an extra parameter, such as for example:\n\na<-rnorm(100)\n.C(\"myfunc\", as.double(a), as.integer(length(a)))\n\nand in C:\n\nvoid myfunc(double *a, int *len);\n\nI'm not quite sure, but there may be some low-level debugging tools in \nR, such as using your own memory allocation routines, but I'm not sure \nif that will help in your case. For Mac-specific debugging there is a \nlot of very powerful tools for memory management inspection, see man \nmalloc for details.\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_snippet": "On Oct 4, 2004, at 4:22 PM, Maartje Raijmakers wrote:\n\n> I suspect memory problems. Therefore I want to do the following, but I \n> don't\n> know how:\n\nBTW: you may want to CC this to R-help (in case yo",
+      "thread_id": "thread-864e62664a64",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-3d296244c880",
+      "message_id": "<Pine.A41.4.61.0410040832200.92704@homer10.u.washington.edu>",
+      "from_name": "Thomas Lumley",
+      "from_email_hash": "fd3f6e9367b335430f74a8f6feb36e5e9d187865079d5ca2018b64dfb89dd278",
+      "date": "2004-10-04T17:34:31Z",
+      "subject": "[R-SIG-Mac] Memory length in C",
+      "subject_clean": "Memory length in C",
+      "in_reply_to": "<BD87294F.1C08%mraijmakers@fmg.uva.nl>",
+      "references": [
+        "<BD87294F.1C08%mraijmakers@fmg.uva.nl>"
+      ],
+      "body_plain": "On Mon, 4 Oct 2004, Maartje Raijmakers wrote:\n\n>\n>\n> I suspect memory problems. Therefore I want to do the following, but I don't\n> know how:\n>\n> I use C - routines which I call from R with .C (and C routines that are\n> called from fortran by lsoda in the odesolve package)\n> One of these C routines has as an argument a pointer to an array of doubles.\n>\n> Now, I want to check the length of this array within the C-routine.\n> Does anyone know how I should do that?\n>\n\nYou can't. The C pointer doesn't contain any information about the length \nof the array -- it has to be passed in as a separate argument.\n\nTo detect errors in the length of the array you can put extra entries on \nthe end of the array and see if they are overwritten.\n\n \t-thomas",
+      "body_snippet": "On Mon, 4 Oct 2004, Maartje Raijmakers wrote:\n\n>\n>\n> I suspect memory problems. Therefore I want to do the following, but I don't\n> know how:\n>\n> I use C - routines which I call from R with .C (and C ",
+      "thread_id": "thread-864e62664a64",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-f063da7ecea4",
+      "message_id": "<F6AA6428-163B-11D9-BA47-000A95A67E82@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-04T21:31:09Z",
+      "subject": "[R-SIG-Mac] R (batteries included) on http://gifi.stat.ucla.edu/pub",
+      "subject_clean": "R (batteries included) on http://gifi.stat.ucla.edu/pub",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The 10-04-04 version has some important changes. First, we'll drop the  \nhack which allows you to use Quartz graphics from the Terminal and  \nEmacs versions. Thus we go back to X11 graphics for those GUI's, and we  \ndrop support for AquaTclTk. Second, I'll use the new Aqua GUI for R  \ncontributed by Stefano and Simon. Third, there are now over 570  \npackages, all recompiled for R-2.0.0. The installer is a meta-package,  \nwhich installs (by default) R-dist with recommended packages, the Cocoa  \nR.app, and support dynamic libraries. You can also use it to optionally  \ninstall Carbon Emacs and GTK+OSX.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n   \n------------------------------------------------------------------------ \n------------------------- \n        \n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: text/enriched\nSize: 1416 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20041004/3cd50acc/attachment.bin",
+      "body_snippet": "The 10-04-04 version has some important changes. First, we'll drop the  \nhack which allows you to use Quartz graphics from the Terminal and  \nEmacs versions. Thus we go back to X11 graphics for those ",
+      "thread_id": "thread-f063da7ecea4",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-6cb09b8ab835",
+      "message_id": "<509AE655-164A-11D9-82D8-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-04T23:14:04Z",
+      "subject": "[R-SIG-Mac] R (batteries included) on http://gifi.stat.ucla.edu/pub",
+      "subject_clean": "R (batteries included) on http://gifi.stat.ucla.edu/pub",
+      "in_reply_to": "<F6AA6428-163B-11D9-BA47-000A95A67E82@stat.ucla.edu>",
+      "references": [
+        "<F6AA6428-163B-11D9-BA47-000A95A67E82@stat.ucla.edu>"
+      ],
+      "body_plain": "Thanks Jan.\nJust a side note: the final version of the Cocoa R.app will be  \navailable officially on Oct 15th as me and Simon are still finishing of  \nimplementing final details.\nAn official statement will follow to announce this.\n\nstefano\n\nOn Oct 4, 2004, at 9:31 PM, Jan de Leeuw wrote:\n\n> The 10-04-04 version has some important changes. First, we'll drop the  \n> hack which allows you to use Quartz graphics from the Terminal and  \n> Emacs versions. Thus we go back to X11 graphics for those GUI's, and  \n> we drop support for AquaTclTk. Second, I'll use the new Aqua GUI for R  \n> contributed by Stefano and Simon. Third, there are now over 570  \n> packages, all recompiled for R-2.0.0. The installer is a meta-package,  \n> which installs (by default) R-dist with recommended packages, the  \n> Cocoa R.app, and support dynamic libraries. You can also use it to  \n> optionally install Carbon Emacs and GTK+OSX.\n> ===\n> Jan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n> Software\n> US mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email:  \n> deleeuw@stat.ucla.edu\n> homepage: http://gifi.stat.ucla.edu\n>\n> ----------------------------------------------------------------------- \n> --------------------------\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n>\n> ----------------------------------------------------------------------- \n> --------------------------          \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Thanks Jan.\nJust a side note: the final version of the Cocoa R.app will be  \navailable officially on Oct 15th as me and Simon are still finishing of  \nimplementing final details.\nAn official statement",
+      "thread_id": "thread-f063da7ecea4",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-f8b214ea667e",
+      "message_id": "<C0C5056C-1893-11D9-81C2-000D932C7F48@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-07T21:04:59Z",
+      "subject": "[R-SIG-Mac] R-2.0.0-batteries-included on http://gifi.stat.ucla.edu/pub",
+      "subject_clean": "R-2.0.0-batteries-included on http://gifi.stat.ucla.edu/pub",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The 10-06-04 version updates R to R-2.0.0, updates about 25 CRAN  \npackages, and is compiled using Apple's gcc-3.3 and a version of  \ng77-3.4 which only uses static libraries. This takes care of some nasty\ndependencies.\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n   \n------------------------------------------------------------------------ \n------------------------- \n        \n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: text/enriched\nSize: 1066 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20041007/33ba239f/attachment.bin",
+      "body_snippet": "The 10-06-04 version updates R to R-2.0.0, updates about 25 CRAN  \npackages, and is compiled using Apple's gcc-3.3 and a version of  \ng77-3.4 which only uses static libraries. This takes care of some ",
+      "thread_id": "thread-f8b214ea667e",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-952c9cd27db1",
+      "message_id": "<8DA253C1-1ABF-11D9-A6D6-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-10-10T15:23:36Z",
+      "subject": "[R-SIG-Mac] R.app screenshots",
+      "subject_clean": "R.app screenshots",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "For the ones waiting for the new (Cocoa) R.app you can look at some \nscreenshots at http://www.economia.unimi.it/R\n\nsee you on Oct 15th.\n\nstefano & simon",
+      "body_snippet": "For the ones waiting for the new (Cocoa) R.app you can look at some \nscreenshots at http://www.economia.unimi.it/R\n\nsee you on Oct 15th.\n\nstefano & simon",
+      "thread_id": "thread-952c9cd27db1",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-9abc5c2679b7",
+      "message_id": "<p0611043bbd8f10c0dd64@[165.124.160.222]>",
+      "from_name": "William Revelle",
+      "from_email_hash": "17775642d38a89586519cdb4da8b9881c3da6cb4b5abf51dc2b37a23be377688",
+      "date": "2004-10-10T18:17:40Z",
+      "subject": "[R-SIG-Mac] R.app screenshots",
+      "subject_clean": "R.app screenshots",
+      "in_reply_to": "<8DA253C1-1ABF-11D9-A6D6-000A95C87F66@mclink.it>",
+      "references": [
+        "<8DA253C1-1ABF-11D9-A6D6-000A95C87F66@mclink.it>"
+      ],
+      "body_plain": ">For the ones waiting for the new (Cocoa) R.app you can look at some \n>screenshots at http://www.economia.unimi.it/R\n>\n>see you on Oct 15th.\n>\n>stefano & simon\n\nwow!\n\nIt will be difficult to wait!\n\nThanks for the great work.\n\nBill\n\n\n-- \n----------------------------\nWilliam Revelle \nhttp://pmc.psych.northwestern.edu/revelle.html    \nDepartment of Psychology, Northwestern University\nPersonality Project: http://personality-project.org/personality.html",
+      "body_snippet": ">For the ones waiting for the new (Cocoa) R.app you can look at some \n>screenshots at http://www.economia.unimi.it/R\n>\n>see you on Oct 15th.\n>\n>stefano & simon\n\nwow!\n\nIt will be difficult to wait!\n\nTh",
+      "thread_id": "thread-952c9cd27db1",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-b46f62474f6a",
+      "message_id": "<6494B0D2-1AF5-11D9-91F4-000D932C7F48@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-10T21:49:00Z",
+      "subject": "[R-SIG-Mac] R-2.0.0 patched and batteries included",
+      "subject_clean": "R-2.0.0 patched and batteries included",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The 10-10-04 version updates R to R-patched, Emacs and Tcl/Tk to the  \ncurrent CVS versions,\nand ESS to 5.2.3. It gives a resource fork to /usr/local/bin/emacs so  \nit can be opened from the terminal,\nit includes dylibs for jpeg and png, and updates various CRAN packages.  \nSince I switched to a\ng77 which does not use shared libraries many packages stopped working,  \nso I included\nlibg2c.dylib again (but eventually I will recompile everything without  \nit).\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "The 10-10-04 version updates R to R-patched, Emacs and Tcl/Tk to the  \ncurrent CVS versions,\nand ESS to 5.2.3. It gives a resource fork to /usr/local/bin/emacs so  \nit can be opened from the terminal,",
+      "thread_id": "thread-b46f62474f6a",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-e51db62b1cd6",
+      "message_id": "<06F340A6-1EE5-11D9-B035-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-15T22:01:49Z",
+      "subject": "[R-SIG-Mac] *** R-2.0.0 for Mac OS X released on Oct-15-2004 ***",
+      "subject_clean": "*** R-2.0.0 for Mac OS X released on Oct-15-2004 ***",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "*** R-2.0.0 for Mac OS X released on Oct-15-2004 ***\n\nThe last binary build of R for Mac OS X have just been released on CRAN.\n\nApart from specific innovations in R itself (see the official R-2.0.0 \nannouncement) this new build provides a brand new Cocoa GUI designed \nand implemented from scratch with many new features. Among these: \ninternal editor with syntax highlighting, code and file completion, \nenhanced AppleScript support, new packages installer and manager, new \ndata editor and browser, internal html help system, clickable history \npanel. This version of the GUI requires Mac OS X 10.3+. Mac OS X 10.2+ \nusers can still use R-2.0.0 via the old carbon GUI (the new build \ncontains installers for both Mac OS X 10.2+ and 10.3+).\nThe new Cocoa GUI has been designed jointly by Stefano M. Iacus and \nSimon Urbanek.\n\n\nR for Mac OS X can be found at:  http://cran.R-project.org/bin/macosx \nand will be propagated in the next few hours/days on the CRAN network.\n\n\n\nFor the \"R Foundation for Statistical Computing\"\n\n\tStefano M. Iacus\n\n\n\nMore information on R at:  http://www.R-project.org",
+      "body_snippet": "*** R-2.0.0 for Mac OS X released on Oct-15-2004 ***\n\nThe last binary build of R for Mac OS X have just been released on CRAN.\n\nApart from specific innovations in R itself (see the official R-2.0.0 \na",
+      "thread_id": "thread-e51db62b1cd6",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-816abf7faf10",
+      "message_id": "<98129B4A-1EEC-11D9-B035-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-10-15T22:56:03Z",
+      "subject": "[R-SIG-Mac] *** R-2.0.0 for Mac OS X (II) ***",
+      "subject_clean": "*** R-2.0.0 for Mac OS X (II) ***",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "(apologizes for cross-posting)\n\nTwo side notes on *** R-2.0.0 for Mac OS X released on Oct-15-2004 *** \nannouncement\n1. this is the \"latest\" and not the \"last\" build for Mac OS X\n2. the package is on its way to CRAN, so please wait few more moments \nto get it.\n\nstefano",
+      "body_snippet": "(apologizes for cross-posting)\n\nTwo side notes on *** R-2.0.0 for Mac OS X released on Oct-15-2004 *** \nannouncement\n1. this is the \"latest\" and not the \"last\" build for Mac OS X\n2. the package is on ",
+      "thread_id": "thread-816abf7faf10",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-9844b5016e2b",
+      "message_id": "<8F715323-1EF5-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-16T00:00:13Z",
+      "subject": "[R-SIG-Mac] Weird R-devel build problem?",
+      "subject_clean": "Weird R-devel build problem?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hoping Jan or someone has an idea of where this guy is coming from:\n\ngcc -framework Carbon -mdynamic-no-pic -L/usr/local/lib -o R.bin  \nRmain.o  -L../../lib -lR\nld: /usr/lib/gcc/darwin/3.3/libgcc.a(_fixunsdfdi.o) illegal reference \nto symbol: ___floatdidf defined in indirectly referenced dynamic \nlibrary /usr/local/lib/libgcc_s.1.0.dylib\n\nAFAIK floatdidf is defined in libSystem (which should be automagically \nlinked). This is a clean build from today's checkout (though its been \nstuck here for a while---I just haven't had a chance to fix things)\n\n\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Hoping Jan or someone has an idea of where this guy is coming from:\n\ngcc -framework Carbon -mdynamic-no-pic -L/usr/local/lib -o R.bin  \nRmain.o  -L../../lib -lR\nld: /usr/lib/gcc/darwin/3.3/libgcc.a(_f",
+      "thread_id": "thread-9844b5016e2b",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-3febab7b863a",
+      "message_id": "<CC9394B5-1EF6-11D9-B035-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-16T00:08:55Z",
+      "subject": "[R-SIG-Mac] Weird R-devel build problem?",
+      "subject_clean": "Weird R-devel build problem?",
+      "in_reply_to": "<8F715323-1EF5-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<8F715323-1EF5-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "replace g77 with the latest one from Khanna's pages. It should be 3.4.2 \n(non experimental).\nRemove manually g77 3.4.1 from /usr/local/lib/gcc/darwin-xxx/\n\nstefano\n\nOn Oct 16, 2004, at 12:00 AM, Byron Ellis wrote:\n\n> Hoping Jan or someone has an idea of where this guy is coming from:\n>\n> gcc -framework Carbon -mdynamic-no-pic -L/usr/local/lib -o R.bin  \n> Rmain.o  -L../../lib -lR\n> ld: /usr/lib/gcc/darwin/3.3/libgcc.a(_fixunsdfdi.o) illegal reference \n> to symbol: ___floatdidf defined in indirectly referenced dynamic \n> library /usr/local/lib/libgcc_s.1.0.dylib\n>\n> AFAIK floatdidf is defined in libSystem (which should be automagically \n> linked). This is a clean build from today's checkout (though its been \n> stuck here for a while---I just haven't had a chance to fix things)\n>\n>\n> ---\n> Byron Ellis (bellis@hsph.harvard.edu)\n> \"Oook\" -- The Librarian\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "replace g77 with the latest one from Khanna's pages. It should be 3.4.2 \n(non experimental).\nRemove manually g77 3.4.1 from /usr/local/lib/gcc/darwin-xxx/\n\nstefano\n\nOn Oct 16, 2004, at 12:00 AM, Byron",
+      "thread_id": "thread-9844b5016e2b",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-698785a0494e",
+      "message_id": "<E0F12092-1EFA-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-16T00:38:09Z",
+      "subject": "[R-SIG-Mac] Weird R-devel build problem?",
+      "subject_clean": "Weird R-devel build problem?",
+      "in_reply_to": "<CC9394B5-1EF6-11D9-B035-000A95C87F66@unimi.it>",
+      "references": [
+        "<8F715323-1EF5-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<CC9394B5-1EF6-11D9-B035-000A95C87F66@unimi.it>"
+      ],
+      "body_plain": "Great, thanks!\n\nOn Oct 15, 2004, at 3:08 PM, stefano iacus wrote:\n\n> replace g77 with the latest one from Khanna's pages. It should be \n> 3.4.2 (non experimental).\n> Remove manually g77 3.4.1 from /usr/local/lib/gcc/darwin-xxx/\n>\n> stefano\n>\n> On Oct 16, 2004, at 12:00 AM, Byron Ellis wrote:\n>\n>> Hoping Jan or someone has an idea of where this guy is coming from:\n>>\n>> gcc -framework Carbon -mdynamic-no-pic -L/usr/local/lib -o R.bin  \n>> Rmain.o  -L../../lib -lR\n>> ld: /usr/lib/gcc/darwin/3.3/libgcc.a(_fixunsdfdi.o) illegal reference \n>> to symbol: ___floatdidf defined in indirectly referenced dynamic \n>> library /usr/local/lib/libgcc_s.1.0.dylib\n>>\n>> AFAIK floatdidf is defined in libSystem (which should be \n>> automagically linked). This is a clean build from today's checkout \n>> (though its been stuck here for a while---I just haven't had a chance \n>> to fix things)\n>>\n>>\n>> ---\n>> Byron Ellis (bellis@hsph.harvard.edu)\n>> \"Oook\" -- The Librarian\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Great, thanks!\n\nOn Oct 15, 2004, at 3:08 PM, stefano iacus wrote:\n\n> replace g77 with the latest one from Khanna's pages. It should be \n> 3.4.2 (non experimental).\n> Remove manually g77 3.4.1 from /us",
+      "thread_id": "thread-9844b5016e2b",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-7603b26fafcc",
+      "message_id": "<DA5A16BE-2024-11D9-A647-000393707CF2@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2004-10-17T12:11:11Z",
+      "subject": "[R-SIG-Mac] R 2 questions",
+      "subject_clean": "R 2 questions",
+      "in_reply_to": "<200410161002.i9GA2fqa028991@hypatia.math.ethz.ch>",
+      "references": [
+        "<200410161002.i9GA2fqa028991@hypatia.math.ethz.ch>"
+      ],
+      "body_plain": "Hi,\n\nI downloaded the new R 2.0 and installed it on an iMac with OS X \n10.3.5. I noticed that the preferences option in the R menu was grey \nand unavailable. Is this normal?\n\nAlso, upon installing R 2.0 and before adding any package, I tried \ntwice to select \"Package Manager\" under \"Packages and Data\" and both \ntimes R quit on me. The third time I selected Package Installer under \nthe same menu and added a few packages. Now I can select \"Package \nManager\" to chose which ones to load.\n\nI don't know if the unexpected quits were due to the few packages that \nwere there from my previous use of R 1.9.1. Some of these I updated to \nnewer versions when I used the Package Installer, so maybe they no \nlonger cause that crash. I was wondering if other people get this crash \nafter installing R 2.0 and before adding-installing new packages...\n\nThanks to all those who improve the R experience on Mac,\n\nDenis Chabot",
+      "body_snippet": "Hi,\n\nI downloaded the new R 2.0 and installed it on an iMac with OS X \n10.3.5. I noticed that the preferences option in the R menu was grey \nand unavailable. Is this normal?\n\nAlso, upon installing R 2",
+      "thread_id": "thread-7603b26fafcc",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-5c97a1b20131",
+      "message_id": "<F8073A5F-202C-11D9-A647-000393707CF2@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2004-10-17T13:09:20Z",
+      "subject": "[R-SIG-Mac] update to re: R 2 Questions",
+      "subject_clean": "update to re: R 2 Questions",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "hi,\n\nI launched R 2 again and choosing  \"Package Manager\" under \"Packages \nand Data\" caused R to quit again. So the solution in my previous \nmessage was temporary or possibly not a solution at all.\n\nI removed the R folder in my account's Library Folder. I had at least \none R package present twice (for instance the new R 2 install puts mgcv \nin the Library folder inside R frameworks, and I had it in my account \nat well.\n\nI am not sure if this helped or not, but it was NECESSARY that I \nremoved the labdsv package for R's Package Manager command to work \nproperly. I had compiled that package with great difficulty last \nspring, and only succeeded thanks to the help from people from this \nlist. I was told the source for this package was not very elegantly put \ntogether...\n\nI do hope that package will be updated as I'd very much like to use it.\n\nSorry if my previous message caused some of you to work for nothing, \nalthough maybe this shows that the Package Manager should be more \nrobust when it finds things it does not like in a user's account.\n\nSincerely,\n\nDenis Chabot",
+      "body_snippet": "hi,\n\nI launched R 2 again and choosing  \"Package Manager\" under \"Packages \nand Data\" caused R to quit again. So the solution in my previous \nmessage was temporary or possibly not a solution at all.\n\nI",
+      "thread_id": "thread-5c97a1b20131",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-b9ed803e8583",
+      "message_id": "<02B5AE03-2075-11D9-A49B-000D932C7F48@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-17T21:45:10Z",
+      "subject": "[R-SIG-Mac] R-2.0.0-Batteries-Included",
+      "subject_clean": "R-2.0.0-Batteries-Included",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The 10-15-04 version recompiles g77 based packages so they no longer  \ndepend on\nlibg2c and libgcc dylibs. It includes dynamic libraries to support  \nODBC, gdal,\ngmp, mpi, lam, and curl. It also recompiles RSPerl, which no longer  \ndepends on a\nlocal version of Perl 5.8.4. And it now has a working version of  \nRXLisp. There are\nabout 580 packages included. R.app is updated to the latest version.\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "The 10-15-04 version recompiles g77 based packages so they no longer  \ndepend on\nlibg2c and libgcc dylibs. It includes dynamic libraries to support  \nODBC, gdal,\ngmp, mpi, lam, and curl. It also recom",
+      "thread_id": "thread-b9ed803e8583",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-ee2921ac1dfe",
+      "message_id": "<6D55F09F-2149-11D9-AB3F-000393D4B002@pacbell.net>",
+      "from_name": "Shiboski",
+      "from_email_hash": "2ed8a2c41c541dfebe724ca59caf7ee155f884222fdd2235bb58bfacbd466a4b",
+      "date": "2004-10-18T23:26:11Z",
+      "subject": "[R-SIG-Mac] history loading in 2.0",
+      "subject_clean": "history loading in 2.0",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The new front-end looks really good, and has some nice\nnew features. I noticed that the \"load history\" function\ndoesn't see .Rhistory files, presumably because these are\nhidden by the Finder. Is there a workaround other than\nactivating \"ShowAllFiles\" in the plist? Many people do not\nlike seeing dot files, etc. in the Finder windows.\n\nThanks,\n\n-S\n\n--\nStephen Shiboski  -------------------  steve@biostat.ucsf.edu\nDivision of Biostatistics                 voice: 415-476-0533\nUniversity of California, San Francisco     fax: 415-476-6014\n500 Parnassus Avenue, MU 420-W;  San Francisco, CA 94143-0560",
+      "body_snippet": "The new front-end looks really good, and has some nice\nnew features. I noticed that the \"load history\" function\ndoesn't see .Rhistory files, presumably because these are\nhidden by the Finder. Is there",
+      "thread_id": "thread-ee2921ac1dfe",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-f5200537d9b2",
+      "message_id": "<E0F894E6-214D-11D9-AC74-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-18T23:37:19Z",
+      "subject": "[R-SIG-Mac] history loading in 2.0",
+      "subject_clean": "history loading in 2.0",
+      "in_reply_to": "<6D55F09F-2149-11D9-AB3F-000393D4B002@pacbell.net>",
+      "references": [
+        "<6D55F09F-2149-11D9-AB3F-000393D4B002@pacbell.net>"
+      ],
+      "body_plain": "the \"traditional\" history files are not loadable with the new gui \nunless typing loadhistory() in the console.\nThe reason is that this GUI allows for multiline history which is not \nbackward compatible.\nWe will add a \"import\" button to allow users to load old history files.\nstefano\n\nOn Oct 18, 2004, at 11:05 PM, Shiboski wrote:\n\n> The new front-end looks really good, and has some nice\n> new features. I noticed that the \"load history\" function\n> doesn't see .Rhistory files, presumably because these are\n> hidden by the Finder. Is there a workaround other than\n> activating \"ShowAllFiles\" in the plist? Many people do not\n> like seeing dot files, etc. in the Finder windows.\n>\n> Thanks,\n>\n> -S\n>\n> --\n> Stephen Shiboski  -------------------  steve@biostat.ucsf.edu\n> Division of Biostatistics                 voice: 415-476-0533\n> University of California, San Francisco     fax: 415-476-6014\n> 500 Parnassus Avenue, MU 420-W;  San Francisco, CA 94143-0560\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "the \"traditional\" history files are not loadable with the new gui \nunless typing loadhistory() in the console.\nThe reason is that this GUI allows for multiline history which is not \nbackward compatibl",
+      "thread_id": "thread-ee2921ac1dfe",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-280e0ced4af7",
+      "message_id": "<p06002001bd9abda1f437@[134.214.34.24]>",
+      "from_name": "jtnews1@biomserv.univ-lyon1.fr",
+      "from_email_hash": "b20a674eb42804a87b064b390e04515db85d2871dd7105ba54500899f94dfe16",
+      "date": "2004-10-19T16:10:42Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nThe new version of R-2.0.O for MacOS X is very nice, congratulations\nfor this hard work.\n\nTrying to use the \"Change Working Directory\" command of the \"Misc\" menu,\nI want to select /Users/jthioulo/Desktop/Ranjard, so I navigate to this\nfolder, select it, click Open, and it is /Users/jthioulo/Desktop that is\nselected as working directory (i.e. the folder that is one level upper).\n\nHow do I select the wanted working directory ? I can do it only if it\ncontains a folder ?\n\nThe same command also often does not change the working directory at all,\nor sets it to a folder different from the one which was selected. For\nexample, I choose \"/Users/jthioulo/Desktop/Ranjard/Folder\", and my working directory is set to \"/Users/jthioulo/Desktop/Digest Viewer\". \n\nUsing setwd() with the command line always works.\n\nAlso, what is the format of the graphics that are copied to the clipboard ?\nIn the Windows version, the emf format allows editing the objects\ncomposing the graphics, and that would be nice to have this possibility\non Mac too.\n\nThanks,\nJean\n\n-- \nJean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie Statistique\"\nUniversite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  France\nTel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 56\n                 http://pbil.univ-lyon1.fr/JTHome.html",
+      "body_snippet": "Hello,\n\nThe new version of R-2.0.O for MacOS X is very nice, congratulations\nfor this hard work.\n\nTrying to use the \"Change Working Directory\" command of the \"Misc\" menu,\nI want to select /Users/jthio",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-30882f881593",
+      "message_id": "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "ca28efd9ec1cfd4e8286859200079ce1b72e68c0c25c87bda988546cff431034",
+      "date": "2004-10-19T16:31:27Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<p06002001bd9abda1f437@[134.214.34.24]>",
+      "references": [
+        "<p06002001bd9abda1f437@[134.214.34.24]>"
+      ],
+      "body_plain": "On Oct 19, 2004, at 4:10 PM, jtnews1@biomserv.univ-lyon1.fr wrote:\n\n> Trying to use the \"Change Working Directory\" command of the \"Misc\" \n> menu,\n> I want to select /Users/jthioulo/Desktop/Ranjard, so I navigate to this\n\nThank you for the report, this was (hopefully) fixed now in the nightly \nbuild (available at http://www.rosuda.org/R/nightly/R-GUI.dmg ).\n\n> Also, what is the format of the graphics that are copied to the \n> clipboard ?\n> In the Windows version, the emf format allows editing the objects\n> composing the graphics, and that would be nice to have this possibility\n> on Mac too.\n\nAFAICS multi-format clipboard entry is created with TIFF and PDF \nentries - which one is used depends on the application that you paste \ninto. The PDF version contains all individual objects and is editable \nwith the appropriate programs.\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_snippet": "On Oct 19, 2004, at 4:10 PM, jtnews1@biomserv.univ-lyon1.fr wrote:\n\n> Trying to use the \"Change Working Directory\" command of the \"Misc\" \n> menu,\n> I want to select /Users/jthioulo/Desktop/Ranjard, so",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-5082aa258a6c",
+      "message_id": "<BD9A9DC0.7404%pdmmac@mcmaster.ca>",
+      "from_name": "Peter Macdonald",
+      "from_email_hash": "f4b9e66621fe5c9b6a388dff0b87447049923cbc722f88e867bf6eba0249132f",
+      "date": "2004-10-19T16:32:53Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<p06002001bd9abda1f437@[134.214.34.24]>",
+      "references": [],
+      "body_plain": "I also found that problem, I have been going one level above then giving the\nrest of the path when I load the workspace from the console.\n-- \n*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*\n Peter D.M. Macdonald, D.Phil.      McMaster University\n Professor of Math & Statistics     Hamilton, Ontario, Canada L8S 4K1\n*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*\n\n\n> From: jtnews1@biomserv.univ-lyon1.fr\n> Date: Tue, 19 Oct 2004 16:10:32 +0200\n> To: r-sig-mac@stat.math.ethz.ch\n> Subject: [R-SIG-Mac] R 2.0.0 Change Working Directory\n> \n> Hello,\n> \n> The new version of R-2.0.O for MacOS X is very nice, congratulations\n> for this hard work.\n> \n> Trying to use the \"Change Working Directory\" command of the \"Misc\" menu,\n> I want to select /Users/jthioulo/Desktop/Ranjard, so I navigate to this\n> folder, select it, click Open, and it is /Users/jthioulo/Desktop that is\n> selected as working directory (i.e. the folder that is one level upper).",
+      "body_snippet": "I also found that problem, I have been going one level above then giving the\nrest of the path when I load the workspace from the console.\n-- \n*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-f32f804aa17f",
+      "message_id": "<54EB62AE-21DD-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "ca28efd9ec1cfd4e8286859200079ce1b72e68c0c25c87bda988546cff431034",
+      "date": "2004-10-19T16:44:20Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+      "references": [
+        "<p06002001bd9abda1f437@[134.214.34.24]>",
+        "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>"
+      ],
+      "body_plain": "oops, wrong link\n\nOn Oct 19, 2004, at 4:31 PM, Simon Urbanek wrote:\n\n> Thank you for the report, this was (hopefully) fixed now in the \n> nightly build (available at http://www.rosuda.org/R/nightly/R-GUI.dmg \n> ).\n\nThe URL should read\n\nhttp://www.rosuda.org/R/nightly/other/R-GUI.dmg\n\nmy global nightly builds page is\n\nhttp://www.rosuda.org/R/nightly/\n\nbut the correct link should be always at Stefano's Mac R developer page:\n\nhttp://www.economia.unimi.it/R/\n\nSimon",
+      "body_snippet": "oops, wrong link\n\nOn Oct 19, 2004, at 4:31 PM, Simon Urbanek wrote:\n\n> Thank you for the report, this was (hopefully) fixed now in the \n> nightly build (available at http://www.rosuda.org/R/nightly/R-",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-63d086e32926",
+      "message_id": "<p06110405bd9aed5ab9ab@[192.168.1.41]>",
+      "from_name": "William Revelle",
+      "from_email_hash": "e70d278eb73c8188903fda62e5bcb3cd8a55d10546728d90dacdc29888982c72",
+      "date": "2004-10-19T19:01:29Z",
+      "subject": "[R-SIG-Mac] clarity of fonts in graphics?",
+      "subject_clean": "clarity of fonts in graphics?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear R-Mac developers.\n\nI am now using R 2.0.0 and find it a very nice improvement over \n1.9.1.  Thank you for all of the work.\n\n  However, I do have a problem with the clarity of the fonts in the \nQuartz window.  I am sure that I am missing something, but what?\n\n\nMy problem is best seen in the following code:\n\nx=rnorm(1000)\nquartz(height=6,width=9)      #make a window suitable for printing\n\npar(mfrow=c(1,1))\nhist(x,xlab=\"Horizontal label is clear\", main=\"and Title is as well\") \n#this one is fine\n\n\npar(mfrow=c(2,2))\nhist(x,xlab=\"Horizontal label is still clear\", main=\"and Title is\") \n#as is this one\n\npar(mfrow=c(3,2))\nhist(x,xlab=\"Horizontal label is no longer clear\", main=\"but Title \nis\") #but this one blurs the xlab\n\n(obviously I am leaving out the other histograms in the 2,2 and 3,2 cases.)\n\nThis same code produced crystal clear graphics in 1.9.1\n\nBill\n\n\n-- \n----------------------------\nWilliam Revelle               http://pmc.psych.northwestern.edu/revelle.html\nDepartment of Psychology, Northwestern University\nPersonality Project: http://personality-project.org/personality.html",
+      "body_snippet": "Dear R-Mac developers.\n\nI am now using R 2.0.0 and find it a very nice improvement over \n1.9.1.  Thank you for all of the work.\n\n  However, I do have a problem with the clarity of the fonts in the \nQu",
+      "thread_id": "thread-63d086e32926",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-eab8d1482ae0",
+      "message_id": "<36CDB664-21F3-11D9-A4C8-000D9331449A@uwyo.edu>",
+      "from_name": "Alex Buerkle",
+      "from_email_hash": "dab541604c29b2de46edb0de9b52b885c6364521716e7ee5b25987f3bf0460a6",
+      "date": "2004-10-19T19:20:57Z",
+      "subject": "[R-SIG-Mac] clarity of fonts in graphics?",
+      "subject_clean": "clarity of fonts in graphics?",
+      "in_reply_to": "<p06110405bd9aed5ab9ab@[192.168.1.41]>",
+      "references": [
+        "<p06110405bd9aed5ab9ab@[192.168.1.41]>"
+      ],
+      "body_plain": "Bill,\n\nI believe it has to do with the Font Smoothing of your display as \nconfigured in the Appearance section of System Preferences.  Fonts \nsmaller than some set value are not smoothed for the display.\n\nTry your R commands again after you change the value to Font Size 4.  \nIt made a difference on my display.\n\n-Alex\n\nOn Oct 19, 2004, at 10:30 AM, William Revelle wrote:\n\n> par(mfrow=c(3,2))\n> hist(x,xlab=\"Horizontal label is no longer clear\", main=\"but Title \n> is\") #but this one blurs the xlab",
+      "body_snippet": "Bill,\n\nI believe it has to do with the Font Smoothing of your display as \nconfigured in the Appearance section of System Preferences.  Fonts \nsmaller than some set value are not smoothed for the displ",
+      "thread_id": "thread-63d086e32926",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-6374f6bec4ef",
+      "message_id": "<6382FC24-21F3-11D9-95CC-000A95CD7F02@sheffield.ac.uk>",
+      "from_name": "Andrew Beckerman",
+      "from_email_hash": "4788e57363dcbec29f7c02725e43edbdec6c912aa3aca3b6908f63cd4f96adba",
+      "date": "2004-10-19T19:22:00Z",
+      "subject": "[R-SIG-Mac] help window activity/use",
+      "subject_clean": "help window activity/use",
+      "in_reply_to": "<E0F894E6-214D-11D9-AC74-000A95C87F66@unimi.it>",
+      "references": [
+        "<6D55F09F-2149-11D9-AB3F-000393D4B002@pacbell.net>",
+        "<E0F894E6-214D-11D9-AC74-000A95C87F66@unimi.it>"
+      ],
+      "body_plain": "Hi - great job on the new interface.  Very nice.  One minor quibbles  \nwith the help windows.\n\nFirst, when i spawn a new help window (e.g. ?lm), the window is not  \nactive - it will not respond to the page up and down keys or arrows....  \ninstead the cursor location defaults to the search box, which can be  \nnice, but this also prevents scrolling through the pages immediately  \n(like getting to the syntax and examples....). I now realise a single  \nhit of the tab key activates the window, but perhaps the other way  \naround is more logical?\n\nCheers\nandrew\n\n------------------------------------------------------------------------ \n---------\nDr. Andrew Beckerman\nDepartment of Animal and Plant Sciences, University of Sheffield,\nAlfred Denny Building, Western Bank, Sheffield S10 2TN, UK\nph +44 (0)114 222 0026; fx +44 (0)114 222 0002\nhttp://www.shef.ac.uk/beckslab\n------------------------------------------------------------------------ \n----------",
+      "body_snippet": "Hi - great job on the new interface.  Very nice.  One minor quibbles  \nwith the help windows.\n\nFirst, when i spawn a new help window (e.g. ?lm), the window is not  \nactive - it will not respond to the",
+      "thread_id": "thread-ee2921ac1dfe",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-9bb7b0251fec",
+      "message_id": "<p0611040dbd9c2bcfbd52@[192.168.1.41]>",
+      "from_name": "William Revelle",
+      "from_email_hash": "17775642d38a89586519cdb4da8b9881c3da6cb4b5abf51dc2b37a23be377688",
+      "date": "2004-10-20T16:56:10Z",
+      "subject": "[R-SIG-Mac] clarity of fonts in graphics?",
+      "subject_clean": "clarity of fonts in graphics?",
+      "in_reply_to": "<36CDB664-21F3-11D9-A4C8-000D9331449A@uwyo.edu>",
+      "references": [
+        "<p06110405bd9aed5ab9ab@[192.168.1.41]>",
+        "<36CDB664-21F3-11D9-A4C8-000D9331449A@uwyo.edu>"
+      ],
+      "body_plain": "Alex and the R-Mac list\n\nThanks.  That was the problem.  Probably by making the quartz device \nso Mac compliant the font smoothing issue was raised.\n\nAnd once again thanks to Stefano and Simon for such a good implementation.\n\n\nBill\n\n\n>Bill,\n>\n>I believe it has to do with the Font Smoothing of your display as \n>configured in the Appearance section of System Preferences.  Fonts \n>smaller than some set value are not smoothed for the display.\n>\n>Try your R commands again after you change the value to Font Size 4. \n>It made a difference on my display.\n>\n>-Alex\n>\n>On Oct 19, 2004, at 10:30 AM, William Revelle wrote:\n>\n>>par(mfrow=c(3,2))\n>>hist(x,xlab=\"Horizontal label is no longer clear\", main=\"but Title \n>>is\") #but this one blurs the xlab\n>\n>\n\n-- \n----------------------------\nWilliam Revelle \nhttp://pmc.psych.northwestern.edu/revelle.html    \nDepartment of Psychology, Northwestern University\nPersonality Project: http://personality-project.org/personality.html",
+      "body_snippet": "Alex and the R-Mac list\n\nThanks.  That was the problem.  Probably by making the quartz device \nso Mac compliant the font smoothing issue was raised.\n\nAnd once again thanks to Stefano and Simon for suc",
+      "thread_id": "thread-63d086e32926",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-5424e366f613",
+      "message_id": "<EAEFD6D1-22AA-11D9-AC74-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-20T17:16:04Z",
+      "subject": "[R-SIG-Mac] Re: r 2.0.0 for osx bug",
+      "subject_clean": "r 2.0.0 for osx bug",
+      "in_reply_to": "<C7DB81BC-22C0-11D9-8FBE-000A95994A2C@Brown.edu>",
+      "references": [
+        "<C7DB81BC-22C0-11D9-8FBE-000A95994A2C@Brown.edu>"
+      ],
+      "body_plain": "On Oct 20, 2004, at 7:52 PM, Alan Olav Bergland wrote:\n\n> Just wanted to send a bug along to you two:\n>\n> (1)\n> \tWhen I copy a 104 line script from BBEdit to the script editor in the \n> new GUI, after loading a ~12MB workspace file, the following error \n> message is displayed in the output window:\n>\n> 2004-10-20 10:49:59.733 R[409] *** NSTimer discarding exception \n> 'NSRangeException' (reason '*** NSRunStorage, \n> _NSBlockNumberForIndex(): index (6168) beyond array bounds (2000)') \n> that raised during firing of timer with target 3c28a0 and selector \n> 'runRELP:'\n>\nwe are trying to understand why this is happening, but it's a know bug.\nTo bypass it, just press \"ESC\" after the error and it should work, \neventually re-paste the commands.\n\n> Then, the R console does not respond to commands.\n>\n>\n> (2)  the working directory is reset to the root each time I open R.\n\nthis is in the to-do list.\nPlease use r-sig-mac for any further report.\nthanks\nstefano\n\n>\n> Otherwise, very, very nice.\n>\n> Cheers,\n> Alan Bergland\n>\n>",
+      "body_snippet": "On Oct 20, 2004, at 7:52 PM, Alan Olav Bergland wrote:\n\n> Just wanted to send a bug along to you two:\n>\n> (1)\n> \tWhen I copy a 104 line script from BBEdit to the script editor in the \n> new GUI, after",
+      "thread_id": "thread-5424e366f613",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-6a0416923fe9",
+      "message_id": "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-21T09:00:41Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "First off, many many thanks to Stefano and Simon for their hard work \nmaking OS X a first-class R citizen. Great work guys!\n\nSecond, I'm a lazy sort of guy (you may have noticed...) and I tend to \nclick at random on the R Console to activate it, which has the \nunfortunate effect of moving the insertion point, rendering the \nkeyboard more-or-less useless. My solution, in the attached patch, \nmakes a small change to the RController that inserts the text at the \nend of the console buffer and moves the insertion point to the end when \ntext is entered within the committed text region.\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: typing.diff\nType: application/octet-stream\nSize: 835 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20041021/b0e43aac/typing.obj\n-------------- next part --------------\n\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "First off, many many thanks to Stefano and Simon for their hard work \nmaking OS X a first-class R citizen. Great work guys!\n\nSecond, I'm a lazy sort of guy (you may have noticed...) and I tend to \ncli",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-34e6a918ac4d",
+      "message_id": "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-10-21T09:46:31Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "I'll have a look, but you can just press CMD+1 to activate the keyb.\n\nstefano\n\nOn Oct 21, 2004, at 9:00 AM, Byron Ellis wrote:\n\n> First off, many many thanks to Stefano and Simon for their hard work \n> making OS X a first-class R citizen. Great work guys!\n>\n> Second, I'm a lazy sort of guy (you may have noticed...) and I tend to \n> click at random on the R Console to activate it, which has the \n> unfortunate effect of moving the insertion point, rendering the \n> keyboard more-or-less useless. My solution, in the attached patch, \n> makes a small change to the RController that inserts the text at the \n> end of the console buffer and moves the insertion point to the end \n> when text is entered within the committed text region.\n>\n>\n> <typing.diff>\n> ---\n> Byron Ellis (bellis@hsph.harvard.edu)\n> \"Oook\" -- The Librarian_______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I'll have a look, but you can just press CMD+1 to activate the keyb.\n\nstefano\n\nOn Oct 21, 2004, at 9:00 AM, Byron Ellis wrote:\n\n> First off, many many thanks to Stefano and Simon for their hard work \n",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-a2bd46887e17",
+      "message_id": "<520324C1-2336-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-21T09:53:49Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>"
+      ],
+      "body_plain": "That only works if you're in R... and doesn't do anything if the \nconsole is already focused (i.e. it doesn't move the insertion point)\n\nOn Oct 21, 2004, at 12:46 AM, stefano iacus wrote:\n\n> I'll have a look, but you can just press CMD+1 to activate the keyb.\n>\n> stefano\n>\n> On Oct 21, 2004, at 9:00 AM, Byron Ellis wrote:\n>\n>> First off, many many thanks to Stefano and Simon for their hard work \n>> making OS X a first-class R citizen. Great work guys!\n>>\n>> Second, I'm a lazy sort of guy (you may have noticed...) and I tend \n>> to click at random on the R Console to activate it, which has the \n>> unfortunate effect of moving the insertion point, rendering the \n>> keyboard more-or-less useless. My solution, in the attached patch, \n>> makes a small change to the RController that inserts the text at the \n>> end of the console buffer and moves the insertion point to the end \n>> when text is entered within the committed text region.\n>>\n>>\n>> <typing.diff>\n>> ---\n>> Byron Ellis (bellis@hsph.harvard.edu)\n>> \"Oook\" -- The Librarian_______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "That only works if you're in R... and doesn't do anything if the \nconsole is already focused (i.e. it doesn't move the insertion point)\n\nOn Oct 21, 2004, at 12:46 AM, stefano iacus wrote:\n\n> I'll have",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-ba3efa3e01ac",
+      "message_id": "<p06002000bd9d1be8ae6d@[134.214.34.24]>",
+      "from_name": "jtnews1@biomserv.univ-lyon1.fr",
+      "from_email_hash": "b20a674eb42804a87b064b390e04515db85d2871dd7105ba54500899f94dfe16",
+      "date": "2004-10-21T10:13:51Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>"
+      ],
+      "body_plain": "Pressing CMD+1 does not change the fact that, when you click in the\nconsole window, the insertion point is moved to the line where the\nclick occured. This makes it impossible to type new commands, unless\nyou click on the last input line, which is not easy, or type a carriage\nreturn, which means that the command you just typed before this carriage\nreturn is lost.\n\nWhy is the insertion point moved when a click occurs in the console\nwindow ? I think it should stay at the prompt just after the last\noutput, like when using the terminal. Any keystroke should be echoed\non the last line, and not \"eaten\" by the console.\n\nJean\n\nOn Oct 21, 2004, at 9:00 AM, stefano iacus wrote:\n\n>I'll have a look, but you can just press CMD+1 to activate the keyb.\n>\n>stefano\n>\n>On Oct 21, 2004, at 9:00 AM, Byron Ellis wrote:\n>\n>>First off, many many thanks to Stefano and Simon for their hard \n>>work making OS X a first-class R citizen. Great work guys!\n>>\n>>Second, I'm a lazy sort of guy (you may have noticed...) and I tend \n>>to click at random on the R Console to activate it, which has the \n>>unfortunate effect of moving the insertion point, rendering the \n>>keyboard more-or-less useless. My solution, in the attached patch, \n>>makes a small change to the RController that inserts the text at \n>>the end of the console buffer and moves the insertion point to the \n>>end when text is entered within the committed text region.\n>>\n>>\n\n\n-- \nJean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie Statistique\"\nUniversite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  France\nTel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 56\n                 http://pbil.univ-lyon1.fr/JTHome.html",
+      "body_snippet": "Pressing CMD+1 does not change the fact that, when you click in the\nconsole window, the insertion point is moved to the line where the\nclick occured. This makes it impossible to type new commands, unl",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-823c2bda7afb",
+      "message_id": "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-21T10:25:48Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<p06002000bd9d1be8ae6d@[134.214.34.24]>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@[134.214.34.24]>"
+      ],
+      "body_plain": "The insertion point moves because its part of the selection handling \nroutines for NSTextView. Short of a completely custom terminal \nimplementation there's no really good way of suppressing it without \nbreaking the selection behavior. I'm pretty sure we like all of the \nselection behavior. Hence my little patch, which does not swallow \ntyping, rather it does exactly what you suggest--append the typing to \nthe current line (and reset the insertion point while we're at it).\n\nI'm not certain how it interacts with the history (up-arrow, \ndown-arrow) or command completion (tab. BTW, thanks for including \nthis---the command line R on any platform AFAIK has never sensibly \nimplemented tab. It completes filenames, which is just weird). I \nsuspect it just ignores those inputs if the insertion point is in the \nwrong location (this is reparable, I just didn't think of it until \nnow).\n\n\nOn Oct 21, 2004, at 1:12 AM, jtnews1@biomserv.univ-lyon1.fr wrote:\n\n> Pressing CMD+1 does not change the fact that, when you click in the\n> console window, the insertion point is moved to the line where the\n> click occured. This makes it impossible to type new commands, unless\n> you click on the last input line, which is not easy, or type a carriage\n> return, which means that the command you just typed before this \n> carriage\n> return is lost.\n>\n> Why is the insertion point moved when a click occurs in the console\n> window ? I think it should stay at the prompt just after the last\n> output, like when using the terminal. Any keystroke should be echoed\n> on the last line, and not \"eaten\" by the console.\n>\n> Jean\n>\n> On Oct 21, 2004, at 9:00 AM, stefano iacus wrote:\n>\n>> I'll have a look, but you can just press CMD+1 to activate the keyb.\n>>\n>> stefano\n>>\n>> On Oct 21, 2004, at 9:00 AM, Byron Ellis wrote:\n>>\n>>> First off, many many thanks to Stefano and Simon for their hard\n>>> work making OS X a first-class R citizen. Great work guys!\n>>>\n>>> Second, I'm a lazy sort of guy (you may have noticed...) and I tend\n>>> to click at random on the R Console to activate it, which has the\n>>> unfortunate effect of moving the insertion point, rendering the\n>>> keyboard more-or-less useless. My solution, in the attached patch,\n>>> makes a small change to the RController that inserts the text at\n>>> the end of the console buffer and moves the insertion point to the\n>>> end when text is entered within the committed text region.\n>>>\n>>>\n>\n>\n> -- \n> Jean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie \n> Statistique\"\n> Universite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  \n> France\n> Tel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 \n> 56\n>                  http://pbil.univ-lyon1.fr/JTHome.html\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "The insertion point moves because its part of the selection handling \nroutines for NSTextView. Short of a completely custom terminal \nimplementation there's no really good way of suppressing it withou",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 3,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-e28d20e0a066",
+      "message_id": "<1CE076BA-233C-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-21T10:35:14Z",
+      "subject": "[R-SIG-Mac] another (possible more controversial) patch to REditor.m",
+      "subject_clean": "another (possible more controversial) patch to REditor.m",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Before I head off to bed, I may as well post a patch for the real \nculprit of this evening's meanderings: the data editor. I had noticed \n(when the fan on my powerbook activated when it should have been \nsitting idle) that REditor pins the CPU while running. I tracked the \nproblem down to\n\nwhile(isDataEditor) [NSApp runModalForSession:session];\n\nwhich pins out the CPU. Replacing this with [NSApp runModalForWindow:] \nseems to solve the problem (as it is more sophisticated than Apple's \ndocumentation suggests ) by not polling.\n\nThis patch also replaces the NSTableColumn identifier with an NSNumber \nrather than the NSString, eliminating the column lookup for loop. I had \noriginally thought that code might be the culprit (it turns out not to \nbe a problem).\n\nRight, I'm for bed now...The Red Sox have won and I think the caffeine \nis finally wearing off. :-) (No, I'm not on the East Coast of the US \nATM. Its really only about 1:30am, which isn't really all that late)\n\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: editor.diff\nType: application/octet-stream\nSize: 2150 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20041021/e7d158be/editor.obj\n-------------- next part --------------\n\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Before I head off to bed, I may as well post a patch for the real \nculprit of this evening's meanderings: the data editor. I had noticed \n(when the fan on my powerbook activated when it should have be",
+      "thread_id": "thread-e28d20e0a066",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-3a28b3336751",
+      "message_id": "<2B2AC017-234F-11D9-AC74-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-21T12:51:51Z",
+      "subject": "[R-SIG-Mac] Re: Raqua",
+      "subject_clean": "Raqua",
+      "in_reply_to": "<p06020401bd9d40772e84@[193.167.134.42]>",
+      "references": [
+        "<p06020401bd9d40772e84@[193.167.134.42]>"
+      ],
+      "body_plain": "The right place is R-sig-mac mailing list.\nBTW, yes there's a problem with the quartz device, in particular in the \nmetric information for symbol font.\nWe are working on this. Thanks for you report\nstefano\nOn Oct 21, 2004, at 12:36 PM, Markku Lehtinen wrote:\n\n> Hello,\n>\n> I do not know, whether this is the right address to send bug reports \n> to.\n> However, it seems that with R for Mac OS X version 2.0 expressions do \n> not\n> plot properly. Something generates quite too much white space between \n> the\n> characters! For example, the following:\n>\n> plot(1)\n> text(0.8,0.8,adj=0,labels=expression(mu*s/Delta*tau),srt=0,xpd=TRUE)\n>\n> I attach a pdf copy of the figure I get by printing it and saving the \n> print as pdf file. In older versions of R the simple formula looks \n> much better !\n>\n> --\n> Markku S. Lehtinen\n> Research professor, University of Oulu, Sodankyl? Geophysical \n> Observatory\n> T?htel?ntie 62, 99600 Sodankyl?, Finland\n> tel. +358-16-619830 fax +358-16-619875 mobile +358-400-399982\n> email Markku.Lehtinen@sgo.fi<Rbug.pdf>",
+      "body_snippet": "The right place is R-sig-mac mailing list.\nBTW, yes there's a problem with the quartz device, in particular in the \nmetric information for symbol font.\nWe are working on this. Thanks for you report\nst",
+      "thread_id": "thread-3a28b3336751",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-3faa222ad47e",
+      "message_id": "<4F68393A-234F-11D9-AC74-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-21T12:52:44Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<p06002000bd9d1be8ae6d@[134.214.34.24]>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@[134.214.34.24]>"
+      ],
+      "body_plain": "Sure, I misread Byron's mail, you're both right. I just thought about \nconsole activation and not to the insertion point.\nstefano\n\nOn Oct 21, 2004, at 10:12 AM, jtnews1@biomserv.univ-lyon1.fr wrote:\n\n> Pressing CMD+1 does not change the fact that, when you click in the\n> console window, the insertion point is moved to the line where the\n> click occured. This makes it impossible to type new commands, unless\n> you click on the last input line, which is not easy, or type a carriage\n> return, which means that the command you just typed before this \n> carriage\n> return is lost.\n>\n> Why is the insertion point moved when a click occurs in the console\n> window ? I think it should stay at the prompt just after the last\n> output, like when using the terminal. Any keystroke should be echoed\n> on the last line, and not \"eaten\" by the console.\n>\n> Jean\n>\n> On Oct 21, 2004, at 9:00 AM, stefano iacus wrote:\n>\n>> I'll have a look, but you can just press CMD+1 to activate the keyb.\n>>\n>> stefano\n>>\n>> On Oct 21, 2004, at 9:00 AM, Byron Ellis wrote:\n>>\n>>> First off, many many thanks to Stefano and Simon for their hard\n>>> work making OS X a first-class R citizen. Great work guys!\n>>>\n>>> Second, I'm a lazy sort of guy (you may have noticed...) and I tend\n>>> to click at random on the R Console to activate it, which has the\n>>> unfortunate effect of moving the insertion point, rendering the\n>>> keyboard more-or-less useless. My solution, in the attached patch,\n>>> makes a small change to the RController that inserts the text at\n>>> the end of the console buffer and moves the insertion point to the\n>>> end when text is entered within the committed text region.\n>>>\n>>>\n>\n>\n> -- \n> Jean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie \n> Statistique\"\n> Universite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  \n> France\n> Tel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 \n> 56\n>                  http://pbil.univ-lyon1.fr/JTHome.html\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Sure, I misread Byron's mail, you're both right. I just thought about \nconsole activation and not to the insertion point.\nstefano\n\nOn Oct 21, 2004, at 10:12 AM, jtnews1@biomserv.univ-lyon1.fr wrote:\n\n",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 3,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-5d68cce63810",
+      "message_id": "<p06002003bd9d4fccd7fc@[134.214.34.24]>",
+      "from_name": "Jean Thioulouse",
+      "from_email_hash": "b20a674eb42804a87b064b390e04515db85d2871dd7105ba54500899f94dfe16",
+      "date": "2004-10-21T13:43:31Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@[134.214.34.24]>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "I checked Byron's patch, and it works exactly like needed. It also\nseems to interact well with history and command completion (which\nI have just discovered and is indeed very neat).\n\nJean\n\nAt 1:25 -0700 21/10/04, Byron Ellis wrote:\n>The insertion point moves because its part of the selection handling \n>routines for NSTextView. Short of a completely custom terminal \n>implementation there's no really good way of suppressing it without \n>breaking the selection behavior. I'm pretty sure we like all of the \n>selection behavior. Hence my little patch, which does not swallow \n>typing, rather it does exactly what you suggest--append the typing \n>to the current line (and reset the insertion point while we're at \n>it).\n>\n>I'm not certain how it interacts with the history (up-arrow, \n>down-arrow) or command completion (tab. BTW, thanks for including \n>this---the command line R on any platform AFAIK has never sensibly \n>implemented tab. It completes filenames, which is just weird). I \n>suspect it just ignores those inputs if the insertion point is in \n>the wrong location (this is reparable, I just didn't think of it \n>until now).\n>\n>\n>On Oct 21, 2004, at 1:12 AM, jtnews1@biomserv.univ-lyon1.fr wrote:\n>\n>>Pressing CMD+1 does not change the fact that, when you click in the\n>>console window, the insertion point is moved to the line where the\n>>click occured. This makes it impossible to type new commands, unless\n>>you click on the last input line, which is not easy, or type a carriage\n>>return, which means that the command you just typed before this carriage\n>>return is lost.\n>>\n>>Why is the insertion point moved when a click occurs in the console\n>>window ? I think it should stay at the prompt just after the last\n>>output, like when using the terminal. Any keystroke should be echoed\n>>on the last line, and not \"eaten\" by the console.\n>>\n>>Jean\n>>\n>>On Oct 21, 2004, at 9:00 AM, stefano iacus wrote:\n>>\n>>>I'll have a look, but you can just press CMD+1 to activate the keyb.\n>>>\n>>>stefano\n>>>\n>>>On Oct 21, 2004, at 9:00 AM, Byron Ellis wrote:\n>>>\n>>>>First off, many many thanks to Stefano and Simon for their hard\n>>>>work making OS X a first-class R citizen. Great work guys!\n>>>>\n>>>>Second, I'm a lazy sort of guy (you may have noticed...) and I tend\n>>>>to click at random on the R Console to activate it, which has the\n>>>>unfortunate effect of moving the insertion point, rendering the\n>>>>keyboard more-or-less useless. My solution, in the attached patch,\n>>>>makes a small change to the RController that inserts the text at\n>>>>the end of the console buffer and moves the insertion point to the\n>>>>end when text is entered within the committed text region.\n>>>>\n>>>>\n>>\n>>\n>>--\n>>Jean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie Statistique\"\n>>Universite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  France\n>>Tel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 56\n>>                 http://pbil.univ-lyon1.fr/JTHome.html\n>>\n>>_______________________________________________\n>>R-SIG-Mac mailing list\n>>R-SIG-Mac@stat.math.ethz.ch\n>>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>---\n>Byron Ellis (bellis@hsph.harvard.edu)\n>\"Oook\" -- The Librarian\n\n-- \nJean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie Statistique\"\nUniversite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  France\nTel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 56\n                 http://pbil.univ-lyon1.fr/JTHome.html",
+      "body_snippet": "I checked Byron's patch, and it works exactly like needed. It also\nseems to interact well with history and command completion (which\nI have just discovered and is indeed very neat).\n\nJean\n\nAt 1:25 -07",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 4,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-a09924063975",
+      "message_id": "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+      "from_name": "Martin Maechler",
+      "from_email_hash": "c2c86f22f78a4ecfe6d0e6b4e2be505a3f5beb0470ea88c903688ac536018a98",
+      "date": "2004-10-21T14:19:18Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@[134.214.34.24]>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": ">>>>> \"Byron\" == Byron Ellis <bellis@hsph.harvard.edu>\n>>>>>     on Thu, 21 Oct 2004 01:25:37 -0700 writes:\n\n    Byron> <...........>\n\n    Byron> I'm not certain how it interacts with the history (up-arrow, \n    Byron> down-arrow) or command completion (tab. BTW, thanks for including \n    Byron> this---the command line R on any platform AFAIK has never sensibly \n    Byron> implemented tab. It completes filenames, which is just weird).\n\nthat's not true for ESS (http://ESS.R-project.org/)\nTab completion on R objects has worked in ESS ``for ages''.\n\nMartin Maechler <maechler@stat.math.ethz.ch>\thttp://stat.ethz.ch/~maechler/\nSeminar fuer Statistik, ETH-Zentrum  LEO C16\tLeonhardstr. 27\nETH (Federal Inst. Technology)\t8092 Zurich\tSWITZERLAND\nphone: x-41-1-632-3408\t\tfax: ...-1228\t\t\t<><",
+      "body_snippet": ">>>>> \"Byron\" == Byron Ellis <bellis@hsph.harvard.edu>\n>>>>>     on Thu, 21 Oct 2004 01:25:37 -0700 writes:\n\n    Byron> <...........>\n\n    Byron> I'm not certain how it interacts with the history (up-",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 4,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-cd8d54fcf108",
+      "message_id": "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+      "from_name": "A.J. Rossini",
+      "from_email_hash": "035aa365217fa4ca7185e15d86df9cfadfe895a8833f74f31844a380f3e3aaa4",
+      "date": "2004-10-21T15:15:57Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>"
+      ],
+      "body_plain": "More importantly, it (ESS) can work for both filenames and R object names.\n\nbest,\n-tony\n\n\n\nOn Thu, 21 Oct 2004 14:19:04 +0200, Martin Maechler\n<maechler@stat.math.ethz.ch> wrote:\n> >>>>> \"Byron\" == Byron Ellis <bellis@hsph.harvard.edu>\n> >>>>>     on Thu, 21 Oct 2004 01:25:37 -0700 writes:\n> \n>    Byron> <...........>\n> \n>    Byron> I'm not certain how it interacts with the history (up-arrow,\n>    Byron> down-arrow) or command completion (tab. BTW, thanks for including\n>    Byron> this---the command line R on any platform AFAIK has never sensibly\n>    Byron> implemented tab. It completes filenames, which is just weird).\n> \n> that's not true for ESS (http://ESS.R-project.org/)\n> Tab completion on R objects has worked in ESS ``for ages''.\n> \n> Martin Maechler <maechler@stat.math.ethz.ch>    http://stat.ethz.ch/~maechler/\n> Seminar fuer Statistik, ETH-Zentrum  LEO C16    Leonhardstr. 27\n> ETH (Federal Inst. Technology)  8092 Zurich     SWITZERLAND\n> phone: x-41-1-632-3408          fax: ...-1228                   <><\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n\n-- \nA.J. Rossini\nblindglobe@gmail.com",
+      "body_snippet": "More importantly, it (ESS) can work for both filenames and R object names.\n\nbest,\n-tony\n\n\n\nOn Thu, 21 Oct 2004 14:19:04 +0200, Martin Maechler\n<maechler@stat.math.ethz.ch> wrote:\n> >>>>> \"Byron\" == By",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 5,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-3d7221fc9a8d",
+      "message_id": "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-21T21:11:27Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>"
+      ],
+      "body_plain": "Of course---I had just placed ESS into the category of First (and Most \nVenerable) of the Unbundled GUIs as opposed to \"command-line R.\" The \nrest of us will be playing catch-up with ESS for long time :-)\n\nFWIW the code suggests that Cocoa R's console also attempts to complete \nboth filenames and objects. (I haven't actually tried it).\n\n\nOn Oct 21, 2004, at 6:15 AM, A.J. Rossini wrote:\n\n> More importantly, it (ESS) can work for both filenames and R object \n> names.\n>\n> best,\n> -tony\n>\n>\n>\n> On Thu, 21 Oct 2004 14:19:04 +0200, Martin Maechler\n> <maechler@stat.math.ethz.ch> wrote:\n>>>>>>> \"Byron\" == Byron Ellis <bellis@hsph.harvard.edu>\n>>>>>>>     on Thu, 21 Oct 2004 01:25:37 -0700 writes:\n>>\n>>    Byron> <...........>\n>>\n>>    Byron> I'm not certain how it interacts with the history (up-arrow,\n>>    Byron> down-arrow) or command completion (tab. BTW, thanks for \n>> including\n>>    Byron> this---the command line R on any platform AFAIK has never \n>> sensibly\n>>    Byron> implemented tab. It completes filenames, which is just \n>> weird).\n>>\n>> that's not true for ESS (http://ESS.R-project.org/)\n>> Tab completion on R objects has worked in ESS ``for ages''.\n>>\n>> Martin Maechler <maechler@stat.math.ethz.ch>    \n>> http://stat.ethz.ch/~maechler/\n>> Seminar fuer Statistik, ETH-Zentrum  LEO C16    Leonhardstr. 27\n>> ETH (Federal Inst. Technology)  8092 Zurich     SWITZERLAND\n>> phone: x-41-1-632-3408          fax: ...-1228                   <><\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n> -- \n> A.J. Rossini\n> blindglobe@gmail.com\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Of course---I had just placed ESS into the category of First (and Most \nVenerable) of the Unbundled GUIs as opposed to \"command-line R.\" The \nrest of us will be playing catch-up with ESS for long time",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 6,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-019dd79cbbfc",
+      "message_id": "<87F1B150-23A3-11D9-AC74-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-21T22:55:38Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "On Oct 21, 2004, at 9:11 PM, Byron Ellis wrote:\n\n> Of course---I had just placed ESS into the category of First (and Most \n> Venerable) of the Unbundled GUIs as opposed to \"command-line R.\" The \n> rest of us will be playing catch-up with ESS for long time :-)\n>\n> FWIW the code suggests that Cocoa R's console also attempts to \n> complete both filenames and objects. (I haven't actually tried it).\n>\nit does in fact\nstefano\n\n>\n> On Oct 21, 2004, at 6:15 AM, A.J. Rossini wrote:\n>\n>> More importantly, it (ESS) can work for both filenames and R object \n>> names.\n>>\n>> best,\n>> -tony\n>>\n>>\n>>\n>> On Thu, 21 Oct 2004 14:19:04 +0200, Martin Maechler\n>> <maechler@stat.math.ethz.ch> wrote:\n>>>>>>>> \"Byron\" == Byron Ellis <bellis@hsph.harvard.edu>\n>>>>>>>>     on Thu, 21 Oct 2004 01:25:37 -0700 writes:\n>>>\n>>>    Byron> <...........>\n>>>\n>>>    Byron> I'm not certain how it interacts with the history \n>>> (up-arrow,\n>>>    Byron> down-arrow) or command completion (tab. BTW, thanks for \n>>> including\n>>>    Byron> this---the command line R on any platform AFAIK has never \n>>> sensibly\n>>>    Byron> implemented tab. It completes filenames, which is just \n>>> weird).\n>>>\n>>> that's not true for ESS (http://ESS.R-project.org/)\n>>> Tab completion on R objects has worked in ESS ``for ages''.\n>>>\n>>> Martin Maechler <maechler@stat.math.ethz.ch>    \n>>> http://stat.ethz.ch/~maechler/\n>>> Seminar fuer Statistik, ETH-Zentrum  LEO C16    Leonhardstr. 27\n>>> ETH (Federal Inst. Technology)  8092 Zurich     SWITZERLAND\n>>> phone: x-41-1-632-3408          fax: ...-1228                   <><\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac@stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>\n>>\n>> -- \n>> A.J. Rossini\n>> blindglobe@gmail.com\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n> ---\n> Byron Ellis (bellis@hsph.harvard.edu)\n> \"Oook\" -- The Librarian\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Oct 21, 2004, at 9:11 PM, Byron Ellis wrote:\n\n> Of course---I had just placed ESS into the category of First (and Most \n> Venerable) of the Unbundled GUIs as opposed to \"command-line R.\" The \n> res",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 7,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-6a7066cc8ac2",
+      "message_id": "<20041021204003.GA752@tpapp>",
+      "from_name": "Tamas K Papp",
+      "from_email_hash": "da0b6cc163eaca43752edf020e71ec6f96f9377ad9c483177296d2a745f0f11c",
+      "date": "2004-10-21T23:13:43Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "On Thu, Oct 21, 2004 at 12:11:16PM -0700, Byron Ellis wrote:\n\n> Of course---I had just placed ESS into the category of First (and Most \n> Venerable) of the Unbundled GUIs as opposed to \"command-line R.\" The \n> rest of us will be playing catch-up with ESS for long time :-)\n\nIt would be really nice if ESS users on OS X could make full use of\nthe new quartz() device of R.\n\nI proposed a solution (or an idea towards one) to Simon Urbanek, but I\nam posting it here in the hope that somebody has time to work on this:\nWould it be possible to make a simple interface program to RAqua that\nacts like a command-line R process, communicating via stdin/stdout?\nThe user could open R.app, then start this process which would find\nthe running R.app and communicate with it somehow, and with Emacs/ESS\nusing stdin/stdout.\n\nI understand that free software projects are developed through the\nkindness of programmers who devote time to writing code.  I can't\nprogram in anything but R (and Octave ;-) so I cannot do this myself,\nbut it would be really nice if some ESS/OS X/R user with programming\nskills could.\n\nThanks,\n\nTamas",
+      "body_snippet": "On Thu, Oct 21, 2004 at 12:11:16PM -0700, Byron Ellis wrote:\n\n> Of course---I had just placed ESS into the category of First (and Most \n> Venerable) of the Unbundled GUIs as opposed to \"command-line R",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 7,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-dc025c1af874",
+      "message_id": "<20041021222113.GA908@tpapp>",
+      "from_name": "Tamas K Papp",
+      "from_email_hash": "da0b6cc163eaca43752edf020e71ec6f96f9377ad9c483177296d2a745f0f11c",
+      "date": "2004-10-22T00:21:32Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<CE0C119D-23A8-11D9-AC74-000A95C87F66@unimi.it>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<20041021204003.GA752@tpapp>",
+        "<CE0C119D-23A8-11D9-AC74-000A95C87F66@unimi.it>"
+      ],
+      "body_plain": "On Thu, Oct 21, 2004 at 11:33:10PM +0200, stefano iacus wrote:\n> quartz device can be used from Emacs (at least the carbon Emacs)\n> But you need to apply Jan's trick to make quartz an interactive device.\n\nWhat is this trick?  Can I find a description somewhere?  Do I need to\nrecompile?\n\nThanks,\n\nTamas",
+      "body_snippet": "On Thu, Oct 21, 2004 at 11:33:10PM +0200, stefano iacus wrote:\n> quartz device can be used from Emacs (at least the carbon Emacs)\n> But you need to apply Jan's trick to make quartz an interactive devi",
+      "thread_id": "thread-dc025c1af874",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-e4c41b01621c",
+      "message_id": "<A7491BA0-23AF-11D9-9CFE-000A959F327E@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "d61970497e69e90cb82e342b08688fde38f4a452b77e0e9d7b92efa9e2aae186",
+      "date": "2004-10-22T00:22:24Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<20041021204003.GA752@tpapp>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<20041021204003.GA752@tpapp>"
+      ],
+      "body_plain": "On Oct 21, 2004, at 10:40 PM, Tamas K Papp wrote:\n\n> On Thu, Oct 21, 2004 at 12:11:16PM -0700, Byron Ellis wrote:\n>\n>> Of course---I had just placed ESS into the category of First (and Most\n>> Venerable) of the Unbundled GUIs as opposed to \"command-line R.\" The\n>> rest of us will be playing catch-up with ESS for long time :-)\n>\n> It would be really nice if ESS users on OS X could make full use of\n> the new quartz() device of R.\n\nJust to complete this with the distilled version of our previous \ncommunication with Tamas for those interested in such project:\n\nThe main problem is that Quartz needs a regular Apple CF event loop to \nbe run in the same process that Quartz runs in (on the primary thread). \nThe regular R binary as executed in Terminal or by Emacs doesn't do \nthat, that's why Quartz' events are not handled and thus the Quartz \nwindow is basically dead. The R binary cannot run the CF loop by \ndefault, because then you couldn't run R in a shell like ssh.\n\nThere are many possible approaches to fix this - link R into Emacs (I'm \ntalking Carbon version of course) and use the API similar to what R.app \ndoes (I don't know Emacs well enough from developer's point of view, \nbut I assume it allows loading of shared libraries as modules). \nAlternatively it may be possible to write an R package that runs a CF \nloop, but I'm not sure how well this could cooperate with the existing \nR loop. Finally one could use a very stripped version of R.app that \nwould actually not show any window, but communicate via stdin/out \ninstead.\n\nPersonally I think it's not a good use of resources, because the \nEmacs+ESS combo is just too clumsy and antagonistic for a modern \nenvironment like OS X [flame away], but that's a matter of taste I \nguess ;) [yes, I was a happy Emacs user, but that was on Linux where \nyou really have no choice :P]\n\nCheers,\nSimon",
+      "body_snippet": "On Oct 21, 2004, at 10:40 PM, Tamas K Papp wrote:\n\n> On Thu, Oct 21, 2004 at 12:11:16PM -0700, Byron Ellis wrote:\n>\n>> Of course---I had just placed ESS into the category of First (and Most\n>> Venerab",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 8,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-bbe84a07b525",
+      "message_id": "<7C1C5C0F-23B0-11D9-AC74-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-22T00:28:18Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<20041021222113.GA908@tpapp>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<20041021204003.GA752@tpapp>",
+        "<CE0C119D-23A8-11D9-AC74-000A95C87F66@unimi.it>",
+        "<20041021222113.GA908@tpapp>"
+      ],
+      "body_plain": "It should be\n\ncd /Library/Frameword/R-framework/Resources/bin/exec\nsudo /Developer/Tools/Rez   -t APPL Carbon.r -o R\n\nyou need developer tools installed and R.framework 2.0.0\n\nI didn't test my self on 2.0.0, let me know\nstefano\n\nOn Oct 22, 2004, at 12:21 AM, Tamas K Papp wrote:\n\n> On Thu, Oct 21, 2004 at 11:33:10PM +0200, stefano iacus wrote:\n>> quartz device can be used from Emacs (at least the carbon Emacs)\n>> But you need to apply Jan's trick to make quartz an interactive \n>> device.\n>\n> What is this trick?  Can I find a description somewhere?  Do I need to\n> recompile?\n>\n> Thanks,\n>\n> Tamas\n>",
+      "body_snippet": "It should be\n\ncd /Library/Frameword/R-framework/Resources/bin/exec\nsudo /Developer/Tools/Rez   -t APPL Carbon.r -o R\n\nyou need developer tools installed and R.framework 2.0.0\n\nI didn't test my self on",
+      "thread_id": "thread-dc025c1af874",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-e9963323f705",
+      "message_id": "<7C73CC54-23BB-11D9-97EC-000D932C7F48@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-22T01:47:15Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<20041021222113.GA908@tpapp>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<20041021204003.GA752@tpapp>",
+        "<CE0C119D-23A8-11D9-AC74-000A95C87F66@unimi.it>",
+        "<20041021222113.GA908@tpapp>"
+      ],
+      "body_plain": "The trick:\n\ncd /Library/Frameworks/R.framework/Resources/bin/exec\nsudo /Developer/Tools/Rez -t  APPL Carbon.r -o R\n\nThis only works if R is compiled with\n\n  configure  \n--with-tcl-config=/Library/Frameworks/Tcl.framework/tclConfig.sh  \n--with-tk-config=/Library/Frameworks/Tk.framework/tkConfig.sh  \n--enable-R-shlib --with-aqua --with-blas='-framework vecLib'  \n--with-lapack TCLTK_LIBS='-framework Tcl -framework Tk'  \nTCLTK_CPPFLAGS='-I/Library/Frameworks/Tcl.Framework/Headers  \n-I/Library/Frameworks/Tk.Framework/Headers'\n\ni.e. with the Aqua version of Tcl/Tk, because that's where R gets the  \nApple CF event loop\nfrom. In addition, you get Aqua look and feel  for your tcltk library.\n\nThe trick is worthwhile if you run R from Emacs (either CLI or X11 or  \nCarbon)\nor from a Terminal window AND if you hate the look of X11 windows  \nbefouling\nyour Mac. I thought I was the only person in that intersection.\n\nOn Oct 21, 2004, at 3:21 PM, Tamas K Papp wrote:\n\n> On Thu, Oct 21, 2004 at 11:33:10PM +0200, stefano iacus wrote:\n>> quartz device can be used from Emacs (at least the carbon Emacs)\n>> But you need to apply Jan's trick to make quartz an interactive  \n>> device.\n>\n> What is this trick?  Can I find a description somewhere?  Do I need to\n> recompile?\n>\n> Thanks,\n>\n> Tamas\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "The trick:\n\ncd /Library/Frameworks/R.framework/Resources/bin/exec\nsudo /Developer/Tools/Rez -t  APPL Carbon.r -o R\n\nThis only works if R is compiled with\n\n  configure  \n--with-tcl-config=/Library/Fram",
+      "thread_id": "thread-dc025c1af874",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-76959f595809",
+      "message_id": "<A79CB6DE-242B-11D9-9A43-000A957CEFBA@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "ca28efd9ec1cfd4e8286859200079ce1b72e68c0c25c87bda988546cff431034",
+      "date": "2004-10-22T15:09:53Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "Byron,\n\nthanks for the idea and patch. I've taken a bit different approach \n(more native, in case we decide to add syntax highlighting to the \nconsole, too), but it should have the same effect. Tonight's nightly \nbuild should have the appropriate changes.\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_snippet": "Byron,\n\nthanks for the idea and patch. I've taken a bit different approach \n(more native, in case we decide to add syntax highlighting to the \nconsole, too), but it should have the same effect. Tonigh",
+      "thread_id": "thread-6a0416923fe9",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-94ae697f045b",
+      "message_id": "<Pine.GSO.4.51.0410231058300.4280@csm.Berkeley.EDU>",
+      "from_name": "Jake Bowers",
+      "from_email_hash": "429f3b734f3870f3a41918eb561483afce8122c63ae92e59296283ef91330330",
+      "date": "2004-10-23T20:07:01Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<7C73CC54-23BB-11D9-97EC-000D932C7F48@stat.ucla.edu>",
+      "references": [
+        "<E684C2AD-232E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<20041021204003.GA752@tpapp>",
+        "<CE0C119D-23A8-11D9-AC74-000A95C87F66@unimi.it>",
+        "<20041021222113.GA908@tpapp>",
+        "<7C73CC54-23BB-11D9-97EC-000D932C7F48@stat.ucla.edu>"
+      ],
+      "body_plain": "Hi All,\n\nI write to register my support for making Emacs and R and OS X live and\nplay together gracefully. I can't imagine not using Emacs for Sweave\nfiles, LaTeX, and R (via ESS) in general. But, having X11 running is\nannoying, to me, too. So, neither Jan nor Tamas are the only folks in this\nboat.\n\nI also write to praise the new R GUI as something very beautiful that will\nhelp my non-Emacs savvy students have much much better experiences with R.\n\nAnd to thank Stefano, Simon, and Jan and the many others who have done\nsuch great work on R for OS X!\n\nBest,\n\nJake\n\nJake Bowers\nAssistant Professor of Political Science\nFaculty Associate in the Center for Political Studies, ISR\nUniversity of Michigan\nhttp://www.umich.edu/~jwbowers\n\n\n\n\nOn Thu, 21 Oct 2004, Jan de Leeuw wrote:\n>\n> The trick is worthwhile if you run R from Emacs (either CLI or X11 or\n> Carbon)\n> or from a Terminal window AND if you hate the look of X11 windows\n> befouling\n> your Mac. I thought I was the only person in that intersection.",
+      "body_snippet": "Hi All,\n\nI write to register my support for making Emacs and R and OS X live and\nplay together gracefully. I can't imagine not using Emacs for Sweave\nfiles, LaTeX, and R (via ESS) in general. But, hav",
+      "thread_id": "thread-dc025c1af874",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-6563d6c5a37e",
+      "message_id": "<20041024140233.GA586@tpapp>",
+      "from_name": "Tamas K Papp",
+      "from_email_hash": "da0b6cc163eaca43752edf020e71ec6f96f9377ad9c483177296d2a745f0f11c",
+      "date": "2004-10-24T16:02:45Z",
+      "subject": "[R-SIG-Mac] Cocoa GUI feature request (with patch!)",
+      "subject_clean": "Cocoa GUI feature request (with patch!)",
+      "in_reply_to": "<7C73CC54-23BB-11D9-97EC-000D932C7F48@stat.ucla.edu>",
+      "references": [
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<20041021204003.GA752@tpapp>",
+        "<CE0C119D-23A8-11D9-AC74-000A95C87F66@unimi.it>",
+        "<20041021222113.GA908@tpapp>",
+        "<7C73CC54-23BB-11D9-97EC-000D932C7F48@stat.ucla.edu>"
+      ],
+      "body_plain": "I tried it, nothing changes.\n\nI am not sure that my R has been compliled with the options given\nbelow.  How can I check that?\n\nI am using R-2.0.0-Batteries-Included.dmg, 10-15-04.  It is compiled\nwith Tcl and Tk and the other options?  My /Library/Frameworks has\nonly PrintMeSSL.framework, R.framework, StuffIt.framework, should I\nneed anything else there?\n\nBTW, R-2.0.0-Batteries-Included is simply amazing.  Besides R, the\nEmacs is the most consistent one I have seen on OS X.  Thank you very\nmuch!\n\nThanks,\n\nTamas\n\n\nOn Thu, Oct 21, 2004 at 04:46:53PM -0700, Jan de Leeuw wrote:\n\n> The trick:\n> \n> cd /Library/Frameworks/R.framework/Resources/bin/exec\n> sudo /Developer/Tools/Rez -t  APPL Carbon.r -o R\n> \n> This only works if R is compiled with\n> \n>  configure  \n> --with-tcl-config=/Library/Frameworks/Tcl.framework/tclConfig.sh  \n> --with-tk-config=/Library/Frameworks/Tk.framework/tkConfig.sh  \n> --enable-R-shlib --with-aqua --with-blas='-framework vecLib'  \n> --with-lapack TCLTK_LIBS='-framework Tcl -framework Tk'  \n> TCLTK_CPPFLAGS='-I/Library/Frameworks/Tcl.Framework/Headers  \n> -I/Library/Frameworks/Tk.Framework/Headers'\n> \n> i.e. with the Aqua version of Tcl/Tk, because that's where R gets the  \n> Apple CF event loop\n> from. In addition, you get Aqua look and feel  for your tcltk library.\n> \n> The trick is worthwhile if you run R from Emacs (either CLI or X11 or  \n> Carbon)\n> or from a Terminal window AND if you hate the look of X11 windows  \n> befouling\n> your Mac. I thought I was the only person in that intersection.\n> \n> On Oct 21, 2004, at 3:21 PM, Tamas K Papp wrote:\n> \n> >On Thu, Oct 21, 2004 at 11:33:10PM +0200, stefano iacus wrote:\n> >>quartz device can be used from Emacs (at least the carbon Emacs)\n> >>But you need to apply Jan's trick to make quartz an interactive  \n> >>device.\n> >\n> >What is this trick?  Can I find a description somewhere?  Do I need to\n> >recompile?\n> >\n> >Thanks,\n> >\n> >Tamas\n> >\n> >_______________________________________________\n> >R-SIG-Mac mailing list\n> >R-SIG-Mac@stat.math.ethz.ch\n> >https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> >\n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \n> Statistics;\n> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n> Software\n> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\n> homepage: http://gifi.stat.ucla.edu\n>   \n> ------------------------------------------------------------------------ \n> -------------------------\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n>   \n> ------------------------------------------------------------------------ \n> -------------------------",
+      "body_snippet": "I tried it, nothing changes.\n\nI am not sure that my R has been compliled with the options given\nbelow.  How can I check that?\n\nI am using R-2.0.0-Batteries-Included.dmg, 10-15-04.  It is compiled\nwith",
+      "thread_id": "thread-dc025c1af874",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-05c422b75f48",
+      "message_id": "<62B3F009-25D3-11D9-9A43-000D932C7F48@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-24T17:43:17Z",
+      "subject": "[R-SIG-Mac] R hack ",
+      "subject_clean": "R hack",
+      "in_reply_to": "<20041024140233.GA586@tpapp>",
+      "references": [
+        "<4AA1331C-2335-11D9-AC74-000A95C87F66@mclink.it>",
+        "<p06002000bd9d1be8ae6d@134.214.34.24>",
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<20041021204003.GA752@tpapp>",
+        "<CE0C119D-23A8-11D9-AC74-000A95C87F66@unimi.it>",
+        "<20041021222113.GA908@tpapp>",
+        "<7C73CC54-23BB-11D9-97EC-000D932C7F48@stat.ucla.edu>",
+        "<20041024140233.GA586@tpapp>"
+      ],
+      "body_plain": "At\n\nhttp://gifi.stat.ucla.edu/pub/Hack.dmg\n\nyou'll find a package which you can install over (after)  \nBatteries-Included\nIt contains Tcl.framework, Tk.framework, and an alternative version\nof R.framework compiled with Tcl/Tk flags set to the Aqua version.\n\nThis is for people who a) want to use R from Emacs or Terminal, b)\ndo not want to use X11, c) do want to use the Quartz device, d)\ndo not insist on using the Cocoa GUI.\n\nAfter you start R you have to do library(tcltk). This will open the\nR application in your dock (with a generic icon). If that works you\nwill have a Quartz device you can interact with, and you can\ntry everything with demo(tkdensity).\n\nYour tcltk will not work anymore with the Cocoa R.app or with JGR\nafter this, however. You cannot live in both worlds.\n\nOn Oct 24, 2004, at 7:02 AM, Tamas K Papp wrote:\n\n> I tried it, nothing changes.\n>\n> I am not sure that my R has been compliled with the options given\n> below.  How can I check that?\n>\n> I am using R-2.0.0-Batteries-Included.dmg, 10-15-04.  It is compiled\n> with Tcl and Tk and the other options?  My /Library/Frameworks has\n> only PrintMeSSL.framework, R.framework, StuffIt.framework, should I\n> need anything else there?\n>\n> BTW, R-2.0.0-Batteries-Included is simply amazing.  Besides R, the\n> Emacs is the most consistent one I have seen on OS X.  Thank you very\n> much!\n>\n> Thanks,\n>\n> Tamas\n>\n>\n> On Thu, Oct 21, 2004 at 04:46:53PM -0700, Jan de Leeuw wrote:\n>\n>> The trick:\n>>\n>> cd /Library/Frameworks/R.framework/Resources/bin/exec\n>> sudo /Developer/Tools/Rez -t  APPL Carbon.r -o R\n>>\n>> This only works if R is compiled with\n>>\n>>  configure\n>> --with-tcl-config=/Library/Frameworks/Tcl.framework/tclConfig.sh\n>> --with-tk-config=/Library/Frameworks/Tk.framework/tkConfig.sh\n>> --enable-R-shlib --with-aqua --with-blas='-framework vecLib'\n>> --with-lapack TCLTK_LIBS='-framework Tcl -framework Tk'\n>> TCLTK_CPPFLAGS='-I/Library/Frameworks/Tcl.Framework/Headers\n>> -I/Library/Frameworks/Tk.Framework/Headers'\n>>\n>> i.e. with the Aqua version of Tcl/Tk, because that's where R gets the\n>> Apple CF event loop\n>> from. In addition, you get Aqua look and feel  for your tcltk library.\n>>\n>> The trick is worthwhile if you run R from Emacs (either CLI or X11 or\n>> Carbon)\n>> or from a Terminal window AND if you hate the look of X11 windows\n>> befouling\n>> your Mac. I thought I was the only person in that intersection.\n>>\n>> On Oct 21, 2004, at 3:21 PM, Tamas K Papp wrote:\n>>\n>>> On Thu, Oct 21, 2004 at 11:33:10PM +0200, stefano iacus wrote:\n>>>> quartz device can be used from Emacs (at least the carbon Emacs)\n>>>> But you need to apply Jan's trick to make quartz an interactive\n>>>> device.\n>>>\n>>> What is this trick?  Can I find a description somewhere?  Do I need  \n>>> to\n>>> recompile?\n>>>\n>>> Thanks,\n>>>\n>>> Tamas\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac@stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>>\n>> ===\n>> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of\n>> Statistics;\n>> Editor: Journal of Multivariate Analysis, Journal of Statistical\n>> Software\n>> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n>> 90095-1554\n>> phone (310)-825-9550;  fax (310)-206-5658;  email:  \n>> deleeuw@stat.ucla.edu\n>> homepage: http://gifi.stat.ucla.edu\n>>\n>> ---------------------------------------------------------------------- \n>> --\n>> -------------------------\n>>           No matter where you go, there you are. --- Buckaroo Banzai\n>>                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n>>\n>> ---------------------------------------------------------------------- \n>> --\n>> -------------------------\n>\n>\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "At\n\nhttp://gifi.stat.ucla.edu/pub/Hack.dmg\n\nyou'll find a package which you can install over (after)  \nBatteries-Included\nIt contains Tcl.framework, Tk.framework, and an alternative version\nof R.frame",
+      "thread_id": "thread-dc025c1af874",
+      "thread_depth": 3,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-7574a80f63d9",
+      "message_id": "<20041024171019.GA3334@tpapp>",
+      "from_name": "Tamas K Papp",
+      "from_email_hash": "da0b6cc163eaca43752edf020e71ec6f96f9377ad9c483177296d2a745f0f11c",
+      "date": "2004-10-24T19:10:27Z",
+      "subject": "[R-SIG-Mac] R hack",
+      "subject_clean": "R hack",
+      "in_reply_to": "<62B3F009-25D3-11D9-9A43-000D932C7F48@stat.ucla.edu>",
+      "references": [
+        "<C96F254E-233A-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<16759.43320.389085.741193@gargle.gargle.HOWL>",
+        "<1abe3fa904102106152e1f9cfb@mail.gmail.com>",
+        "<FB4641D6-2394-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<20041021204003.GA752@tpapp>",
+        "<CE0C119D-23A8-11D9-AC74-000A95C87F66@unimi.it>",
+        "<20041021222113.GA908@tpapp>",
+        "<7C73CC54-23BB-11D9-97EC-000D932C7F48@stat.ucla.edu>",
+        "<20041024140233.GA586@tpapp>",
+        "<62B3F009-25D3-11D9-9A43-000D932C7F48@stat.ucla.edu>"
+      ],
+      "body_plain": "Thank you very much, this is really nice!\n\nA minor glitch: if I don't open a quartz() window explicitly,\n\nlibrary(tcltk)\nplot(1:5,1:5)\n\nmakes R segfault.  Do you experience this?\n\nIf I plot first, and plots appear in an x11() window, everything runs\nsmooth.  It also works if I open a quartz() window.\n\nI installed batteries-included, did a\n\n/Developer/Tools/Rez -t  APPL Carbon.r -o R  \n\n(this was on Friday), then installed the Hack.dmg on this.  Should I\nreinstall everyhing from scratch?\n\nThanks\n\nTamas\n\nOn Sun, Oct 24, 2004 at 08:43:00AM -0700, Jan de Leeuw wrote:\n\n> At\n> \n> http://gifi.stat.ucla.edu/pub/Hack.dmg\n> \n> you'll find a package which you can install over (after)  \n> Batteries-Included\n> It contains Tcl.framework, Tk.framework, and an alternative version\n> of R.framework compiled with Tcl/Tk flags set to the Aqua version.\n> \n> This is for people who a) want to use R from Emacs or Terminal, b)\n> do not want to use X11, c) do want to use the Quartz device, d)\n> do not insist on using the Cocoa GUI.\n> \n> After you start R you have to do library(tcltk). This will open the\n> R application in your dock (with a generic icon). If that works you\n> will have a Quartz device you can interact with, and you can\n> try everything with demo(tkdensity).\n> \n> Your tcltk will not work anymore with the Cocoa R.app or with JGR\n> after this, however. You cannot live in both worlds.\n> \n> On Oct 24, 2004, at 7:02 AM, Tamas K Papp wrote:\n> \n> >I tried it, nothing changes.\n> >\n> >I am not sure that my R has been compliled with the options given\n> >below.  How can I check that?\n> >\n> >I am using R-2.0.0-Batteries-Included.dmg, 10-15-04.  It is compiled\n> >with Tcl and Tk and the other options?  My /Library/Frameworks has\n> >only PrintMeSSL.framework, R.framework, StuffIt.framework, should I\n> >need anything else there?\n> >\n> >BTW, R-2.0.0-Batteries-Included is simply amazing.  Besides R, the\n> >Emacs is the most consistent one I have seen on OS X.  Thank you very\n> >much!\n> >\n> >Thanks,\n> >\n> >Tamas\n> >\n> >\n> >On Thu, Oct 21, 2004 at 04:46:53PM -0700, Jan de Leeuw wrote:\n> >\n> >>The trick:\n> >>\n> >>cd /Library/Frameworks/R.framework/Resources/bin/exec\n> >>sudo /Developer/Tools/Rez -t  APPL Carbon.r -o R\n> >>\n> >>This only works if R is compiled with\n> >>\n> >> configure\n> >>--with-tcl-config=/Library/Frameworks/Tcl.framework/tclConfig.sh\n> >>--with-tk-config=/Library/Frameworks/Tk.framework/tkConfig.sh\n> >>--enable-R-shlib --with-aqua --with-blas='-framework vecLib'\n> >>--with-lapack TCLTK_LIBS='-framework Tcl -framework Tk'\n> >>TCLTK_CPPFLAGS='-I/Library/Frameworks/Tcl.Framework/Headers\n> >>-I/Library/Frameworks/Tk.Framework/Headers'\n> >>\n> >>i.e. with the Aqua version of Tcl/Tk, because that's where R gets the\n> >>Apple CF event loop\n> >>from. In addition, you get Aqua look and feel  for your tcltk library.\n> >>\n> >>The trick is worthwhile if you run R from Emacs (either CLI or X11 or\n> >>Carbon)\n> >>or from a Terminal window AND if you hate the look of X11 windows\n> >>befouling\n> >>your Mac. I thought I was the only person in that intersection.\n> >>\n> >>On Oct 21, 2004, at 3:21 PM, Tamas K Papp wrote:\n> >>\n> >>>On Thu, Oct 21, 2004 at 11:33:10PM +0200, stefano iacus wrote:\n> >>>>quartz device can be used from Emacs (at least the carbon Emacs)\n> >>>>But you need to apply Jan's trick to make quartz an interactive\n> >>>>device.\n> >>>\n> >>>What is this trick?  Can I find a description somewhere?  Do I need  \n> >>>to\n> >>>recompile?\n> >>>\n> >>>Thanks,\n> >>>\n> >>>Tamas\n> >>>\n> >>>_______________________________________________\n> >>>R-SIG-Mac mailing list\n> >>>R-SIG-Mac@stat.math.ethz.ch\n> >>>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>>\n> >>>\n> >>===\n> >>Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of\n> >>Statistics;\n> >>Editor: Journal of Multivariate Analysis, Journal of Statistical\n> >>Software\n> >>US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n> >>90095-1554\n> >>phone (310)-825-9550;  fax (310)-206-5658;  email:  \n> >>deleeuw@stat.ucla.edu\n> >>homepage: http://gifi.stat.ucla.edu\n> >>\n> >>---------------------------------------------------------------------- \n> >>--\n> >>-------------------------\n> >>          No matter where you go, there you are. --- Buckaroo Banzai\n> >>                   http://gifi.stat.ucla.edu/sounds/nomatter.au\n> >>\n> >>---------------------------------------------------------------------- \n> >>--\n> >>-------------------------\n> >\n> >\n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \n> Statistics;\n> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n> Software\n> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\n> homepage: http://gifi.stat.ucla.edu\n>   \n> ------------------------------------------------------------------------ \n> -------------------------\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Thank you very much, this is really nice!\n\nA minor glitch: if I don't open a quartz() window explicitly,\n\nlibrary(tcltk)\nplot(1:5,1:5)\n\nmakes R segfault.  Do you experience this?\n\nIf I plot first, and",
+      "thread_id": "thread-dc025c1af874",
+      "thread_depth": 4,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-097a39f119dd",
+      "message_id": "<C102B6D4-25ED-11D9-ABBE-000D932C7F48@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-24T20:51:58Z",
+      "subject": "[R-SIG-Mac] http://gifi.stat.ucla.edu/pub",
+      "subject_clean": "http://gifi.stat.ucla.edu/pub",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The 10-24-04 version reintroduces the resource fork hack and use Aqua  \nTcl/Tk.  This is for people who\n\t? \t want to use R from Emacs or Terminal,\n\t? \t do not want to use X11,\n\t? \t do want to use the Quartz device,\n\t? \t do not insist on using the Cocoa GUI.\n  Your tcltk will not work anymore with the Cocoa R.app or with JGR.  \nAlso rgl and tkrplot do not work. Unfortunately, you cannot live in  \nboth worlds at the same time.\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n   \n------------------------------------------------------------------------ \n------------------------- \n        \n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: text/enriched\nSize: 1527 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20041024/abeb1ce8/attachment.bin",
+      "body_snippet": "The 10-24-04 version reintroduces the resource fork hack and use Aqua  \nTcl/Tk.  This is for people who\n\t? \t want to use R from Emacs or Terminal,\n\t? \t do not want to use X11,\n\t? \t do want to use the ",
+      "thread_id": "thread-097a39f119dd",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-31b729ea89a0",
+      "message_id": "<7F00F0CA-273E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-26T13:02:21Z",
+      "subject": "[R-SIG-Mac] cocoa packages",
+      "subject_clean": "cocoa packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all, a bit inspired this evening. Managed (with a small change to \nSHLIB and INSTALL to make it recognize .m files) to successfully build \na small proof-of-concept package that\n\n1) installs some extra menus (and items) into the main menu bar\n2) attach those menu items to a controller object inside the package\n3) locate and instantiate a NIB located within the package in response \nto a menu call.\n\nIts very simple code, email me and I'll send you the somewhat ugly \npackage as it stands (it ain't pretty).\n\nI think it could be useful for adding S-PLUS-like functionality to the \nR GUI. Maybe for use in things like introductory statistics courses (or \nComputational Biology courses). On the whole, a lot prettier than \nTcl/Tk and with some more work we could probably write selector targets \nin R (a la CamelBones or PyObjC).\n\nIts 4am, good night\n\n(BTW, Stefano, I was working on adding the navigation buttons when this \noccurred to me. I promise :-) )\n\n\n---\nByron Ellis (ellis@stat.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Hi all, a bit inspired this evening. Managed (with a small change to \nSHLIB and INSTALL to make it recognize .m files) to successfully build \na small proof-of-concept package that\n\n1) installs some ex",
+      "thread_id": "thread-31b729ea89a0",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-13632b716151",
+      "message_id": "<p06002000bda4038c67c6@[134.214.34.24]>",
+      "from_name": "Jean Thioulouse",
+      "from_email_hash": "b20a674eb42804a87b064b390e04515db85d2871dd7105ba54500899f94dfe16",
+      "date": "2004-10-26T15:52:00Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+      "references": [
+        "<p06002001bd9abda1f437@[134.214.34.24]>",
+        "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>"
+      ],
+      "body_plain": "Hello,\n\nI have tried PitStop to edit the pdf files created by R, but it did not\nwork (seems that the pdf contains only one large bitmap). Do you know\nany other software able to edit pdf files obtained with R ? How can I\nuse the pdf version of the graphic that is in the clipboard ?\n\nThank you,\nJean\n\nAt 16:31 +0200 19/10/04, Simon Urbanek wrote:\n\n>On Oct 19, 2004, at 4:10 PM, jtnews1@biomserv.univ-lyon1.fr wrote:\n>\n>>Trying to use the \"Change Working Directory\" command of the \"Misc\" menu,\n>>I want to select /Users/jthioulo/Desktop/Ranjard, so I navigate to this\n>\n>Thank you for the report, this was (hopefully) fixed now in the \n>nightly build (available at \n>http://www.rosuda.org/R/nightly/R-GUI.dmg ).\n>\n>>Also, what is the format of the graphics that are copied to the clipboard ?\n>>In the Windows version, the emf format allows editing the objects\n>>composing the graphics, and that would be nice to have this possibility\n>>on Mac too.\n>\n>AFAICS multi-format clipboard entry is created with TIFF and PDF \n>entries - which one is used depends on the application that you \n>paste into. The PDF version contains all individual objects and is \n>editable with the appropriate programs.\n>\n>Cheers,\n>Simon\n>\n>---\n>Simon Urbanek\n>Department of computer oriented statistics and data analysis\n>University of Augsburg\n>Universit?tsstr. 14\n>86135 Augsburg\n>Germany\n>\n>Tel: +49-821-598-2236\n>Fax: +49-821-598-2200\n>\n>Simon.Urbanek@Math.Uni-Augsburg.de\n>http://simon.urbanek.info\n\n-- \nJean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie Statistique\"\nUniversite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  France\nTel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 56\n                 http://pbil.univ-lyon1.fr/JTHome.html",
+      "body_snippet": "Hello,\n\nI have tried PitStop to edit the pdf files created by R, but it did not\nwork (seems that the pdf contains only one large bitmap). Do you know\nany other software able to edit pdf files obtained",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-d7924a60f3ed",
+      "message_id": "<C6DACFE6-2759-11D9-BC47-000A957CEFBA@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "ca28efd9ec1cfd4e8286859200079ce1b72e68c0c25c87bda988546cff431034",
+      "date": "2004-10-26T16:17:44Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<p06002000bda4038c67c6@[134.214.34.24]>",
+      "references": [
+        "<p06002001bd9abda1f437@[134.214.34.24]>",
+        "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+        "<p06002000bda4038c67c6@[134.214.34.24]>"
+      ],
+      "body_plain": "Hi Jean,\n\nOn Oct 26, 2004, at 3:51 PM, Jean Thioulouse wrote:\n\n> I have tried PitStop to edit the pdf files created by R, but it did not\n> work (seems that the pdf contains only one large bitmap). Do you know\n> any other software able to edit pdf files obtained with R ? How can I\n> use the pdf version of the graphic that is in the clipboard ?\n\nI used Adobe Illustrator and it worked flawlessly - you can even edit \ntext in real text mode, not as glyphs. I have never heard of PitStop \nbut either it cannot handle PDFs properly, or for some reason it \nfetches the bitmap version instead. If the latter is the case, you can \ndisable the TIFF version by replacing the copy: method in RQuartz by \nthis one:\n\n- (IBAction)copy:(id)sender\n{\n\tNSPasteboard *pb = [NSPasteboard generalPasteboard];\n\t[pb declareTypes: [NSArray arrayWithObjects: NSPDFPboardType, nil ] \nowner:self];\n\n\tQUARTZ_WORK_BEGIN;\n\t[deviceView setPDFDrawing:YES];\n\t[deviceView lockFocus];\n\t[deviceView writePDFInsideRect:[deviceView bounds] toPasteboard:pb];\n\t[deviceView unlockFocus];\n\t[deviceView setPDFDrawing:NO];\n\tQUARTZ_WORK_END;\n}\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_snippet": "Hi Jean,\n\nOn Oct 26, 2004, at 3:51 PM, Jean Thioulouse wrote:\n\n> I have tried PitStop to edit the pdf files created by R, but it did not\n> work (seems that the pdf contains only one large bitmap). Do ",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 3,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-175b62d244bd",
+      "message_id": "<20041026142908.GA3824@tpapp>",
+      "from_name": "Tamas K Papp",
+      "from_email_hash": "da0b6cc163eaca43752edf020e71ec6f96f9377ad9c483177296d2a745f0f11c",
+      "date": "2004-10-26T16:30:38Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<C6DACFE6-2759-11D9-BC47-000A957CEFBA@math.uni-augsburg.de>",
+      "references": [
+        "<p06002001bd9abda1f437@[134.214.34.24]>",
+        "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+        "<p06002000bda4038c67c6@[134.214.34.24]>",
+        "<C6DACFE6-2759-11D9-BC47-000A957CEFBA@math.uni-augsburg.de>"
+      ],
+      "body_plain": "On Tue, Oct 26, 2004 at 04:17:32PM +0200, Simon Urbanek wrote:\n> Hi Jean,\n> \n> On Oct 26, 2004, at 3:51 PM, Jean Thioulouse wrote:\n> \n> >I have tried PitStop to edit the pdf files created by R, but it did not\n> >work (seems that the pdf contains only one large bitmap). Do you know\n> >any other software able to edit pdf files obtained with R ? How can I\n> >use the pdf version of the graphic that is in the clipboard ?\n> \n> I used Adobe Illustrator and it worked flawlessly - you can even edit \n> text in real text mode, not as glyphs. I have never heard of PitStop \n> but either it cannot handle PDFs properly, or for some reason it \n\nYou can also try pstoedit, if you have fink installed.\n\nBest,\n\nTamas",
+      "body_snippet": "On Tue, Oct 26, 2004 at 04:17:32PM +0200, Simon Urbanek wrote:\n> Hi Jean,\n> \n> On Oct 26, 2004, at 3:51 PM, Jean Thioulouse wrote:\n> \n> >I have tried PitStop to edit the pdf files created by R, but it",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 4,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-274c732d1f2b",
+      "message_id": "<B8270FA7-275D-11D9-BC47-000A957CEFBA@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "ca28efd9ec1cfd4e8286859200079ce1b72e68c0c25c87bda988546cff431034",
+      "date": "2004-10-26T16:45:58Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<p06002000bda4038c67c6@[134.214.34.24]>",
+      "references": [
+        "<p06002001bd9abda1f437@[134.214.34.24]>",
+        "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+        "<p06002000bda4038c67c6@[134.214.34.24]>"
+      ],
+      "body_plain": "On Oct 26, 2004, at 3:51 PM, Jean Thioulouse wrote:\n\n> I have tried PitStop to edit the pdf files created by R, but it did not\n> work (seems that the pdf contains only one large bitmap). Do you know\n> any other software able to edit pdf files obtained with R ? How can I\n> use the pdf version of the graphic that is in the clipboard ?\n\nI have noticed that the declaration order was TIFF first and PDF \nsecond. I have now reversed the order. Please try tonight's nightly \nbuild (you'll need at least revision 662) and tell me whether it works. \nI'm still unsure about this - maybe we should make the order \nconfigurable or two different copy commands for bitmap vs vector.\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_snippet": "On Oct 26, 2004, at 3:51 PM, Jean Thioulouse wrote:\n\n> I have tried PitStop to edit the pdf files created by R, but it did not\n> work (seems that the pdf contains only one large bitmap). Do you know\n>",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 3,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-a721e1cd5b5c",
+      "message_id": "<p06002000bda4186a4bf8@[134.214.34.24]>",
+      "from_name": "Jean Thioulouse",
+      "from_email_hash": "b20a674eb42804a87b064b390e04515db85d2871dd7105ba54500899f94dfe16",
+      "date": "2004-10-26T17:12:18Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<B8270FA7-275D-11D9-BC47-000A957CEFBA@math.uni-augsburg.de>",
+      "references": [
+        "<p06002001bd9abda1f437@[134.214.34.24]>",
+        "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+        "<p06002000bda4038c67c6@[134.214.34.24]>",
+        "<B8270FA7-275D-11D9-BC47-000A957CEFBA@math.uni-augsburg.de>"
+      ],
+      "body_plain": "At 16:45 +0200 26/10/04, Simon Urbanek wrote:\n>I have noticed that the declaration order was TIFF first and PDF \n>second. I have now reversed the order. Please try tonight's nightly \n>build (you'll need at least revision 662) and tell me whether it \n>works. I'm still unsure about this - maybe we should make the order \n>configurable or two different copy commands for bitmap vs vector.\n\nI have just checked with Illustrator, and it works perfectly like this.\nI think that the order does not matter, and target applications should\nbe able to choose the right data type in the clipboard.\n\nThanks,\nJean\n\n-- \nJean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie Statistique\"\nUniversite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  France\nTel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 56\n                 http://pbil.univ-lyon1.fr/JTHome.html",
+      "body_snippet": "At 16:45 +0200 26/10/04, Simon Urbanek wrote:\n>I have noticed that the declaration order was TIFF first and PDF \n>second. I have now reversed the order. Please try tonight's nightly \n>build (you'll ne",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 4,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-431b0b4925e0",
+      "message_id": "<D87D31F2-2764-11D9-A074-000D932C7F48@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-26T17:36:55Z",
+      "subject": "[R-SIG-Mac] cocoa packages",
+      "subject_clean": "cocoa packages",
+      "in_reply_to": "<7F00F0CA-273E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<7F00F0CA-273E-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "That's good news. One way to get rid of the remaining vestiges of X11  \nis to\nget rid of Tcl/Tk alltogether and allow people to write interfaces to  \npackages\nin Cocoa (with a Cocoa Rcmdr as an extreme version). I have been\nasking Duncan for RObjC or RCocoa, and at some point in time there\nactually was some form of RObjC, but it got lost in the intricate mazes  \nof the\nOmega project.\n\nOn Oct 26, 2004, at 4:02 AM, Byron Ellis wrote:\n\n> Hi all, a bit inspired this evening. Managed (with a small change to  \n> SHLIB and INSTALL to make it recognize .m files) to successfully build  \n> a small proof-of-concept package that\n>\n> 1) installs some extra menus (and items) into the main menu bar\n> 2) attach those menu items to a controller object inside the package\n> 3) locate and instantiate a NIB located within the package in response  \n> to a menu call.\n>\n> Its very simple code, email me and I'll send you the somewhat ugly  \n> package as it stands (it ain't pretty).\n>\n> I think it could be useful for adding S-PLUS-like functionality to the  \n> R GUI. Maybe for use in things like introductory statistics courses  \n> (or Computational Biology courses). On the whole, a lot prettier than  \n> Tcl/Tk and with some more work we could probably write selector  \n> targets in R (a la CamelBones or PyObjC).\n>\n> Its 4am, good night\n>\n> (BTW, Stefano, I was working on adding the navigation buttons when  \n> this occurred to me. I promise :-) )\n>\n>\n> ---\n> Byron Ellis (ellis@stat.harvard.edu)\n> \"Oook\" -- The Librarian\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "That's good news. One way to get rid of the remaining vestiges of X11  \nis to\nget rid of Tcl/Tk alltogether and allow people to write interfaces to  \npackages\nin Cocoa (with a Cocoa Rcmdr as an extrem",
+      "thread_id": "thread-31b729ea89a0",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-37ff71b319f9",
+      "message_id": "<D7A8F5B5-2766-11D9-A345-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-26T17:51:20Z",
+      "subject": "[R-SIG-Mac] R 2.0.0 Change Working Directory",
+      "subject_clean": "R 2.0.0 Change Working Directory",
+      "in_reply_to": "<B8270FA7-275D-11D9-BC47-000A957CEFBA@math.uni-augsburg.de>",
+      "references": [
+        "<p06002001bd9abda1f437@[134.214.34.24]>",
+        "<8A13A661-21DB-11D9-8E89-000A957CEFBA@math.uni-augsburg.de>",
+        "<p06002000bda4038c67c6@[134.214.34.24]>",
+        "<B8270FA7-275D-11D9-BC47-000A957CEFBA@math.uni-augsburg.de>"
+      ],
+      "body_plain": "This should be not rilevant. In fact Preview, takes the PDF no matter \nwho comes first.\nstefano\nOn Oct 26, 2004, at 4:45 PM, Simon Urbanek wrote:\n\n>\n> On Oct 26, 2004, at 3:51 PM, Jean Thioulouse wrote:\n>\n>> I have tried PitStop to edit the pdf files created by R, but it did \n>> not\n>> work (seems that the pdf contains only one large bitmap). Do you know\n>> any other software able to edit pdf files obtained with R ? How can I\n>> use the pdf version of the graphic that is in the clipboard ?\n>\n> I have noticed that the declaration order was TIFF first and PDF \n> second. I have now reversed the order. Please try tonight's nightly \n> build (you'll need at least revision 662) and tell me whether it \n> works. I'm still unsure about this - maybe we should make the order \n> configurable or two different copy commands for bitmap vs vector.\n>\n> Cheers,\n> Simon\n>\n> ---\n> Simon Urbanek\n> Department of computer oriented statistics and data analysis\n> University of Augsburg\n> Universit?tsstr. 14\n> 86135 Augsburg\n> Germany\n>\n> Tel: +49-821-598-2236\n> Fax: +49-821-598-2200\n>\n> Simon.Urbanek@Math.Uni-Augsburg.de\n> http://simon.urbanek.info\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "This should be not rilevant. In fact Preview, takes the PDF no matter \nwho comes first.\nstefano\nOn Oct 26, 2004, at 4:45 PM, Simon Urbanek wrote:\n\n>\n> On Oct 26, 2004, at 3:51 PM, Jean Thioulouse wrot",
+      "thread_id": "thread-280e0ced4af7",
+      "thread_depth": 4,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-1cf9da36d831",
+      "message_id": "<E92F7D42-2766-11D9-A345-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-26T17:51:39Z",
+      "subject": "[R-SIG-Mac] cocoa packages",
+      "subject_clean": "cocoa packages",
+      "in_reply_to": "<D87D31F2-2764-11D9-A074-000D932C7F48@stat.ucla.edu>",
+      "references": [
+        "<7F00F0CA-273E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<D87D31F2-2764-11D9-A074-000D932C7F48@stat.ucla.edu>"
+      ],
+      "body_plain": "Or once iWidgets comes to Cocoa which I think is the plan (Simon?)\nstefano\n\nOn Oct 26, 2004, at 5:36 PM, Jan de Leeuw wrote:\n\n> That's good news. One way to get rid of the remaining vestiges of X11  \n> is to\n> get rid of Tcl/Tk alltogether and allow people to write interfaces to  \n> packages\n> in Cocoa (with a Cocoa Rcmdr as an extreme version). I have been\n> asking Duncan for RObjC or RCocoa, and at some point in time there\n> actually was some form of RObjC, but it got lost in the intricate  \n> mazes of the\n> Omega project.\n>\n> On Oct 26, 2004, at 4:02 AM, Byron Ellis wrote:\n>\n>> Hi all, a bit inspired this evening. Managed (with a small change to  \n>> SHLIB and INSTALL to make it recognize .m files) to successfully  \n>> build a small proof-of-concept package that\n>>\n>> 1) installs some extra menus (and items) into the main menu bar\n>> 2) attach those menu items to a controller object inside the package\n>> 3) locate and instantiate a NIB located within the package in  \n>> response to a menu call.\n>>\n>> Its very simple code, email me and I'll send you the somewhat ugly  \n>> package as it stands (it ain't pretty).\n>>\n>> I think it could be useful for adding S-PLUS-like functionality to  \n>> the R GUI. Maybe for use in things like introductory statistics  \n>> courses (or Computational Biology courses). On the whole, a lot  \n>> prettier than Tcl/Tk and with some more work we could probably write  \n>> selector targets in R (a la CamelBones or PyObjC).\n>>\n>> Its 4am, good night\n>>\n>> (BTW, Stefano, I was working on adding the navigation buttons when  \n>> this occurred to me. I promise :-) )\n>>\n>>\n>> ---\n>> Byron Ellis (ellis@stat.harvard.edu)\n>> \"Oook\" -- The Librarian\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \n> Statistics;\n> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n> Software\n> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n> 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email:  \n> deleeuw@stat.ucla.edu\n> homepage: http://gifi.stat.ucla.edu\n>   \n> ----------------------------------------------------------------------- \n> --------------------------\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Or once iWidgets comes to Cocoa which I think is the plan (Simon?)\nstefano\n\nOn Oct 26, 2004, at 5:36 PM, Jan de Leeuw wrote:\n\n> That's good news. One way to get rid of the remaining vestiges of X11  \n",
+      "thread_id": "thread-31b729ea89a0",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-09b58bfd2f8a",
+      "message_id": "<6074E104-276E-11D9-9047-000393B62F72@osu.edu>",
+      "from_name": "Kaustubh Bhalerao",
+      "from_email_hash": "8384e7496fa360c1d6aef5c1bc0ebdbcaf63f17441a45a36271ad92667507088",
+      "date": "2004-10-26T18:45:08Z",
+      "subject": "[R-SIG-Mac] Editing files created in R",
+      "subject_clean": "Editing files created in R",
+      "in_reply_to": "<200410261557.i9QFvYXK004522@hypatia.math.ethz.ch>",
+      "references": [
+        "<200410261557.i9QFvYXK004522@hypatia.math.ethz.ch>"
+      ],
+      "body_plain": "Hello,\nOne program I find particularly useful to edit R plots is Omnigraffle. \nThe version 2.0 comes bundled with OS X, but I also have the commercial \nversion. It allows adding annotation, legends and other similar things \nvery easily and allows exporting into EPS, JPEG, PDF, or TIFF  formats. \nI can simply copy the image from the quartz device and paste it into \nthe omnigraffle window as well.\n\nGraphic converter (also bundled) may provide some functionality too - \nbut  haven't really needed it.\n\nHope this helps.\nKaustubh\n\n>\n> ------------------------------\n>\n> Message: 2\n> Date: Tue, 26 Oct 2004 15:51:50 +0200\n> From: Jean Thioulouse <jtnews1@biomserv.univ-lyon1.fr>\n> Subject: Re: [R-SIG-Mac] R 2.0.0 Change Working Directory\n> To: r-sig-mac@stat.math.ethz.ch\n> Message-ID: <p06002000bda4038c67c6@[134.214.34.24]>\n> Content-Type: text/plain; charset=\"iso-8859-1\"\n>\n> Hello,\n>\n> I have tried PitStop to edit the pdf files created by R, but it did not\n> work (seems that the pdf contains only one large bitmap). Do you know\n> any other software able to edit pdf files obtained with R ? How can I\n> use the pdf version of the graphic that is in the clipboard ?\n>\n> Thank you,\n> Jean\n>",
+      "body_snippet": "Hello,\nOne program I find particularly useful to edit R plots is Omnigraffle. \nThe version 2.0 comes bundled with OS X, but I also have the commercial \nversion. It allows adding annotation, legends an",
+      "thread_id": "thread-09b58bfd2f8a",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-533def37e16b",
+      "message_id": "<3E4C810A-2786-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-26T21:35:53Z",
+      "subject": "[R-SIG-Mac] cocoa packages",
+      "subject_clean": "cocoa packages",
+      "in_reply_to": "<D87D31F2-2764-11D9-A074-000D932C7F48@stat.ucla.edu>",
+      "references": [
+        "<7F00F0CA-273E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+        "<D87D31F2-2764-11D9-A074-000D932C7F48@stat.ucla.edu>"
+      ],
+      "body_plain": "Or something similar. Unlike RCmdr we're not constrained by the  \nlimitations of Tcl/Tk so similar functionality can be integrated more  \nsmoothly into the GUI (though having a Best Practices library for that  \nsort of thing would probably be a good idea---rules for playing nice  \nwrt menus and what not). And, being Obj-C based, packages can do  \nbasically whatever they want (poseAsClass: anyone?).\n\n\nre: R<->Obj-C\n\nOff the top of my head, I might do something like this:\n\nSEXP CreateObjCFunction(SEXP selector) {\n\tSEL s = sel_registerMethod(CHAR(STRING_ELT(selector,0)));\n\tNSInvocation *invoker= [NSInvocation\n\t\tinvocationWithMethodSignature:[NSObject  \ninstanceMethodSignatureForSelector:s]];\n\t[invoker setSelector:s];\n\treturn WRAP_NSINVOCATION_IN_SEXP(invoker);\n}\n\nto create, effectively function objects that are then invoked by\n\nSEXP Invoke(SEXP nsinv,SEXP target,SEXP args) {\n\tNSInvocation *invoker = INVOCATION_FROM_SEXP(nsinv);\n\tint i;\n\tfor(i=0;i<[[invoker methodSignature] numberOfArguments]-2;i++) {\n\t\t/* Do setArgument with appropriate SEXP conversion here */\n\t\t/* setArgument:... atIndex:i+2 */\n\t}\n\treturn ObjCToSEXP([invoker invokeWithTarget:SEXP_TO_ID(target)]);\n}\n\nAs usual, the big hurdle is type coercion, ObjC<->SEXP... Though Simon  \nhas already done a fair amount of that work.\n\nMaybe now that I'm back on the Left Side we should visit Duncan  \nsometime. :-)\n\nOn Oct 26, 2004, at 8:36 AM, Jan de Leeuw wrote:\n\n> That's good news. One way to get rid of the remaining vestiges of X11  \n> is to\n> get rid of Tcl/Tk alltogether and allow people to write interfaces to  \n> packages\n> in Cocoa (with a Cocoa Rcmdr as an extreme version). I have been\n> asking Duncan for RObjC or RCocoa, and at some point in time there\n> actually was some form of RObjC, but it got lost in the intricate  \n> mazes of the\n> Omega project.\n>\n> On Oct 26, 2004, at 4:02 AM, Byron Ellis wrote:\n>\n>> Hi all, a bit inspired this evening. Managed (with a small change to  \n>> SHLIB and INSTALL to make it recognize .m files) to successfully  \n>> build a small proof-of-concept package that\n>>\n>> 1) installs some extra menus (and items) into the main menu bar\n>> 2) attach those menu items to a controller object inside the package\n>> 3) locate and instantiate a NIB located within the package in  \n>> response to a menu call.\n>>\n>> Its very simple code, email me and I'll send you the somewhat ugly  \n>> package as it stands (it ain't pretty).\n>>\n>> I think it could be useful for adding S-PLUS-like functionality to  \n>> the R GUI. Maybe for use in things like introductory statistics  \n>> courses (or Computational Biology courses). On the whole, a lot  \n>> prettier than Tcl/Tk and with some more work we could probably write  \n>> selector targets in R (a la CamelBones or PyObjC).\n>>\n>> Its 4am, good night\n>>\n>> (BTW, Stefano, I was working on adding the navigation buttons when  \n>> this occurred to me. I promise :-) )\n>>\n>>\n>> ---\n>> Byron Ellis (ellis@stat.harvard.edu)\n>> \"Oook\" -- The Librarian\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \n> Statistics;\n> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n> Software\n> US mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n> 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email:  \n> deleeuw@stat.ucla.edu\n> homepage: http://gifi.stat.ucla.edu\n>   \n> ----------------------------------------------------------------------- \n> --------------------------\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n>   \n> ----------------------------------------------------------------------- \n> --------------------------\n>\n>\n---\nByron Ellis (ellis@stat.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Or something similar. Unlike RCmdr we're not constrained by the  \nlimitations of Tcl/Tk so similar functionality can be integrated more  \nsmoothly into the GUI (though having a Best Practices library ",
+      "thread_id": "thread-31b729ea89a0",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-7b4061e97ba8",
+      "message_id": "<A25E96C2-2792-11D9-AF5E-000A959F327E@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "d61970497e69e90cb82e342b08688fde38f4a452b77e0e9d7b92efa9e2aae186",
+      "date": "2004-10-26T23:04:45Z",
+      "subject": "[R-SIG-Mac] cocoa packages",
+      "subject_clean": "cocoa packages",
+      "in_reply_to": "<7F00F0CA-273E-11D9-B678-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<7F00F0CA-273E-11D9-B678-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "On Oct 26, 2004, at 1:02 PM, Byron Ellis wrote:\n\n> I think it could be useful for adding S-PLUS-like functionality to the \n> R GUI. Maybe for use in things like introductory statistics courses \n> (or Computational Biology courses). On the whole, a lot prettier than \n> Tcl/Tk and with some more work we could probably write selector \n> targets in R (a la CamelBones or PyObjC).\n\nI agree that replacing tcl/tk is long overdue. You may have a look at \nthe iWidgets package - I was trying to define a platform- and \ntoolkit-independent API for widgets with that. It is implemented in \nJava and works on most platforms, but it would be great to have a Cocoa \npackage with the same functionality and same API. The big thing then \nwould be that you can actually use the same R code on any platform - on \nMac it would happen to be Cocoa based. iWidgets come bundled with JGR ( \nhttp://www.rosuda.org/JGR/ ) if you want to run the demos, but you can \nalso download the sources from our R repository ( \nhttp://www.rosuda.org/R/ ).\n\nAs of the Obj-C glue, well, you said it ;) It's not rocket science, \njust a lot of work ... I have very little time atm, but I may have a \nquiet minute this weekend to polish the REngine code ...\n\nCheers,\nSimon",
+      "body_snippet": "On Oct 26, 2004, at 1:02 PM, Byron Ellis wrote:\n\n> I think it could be useful for adding S-PLUS-like functionality to the \n> R GUI. Maybe for use in things like introductory statistics courses \n> (or ",
+      "thread_id": "thread-31b729ea89a0",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-3802e6689851",
+      "message_id": "<4F3ABF44-2814-11D9-A345-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-27T14:32:53Z",
+      "subject": "[R-SIG-Mac] Re: R-Gui problems",
+      "subject_clean": "R-Gui problems",
+      "in_reply_to": "<1098811062.417e86b6d4a2b@webmail.uni-konstanz.de>",
+      "references": [
+        "<1098811062.417e86b6d4a2b@webmail.uni-konstanz.de>"
+      ],
+      "body_plain": "Hi Nathan,\nplease use R-rig-mac mailing list next time \n(r-sig-mac@stat.math.ethz.ch)\nI can't see any specific to R in the report, you should send the report \nof the R app not just the console, as this output seems to be related \nto X11 window manager and not to R.\nPlease send only the R crash log ov the crash event (only this as it \ncan be very long if you had old version of R).\n\nstefano\n\nOn Oct 26, 2004, at 7:17 PM, Nathan Weisz wrote:\n\n> Hi Stefano,\n>\n> I'm having a hard time with the OS X 10.3 version of R. After using it\n> some time without any problems, the GUI suddenly crashes when starting\n> R (the X11 version works fine). Having installed and deinstalled R a\n> couple of times without solving the problem I have no further idea.\n> Perhaps useful: the console gives me this output:\n>\n> XFree86 Version 4.3.0 / X Window System\n> (protocol Version 11, revision 0, vendor release 6600)\n> [DRI] screen 0 installation complete\n> Screen 0 added: 1152x768 @ (0,0)\n> xmodmap:  unknown command on line /Users/nathan/.Xmodmap:1\n> xmodmap:  unknown command on line /Users/nathan/.Xmodmap:2\n> xmodmap:  unknown command on line /Users/nathan/.Xmodmap:3\n> xmodmap:  unknown command on line /Users/nathan/.Xmodmap:4\n> xmodmap:  unknown command on line /Users/nathan/.Xmodmap:5\n> xmodmap:  5 errors encountered, aborting.\n>\n> Any hint greatly appreciated.\n>\n> Best,\n> Nathan\n>",
+      "body_snippet": "Hi Nathan,\nplease use R-rig-mac mailing list next time \n(r-sig-mac@stat.math.ethz.ch)\nI can't see any specific to R in the report, you should send the report \nof the R app not just the console, as thi",
+      "thread_id": "thread-3802e6689851",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-72ad4ebd2dff",
+      "message_id": "<1098883991.417fa3976fe6b@webmail.uni-konstanz.de>",
+      "from_name": "Nathan Weisz",
+      "from_email_hash": "1d8e3d62c79a5279451b6daf58f2bdec3a6059229b8d4013a7dc7bce4aa91548",
+      "date": "2004-10-27T16:22:33Z",
+      "subject": "[R-SIG-Mac] Gui problems",
+      "subject_clean": "Gui problems",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\na couple of days ago I downloaded the 2.0 Mac-version of R. \n\nplatform powerpc-apple-darwin6.8\narch     powerpc                \nos       darwin6.8              \nsystem   powerpc, darwin6.8     \nstatus                          \nmajor    2                      \nminor    0.0                    \nyear     2004                   \nmonth    10                     \nday      04                     \nlanguage R   \n\nEverything worked great so far. However since yesterday my GUI \"crashes\"\nshorty (o.k. immediately; I can't enter anything) after starting R. I\nremoved R and reinstalled it a couple of times without solving the\nproblem. The X11 version works fine, so there probably should be a\nproblem with my GUI. \nI reproduced the problem today and wanted to send you a crash report\nfrom the Crashreporter/R.crash.log but couldn't find a report dated\nfrom today. So is it really a crash? \n\nAdditional info, probably only superstitious but the problem began after\ninstalling and deinstalling VPN. \n\nAny hint is greatly appreciated.\n\nBest,\nNathan",
+      "body_snippet": "Hi,\n\na couple of days ago I downloaded the 2.0 Mac-version of R. \n\nplatform powerpc-apple-darwin6.8\narch     powerpc                \nos       darwin6.8              \nsystem   powerpc, darwin6.8     \ns",
+      "thread_id": "thread-72ad4ebd2dff",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-7b1770d6be0e",
+      "message_id": "<20041027150701.GA689@tpapp>",
+      "from_name": "Tamas K Papp",
+      "from_email_hash": "da0b6cc163eaca43752edf020e71ec6f96f9377ad9c483177296d2a745f0f11c",
+      "date": "2004-10-27T17:07:12Z",
+      "subject": "[R-SIG-Mac] Edit->Copy kills Jan's Hacked R-2.0.0",
+      "subject_clean": "Edit->Copy kills Jan's Hacked R-2.0.0",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "A minor bug: I am not sure if it is specific to Jan's hacked R, but\nthat's the one I have on my machine.\n\nIf I use Edit->Copy from the menu, it crashes with \"bus error\".\n\nJan: I am just reporting this, there might be some obvious fix.  Your\nbatteries-included R is a great benefit to the few people interested,\nand I am not implying that we expect you to \"support\" it in any way by\nfixing bugs.\n\nThanks,\n\nTamas",
+      "body_snippet": "A minor bug: I am not sure if it is specific to Jan's hacked R, but\nthat's the one I have on my machine.\n\nIf I use Edit->Copy from the menu, it crashes with \"bus error\".\n\nJan: I am just reporting this",
+      "thread_id": "thread-7b1770d6be0e",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-f854eb540af6",
+      "message_id": "<C5BFE064-282E-11D9-9EF7-000D932C7F48@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-10-27T17:42:38Z",
+      "subject": "[R-SIG-Mac] Edit->Copy kills Jan's Hacked R-2.0.0",
+      "subject_clean": "Edit->Copy kills Jan's Hacked R-2.0.0",
+      "in_reply_to": "<20041027150701.GA689@tpapp>",
+      "references": [
+        "<20041027150701.GA689@tpapp>"
+      ],
+      "body_plain": "Yes, sure. The R \"application\" is just the original R binary with\na dummy resource fork, and it does not know how to handle\nmenu events.\n\nOn Oct 27, 2004, at 8:07 AM, Tamas K Papp wrote:\n\n> A minor bug: I am not sure if it is specific to Jan's hacked R, but\n> that's the one I have on my machine.\n>\n> If I use Edit->Copy from the menu, it crashes with \"bus error\".\n>\n> Jan: I am just reporting this, there might be some obvious fix.  Your\n> batteries-included R is a great benefit to the few people interested,\n> and I am not implying that we expect you to \"support\" it in any way by\n> fixing bugs.\n>\n> Thanks,\n>\n> Tamas\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8125 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "Yes, sure. The R \"application\" is just the original R binary with\na dummy resource fork, and it does not know how to handle\nmenu events.\n\nOn Oct 27, 2004, at 8:07 AM, Tamas K Papp wrote:\n\n> A minor bu",
+      "thread_id": "thread-7b1770d6be0e",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-90918312479a",
+      "message_id": "<p06002000bda574a0e94c@[134.214.34.24]>",
+      "from_name": "Jean Thioulouse",
+      "from_email_hash": "b20a674eb42804a87b064b390e04515db85d2871dd7105ba54500899f94dfe16",
+      "date": "2004-10-27T18:04:28Z",
+      "subject": "[R-SIG-Mac] R preferences",
+      "subject_clean": "R preferences",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nIt seems that R Quartz preferences are not used (width, height, and\nlocation). And I cannot change the font family and size. Is it not yet\nimplemented, or a bug, or a problem in my setup ?\n\nJean\n\n-- \nJean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie Statistique\"\nUniversite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  France\nTel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 56\n                 http://pbil.univ-lyon1.fr/JTHome.html",
+      "body_snippet": "Hello,\n\nIt seems that R Quartz preferences are not used (width, height, and\nlocation). And I cannot change the font family and size. Is it not yet\nimplemented, or a bug, or a problem in my setup ?\n\nJe",
+      "thread_id": "thread-90918312479a",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-7a679faf3721",
+      "message_id": "<275C2E52-2834-11D9-ADE1-000A95C478FE@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2004-10-27T18:20:50Z",
+      "subject": "[R-SIG-Mac] Gui problems",
+      "subject_clean": "Gui problems",
+      "in_reply_to": "<1098883991.417fa3976fe6b@webmail.uni-konstanz.de>",
+      "references": [
+        "<1098883991.417fa3976fe6b@webmail.uni-konstanz.de>"
+      ],
+      "body_plain": "Nathan,\n\nDo you have an .RData file? I have seen this happening after saving the \nR\nworkspace while using tcl/tk and restarting R without restarting X11 \nfirst.\n\nYou won't see anything ever appear on the RConsole window.\n\nRob\n\n\nOn Oct 27, 2004, at 6:33 AM, Nathan Weisz wrote:\n\n> Hi,\n>\n> a couple of days ago I downloaded the 2.0 Mac-version of R.\n>\n> platform powerpc-apple-darwin6.8\n> arch     powerpc\n> os       darwin6.8\n> system   powerpc, darwin6.8\n> status\n> major    2\n> minor    0.0\n> year     2004\n> month    10\n> day      04\n> language R\n>\n> Everything worked great so far. However since yesterday my GUI \n> \"crashes\"\n> shorty (o.k. immediately; I can't enter anything) after starting R. I\n> removed R and reinstalled it a couple of times without solving the\n> problem. The X11 version works fine, so there probably should be a\n> problem with my GUI.\n> I reproduced the problem today and wanted to send you a crash report\n> from the Crashreporter/R.crash.log but couldn't find a report dated\n> from today. So is it really a crash?\n>\n> Additional info, probably only superstitious but the problem began \n> after\n> installing and deinstalling VPN.\n>\n> Any hint is greatly appreciated.\n>\n> Best,\n> Nathan\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Nathan,\n\nDo you have an .RData file? I have seen this happening after saving the \nR\nworkspace while using tcl/tk and restarting R without restarting X11 \nfirst.\n\nYou won't see anything ever appear on ",
+      "thread_id": "thread-72ad4ebd2dff",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-03ccfb6a4aa6",
+      "message_id": "<34993C44-2845-11D9-A345-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-10-27T20:22:52Z",
+      "subject": "[R-SIG-Mac] R preferences",
+      "subject_clean": "R preferences",
+      "in_reply_to": "<p06002000bda574a0e94c@[134.214.34.24]>",
+      "references": [
+        "<p06002000bda574a0e94c@[134.214.34.24]>"
+      ],
+      "body_plain": "Please, if you use the svn version, read the NEWS and TODO list files.\nOnly colors settings are implemented all the rest plus much more will \nhappen probably next week.\nI'll do my best to work in this as it has some priority.\nstefano\n\n\nOn Oct 27, 2004, at 6:04 PM, Jean Thioulouse wrote:\n\n> Hello,\n>\n> It seems that R Quartz preferences are not used (width, height, and\n> location). And I cannot change the font family and size. Is it not yet\n> implemented, or a bug, or a problem in my setup ?\n>\n> Jean\n>\n> -- \n> Jean Thioulouse - Labo. BBE, UMR CNRS 5558, Equipe \"Ecologie \n> Statistique\"\n> Universite Lyon 1,  Batiment G. Mendel, 69622 Villeurbanne Cedex,  \n> France\n> Tel: (33) 4 72 43 27 56                           Fax: (33) 4 72 43 27 \n> 56\n>                  http://pbil.univ-lyon1.fr/JTHome.html\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Please, if you use the svn version, read the NEWS and TODO list files.\nOnly colors settings are implemented all the rest plus much more will \nhappen probably next week.\nI'll do my best to work in this",
+      "thread_id": "thread-90918312479a",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-d10bc6ab65f3",
+      "message_id": "<1098895847.417fd1e7f0168@webmail.uni-konstanz.de>",
+      "from_name": "Nathan Weisz",
+      "from_email_hash": "1d8e3d62c79a5279451b6daf58f2bdec3a6059229b8d4013a7dc7bce4aa91548",
+      "date": "2004-10-27T20:24:12Z",
+      "subject": "[R-SIG-Mac] Gui problems",
+      "subject_clean": "Gui problems",
+      "in_reply_to": "<275C2E52-2834-11D9-ADE1-000A95C478FE@mac.com>",
+      "references": [
+        "<1098883991.417fa3976fe6b@webmail.uni-konstanz.de>",
+        "<275C2E52-2834-11D9-ADE1-000A95C478FE@mac.com>"
+      ],
+      "body_plain": "Hi,\n\nthanks for the response.\n\n> Do you have an .RData file? I have seen this happening after saving\n> the \n> R\n> workspace while using tcl/tk and restarting R without restarting X11\n> \n> first.\n\nActually I always used the GUI-version and never the X11. I only use X11\nnow so I can continue my work.\nNevertheless R won't start up after starting X11.\n\n> You won't see anything ever appear on the RConsole window.\n\nThat's exactly what happens (or unfortunately not happens).\n\nBest,\n\nNathan",
+      "body_snippet": "Hi,\n\nthanks for the response.\n\n> Do you have an .RData file? I have seen this happening after saving\n> the \n> R\n> workspace while using tcl/tk and restarting R without restarting X11\n> \n> first.\n\nActu",
+      "thread_id": "thread-72ad4ebd2dff",
+      "thread_depth": 2,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-97aa7101d0ae",
+      "message_id": "<39DAA410-284C-11D9-ADE1-000A95C478FE@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2004-10-27T21:13:11Z",
+      "subject": "[R-SIG-Mac] Gui problems",
+      "subject_clean": "Gui problems",
+      "in_reply_to": "<1098898348.417fdbac43a84@webmail.uni-konstanz.de>",
+      "references": [
+        "<1098883991.417fa3976fe6b@webmail.uni-konstanz.de>",
+        "<275C2E52-2834-11D9-ADE1-000A95C478FE@mac.com>",
+        "<1098895847.417fd1e7f0168@webmail.uni-konstanz.de>",
+        "<453C756C-283A-11D9-ADE1-000A95C478FE@mac.com>",
+        "<1098898348.417fdbac43a84@webmail.uni-konstanz.de>"
+      ],
+      "body_plain": "Great. Maybe by accident (e.g. running an example) tcl/tk was loaded \nwhile\nX11 was available and on the next workspace save this was recorded in \n.RData.\n\nRob\n\n\nOn Oct 27, 2004, at 10:32 AM, Nathan Weisz wrote:\n\n> Rob,\n>\n> this solved the problem. I had a .Rdata file in my home directory. \n> After\n> deleting it R starts up and runs smoothly.\n> Thanks!\n> Nathan\n>\n>\n>\n> Zitat von Rob J Goedman <goedman@mac.com>:\n>\n>> Nathan,\n>>\n>> Do you have a .RData file? It might be worthwhile to rename or delete\n>>\n>> it and\n>> see if that resolves the problem.\n>>\n>> Rob\n>>\n>>\n>> On Oct 27, 2004, at 9:50 AM, Nathan Weisz wrote:\n>>\n>>> Hi,\n>>>\n>>> thanks for the response.\n>>>\n>>>> Do you have an .RData file? I have seen this happening after\n>> saving\n>>>> the\n>>>> R\n>>>> workspace while using tcl/tk and restarting R without restarting\n>> X11\n>>>>\n>>>> first.\n>>>\n>>> Actually I always used the GUI-version and never the X11. I only\n>> use\n>>> X11\n>>> now so I can continue my work.\n>>> Nevertheless R won't start up after starting X11.\n>>>\n>>>> You won't see anything ever appear on the RConsole window.\n>>>\n>>> That's exactly what happens (or unfortunately not happens).\n>>>\n>>> Best,\n>>>\n>>> Nathan\n>>\n>>\n>\n>",
+      "body_snippet": "Great. Maybe by accident (e.g. running an example) tcl/tk was loaded \nwhile\nX11 was available and on the next workspace save this was recorded in \n.RData.\n\nRob\n\n\nOn Oct 27, 2004, at 10:32 AM, Nathan W",
+      "thread_id": "thread-97aa7101d0ae",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-dee3e408d6c6",
+      "message_id": "<EBE5E424-2A50-11D9-8DB7-000D93C24D64@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-10-30T10:51:51Z",
+      "subject": "[R-SIG-Mac] patch for Obj-C building in R",
+      "subject_clean": "patch for Obj-C building in R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "A diff against R-devel to allow Objective-C source in R packages. Yes, \nits basically trivial :-)\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: ObjC.diff\nType: application/octet-stream\nSize: 1547 bytes\nDesc: not available\nUrl : https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20041030/2c9e7855/ObjC.obj\n-------------- next part --------------\n\n---\nByron Ellis (ellis@stat.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "A diff against R-devel to allow Objective-C source in R packages. Yes, \nits basically trivial :-)\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: ObjC.diff\nType: ",
+      "thread_id": "thread-dee3e408d6c6",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-7a138640cf2f",
+      "message_id": "<889FE0E3-2A65-11D9-9226-000A95CDA0F2@anu.edu.au>",
+      "from_name": "John Maindonald",
+      "from_email_hash": "2de8ee602ec487e8ae8c715c88cb2320b0ddc4a3428764e445cf26eb69ef92c5",
+      "date": "2004-10-30T13:19:26Z",
+      "subject": "[R-SIG-Mac] R.app crash report",
+      "subject_clean": "R.app crash report",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The following happens, with the latest build, when I try to start the \napplication:\n\n2004-10-30 21:14:39.409 R[1709] No Info.plist file in application \nbundle or no NSPrincipalClass in the Info.plist file, exiting\n\nJohn Maindonald             email: john.maindonald@anu.edu.au\nphone : +61 2 (6125)3473    fax  : +61 2(6125)5549\nCentre for Bioinformation Science, Room 1194,\nJohn Dedman Mathematical Sciences Building (Building 27)\nAustralian National University, Canberra ACT 0200.",
+      "body_snippet": "The following happens, with the latest build, when I try to start the \napplication:\n\n2004-10-30 21:14:39.409 R[1709] No Info.plist file in application \nbundle or no NSPrincipalClass in the Info.plist ",
+      "thread_id": "thread-7a138640cf2f",
+      "thread_depth": 0,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-44fb15a34b98",
+      "message_id": "<8403605A-2A71-11D9-8762-0003938AF008@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "d61970497e69e90cb82e342b08688fde38f4a452b77e0e9d7b92efa9e2aae186",
+      "date": "2004-10-30T14:45:01Z",
+      "subject": "[R-SIG-Mac] R.app crash report",
+      "subject_clean": "R.app crash report",
+      "in_reply_to": "<889FE0E3-2A65-11D9-9226-000A95CDA0F2@anu.edu.au>",
+      "references": [
+        "<889FE0E3-2A65-11D9-9226-000A95CDA0F2@anu.edu.au>"
+      ],
+      "body_plain": "On Oct 30, 2004, at 7:19 AM, John Maindonald wrote:\n\n> The following happens, with the latest build, when I try to start the \n> application:\n>\n> 2004-10-30 21:14:39.409 R[1709] No Info.plist file in application \n> bundle or no NSPrincipalClass in the Info.plist file, exiting\n>\n\nBasically the nightly building process needs to re-fetch Info.plist \nduring the build. When this fails (e.g. the SVN server is down) then \nthe resulting application doesn't work. I have just re-run the script \nmanually, so it is ok again. I'll see if I can find a more permanent \nway around this.\n\nCheers,\nSimon",
+      "body_snippet": "On Oct 30, 2004, at 7:19 AM, John Maindonald wrote:\n\n> The following happens, with the latest build, when I try to start the \n> application:\n>\n> 2004-10-30 21:14:39.409 R[1709] No Info.plist file in a",
+      "thread_id": "thread-7a138640cf2f",
+      "thread_depth": 1,
+      "month": "2004-10"
+    },
+    {
+      "id": "msg-437132a87834",
+      "message_id": "<E0A5C43C-2A84-11D9-8762-0003938AF008@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "d61970497e69e90cb82e342b08688fde38f4a452b77e0e9d7b92efa9e2aae186",
+      "date": "2004-10-30T17:03:36Z",
+      "subject": "[R-SIG-Mac] Using Obj-C from R",
+      "subject_clean": "Using Obj-C from R",
+      "in_reply_to": "<EBE5E424-2A50-11D9-8DB7-000D93C24D64@hsph.harvard.edu>",
+      "references": [
+        "<EBE5E424-2A50-11D9-8DB7-000D93C24D64@hsph.harvard.edu>"
+      ],
+      "body_plain": "I have put together a small and crude package that allows you to send \nmessages to Obj-C objects and classes and create references to objects, \nclasses and selectors. For historical reasons it's called Cocoa \n(although Obj-C is strictly speaking not Cocoa) and you can get it from \nmy nightly builds page ( http://www.rosuda.org/R/nightly/ ).\n\nIt is interesting only for developers as it's only the first step in a \ncomplete Obj-C/R suite, but since some people seemed to be interested \nin this, I thought I share it here. Some (admittedly stupid) examples:\n\n# Class sc = [NSString class]\n > sc<-.MCall(\"NSString\",\"class\")\n > sc\nObj-C class: NSString\n\n# NSString *s = [NSString stringWithString:@\"hello\"]\n > s <- .MCall(\"NSString\",\"stringWithString:\",\"hello\")\n > s\nhello\n\n# [s stringByAppendingString: @\" World!\")\n > s2 <- .MCall(s, \"stringByAppendingString:\", \" World!\")\n > s2\nhello World!\n\n# [s respondsToSelector: @selector(length)]\n > .MCall(s, \"respondsToSelector:\", .MSelector(\"length\"))\n[1] TRUE\n\n(the M is front of the calls was motivated by the .m extension of Obj-C \ncode)\nand if you use Cocoa inside R.app you can do many stupid things like:\n\nc<-.MCall(\"RController\", \"getRController\")\n.MCall(c, \"toggleHistory:\", c)\n\nCurrently only boolean, id and Class results are supported and only \nstrings are automatically converted to NSString as arguments. Main work \nto be done now is the support for scalar types, especially Cocoa-native \ntypes like NSRange and so on. Anyone interested in this is welcome to \nenhance the code ... Comments are very welcome, too. But again, this is \njust a draft - no documentation, no guarantees ;).\n\nCheers,\nSimon",
+      "body_snippet": "I have put together a small and crude package that allows you to send \nmessages to Obj-C objects and classes and create references to objects, \nclasses and selectors. For historical reasons it's calle",
+      "thread_id": "thread-dee3e408d6c6",
+      "thread_depth": 1,
+      "month": "2004-10"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-0f795958bdb2",
+      "subject": "gstack underflow",
+      "message_count": 2,
+      "participants": [
+        "Byron Ellis",
+        "Maartje Raijmakers"
+      ],
+      "started": "2004-10-01T14:47:08+00:00",
+      "last_reply": "2004-10-01T23:49:05+00:00",
+      "root_message_id": "msg-0f795958bdb2"
+    },
+    {
+      "id": "thread-864e62664a64",
+      "subject": "Memory length in C",
+      "message_count": 3,
+      "participants": [
+        "Maartje Raijmakers",
+        "Simon Urbanek",
+        "Thomas Lumley"
+      ],
+      "started": "2004-10-04T16:22:58+00:00",
+      "last_reply": "2004-10-04T17:34:31+00:00",
+      "root_message_id": "msg-864e62664a64"
+    },
+    {
+      "id": "thread-f063da7ecea4",
+      "subject": "R (batteries included) on http://gifi.stat.ucla.edu/pub",
+      "message_count": 2,
+      "participants": [
+        "Jan de Leeuw",
+        "stefano iacus"
+      ],
+      "started": "2004-10-04T21:31:09+00:00",
+      "last_reply": "2004-10-04T23:14:04+00:00",
+      "root_message_id": "msg-f063da7ecea4"
+    },
+    {
+      "id": "thread-f8b214ea667e",
+      "subject": "R-2.0.0-batteries-included on http://gifi.stat.ucla.edu/pub",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2004-10-07T21:04:59+00:00",
+      "last_reply": "2004-10-07T21:04:59+00:00",
+      "root_message_id": "msg-f8b214ea667e"
+    },
+    {
+      "id": "thread-952c9cd27db1",
+      "subject": "R.app screenshots",
+      "message_count": 2,
+      "participants": [
+        "William Revelle",
+        "stefano iacus"
+      ],
+      "started": "2004-10-10T15:23:36+00:00",
+      "last_reply": "2004-10-10T18:17:40+00:00",
+      "root_message_id": "msg-952c9cd27db1"
+    },
+    {
+      "id": "thread-b46f62474f6a",
+      "subject": "R-2.0.0 patched and batteries included",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2004-10-10T21:49:00+00:00",
+      "last_reply": "2004-10-10T21:49:00+00:00",
+      "root_message_id": "msg-b46f62474f6a"
+    },
+    {
+      "id": "thread-e51db62b1cd6",
+      "subject": "*** R-2.0.0 for Mac OS X released on Oct-15-2004 ***",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-10-15T22:01:49+00:00",
+      "last_reply": "2004-10-15T22:01:49+00:00",
+      "root_message_id": "msg-e51db62b1cd6"
+    },
+    {
+      "id": "thread-816abf7faf10",
+      "subject": "*** R-2.0.0 for Mac OS X (II) ***",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-10-15T22:56:03+00:00",
+      "last_reply": "2004-10-15T22:56:03+00:00",
+      "root_message_id": "msg-816abf7faf10"
+    },
+    {
+      "id": "thread-9844b5016e2b",
+      "subject": "Weird R-devel build problem?",
+      "message_count": 3,
+      "participants": [
+        "Byron Ellis",
+        "stefano iacus"
+      ],
+      "started": "2004-10-16T00:00:13+00:00",
+      "last_reply": "2004-10-16T00:38:09+00:00",
+      "root_message_id": "msg-9844b5016e2b"
+    },
+    {
+      "id": "thread-7603b26fafcc",
+      "subject": "R 2 questions",
+      "message_count": 1,
+      "participants": [
+        "Denis Chabot"
+      ],
+      "started": "2004-10-17T12:11:11+00:00",
+      "last_reply": "2004-10-17T12:11:11+00:00",
+      "root_message_id": "msg-7603b26fafcc"
+    },
+    {
+      "id": "thread-5c97a1b20131",
+      "subject": "update to re: R 2 Questions",
+      "message_count": 1,
+      "participants": [
+        "Denis Chabot"
+      ],
+      "started": "2004-10-17T13:09:20+00:00",
+      "last_reply": "2004-10-17T13:09:20+00:00",
+      "root_message_id": "msg-5c97a1b20131"
+    },
+    {
+      "id": "thread-b9ed803e8583",
+      "subject": "R-2.0.0-Batteries-Included",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2004-10-17T21:45:10+00:00",
+      "last_reply": "2004-10-17T21:45:10+00:00",
+      "root_message_id": "msg-b9ed803e8583"
+    },
+    {
+      "id": "thread-ee2921ac1dfe",
+      "subject": "history loading in 2.0",
+      "message_count": 3,
+      "participants": [
+        "Andrew Beckerman",
+        "Shiboski",
+        "stefano iacus"
+      ],
+      "started": "2004-10-18T23:26:11+00:00",
+      "last_reply": "2004-10-19T19:22:00+00:00",
+      "root_message_id": "msg-ee2921ac1dfe"
+    },
+    {
+      "id": "thread-280e0ced4af7",
+      "subject": "R 2.0.0 Change Working Directory",
+      "message_count": 10,
+      "participants": [
+        "Jean Thioulouse",
+        "Peter Macdonald",
+        "Simon Urbanek",
+        "Tamas K Papp",
+        "jtnews1@biomserv.univ-lyon1.fr",
+        "stefano iacus"
+      ],
+      "started": "2004-10-19T16:10:42+00:00",
+      "last_reply": "2004-10-26T17:51:20+00:00",
+      "root_message_id": "msg-280e0ced4af7"
+    },
+    {
+      "id": "thread-63d086e32926",
+      "subject": "clarity of fonts in graphics?",
+      "message_count": 3,
+      "participants": [
+        "Alex Buerkle",
+        "William Revelle"
+      ],
+      "started": "2004-10-19T19:01:29+00:00",
+      "last_reply": "2004-10-20T16:56:10+00:00",
+      "root_message_id": "msg-63d086e32926"
+    },
+    {
+      "id": "thread-5424e366f613",
+      "subject": "r 2.0.0 for osx bug",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-10-20T17:16:04+00:00",
+      "last_reply": "2004-10-20T17:16:04+00:00",
+      "root_message_id": "msg-5424e366f613"
+    },
+    {
+      "id": "thread-6a0416923fe9",
+      "subject": "Cocoa GUI feature request (with patch!)",
+      "message_count": 14,
+      "participants": [
+        "A.J. Rossini",
+        "Byron Ellis",
+        "Jean Thioulouse",
+        "Martin Maechler",
+        "Simon Urbanek",
+        "Tamas K Papp",
+        "jtnews1@biomserv.univ-lyon1.fr",
+        "stefano iacus"
+      ],
+      "started": "2004-10-21T09:00:41+00:00",
+      "last_reply": "2004-10-22T15:09:53+00:00",
+      "root_message_id": "msg-6a0416923fe9"
+    },
+    {
+      "id": "thread-e28d20e0a066",
+      "subject": "another (possible more controversial) patch to REditor.m",
+      "message_count": 1,
+      "participants": [
+        "Byron Ellis"
+      ],
+      "started": "2004-10-21T10:35:14+00:00",
+      "last_reply": "2004-10-21T10:35:14+00:00",
+      "root_message_id": "msg-e28d20e0a066"
+    },
+    {
+      "id": "thread-3a28b3336751",
+      "subject": "Raqua",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-10-21T12:51:51+00:00",
+      "last_reply": "2004-10-21T12:51:51+00:00",
+      "root_message_id": "msg-3a28b3336751"
+    },
+    {
+      "id": "thread-dc025c1af874",
+      "subject": "Cocoa GUI feature request (with patch!)",
+      "message_count": 7,
+      "participants": [
+        "Jake Bowers",
+        "Jan de Leeuw",
+        "Tamas K Papp",
+        "stefano iacus"
+      ],
+      "started": "2004-10-22T00:21:32+00:00",
+      "last_reply": "2004-10-24T19:10:27+00:00",
+      "root_message_id": "msg-dc025c1af874"
+    },
+    {
+      "id": "thread-097a39f119dd",
+      "subject": "http://gifi.stat.ucla.edu/pub",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2004-10-24T20:51:58+00:00",
+      "last_reply": "2004-10-24T20:51:58+00:00",
+      "root_message_id": "msg-097a39f119dd"
+    },
+    {
+      "id": "thread-31b729ea89a0",
+      "subject": "cocoa packages",
+      "message_count": 5,
+      "participants": [
+        "Byron Ellis",
+        "Jan de Leeuw",
+        "Simon Urbanek",
+        "stefano iacus"
+      ],
+      "started": "2004-10-26T13:02:21+00:00",
+      "last_reply": "2004-10-26T23:04:45+00:00",
+      "root_message_id": "msg-31b729ea89a0"
+    },
+    {
+      "id": "thread-09b58bfd2f8a",
+      "subject": "Editing files created in R",
+      "message_count": 1,
+      "participants": [
+        "Kaustubh Bhalerao"
+      ],
+      "started": "2004-10-26T18:45:08+00:00",
+      "last_reply": "2004-10-26T18:45:08+00:00",
+      "root_message_id": "msg-09b58bfd2f8a"
+    },
+    {
+      "id": "thread-3802e6689851",
+      "subject": "R-Gui problems",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-10-27T14:32:53+00:00",
+      "last_reply": "2004-10-27T14:32:53+00:00",
+      "root_message_id": "msg-3802e6689851"
+    },
+    {
+      "id": "thread-72ad4ebd2dff",
+      "subject": "Gui problems",
+      "message_count": 3,
+      "participants": [
+        "Nathan Weisz",
+        "Rob J Goedman"
+      ],
+      "started": "2004-10-27T16:22:33+00:00",
+      "last_reply": "2004-10-27T20:24:12+00:00",
+      "root_message_id": "msg-72ad4ebd2dff"
+    },
+    {
+      "id": "thread-7b1770d6be0e",
+      "subject": "Edit->Copy kills Jan's Hacked R-2.0.0",
+      "message_count": 2,
+      "participants": [
+        "Jan de Leeuw",
+        "Tamas K Papp"
+      ],
+      "started": "2004-10-27T17:07:12+00:00",
+      "last_reply": "2004-10-27T17:42:38+00:00",
+      "root_message_id": "msg-7b1770d6be0e"
+    },
+    {
+      "id": "thread-90918312479a",
+      "subject": "R preferences",
+      "message_count": 2,
+      "participants": [
+        "Jean Thioulouse",
+        "stefano iacus"
+      ],
+      "started": "2004-10-27T18:04:28+00:00",
+      "last_reply": "2004-10-27T20:22:52+00:00",
+      "root_message_id": "msg-90918312479a"
+    },
+    {
+      "id": "thread-97aa7101d0ae",
+      "subject": "Gui problems",
+      "message_count": 1,
+      "participants": [
+        "Rob J Goedman"
+      ],
+      "started": "2004-10-27T21:13:11+00:00",
+      "last_reply": "2004-10-27T21:13:11+00:00",
+      "root_message_id": "msg-97aa7101d0ae"
+    },
+    {
+      "id": "thread-dee3e408d6c6",
+      "subject": "patch for Obj-C building in R",
+      "message_count": 2,
+      "participants": [
+        "Byron Ellis",
+        "Simon Urbanek"
+      ],
+      "started": "2004-10-30T10:51:51+00:00",
+      "last_reply": "2004-10-30T17:03:36+00:00",
+      "root_message_id": "msg-dee3e408d6c6"
+    },
+    {
+      "id": "thread-7a138640cf2f",
+      "subject": "R.app crash report",
+      "message_count": 2,
+      "participants": [
+        "John Maindonald",
+        "Simon Urbanek"
+      ],
+      "started": "2004-10-30T13:19:26+00:00",
+      "last_reply": "2004-10-30T14:45:01+00:00",
+      "root_message_id": "msg-7a138640cf2f"
+    }
+  ]
+}

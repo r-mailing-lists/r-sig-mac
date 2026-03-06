@@ -1,0 +1,278 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2003-12",
+  "messages": [
+    {
+      "id": "msg-a620ce828a9b",
+      "message_id": "<Pine.LNX.4.44.0312010728090.4150-100000@gannet.stats>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2003-12-01T08:31:05Z",
+      "subject": "[R-SIG-Mac] Re: [Rd] R as OS X Framework",
+      "subject_clean": "R as OS X Framework",
+      "in_reply_to": "<18438152-2375-11D8-A505-0003938AF008@math.uni-augsburg.de>",
+      "references": [],
+      "body_plain": "R on Unix can be run from where it is built, and I frequently move where \nit is built/change symbolic links.  You definitely do not want where it is \ngoing to be installed, as make check is run where it is built (not that \nthat matters when the R(.sh) scripts sets R_HOME).\n\nOn Sun, 30 Nov 2003, Simon Urbanek wrote:\n\n> On Nov 29, 2003, at 9:33 PM, Prof Brian Ripley wrote:\n> \n> > On Sat, 29 Nov 2003, Simon Urbanek wrote:\n> >\n> >> BTW: This is not Mac specific - I was fighting this on Windows (and\n> >> unix for that matter) as well - it is possible to run an .exe linked \n> >> to\n> >> R.dll from anywhere, if R.dll is in the PATH. But then, one has to\n> >> determine R_HOME somehow (yes, there is the registry, but that's not\n> >> really safe if more R versions are installed).\n> >\n> > How do you do that?  For R's own executables on Windows R_HOME is\n> > determined from where they are loaded from.  You cannot AFAIK determine\n> > from within an executable where the R.dll was linked from.  That's why \n> > the\n> > rproxy.dll uses the registry.  I believe you have even less \n> > information on\n> > Windows.\n> \n> On Mac OS X there is a very nice CoreFoundation function: \n> CFBundleGetBundleWithIdentifier. Each bundle can have an unique \n> identifier and the above function will return the bundle reference if \n> the bundle was loaded by the current application - and a framework is a \n> bundle. So for Mac OS X this piece of code will determine R_HOME of the \n> linked R.framework:\n> \n> CFBundleRef bundle = \n> CFBundleGetBundleWithIdentifier(CFSTR(\"org.r-project.r-framework\") );\n> CFURLRef rdir=CFBundleCopyBundleURL(bundle);\n> CFStringRef rhome=CFURLCopyFileSystemPath(rdir,kCFURLPOSIXPathStyle);\n> \n> I doubt there is any standard way on unix platforms in general. I have \n> a vague feeling that I saw some relevant API on Windows - at least form \n> the DLL itself, but I'm stuck with my PowerBook for three more week \n> until I get home, so I can't check that easily.\n> \n> I would suggest a fallback for cases where the location cannot be \n> determined: we could use a tiny source file like location.c.in (could \n> be config.h.in itself for that matter) which gets processed by \n> configure and contains the install path. Then any program linked to R \n> shlib could call a function like char* R_installPath(); Although that \n> is not optimal, it is in general unlikely that the user would move R \n> after doing make install (unless it's a network installation of course \n> - then we're in trouble) and it is even safer that the registry on \n> Windows. It would be an useful fallback for platforms where we simply \n> don't know.\n> \n> Simon\n> \n> PS: My script mentioned in the original post doesn't create proper \n> Info,plist if ran by /bin/sh - you can get the correct Info.plist for R \n> 1.8.1 from http://stats.math.uni-augsburg.de/misc/Info.plist and copy \n> it to .../R.framework/Resources/\n> \n> ---\n> Simon Urbanek\n> Department of computer oriented statistics and data analysis\n> Universit?tsstr. 14\n> 86135 Augsburg\n> Germany\n> \n> Tel: +49-821-598-2236\n> Fax: +49-821-598-2280\n> \n> Simon.Urbanek@Math.Uni-Augsburg.de\n> http://simon.urbanek.info\n> \n> \n> \n\n-- \nBrian D. Ripley,                  ripley@stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "R on Unix can be run from where it is built, and I frequently move where \nit is built/change symbolic links.  You definitely do not want where it is \ngoing to be installed, as make check is run where ",
+      "thread_id": "thread-a620ce828a9b",
+      "thread_depth": 0,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-4666a714eef8",
+      "message_id": "<ABAB4442-2428-11D8-84C2-000A95A67E82@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2003-12-01T19:02:28Z",
+      "subject": "[R-SIG-Mac] next R on gifi (in about a week)",
+      "subject_clean": "next R on gifi (in about a week)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The next distribution updates R-devel, Emacs, and Tcl/Tk (both  \nDarwin/X11 and Aqua versions) to the latest CVS version, updates the  \nCRAN packages, and replaces Gaurav Khanna's g77 with his Panther  \nupdate. The X11 Emacs is now build with Xaw3d support. This R will be a  \nframework build, where /Library/Frameworks/R.framework contains  \nDarwin/X11 versions of both R-1.8.1 and R-devel (for the time being  \nthere is no Aqua or Quartz in my R at all, since you can get that  \nelsewhere). Soft links for R and R-devel in /usr/local/bin will start  \nR-1.8.1 and R-devel. All the add-on packages are for the moment in the  \nR-devel section of the framework, with soft links in the R-1.8.1 part.  \nAlso added are Simon Urbanek's iplot and rjava packages.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n   \n------------------------------------------------------------------------ \n------------------------- \n        \n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: text/enriched\nSize: 1585 bytes\nDesc: not available\nUrl : https://www.stat.math.ethz.ch/pipermail/r-sig-mac/attachments/20031201/38ebc094/attachment.bin",
+      "body_snippet": "The next distribution updates R-devel, Emacs, and Tcl/Tk (both  \nDarwin/X11 and Aqua versions) to the latest CVS version, updates the  \nCRAN packages, and replaces Gaurav Khanna's g77 with his Panther",
+      "thread_id": "thread-4666a714eef8",
+      "thread_depth": 0,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-e101a8465964",
+      "message_id": "<99ABE824-24E6-11D8-A57C-0003931B03E6@psych.colorado.edu>",
+      "from_name": "Benjamin jacobson",
+      "from_email_hash": "8b17f77aaaf8988d614fc4f06c39dbf1b442961d50cedd6c23dd2deaa84c5076",
+      "date": "2003-12-03T08:14:56Z",
+      "subject": "[R-SIG-Mac] Compile analyzeFMRI",
+      "subject_clean": "Compile analyzeFMRI",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": ">>\n>>\n>> I have some trouble compiling AnalyzeFMRI for R on MacOSX.\n>>\n>> I have done quite a bit of development using these libraries \n>> (statistical analysis of fMRI images, extracting values from images, \n>> writing Analyze format, etc.....).  I have updated to the newest \n>> version of R on Macintosh panther, and was not able to get the \n>> library to compile.  The install is looking for a particular \n>> directory in /usr/local \n>> (/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4/) which does not \n>> exist in the current version of MacOSX (Panther, 10.3).  Below I have \n>> included output from the error message when installing the library.  \n>> It looks as though, all relevant material has been placed in a lower \n>> level directory (just usr/local/lib).  Wanted to know if you could \n>> provide me a heads up on how to change the install script to reflect \n>> these changes and see if that works.  As before, I appreciate your \n>> time and help.\n>>\n>> sincerely,\n>>\n>> Ben Jacobson\n>>\n>>\n>>\n>>\n>>\n>> Benjamin Jacobson\n>> University of Colorado at Boulder\n>> Department of Psychology\n>> University of Illinois, Medical Scholars Program\n>> jacobson@psych.colorado.edu\n>> 303-735-5802\n>>\n>> Output from AnalyzeFMRI build:\n>>\n>> root# R CMD INSTALL /Users/jacobsb/Desktop/AnalyzeFMRI_1.0-8.tar.gz\n>> * Installing *source* package 'AnalyzeFMRI' ...\n>> creating cache ./config.cache\n>> checking for sgesdd_ in -llapack... no\n>> could not find SGESVD in your LAPACK library, using our routines\n>> updating cache ./config.cache\n>> creating ./config.status\n>> creating src/Makevars\n>> ** libs\n>> gcc -no-cpp-precomp \n>> -I/Applications/StartR.app/RAqua.app/Contents/include  \n>> -I/usr/local/include  -Wall -pedantic -fno-common  -g -O2 -c \n>> analyzeFMRI.c -o analyzeFMRI.o\n>> g77   -fno-common  -g -O2 -c slapack.f -o slapack.o\n>> gcc -bundle -flat_namespace -undefined suppress -L/usr/local/lib -o \n>> AnalyzeFMRI.so analyzeFMRI.o slapack.o -framework vecLib \n>> -L/usr/local/lib -L/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4 \n>> -L/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4/../../.. -lfrtbegin \n>> -lg2c -lSystem  -L/usr/local/lib \n>> -L/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4 \n>> -L/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4/../../.. -lfrtbegin \n>> -lg2c -lSystem -lcc_dynamic\n>> ld: warning -L: directory name \n>> (/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4) does not exist\n>> ld: warning -L: directory name \n>> (/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4/../../..) does not \n>> exist\n>> ld: warning -L: directory name \n>> (/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4) does not exist\n>> ld: warning -L: directory name \n>> (/usr/local/lib/gcc/powerpc-apple-darwin6.6/3.4/../../..) does not \n>> exist\n>> ld: can't locate file for: -lfrtbegin\n>> make: *** [AnalyzeFMRI.so] Error 1\n>> ERROR: compilation failed for package 'AnalyzeFMRI'\n>> ** Removing \n>> '/Applications/StartR.app/RAqua.app/Contents/library/AnalyzeFMRI'\n>>\n>>\n>> Contents of usr/local/lib:\n>>\n>> .DS_Store               libreadline.a           tcl8.4\n>> R                       libreadline.dylib       tclConfig.sh\n>> libGL.1.dylib           libtcl8.4.dylib         tk8.4\n>> libXm.2.dylib           libtclstub8.4.a         tkConfig.sh\n>> libreadline.4.3.dylib   libtk8.4.dylib\n>> libreadline.4.dylib     libtkstub8.4.a\n>>\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: text/enriched\nSize: 3181 bytes\nDesc: not available\nUrl : https://www.stat.math.ethz.ch/pipermail/r-sig-mac/attachments/20031202/221a24c6/attachment.bin",
+      "body_snippet": ">>\n>>\n>> I have some trouble compiling AnalyzeFMRI for R on MacOSX.\n>>\n>> I have done quite a bit of development using these libraries \n>> (statistical analysis of fMRI images, extracting values from ",
+      "thread_id": "thread-e101a8465964",
+      "thread_depth": 0,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-061e8fd18a55",
+      "message_id": "<20031206230719.GA28893@chanane.ucsf.edu>",
+      "from_name": "Stephen Shiboski",
+      "from_email_hash": "c1c308d9b9397acd9d3ba3d471adb6852f67cac1729ad7a15a939da31eee3efd",
+      "date": "2003-12-07T00:53:25Z",
+      "subject": "[R-SIG-Mac] x11() from terminal.app in 10.3",
+      "subject_clean": "x11() from terminal.app in 10.3",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I just upgraded to 10.3, successfully built R-1.8.1 and\ncan't get the X11() device to show up from a shell\nin terminal.app when X11 is running. Starting an xterm\nfrom X11.app successfully displays R graphics. I routinely\nran R with X11 graphics from within a Terminal.app shell\nunder 10.2.8. I just had the line\n \nquartz-wm & \n\nin my .xinitrc. This seems to be broken now. Any suggestions?\n\nThanks in advance,\n\nStephen Shiboski \nDivision of Biostatistics\nUniversity of California, San Francisco",
+      "body_snippet": "I just upgraded to 10.3, successfully built R-1.8.1 and\ncan't get the X11() device to show up from a shell\nin terminal.app when X11 is running. Starting an xterm\nfrom X11.app successfully displays R g",
+      "thread_id": "thread-061e8fd18a55",
+      "thread_depth": 0,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-1836bab003a7",
+      "message_id": "<734F9CC4-2848-11D8-9FE5-003065CC4CB8@mclink.it>",
+      "from_name": "Stefano Iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2003-12-07T00:59:39Z",
+      "subject": "[R-SIG-Mac] x11() from terminal.app in 10.3",
+      "subject_clean": "x11() from terminal.app in 10.3",
+      "in_reply_to": "<20031206230719.GA28893@chanane.ucsf.edu>",
+      "references": [],
+      "body_plain": "Would it be a problem of setting the DISPLAY env variable?\n10.3 uses bash as default shell and your profile is now that of bash \ninit stuff.\nstefano\n\n\nOn Domenica, dic 7, 2003, at 00:07 Europe/Rome, Stephen Shiboski wrote:\n\n> I just upgraded to 10.3, successfully built R-1.8.1 and\n> can't get the X11() device to show up from a shell\n> in terminal.app when X11 is running. Starting an xterm\n> from X11.app successfully displays R graphics. I routinely\n> ran R with X11 graphics from within a Terminal.app shell\n> under 10.2.8. I just had the line\n>\n> quartz-wm &\n>\n> in my .xinitrc. This seems to be broken now. Any suggestions?\n>\n> Thanks in advance,\n>\n> Stephen Shiboski\n> Division of Biostatistics\n> University of California, San Francisco\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Would it be a problem of setting the DISPLAY env variable?\n10.3 uses bash as default shell and your profile is now that of bash \ninit stuff.\nstefano\n\n\nOn Domenica, dic 7, 2003, at 00:07 Europe/Rome, S",
+      "thread_id": "thread-061e8fd18a55",
+      "thread_depth": 1,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-d40b48077016",
+      "message_id": "<Pine.A41.4.58.0312070846310.27178@homer38.u.washington.edu>",
+      "from_name": "Thomas Lumley",
+      "from_email_hash": "fd3f6e9367b335430f74a8f6feb36e5e9d187865079d5ca2018b64dfb89dd278",
+      "date": "2003-12-07T17:48:17Z",
+      "subject": "[R-SIG-Mac] x11() from terminal.app in 10.3",
+      "subject_clean": "x11() from terminal.app in 10.3",
+      "in_reply_to": "<734F9CC4-2848-11D8-9FE5-003065CC4CB8@mclink.it>",
+      "references": [
+        "<734F9CC4-2848-11D8-9FE5-003065CC4CB8@mclink.it>"
+      ],
+      "body_plain": "On Sun, 7 Dec 2003, Stefano Iacus wrote:\n\n> Would it be a problem of setting the DISPLAY env variable?\n> 10.3 uses bash as default shell and your profile is now that of bash\n> init stuff.\n\nIn more detail:\n\n x11(display=\":0\")\n\nshould work, or Sys.putenv(\"DISPLAY\"=\":0\") followed by just x11().  In\nthe normal Unix situation, if you have X running then any terminal window will\nhave been started from X and so will know about the display.  Under Aqua\nthis isn't true. The RAqua GUI just assumes that if you want an x11()\nwindow you must have an X server running, but that's in the GUI code.\n\n\n\t-thomas",
+      "body_snippet": "On Sun, 7 Dec 2003, Stefano Iacus wrote:\n\n> Would it be a problem of setting the DISPLAY env variable?\n> 10.3 uses bash as default shell and your profile is now that of bash\n> init stuff.\n\nIn more det",
+      "thread_id": "thread-061e8fd18a55",
+      "thread_depth": 2,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-b54dff62e20b",
+      "message_id": "<C49D51C0-29D6-11D8-85BA-0003931B03E6@psych.colorado.edu>",
+      "from_name": "Benjamin jacobson",
+      "from_email_hash": "8b17f77aaaf8988d614fc4f06c39dbf1b442961d50cedd6c23dd2deaa84c5076",
+      "date": "2003-12-09T00:34:30Z",
+      "subject": "[R-SIG-Mac] Problems load library AnalyzeFMRI",
+      "subject_clean": "Problems load library AnalyzeFMRI",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "While loading the library AnalyzeFMRI, I have received the following \nerror:\n\n\nlibrary (AnalyzeFMRI)\nError in dyn.load(x, as.logical(local), as.logical(now)) :\n\tunable to load shared library \n\"/Users/jacobsb/Library/RAqua/library/AnalyzeFMRI/libs/AnalyzeFMRI.so\":\n   dlcompat: dyld: \n/Applications/StartR.app/RAqua.app/Contents/MacOS/RAqua Undefined \nsymbols:\n_lsame_\nError in library(AnalyzeFMRI) : .First.lib failed\n\nAny help would be appreciated.  I am using the Raqua binary.   Thanks \nfor your time.\n\n\n\nben Jacobson\n\n\n------------------------------------\nBenjamin Jacobson\nDepartment of Psychology - University of Colorado at Boulder\nMedical Scholars Program - University of Illinois, Urbana-Champaign\nMuenzinger E-022\nBoulder, CO 80309\n303-735-5802\njacobson@psych.colorado.edu",
+      "body_snippet": "While loading the library AnalyzeFMRI, I have received the following \nerror:\n\n\nlibrary (AnalyzeFMRI)\nError in dyn.load(x, as.logical(local), as.logical(now)) :\n\tunable to load shared library \n\"/Users/",
+      "thread_id": "thread-b54dff62e20b",
+      "thread_depth": 0,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-5bcd5e8ae21c",
+      "message_id": "<E9CCA752-2CC3-11D8-B398-000393DB9466@worcester.oxford.ac.uk>",
+      "from_name": "Kjell Konis",
+      "from_email_hash": "ca54ba756d837c8c67292435fdaa409d6e0737f4e588acf23c4b16daa5e256d2",
+      "date": "2003-12-12T20:14:54Z",
+      "subject": "[R-SIG-Mac] Building Raqua for DarwinPorts",
+      "subject_clean": "Building Raqua for DarwinPorts",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI am working on adding R to DarwinPorts and I am having a little \ntrouble figuring out how to install Raqua.  The convention for \ninstalling aqua apps in DarwinPorts is to put them in \n/Applications/DarwinPorts/ but I can't seem to get Raqua to install \nanywhere other than /Applications/StartR.app/Raqua.app/Contents.  I \ntried adding \n--prefix=/Applications/DarwinPorts/StartR.app/Raqua.app/Contents but \nthat didn't get carried through to the install-aqua rule in the \nMakefile.  Any suggestions would be great.\n\nThanks,\n\nKjell\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: smime.p7s\nType: application/pkcs7-signature\nSize: 2397 bytes\nDesc: not available\nUrl : https://www.stat.math.ethz.ch/pipermail/r-sig-mac/attachments/20031212/b3e2f4e6/smime.bin",
+      "body_snippet": "Hi,\n\nI am working on adding R to DarwinPorts and I am having a little \ntrouble figuring out how to install Raqua.  The convention for \ninstalling aqua apps in DarwinPorts is to put them in \n/Applicati",
+      "thread_id": "thread-5bcd5e8ae21c",
+      "thread_depth": 0,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-716321fcb605",
+      "message_id": "<21F9900C-2CDA-11D8-B89A-003065CC4CB8@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2003-12-12T20:32:51Z",
+      "subject": "[R-SIG-Mac] Building Raqua for DarwinPorts",
+      "subject_clean": "Building Raqua for DarwinPorts",
+      "in_reply_to": "<E9CCA752-2CC3-11D8-B398-000393DB9466@worcester.oxford.ac.uk>",
+      "references": [],
+      "body_plain": "Kjell,\nyou should better work on the Developer version of R, as the RAqua is \nnot relocatable in the release version of R 1.8.1.\n\nThe install-aqua in R-1.8.1 overrides the --prefix option.\n\nBtw, in R-devel we already R build as a framework and RAqua (now called \nsimply R) relocatable.\ndoing\nmake\nmake install-Rframework\nmake install-aqua\n\nwill do the job.\n\nWe are going to add a specific flag to the configure procedure, we will \nprobably commit to r-devel something around the weekend.\n\nstefano\n\nOn Venerd?, dic 12, 2003, at 17:54 Europe/Rome, Kjell Konis wrote:\n\n> Hi,\n>\n> I am working on adding R to DarwinPorts and I am having a little \n> trouble figuring out how to install Raqua.  The convention for \n> installing aqua apps in DarwinPorts is to put them in \n> /Applications/DarwinPorts/ but I can't seem to get Raqua to install \n> anywhere other than /Applications/StartR.app/Raqua.app/Contents.  I \n> tried adding \n> --prefix=/Applications/DarwinPorts/StartR.app/Raqua.app/Contents but \n> that didn't get carried through to the install-aqua rule in the \n> Makefile.  Any suggestions would be great.\n>\n> Thanks,\n>\n> Kjell<smime.p7s>_______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Kjell,\nyou should better work on the Developer version of R, as the RAqua is \nnot relocatable in the release version of R 1.8.1.\n\nThe install-aqua in R-1.8.1 overrides the --prefix option.\n\nBtw, in R-",
+      "thread_id": "thread-5bcd5e8ae21c",
+      "thread_depth": 1,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-ca7d8fc845db",
+      "message_id": "<FC56A80C-2FFF-11D8-8F50-000393BB6D36@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2003-12-16T20:40:54Z",
+      "subject": "[R-SIG-Mac] R-devel update on gifi",
+      "subject_clean": "R-devel update on gifi",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The 12/16/03 version updates R-devel to the latest CVS version and\nupdates the CRAN and Bioconductor packages. It also adds new CRAN  \npackages,\nbringing the total to over 400 packages.\n\nThis R is a framework build, where /Library/Frameworks/R.framework\ncontains Darwin/X11/Aqua versions of R-devel. A soft link R in  \n/usr/local/bin will\nstart R in the various CLI's. RAqua is there, in /Applications, now  \nsimply called R.\n\nThe quartz device works from the various Python shells, the X11 device  \nworks from all shells. Make sure /usr/local/bin is in\nyour path and observe /usr/local/lib/R is no longer used and can be  \nremoved from your computer.\n\nThere is no longer an R-1.8.1 in the framework, and /Library/R is no  \nlonger used either. Rpy is updated\nto work with the new setup. R.app is relocatable. This version has the  \nnew organization of the\nbase package used in R-devel. I removed RQuantlib and the GTK based  \npackages. I included the wrong\nEmacs support files in the previous version, that has been fixed.\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "The 12/16/03 version updates R-devel to the latest CVS version and\nupdates the CRAN and Bioconductor packages. It also adds new CRAN  \npackages,\nbringing the total to over 400 packages.\n\nThis R is a f",
+      "thread_id": "thread-ca7d8fc845db",
+      "thread_depth": 0,
+      "month": "2003-12"
+    },
+    {
+      "id": "msg-e98df469bb78",
+      "message_id": "<20A83BD5-322D-11D8-99C6-000A95AA8E42@york.ac.uk>",
+      "from_name": "Zhesi He",
+      "from_email_hash": "f3bab98da22e3f55ce7c747caa67b0ed052ba1dff86c3046f595e495c433eee1",
+      "date": "2003-12-19T14:55:21Z",
+      "subject": "[R-SIG-Mac] Rggobi MacOS X installation",
+      "subject_clean": "Rggobi MacOS X installation",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I'm struggling installing Rggobi on my Mac machine.\nIt was ok when I install ggobi. (with pre-installed ptk)\nI did\n./configure\nmake install\n\nbut when I come to install Rggobi.\nR CMD INSTALL Rggobi\n\nit always tells me:\nmake: *** [Rggobi.so] Error 1\nERROR: compilation failed for package 'Rggobi'\n\nHas anybody have successful experience in installing Rggobi on MacOS X.",
+      "body_snippet": "I'm struggling installing Rggobi on my Mac machine.\nIt was ok when I install ggobi. (with pre-installed ptk)\nI did\n./configure\nmake install\n\nbut when I come to install Rggobi.\nR CMD INSTALL Rggobi\n\nit",
+      "thread_id": "thread-e98df469bb78",
+      "thread_depth": 0,
+      "month": "2003-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-a620ce828a9b",
+      "subject": "R as OS X Framework",
+      "message_count": 1,
+      "participants": [
+        "Prof Brian Ripley"
+      ],
+      "started": "2003-12-01T08:31:05+00:00",
+      "last_reply": "2003-12-01T08:31:05+00:00",
+      "root_message_id": "msg-a620ce828a9b"
+    },
+    {
+      "id": "thread-4666a714eef8",
+      "subject": "next R on gifi (in about a week)",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2003-12-01T19:02:28+00:00",
+      "last_reply": "2003-12-01T19:02:28+00:00",
+      "root_message_id": "msg-4666a714eef8"
+    },
+    {
+      "id": "thread-e101a8465964",
+      "subject": "Compile analyzeFMRI",
+      "message_count": 1,
+      "participants": [
+        "Benjamin jacobson"
+      ],
+      "started": "2003-12-03T08:14:56+00:00",
+      "last_reply": "2003-12-03T08:14:56+00:00",
+      "root_message_id": "msg-e101a8465964"
+    },
+    {
+      "id": "thread-061e8fd18a55",
+      "subject": "x11() from terminal.app in 10.3",
+      "message_count": 3,
+      "participants": [
+        "Stefano Iacus",
+        "Stephen Shiboski",
+        "Thomas Lumley"
+      ],
+      "started": "2003-12-07T00:53:25+00:00",
+      "last_reply": "2003-12-07T17:48:17+00:00",
+      "root_message_id": "msg-061e8fd18a55"
+    },
+    {
+      "id": "thread-b54dff62e20b",
+      "subject": "Problems load library AnalyzeFMRI",
+      "message_count": 1,
+      "participants": [
+        "Benjamin jacobson"
+      ],
+      "started": "2003-12-09T00:34:30+00:00",
+      "last_reply": "2003-12-09T00:34:30+00:00",
+      "root_message_id": "msg-b54dff62e20b"
+    },
+    {
+      "id": "thread-5bcd5e8ae21c",
+      "subject": "Building Raqua for DarwinPorts",
+      "message_count": 2,
+      "participants": [
+        "Kjell Konis",
+        "stefano iacus"
+      ],
+      "started": "2003-12-12T20:14:54+00:00",
+      "last_reply": "2003-12-12T20:32:51+00:00",
+      "root_message_id": "msg-5bcd5e8ae21c"
+    },
+    {
+      "id": "thread-ca7d8fc845db",
+      "subject": "R-devel update on gifi",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2003-12-16T20:40:54+00:00",
+      "last_reply": "2003-12-16T20:40:54+00:00",
+      "root_message_id": "msg-ca7d8fc845db"
+    },
+    {
+      "id": "thread-e98df469bb78",
+      "subject": "Rggobi MacOS X installation",
+      "message_count": 1,
+      "participants": [
+        "Zhesi He"
+      ],
+      "started": "2003-12-19T14:55:21+00:00",
+      "last_reply": "2003-12-19T14:55:21+00:00",
+      "root_message_id": "msg-e98df469bb78"
+    }
+  ]
+}

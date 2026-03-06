@@ -1,0 +1,665 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2004-05",
+  "messages": [
+    {
+      "id": "msg-929d757276f8",
+      "message_id": "<5B9C4A14-9C7C-11D8-9337-000A95A67E82@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-05-02T23:05:18Z",
+      "subject": "[R-SIG-Mac] Re: [StatCompute] tkrplot",
+      "subject_clean": "[StatCompute] tkrplot",
+      "in_reply_to": "<565D6196-9AD3-11D8-9A4F-000A95DBA58E@mail.rockefeller.edu>",
+      "references": [
+        "<565D6196-9AD3-11D8-9A4F-000A95DBA58E@mail.rockefeller.edu>"
+      ],
+      "body_plain": "This is because tkrplot has to be linked with options \"--dynamic -o  \ntkrplot.dylib\"\ninstead of \"--bundle -o tkrplot.so\". You also have to change the  \ntkrplot.R file\nso that it recognizes the dylib extension.\n\nOn Apr 30, 2004, at 11:22, Toby Lieber wrote:\n\n> Hi,\n>\n> We are trying to run the Bioconductor package affylmGUI with R2.0 and  \n> Mac OSX 10.3.3. One of the R packages that afflmGUI requires is  \n> tkrplot. We have downloaded and installed this package but when we try  \n> to load it we get the following error:\n>\n> loading package: tkrplot\n> Error in structure(.External(\"dotTcl\", ..., PACKAGE = \"tcltk\"), class  \n> = \"tclObj\") :\n> \t[tcl] dyld: /Library/Frameworks/R.framework/Resources/bin/R.bin  \n> malformed library:  \n> /Library/Frameworks/R.framework/Versions/2.0.0/Resources/library/ \n> tkrplot/libs/tkrplot.so (not a Mach-O library file, bad filetype  \n> value)\n> .\n> Error in library(pkgs[i], character.only = TRUE) :\n> \t.First.lib failed\n> >\n>\n>\n> We have the same problem when using R1.9. We would be grateful for any  \n> suggestions for curing this problem.\n>\n> Thanks,\n>\n> Toby\n>\n> _______________________________________________\n> StatCompute mailing list\n> StatCompute@lists.stat.ucla.edu\n> http://lists.stat.ucla.edu/mailman/listinfo/statcompute\n>\n>\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "This is because tkrplot has to be linked with options \"--dynamic -o  \ntkrplot.dylib\"\ninstead of \"--bundle -o tkrplot.so\". You also have to change the  \ntkrplot.R file\nso that it recognizes the dylib e",
+      "thread_id": "thread-929d757276f8",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-b99fcd0a4d2a",
+      "message_id": "<430DC1C2-9C8C-11D8-9337-000A95A67E82@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-05-03T00:58:58Z",
+      "subject": "[R-SIG-Mac] Re: quartz graphics in your R-framework",
+      "subject_clean": "quartz graphics in your R-framework",
+      "in_reply_to": "<BCB7B9D2.6F36%gwgilc@wm.edu>",
+      "references": [
+        "<BCB7B9D2.6F36%gwgilc@wm.edu>"
+      ],
+      "body_plain": "You cannot start quartz() from the terminal window or from\nan X term, only from R.app. Is that what you are doing ?\n\nThe older version had a Horrible Hack that made it work,\nwhich is\n\ncd /Library/Frameword/R-framework/Resources/bin\nsudo /Developer/Tools/Rez   -t APPL Carbon.r -o R.bin\n\nNow start R from the terminal (or Xtertm or Emacs), load tcltk and\nyou're OK.\n\n-- jan\n\nOn Apr 30, 2004, at 5:07, George W. Gilchrist wrote:\n\n> Jan,\n>\n> With an x11 device, the tcltk library loads fine, but after quartz(),  \n> the\n> quartz window remains in a perpetual startup mode, greyed in the  \n> background\n> with the notorious spinning wheel. On my old laptop installation, R.bin\n> fires up and seems to handle the quartz stuff. That does not seem to be\n> happening in this newer installation.\n>\n> Cheers, George\n>\n>\n> On 4/29/04 11:02 PM, \"Jan de Leeuw\" <deleeuw@stat.ucla.edu> wrote:\n>\n>> what happens if you start with x11(display=\":0\") and\n>> then load tcltk ?\n>>\n>>\n>> On Apr 29, 2004, at 6:08, George W. Gilchrist wrote:\n>>\n>>> Jan,\n>>>\n>>> I'm sure it is something in my setup, but I am having trouble in\n>>> getting a functional quartz() device up and running in your latest R\n>>> build (same problem with previous). I get this error when I try to  \n>>> load\n>>> the tcltk library:\n>>>\n>>>> library(tcltk)\n>>> Error in fun(...) : this isn't a Tk applicationcouldn't connect to\n>>> display \":0.0\"\n>>> Error: .onLoad failed in loadNamespace\n>>> Error in library(tcltk) : package/namespace load failed\n>>>\n>>> Any clues? Thanks for the great job you do making this work for us!\n>>>\n>>> George\n>>>\n>>> ==================================================================\n>>> George W. Gilchrist                        Email #1: gwgilc@wm.edu\n>>> Department of Biology, Box 8795          Email #2: kitesci@cox.net\n>>> College of William & Mary                    Phone: (757) 221-7751\n>>> Williamsburg, VA 23187-8795                    Fax: (757) 221-6483\n>>> http://gwgilc.people.wm.edu/\n>>>\n>>>\n>> ===\n>> Jan de Leeuw; Professor and Chair, UCLA Department of Statistics;\n>> Editor: Journal of Multivariate Analysis, Journal of Statistical\n>> Software\n>> US mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n>> 90095-1554\n>> phone (310)-825-9550;  fax (310)-206-5658;  email:  \n>> deleeuw@stat.ucla.edu\n>> homepage: http://gifi.stat.ucla.edu\n>>\n>> ---------------------------------------------------------------------- \n>> --\n>> -------------------------\n>>          No matter where you go, there you are. --- Buckaroo Banzai\n>>                   http://gifi.stat.ucla.edu/sounds/nomatter.au\n>>\n>> ---------------------------------------------------------------------- \n>> --\n>> -------------------------\n>>\n>\n> ==================================================================\n> George W. Gilchrist                        Email #1: gwgilc@wm.edu\n> Department of Biology, Box 8795          Email #2: kitesci@cox.net\n> College of William & Mary                    Phone: (757) 221-7751\n> Williamsburg, VA 23187-8795                    Fax: (757) 221-6483\n> http://gwgilc.people.wm.edu/\n>\n>\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "You cannot start quartz() from the terminal window or from\nan X term, only from R.app. Is that what you are doing ?\n\nThe older version had a Horrible Hack that made it work,\nwhich is\n\ncd /Library/Fram",
+      "thread_id": "thread-b99fcd0a4d2a",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-3c2b3b729e2b",
+      "message_id": "<ABBFE5E8-9E7B-11D8-AB22-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-05-05T12:05:03Z",
+      "subject": "[R-SIG-Mac] R.bin vs R",
+      "subject_clean": "R.bin vs R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "A simple work-around to solve the problem of R.bin appearing in the \nmenu bar when you launch R with the aqua console is the following\n\ncd /Library/Frameworks/R.framework/Resources/bin\nmkdir exec\nmv R.bin exec/R\ncd exec\nln -s ../Frameworks Frameworks\ncd ..\n\nreplace inside the two script R and RAqua in  \n/Library/Frameworks/R.framework/Resources/bin\nR_HOME/bin/R.bin\nwith\nR_HOME/bin/exec/R\n\ndo the same for\ncd /Library/Frameworks/R.framework/Resources/R\n\ndo the same for the script\n\nR.app/Contents/MacOS/R\n\nThis solution will be adopted in the next patched release of R (which \nwill also contain the flush_console bug fixed)\n\nstefano",
+      "body_snippet": "A simple work-around to solve the problem of R.bin appearing in the \nmenu bar when you launch R with the aqua console is the following\n\ncd /Library/Frameworks/R.framework/Resources/bin\nmkdir exec\nmv R",
+      "thread_id": "thread-3c2b3b729e2b",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-116a1ddf3883",
+      "message_id": "<AF17D7D9-9E7C-11D8-AB22-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-05-05T12:12:18Z",
+      "subject": "[R-SIG-Mac] R.bin vs R (simplified version)",
+      "subject_clean": "R.bin vs R (simplified version)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "A simple work-around to solve the problem of R.bin appearing in the \nmenu bar when you launch R with the aqua console is the following\n\ncd /Library/Frameworks/R.framework/Resources/bin\nmkdir exec\nmv R.bin exec/R\nln exec/R R.bin\ncd exec\nln -s ../Frameworks Frameworks\ncd ..\n\nreplace inside the two script RAqua in  \n/Library/Frameworks/R.framework/Resources/bin\nR_HOME/bin/R.bin\nwith\nR_HOME/bin/exec/R\n\n\ndo the same for the script\n\nR.app/Contents/MacOS/R\n\nThis solution will be adopted in the next patched release of R (which \nwill also contain the flush_console bug fixed)\n\nstefano",
+      "body_snippet": "A simple work-around to solve the problem of R.bin appearing in the \nmenu bar when you launch R with the aqua console is the following\n\ncd /Library/Frameworks/R.framework/Resources/bin\nmkdir exec\nmv R",
+      "thread_id": "thread-116a1ddf3883",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-f6bdba7d0db6",
+      "message_id": "<E734D86A-9E8D-11D8-AB22-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-05-05T14:15:35Z",
+      "subject": "[R-SIG-Mac] R.bin vs R (III)",
+      "subject_clean": "R.bin vs R (III)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I forgot to mention that you also have  to move\n\nLocalized.rsrc\nmain.nib\nRLogo.icns\nRLogo.png\n\nfrom\n/Library/Frameworks/R.framework/Resources/bin/\nto\n/Library/Frameworks/R.framework/Resources/bin/exec",
+      "body_snippet": "I forgot to mention that you also have  to move\n\nLocalized.rsrc\nmain.nib\nRLogo.icns\nRLogo.png\n\nfrom\n/Library/Frameworks/R.framework/Resources/bin/\nto\n/Library/Frameworks/R.framework/Resources/bin/exec",
+      "thread_id": "thread-f6bdba7d0db6",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-f303b8478294",
+      "message_id": "<8CCE959E-A279-11D8-A99A-000393DB9466@stats.ox.ac.uk>",
+      "from_name": "Kjell Konis",
+      "from_email_hash": "9fc03a1c8c6d36b95f8b07f5b3447a6552a353657f44baf8a7ecd567f88ad47b",
+      "date": "2004-05-10T13:59:56Z",
+      "subject": "[R-SIG-Mac] Some suggestions for R.app",
+      "subject_clean": "Some suggestions for R.app",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI have been playing around with R-1.9.0 for a few days now and I have a \nfew suggestions.\n\n1) Why not put R.framework in R.app/Contents/Frameworks?  I tried this \nand everything seems to work fine.  Here is the modification to \nR.app/Contents/MacOS/R to get it to work:\n\n#!/bin/sh\n# Shell wrapper for R executable.\n\nR_HOME_DIR=$0\nR_HOME_DIR=`dirname ${R_HOME_DIR}`\nR_HOME_DIR=`dirname ${R_HOME_DIR}`\nR_HOME_DIR=${R_HOME_DIR}/Frameworks/R.framework/Resources\n\n#R_HOME_DIR=/Library/Frameworks/R.framework/Resources\n\n<...>\n\n2) Put the library in ~/Library/Application Support/R/library rather \nthan ~/Library/R/library.  Also, does the library function search in \n/Library/Application Support/R/library and /Network/Library/Application \nSupport/R/library (without the Application Support I guess) for \npackages when lib.loc is NULL?\n\n3) Use the prefix from the configure stage when installing R.app (i.e. \ninstall it at ${prefix}/R.app).  This will allow maintainers of fink / \ndarwinports / portage to package R.app more easily.\n\nI hope these are helpful.\n\nKjell",
+      "body_snippet": "Hello,\n\nI have been playing around with R-1.9.0 for a few days now and I have a \nfew suggestions.\n\n1) Why not put R.framework in R.app/Contents/Frameworks?  I tried this \nand everything seems to work ",
+      "thread_id": "thread-f303b8478294",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-e94e6e33a403",
+      "message_id": "<D9825181-A27E-11D8-8CA9-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-05-10T14:37:53Z",
+      "subject": "[R-SIG-Mac] Some suggestions for R.app",
+      "subject_clean": "Some suggestions for R.app",
+      "in_reply_to": "<8CCE959E-A279-11D8-A99A-000393DB9466@stats.ox.ac.uk>",
+      "references": [
+        "<8CCE959E-A279-11D8-A99A-000393DB9466@stats.ox.ac.uk>"
+      ],
+      "body_plain": "On May 10, 2004, at 1:59 PM, Kjell Konis wrote:\n\n> Hello,\n>\n> I have been playing around with R-1.9.0 for a few days now and I have \n> a few suggestions.\n>\n> 1) Why not put R.framework in R.app/Contents/Frameworks?  I tried this \n> and everything seems to work fine.  Here is the modification to \n> R.app/Contents/MacOS/R to get it to work:\ndid you try to use prebuilt binary packages from CRAN ? I wonder if \nthey can work at all, if so, please let me know.\n\nthe idea is to have a real framework that any application can use to, \nfor example, embedd R in itself.\nA linker flag like -framework R is what is needed in this case. If you \nmove the R.framework out of the standard Frameworks path, than \nconfiguring can be a mess.\nThe demo Cocoa GUI we are writing is built this way, using the \n-framework R flag.\n\n\nR.app can be moved anywhere on the system, and if you change the \nlocation of the R.app with the R.framework inside, then you have to use \ninstall_tool or similar to hard code the path of the libR.dylib, and \nyou need a script for this. Also, any R contributed package need to \nknow where to find the R.framework and moving the framework around the \nsystem, causes troubles (again unless using a script every time you \nmove R.app with the R.framework inside)\n\nAs a general idea, you should consider (for the various ports) the \nR.framework and the R.app as two separate guys. R.framework does not \nneed to know where R.app is, but R.app needs to know where the \nR.framework is installed. So, for fink installer (for example), it \nsuffices to put the right dependency. [this is for point 3)]\n\nas for point 2). I think it can be a good idea to move from ~/Library/R \nfor ~/Library/Application Support/R\nand I can do this in r-devel (aka R 2.0.0) not in r-patched.\nI'll add the other two paths also.\n\nIn 2.0.0 we will also have the opportunity to specify the path of \ncontributed packages, allowing for an installation inside the R. \nframework (you can do this from the shell but not from the GUI at the \nmoment)\n\n\n>\n> #!/bin/sh\n> # Shell wrapper for R executable.\n>\n> R_HOME_DIR=$0\n> R_HOME_DIR=`dirname ${R_HOME_DIR}`\n> R_HOME_DIR=`dirname ${R_HOME_DIR}`\n> R_HOME_DIR=${R_HOME_DIR}/Frameworks/R.framework/Resources\n>\n> #R_HOME_DIR=/Library/Frameworks/R.framework/Resources\n>\n> <...>\n>\n> 2) Put the library in ~/Library/Application Support/R/library rather \n> than ~/Library/R/library.  Also, does the library function search in \n> /Library/Application Support/R/library and \n> /Network/Library/Application Support/R/library (without the \n> Application Support I guess) for packages when lib.loc is NULL?\n>\n> 3) Use the prefix from the configure stage when installing R.app (i.e. \n> install it at ${prefix}/R.app).  This will allow maintainers of fink / \n> darwinports / portage to package R.app more easily.\n>\n> I hope these are helpful.\n\nsurely they are.\nstefano\n>\n> Kjell\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On May 10, 2004, at 1:59 PM, Kjell Konis wrote:\n\n> Hello,\n>\n> I have been playing around with R-1.9.0 for a few days now and I have \n> a few suggestions.\n>\n> 1) Why not put R.framework in R.app/Conten",
+      "thread_id": "thread-f303b8478294",
+      "thread_depth": 1,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-05a4c5e89dfb",
+      "message_id": "<06385626-A29F-11D8-A190-000A95CD7F02@sheffield.ac.uk>",
+      "from_name": "Andrew Beckerman",
+      "from_email_hash": "4788e57363dcbec29f7c02725e43edbdec6c912aa3aca3b6908f63cd4f96adba",
+      "date": "2004-05-10T18:28:11Z",
+      "subject": "[R-SIG-Mac] R --vanilla --slave",
+      "subject_clean": "R --vanilla --slave",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am trying to use the following syntax (so I can submit R scripts to  \nan X-grid cluster if anyone is interested):\n\ndyn094076:~ apb$ R --vanilla --slave <test.R> test.txt\n\nto run the following script\n\n#test.R\nwrite(rnorm(4),\" \")\nq()\n\nas suggested in  \nhttp://finzi.psych.upenn.edu/R/Rhelp02a/archive/20955.html\n\nThe script is a BBedit file called test.R, is in my home and fails by  \nproducing a blank text file.\nI have also tried including the file=\"test.txt\" addition in the write()  \nfunction, and leaving out the # line, which results with the R startup  \nverbiage being printed to the file, but no data.\n\nIs there an OS X method for this? Am I missing something (probably)?\nmany thanks for the help.\n\nAndrew\n\n------------------------------------------------------------------------ \n---------\nDr. Andrew Beckerman\nDepartment of Animal and Plant Sciences, University of Sheffield,\nAlfred Denny Building, Western Bank, Sheffield S10 2TN, UK\nph +44 (0)114 222 0026; fx +44 (0)114 222 0002\nhttp://www.shef.ac.uk/beckslab\n------------------------------------------------------------------------ \n----------",
+      "body_snippet": "I am trying to use the following syntax (so I can submit R scripts to  \nan X-grid cluster if anyone is interested):\n\ndyn094076:~ apb$ R --vanilla --slave <test.R> test.txt\n\nto run the following script",
+      "thread_id": "thread-05a4c5e89dfb",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-ab957608b16e",
+      "message_id": "<Pine.A41.4.58.0405100953090.130900@homer39.u.washington.edu>",
+      "from_name": "Thomas Lumley",
+      "from_email_hash": "fd3f6e9367b335430f74a8f6feb36e5e9d187865079d5ca2018b64dfb89dd278",
+      "date": "2004-05-10T18:53:50Z",
+      "subject": "[R-SIG-Mac] R --vanilla --slave",
+      "subject_clean": "R --vanilla --slave",
+      "in_reply_to": "<06385626-A29F-11D8-A190-000A95CD7F02@sheffield.ac.uk>",
+      "references": [
+        "<06385626-A29F-11D8-A190-000A95CD7F02@sheffield.ac.uk>"
+      ],
+      "body_plain": "On Mon, 10 May 2004, Andrew Beckerman wrote:\n\n> I am trying to use the following syntax (so I can submit R scripts to\n> an X-grid cluster if anyone is interested):\n>\n> dyn094076:~ apb$ R --vanilla --slave <test.R> test.txt\n>\n> to run the following script\n>\n> #test.R\n> write(rnorm(4),\" \")\n\nThis writes to a file whose name is a single space. I think you mean\n write(rnorm(4),\"\")\n\n\t-thomas\n\n> q()\n>\n> as suggested in\n> http://finzi.psych.upenn.edu/R/Rhelp02a/archive/20955.html\n>\n> The script is a BBedit file called test.R, is in my home and fails by\n> producing a blank text file.\n> I have also tried including the file=\"test.txt\" addition in the write()\n> function, and leaving out the # line, which results with the R startup\n> verbiage being printed to the file, but no data.\n>\n> Is there an OS X method for this? Am I missing something (probably)?\n> many thanks for the help.\n>\n> Andrew\n>\n> ------------------------------------------------------------------------\n> ---------\n> Dr. Andrew Beckerman\n> Department of Animal and Plant Sciences, University of Sheffield,\n> Alfred Denny Building, Western Bank, Sheffield S10 2TN, UK\n> ph +44 (0)114 222 0026; fx +44 (0)114 222 0002\n> http://www.shef.ac.uk/beckslab\n> ------------------------------------------------------------------------\n> ----------\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\nThomas Lumley\t\t\tAssoc. Professor, Biostatistics\ntlumley@u.washington.edu\tUniversity of Washington, Seattle",
+      "body_snippet": "On Mon, 10 May 2004, Andrew Beckerman wrote:\n\n> I am trying to use the following syntax (so I can submit R scripts to\n> an X-grid cluster if anyone is interested):\n>\n> dyn094076:~ apb$ R --vanilla --s",
+      "thread_id": "thread-05a4c5e89dfb",
+      "thread_depth": 1,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-2f855d290694",
+      "message_id": "<FD296039-A2A3-11D8-B41D-000A957CEFBA@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "ca28efd9ec1cfd4e8286859200079ce1b72e68c0c25c87bda988546cff431034",
+      "date": "2004-05-10T19:03:47Z",
+      "subject": "[R-SIG-Mac] R --vanilla --slave",
+      "subject_clean": "R --vanilla --slave",
+      "in_reply_to": "<06385626-A29F-11D8-A190-000A95CD7F02@sheffield.ac.uk>",
+      "references": [
+        "<06385626-A29F-11D8-A190-000A95CD7F02@sheffield.ac.uk>"
+      ],
+      "body_plain": "On May 10, 2004, at 6:28 PM, Andrew Beckerman wrote:\n\n> I am trying to use the following syntax (so I can submit R scripts to \n> an X-grid cluster if anyone is interested):\n>\n> dyn094076:~ apb$ R --vanilla --slave <test.R> test.txt\n>\n> to run the following script\n>\n> #test.R\n> write(rnorm(4),\" \")\n> q()\n>\n> as suggested in \n> http://finzi.psych.upenn.edu/R/Rhelp02a/archive/20955.html\n>\n> The script is a BBedit file called test.R, is in my home and fails by \n> producing a blank text file.\n> I have also tried including the file=\"test.txt\" addition in the \n> write() function, and leaving out the # line, which results with the R \n> startup verbiage being printed to the file, but no data.\n\nWell, by definition none of the things you described should actually \nwork:\nusing \" \" in write just created a file with the name \" \" which is just \na space - yes, this is legal :). You should have such file in your home \nnow. I doubt it's what you wanted.\nUsing write(..., \"test.txt\") can't succeed either, because in the shell \nyou use redirect of the console to test.txt, hence the file is already \nopen for writing for stdout pipe, so you can't open it once more for \nwriting in the \"write\" command. Again, I doubt it's what you intended.\n\nIf you insist on using the parameters you mentioned and \"write\", then \nyou can do either :\n\nR --vanilla --slave < test.R > test.txt\nwith: write(rnorm(4), \"\")\n\nor alternate approach (but with the same result):\n\nR --vanilla --slave < test.R\nwith: write(rnorm(4), \"test.txt\")\n\n> Is there an OS X method for this? Am I missing something (probably)?\n\nBeside X-grid there's a really nice package by Luke Tierney \"snow\" that \nis far more flexible and allows really nice parallel computing, not \njust parallel shell processes. We use it with PVM3 on our Apple \ncluster. Everything has its pros and cons - it mainly depends on what \nyou actually want to do ...\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_snippet": "On May 10, 2004, at 6:28 PM, Andrew Beckerman wrote:\n\n> I am trying to use the following syntax (so I can submit R scripts to \n> an X-grid cluster if anyone is interested):\n>\n> dyn094076:~ apb$ R --va",
+      "thread_id": "thread-05a4c5e89dfb",
+      "thread_depth": 1,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-e3a9d5962376",
+      "message_id": "<6C60F374-A329-11D8-9C3F-000A95CD7F02@sheffield.ac.uk>",
+      "from_name": "Andrew Beckerman",
+      "from_email_hash": "4788e57363dcbec29f7c02725e43edbdec6c912aa3aca3b6908f63cd4f96adba",
+      "date": "2004-05-11T10:58:57Z",
+      "subject": "[R-SIG-Mac] R --vanilla --slave",
+      "subject_clean": "R --vanilla --slave",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Thanks to Don MacQueen, Thomas Lumley and Simon Urbanek for all  \npointing out the same thing - a character space in the  \nwrite(rnorm(4),\"\") line.\n\nInterestingly, if this line is typed in BBedit, the script and R call  \ninterpret a space, when in fact none is typed.  Creating the same  \nscript in pico allows for success, even though the typing is the same.   \nHmmm.  Something to work on in BBedit?  Or get myself in gear and start  \nusing emacs.\n\nThanks also to Simon for the heads up about snow and parallel R  \nprocessing!\n\nCheers\nandrew\n\n------------------------------------------------------------------------ \n---------\nDr. Andrew Beckerman\nDepartment of Animal and Plant Sciences, University of Sheffield,\nAlfred Denny Building, Western Bank, Sheffield S10 2TN, UK\nph +44 (0)114 222 0026; fx +44 (0)114 222 0002\nhttp://www.shef.ac.uk/beckslab\n------------------------------------------------------------------------ \n----------",
+      "body_snippet": "Thanks to Don MacQueen, Thomas Lumley and Simon Urbanek for all  \npointing out the same thing - a character space in the  \nwrite(rnorm(4),\"\") line.\n\nInterestingly, if this line is typed in BBedit, the",
+      "thread_id": "thread-e3a9d5962376",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-6d993a57e605",
+      "message_id": "<341AD858-A354-11D8-8CA9-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-05-11T16:05:08Z",
+      "subject": "[R-SIG-Mac] Some suggestions for R.app",
+      "subject_clean": "Some suggestions for R.app",
+      "in_reply_to": "<D58B73CB-A342-11D8-8C31-000393DB9466@stats.ox.ac.uk>",
+      "references": [
+        "<8CCE959E-A279-11D8-A99A-000393DB9466@stats.ox.ac.uk>",
+        "<D9825181-A27E-11D8-8CA9-000A95C87F66@mclink.it>",
+        "<D58B73CB-A342-11D8-8C31-000393DB9466@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Hi Kjell,\n\nI'm sorry to task this to you instead of trying myself but I've a busy \nweek :(\n\none more tests:\n* are you able to build packages from sources with your setup?\n\nMy concerning about moving the framework is really about application \nembedding.\nIf build an application against -framework R, how can the linker find \nthe R.framework unless you add this to the (frameworks?) path?\nBecause, from Apple's notes it only searches in /Library/Frameworks, \n/System/Library/Frameworks and in your local home.\n\nSuppose you add it to the path, if then you move the R.app application \naround, what will be of the application needing the R framework to run?\n\nthere is also a problem with the path of R framework be hard coded \ninside the libR.dylib, how did you manage this ?\n\nthanks for any suggestion you can give me.\nstefano\n\n\nOn May 11, 2004, at 2:00 PM, Kjell Konis wrote:\n\n> On 10 May 2004, at 13:37, stefano iacus wrote:\n>>> 1) Why not put R.framework in R.app/Contents/Frameworks?  I tried \n>>> this and everything seems to work fine.  Here is the modification to \n>>> R.app/Contents/MacOS/R to get it to work:\n>> did you try to use prebuilt binary packages from CRAN ? I wonder if \n>> they can work at all, if so, please let me know.\n>\n> Packages can be installed from the 'Get CRAN Packages' item in the \n> Packages menu.  They are installed in ~/Library/R/library and can be \n> loaded using the library function or the package manager.\n>\n>> R.app can be moved anywhere on the system, and if you change the \n>> location of the R.app with the R.framework inside, then you have to \n>> use install_tool or similar to hard code the path of the libR.dylib, \n>> and you need a script for this. Also, any R contributed package need \n>> to know where to find the R.framework and moving the framework around \n>> the system, causes troubles (again unless using a script every time \n>> you move R.app with the R.framework inside)\n>\n> The R start up script in Contents/MacOS sets the environment variable \n> R_HOME when R is launched (and my modified script sets this properly \n> when R.framework is in the R.app bundle).  As far as I can tell this \n> is sufficient for R contributed packages.  The only bad thing one can \n> do is move the R.app bundle while R is running.  If you can recommend \n> some packages with complicated dependencies I would be happy to test \n> them using my setup.\n>\n> What are the advantages of putting R.framework in /Library/Frameworks? \n>  It seems to me that this creates two really big disadvantages.\n>\n> 1) If more than one application uses the R.framework you have the \n> possibility of version mismatch.  On Windows (a platform I hope to \n> never develop for again) this is called \"dll hell\".\n>\n> 2) Users without administrator privileges (for instance students in a \n> computer lab) will not be able to install/use R if it is not already \n> on the system.\n>\n>> So, for fink installer (for example), it suffices to put the right \n>> dependency. [this is for point 3)]\n>\n> The reason we need ${prefix} to be used is that the packaging utility \n> sets prefix to something like /packageRoot/really/weird/path/package.  \n> Then, after the make install phase of the build, it does a recursive \n> ls on /packageRoot/really/weird/path/package to see what files were \n> created there.  This information is saved in a database that is used \n> for uninstalling and updating.  The last step is to copy all of the \n> files to the actual install location.\n>\n> Regards,\n> Kjell\n>\n>",
+      "body_snippet": "Hi Kjell,\n\nI'm sorry to task this to you instead of trying myself but I've a busy \nweek :(\n\none more tests:\n* are you able to build packages from sources with your setup?\n\nMy concerning about moving t",
+      "thread_id": "thread-6d993a57e605",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-5ff1e3c49d7c",
+      "message_id": "<28866A9C-A44D-11D8-AE76-000393BB6D36@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-05-12T21:47:54Z",
+      "subject": "[R-SIG-Mac] R-devel-nox",
+      "subject_clean": "R-devel-nox",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The R installer package at http://gifi.stat.ucla.edu/pub differs\nfrom the official one, because\n\n-- It does not have X11 support, but allows you to use\n    quartz graphics from the terminal or from Emacs/ESS.\n\n-  It includes binary versions of 460 R packages.\n\n-- It's R-devel, not R-patched.\n\n-- It uses the Aqua version of Tcl/Tk.\n\n-- It includes g77 and the Carbon version of Emacs (with\n    ESS).\n\nIf you are an R.app person, it is better to use the official\nversion (with X11 based Tcl/Tk). If you have CLI or Emacs\nbias, and cannot stand the X11 ugliness, then this may be\nthe way to go.\n\nThe same site also has a version of R-devel with X11 support\nand X11 Tcl/Tk (with the same 460 packages). Install\neither one, but do not install both.\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 9432 Boelter Hall, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "The R installer package at http://gifi.stat.ucla.edu/pub differs\nfrom the official one, because\n\n-- It does not have X11 support, but allows you to use\n    quartz graphics from the terminal or from Em",
+      "thread_id": "thread-5ff1e3c49d7c",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-0ac37aee65d3",
+      "message_id": "<2C9490CA-A52C-11D8-8293-000A95A67E82@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2004-05-14T00:24:15Z",
+      "subject": "[R-SIG-Mac] major oops",
+      "subject_clean": "major oops",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The pub directory on gifi contains r-devel.dmg.gz and  \nr-devel-nox.dmg.gz.\nThe webpage did state this but both links were to the r-devel.dmg.gz  \nfile\n(which is the older X11 based version). Sorry about that\n\nIf you start  the nox version (from Terminal.app or Emacs.app) you  \nshould\nsee the message \"Welcome to Jan's R\" and you should see an application\nR showing its icon in the dock.\n\nIf you start R  from R.app, you should not really be using the nox  \nversion.\n\n===\nJan de Leeuw; Professor and Chair, UCLA Department of Statistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\nhomepage: http://gifi.stat.ucla.edu\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "The pub directory on gifi contains r-devel.dmg.gz and  \nr-devel-nox.dmg.gz.\nThe webpage did state this but both links were to the r-devel.dmg.gz  \nfile\n(which is the older X11 based version). Sorry ab",
+      "thread_id": "thread-0ac37aee65d3",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-1e539380f1e9",
+      "message_id": "<307993E8-A598-11D8-8DA0-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-05-14T13:16:55Z",
+      "subject": "[R-SIG-Mac] An example of Cocoa GUI for R",
+      "subject_clean": "An example of Cocoa GUI for R",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Finally, we are showing you a bit of work on the Cocoa GUI.\n\nDo not expect too much, it is just a preview. You have some nice \nfeature yet like code and file completion, but still don't expect too \nmuch.\n\nHave a look here\n\nhttp://www.economia.unimi.it/R\n\n\nIt works with R.app 1.9.0\n\nThis is a joint work with Simon (mostly his work at the moment)\n\nWhen we will have time, we will also write some docs on how to write \nyour own gui for R using Cocoa, but don't expect any finished work \nbefore R 2.0.0.\n\n\nstefano & simon",
+      "body_snippet": "Finally, we are showing you a bit of work on the Cocoa GUI.\n\nDo not expect too much, it is just a preview. You have some nice \nfeature yet like code and file completion, but still don't expect too \nmu",
+      "thread_id": "thread-1e539380f1e9",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-366ccaf56c8f",
+      "message_id": "<BCCD6804.2A08%rriem@free.fr>",
+      "from_name": "Romuald Riem",
+      "from_email_hash": "9c650e3201aca67190ef7fcfb97b101d2588613a36229213715a07e7922c19d6",
+      "date": "2004-05-16T18:48:42Z",
+      "subject": "[R-SIG-Mac] Question about applescript commands",
+      "subject_clean": "Question about applescript commands",
+      "in_reply_to": "<200405151000.i4FA01OT000827@hypatia.math.ethz.ch>",
+      "references": [],
+      "body_plain": "Dear all,\n\n\nI would like to build a \"remote control\" for R to give basic instructions\npushing buttons or choosing menu items.\n\nI'm going to use applescript commands and applescript studio.\nI can't use the \"Do Command\" present in the R applescript dictionnary.\n\nCan you explain me its use and its syntax ?\n\nThanks in advance\n\n\nRomuald Riem\nNantes\nFrance",
+      "body_snippet": "Dear all,\n\n\nI would like to build a \"remote control\" for R to give basic instructions\npushing buttons or choosing menu items.\n\nI'm going to use applescript commands and applescript studio.\nI can't use",
+      "thread_id": "thread-366ccaf56c8f",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-d5c7682c9906",
+      "message_id": "<87E527A6-A78D-11D8-89E8-000A95C478FE@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2004-05-17T01:05:37Z",
+      "subject": "[R-SIG-Mac] Question about applescript commands",
+      "subject_clean": "Question about applescript commands",
+      "in_reply_to": "<BCCD6804.2A08%rriem@free.fr>",
+      "references": [
+        "<BCCD6804.2A08%rriem@free.fr>"
+      ],
+      "body_plain": "Romuald,\n\nAttached 2 examples of how I've used AppleScript to source\na file into R or to send a selection (selected text) to R using\nthe 'cmd' feature.\n\nThe editor I'm using is SubEthaEdit, which also support\nAppleScript - not needed in these examples, but as an\nexample, I use it to position the Edit window next to the\nR Console. I also updated the syntax binding for R in\nSubEthaEdit.\n\nI use iKey to bind selection2R to say F12\nand source2R to shift F12. I just like the simplicity of\nSubEthaEdit. BBEdit has a script menu to achieve this.\n\nHope this helps,\nRob\n\n-------------- next part --------------\nSkipped content of type multipart/appledouble-------------- next part --------------\nSkipped content of type multipart/appledouble-------------- next part --------------\n\n\n\nOn May 16, 2004, at 9:48 AM, Romuald Riem wrote:\n\n> Dear all,\n>\n>\n> I would like to build a \"remote control\" for R to give basic \n> instructions\n> pushing buttons or choosing menu items.\n>\n> I'm going to use applescript commands and applescript studio.\n> I can't use the \"Do Command\" present in the R applescript dictionnary.\n>\n> Can you explain me its use and its syntax ?\n>\n> Thanks in advance\n>\n>\n> Romuald Riem\n> Nantes\n> France\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Romuald,\n\nAttached 2 examples of how I've used AppleScript to source\na file into R or to send a selection (selected text) to R using\nthe 'cmd' feature.\n\nThe editor I'm using is SubEthaEdit, which also",
+      "thread_id": "thread-366ccaf56c8f",
+      "thread_depth": 1,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-fbf7ae42b77f",
+      "message_id": "<4D7FBEB0-A790-11D8-A723-000A956FDAC0@fonnesbeck.org>",
+      "from_name": "Christopher Fonnesbeck",
+      "from_email_hash": "642a53efa608578726833d1fbb89f248a2b91f4f1dc74cacc47709f11f9e6697",
+      "date": "2004-05-17T01:25:28Z",
+      "subject": "[R-SIG-Mac] histogram bug in lattice on RAqua",
+      "subject_clean": "histogram bug in lattice on RAqua",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "There appears to be a bug in the histogram function of the lattice \npackage under RAqua (1.9.0). On  my machine, plotting the sample \nhistogram in the documentation for that function does not print the \nplot labels. The plot label boxes above each sub-plot appear to be \nempty. I do not get this behaviour either on Linux or Windows.\n\nChris\n\n--\nChristopher J. Fonnesbeck ( c h r i s @ f o n n e s b e c k . o r g )\nGeorgia Cooperative Fish & Wildlife Research Unit, University of Georgia\n\n\"I don't remember any kind of heaviness ruining my time at Yale.\"\n          George W. Bush, on the civil rights movement\n--\nPutting http://wecanstopspam.org in your email helps it pass through \noverzealous spam filters.",
+      "body_snippet": "There appears to be a bug in the histogram function of the lattice \npackage under RAqua (1.9.0). On  my machine, plotting the sample \nhistogram in the documentation for that function does not print th",
+      "thread_id": "thread-fbf7ae42b77f",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-a21dabd23b22",
+      "message_id": "<524E44E8-A794-11D8-89E8-000A95C478FE@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2004-05-17T01:54:14Z",
+      "subject": "[R-SIG-Mac] histogram bug in lattice on RAqua",
+      "subject_clean": "histogram bug in lattice on RAqua",
+      "in_reply_to": "<4D7FBEB0-A790-11D8-A723-000A956FDAC0@fonnesbeck.org>",
+      "references": [
+        "<4D7FBEB0-A790-11D8-A723-000A956FDAC0@fonnesbeck.org>"
+      ],
+      "body_plain": "Stefano has solved this in R-patch. The 2.0 R-devel also works fine\n(at least in Jan de Leeuw's 5/7 release).\n\nIf you create a pdf or ps output, it works fine from within RAqua.\n\nHope this helps,\nRob\n\nOn May 16, 2004, at 4:25 PM, Christopher Fonnesbeck wrote:\n\n> There appears to be a bug in the histogram function of the lattice \n> package under RAqua (1.9.0). On  my machine, plotting the sample \n> histogram in the documentation for that function does not print the \n> plot labels. The plot label boxes above each sub-plot appear to be \n> empty. I do not get this behaviour either on Linux or Windows.\n>\n> Chris\n>\n> --\n> Christopher J. Fonnesbeck ( c h r i s @ f o n n e s b e c k . o r g )\n> Georgia Cooperative Fish & Wildlife Research Unit, University of \n> Georgia\n>\n> \"I don't remember any kind of heaviness ruining my time at Yale.\"\n>          George W. Bush, on the civil rights movement\n> --\n> Putting http://wecanstopspam.org in your email helps it pass through \n> overzealous spam filters.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Stefano has solved this in R-patch. The 2.0 R-devel also works fine\n(at least in Jan de Leeuw's 5/7 release).\n\nIf you create a pdf or ps output, it works fine from within RAqua.\n\nHope this helps,\nRob\n",
+      "thread_id": "thread-fbf7ae42b77f",
+      "thread_depth": 1,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-e42aab5634e9",
+      "message_id": "<BC7B7C81-A7C5-11D8-8DA0-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2004-05-17T07:47:52Z",
+      "subject": "[R-SIG-Mac] histogram bug in lattice on RAqua",
+      "subject_clean": "histogram bug in lattice on RAqua",
+      "in_reply_to": "<4D7FBEB0-A790-11D8-A723-000A956FDAC0@fonnesbeck.org>",
+      "references": [
+        "<4D7FBEB0-A790-11D8-A723-000A956FDAC0@fonnesbeck.org>"
+      ],
+      "body_plain": "This bug has bee fixed yet.\nstefano\n\nOn May 17, 2004, at 1:25 AM, Christopher Fonnesbeck wrote:\n\n> There appears to be a bug in the histogram function of the lattice \n> package under RAqua (1.9.0). On  my machine, plotting the sample \n> histogram in the documentation for that function does not print the \n> plot labels. The plot label boxes above each sub-plot appear to be \n> empty. I do not get this behaviour either on Linux or Windows.\n>\n> Chris\n>\n> --\n> Christopher J. Fonnesbeck ( c h r i s @ f o n n e s b e c k . o r g )\n> Georgia Cooperative Fish & Wildlife Research Unit, University of \n> Georgia\n>\n> \"I don't remember any kind of heaviness ruining my time at Yale.\"\n>          George W. Bush, on the civil rights movement\n> --\n> Putting http://wecanstopspam.org in your email helps it pass through \n> overzealous spam filters.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "This bug has bee fixed yet.\nstefano\n\nOn May 17, 2004, at 1:25 AM, Christopher Fonnesbeck wrote:\n\n> There appears to be a bug in the histogram function of the lattice \n> package under RAqua (1.9.0). On",
+      "thread_id": "thread-fbf7ae42b77f",
+      "thread_depth": 1,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-10e8897c12d4",
+      "message_id": "<E58EDF64-A824-11D8-809B-000393956206@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-05-17T19:09:12Z",
+      "subject": "[R-SIG-Mac] An example of Cocoa GUI for R",
+      "subject_clean": "An example of Cocoa GUI for R",
+      "in_reply_to": "<307993E8-A598-11D8-8DA0-000A95C87F66@mclink.it>",
+      "references": [
+        "<307993E8-A598-11D8-8DA0-000A95C87F66@mclink.it>"
+      ],
+      "body_plain": "On May 14, 2004, at 7:16 AM, stefano iacus wrote:\n\n> Finally, we are showing you a bit of work on the Cocoa GUI.\n>\n> Do not expect too much, it is just a preview. You have some nice \n> feature yet like code and file completion, but still don't expect too \n> much.\n>\n> Have a look here\n>\n> http://www.economia.unimi.it/R\n>\n>\n> It works with R.app 1.9.0\n>\n> This is a joint work with Simon (mostly his work at the moment)\n>\n\nLooks pretty good so far...I assume the \"metal\" interface for the \nconsole is because There Can Be Only One? (Though, really, you can have \na console and a bunch of edit windows). But so far, I like it a \nlot---if nothing else my ingrained Emacs habits don't get in the way of \nusing R :-)\n\n\n\n> When we will have time, we will also write some docs on how to write \n> your own gui for R using Cocoa, but don't expect any finished work \n> before R 2.0.0.\n>\n>\n\nYou could also---it might be better, from the point of view of \neventually writing documentation, to have those of us less intimate \nwith your design struggle mightily (or not) for a time with only some \nsource as our guide (I tried to get something running a while back just \nlooking at the R source, but not very hard) to get an idea of the rough \nspots. One suggestion from just looking at the initial source would be \nto have the bundle name be a preference such that multiple GUIs can be \npresent on a system (perhaps also searching ~/Application Support or \nsomething) and switchable---switching on-the-fly would be extra-cool \nbut I understand that you have to save SOME features for later ;-)\n\n> stefano & simon\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "On May 14, 2004, at 7:16 AM, stefano iacus wrote:\n\n> Finally, we are showing you a bit of work on the Cocoa GUI.\n>\n> Do not expect too much, it is just a preview. You have some nice \n> feature yet lik",
+      "thread_id": "thread-1e539380f1e9",
+      "thread_depth": 1,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-e88f7e2e5831",
+      "message_id": "<F2369629-A840-11D8-8DA0-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-05-17T22:30:07Z",
+      "subject": "[R-SIG-Mac] An example of Cocoa GUI for R",
+      "subject_clean": "An example of Cocoa GUI for R",
+      "in_reply_to": "<E58EDF64-A824-11D8-809B-000393956206@hsph.harvard.edu>",
+      "references": [
+        "<307993E8-A598-11D8-8DA0-000A95C87F66@mclink.it>",
+        "<E58EDF64-A824-11D8-809B-000393956206@hsph.harvard.edu>"
+      ],
+      "body_plain": "On May 17, 2004, at 7:09 PM, Byron Ellis wrote:\n\n> On May 14, 2004, at 7:16 AM, stefano iacus wrote:\n>\n>> Finally, we are showing you a bit of work on the Cocoa GUI.\n>>\n>> Do not expect too much, it is just a preview. You have some nice \n>> feature yet like code and file completion, but still don't expect too \n>> much.\n>>\n>> Have a look here\n>>\n>> http://www.economia.unimi.it/R\n>>\n>>\n>> It works with R.app 1.9.0\n>>\n>> This is a joint work with Simon (mostly his work at the moment)\n>>\n>\n> Looks pretty good so far...I assume the \"metal\" interface for the \n> console is because There Can Be Only One? (Though, really, you can \n> have a console and a bunch of edit windows). But so far, I like it a \n> lot---if nothing else my ingrained Emacs habits don't get in the way \n> of using R :-)\n>\n>\n>\n>> When we will have time, we will also write some docs on how to write \n>> your own gui for R using Cocoa, but don't expect any finished work \n>> before R 2.0.0.\n>>\n>>\n>\n> You could also---it might be better, from the point of view of \n> eventually writing documentation, to have those of us less intimate \n> with your design struggle mightily (or not) for a time with only some \n> source as our guide (I tried to get something running a while back \n> just looking at the R source, but not very hard) to get an idea of the \n> rough spots. One suggestion from just looking at the initial source \n> would be to have the bundle name be a preference such that multiple \n> GUIs can be present on a system (perhaps also searching ~/Application \n> Support or something) and switchable---switching on-the-fly would be \n> extra-cool but I understand that you have to save SOME features for \n> later ;-)\n\n\nIndeed Byron, the final goal is you can have several  GUI (possibly \nswitching on the fly, it is not too hard in principle)...and we will \nneed someone to write a second one :)\nThe problem is our \"time\" and writing docs require some. I think that \nin june, probably after 1.9.1, we can have a documented  skeleton on \nhow to implement your own GUI.\nI don't want to document too much what we have done since now because \nwhat we have now  won't be like the final  design we have in mind for \nseveral reasons. Among the others: the aqua module (like other gui \nmodules) will be absorbed in to R.bin and this is going to happen is \nr-devel pretty soon.\n\nstefano\n\n\n\n>\n>> stefano & simon\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n> ---\n> Byron Ellis (bellis@hsph.harvard.edu)\n> \"Oook\" -- The Librarian\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On May 17, 2004, at 7:09 PM, Byron Ellis wrote:\n\n> On May 14, 2004, at 7:16 AM, stefano iacus wrote:\n>\n>> Finally, we are showing you a bit of work on the Cocoa GUI.\n>>\n>> Do not expect too much, it i",
+      "thread_id": "thread-1e539380f1e9",
+      "thread_depth": 2,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-03deddbb039f",
+      "message_id": "<F777703C-A849-11D8-809B-000393956206@hsph.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "602dbd48c4d6bcb6c3cc1d08756be4a63e40bcdb36aa327c88ce92a7e3c7074e",
+      "date": "2004-05-17T23:34:33Z",
+      "subject": "[R-SIG-Mac] An example of Cocoa GUI for R",
+      "subject_clean": "An example of Cocoa GUI for R",
+      "in_reply_to": "<F2369629-A840-11D8-8DA0-000A95C87F66@mclink.it>",
+      "references": [
+        "<307993E8-A598-11D8-8DA0-000A95C87F66@mclink.it>",
+        "<E58EDF64-A824-11D8-809B-000393956206@hsph.harvard.edu>",
+        "<F2369629-A840-11D8-8DA0-000A95C87F66@mclink.it>"
+      ],
+      "body_plain": "On May 17, 2004, at 4:29 PM, stefano iacus wrote:\n\n>\n> On May 17, 2004, at 7:09 PM, Byron Ellis wrote:\n>\n>> On May 14, 2004, at 7:16 AM, stefano iacus wrote:\n>>\n>>> Finally, we are showing you a bit of work on the Cocoa GUI.\n>>>\n>>> Do not expect too much, it is just a preview. You have some nice \n>>> feature yet like code and file completion, but still don't expect \n>>> too much.\n>>>\n>>> Have a look here\n>>>\n>>> http://www.economia.unimi.it/R\n>>>\n>>>\n>>> It works with R.app 1.9.0\n>>>\n>>> This is a joint work with Simon (mostly his work at the moment)\n>>>\n>>\n>> Looks pretty good so far...I assume the \"metal\" interface for the \n>> console is because There Can Be Only One? (Though, really, you can \n>> have a console and a bunch of edit windows). But so far, I like it a \n>> lot---if nothing else my ingrained Emacs habits don't get in the way \n>> of using R :-)\n>>\n>>\n>>\n>>> When we will have time, we will also write some docs on how to write \n>>> your own gui for R using Cocoa, but don't expect any finished work \n>>> before R 2.0.0.\n>>>\n>>>\n>>\n>> You could also---it might be better, from the point of view of \n>> eventually writing documentation, to have those of us less intimate \n>> with your design struggle mightily (or not) for a time with only some \n>> source as our guide (I tried to get something running a while back \n>> just looking at the R source, but not very hard) to get an idea of \n>> the rough spots. One suggestion from just looking at the initial \n>> source would be to have the bundle name be a preference such that \n>> multiple GUIs can be present on a system (perhaps also searching \n>> ~/Application Support or something) and switchable---switching \n>> on-the-fly would be extra-cool but I understand that you have to save \n>> SOME features for later ;-)\n>\n>\n> Indeed Byron, the final goal is you can have several  GUI (possibly \n> switching on the fly, it is not too hard in principle)...and we will \n> need someone to write a second one :)\n\n*hides StatPaper code behind his back* What? Who? Me? :-)\n\n> The problem is our \"time\" and writing docs require some. I think that \n> in june, probably after 1.9.1, we can have a documented  skeleton on \n> how to implement your own GUI.\n\nHeh, in re-reading I see I edited out that actual verb in my first \nsentence there. The suggestion was to expose the source in truly-ugly \nform without any documentation and watch the pathetic flailing of your \ndevoted fans. It would provide for some entertainment at least :-)\n\n> I don't want to document too much what we have done since now because \n> what we have now  won't be like the final  design we have in mind for \n> several reasons. Among the others: the aqua module (like other gui \n> modules) will be absorbed in to R.bin and this is going to happen is \n> r-devel pretty soon.\n\nThats...interesting didn't they just split those modules out?\n\n>\n> stefano\n>\n>\n>\n>>\n>>> stefano & simon\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac@stat.math.ethz.ch\n>>> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>> ---\n>> Byron Ellis (bellis@hsph.harvard.edu)\n>> \"Oook\" -- The Librarian\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "On May 17, 2004, at 4:29 PM, stefano iacus wrote:\n\n>\n> On May 17, 2004, at 7:09 PM, Byron Ellis wrote:\n>\n>> On May 14, 2004, at 7:16 AM, stefano iacus wrote:\n>>\n>>> Finally, we are showing you a bit o",
+      "thread_id": "thread-1e539380f1e9",
+      "thread_depth": 3,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-fdd24967bde4",
+      "message_id": "<8ABB8048-A89C-11D8-A164-000A957CEFBA@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "ca28efd9ec1cfd4e8286859200079ce1b72e68c0c25c87bda988546cff431034",
+      "date": "2004-05-18T09:25:34Z",
+      "subject": "[R-SIG-Mac] An example of Cocoa GUI for R",
+      "subject_clean": "An example of Cocoa GUI for R",
+      "in_reply_to": "<F777703C-A849-11D8-809B-000393956206@hsph.harvard.edu>",
+      "references": [
+        "<307993E8-A598-11D8-8DA0-000A95C87F66@mclink.it>",
+        "<E58EDF64-A824-11D8-809B-000393956206@hsph.harvard.edu>",
+        "<F2369629-A840-11D8-8DA0-000A95C87F66@mclink.it>",
+        "<F777703C-A849-11D8-809B-000393956206@hsph.harvard.edu>"
+      ],
+      "body_plain": "On May 17, 2004, at 11:34 PM, Byron Ellis wrote:\n>\n>> The problem is our \"time\" and writing docs require some. I think that \n>> in june, probably after 1.9.1, we can have a documented  skeleton on \n>> how to implement your own GUI.\n>\n> Heh, in re-reading I see I edited out that actual verb in my first \n> sentence there. The suggestion was to expose the source in truly-ugly \n> form without any documentation and watch the pathetic flailing of your \n> devoted fans. It would provide for some entertainment at least :-)\n\nAaah, a good idea - I forgot that the stuff is not in the R CVS ;) \nStefano, can you just put a tar ball (with some disclaimer :P) on the \npage, please? The \"glue\" with the R console stuff is likely to change, \nbut I'd like some comments on the Obj-C R interface (it can be also \nused w/o the GUI).\n\nThe Obj-C code (the GUI is all Obj-C) is much more readable than the C \ncode, so it may be understandable even w/o too many comments :P\n\n>> I don't want to document too much what we have done since now because \n>> what we have now  won't be like the final  design we have in mind for \n>> several reasons. Among the others: the aqua module (like other gui \n>> modules) will be absorbed in to R.bin and this is going to happen is \n>> r-devel pretty soon.\n>\n> Thats...interesting didn't they just split those modules out?\n\nI didn't get this either - are there some posts about this? I hoped the \nreverse would be the case - make the \"module\" approach even more \nmodular than it is now (but then I don't even know what the plans are \n...).\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_snippet": "On May 17, 2004, at 11:34 PM, Byron Ellis wrote:\n>\n>> The problem is our \"time\" and writing docs require some. I think that \n>> in june, probably after 1.9.1, we can have a documented  skeleton on \n>>",
+      "thread_id": "thread-1e539380f1e9",
+      "thread_depth": 4,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-de7cef86f2e7",
+      "message_id": "<D7A65866-A8A4-11D8-8DA0-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-05-18T10:25:29Z",
+      "subject": "[R-SIG-Mac] An example of Cocoa GUI for R",
+      "subject_clean": "An example of Cocoa GUI for R",
+      "in_reply_to": "<8ABB8048-A89C-11D8-A164-000A957CEFBA@math.uni-augsburg.de>",
+      "references": [
+        "<307993E8-A598-11D8-8DA0-000A95C87F66@mclink.it>",
+        "<E58EDF64-A824-11D8-809B-000393956206@hsph.harvard.edu>",
+        "<F2369629-A840-11D8-8DA0-000A95C87F66@mclink.it>",
+        "<F777703C-A849-11D8-809B-000393956206@hsph.harvard.edu>",
+        "<8ABB8048-A89C-11D8-A164-000A957CEFBA@math.uni-augsburg.de>"
+      ],
+      "body_plain": "On May 18, 2004, at 9:25 AM, Simon Urbanek wrote:\n\n> On May 17, 2004, at 11:34 PM, Byron Ellis wrote:\n>>\n>>> The problem is our \"time\" and writing docs require some. I think \n>>> that in june, probably after 1.9.1, we can have a documented  \n>>> skeleton on how to implement your own GUI.\n>>\n>> Heh, in re-reading I see I edited out that actual verb in my first \n>> sentence there. The suggestion was to expose the source in truly-ugly \n>> form without any documentation and watch the pathetic flailing of \n>> your devoted fans. It would provide for some entertainment at least \n>> :-)\n>\n> Aaah, a good idea - I forgot that the stuff is not in the R CVS ;) \n> Stefano, can you just put a tar ball (with some disclaimer :P) on the \n> page, please? The \"glue\" with the R console stuff is likely to change, \n> but I'd like some comments on the Obj-C R interface (it can be also \n> used w/o the GUI).\n>\n> The Obj-C code (the GUI is all Obj-C) is much more readable than the C \n> code, so it may be understandable even w/o too many comments :P\n>\n>>> I don't want to document too much what we have done since now \n>>> because what we have now  won't be like the final  design we have in \n>>> mind for several reasons. Among the others: the aqua module (like \n>>> other gui modules) will be absorbed in to R.bin and this is going to \n>>> happen is r-devel pretty soon.\n>>\n>> Thats...interesting didn't they just split those modules out?\n>\n> I didn't get this either - are there some posts about this? I hoped \n> the reverse would be the case - make the \"module\" approach even more \n> modular than it is now (but then I don't even know what the plans are \n> ...).\n\nI apologize, I just see now that I wrote non-sense :^P\nWhat I meant is that aqua.c will be put inside  \"main\" and not under \nthe unix/ stuff. Specifically to aqua.c: I want to put in there all the \napi to access directly the Cocoa bundle. What we have implemented now \n(Simon) is to let the aqua module call the bundle, i.e. a module \nloading another module.\n\nAs for the modules in general: the latest plan we have discussed (but \nnot decided yet) is to make all the GUI not modules but packages. This \nallows for more flexibility (for example, you add and api to the \npackage not into R itself and you don't need to rebuilt everything, \njust the package)\n\nI think this and many other stuff are going to be discussed at useR by \nthe available r-cores.\n\nI'll put a tarball of the RCocoaBundle, just leave me few hours as I \nhave other priorities these days...\nstefano\n\n>\n> Cheers,\n> Simon\n>\n> ---\n> Simon Urbanek\n> Department of computer oriented statistics and data analysis\n> University of Augsburg\n> Universit?tsstr. 14\n> 86135 Augsburg\n> Germany\n>\n> Tel: +49-821-598-2236\n> Fax: +49-821-598-2200\n>\n> Simon.Urbanek@Math.Uni-Augsburg.de\n> http://simon.urbanek.info\n>\n>",
+      "body_snippet": "On May 18, 2004, at 9:25 AM, Simon Urbanek wrote:\n\n> On May 17, 2004, at 11:34 PM, Byron Ellis wrote:\n>>\n>>> The problem is our \"time\" and writing docs require some. I think \n>>> that in june, probabl",
+      "thread_id": "thread-1e539380f1e9",
+      "thread_depth": 5,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-7e9e53afcf68",
+      "message_id": "<F4A6E52C-AA8C-11D8-8DA0-000A95C87F66@mclink.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "b62cf6b26ac633982f6b25a672c2c21252ac5dc7dc91265bc03ef9f59cf6ad50",
+      "date": "2004-05-20T20:39:07Z",
+      "subject": "[R-SIG-Mac] RCocoaGUI sources",
+      "subject_clean": "RCocoaGUI sources",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "If you want to experiment a bit with the sources of the RCocoaGUI, you \ncan now find them at\n\nhttp://www.economia.unimi.it/R/\n\n\ndon't count too much on this implementation as it is going to be \nrewritten substantially.\n\nstefano",
+      "body_snippet": "If you want to experiment a bit with the sources of the RCocoaGUI, you \ncan now find them at\n\nhttp://www.economia.unimi.it/R/\n\n\ndon't count too much on this implementation as it is going to be \nrewrit",
+      "thread_id": "thread-7e9e53afcf68",
+      "thread_depth": 0,
+      "month": "2004-05"
+    },
+    {
+      "id": "msg-b5441265f62d",
+      "message_id": "<230335C9-AE5C-11D8-9970-000393D4B002@biostat.ucsf.edu>",
+      "from_name": "Stephen Shiboski",
+      "from_email_hash": "c1c308d9b9397acd9d3ba3d471adb6852f67cac1729ad7a15a939da31eee3efd",
+      "date": "2004-05-25T16:59:41Z",
+      "subject": "[R-SIG-Mac] Error building packages (R-1.9.0, OS-X 10.3.3)",
+      "subject_clean": "Error building packages (R-1.9.0, OS-X 10.3.3)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I am having trouble building packages and can't track down the source\nof the error. I built R in a different directory than the install \nlocation and\nthen used make install. All of my packages built and installed \ncorrectly to\nthe build directory. However, I get the following error when I try to \ninstall to\nthe R installation (or to an arbitrary) directory:\n\n------------------------------------------------------\nR INSTALL ./lars_0.9-4.tar.gz\n* Installing *source* package 'lars' ...\n** libs\ng77   -fno-common  -g -O2 -c delcol.f -o delcol.o\ngcc -bundle -flat_namespace -undefined suppress -L/usr/local/lib -o \nlars.so delcol.o  -L/usr/local/lib \n-L/usr/local/lib/gcc/powerpc-apple-darwin7.0.0/3.4 \n-L/usr/local/lib/gcc/powerpc-apple-darwin7.0.0/3.4/../../.. -lfrtbegin \n-lg2c -lgcc_s -lSystem -lcc_dynamic -framework R\nld: can't locate framework for: -framework R\nmake: *** [lars.so] Error 1\nERROR: compilation failed for package 'lars'\n** Removing \n'/usr/local/lib/R.framework/Versions/1.9.0/Resources/library/lars'\n\nThanks for any suggestions,\n\n--\nStephen Shiboski  -------------------  steve@biostat.ucsf.edu\nDivision of Biostatistics                 voice: 415-476-0533\nUniversity of California, San Francisco     fax: 415-476-6014\n500 Parnassus Avenue, MU 420-W;  San Francisco, CA 94143-0560",
+      "body_snippet": "I am having trouble building packages and can't track down the source\nof the error. I built R in a different directory than the install \nlocation and\nthen used make install. All of my packages built a",
+      "thread_id": "thread-b5441265f62d",
+      "thread_depth": 0,
+      "month": "2004-05"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-929d757276f8",
+      "subject": "[StatCompute] tkrplot",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2004-05-02T23:05:18+00:00",
+      "last_reply": "2004-05-02T23:05:18+00:00",
+      "root_message_id": "msg-929d757276f8"
+    },
+    {
+      "id": "thread-b99fcd0a4d2a",
+      "subject": "quartz graphics in your R-framework",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2004-05-03T00:58:58+00:00",
+      "last_reply": "2004-05-03T00:58:58+00:00",
+      "root_message_id": "msg-b99fcd0a4d2a"
+    },
+    {
+      "id": "thread-3c2b3b729e2b",
+      "subject": "R.bin vs R",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-05-05T12:05:03+00:00",
+      "last_reply": "2004-05-05T12:05:03+00:00",
+      "root_message_id": "msg-3c2b3b729e2b"
+    },
+    {
+      "id": "thread-116a1ddf3883",
+      "subject": "R.bin vs R (simplified version)",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-05-05T12:12:18+00:00",
+      "last_reply": "2004-05-05T12:12:18+00:00",
+      "root_message_id": "msg-116a1ddf3883"
+    },
+    {
+      "id": "thread-f6bdba7d0db6",
+      "subject": "R.bin vs R (III)",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-05-05T14:15:35+00:00",
+      "last_reply": "2004-05-05T14:15:35+00:00",
+      "root_message_id": "msg-f6bdba7d0db6"
+    },
+    {
+      "id": "thread-f303b8478294",
+      "subject": "Some suggestions for R.app",
+      "message_count": 2,
+      "participants": [
+        "Kjell Konis",
+        "stefano iacus"
+      ],
+      "started": "2004-05-10T13:59:56+00:00",
+      "last_reply": "2004-05-10T14:37:53+00:00",
+      "root_message_id": "msg-f303b8478294"
+    },
+    {
+      "id": "thread-05a4c5e89dfb",
+      "subject": "R --vanilla --slave",
+      "message_count": 3,
+      "participants": [
+        "Andrew Beckerman",
+        "Simon Urbanek",
+        "Thomas Lumley"
+      ],
+      "started": "2004-05-10T18:28:11+00:00",
+      "last_reply": "2004-05-10T19:03:47+00:00",
+      "root_message_id": "msg-05a4c5e89dfb"
+    },
+    {
+      "id": "thread-e3a9d5962376",
+      "subject": "R --vanilla --slave",
+      "message_count": 1,
+      "participants": [
+        "Andrew Beckerman"
+      ],
+      "started": "2004-05-11T10:58:57+00:00",
+      "last_reply": "2004-05-11T10:58:57+00:00",
+      "root_message_id": "msg-e3a9d5962376"
+    },
+    {
+      "id": "thread-6d993a57e605",
+      "subject": "Some suggestions for R.app",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-05-11T16:05:08+00:00",
+      "last_reply": "2004-05-11T16:05:08+00:00",
+      "root_message_id": "msg-6d993a57e605"
+    },
+    {
+      "id": "thread-5ff1e3c49d7c",
+      "subject": "R-devel-nox",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2004-05-12T21:47:54+00:00",
+      "last_reply": "2004-05-12T21:47:54+00:00",
+      "root_message_id": "msg-5ff1e3c49d7c"
+    },
+    {
+      "id": "thread-0ac37aee65d3",
+      "subject": "major oops",
+      "message_count": 1,
+      "participants": [
+        "Jan de Leeuw"
+      ],
+      "started": "2004-05-14T00:24:15+00:00",
+      "last_reply": "2004-05-14T00:24:15+00:00",
+      "root_message_id": "msg-0ac37aee65d3"
+    },
+    {
+      "id": "thread-1e539380f1e9",
+      "subject": "An example of Cocoa GUI for R",
+      "message_count": 6,
+      "participants": [
+        "Byron Ellis",
+        "Simon Urbanek",
+        "stefano iacus"
+      ],
+      "started": "2004-05-14T13:16:55+00:00",
+      "last_reply": "2004-05-18T10:25:29+00:00",
+      "root_message_id": "msg-1e539380f1e9"
+    },
+    {
+      "id": "thread-366ccaf56c8f",
+      "subject": "Question about applescript commands",
+      "message_count": 2,
+      "participants": [
+        "Rob J Goedman",
+        "Romuald Riem"
+      ],
+      "started": "2004-05-16T18:48:42+00:00",
+      "last_reply": "2004-05-17T01:05:37+00:00",
+      "root_message_id": "msg-366ccaf56c8f"
+    },
+    {
+      "id": "thread-fbf7ae42b77f",
+      "subject": "histogram bug in lattice on RAqua",
+      "message_count": 3,
+      "participants": [
+        "Christopher Fonnesbeck",
+        "Rob J Goedman",
+        "stefano iacus"
+      ],
+      "started": "2004-05-17T01:25:28+00:00",
+      "last_reply": "2004-05-17T07:47:52+00:00",
+      "root_message_id": "msg-fbf7ae42b77f"
+    },
+    {
+      "id": "thread-7e9e53afcf68",
+      "subject": "RCocoaGUI sources",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2004-05-20T20:39:07+00:00",
+      "last_reply": "2004-05-20T20:39:07+00:00",
+      "root_message_id": "msg-7e9e53afcf68"
+    },
+    {
+      "id": "thread-b5441265f62d",
+      "subject": "Error building packages (R-1.9.0, OS-X 10.3.3)",
+      "message_count": 1,
+      "participants": [
+        "Stephen Shiboski"
+      ],
+      "started": "2004-05-25T16:59:41+00:00",
+      "last_reply": "2004-05-25T16:59:41+00:00",
+      "root_message_id": "msg-b5441265f62d"
+    }
+  ]
+}

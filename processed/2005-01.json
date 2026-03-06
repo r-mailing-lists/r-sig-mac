@@ -1,0 +1,914 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2005-01",
+  "messages": [
+    {
+      "id": "msg-942d302a5994",
+      "message_id": "<798BA760-5F5E-11D9-BB11-000393707CF2@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2005-01-05T22:12:24Z",
+      "subject": "[R-SIG-Mac] undo in Editor does not truly \"undo\"",
+      "subject_clean": "undo in Editor does not truly \"undo\"",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nThis applies to the new R gui for Panther.\nI often lose changes I make to my text files (R programs) in the gui \neditor. I appreciate the fact that selected lines are \"sent to the \nconsole\" when you press command-return. Much faster than copy and paste \nfrom my external text editor, TextWrangler, to the console, which I \nmust continue to do on my PowerBook running 10.2.8.\n\nBut sometimes I slip, and do not press command, or I forget that lines \nare selected and start typing. In both cases the selected lines vanish. \nWhen this happens you should be able to fix the problem by doing Undo. \nBut in the R editor, Undo brings me back to a previous state, I'm not \nsure which (when I opened the file?), and I have to add by hand the \nlines that have vanished plus the changes I had made since that \"saved\" \nstate.\n\nI am using 1.02-pre build 879\n\nIs this happening to others as well?\n\nThanks,\n\nDenis",
+      "body_snippet": "Hi,\n\nThis applies to the new R gui for Panther.\nI often lose changes I make to my text files (R programs) in the gui \neditor. I appreciate the fact that selected lines are \"sent to the \nconsole\" when ",
+      "thread_id": "thread-942d302a5994",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-cf48898ac846",
+      "message_id": "<8F759907-5F63-11D9-8E0A-000D93C24D64@stat.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "96054a6fc2ab5940337a3945e39fc6d1008334db662840abd9512700aa3b3d7e",
+      "date": "2005-01-05T22:48:33Z",
+      "subject": "[R-SIG-Mac] SVN GUI + R-Devel a no go?",
+      "subject_clean": "SVN GUI + R-Devel a no go?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "It seems that something, perhaps the migration of devices to grDevices, \nhas broken the OS X GUI. In particular,  ptr_getQuartzParameters is no \nlonger being defined (I wouldn't be surprised if nothing in aqua.c is \nbeing included since HAVE_AQUA doesn't appear to be set anywhere \ndespite --enable-aqua in the configure args). Clean builds of both.\n\n\n\n---\nByron Ellis (ellis@stat.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "It seems that something, perhaps the migration of devices to grDevices, \nhas broken the OS X GUI. In particular,  ptr_getQuartzParameters is no \nlonger being defined (I wouldn't be surprised if nothin",
+      "thread_id": "thread-cf48898ac846",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-56c8e660b92f",
+      "message_id": "<CF4786CD-5FFA-11D9-A853-000A95C478FE@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-01-06T16:51:17Z",
+      "subject": "[R-SIG-Mac] undo in Editor does not truly \"undo\"",
+      "subject_clean": "undo in Editor does not truly \"undo\"",
+      "in_reply_to": "<798BA760-5F5E-11D9-BB11-000393707CF2@globetrotter.net>",
+      "references": [
+        "<798BA760-5F5E-11D9-BB11-000393707CF2@globetrotter.net>"
+      ],
+      "body_plain": "Hi Denis,\n\nThis is indeed a known (and awkward) issue. It was flagged early \nDecember and I did\nlook at what it would take to fix it. Turns out fixing it within the \ndocument architecture\nis simple, but in the current structure of R.app, where R Console is \nnot really a\ndocument, it is hard (the main menu becomes very confused). Not sure if \nStefano or\nSimon know a way around this, I would be happy to try out ideas.\n\nAbout a year ago I implemented command-E (source file) and \ncommand-return (source\nselection) using AppleScript, which allows one to use an external \neditor. To make this\nwork well, you do need something like iKey to define hot keys across \napplications.\n\nRob\n\n\nOn Jan 5, 2005, at 1:12 PM, Denis Chabot wrote:\n\n> Hi,\n>\n> This applies to the new R gui for Panther.\n> I often lose changes I make to my text files (R programs) in the gui \n> editor. I appreciate the fact that selected lines are \"sent to the \n> console\" when you press command-return. Much faster than copy and \n> paste from my external text editor, TextWrangler, to the console, \n> which I must continue to do on my PowerBook running 10.2.8.\n>\n> But sometimes I slip, and do not press command, or I forget that lines \n> are selected and start typing. In both cases the selected lines \n> vanish. When this happens you should be able to fix the problem by \n> doing Undo. But in the R editor, Undo brings me back to a previous \n> state, I'm not sure which (when I opened the file?), and I have to add \n> by hand the lines that have vanished plus the changes I had made since \n> that \"saved\" state.\n>\n> I am using 1.02-pre build 879\n>\n> Is this happening to others as well?\n>\n> Thanks,\n>\n> Denis\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Hi Denis,\n\nThis is indeed a known (and awkward) issue. It was flagged early \nDecember and I did\nlook at what it would take to fix it. Turns out fixing it within the \ndocument architecture\nis simple, b",
+      "thread_id": "thread-942d302a5994",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-e391d71dfc26",
+      "message_id": "<490A5554-5FFB-11D9-A853-000A95C478FE@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-01-06T16:54:43Z",
+      "subject": "[R-SIG-Mac] Re: [R] strange behaviour of negative binomial",
+      "subject_clean": "strange behaviour of negative binomial",
+      "in_reply_to": "<A3B3C3EC-5F6C-11D9-B442-000393883D7E@web.de>",
+      "references": [
+        "<858845F9-5F61-11D9-B442-000393883D7E@web.de>",
+        "<x2llb7fqwr.fsf@biostat.ku.dk>",
+        "<A3B3C3EC-5F6C-11D9-B442-000393883D7E@web.de>"
+      ],
+      "body_plain": "Wow, there is indeed a huge difference in elapsed time for nbinom.\nAlmost linear with the length of x.\n\nThe non-GUI version stays around a second or so, for  length(x) == 871, \nthe GUI\nversion takes ~25 seconds, for length(x)==8701, the GUI version takes \n~250 secs.\n\nIt seems only to occur with nbinom. Norm, binom, exp, gamma etc. all \nare within 1\nor 2 seconds.\n\nThe curves I'm getting are identical though. In all runs the 2 curves \ndid overlap.\n\nRob\n\nOn Jan 5, 2005, at 2:53 PM, dax42 wrote:\n\n> Hi,\n>\n> I am sorry for the incorrect terms. Of course I mean the cumulative \n> distribution functions.\n> As I just got two answers telling me my problem does not exist, I \n> tried again on a different setup - and indeed it works.\n>\n> So, my first run was done on a Mac OS X 10.3.7 running R 2.0.0, GUI \n> version.\n> Now I tried it on the same system, only I used the R 2.0.0 on my X11, \n> not the GUI version.\n>\n> First setup produces the error (and is VERY slow, talking about \n> several minutes here...)\n> Second works fine.\n>\n> Does anybody have a similar setup and could try this out as well?\n> Thanks!\n> Dax\n>\n> Am 05.01.2005 um 23:32 schrieb Peter Dalgaard:\n>\n>> dax42 <Dax42@web.de> writes:\n>>\n>>> Dear list,\n>>>\n>>> I ran into a strange behaviour of the pnbinom function - or maybe I\n>>> just made a stupid mistake.\n>>> First thing is that pnbinom seems to be very slow. The other - more\n>>> interesting one - is that I get two different curves when I plot the\n>>> estimated density and the density given by pnbinom. Shouldn't it be\n>>> the same?\n>>> This is only the case, I think, if I use the parameter size = 1. I\n>>> just tried it for size = 2 and the result seemed correct..\n>>>\n>>> Anyways, this is what I tried:\n>>>\n>>> #parameters\n>>> proba<-0.001039302;\n>>> s<-1;\n>>>\n>>> #random numbers with this distribution\n>>> dom<-rnbinom(10000,s,proba);\n>>>\n>>> #first plot\n>>> plot(ecdf(dom),do.points=FALSE);\n>>>\n>>> #second plot\n>>> x<-seq(0,8700,0.5);\n>>> lines(x,pnbinom(x,s,proba),col=\"red\");\n>>\n>> Errrr... What's the problem here? The two curves look quite similar to\n>> me. (And both are of course cumulative distribution functions and not\n>> densities, but it doesn't sound like that is the problem.)\n>>\n>> -- \n>>    O__  ---- Peter Dalgaard             Blegdamsvej 3\n>>   c/ /'_ --- Dept. of Biostatistics     2200 Cph. N\n>>  (*) \\(*) -- University of Copenhagen   Denmark      Ph: (+45) \n>> 35327918\n>> ~~~~~~~~~~ - (p.dalgaard@biostat.ku.dk)             FAX: (+45) \n>> 35327907\n>>\n>\n> ______________________________________________\n> R-help@stat.math.ethz.ch mailing list\n> https://stat.ethz.ch/mailman/listinfo/r-help\n> PLEASE do read the posting guide! \n> http://www.R-project.org/posting-guide.html",
+      "body_snippet": "Wow, there is indeed a huge difference in elapsed time for nbinom.\nAlmost linear with the length of x.\n\nThe non-GUI version stays around a second or so, for  length(x) == 871, \nthe GUI\nversion takes ~",
+      "thread_id": "thread-e391d71dfc26",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-d0f9c7811695",
+      "message_id": "<873B7FE4-62DC-11D9-913B-00050279D82B@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2005-01-10T08:52:46Z",
+      "subject": "[R-SIG-Mac] Binary packages on CRAN",
+      "subject_clean": "Binary packages on CRAN",
+      "in_reply_to": "<200501071107.j07B7Kq9021791@hypatia.math.ethz.ch>",
+      "references": [],
+      "body_plain": "Hi,\n\nHow is it decided what packages are offered as binaries for Mac and \nwhat other packages are only offered as source? Is it by \"popular \ndemand\"? If so, I suggest adding Hmisc to the binaries for Mac OS X. I \ntend to go see those first when trying to find which packages might be \nof use to me. Hence I did not discover this package until someone \nrecommended it to me. It seems quite useful and maybe others would use \nit to.\n\nAnyway, I installed it on an iMac running Panther and got a warning at \nthe end of the installation, something about chmod not being allowed. \nIt seems to work though.\n\nI just installed it on my PB running Jaguar and got this:\n\nWarning message:\nInstallation of package Hmisc had non-zero exit status in: \ninstall.packages(ui.pkgs, CRAN = getOption(where), contriburl = \ncontriburl,\n\n\nShould I be worried?\n\nThanks,\n\nDenis\n\t[[alternative text/enriched version deleted]]",
+      "body_snippet": "Hi,\n\nHow is it decided what packages are offered as binaries for Mac and \nwhat other packages are only offered as source? Is it by \"popular \ndemand\"? If so, I suggest adding Hmisc to the binaries for ",
+      "thread_id": "thread-d0f9c7811695",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-bdb31b2e963c",
+      "message_id": "<6D940AF5-62DF-11D9-913B-00050279D82B@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2005-01-10T09:13:37Z",
+      "subject": "[R-SIG-Mac] RE: Binary packages on CRAN",
+      "subject_clean": "Binary packages on CRAN",
+      "in_reply_to": "<200501071107.j07B7Kq9021791@hypatia.math.ethz.ch>",
+      "references": [],
+      "body_plain": "Hi,\n\nFollow up:\n\nWarning message:\nInstallation of package Hmisc had non-zero exit status in: \ninstall.packages(ui.pkgs, CRAN = getOption(where), contriburl = \ncontriburl,\n\nThis message did mean trouble, as installation was incomplete. \nDownloading the source package and installing from local files did not \nwork either. I think I have not installed the Developer's CD on this \nold Mac. I'm not sure I'd be able to in the short term since I'm on \nsabbatical and did not bring all my CD's with me.\n\nI cannot find out myself until tonight (the iMac is at home, I'm not), \nbut will Hmisc compiled on Panther work under Jaguar? If so I'll be OK. \nIf not, I'd really appreciate if someone could compile Hmisc to work \nunder Jaguar and send it to me. Or place it in the Mac Binaries on CRAN.\n\nSincerely,\n\nDenis Chabot\n\t[[alternative text/enriched version deleted]]",
+      "body_snippet": "Hi,\n\nFollow up:\n\nWarning message:\nInstallation of package Hmisc had non-zero exit status in: \ninstall.packages(ui.pkgs, CRAN = getOption(where), contriburl = \ncontriburl,\n\nThis message did mean troubl",
+      "thread_id": "thread-bdb31b2e963c",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-3e1c22c19c2a",
+      "message_id": "<C599B921-62E4-11D9-95CC-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-01-10T09:51:21Z",
+      "subject": "[R-SIG-Mac] Binary packages on CRAN",
+      "subject_clean": "Binary packages on CRAN",
+      "in_reply_to": "<873B7FE4-62DC-11D9-913B-00050279D82B@globetrotter.net>",
+      "references": [
+        "<873B7FE4-62DC-11D9-913B-00050279D82B@globetrotter.net>"
+      ],
+      "body_plain": "Hi,\nbinary packages are put CRAN  only if they pass successfully the CHECK \n(R CMD CHECK) without errors.\nI'll see what's the problem with Hmisc is. I'm just back from traveling \nand a very long \"to-do list\" of thing to manage, fix etc.\nstefano\n\nOn Jan 10, 2005, at 8:52 AM, Denis Chabot wrote:\n\n> Hi,\n>\n> How is it decided what packages are offered as binaries for Mac and\n> what other packages are only offered as source? Is it by \"popular\n> demand\"? If so, I suggest adding Hmisc to the binaries for Mac OS X. I\n> tend to go see those first when trying to find which packages might be\n> of use to me. Hence I did not discover this package until someone\n> recommended it to me. It seems quite useful and maybe others would use\n> it to.\n>\n> Anyway, I installed it on an iMac running Panther and got a warning at\n> the end of the installation, something about chmod not being allowed.\n> It seems to work though.\n>\n> I just installed it on my PB running Jaguar and got this:\n>\n> Warning message:\n> Installation of package Hmisc had non-zero exit status in:\n> install.packages(ui.pkgs, CRAN = getOption(where), contriburl =\n> contriburl,\n>\n>\n> Should I be worried?\n>\n> Thanks,\n>\n> Denis\n> \t[[alternative text/enriched version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Hi,\nbinary packages are put CRAN  only if they pass successfully the CHECK \n(R CMD CHECK) without errors.\nI'll see what's the problem with Hmisc is. I'm just back from traveling \nand a very long \"to-d",
+      "thread_id": "thread-d0f9c7811695",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-90d71309b355",
+      "message_id": "<f2e3401f050110065223e251e2@mail.gmail.com>",
+      "from_name": "Paul DeBruicker",
+      "from_email_hash": "99bd59dd6b0e9b03a00794db5e86f25f952a219eb5721b9842610430c68a558a",
+      "date": "2005-01-10T15:52:33Z",
+      "subject": "[R-SIG-Mac] Re: R-SIG-Mac Digest, Vol 23, Issue 3",
+      "subject_clean": "R-SIG-Mac Digest, Vol 23, Issue 3",
+      "in_reply_to": "<200501101101.j0AB07WZ013901@hypatia.math.ethz.ch>",
+      "references": [
+        "<200501101101.j0AB07WZ013901@hypatia.math.ethz.ch>"
+      ],
+      "body_plain": "> From: Denis Chabot <chabotd@globetrotter.net>\n\n> Follow up:\n> This message did mean trouble, as installation was incomplete.\n> Downloading the source package and installing from local files did not\n> work either. I think I have not installed the Developer's CD on this\n> old Mac. I'm not sure I'd be able to in the short term since I'm on\n> sabbatical and did not bring all my CD's with me.\n\n> Sincerely,\n> \n> Denis Chabot\n\nThe developer tools can be download from http://connect.apple.com/  It\ndoes require a free registration and the December 2002 Tools (which\nwork under 10.2, XCode does not) are a 301.2MB download when you click\non \"Download Software\" and then \"Developer Tools\" and scroll to the\nbottom of the page.\n\nGood luck,\n\nPaul",
+      "body_snippet": "> From: Denis Chabot <chabotd@globetrotter.net>\n\n> Follow up:\n> This message did mean trouble, as installation was incomplete.\n> Downloading the source package and installing from local files did not\n",
+      "thread_id": "thread-90d71309b355",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-e17735d49829",
+      "message_id": "<09E214C1-63BB-11D9-9451-000A95CD7F02@sheffield.ac.uk>",
+      "from_name": "Andrew Beckerman",
+      "from_email_hash": "4788e57363dcbec29f7c02725e43edbdec6c912aa3aca3b6908f63cd4f96adba",
+      "date": "2005-01-11T11:25:02Z",
+      "subject": "[R-SIG-Mac] lme4 print and summary errror",
+      "subject_clean": "lme4 print and summary errror",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all - (this is posted to r-help and R-SIG-MAC)\n\nOSX 10.3.7, R 2.0.1, lme4/Matrix/latticeExtra latest, fresh install of \nR. MASS loaded (or not).\n\nI am getting an error message for the print() and summary() commands \nwith all lme models I try and run in lme4 (GLMM's work fine).  Using \nthe example from the lme help, summary and print produce the following \nerrors, despite the model being fit, as indicated by VarCorr() and \nexamination of str(fm).  Any ideas?\n\n(I can't reproduce this on a windows95 install of 2.0.1, so I am \nguessing it may be a mac thing at the moment?  This happens with the \nbinary or the source installation of lme4.)\n\nCheers\nandrew\n\n > data(bdf)\n > fm <- lme(langPOST ~ IQ.ver.cen + avg.IQ.ver.cen, data = bdf,\n+           random = ~ IQ.ver.cen | schoolNR)\n > summary(fm)\nError in verbose || attr(x, \"verbose\") : invalid `y' type in `x || y'\n > fm\nLinear mixed-effects model fit by   Data: NULL\n   Log-likelihood: NULL\n   Fixed: list()\nNULL\n\nLength  Class   Mode\n      0   NULL   NULL\nNumber of Observations:\nNumber of Groups: Error in 1:dd$Q : NA/NaN argument\n > VarCorr(fm)\n  Groups   Name        Variance Std.Dev. Corr\n  schoolNR (Intercept)  8.07702 2.84201\n           IQ.ver.cen   0.20806 0.45614  -0.642\n  Residual             41.34942 6.43035",
+      "body_snippet": "Hi all - (this is posted to r-help and R-SIG-MAC)\n\nOSX 10.3.7, R 2.0.1, lme4/Matrix/latticeExtra latest, fresh install of \nR. MASS loaded (or not).\n\nI am getting an error message for the print() and s",
+      "thread_id": "thread-e17735d49829",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-ab91bd63ca88",
+      "message_id": "<41E3BA60.2080507@wisc.edu>",
+      "from_name": "Douglas Bates",
+      "from_email_hash": "cca1f29b44b457354587ddf38df77a5ae1a27fbc5422e0ae925ddaae41f41041",
+      "date": "2005-01-11T12:37:30Z",
+      "subject": "[R-SIG-Mac] lme4 print and summary errror",
+      "subject_clean": "lme4 print and summary errror",
+      "in_reply_to": "<09E214C1-63BB-11D9-9451-000A95CD7F02@sheffield.ac.uk>",
+      "references": [
+        "<09E214C1-63BB-11D9-9451-000A95CD7F02@sheffield.ac.uk>"
+      ],
+      "body_plain": "Andrew Beckerman wrote:\n> Hi all - (this is posted to r-help and R-SIG-MAC)\n> \n> OSX 10.3.7, R 2.0.1, lme4/Matrix/latticeExtra latest, fresh install of \n> R. MASS loaded (or not).\n> \n> I am getting an error message for the print() and summary() commands \n> with all lme models I try and run in lme4 (GLMM's work fine).  Using the \n> example from the lme help, summary and print produce the following \n> errors, despite the model being fit, as indicated by VarCorr() and \n> examination of str(fm).  Any ideas?\n> \n> (I can't reproduce this on a windows95 install of 2.0.1, so I am \n> guessing it may be a mac thing at the moment?  This happens with the \n> binary or the source installation of lme4.)\n> \n> Cheers\n> andrew\n> \n>  > data(bdf)\n>  > fm <- lme(langPOST ~ IQ.ver.cen + avg.IQ.ver.cen, data = bdf,\n> +           random = ~ IQ.ver.cen | schoolNR)\n>  > summary(fm)\n> Error in verbose || attr(x, \"verbose\") : invalid `y' type in `x || y'\n>  > fm\n> Linear mixed-effects model fit by   Data: NULL\n>   Log-likelihood: NULL\n>   Fixed: list()\n> NULL\n> \n> Length  Class   Mode\n>      0   NULL   NULL\n> Number of Observations:\n> Number of Groups: Error in 1:dd$Q : NA/NaN argument\n>  > VarCorr(fm)\n>  Groups   Name        Variance Std.Dev. Corr\n>  schoolNR (Intercept)  8.07702 2.84201\n>           IQ.ver.cen   0.20806 0.45614  -0.642\n>  Residual             41.34942 6.43035\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nCheck what packages you have loaded.  It looks as if you have loaded \nlme4 and nlme at the same time and you their methods will conflict.",
+      "body_snippet": "Andrew Beckerman wrote:\n> Hi all - (this is posted to r-help and R-SIG-MAC)\n> \n> OSX 10.3.7, R 2.0.1, lme4/Matrix/latticeExtra latest, fresh install of \n> R. MASS loaded (or not).\n> \n> I am getting an",
+      "thread_id": "thread-e17735d49829",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-716cad203fb6",
+      "message_id": "<50CF54F1-63DF-11D9-BFEF-00050279D82B@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2005-01-11T15:45:16Z",
+      "subject": "[R-SIG-Mac] Re: Binary packages on CRAN",
+      "subject_clean": "Binary packages on CRAN",
+      "in_reply_to": "<200501111100.j0BB02Ra024303@hypatia.math.ethz.ch>",
+      "references": [],
+      "body_plain": "Hi,\nLe Mardi, 11 janv 2005, 09:52:27 Paul DeBruicker <pdebruic@gmail.com> a \nÃ©crit :\n>> Follow up:\n>> This message did mean trouble, as installation was incomplete.\n>> Downloading the source package and installing from local files did not\n>> work either. I think I have not installed the Developer's CD on this\n>> old Mac. I'm not sure I'd be able to in the short term since I'm on\n>> sabbatical and did not bring all my CD's with me.\n>\n>> Sincerely,\n>>\n>> Denis Chabot\n>\n> The developer tools can be download from http://connect.apple.com/  It\n> does require a free registration and the December 2002 Tools (which\n> work under 10.2, XCode does not) are a 301.2MB download when you click\n> on \"Download Software\" and then \"Developer Tools\" and scroll to the\n> bottom of the page.\n>\n> Good luck,\n>\n> Paul\nThank you Paul.\n\nI did find my Developer's CD and installed it. I could not install \nHmisc. I noticed that when installing the developper's cd, many items \nwere \"updates\". Maybe this CD only works if you still have the \ndeveloper's stuff from OS X 10.1? I downloaded from the link you have \ngiven, and this appears to duplicate what I had on CD. I decided to \ninstall it anyway, and again I noticed that most items were \"updates\". \nAfter installation was finished, I launched R and tried to install \nHmisc from source on CRAN. I got the same message as before:\n\nWarning message:\nInstallation of package Hmisc had non-zero exit status in: \ninstall.packages(ui.pkgs, CRAN = getOption(where), contriburl = \ncontriburl,\n\nSo maybe I don't have everything that is required on my HD, because not \nmuch \"compiling\" was done: the Hmisc folder has only 3 items \n(DESCRIPTION, libs (empty folder) and Meta (folder containing only \npackage.rds). The version compiled on my iMac running Panther has a lot \nmore, 8 folders plus 3 items (CONTENTS, INDEX and DESCRIPTION). \nUnfortunately, that version does not work under Jaguar on my PB.\n\nSo I'm stuck, I guess I'll go home to produce my summary statistics on \nmy iMac :-)\n\nDenis\n\n\n\t[[alternative text/enriched version deleted]]",
+      "body_snippet": "Hi,\nLe Mardi, 11 janv 2005, 09:52:27 Paul DeBruicker <pdebruic@gmail.com> a \nÃ©crit :\n>> Follow up:\n>> This message did mean trouble, as installation was incomplete.\n>> Downloading the source package ",
+      "thread_id": "thread-716cad203fb6",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-9cd3180b9088",
+      "message_id": "<D79E52C8-6401-11D9-A853-000A95C478FE@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-01-12T08:52:12Z",
+      "subject": "[R-SIG-Mac] Re: Binary packages on CRAN",
+      "subject_clean": "Binary packages on CRAN",
+      "in_reply_to": "<50CF54F1-63DF-11D9-BFEF-00050279D82B@globetrotter.net>",
+      "references": [
+        "<50CF54F1-63DF-11D9-BFEF-00050279D82B@globetrotter.net>"
+      ],
+      "body_plain": "Denis,\n\nWhenever packages do not install properly on my system, I tend to check  \n2 items.\n\nThe 1st item is the 00LOCK directory created in the install directory.  \n From your\nemails, that does not seem to be the case. If the 00LOCK directory is  \npresent, I\nremove it:\n\nrob-goedmans-Computer:/Library/Frameworks/R.framework/Versions/2.0.1/ \nResources/library rob$ ls -lia 00LOCK\ntotal 0\n8595945 drwxr-xr-x    3 rob   admin    102 11 Jan 10:24 .\n7251315 drwxrwxr-x  562 root  admin  19108 11 Jan 10:24 ..\n8088115 drwxr-xr-x   17 root  admin    578 16 Nov 04:25 survival\n\nrob-goedmans-Computer:/Library/Frameworks/R.framework/Versions/2.0.1/ \nResources/library rob$ sudo rm -rf 00LOCK/\n\nOn very long installs (e.g. update.packages() with many 'y' answers), I  \ndo see the 00LOCK\nproblem occuring several times. Haven't figured out why this is  \nhappening, e.g. in my last\nupdate run, why in case of survival it does not remove the 00LOCK  \ndirectory, but for dse1 or\nStatDataML and many others it does.\n\nThe 2nd item is the ownership of R.css in the install directory. If it  \nis root:\n\nrob-goedmans-Computer:/Library/Frameworks/R.framework/Versions/2.0.1/ \nResources/library rob$ ls -lia R.css\n8521485 -rw-r--r--  1 root  admin  608 11 Jan 10:23 R.css\n\nI change it:\n\nsudo chown rob R.css\n\nI believe this issue can generate the warning message you mentioned. In  \nthis example\nI am user 'rob' and in the 'admin' group.\n\nInstalling Hmisc from source does trigger 7 or 8 compilations or so.\n\nAll of this on 10.3.7 with R-2.0.1 and typically the latest R.app from  \nSimon.\n\nHope this helps,\nRob\n\nOn Jan 11, 2005, at 6:44 AM, Denis Chabot wrote:\n\n> Hi,\n> Le Mardi, 11 janv 2005, 09:52:27 Paul DeBruicker <pdebruic@gmail.com> a\n> ?crit :\n>>> Follow up:\n>>> This message did mean trouble, as installation was incomplete.\n>>> Downloading the source package and installing from local files did  \n>>> not\n>>> work either. I think I have not installed the Developer's CD on this\n>>> old Mac. I'm not sure I'd be able to in the short term since I'm on\n>>> sabbatical and did not bring all my CD's with me.\n>>\n>>> Sincerely,\n>>>\n>>> Denis Chabot\n>>\n>> The developer tools can be download from http://connect.apple.com/  It\n>> does require a free registration and the December 2002 Tools (which\n>> work under 10.2, XCode does not) are a 301.2MB download when you click\n>> on \"Download Software\" and then \"Developer Tools\" and scroll to the\n>> bottom of the page.\n>>\n>> Good luck,\n>>\n>> Paul\n> Thank you Paul.\n>\n> I did find my Developer's CD and installed it. I could not install\n> Hmisc. I noticed that when installing the developper's cd, many items\n> were \"updates\". Maybe this CD only works if you still have the\n> developer's stuff from OS X 10.1? I downloaded from the link you have\n> given, and this appears to duplicate what I had on CD. I decided to\n> install it anyway, and again I noticed that most items were \"updates\".\n> After installation was finished, I launched R and tried to install\n> Hmisc from source on CRAN. I got the same message as before:\n>\n> Warning message:\n> Installation of package Hmisc had non-zero exit status in:\n> install.packages(ui.pkgs, CRAN = getOption(where), contriburl =\n> contriburl,\n>\n> So maybe I don't have everything that is required on my HD, because not\n> much \"compiling\" was done: the Hmisc folder has only 3 items\n> (DESCRIPTION, libs (empty folder) and Meta (folder containing only\n> package.rds). The version compiled on my iMac running Panther has a lot\n> more, 8 folders plus 3 items (CONTENTS, INDEX and DESCRIPTION).\n> Unfortunately, that version does not work under Jaguar on my PB.\n>\n> So I'm stuck, I guess I'll go home to produce my summary statistics on\n> my iMac :-)\n>\n> Denis\n>\n>\n> \t[[alternative text/enriched version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Denis,\n\nWhenever packages do not install properly on my system, I tend to check  \n2 items.\n\nThe 1st item is the 00LOCK directory created in the install directory.  \n From your\nemails, that does not se",
+      "thread_id": "thread-716cad203fb6",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-990c1acbf959",
+      "message_id": "<CD88500A-63E9-11D9-A0CD-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-01-12T09:08:47Z",
+      "subject": "[R-SIG-Mac] Re: Binary packages on CRAN",
+      "subject_clean": "Binary packages on CRAN",
+      "in_reply_to": "<50CF54F1-63DF-11D9-BFEF-00050279D82B@globetrotter.net>",
+      "references": [
+        "<50CF54F1-63DF-11D9-BFEF-00050279D82B@globetrotter.net>"
+      ],
+      "body_plain": "A step-by-step guide to build R and hence the packages can be found on \nhttp://www.economia.unimi.it/R or in the FAQ of R for Mac OS X.\n\nTo understand what's really failing try, to download the Hmisc package \nfrom source on your HD.\nthen from the shell type\nR CMD INSTALL Hmisc\n\nstefano\nOn Jan 11, 2005, at 3:44 PM, Denis Chabot wrote:\n\n> Hi,\n> Le Mardi, 11 janv 2005, 09:52:27 Paul DeBruicker <pdebruic@gmail.com> a\n> ?crit :\n>>> Follow up:\n>>> This message did mean trouble, as installation was incomplete.\n>>> Downloading the source package and installing from local files did \n>>> not\n>>> work either. I think I have not installed the Developer's CD on this\n>>> old Mac. I'm not sure I'd be able to in the short term since I'm on\n>>> sabbatical and did not bring all my CD's with me.\n>>\n>>> Sincerely,\n>>>\n>>> Denis Chabot\n>>\n>> The developer tools can be download from http://connect.apple.com/  It\n>> does require a free registration and the December 2002 Tools (which\n>> work under 10.2, XCode does not) are a 301.2MB download when you click\n>> on \"Download Software\" and then \"Developer Tools\" and scroll to the\n>> bottom of the page.\n>>\n>> Good luck,\n>>\n>> Paul\n> Thank you Paul.\n>\n> I did find my Developer's CD and installed it. I could not install\n> Hmisc. I noticed that when installing the developper's cd, many items\n> were \"updates\". Maybe this CD only works if you still have the\n> developer's stuff from OS X 10.1? I downloaded from the link you have\n> given, and this appears to duplicate what I had on CD. I decided to\n> install it anyway, and again I noticed that most items were \"updates\".\n> After installation was finished, I launched R and tried to install\n> Hmisc from source on CRAN. I got the same message as before:\n>\n> Warning message:\n> Installation of package Hmisc had non-zero exit status in:\n> install.packages(ui.pkgs, CRAN = getOption(where), contriburl =\n> contriburl,\n>\n> So maybe I don't have everything that is required on my HD, because not\n> much \"compiling\" was done: the Hmisc folder has only 3 items\n> (DESCRIPTION, libs (empty folder) and Meta (folder containing only\n> package.rds). The version compiled on my iMac running Panther has a lot\n> more, 8 folders plus 3 items (CONTENTS, INDEX and DESCRIPTION).\n> Unfortunately, that version does not work under Jaguar on my PB.\n>\n> So I'm stuck, I guess I'll go home to produce my summary statistics on\n> my iMac :-)\n>\n> Denis\n>\n>\n> \t[[alternative text/enriched version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "A step-by-step guide to build R and hence the packages can be found on \nhttp://www.economia.unimi.it/R or in the FAQ of R for Mac OS X.\n\nTo understand what's really failing try, to download the Hmisc ",
+      "thread_id": "thread-716cad203fb6",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-d677bc80dc65",
+      "message_id": "<1106072460.8054.21.camel@ha667-1.commerce.ubc.ca>",
+      "from_name": "Dan Putler",
+      "from_email_hash": "2ecbf92948ac5a7048c7043e0adad890b39fd24eff16a6ff4a1bda9cc23f6503",
+      "date": "2005-01-18T19:21:25Z",
+      "subject": "[R-SIG-Mac] Issues involving the use of identify() in a Quartz window",
+      "subject_clean": "Issues involving the use of identify() in a Quartz window",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi All,\n\nI was wondering if there are any known issues in the ability to use the\nidentify() function to identify points in a graph when the graph is\ndisplayed in a Quartz window.\n\nDan",
+      "body_snippet": "Hi All,\n\nI was wondering if there are any known issues in the ability to use the\nidentify() function to identify points in a graph when the graph is\ndisplayed in a Quartz window.\n\nDan",
+      "thread_id": "thread-d677bc80dc65",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-ef464ac191df",
+      "message_id": "<DA8FD11A-69A0-11D9-BF29-000A959D05F0@mac.com>",
+      "from_name": "Ivan Alves",
+      "from_email_hash": "4421a58b5f56983c498ba1557a268c4259a994764a5d58f4dc2b4c85bbd7b3aa",
+      "date": "2005-01-18T23:33:40Z",
+      "subject": "[R-SIG-Mac] (no subject)",
+      "subject_clean": "(no subject)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear all,\n\nI successfully compiled and installed the most recent svn version of  \nR-devel using configuration flags\n\n./configure  --enable-utf8 --enable-R-shlib --with-blas='-framework  \nvecLib' --with-lapack --with-aqua  \n--with-tcl-config=/Library/Frameworks/Tcl.framework/tclConfig.sh  \n--with-tk-config=/Library/Frameworks/Tk.framework/tkConfig.sh  \nTCLTK_LIBS='-framework Tcl -framework Tk'  \nTCLTK_CPPFLAGS='-I/Library/Frameworks/Tcl.Framework/Headers  \n-I/Library/Frameworks/Tk.Framework/Headers'\n\nI am not so successful compiling R.app from the most recent svn version  \n(revision 920).  I get the following log (from command line \"xcodebuild  \n-target R -buildstyle Deployment\"):\n\n\n=== BUILDING NATIVE TARGET sush USING BUILD STYLE Deployment ===\n\n\n=== BUILDING NATIVE TARGET R USING BUILD STYLE Deployment ===\n\nProcessPCH  \n/Developer/Mac-GUI/build/R.build/SharedCaches/R_Prefix- \ndjprhqwyddqvoaaplmnebausiizt/R_Prefix.pch.gch R_Prefix.pch normal ppc  \nobjective-c com.apple.compilers.gcc.3_3\n     cd /Developer/Mac-GUI\n     /usr/bin/gcc-3.3 -x objective-c-header -arch ppc -pipe  \n-Wno-trigraphs -fobjc-exceptions -fasm-blocks -fpascal-strings -Os  \n-mtune=G4 -Wno-four-char-constants -Wmost -Wno-four-char-constants  \n-Wno-unknown-pragmas -fmessage-length=0 -F/Developer/Mac-GUI/build  \n-I/Developer/Mac-GUI/build/include  \n-I/Library/Frameworks/R.framework/Headers  \n-I/Library/Frameworks/R.framework/PrivateHeaders  \n-I/Developer/Mac-GUI/build/R.build/R.build/DerivedSources  \n-Wp,-header-mapfile,/Developer/Mac-GUI/build/R.build/R.build/R.hmap -c  \nR_Prefix.pch -o  \n/Developer/Mac-GUI/build/R.build/SharedCaches/R_Prefix- \ndjprhqwyddqvoaaplmnebausiizt/R_Prefix.pch.gch\n\nProcessPCH  \n/Developer/Mac-GUI/build/R.build/SharedCaches/R_Prefix- \ndrkhtiqdqzhdfyavlrynorkxirty/R_Prefix.pch.gch R_Prefix.pch normal ppc c  \ncom.apple.compilers.gcc.3_3\n     cd /Developer/Mac-GUI\n     /usr/bin/gcc-3.3 -x c-header -arch ppc -pipe -Wno-trigraphs  \n-fasm-blocks -fpascal-strings -Os -mtune=G4 -Wno-four-char-constants  \n-Wmost -Wno-four-char-constants -Wno-unknown-pragmas -fmessage-length=0  \n-F/Developer/Mac-GUI/build -I/Developer/Mac-GUI/build/include  \n-I/Library/Frameworks/R.framework/Headers  \n-I/Library/Frameworks/R.framework/PrivateHeaders  \n-I/Developer/Mac-GUI/build/R.build/R.build/DerivedSources  \n-Wp,-header-mapfile,/Developer/Mac-GUI/build/R.build/R.build/R.hmap -c  \nR_Prefix.pch -o  \n/Developer/Mac-GUI/build/R.build/SharedCaches/R_Prefix- \ndrkhtiqdqzhdfyavlrynorkxirty/R_Prefix.pch.gch\n\nCompileC build/R.build/R.build/Objects-normal/ppc/main.o main.m normal  \nppc objective-c com.apple.compilers.gcc.3_3\n     cd /Developer/Mac-GUI\n     /usr/bin/gcc-3.3 -x objective-c -arch ppc -pipe -Wno-trigraphs  \n-fobjc-exceptions -fasm-blocks -fpascal-strings -Os -mtune=G4  \n-Wno-four-char-constants -Wmost -Wno-four-char-constants  \n-Wno-unknown-pragmas -fmessage-length=0 -F/Developer/Mac-GUI/build  \n-I/Developer/Mac-GUI/build/include  \n-I/Library/Frameworks/R.framework/Headers  \n-I/Library/Frameworks/R.framework/PrivateHeaders  \n-I/Developer/Mac-GUI/build/R.build/R.build/DerivedSources  \n-Wp,-header-mapfile,/Developer/Mac-GUI/build/R.build/R.build/R.hmap  \n-include  \n/Developer/Mac-GUI/build/R.build/SharedCaches/R_Prefix- \ndjprhqwyddqvoaaplmnebausiizt/R_Prefix.pch -c /Developer/Mac-GUI/main.m  \n-o /Developer/Mac-GUI/build/R.build/R.build/Objects-normal/ppc/main.o\n\nCompileC build/R.build/R.build/Objects-normal/ppc/RController.o  \nRController.m normal ppc objective-c com.apple.compilers.gcc.3_3\n     cd /Developer/Mac-GUI\n     /usr/bin/gcc-3.3 -x objective-c -arch ppc -pipe -Wno-trigraphs  \n-fobjc-exceptions -fasm-blocks -fpascal-strings -Os -mtune=G4  \n-Wno-four-char-constants -Wmost -Wno-four-char-constants  \n-Wno-unknown-pragmas -fmessage-length=0 -F/Developer/Mac-GUI/build  \n-I/Developer/Mac-GUI/build/include  \n-I/Library/Frameworks/R.framework/Headers  \n-I/Library/Frameworks/R.framework/PrivateHeaders  \n-I/Developer/Mac-GUI/build/R.build/R.build/DerivedSources  \n-Wp,-header-mapfile,/Developer/Mac-GUI/build/R.build/R.build/R.hmap  \n-include  \n/Developer/Mac-GUI/build/R.build/SharedCaches/R_Prefix- \ndjprhqwyddqvoaaplmnebausiizt/R_Prefix.pch -c  \n/Developer/Mac-GUI/RController.m -o  \n/Developer/Mac-GUI/build/R.build/R.build/Objects-normal/ppc/ \nRController.o\nIn file included from  \n/Library/Frameworks/R.framework/PrivateHeaders/IOStuff.h:30,\n                  from /Developer/Mac-GUI/RController.h:36,\n                  from /Developer/Mac-GUI/RController.m:40:\n/Library/Frameworks/R.framework/PrivateHeaders/Defn.h:904: error: parse  \nerror before \"mbstate_t\"\n** BUILD FAILED **\n\nAny kind guidance on where I have gone wrong would be appreciated.   \nIncidentally, building against a properly compiled and installed latest  \nR-patched works flawlessly.\n\nThank you very  much in advance.\n\nKind regards,\n_______________________\nIvan Alves\nmailto://papucho@mac.com\n\t[[alternative text/enriched version deleted]]",
+      "body_snippet": "Dear all,\n\nI successfully compiled and installed the most recent svn version of  \nR-devel using configuration flags\n\n./configure  --enable-utf8 --enable-R-shlib --with-blas='-framework  \nvecLib' --wit",
+      "thread_id": "thread-ef464ac191df",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-dbd580c1ecba",
+      "message_id": "<749F6396-69A9-11D9-A71A-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-01-19T00:34:13Z",
+      "subject": "[R-SIG-Mac] Issues involving the use of identify() in a Quartz\twindow",
+      "subject_clean": "Issues involving the use of identify() in a Quartz\twindow",
+      "in_reply_to": "<1106072460.8054.21.camel@ha667-1.commerce.ubc.ca>",
+      "references": [
+        "<1106072460.8054.21.camel@ha667-1.commerce.ubc.ca>"
+      ],
+      "body_plain": "please report any bug or unwanted behaviour  to this list\nstefano\nOn Jan 18, 2005, at 7:21 PM, Dan Putler wrote:\n\n> Hi All,\n>\n> I was wondering if there are any known issues in the ability to use the\n> identify() function to identify points in a graph when the graph is\n> displayed in a Quartz window.\n>\n> Dan\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "please report any bug or unwanted behaviour  to this list\nstefano\nOn Jan 18, 2005, at 7:21 PM, Dan Putler wrote:\n\n> Hi All,\n>\n> I was wondering if there are any known issues in the ability to use the\n",
+      "thread_id": "thread-d677bc80dc65",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-88ce75f8158b",
+      "message_id": "<1106101987.8054.306.camel@ha667-1.commerce.ubc.ca>",
+      "from_name": "Dan Putler",
+      "from_email_hash": "2ecbf92948ac5a7048c7043e0adad890b39fd24eff16a6ff4a1bda9cc23f6503",
+      "date": "2005-01-19T03:33:33Z",
+      "subject": "[R-SIG-Mac] An issue (bug?) with identify()",
+      "subject_clean": "An issue (bug?) with identify()",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nThis is an issue that a student is running into using the identify\nfunction. Here is an example problem he reported:\n\n> plot(1:10)   \n> identify(1:10)\nwarning: no point with 0.25 inches   (when I use the left mouse button,\nit makes the sound that indicates that I am trying to perform an action\nthat\nthe mouse cannot perform)\n2005-01-18 08:11:44.216 R[397] Unknown event from locator   (when I use\nthe right mouse button)\nnumeric(0)\n\nDan Putler",
+      "body_snippet": "Hi,\n\nThis is an issue that a student is running into using the identify\nfunction. Here is an example problem he reported:\n\n> plot(1:10)   \n> identify(1:10)\nwarning: no point with 0.25 inches   (when I",
+      "thread_id": "thread-88ce75f8158b",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-402690d1fa1b",
+      "message_id": "<218D3238-69EC-11D9-8FFA-000D9343522C@fhcrc.org>",
+      "from_name": "Matthew Fero",
+      "from_email_hash": "2c1d02dfcd77faf50dbdde2f9d966dafa7201ab64a919aedef38e270294e639f",
+      "date": "2005-01-19T08:31:43Z",
+      "subject": "[R-SIG-Mac] An issue (bug?) with identify()",
+      "subject_clean": "An issue (bug?) with identify()",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dan,\nYour example works fine for me on R cocoa v1.01.    See below.\n\n> Hi,\n>\n> This is an issue that a student is running into using the identify\n> function. Here is an example problem he reported:\n>\n> > plot(1:10)\n> > identify(1:10)\n\nClick on the points of interest being displayed in the Quartz window.\nHit \"ESC\" if using Quartz device.\nThe labels show up on the graph at this point.\nThe error \"no point with 0.25 inches\" is returned if you clicked on the \ngraph more than 0.25 inches from the closest point.\n(I suppose it should read, \"no point within 0.25 inches\".)\n\nMatthew Fero\n\n\n> warning: no point with 0.25 inches   (when I use the left mouse button,\n> it makes the sound that indicates that I am trying to perform an action\n> that\n> the mouse cannot perform)\n> 2005-01-18 08:11:44.216 R[397] Unknown event from locator   (when I use\n> the right mouse button)\n> numeric(0)\n>\n> Dan Putler\n\t[[alternative text/enriched version deleted]]",
+      "body_snippet": "Dan,\nYour example works fine for me on R cocoa v1.01.    See below.\n\n> Hi,\n>\n> This is an issue that a student is running into using the identify\n> function. Here is an example problem he reported:\n>\n",
+      "thread_id": "thread-402690d1fa1b",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-4c7119ad6389",
+      "message_id": "<7984DBC9-6A33-11D9-BC92-000D93AE1C66@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "d61970497e69e90cb82e342b08688fde38f4a452b77e0e9d7b92efa9e2aae186",
+      "date": "2005-01-19T17:02:14Z",
+      "subject": "[R-SIG-Mac] (no subject)",
+      "subject_clean": "(no subject)",
+      "in_reply_to": "<DA8FD11A-69A0-11D9-BF29-000A959D05F0@mac.com>",
+      "references": [
+        "<DA8FD11A-69A0-11D9-BF29-000A959D05F0@mac.com>"
+      ],
+      "body_plain": "On Jan 18, 2005, at 5:32 PM, Ivan Alves wrote:\n\n> I successfully compiled and installed the most recent svn version of\n> R-devel using configuration flags\n\nFixed now in the current SVN of the GUI (along with some other minor \nissues).\n\nCheers,\nSimon",
+      "body_snippet": "On Jan 18, 2005, at 5:32 PM, Ivan Alves wrote:\n\n> I successfully compiled and installed the most recent svn version of\n> R-devel using configuration flags\n\nFixed now in the current SVN of the GUI (alo",
+      "thread_id": "thread-ef464ac191df",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-78a35ea9a3ca",
+      "message_id": "<810D48C4-6A34-11D9-BC92-000D93AE1C66@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "d61970497e69e90cb82e342b08688fde38f4a452b77e0e9d7b92efa9e2aae186",
+      "date": "2005-01-19T17:09:35Z",
+      "subject": "[R-SIG-Mac] (no subject)",
+      "subject_clean": "(no subject)",
+      "in_reply_to": "<DA8FD11A-69A0-11D9-BF29-000A959D05F0@mac.com>",
+      "references": [
+        "<DA8FD11A-69A0-11D9-BF29-000A959D05F0@mac.com>"
+      ],
+      "body_plain": "... just in case someone wondered why I would fix a \"successfully \ncompiled\" software ;) - well, I quoted the wrong part of the mail - \nsorry about the confusion this caused.\n\nOn Jan 18, 2005, at 5:32 PM, Ivan Alves wrote:\n\n> I am not so successful compiling R.app from the most recent svn version\n> (revision 920).  I get the following log (from command line \"xcodebuild\n> -target R -buildstyle Deployment\"):\n\nTHAT is now fixed in the SVN of the GUI.\n\nCheers,\nSimon",
+      "body_snippet": "... just in case someone wondered why I would fix a \"successfully \ncompiled\" software ;) - well, I quoted the wrong part of the mail - \nsorry about the confusion this caused.\n\nOn Jan 18, 2005, at 5:32",
+      "thread_id": "thread-ef464ac191df",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-0aedc75e41a6",
+      "message_id": "<p06110407be1445a3fc3f@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "175f4fa90b8d6445baa141105bd5754ace34836009cb94ddb056a9ce4ea7ff75",
+      "date": "2005-01-19T18:41:47Z",
+      "subject": "[R-SIG-Mac] Formatting of time zone for POSIXct",
+      "subject_clean": "Formatting of time zone for POSIXct",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I'm encountering a problem formatting POSIXct objects in R 2.0.1 on OS X.\n\nFor reference, on a Solaris system, R 2.0.1 (2004-11-15), formatting \nis correct:\n\n>  Sys.time()\n[1] \"2005-01-19 09:12:33 PST\"\n>  format(Sys.time(),'%H:%M %Z')\n[1] \"09:12 PST\"\n\n\nOn Mac OS X, however,\n\nR 2.0.1 Patched 2005-01-19\n\n>  Sys.time()\n[1] \"2005-01-19 09:18:27 PST\"\n>  format(Sys.time(),'%H:%M %Z')\n[1] \"09:18 P\"\n\n\nOr an earlier version of R 2.0.1,  R 2.0.1 2004-11-15\n>  Sys.time()\n[1] \"2005-01-19 09:17:23 PST\"\n>  format(Sys.time(),'%H:%M %Z')\n[1] \"09:17 8\"\n\n\nBoth Macs are at 10.3.7\n\nThe R patched was built from source code with\n      configure --enable-R-shlib --with-blas='-framework vecLib' \n--with-lapack --with-aqua >& dhm.config.log\n\nThe other R was built from source code with\n     configure --enable-R-shlib --with-blas='-framework vecLib' \n--with-lapack --enable-R-framework=no >& dhm.config.log\n\nChanging the TZ environment variable, from the default of \"\" to \n\"US/Pacific\" does not help.\n\nAny suggestions?\n\nThanks\n-Don\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA",
+      "body_snippet": "I'm encountering a problem formatting POSIXct objects in R 2.0.1 on OS X.\n\nFor reference, on a Solaris system, R 2.0.1 (2004-11-15), formatting \nis correct:\n\n>  Sys.time()\n[1] \"2005-01-19 09:12:33 PST",
+      "thread_id": "thread-0aedc75e41a6",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-37f71602057a",
+      "message_id": "<A8792BF6-6A64-11D9-BC92-000D93AE1C66@math.uni-augsburg.de>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "d61970497e69e90cb82e342b08688fde38f4a452b77e0e9d7b92efa9e2aae186",
+      "date": "2005-01-19T22:54:21Z",
+      "subject": "[R-SIG-Mac] Formatting of time zone for POSIXct",
+      "subject_clean": "Formatting of time zone for POSIXct",
+      "in_reply_to": "<p06110407be1445a3fc3f@[128.115.153.6]>",
+      "references": [
+        "<p06110407be1445a3fc3f@[128.115.153.6]>"
+      ],
+      "body_plain": "Don,\n\nthanks for your report.\n\nOn Jan 19, 2005, at 12:41 PM, Don MacQueen wrote:\n\n> I'm encountering a problem formatting POSIXct objects in R 2.0.1 on OS \n> X.\n>\n> For reference, on a Solaris system, R 2.0.1 (2004-11-15), formatting \n> is correct:\n>\n>>  Sys.time()\n> [1] \"2005-01-19 09:12:33 PST\"\n>>  format(Sys.time(),'%H:%M %Z')\n> [1] \"09:12 PST\"\n>\n>\n> On Mac OS X, however,\n>\n> R 2.0.1 Patched 2005-01-19\n>\n>>  Sys.time()\n> [1] \"2005-01-19 09:18:27 PST\"\n>>  format(Sys.time(),'%H:%M %Z')\n> [1] \"09:18 P\"\n\nThe man pages says:\n    usetz: logical.  Should the timezone be appended to the output? This\n           is used in printing time, and as a workaround for problems\n           with using '\"%Z\"' on most Linux systems.\n\nso after reading that, you get the correct result:\n\n > format(Sys.time(),'%H:%M',usetz=TRUE)\n[1] \"15:57 EST\"\n\nNow, the reason why I'm CCing this to R-devel is that in fact the \ndatetime.c is somewhat weird for non-GlibC2 systems as tm.tm_zone is \nnot initialized at all, which I suspect is a bug. Either the docs \nshould state that %Z should not be used at all or I'd propose the \nfollowing patch to make it work (warning, it's a patch against \nR-devel):\n\nIndex: src/main/datetime.c\n===================================================================\n--- src/main/datetime.c (revision 32715)\n+++ src/main/datetime.c (working copy)\n@@ -581,15 +581,8 @@\n         error(\"invalid `usetz' argument\");\n      tz = getAttrib(x, install(\"tzone\"));\n\n-    /* workaround for glibc bug in strftime */\n-#if defined HAVE_GLIBC2\n-#ifdef __USE_BSD\n-    tm.tm_zone = NULL;\n-#else\n-    tm.__tm_zone = NULL;\n-#endif\n-#endif\n-\n+       memset(&tm, 0, sizeof(tm));\n+\n      /* coerce fields to integer, find length of longest one */\n      for(i = 0; i < 9; i++) {\n         nlen[i] = LENGTH(VECTOR_ELT(x, i));\n\nThis just zeroes out tm before use - it should also fix the problems on \nLinux. Just in case I overlooked something and it's not feasible to \nzero out the struct tm (e.g. if the size may be unknown), then the \nfollowing, more paranoid patch could be used:\n\nIndex: src/main/datetime.c\n===================================================================\n--- src/main/datetime.c (revision 32715)\n+++ src/main/datetime.c (working copy)\n@@ -588,7 +588,11 @@\n  #else\n      tm.__tm_zone = NULL;\n  #endif\n+#else\n+#ifdef HAVE_STRUCT_TM_TM_ZONE\n+    tm.tm_zone = NULL;\n  #endif\n+#endif\n\n      /* coerce fields to integer, find length of longest one */\n      for(i = 0; i < 9; i++) {\nIndex: configure.ac\n===================================================================\n--- configure.ac        (revision 32715)\n+++ configure.ac        (working copy)\n@@ -551,7 +551,7 @@\n    fpu_control.h grp.h ieee754.h ieeefp.h limits.h locale.h \\\n    netdb.h netinet/in.h pwd.h strings.h \\\n    sys/param.h sys/select.h sys/socket.h sys/stat.h sys/time.h \\\n-  sys/times.h sys/utsname.h unistd.h)\n+  sys/times.h sys/utsname.h time.h unistd.h)\n  ## </NOTE>\n  ## <NOTE>\n  ## These are ANSI C headers but some C code (written to work also\n@@ -1333,6 +1333,13 @@\n  ## POSIX times.\n  R_SYS_POSIX_LEAPSECONDS\n\n+dnl some Solaris systems don't have a tm_zone member in struct tm.\n+AC_CHECK_MEMBERS([struct tm.tm_zone],,,[\n+#if defined(HAVE_TIME_H)\n+#include <time.h>\n+#endif\n+])\n+\n  ## R profiling.\n  if test \"${want_R_profiling}\" = yes; then\n    AC_CHECK_FUNCS(setitimer,\n\nThe configure patch makes sure we know that struct tm.tm_zone exists \nand the other patch makes sure it's reset before calling strftime. Any \nvariation hereof would help, too ;)\n\n> Changing the TZ environment variable, from the default of \"\" to \n> \"US/Pacific\" does not help.\n\nDoing so has no effect for you, because the time zone is correct as you \ndemonstrated yourself in the above output.\n\nCheers,\nSimon",
+      "body_snippet": "Don,\n\nthanks for your report.\n\nOn Jan 19, 2005, at 12:41 PM, Don MacQueen wrote:\n\n> I'm encountering a problem formatting POSIXct objects in R 2.0.1 on OS \n> X.\n>\n> For reference, on a Solaris system,",
+      "thread_id": "thread-0aedc75e41a6",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-6bb7e8f6eefb",
+      "message_id": "<Pine.LNX.4.61.0501192213270.22189@gannet.stats>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2005-01-19T23:39:44Z",
+      "subject": "[Rd] Re: [R-SIG-Mac] Formatting of time zone for POSIXct",
+      "subject_clean": "Formatting of time zone for POSIXct",
+      "in_reply_to": "<A8792BF6-6A64-11D9-BC92-000D93AE1C66@math.uni-augsburg.de>",
+      "references": [
+        "<p06110407be1445a3fc3f@[128.115.153.6]>",
+        "<A8792BF6-6A64-11D9-BC92-000D93AE1C66@math.uni-augsburg.de>"
+      ],
+      "body_plain": "Simon,\n\nThere is _no_ tm_tzone component in a POSIX nor C99 tm structure (and I \nhave just checked both), so if a system requires it to be set, the bug is \nnot in R but in the standards-compliance of the system.  So\n\n> is somewhat weird for non-GlibC2 systems as tm.tm_zone is not \n> initialized at all, which I suspect is a bug. Either the docs should \n> state that %Z should\n\nis `somewhat wierd' to me.  glibc2 (at least as documented in man mktime) \nlike the standards it references has no such component, so if the header \nfile defines one it should be private and strftime seems incorrectly \nimplemented.  What we implemented as from the POSIX standard, and at least \none Solaris system complies (but it seems few others these days).\n\nI am happy to zero the structure, much less happy to reference \nundocumented non-POSIX/C99 components.\n\nBrian\n\n\nOn Wed, 19 Jan 2005, Simon Urbanek wrote:\n\n> Don,\n>\n> thanks for your report.\n>\n> On Jan 19, 2005, at 12:41 PM, Don MacQueen wrote:\n>\n>> I'm encountering a problem formatting POSIXct objects in R 2.0.1 on OS X.\n>> \n>> For reference, on a Solaris system, R 2.0.1 (2004-11-15), formatting is \n>> correct:\n>> \n>>>  Sys.time()\n>> [1] \"2005-01-19 09:12:33 PST\"\n>>>  format(Sys.time(),'%H:%M %Z')\n>> [1] \"09:12 PST\"\n>> \n>> \n>> On Mac OS X, however,\n>> \n>> R 2.0.1 Patched 2005-01-19\n>> \n>>>  Sys.time()\n>> [1] \"2005-01-19 09:18:27 PST\"\n>>>  format(Sys.time(),'%H:%M %Z')\n>> [1] \"09:18 P\"\n>\n> The man pages says:\n>   usetz: logical.  Should the timezone be appended to the output? This\n>          is used in printing time, and as a workaround for problems\n>          with using '\"%Z\"' on most Linux systems.\n>\n> so after reading that, you get the correct result:\n>\n>> format(Sys.time(),'%H:%M',usetz=TRUE)\n> [1] \"15:57 EST\"\n>\n> Now, the reason why I'm CCing this to R-devel is that in fact the datetime.c \n> is somewhat weird for non-GlibC2 systems as tm.tm_zone is not initialized at \n> all, which I suspect is a bug. Either the docs should state that %Z should \n> not be used at all or I'd propose the following patch to make it work \n> (warning, it's a patch against R-devel):\n>\n> Index: src/main/datetime.c\n> ===================================================================\n> --- src/main/datetime.c (revision 32715)\n> +++ src/main/datetime.c (working copy)\n> @@ -581,15 +581,8 @@\n>        error(\"invalid `usetz' argument\");\n>     tz = getAttrib(x, install(\"tzone\"));\n>\n> -    /* workaround for glibc bug in strftime */\n> -#if defined HAVE_GLIBC2\n> -#ifdef __USE_BSD\n> -    tm.tm_zone = NULL;\n> -#else\n> -    tm.__tm_zone = NULL;\n> -#endif\n> -#endif\n> -\n> +       memset(&tm, 0, sizeof(tm));\n> +\n>     /* coerce fields to integer, find length of longest one */\n>     for(i = 0; i < 9; i++) {\n>        nlen[i] = LENGTH(VECTOR_ELT(x, i));\n>\n> This just zeroes out tm before use - it should also fix the problems on \n> Linux. Just in case I overlooked something and it's not feasible to zero out \n> the struct tm (e.g. if the size may be unknown), then the following, more \n> paranoid patch could be used:\n>\n> Index: src/main/datetime.c\n> ===================================================================\n> --- src/main/datetime.c (revision 32715)\n> +++ src/main/datetime.c (working copy)\n> @@ -588,7 +588,11 @@\n> #else\n>     tm.__tm_zone = NULL;\n> #endif\n> +#else\n> +#ifdef HAVE_STRUCT_TM_TM_ZONE\n> +    tm.tm_zone = NULL;\n> #endif\n> +#endif\n>\n>     /* coerce fields to integer, find length of longest one */\n>     for(i = 0; i < 9; i++) {\n> Index: configure.ac\n> ===================================================================\n> --- configure.ac        (revision 32715)\n> +++ configure.ac        (working copy)\n> @@ -551,7 +551,7 @@\n>   fpu_control.h grp.h ieee754.h ieeefp.h limits.h locale.h \\\n>   netdb.h netinet/in.h pwd.h strings.h \\\n>   sys/param.h sys/select.h sys/socket.h sys/stat.h sys/time.h \\\n> -  sys/times.h sys/utsname.h unistd.h)\n> +  sys/times.h sys/utsname.h time.h unistd.h)\n> ## </NOTE>\n> ## <NOTE>\n> ## These are ANSI C headers but some C code (written to work also\n> @@ -1333,6 +1333,13 @@\n> ## POSIX times.\n> R_SYS_POSIX_LEAPSECONDS\n>\n> +dnl some Solaris systems don't have a tm_zone member in struct tm.\n> +AC_CHECK_MEMBERS([struct tm.tm_zone],,,[\n> +#if defined(HAVE_TIME_H)\n> +#include <time.h>\n> +#endif\n> +])\n> +\n> ## R profiling.\n> if test \"${want_R_profiling}\" = yes; then\n>   AC_CHECK_FUNCS(setitimer,\n>\n> The configure patch makes sure we know that struct tm.tm_zone exists and the \n> other patch makes sure it's reset before calling strftime. Any variation \n> hereof would help, too ;)\n>\n>> Changing the TZ environment variable, from the default of \"\" to \n>> \"US/Pacific\" does not help.\n>\n> Doing so has no effect for you, because the time zone is correct as you \n> demonstrated yourself in the above output.\n>\n> Cheers,\n> Simon\n>\n> ______________________________________________\n> R-devel@stat.math.ethz.ch mailing list\n> https://stat.ethz.ch/mailman/listinfo/r-devel\n>\n>\n\n-- \nBrian D. Ripley,                  ripley@stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "Simon,\n\nThere is _no_ tm_tzone component in a POSIX nor C99 tm structure (and I \nhave just checked both), so if a system requires it to be set, the bug is \nnot in R but in the standards-compliance of ",
+      "thread_id": "thread-0aedc75e41a6",
+      "thread_depth": 2,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-d26245b6eabc",
+      "message_id": "<p0611040bbe1494dc8ded@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "175f4fa90b8d6445baa141105bd5754ace34836009cb94ddb056a9ce4ea7ff75",
+      "date": "2005-01-20T00:18:02Z",
+      "subject": "[R-SIG-Mac] Formatting of time zone for POSIXct",
+      "subject_clean": "Formatting of time zone for POSIXct",
+      "in_reply_to": "<A8792BF6-6A64-11D9-BC92-000D93AE1C66@math.uni-augsburg.de>",
+      "references": [
+        "<p06110407be1445a3fc3f@[128.115.153.6]>",
+        "<A8792BF6-6A64-11D9-BC92-000D93AE1C66@math.uni-augsburg.de>"
+      ],
+      "body_plain": "Thank you Simon,\n\nI should have found that myself; apologies for not exhausting all \nresources before sending my query.\n\nI got caught because the default values of usetz in\n     print.POSIXct\nand\n     format.POSIXct\nare different.\n\nMy general experience has been that calling format() on an object \ngives the same format as calling print() -- at least on the objects I \nwork with on a regular basis (and they did for POSIXct on Solaris). \nObviously, the assumption that they would do so in this case and on a \ndifferent platform was unwarranted.\n\nThanks again,\n\n-Don\n\np.s. I'm *not* cc'ing to r-devel because my only real addition to \nthis thread in this email is the note about the different defaults, \nand I expect the defaults were thought about and explicitly chosen, \nand don't need to be reconsidered.\n\nAt 4:54 PM -0500 1/19/05, Simon Urbanek wrote:\n>Don,\n>\n>thanks for your report.\n>\n>On Jan 19, 2005, at 12:41 PM, Don MacQueen wrote:\n>\n>>I'm encountering a problem formatting POSIXct objects in R 2.0.1 on OS X.\n>>\n>>For reference, on a Solaris system, R 2.0.1 (2004-11-15), \n>>formatting is correct:\n>>\n>>>  Sys.time()\n>>[1] \"2005-01-19 09:12:33 PST\"\n>>>  format(Sys.time(),'%H:%M %Z')\n>>[1] \"09:12 PST\"\n>>\n>>\n>>On Mac OS X, however,\n>>\n>>R 2.0.1 Patched 2005-01-19\n>>\n>>>  Sys.time()\n>>[1] \"2005-01-19 09:18:27 PST\"\n>>>  format(Sys.time(),'%H:%M %Z')\n>>[1] \"09:18 P\"\n>\n>The man pages says:\n>    usetz: logical.  Should the timezone be appended to the output? This\n>           is used in printing time, and as a workaround for problems\n>           with using '\"%Z\"' on most Linux systems.\n>\n>so after reading that, you get the correct result:\n>\n>>  format(Sys.time(),'%H:%M',usetz=TRUE)\n>[1] \"15:57 EST\"\n>\n>Now, the reason why I'm CCing this to R-devel is that in fact the \n>datetime.c is somewhat weird for non-GlibC2 systems as tm.tm_zone is \n>not initialized at all, which I suspect is a bug. Either the docs \n>should state that %Z should not be used at all or I'd propose the \n>following patch to make it work (warning, it's a patch against \n>R-devel):\n>\n>Index: src/main/datetime.c\n>===================================================================\n>--- src/main/datetime.c (revision 32715)\n>+++ src/main/datetime.c (working copy)\n>@@ -581,15 +581,8 @@\n>         error(\"invalid `usetz' argument\");\n>      tz = getAttrib(x, install(\"tzone\"));\n>\n>-    /* workaround for glibc bug in strftime */\n>-#if defined HAVE_GLIBC2\n>-#ifdef __USE_BSD\n>-    tm.tm_zone = NULL;\n>-#else\n>-    tm.__tm_zone = NULL;\n>-#endif\n>-#endif\n>-\n>+       memset(&tm, 0, sizeof(tm));\n>+\n>      /* coerce fields to integer, find length of longest one */\n>      for(i = 0; i < 9; i++) {\n>         nlen[i] = LENGTH(VECTOR_ELT(x, i));\n>\n>This just zeroes out tm before use - it should also fix the problems \n>on Linux. Just in case I overlooked something and it's not feasible \n>to zero out the struct tm (e.g. if the size may be unknown), then \n>the following, more paranoid patch could be used:\n>\n>Index: src/main/datetime.c\n>===================================================================\n>--- src/main/datetime.c (revision 32715)\n>+++ src/main/datetime.c (working copy)\n>@@ -588,7 +588,11 @@\n>  #else\n>      tm.__tm_zone = NULL;\n>  #endif\n>+#else\n>+#ifdef HAVE_STRUCT_TM_TM_ZONE\n>+    tm.tm_zone = NULL;\n>  #endif\n>+#endif\n>\n>      /* coerce fields to integer, find length of longest one */\n>      for(i = 0; i < 9; i++) {\n>Index: configure.ac\n>===================================================================\n>--- configure.ac        (revision 32715)\n>+++ configure.ac        (working copy)\n>@@ -551,7 +551,7 @@\n>    fpu_control.h grp.h ieee754.h ieeefp.h limits.h locale.h \\\n>    netdb.h netinet/in.h pwd.h strings.h \\\n>    sys/param.h sys/select.h sys/socket.h sys/stat.h sys/time.h \\\n>-  sys/times.h sys/utsname.h unistd.h)\n>+  sys/times.h sys/utsname.h time.h unistd.h)\n>  ## </NOTE>\n>  ## <NOTE>\n>  ## These are ANSI C headers but some C code (written to work also\n>@@ -1333,6 +1333,13 @@\n>  ## POSIX times.\n>  R_SYS_POSIX_LEAPSECONDS\n>\n>+dnl some Solaris systems don't have a tm_zone member in struct tm.\n>+AC_CHECK_MEMBERS([struct tm.tm_zone],,,[\n>+#if defined(HAVE_TIME_H)\n>+#include <time.h>\n>+#endif\n>+])\n>+\n>  ## R profiling.\n>  if test \"${want_R_profiling}\" = yes; then\n>    AC_CHECK_FUNCS(setitimer,\n>\n>The configure patch makes sure we know that struct tm.tm_zone exists \n>and the other patch makes sure it's reset before calling strftime. \n>Any variation hereof would help, too ;)\n>\n>>Changing the TZ environment variable, from the default of \"\" to \n>>\"US/Pacific\" does not help.\n>\n>Doing so has no effect for you, because the time zone is correct as \n>you demonstrated yourself in the above output.\n>\n>Cheers,\n>Simon\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA",
+      "body_snippet": "Thank you Simon,\n\nI should have found that myself; apologies for not exhausting all \nresources before sending my query.\n\nI got caught because the default values of usetz in\n     print.POSIXct\nand\n    ",
+      "thread_id": "thread-0aedc75e41a6",
+      "thread_depth": 2,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-e818ac2dc246",
+      "message_id": "<5388D75A-6B35-11D9-A71A-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-01-20T23:48:01Z",
+      "subject": "[R-SIG-Mac] Re: History for R on Mac OS X?",
+      "subject_clean": "History for R on Mac OS X?",
+      "in_reply_to": "<20050120222424.GA10849@paradox.psych.columbia.edu>",
+      "references": [
+        "<20050120222424.GA10849@paradox.psych.columbia.edu>"
+      ],
+      "body_plain": "Hi,\nI'm forwarding this msg to R-sig-mac mailing list.\nHistory is handled differently at the moment on the R GUI for Mac OS X.\nWe have in plan to allow for import/export of \"traditional\" history \nfiles.\nBut, why don't you use a script? The history file is simply a script \ngenerated by R. You can simply rename .Rhistory to myscript.R and \nsource() it in R. On the contrary, it is not that easy to save directly \nto an .Rhistory file from the R GUI at the moment.\n\nstefano\n\nbtw: the R GUI for Mac OS X can handle multiple-line command history \n(and that's the reason why it is not compatible at the moment).\n\nOn Jan 20, 2005, at 11:24 PM, Phredd Groves wrote:\n\n> Hello,\n>\n> I am trying to set up R for OS X 10.3 for a stats class and the \n> instructor\n> has hit a snag with using it versus the command line version he's used \n> to.\n>\n> The GUI version creates a .Rhistory file, but does not actually use it.\n> I know that history can be saved manually, but he needs an autosaved\n> history since his instruction depends on that.\n>\n> Is this a feature that will be added to the OS X package for R in the\n> near future?\n>\n> thank you,\n>\n> Phredd Groves\n>",
+      "body_snippet": "Hi,\nI'm forwarding this msg to R-sig-mac mailing list.\nHistory is handled differently at the moment on the R GUI for Mac OS X.\nWe have in plan to allow for import/export of \"traditional\" history \nfile",
+      "thread_id": "thread-e818ac2dc246",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-6e7dbe38ecda",
+      "message_id": "<F8411EA4-6DE5-11D9-A71A-000A95C87F66@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-01-24T09:57:34Z",
+      "subject": "[R-SIG-Mac] R binary for G5?",
+      "subject_clean": "R binary for G5?",
+      "in_reply_to": "<20050122194540.2d3e3054@portia.local>",
+      "references": [
+        "<20050122194540.2d3e3054@portia.local>"
+      ],
+      "body_plain": "Rene',\ndid you run \"make check\" after the building?\nBTW, a g5 optimized version of R is in the pipeline and any \ncontribution is welcome.\nIn such a case, please work on R-devel\nstefano\nOn Jan 22, 2005, at 7:45 PM, RenE J.V. Bertin wrote:\n\n> Hello,\n>\n> Is there a precompiled R binary optimised for the PowerPC G5, i.e. \n> compiled with compiler-level tuning for G5 specific features? Just \n> specifying -mcpu=G5 -mtune=G5 -mpowerpc64 makes a considerable \n> difference on execution speed!\n>\n> Thanks,\n> RenE\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Rene',\ndid you run \"make check\" after the building?\nBTW, a g5 optimized version of R is in the pipeline and any \ncontribution is welcome.\nIn such a case, please work on R-devel\nstefano\nOn Jan 22, 2005",
+      "thread_id": "thread-6e7dbe38ecda",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-89097024b370",
+      "message_id": "<Pine.LNX.4.61.0501240325510.25953@illuminati.stderr.org>",
+      "from_name": "elijah wright",
+      "from_email_hash": "3ec681c84ce60aeb6a06d8ce3e75ce6ee8f8227317045dc71a424ccac0c66620",
+      "date": "2005-01-24T10:38:04Z",
+      "subject": "[R-SIG-Mac] Re: [Rd] R binary for G5?",
+      "subject_clean": "R binary for G5?",
+      "in_reply_to": "<20050122194540.2d3e3054@portia.local>",
+      "references": [
+        "<20050122194540.2d3e3054@portia.local>"
+      ],
+      "body_plain": "> Is there a precompiled R binary optimised for the PowerPC G5, i.e. \n> compiled with compiler-level tuning for G5 specific features? Just \n> specifying -mcpu=G5 -mtune=G5 -mpowerpc64 makes a considerable \n> difference on execution speed!\n\nit is *awfully* easy to just build r-base from the fink bits...\n\n--elijah",
+      "body_snippet": "> Is there a precompiled R binary optimised for the PowerPC G5, i.e. \n> compiled with compiler-level tuning for G5 specific features? Just \n> specifying -mcpu=G5 -mtune=G5 -mpowerpc64 makes a consider",
+      "thread_id": "thread-89097024b370",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-e692ca884c4f",
+      "message_id": "<BE206299.375D%rriem@free.fr>",
+      "from_name": "Romuald Riem",
+      "from_email_hash": "9c650e3201aca67190ef7fcfb97b101d2588613a36229213715a07e7922c19d6",
+      "date": "2005-01-28T21:43:57Z",
+      "subject": "[R-SIG-Mac] Problems installing pakages with R.app",
+      "subject_clean": "Problems installing pakages with R.app",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear all,\n\nI'm using R.app (v1.01 and 1.02 pre build 944) on OS X.3.7.\n\nI can't uppgrade sources packages with the GUI because I've messages like\nthis:\n\nERROR: failed to lock directory\n'/Library/Frameworks/R.framework/Versions/2.0.1/Resources/library' for\nmodifying\nTry removing \n'/Library/Frameworks/R.framework/Versions/2.0.1/Resources/library/00LOCK'\n\n\nWhen I use R in the terminal (with sudo), I haven't this problem. I've just\nnotice this warnings:\n\nperl: warning: Setting locale failed.\nperl: warning: Please check that your locale settings:\n        LC_ALL = (unset),\n        LANG = \"fr\"\n    are supported and installed on your system.\nperl: warning: Falling back to the standard locale (\"C\").\n\nDo you know what's happend and how I can fix it ?\n\n\nThanks in advances\n\n\nRomuald Riem",
+      "body_snippet": "Dear all,\n\nI'm using R.app (v1.01 and 1.02 pre build 944) on OS X.3.7.\n\nI can't uppgrade sources packages with the GUI because I've messages like\nthis:\n\nERROR: failed to lock directory\n'/Library/Frame",
+      "thread_id": "thread-e692ca884c4f",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-bcf232404e49",
+      "message_id": "<BD84438C-7177-11D9-A680-000D93AE1C66@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-01-28T22:58:30Z",
+      "subject": "[R-SIG-Mac] Problems installing pakages with R.app",
+      "subject_clean": "Problems installing pakages with R.app",
+      "in_reply_to": "<BE206299.375D%rriem@free.fr>",
+      "references": [
+        "<BE206299.375D%rriem@free.fr>"
+      ],
+      "body_plain": "On Jan 28, 2005, at 3:43 PM, Romuald Riem wrote:\n\n> I can't uppgrade sources packages with the GUI because I've messages  \n> like\n> this:\n>\n> ERROR: failed to lock directory\n> '/Library/Frameworks/R.framework/Versions/2.0.1/Resources/library' for\n> modifying\n> Try removing\n> '/Library/Frameworks/R.framework/Versions/2.0.1/Resources/library/ \n> 00LOCK'\n\nThis means that either an installation was aborted w/o cleanup before  \nor another installation is already running.\n\nPlease note that currently it is not possible in the GUI to  \ninstall/update multiple packages simultaneously if authorizing as root,  \nbecause the root process is spawned independently via Security  \nFramework which doesn't give us the child PID and thus the GUI has no  \nway of serializing the authorized \"system\" calls. We are investigating  \nways around this problem. Installing/upgrading as an admin user w/o the  \nneed to authenticate should work (and individual installs/updates as  \nroot).\n\n> When I use R in the terminal (with sudo), I haven't this problem. I've  \n> just\n> notice this warnings:\n\nThe entire environment is completely different in Terminal and the GUI,  \nthus the warning is probably just trying to tell you that you're  \nsetting up invalid locales in one of your shell startup scripts. This  \nhas no effect on the GUI as it's not ran via a shell.\n\nCheers,\nSimon",
+      "body_snippet": "On Jan 28, 2005, at 3:43 PM, Romuald Riem wrote:\n\n> I can't uppgrade sources packages with the GUI because I've messages  \n> like\n> this:\n>\n> ERROR: failed to lock directory\n> '/Library/Frameworks/R.f",
+      "thread_id": "thread-e692ca884c4f",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-bd2267cacf05",
+      "message_id": "<5A5208EA-7317-11D9-9232-000393707CF2@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2005-01-31T00:33:41Z",
+      "subject": "[R-SIG-Mac] command-check",
+      "subject_clean": "command-check",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi, I thought I'd have a look at \"MacOS X check summary\" on \nhttp://www.stat.math.ethz.ch/CRAN/src/contrib/PACKAGES.html. But I get \nthis:\nForbidden\n\nYou don't have permission to access \n/CRAN/bin/macosx/r-devel/check/checkSummaryOSX.html on this server.\n\nAdditionally, a 403 Forbidden error was encountered while trying to use \nan ErrorDocument to handle the request.\nApache/2.0.48 (Unix) Server at stat.ethz.ch Port 80\n\nHowever I'm allowed to go to \"Windows check summary\", although that \ndoes not interest me one bit!\n\nIs it OK to signal this here, or should I send an email to somebody in \nparticular?\n\nDenis",
+      "body_snippet": "Hi, I thought I'd have a look at \"MacOS X check summary\" on \nhttp://www.stat.math.ethz.ch/CRAN/src/contrib/PACKAGES.html. But I get \nthis:\nForbidden\n\nYou don't have permission to access \n/CRAN/bin/mac",
+      "thread_id": "thread-bd2267cacf05",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-8064f6afb867",
+      "message_id": "<b4ffaca02ce5edbd7c7b0efa43241f41@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-01-31T10:00:07Z",
+      "subject": "[R-SIG-Mac] command-check",
+      "subject_clean": "command-check",
+      "in_reply_to": "<5A5208EA-7317-11D9-9232-000393707CF2@globetrotter.net>",
+      "references": [
+        "<5A5208EA-7317-11D9-9232-000393707CF2@globetrotter.net>"
+      ],
+      "body_plain": "On Jan 31, 2005, at 12:33 AM, Denis Chabot wrote:\n\n> Hi, I thought I'd have a look at \"MacOS X check summary\" on \n> http://www.stat.math.ethz.ch/CRAN/src/contrib/PACKAGES.html. But I get \n> this:\n> Forbidden\n>\n> You don't have permission to access \n> /CRAN/bin/macosx/r-devel/check/checkSummaryOSX.html on this server.\n>\nehm, the first url exists, the second currently not. The problem is \nthat my machine running r-devel package building has been reformatted \nrecently and I'm setting it up again.\n\n> Additionally, a 403 Forbidden error was encountered while trying to \n> use an ErrorDocument to handle the request.\n> Apache/2.0.48 (Unix) Server at stat.ethz.ch Port 80\n>\n> However I'm allowed to go to \"Windows check summary\", although that \n> does not interest me one bit!\n>\n> Is it OK to signal this here, or should I send an email to somebody in \n> particular?\n\nI would say yes. Thanks for reminding me :)\nstefano\n\n>\n> Denis\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Jan 31, 2005, at 12:33 AM, Denis Chabot wrote:\n\n> Hi, I thought I'd have a look at \"MacOS X check summary\" on \n> http://www.stat.math.ethz.ch/CRAN/src/contrib/PACKAGES.html. But I get \n> this:\n> Fo",
+      "thread_id": "thread-bd2267cacf05",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-fc819f4f7243",
+      "message_id": "<deb5ac2fc022d67ba82ed44e74ed4f47@ulb.ac.be>",
+      "from_name": "Max Manfrin",
+      "from_email_hash": "407325b107402dd6b7a85136e41b0c2af4884e78df96e020ebb6b3a9825efc00",
+      "date": "2005-01-31T10:13:44Z",
+      "subject": "[R-SIG-Mac] Warning during source package installation",
+      "subject_clean": "Warning during source package installation",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I got some warning during the installation of a source package and I  \ndon't understand what is the problem... can anybody help me out?\n\nMy configuration is:\nMac OS X 10.3.7\nR 2.0.1 - R gui 1.01\n\ntrying URL `http://cran.r-project.org/src/contrib/lazy_1.2-14.tar.gz'\nContent type `application/x-tar' length 20691 bytes\nopened URL\n==================================================\ndownloaded 20Kb\n\n* Installing *source* package 'lazy' ...\n** libs\ngcc -no-cpp-precomp -I/Library/Frameworks/R.framework/Resources/include\n  -I/usr/local/include   -fno-common  -g -O2 -c lazy.c -o lazy.o\ngcc -bundle -flat_namespace -undefined suppress -L/usr/local/lib -o\nlazy.so lazy.o  -lcc_dynamic -framework R\nld: warning multiple definitions of symbol _xerbla_\n/Library/Frameworks/R.framework/R(print.lo) definition of _xerbla_\n/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/\nvecLib.framework/Versions/A/libBLAS.dylib(single module) definition of\n_xerbla_\nld: warning multiple definitions of symbol _crc32\n/Library/Frameworks/R.framework/R(crc32.lo) definition of _crc32\n/usr/lib/libz.1.dylib(crc32.o) definition of _crc32\nld: warning multiple definitions of symbol _get_crc_table\n/Library/Frameworks/R.framework/R(crc32.lo) definition of _get_crc_table\n/usr/lib/libz.1.dylib(crc32.o) definition of _get_crc_table\nld: warning multiple definitions of symbol _deflate\n/Library/Frameworks/R.framework/R(deflate.lo) definition of _deflate\n/usr/lib/libz.1.dylib(deflate.o) definition of _deflate\nld: warning multiple definitions of symbol _deflateCopy\n/Library/Frameworks/R.framework/R(deflate.lo) definition of _deflateCopy\n/usr/lib/libz.1.dylib(deflate.o) definition of _deflateCopy\nld: warning multiple definitions of symbol _deflateReset\n/Library/Frameworks/R.framework/R(deflate.lo) definition of\n_deflateReset\n/usr/lib/libz.1.dylib(deflate.o) definition of _deflateReset\nld: warning multiple definitions of symbol _deflateSetDictionary\n/Library/Frameworks/R.framework/R(deflate.lo) definition of\n_deflateSetDictionary\n/usr/lib/libz.1.dylib(deflate.o) definition of _deflateSetDictionary\nld: warning multiple definitions of symbol _deflateInit2_\n/Library/Frameworks/R.framework/R(deflate.lo) definition of\n_deflateInit2_\n/usr/lib/libz.1.dylib(deflate.o) definition of _deflateInit2_\nld: warning multiple definitions of symbol _deflateEnd\n/Library/Frameworks/R.framework/R(deflate.lo) definition of _deflateEnd\n/usr/lib/libz.1.dylib(deflate.o) definition of _deflateEnd\nld: warning multiple definitions of symbol _deflateParams\n/Library/Frameworks/R.framework/R(deflate.lo) definition of\n_deflateParams\n/usr/lib/libz.1.dylib(deflate.o) definition of _deflateParams\nld: warning multiple definitions of symbol _deflateInit_\n/Library/Frameworks/R.framework/R(deflate.lo) definition of\n_deflateInit_\n/usr/lib/libz.1.dylib(deflate.o) definition of _deflateInit_\nld: warning multiple definitions of symbol _zError\n/Library/Frameworks/R.framework/R(zutil.lo) definition of _zError\n/usr/lib/libz.1.dylib(zutil.o) definition of _zError\nld: warning multiple definitions of symbol _zlibVersion\n/Library/Frameworks/R.framework/R(zutil.lo) definition of _zlibVersion\n/usr/lib/libz.1.dylib(zutil.o) definition of _zlibVersion\nld: warning multiple definitions of symbol _inflateEnd\n/Library/Frameworks/R.framework/R(inflate.lo) definition of _inflateEnd\n/usr/lib/libz.1.dylib(inflate.o) definition of _inflateEnd\nld: warning multiple definitions of symbol _inflateSync\n/Library/Frameworks/R.framework/R(inflate.lo) definition of _inflateSync\n/usr/lib/libz.1.dylib(inflate.o) definition of _inflateSync\nld: warning multiple definitions of symbol _inflateSyncPoint\n/Library/Frameworks/R.framework/R(inflate.lo) definition of\n_inflateSyncPoint\n/usr/lib/libz.1.dylib(inflate.o) definition of _inflateSyncPoint\nld: warning multiple definitions of symbol _inflate\n/Library/Frameworks/R.framework/R(inflate.lo) definition of _inflate\n/usr/lib/libz.1.dylib(inflate.o) definition of _inflate\nld: warning multiple definitions of symbol _inflateSetDictionary\n/Library/Frameworks/R.framework/R(inflate.lo) definition of\n_inflateSetDictionary\n/usr/lib/libz.1.dylib(inflate.o) definition of _inflateSetDictionary\nld: warning multiple definitions of symbol _inflateInit2_\n/Library/Frameworks/R.framework/R(inflate.lo) definition of\n_inflateInit2_\n/usr/lib/libz.1.dylib(inflate.o) definition of _inflateInit2_\nld: warning multiple definitions of symbol _inflateReset\n/Library/Frameworks/R.framework/R(inflate.lo) definition of\n_inflateReset\n/usr/lib/libz.1.dylib(inflate.o) definition of _inflateReset\nld: warning multiple definitions of symbol _inflateInit_\n/Library/Frameworks/R.framework/R(inflate.lo) definition of\n_inflateInit_\n/usr/lib/libz.1.dylib(inflate.o) definition of _inflateInit_\nld: warning multiple definitions of symbol _adler32\n/Library/Frameworks/R.framework/R(adler32.lo) definition of _adler32\n/usr/lib/libz.1.dylib(adler32.o) definition of _adler32\nld: warning multiple definitions of symbol _BC\n/Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\nlibreadline.4.3.dylib(terminal.so) definition of _BC\n/usr/lib/libncurses.5.dylib(lib_termcap.o) definition of _BC\nld: warning multiple definitions of symbol _UP\n/Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\nlibreadline.4.3.dylib(terminal.so) definition of _UP\n/usr/lib/libncurses.5.dylib(lib_termcap.o) definition of _UP\nld: warning multiple definitions of symbol _PC\n/Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\nlibreadline.4.3.dylib(terminal.so) definition of _PC\n/usr/lib/libncurses.5.dylib(lib_tputs.o) definition of _PC\nld: warning multiple definitions of symbol _gzeof\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzeof\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzeof\nld: warning multiple definitions of symbol _gzclose\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzclose\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzclose\nld: warning multiple definitions of symbol _gzdopen\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzdopen\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzdopen\nld: warning multiple definitions of symbol _gzerror\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzerror\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzerror\nld: warning multiple definitions of symbol _gzflush\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzflush\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzflush\nld: warning multiple definitions of symbol _gzgetc\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzgetc\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzgetc\nld: warning multiple definitions of symbol _gzgets\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzgets\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzgets\nld: warning multiple definitions of symbol _gzopen\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzopen\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzopen\nld: warning multiple definitions of symbol _gzprintf\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzprintf\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzprintf\nld: warning multiple definitions of symbol _gzputc\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzputc\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzputc\nld: warning multiple definitions of symbol _gzputs\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzputs\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzputs\nld: warning multiple definitions of symbol _gzread\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzread\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzread\nld: warning multiple definitions of symbol _gzrewind\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzrewind\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzrewind\nld: warning multiple definitions of symbol _gzseek\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzseek\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzseek\nld: warning multiple definitions of symbol _gzsetparams\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzsetparams\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzsetparams\nld: warning multiple definitions of symbol _gztell\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gztell\n/usr/lib/libz.1.dylib(gzio.o) definition of _gztell\nld: warning multiple definitions of symbol _gzwrite\n/Library/Frameworks/R.framework/R(gzio.lo) definition of _gzwrite\n/usr/lib/libz.1.dylib(gzio.o) definition of _gzwrite\n** R\n** inst\n** help\n>>> Building/Updating help pages for package 'lazy'\n      Formats: text html latex example\n   lazy                              text    html    latex   example\n   lazy.control                      text    html    latex\n   predict.lazy                      text    html    latex   example\n* DONE (lazy)\nchmod:\n/Library/Frameworks/R.framework/Versions/2.0.1/Resources/library/R.css:\nOperation not permitted\n\nDelete downloaded files (y/N)? y\n\n------------------------------------------------------------------------ \n-------------\nMax MANFRIN\n\nIRIDIA CP 194/6                         mmanfrin@ulb.ac.be\nUniversite' Libre de Bruxelles  http://iridia.ulb.ac.be/~mmanfrin/\nAvenue F. Roosevelt, 50\n1050 Bruxelles                            Tel +32 (0)2 650 3168\nBelgium                                        Fax +32 (0)2 650 2715",
+      "body_snippet": "I got some warning during the installation of a source package and I  \ndon't understand what is the problem... can anybody help me out?\n\nMy configuration is:\nMac OS X 10.3.7\nR 2.0.1 - R gui 1.01\n\ntryi",
+      "thread_id": "thread-fc819f4f7243",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-bbe38ffb11b6",
+      "message_id": "<487ccfac4ea936f3599577e206b15e7c@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-01-31T10:20:22Z",
+      "subject": "[R-SIG-Mac] Warning during source package installation",
+      "subject_clean": "Warning during source package installation",
+      "in_reply_to": "<deb5ac2fc022d67ba82ed44e74ed4f47@ulb.ac.be>",
+      "references": [
+        "<deb5ac2fc022d67ba82ed44e74ed4f47@ulb.ac.be>"
+      ],
+      "body_plain": "The warnings are \"ok\" in the sense that there is a known duplication of  \nsymbol names. You don't need to worry about that.\n\nIn the end of your report instead, it seems to be a permission problem  \n\"chmod etc etc\".\n\nDoes the lazy package load and work Max?\n\nstefano\n\nOn Jan 31, 2005, at 10:13 AM, Max Manfrin wrote:\n\n> I got some warning during the installation of a source package and I  \n> don't understand what is the problem... can anybody help me out?\n>\n> My configuration is:\n> Mac OS X 10.3.7\n> R 2.0.1 - R gui 1.01\n>\n> trying URL `http://cran.r-project.org/src/contrib/lazy_1.2-14.tar.gz'\n> Content type `application/x-tar' length 20691 bytes\n> opened URL\n> ==================================================\n> downloaded 20Kb\n>\n> * Installing *source* package 'lazy' ...\n> ** libs\n> gcc -no-cpp-precomp -I/Library/Frameworks/R.framework/Resources/include\n>  -I/usr/local/include   -fno-common  -g -O2 -c lazy.c -o lazy.o\n> gcc -bundle -flat_namespace -undefined suppress -L/usr/local/lib -o\n> lazy.so lazy.o  -lcc_dynamic -framework R\n> ld: warning multiple definitions of symbol _xerbla_\n> /Library/Frameworks/R.framework/R(print.lo) definition of _xerbla_\n> /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/\n> vecLib.framework/Versions/A/libBLAS.dylib(single module) definition of\n> _xerbla_\n> ld: warning multiple definitions of symbol _crc32\n> /Library/Frameworks/R.framework/R(crc32.lo) definition of _crc32\n> /usr/lib/libz.1.dylib(crc32.o) definition of _crc32\n> ld: warning multiple definitions of symbol _get_crc_table\n> /Library/Frameworks/R.framework/R(crc32.lo) definition of  \n> _get_crc_table\n> /usr/lib/libz.1.dylib(crc32.o) definition of _get_crc_table\n> ld: warning multiple definitions of symbol _deflate\n> /Library/Frameworks/R.framework/R(deflate.lo) definition of _deflate\n> /usr/lib/libz.1.dylib(deflate.o) definition of _deflate\n> ld: warning multiple definitions of symbol _deflateCopy\n> /Library/Frameworks/R.framework/R(deflate.lo) definition of  \n> _deflateCopy\n> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateCopy\n> ld: warning multiple definitions of symbol _deflateReset\n> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n> _deflateReset\n> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateReset\n> ld: warning multiple definitions of symbol _deflateSetDictionary\n> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n> _deflateSetDictionary\n> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateSetDictionary\n> ld: warning multiple definitions of symbol _deflateInit2_\n> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n> _deflateInit2_\n> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateInit2_\n> ld: warning multiple definitions of symbol _deflateEnd\n> /Library/Frameworks/R.framework/R(deflate.lo) definition of _deflateEnd\n> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateEnd\n> ld: warning multiple definitions of symbol _deflateParams\n> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n> _deflateParams\n> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateParams\n> ld: warning multiple definitions of symbol _deflateInit_\n> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n> _deflateInit_\n> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateInit_\n> ld: warning multiple definitions of symbol _zError\n> /Library/Frameworks/R.framework/R(zutil.lo) definition of _zError\n> /usr/lib/libz.1.dylib(zutil.o) definition of _zError\n> ld: warning multiple definitions of symbol _zlibVersion\n> /Library/Frameworks/R.framework/R(zutil.lo) definition of _zlibVersion\n> /usr/lib/libz.1.dylib(zutil.o) definition of _zlibVersion\n> ld: warning multiple definitions of symbol _inflateEnd\n> /Library/Frameworks/R.framework/R(inflate.lo) definition of _inflateEnd\n> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateEnd\n> ld: warning multiple definitions of symbol _inflateSync\n> /Library/Frameworks/R.framework/R(inflate.lo) definition of  \n> _inflateSync\n> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateSync\n> ld: warning multiple definitions of symbol _inflateSyncPoint\n> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n> _inflateSyncPoint\n> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateSyncPoint\n> ld: warning multiple definitions of symbol _inflate\n> /Library/Frameworks/R.framework/R(inflate.lo) definition of _inflate\n> /usr/lib/libz.1.dylib(inflate.o) definition of _inflate\n> ld: warning multiple definitions of symbol _inflateSetDictionary\n> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n> _inflateSetDictionary\n> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateSetDictionary\n> ld: warning multiple definitions of symbol _inflateInit2_\n> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n> _inflateInit2_\n> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateInit2_\n> ld: warning multiple definitions of symbol _inflateReset\n> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n> _inflateReset\n> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateReset\n> ld: warning multiple definitions of symbol _inflateInit_\n> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n> _inflateInit_\n> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateInit_\n> ld: warning multiple definitions of symbol _adler32\n> /Library/Frameworks/R.framework/R(adler32.lo) definition of _adler32\n> /usr/lib/libz.1.dylib(adler32.o) definition of _adler32\n> ld: warning multiple definitions of symbol _BC\n> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\n> libreadline.4.3.dylib(terminal.so) definition of _BC\n> /usr/lib/libncurses.5.dylib(lib_termcap.o) definition of _BC\n> ld: warning multiple definitions of symbol _UP\n> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\n> libreadline.4.3.dylib(terminal.so) definition of _UP\n> /usr/lib/libncurses.5.dylib(lib_termcap.o) definition of _UP\n> ld: warning multiple definitions of symbol _PC\n> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\n> libreadline.4.3.dylib(terminal.so) definition of _PC\n> /usr/lib/libncurses.5.dylib(lib_tputs.o) definition of _PC\n> ld: warning multiple definitions of symbol _gzeof\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzeof\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzeof\n> ld: warning multiple definitions of symbol _gzclose\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzclose\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzclose\n> ld: warning multiple definitions of symbol _gzdopen\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzdopen\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzdopen\n> ld: warning multiple definitions of symbol _gzerror\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzerror\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzerror\n> ld: warning multiple definitions of symbol _gzflush\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzflush\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzflush\n> ld: warning multiple definitions of symbol _gzgetc\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzgetc\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzgetc\n> ld: warning multiple definitions of symbol _gzgets\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzgets\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzgets\n> ld: warning multiple definitions of symbol _gzopen\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzopen\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzopen\n> ld: warning multiple definitions of symbol _gzprintf\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzprintf\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzprintf\n> ld: warning multiple definitions of symbol _gzputc\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzputc\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzputc\n> ld: warning multiple definitions of symbol _gzputs\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzputs\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzputs\n> ld: warning multiple definitions of symbol _gzread\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzread\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzread\n> ld: warning multiple definitions of symbol _gzrewind\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzrewind\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzrewind\n> ld: warning multiple definitions of symbol _gzseek\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzseek\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzseek\n> ld: warning multiple definitions of symbol _gzsetparams\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzsetparams\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzsetparams\n> ld: warning multiple definitions of symbol _gztell\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gztell\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gztell\n> ld: warning multiple definitions of symbol _gzwrite\n> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzwrite\n> /usr/lib/libz.1.dylib(gzio.o) definition of _gzwrite\n> ** R\n> ** inst\n> ** help\n>>>> Building/Updating help pages for package 'lazy'\n>      Formats: text html latex example\n>   lazy                              text    html    latex   example\n>   lazy.control                      text    html    latex\n>   predict.lazy                      text    html    latex   example\n> * DONE (lazy)\n> chmod:\n> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/library/R.css:\n> Operation not permitted\n>\n> Delete downloaded files (y/N)? y\n>\n> ----------------------------------------------------------------------- \n> --------------\n> Max MANFRIN\n>\n> IRIDIA CP 194/6                         mmanfrin@ulb.ac.be\n> Universite' Libre de Bruxelles  http://iridia.ulb.ac.be/~mmanfrin/\n> Avenue F. Roosevelt, 50\n> 1050 Bruxelles                            Tel +32 (0)2 650 3168\n> Belgium                                        Fax +32 (0)2 650 2715\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "The warnings are \"ok\" in the sense that there is a known duplication of  \nsymbol names. You don't need to worry about that.\n\nIn the end of your report instead, it seems to be a permission problem  \n\"c",
+      "thread_id": "thread-fc819f4f7243",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-94853bbe32d9",
+      "message_id": "<afdcd78fffcd74d2e1e7a1671ef5bd12@ulb.ac.be>",
+      "from_name": "Max Manfrin",
+      "from_email_hash": "407325b107402dd6b7a85136e41b0c2af4884e78df96e020ebb6b3a9825efc00",
+      "date": "2005-01-31T10:56:54Z",
+      "subject": "[R-SIG-Mac] Warning during source package installation",
+      "subject_clean": "Warning during source package installation",
+      "in_reply_to": "<487ccfac4ea936f3599577e206b15e7c@unimi.it>",
+      "references": [
+        "<deb5ac2fc022d67ba82ed44e74ed4f47@ulb.ac.be>",
+        "<487ccfac4ea936f3599577e206b15e7c@unimi.it>"
+      ],
+      "body_plain": "Yes, the package loads and works.\n\nSo I don't have to worry.... ;)\n\nOk, I trust you :D\n\nOn 31 Jan 2005, at 10:20, stefano iacus wrote:\n\n> The warnings are \"ok\" in the sense that there is a known duplication  \n> of symbol names. You don't need to worry about that.\n>\n> In the end of your report instead, it seems to be a permission problem  \n> \"chmod etc etc\".\n>\n> Does the lazy package load and work Max?\n>\n> stefano\n>\n> On Jan 31, 2005, at 10:13 AM, Max Manfrin wrote:\n>\n>> I got some warning during the installation of a source package and I  \n>> don't understand what is the problem... can anybody help me out?\n>>\n>> My configuration is:\n>> Mac OS X 10.3.7\n>> R 2.0.1 - R gui 1.01\n>>\n>> trying URL `http://cran.r-project.org/src/contrib/lazy_1.2-14.tar.gz'\n>> Content type `application/x-tar' length 20691 bytes\n>> opened URL\n>> ==================================================\n>> downloaded 20Kb\n>>\n>> * Installing *source* package 'lazy' ...\n>> ** libs\n>> gcc -no-cpp-precomp  \n>> -I/Library/Frameworks/R.framework/Resources/include\n>>  -I/usr/local/include   -fno-common  -g -O2 -c lazy.c -o lazy.o\n>> gcc -bundle -flat_namespace -undefined suppress -L/usr/local/lib -o\n>> lazy.so lazy.o  -lcc_dynamic -framework R\n>> ld: warning multiple definitions of symbol _xerbla_\n>> /Library/Frameworks/R.framework/R(print.lo) definition of _xerbla_\n>> /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/\n>> vecLib.framework/Versions/A/libBLAS.dylib(single module) definition of\n>> _xerbla_\n>> ld: warning multiple definitions of symbol _crc32\n>> /Library/Frameworks/R.framework/R(crc32.lo) definition of _crc32\n>> /usr/lib/libz.1.dylib(crc32.o) definition of _crc32\n>> ld: warning multiple definitions of symbol _get_crc_table\n>> /Library/Frameworks/R.framework/R(crc32.lo) definition of  \n>> _get_crc_table\n>> /usr/lib/libz.1.dylib(crc32.o) definition of _get_crc_table\n>> ld: warning multiple definitions of symbol _deflate\n>> /Library/Frameworks/R.framework/R(deflate.lo) definition of _deflate\n>> /usr/lib/libz.1.dylib(deflate.o) definition of _deflate\n>> ld: warning multiple definitions of symbol _deflateCopy\n>> /Library/Frameworks/R.framework/R(deflate.lo) definition of  \n>> _deflateCopy\n>> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateCopy\n>> ld: warning multiple definitions of symbol _deflateReset\n>> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n>> _deflateReset\n>> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateReset\n>> ld: warning multiple definitions of symbol _deflateSetDictionary\n>> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n>> _deflateSetDictionary\n>> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateSetDictionary\n>> ld: warning multiple definitions of symbol _deflateInit2_\n>> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n>> _deflateInit2_\n>> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateInit2_\n>> ld: warning multiple definitions of symbol _deflateEnd\n>> /Library/Frameworks/R.framework/R(deflate.lo) definition of  \n>> _deflateEnd\n>> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateEnd\n>> ld: warning multiple definitions of symbol _deflateParams\n>> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n>> _deflateParams\n>> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateParams\n>> ld: warning multiple definitions of symbol _deflateInit_\n>> /Library/Frameworks/R.framework/R(deflate.lo) definition of\n>> _deflateInit_\n>> /usr/lib/libz.1.dylib(deflate.o) definition of _deflateInit_\n>> ld: warning multiple definitions of symbol _zError\n>> /Library/Frameworks/R.framework/R(zutil.lo) definition of _zError\n>> /usr/lib/libz.1.dylib(zutil.o) definition of _zError\n>> ld: warning multiple definitions of symbol _zlibVersion\n>> /Library/Frameworks/R.framework/R(zutil.lo) definition of _zlibVersion\n>> /usr/lib/libz.1.dylib(zutil.o) definition of _zlibVersion\n>> ld: warning multiple definitions of symbol _inflateEnd\n>> /Library/Frameworks/R.framework/R(inflate.lo) definition of  \n>> _inflateEnd\n>> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateEnd\n>> ld: warning multiple definitions of symbol _inflateSync\n>> /Library/Frameworks/R.framework/R(inflate.lo) definition of  \n>> _inflateSync\n>> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateSync\n>> ld: warning multiple definitions of symbol _inflateSyncPoint\n>> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n>> _inflateSyncPoint\n>> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateSyncPoint\n>> ld: warning multiple definitions of symbol _inflate\n>> /Library/Frameworks/R.framework/R(inflate.lo) definition of _inflate\n>> /usr/lib/libz.1.dylib(inflate.o) definition of _inflate\n>> ld: warning multiple definitions of symbol _inflateSetDictionary\n>> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n>> _inflateSetDictionary\n>> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateSetDictionary\n>> ld: warning multiple definitions of symbol _inflateInit2_\n>> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n>> _inflateInit2_\n>> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateInit2_\n>> ld: warning multiple definitions of symbol _inflateReset\n>> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n>> _inflateReset\n>> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateReset\n>> ld: warning multiple definitions of symbol _inflateInit_\n>> /Library/Frameworks/R.framework/R(inflate.lo) definition of\n>> _inflateInit_\n>> /usr/lib/libz.1.dylib(inflate.o) definition of _inflateInit_\n>> ld: warning multiple definitions of symbol _adler32\n>> /Library/Frameworks/R.framework/R(adler32.lo) definition of _adler32\n>> /usr/lib/libz.1.dylib(adler32.o) definition of _adler32\n>> ld: warning multiple definitions of symbol _BC\n>> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\n>> libreadline.4.3.dylib(terminal.so) definition of _BC\n>> /usr/lib/libncurses.5.dylib(lib_termcap.o) definition of _BC\n>> ld: warning multiple definitions of symbol _UP\n>> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\n>> libreadline.4.3.dylib(terminal.so) definition of _UP\n>> /usr/lib/libncurses.5.dylib(lib_termcap.o) definition of _UP\n>> ld: warning multiple definitions of symbol _PC\n>> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/lib/\n>> libreadline.4.3.dylib(terminal.so) definition of _PC\n>> /usr/lib/libncurses.5.dylib(lib_tputs.o) definition of _PC\n>> ld: warning multiple definitions of symbol _gzeof\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzeof\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzeof\n>> ld: warning multiple definitions of symbol _gzclose\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzclose\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzclose\n>> ld: warning multiple definitions of symbol _gzdopen\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzdopen\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzdopen\n>> ld: warning multiple definitions of symbol _gzerror\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzerror\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzerror\n>> ld: warning multiple definitions of symbol _gzflush\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzflush\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzflush\n>> ld: warning multiple definitions of symbol _gzgetc\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzgetc\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzgetc\n>> ld: warning multiple definitions of symbol _gzgets\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzgets\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzgets\n>> ld: warning multiple definitions of symbol _gzopen\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzopen\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzopen\n>> ld: warning multiple definitions of symbol _gzprintf\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzprintf\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzprintf\n>> ld: warning multiple definitions of symbol _gzputc\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzputc\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzputc\n>> ld: warning multiple definitions of symbol _gzputs\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzputs\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzputs\n>> ld: warning multiple definitions of symbol _gzread\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzread\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzread\n>> ld: warning multiple definitions of symbol _gzrewind\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzrewind\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzrewind\n>> ld: warning multiple definitions of symbol _gzseek\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzseek\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzseek\n>> ld: warning multiple definitions of symbol _gzsetparams\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzsetparams\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzsetparams\n>> ld: warning multiple definitions of symbol _gztell\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gztell\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gztell\n>> ld: warning multiple definitions of symbol _gzwrite\n>> /Library/Frameworks/R.framework/R(gzio.lo) definition of _gzwrite\n>> /usr/lib/libz.1.dylib(gzio.o) definition of _gzwrite\n>> ** R\n>> ** inst\n>> ** help\n>>>>> Building/Updating help pages for package 'lazy'\n>>      Formats: text html latex example\n>>   lazy                              text    html    latex   example\n>>   lazy.control                      text    html    latex\n>>   predict.lazy                      text    html    latex   example\n>> * DONE (lazy)\n>> chmod:\n>> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/library/ \n>> R.css:\n>> Operation not permitted\n>>\n>> Delete downloaded files (y/N)? y\n>>\n>> ---------------------------------------------------------------------- \n>> ---------------\n>> Max MANFRIN\n>>\n>> IRIDIA CP 194/6                         mmanfrin@ulb.ac.be\n>> Universite' Libre de Bruxelles  http://iridia.ulb.ac.be/~mmanfrin/\n>> Avenue F. Roosevelt, 50\n>> 1050 Bruxelles                            Tel +32 (0)2 650 3168\n>> Belgium                                        Fax +32 (0)2 650 2715\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n>\n------------------------------------------------------------------------ \n-------------\nMax MANFRIN\n\nIRIDIA CP 194/6                         mmanfrin@ulb.ac.be\nUniversite' Libre de Bruxelles  http://iridia.ulb.ac.be/~mmanfrin/\nAvenue F. Roosevelt, 50\n1050 Bruxelles                            Tel +32 (0)2 650 3168\nBelgium                                        Fax +32 (0)2 650 2715",
+      "body_snippet": "Yes, the package loads and works.\n\nSo I don't have to worry.... ;)\n\nOk, I trust you :D\n\nOn 31 Jan 2005, at 10:20, stefano iacus wrote:\n\n> The warnings are \"ok\" in the sense that there is a known dupli",
+      "thread_id": "thread-fc819f4f7243",
+      "thread_depth": 2,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-b94774ba6a3a",
+      "message_id": "<BE2441DA.457F%gsxej2@cam.ac.uk>",
+      "from_name": "Gregory Jefferis",
+      "from_email_hash": "d8aef12585c1ed28bef404f38814fcb9a0e3fe2e3ac327379fd6e2547698350b",
+      "date": "2005-01-31T21:13:49Z",
+      "subject": "[R-SIG-Mac] Command line completion, Help browser navigation buttons, Offering code changes for GUI ",
+      "subject_clean": "Command line completion, Help browser navigation buttons, Offering code changes for GUI",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Stefano, Simon et al.,\n\nA couple of features which I find are missing from the excellent new Cocoa\nGUI are Back/Forwards navigation in the help browser (acknowledged in the To\nDo list) and command completion of subvariables (eg the columns of a\ndataframe so that you can complete df$T to df$Temperature).  I have\nimplemented these changes in my own source tree (derived from the Nov-16\nsnapshot) and wondered whether it would be possible to get them integrated\ninto the main source.\n\nI had a few additional queries about command completion (which is one of the\nfeatures that means I have almost stopped using terminal R/X11).  It seems\nto me that these days object names are allowed to have underscores but the\ncommand completion only allows numbers letters and periods.  Additionally I\nthink it would be very useful if tab completion would display completion\noptions if there are >1 but < say 50.  I have something working for this but\nit is not quite right yet and it will take me a bit longer to figure out how\nto write to the GUI console correctly.  Is this potentially interesting\nenough that one of the developers might like to do it?\n\nMany thanks,\n\nGreg Jefferis.\n\n-- \nGregory Jefferis, PhD                               and:\nResearch Fellow\nDepartment of Zoology                               St John's College\nDowning Street                                      Cambridge\nCambridge, CB2 3EJ                                  CB2 1TP\n\nTel: +44 (0)1223 336683                             +44 (0)1223 339899\nFax: +44 (0)1223 336676                             +44 (0)1223 337720\n\ngsxej2@cam.ac.uk",
+      "body_snippet": "Dear Stefano, Simon et al.,\n\nA couple of features which I find are missing from the excellent new Cocoa\nGUI are Back/Forwards navigation in the help browser (acknowledged in the To\nDo list) and comman",
+      "thread_id": "thread-b94774ba6a3a",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-551384e86c05",
+      "message_id": "<b337e416a21ff94b3827b95b2045afce@stat.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "96054a6fc2ab5940337a3945e39fc6d1008334db662840abd9512700aa3b3d7e",
+      "date": "2005-01-31T21:33:20Z",
+      "subject": "[R-SIG-Mac] Command line completion, Help browser navigation buttons, Offering code changes for GUI ",
+      "subject_clean": "Command line completion, Help browser navigation buttons, Offering code changes for GUI",
+      "in_reply_to": "<BE2441DA.457F%gsxej2@cam.ac.uk>",
+      "references": [
+        "<BE2441DA.457F%gsxej2@cam.ac.uk>"
+      ],
+      "body_plain": "For the completion, you can just run things through complete: to get a \ndrop down of completion objects (after overriding the source methods). \nUnfortunately, that might be Panther-only---I can't recall off hand.\n\nOn Jan 31, 2005, at 12:13 PM, Gregory Jefferis wrote:\n\n> Dear Stefano, Simon et al.,\n>\n> A couple of features which I find are missing from the excellent new \n> Cocoa\n> GUI are Back/Forwards navigation in the help browser (acknowledged in \n> the To\n> Do list) and command completion of subvariables (eg the columns of a\n> dataframe so that you can complete df$T to df$Temperature).  I have\n> implemented these changes in my own source tree (derived from the \n> Nov-16\n> snapshot) and wondered whether it would be possible to get them \n> integrated\n> into the main source.\n>\n> I had a few additional queries about command completion (which is one \n> of the\n> features that means I have almost stopped using terminal R/X11).  It \n> seems\n> to me that these days object names are allowed to have underscores but \n> the\n> command completion only allows numbers letters and periods.  \n> Additionally I\n> think it would be very useful if tab completion would display \n> completion\n> options if there are >1 but < say 50.  I have something working for \n> this but\n> it is not quite right yet and it will take me a bit longer to figure \n> out how\n> to write to the GUI console correctly.  Is this potentially interesting\n> enough that one of the developers might like to do it?\n>\n> Many thanks,\n>\n> Greg Jefferis.\n>\n> -- \n> Gregory Jefferis, PhD                               and:\n> Research Fellow\n> Department of Zoology                               St John's College\n> Downing Street                                      Cambridge\n> Cambridge, CB2 3EJ                                  CB2 1TP\n>\n> Tel: +44 (0)1223 336683                             +44 (0)1223 339899\n> Fax: +44 (0)1223 336676                             +44 (0)1223 337720\n>\n> gsxej2@cam.ac.uk\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (ellis@stat.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "For the completion, you can just run things through complete: to get a \ndrop down of completion objects (after overriding the source methods). \nUnfortunately, that might be Panther-only---I can't reca",
+      "thread_id": "thread-b94774ba6a3a",
+      "thread_depth": 1,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-c08b41603df9",
+      "message_id": "<a91fac1a628ab83b74256c4459787550@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-01-31T21:50:20Z",
+      "subject": "[R-SIG-Mac] Re: New R-GUI",
+      "subject_clean": "New R-GUI",
+      "in_reply_to": "<41FE2315.1080601@poczta.fm>",
+      "references": [
+        "<41FE2315.1080601@poczta.fm>"
+      ],
+      "body_plain": "Dear Marek,\nwe are not currently experience these problems. I'm forwarding this msg \nto the R-sig-Mac mailing list which the right place for feedback on the \nR Cocoa GUI.\nCan you please tell us which is the release of R and R-gui you are \nusing? You Mac OS X version?\n\nthanks\nstefano\n\nOn Jan 31, 2005, at 1:22 PM, Marek Przyborski wrote:\n\n> Dear Stefano,\n>\n> Today I have succesfully installed svn version of R-GUI. I have \n> noticed the following problems: apart from problems with installing \n> binary and sources versions of packages, command \n> demo(name_of_the_demo) doesn't work (it hangs the R session), as well \n> as the \"DATA MANAGER\", it gives the following error:\n>\n> Error in .readRDS(INDEX) : error reading from connection\n> In addition: Warning messages:\n> 1: datasets have been moved from package 'base' to package 'datasets' \n> in: data(package = .packages(all.available = TRUE))\n> 2: datasets have been moved from package 'stats' to package 'datasets' \n> in: data(package = .packages(all.available = TRUE))\n>\n> I hope that this is only my lack of knowledge about Mac version of \n> R-GUI.\n> I would appreciante any hints, and sorry for bothering you\n>\n> Best regards\n>\n> Marek Przyborski\n>\n> ----------------------------------------------------------------------\n> Najlepsze auto, najlepsze moto... >>> http://link.interia.pl/f1841\n>",
+      "body_snippet": "Dear Marek,\nwe are not currently experience these problems. I'm forwarding this msg \nto the R-sig-Mac mailing list which the right place for feedback on the \nR Cocoa GUI.\nCan you please tell us which ",
+      "thread_id": "thread-c08b41603df9",
+      "thread_depth": 0,
+      "month": "2005-01"
+    },
+    {
+      "id": "msg-2548fa14a5c8",
+      "message_id": "<264209E0-73CA-11D9-A9C8-000D93AE1C66@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-01-31T21:53:27Z",
+      "subject": "[R-SIG-Mac] Command line completion, Help browser navigation buttons, Offering code changes for GUI ",
+      "subject_clean": "Command line completion, Help browser navigation buttons, Offering code changes for GUI",
+      "in_reply_to": "<b337e416a21ff94b3827b95b2045afce@stat.harvard.edu>",
+      "references": [
+        "<BE2441DA.457F%gsxej2@cam.ac.uk>",
+        "<b337e416a21ff94b3827b95b2045afce@stat.harvard.edu>"
+      ],
+      "body_plain": "On Jan 31, 2005, at 3:33 PM, Byron Ellis wrote:\n\n> For the completion, you can just run things through complete:\n\nThat's right - it's one of my ToDo's. I had looked at the API, but \ndidn't use it in the GUI yet.\n\n> to get a drop down of completion objects (after overriding the source \n> methods). Unfortunately, that might be Panther-only---I can't recall \n> off hand.\n\nEven if it was, that's fine as the GUI supports Panther+ only.\n\n@Greg:\n\n>> A couple of features which I find are missing from the excellent new \n>> Cocoa\n>> GUI are Back/Forwards navigation in the help browser (acknowledged in \n>> the To\n\nRight, I need to commit that at some point - I have a hot fix for one \nof the web windows ... the problem is that we have several instances \nwhere we use html rendering and I wanted to consolidate those such that \nyou don't end up having navigation in one but not the other ... didn't \nhave time for that, though :/\n\n>> Do list) and command completion of subvariables (eg the columns of a\n>> dataframe so that you can complete df$T to df$Temperature).  I have\n>> implemented these changes in my own source tree (derived from the \n>> Nov-16\n>> snapshot) and wondered whether it would be possible to get them \n>> integrated\n>> into the main source.\n\nPlease send me a patch against whatever version you started off with. \nChances are that it may merge with the current code, especially if only \nthe completion classes are involved.\n\n>> to write to the GUI console correctly.  Is this potentially \n>> interesting\n>> enough that one of the developers might like to do it?\n\nI suspect that the complete: API in Cocoa mentioned by Byron is \nprobably the right way to go as it offers the GUI elements for free - \nwe just provide the lists. I'll check that...\n\nCheers,\nSimon",
+      "body_snippet": "On Jan 31, 2005, at 3:33 PM, Byron Ellis wrote:\n\n> For the completion, you can just run things through complete:\n\nThat's right - it's one of my ToDo's. I had looked at the API, but \ndidn't use it in t",
+      "thread_id": "thread-b94774ba6a3a",
+      "thread_depth": 2,
+      "month": "2005-01"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-942d302a5994",
+      "subject": "undo in Editor does not truly \"undo\"",
+      "message_count": 2,
+      "participants": [
+        "Denis Chabot",
+        "Rob J Goedman"
+      ],
+      "started": "2005-01-05T22:12:24+00:00",
+      "last_reply": "2005-01-06T16:51:17+00:00",
+      "root_message_id": "msg-942d302a5994"
+    },
+    {
+      "id": "thread-cf48898ac846",
+      "subject": "SVN GUI + R-Devel a no go?",
+      "message_count": 1,
+      "participants": [
+        "Byron Ellis"
+      ],
+      "started": "2005-01-05T22:48:33+00:00",
+      "last_reply": "2005-01-05T22:48:33+00:00",
+      "root_message_id": "msg-cf48898ac846"
+    },
+    {
+      "id": "thread-e391d71dfc26",
+      "subject": "strange behaviour of negative binomial",
+      "message_count": 1,
+      "participants": [
+        "Rob J Goedman"
+      ],
+      "started": "2005-01-06T16:54:43+00:00",
+      "last_reply": "2005-01-06T16:54:43+00:00",
+      "root_message_id": "msg-e391d71dfc26"
+    },
+    {
+      "id": "thread-d0f9c7811695",
+      "subject": "Binary packages on CRAN",
+      "message_count": 2,
+      "participants": [
+        "Denis Chabot",
+        "stefano iacus"
+      ],
+      "started": "2005-01-10T08:52:46+00:00",
+      "last_reply": "2005-01-10T09:51:21+00:00",
+      "root_message_id": "msg-d0f9c7811695"
+    },
+    {
+      "id": "thread-bdb31b2e963c",
+      "subject": "Binary packages on CRAN",
+      "message_count": 1,
+      "participants": [
+        "Denis Chabot"
+      ],
+      "started": "2005-01-10T09:13:37+00:00",
+      "last_reply": "2005-01-10T09:13:37+00:00",
+      "root_message_id": "msg-bdb31b2e963c"
+    },
+    {
+      "id": "thread-90d71309b355",
+      "subject": "R-SIG-Mac Digest, Vol 23, Issue 3",
+      "message_count": 1,
+      "participants": [
+        "Paul DeBruicker"
+      ],
+      "started": "2005-01-10T15:52:33+00:00",
+      "last_reply": "2005-01-10T15:52:33+00:00",
+      "root_message_id": "msg-90d71309b355"
+    },
+    {
+      "id": "thread-e17735d49829",
+      "subject": "lme4 print and summary errror",
+      "message_count": 2,
+      "participants": [
+        "Andrew Beckerman",
+        "Douglas Bates"
+      ],
+      "started": "2005-01-11T11:25:02+00:00",
+      "last_reply": "2005-01-11T12:37:30+00:00",
+      "root_message_id": "msg-e17735d49829"
+    },
+    {
+      "id": "thread-716cad203fb6",
+      "subject": "Binary packages on CRAN",
+      "message_count": 3,
+      "participants": [
+        "Denis Chabot",
+        "Rob J Goedman",
+        "stefano iacus"
+      ],
+      "started": "2005-01-11T15:45:16+00:00",
+      "last_reply": "2005-01-12T09:08:47+00:00",
+      "root_message_id": "msg-716cad203fb6"
+    },
+    {
+      "id": "thread-d677bc80dc65",
+      "subject": "Issues involving the use of identify() in a Quartz window",
+      "message_count": 2,
+      "participants": [
+        "Dan Putler",
+        "stefano iacus"
+      ],
+      "started": "2005-01-18T19:21:25+00:00",
+      "last_reply": "2005-01-19T00:34:13+00:00",
+      "root_message_id": "msg-d677bc80dc65"
+    },
+    {
+      "id": "thread-ef464ac191df",
+      "subject": "(no subject)",
+      "message_count": 3,
+      "participants": [
+        "Ivan Alves",
+        "Simon Urbanek"
+      ],
+      "started": "2005-01-18T23:33:40+00:00",
+      "last_reply": "2005-01-19T17:09:35+00:00",
+      "root_message_id": "msg-ef464ac191df"
+    },
+    {
+      "id": "thread-88ce75f8158b",
+      "subject": "An issue (bug?) with identify()",
+      "message_count": 1,
+      "participants": [
+        "Dan Putler"
+      ],
+      "started": "2005-01-19T03:33:33+00:00",
+      "last_reply": "2005-01-19T03:33:33+00:00",
+      "root_message_id": "msg-88ce75f8158b"
+    },
+    {
+      "id": "thread-402690d1fa1b",
+      "subject": "An issue (bug?) with identify()",
+      "message_count": 1,
+      "participants": [
+        "Matthew Fero"
+      ],
+      "started": "2005-01-19T08:31:43+00:00",
+      "last_reply": "2005-01-19T08:31:43+00:00",
+      "root_message_id": "msg-402690d1fa1b"
+    },
+    {
+      "id": "thread-0aedc75e41a6",
+      "subject": "Formatting of time zone for POSIXct",
+      "message_count": 4,
+      "participants": [
+        "Don MacQueen",
+        "Prof Brian Ripley",
+        "Simon Urbanek"
+      ],
+      "started": "2005-01-19T18:41:47+00:00",
+      "last_reply": "2005-01-20T00:18:02+00:00",
+      "root_message_id": "msg-0aedc75e41a6"
+    },
+    {
+      "id": "thread-e818ac2dc246",
+      "subject": "History for R on Mac OS X?",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2005-01-20T23:48:01+00:00",
+      "last_reply": "2005-01-20T23:48:01+00:00",
+      "root_message_id": "msg-e818ac2dc246"
+    },
+    {
+      "id": "thread-6e7dbe38ecda",
+      "subject": "R binary for G5?",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2005-01-24T09:57:34+00:00",
+      "last_reply": "2005-01-24T09:57:34+00:00",
+      "root_message_id": "msg-6e7dbe38ecda"
+    },
+    {
+      "id": "thread-89097024b370",
+      "subject": "R binary for G5?",
+      "message_count": 1,
+      "participants": [
+        "elijah wright"
+      ],
+      "started": "2005-01-24T10:38:04+00:00",
+      "last_reply": "2005-01-24T10:38:04+00:00",
+      "root_message_id": "msg-89097024b370"
+    },
+    {
+      "id": "thread-e692ca884c4f",
+      "subject": "Problems installing pakages with R.app",
+      "message_count": 2,
+      "participants": [
+        "Romuald Riem",
+        "Simon Urbanek"
+      ],
+      "started": "2005-01-28T21:43:57+00:00",
+      "last_reply": "2005-01-28T22:58:30+00:00",
+      "root_message_id": "msg-e692ca884c4f"
+    },
+    {
+      "id": "thread-bd2267cacf05",
+      "subject": "command-check",
+      "message_count": 2,
+      "participants": [
+        "Denis Chabot",
+        "stefano iacus"
+      ],
+      "started": "2005-01-31T00:33:41+00:00",
+      "last_reply": "2005-01-31T10:00:07+00:00",
+      "root_message_id": "msg-bd2267cacf05"
+    },
+    {
+      "id": "thread-fc819f4f7243",
+      "subject": "Warning during source package installation",
+      "message_count": 3,
+      "participants": [
+        "Max Manfrin",
+        "stefano iacus"
+      ],
+      "started": "2005-01-31T10:13:44+00:00",
+      "last_reply": "2005-01-31T10:56:54+00:00",
+      "root_message_id": "msg-fc819f4f7243"
+    },
+    {
+      "id": "thread-b94774ba6a3a",
+      "subject": "Command line completion, Help browser navigation buttons, Offering code changes for GUI",
+      "message_count": 3,
+      "participants": [
+        "Byron Ellis",
+        "Gregory Jefferis",
+        "Simon Urbanek"
+      ],
+      "started": "2005-01-31T21:13:49+00:00",
+      "last_reply": "2005-01-31T21:53:27+00:00",
+      "root_message_id": "msg-b94774ba6a3a"
+    },
+    {
+      "id": "thread-c08b41603df9",
+      "subject": "New R-GUI",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2005-01-31T21:50:20+00:00",
+      "last_reply": "2005-01-31T21:50:20+00:00",
+      "root_message_id": "msg-c08b41603df9"
+    }
+  ]
+}

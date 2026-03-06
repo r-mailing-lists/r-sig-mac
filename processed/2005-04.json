@@ -1,0 +1,1488 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2005-04",
+  "messages": [
+    {
+      "id": "msg-6e463b77df8a",
+      "message_id": "<BE75E2FD.24EB%nassar@noos.fr>",
+      "from_name": "Naji",
+      "from_email_hash": "6273d9e70963fac96d4d1a7a8dbf805c91312dc8887f39604897b6d9c2816bd1",
+      "date": "2005-04-03T18:14:34Z",
+      "subject": "[R-SIG-Mac] How to Speed up R on the G5",
+      "subject_clean": "How to Speed up R on the G5",
+      "in_reply_to": "<420792E5.9090609@stat.wisc.edu>",
+      "references": [],
+      "body_plain": "Hi all,\n\n\nI'm wondering if there any hint to get R working with a bi-proc G5 (bi\nprocessor+64bit).. Ie\n- Downloading R code\n- Downloading a specific compiler\n- Compiling the R code\nThanks for sharing your experience\n\n\nNaji",
+      "body_snippet": "Hi all,\n\n\nI'm wondering if there any hint to get R working with a bi-proc G5 (bi\nprocessor+64bit).. Ie\n- Downloading R code\n- Downloading a specific compiler\n- Compiling the R code\nThanks for sharing ",
+      "thread_id": "thread-6e463b77df8a",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-3079e7a4c9c2",
+      "message_id": "<Pine.GSO.4.43L0.0504071406250.7382-100000@snow>",
+      "from_name": "Paul Rathouz",
+      "from_email_hash": "cd744a26c52c3935a0c8d7c5aea5e09e61806afe92a10ecdfbe7c0734f9484d3",
+      "date": "2005-04-07T21:11:59Z",
+      "subject": "[R-SIG-Mac] NA in table with integer types ",
+      "subject_clean": "NA in table with integer types",
+      "in_reply_to": "<31a646f130a4ffa3cbd46ffe9e3043fe@stats.ox.ac.uk>",
+      "references": [],
+      "body_plain": "Hi -- I am having the following problem with table() when applied to\nvectors of type (mode) integer.  When I use the table() command, I can\nonly obtain an entry in the table for NA values by using exclude=NULL.\nJust issuing exclude=NA will not do it.  See below, where x is double at\nfirst, and then integer and notice the difference.  Is this a bug or is\nthere something that I do not understand about the integer data type?\nThanks -- pr\n\n------------------------------\n> x <- c(1,2,3,3,NA)\n> is.double(x)\n[1] TRUE\n> table(x,exclude=NA)\nx\n1 2 3\n1 1 2\n> table(x,exclude=NaN)\nx\n   1    2    3 <NA>\n   1    1    2    1\n> table(x,exclude=NULL)\nx\n   1    2    3 <NA>\n   1    1    2    1\n>\n> x <- as.integer(x)\n> x\n[1]  1  2  3  3 NA\n> is.na(x)\n[1] FALSE FALSE FALSE FALSE  TRUE\n> is.integer(x)\n[1] TRUE\n> table(x,exclude=NA)\nx\n1 2 3\n1 1 2\n> table(x,exclude=NaN)\nx\n1 2 3\n1 1 2\n> table(x,exclude=NULL)\nx\n   1    2    3 <NA>\n   1    1    2    1\n>\n> R.version\n         _\nplatform powerpc-apple-darwin6.8\narch     powerpc\nos       darwin6.8\nsystem   powerpc, darwin6.8\nstatus\nmajor    2\nminor    0.1\nyear     2004\nmonth    11\nday      15\nlanguage R\n------------------------------\n\n==========================================================================\nPaul Rathouz, Assoc. Professor       ph   773-834-1970\nDept. of Health Studies, Rm. W-264   fax  773-702-1979\nUniversity of Chicago                prathouz@health.bsd.uchicago.edu\n5841 S. Maryland Ave. MC 2007\nChicago, IL  60637",
+      "body_snippet": "Hi -- I am having the following problem with table() when applied to\nvectors of type (mode) integer.  When I use the table() command, I can\nonly obtain an entry in the table for NA values by using exc",
+      "thread_id": "thread-3079e7a4c9c2",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-6f95e0ff77fa",
+      "message_id": "<p06210208be7b377751d9@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "175f4fa90b8d6445baa141105bd5754ace34836009cb94ddb056a9ce4ea7ff75",
+      "date": "2005-04-07T21:19:09Z",
+      "subject": "[R-SIG-Mac] NA in table with integer types",
+      "subject_clean": "NA in table with integer types",
+      "in_reply_to": "<Pine.GSO.4.43L0.0504071406250.7382-100000@snow>",
+      "references": [
+        "<Pine.GSO.4.43L0.0504071406250.7382-100000@snow>"
+      ],
+      "body_plain": "?table tells you that the exclude argument tells it what to exclude. \nSo of course, NA will not be shown in the output if you supply \nexclude=NA. exclude=NULL tells it to exclude nothing, hence NAs are \nshown.\n\nThis is not a Mac-specific question, by the way, so R-help would have \nbeen the place to ask.\n\n-Don\n\nAt 2:11 PM -0500 4/7/05, Paul Rathouz wrote:\n>Hi -- I am having the following problem with table() when applied to\n>vectors of type (mode) integer.  When I use the table() command, I can\n>only obtain an entry in the table for NA values by using exclude=NULL.\n>Just issuing exclude=NA will not do it.  See below, where x is double at\n>first, and then integer and notice the difference.  Is this a bug or is\n>there something that I do not understand about the integer data type?\n>Thanks -- pr\n>\n>------------------------------\n>>  x <- c(1,2,3,3,NA)\n>>  is.double(x)\n>[1] TRUE\n>>  table(x,exclude=NA)\n>x\n>1 2 3\n>1 1 2\n>>  table(x,exclude=NaN)\n>x\n>    1    2    3 <NA>\n>    1    1    2    1\n>>  table(x,exclude=NULL)\n>x\n>    1    2    3 <NA>\n>    1    1    2    1\n>>\n>>  x <- as.integer(x)\n>>  x\n>[1]  1  2  3  3 NA\n>>  is.na(x)\n>[1] FALSE FALSE FALSE FALSE  TRUE\n>>  is.integer(x)\n>[1] TRUE\n>>  table(x,exclude=NA)\n>x\n>1 2 3\n>1 1 2\n>>  table(x,exclude=NaN)\n>x\n>1 2 3\n>1 1 2\n>>  table(x,exclude=NULL)\n>x\n>    1    2    3 <NA>\n>    1    1    2    1\n>>\n>>  R.version\n>          _\n>platform powerpc-apple-darwin6.8\n>arch     powerpc\n>os       darwin6.8\n>system   powerpc, darwin6.8\n>status\n>major    2\n>minor    0.1\n>year     2004\n>month    11\n>day      15\n>language R\n>------------------------------\n>\n>==========================================================================\n>Paul Rathouz, Assoc. Professor       ph   773-834-1970\n>Dept. of Health Studies, Rm. W-264   fax  773-702-1979\n>University of Chicago                prathouz@health.bsd.uchicago.edu\n>5841 S. Maryland Ave. MC 2007\n>Chicago, IL  60637\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA",
+      "body_snippet": "?table tells you that the exclude argument tells it what to exclude. \nSo of course, NA will not be shown in the output if you supply \nexclude=NA. exclude=NULL tells it to exclude nothing, hence NAs ar",
+      "thread_id": "thread-3079e7a4c9c2",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-946b3e3ad04f",
+      "message_id": "<92EC5056-35CA-4C4F-99FA-D99BB769B954@stat.ucla.edu>",
+      "from_name": "Jan de Leeuw",
+      "from_email_hash": "a167f5fca204abb64fa78a00e65068c9d14455edaf0726f65c9ebfbf7de7fcc8",
+      "date": "2005-04-08T16:40:27Z",
+      "subject": "[R-SIG-Mac] emacs fans",
+      "subject_clean": "emacs fans",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "We now not only have Carbon Emacs in the FSF distribution, but also  \nAndrew\nChoi's version of Carbon XEmacs, and Keven Walzer's AquaMacs, which is\nan Aquafied version of the Carbon Emacs. See\n\nhttp://www.wordtech-software.com/aquamacs.html\n\n===\nJan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \nStatistics;\nEditor: Journal of Multivariate Analysis, Journal of Statistical  \nSoftware\nUS mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA 90095-1554\nphone (310)-825-9550;  fax (310)-206-5658;  email: deleeuw@stat.ucla.edu\n.mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\nhomepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n   \n------------------------------------------------------------------------ \n-------------------------\n           No matter where you go, there you are. --- Buckaroo Banzai\n                    http://gifi.stat.ucla.edu/sounds/nomatter.au",
+      "body_snippet": "We now not only have Carbon Emacs in the FSF distribution, but also  \nAndrew\nChoi's version of Carbon XEmacs, and Keven Walzer's AquaMacs, which is\nan Aquafied version of the Carbon Emacs. See\n\nhttp:/",
+      "thread_id": "thread-946b3e3ad04f",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-34f687352fea",
+      "message_id": "<db7ac64cdfb62b840b06743e59155e93@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-08T23:24:50Z",
+      "subject": "[R-SIG-Mac] emacs fans",
+      "subject_clean": "emacs fans",
+      "in_reply_to": "<92EC5056-35CA-4C4F-99FA-D99BB769B954@stat.ucla.edu>",
+      "references": [
+        "<92EC5056-35CA-4C4F-99FA-D99BB769B954@stat.ucla.edu>"
+      ],
+      "body_plain": "And there is also a Cocoa Emacs by Adrian Robert  \n<arobert@cogsci.ucsd.edu>\n\nEmacs  : GNU Emacs 20.7 (powerpc-apple-darwin7.7.0, *Step 8.0-rc2)\n  of Fri Apr  8 2005 on hal.local\nPackage: Emacs for NeXT/Open/GNUstep / OS X 8.0-rc2\n\nI've just installed.\n\nstefano\n\nOn 08/apr/05, at 16:40, Jan de Leeuw wrote:\n\n> We now not only have Carbon Emacs in the FSF distribution, but also  \n> Andrew\n> Choi's version of Carbon XEmacs, and Keven Walzer's AquaMacs, which is\n> an Aquafied version of the Carbon Emacs. See\n>\n> http://www.wordtech-software.com/aquamacs.html\n>\n> ===\n> Jan de Leeuw; Distinguished Professor and Chair, UCLA Department of  \n> Statistics;\n> Editor: Journal of Multivariate Analysis, Journal of Statistical  \n> Software\n> US mail: 8130 Math Sciences Bldg, Box 951554, Los Angeles, CA  \n> 90095-1554\n> phone (310)-825-9550;  fax (310)-206-5658;  email:  \n> deleeuw@stat.ucla.edu\n> .mac: jdeleeuw ++++++  aim: deleeuwjan ++++++ skype: j_deleeuw\n> homepages: http://gifi.stat.ucla.edu ++++++ http://www.cuddyvalley.org\n>   \n> ----------------------------------------------------------------------- \n> --------------------------\n>           No matter where you go, there you are. --- Buckaroo Banzai\n>                    http://gifi.stat.ucla.edu/sounds/nomatter.au\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "And there is also a Cocoa Emacs by Adrian Robert  \n<arobert@cogsci.ucsd.edu>\n\nEmacs  : GNU Emacs 20.7 (powerpc-apple-darwin7.7.0, *Step 8.0-rc2)\n  of Fri Apr  8 2005 on hal.local\nPackage: Emacs for Ne",
+      "thread_id": "thread-946b3e3ad04f",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-c9cb9854ae85",
+      "message_id": "<16983.57569.278430.780248@stat.math.ethz.ch>",
+      "from_name": "Martin Maechler",
+      "from_email_hash": "c2c86f22f78a4ecfe6d0e6b4e2be505a3f5beb0470ea88c903688ac536018a98",
+      "date": "2005-04-09T16:04:25Z",
+      "subject": "[R-SIG-Mac] emacs fans",
+      "subject_clean": "emacs fans",
+      "in_reply_to": "<db7ac64cdfb62b840b06743e59155e93@unimi.it>",
+      "references": [
+        "<92EC5056-35CA-4C4F-99FA-D99BB769B954@stat.ucla.edu>",
+        "<db7ac64cdfb62b840b06743e59155e93@unimi.it>"
+      ],
+      "body_plain": "n>>>>> \"Stefano\" == stefano iacus <stefano.iacus@unimi.it>\n>>>>>     on Fri, 8 Apr 2005 23:24:43 +0200 writes:\n\n    Stefano> And there is also a Cocoa Emacs by Adrian Robert\n    Stefano> <arobert@cogsci.ucsd.edu>\n\n    Stefano> Emacs : GNU Emacs 20.7 (powerpc-apple-darwin7.7.0,\n    Stefano> *Step 8.0-rc2) of Fri Apr 8 2005 on hal.local\n    Stefano> Package: Emacs for NeXT/Open/GNUstep / OS X 8.0-rc2\n\n    Stefano> I've just installed.\n\nStefano, I don't want to be discouraging, \nbut version 20.7 is ``stone age''.\nCurrent is 21.4 (but not available on all platforms), and I\nthink you shouldn't have to use anything earlier than 21.3\n\nMartin\n\n    Stefano> stefano\n\n    Stefano> On 08/apr/05, at 16:40, Jan de Leeuw wrote:\n\n    >> We now not only have Carbon Emacs in the FSF\n    >> distribution, but also Andrew Choi's version of Carbon\n    >> XEmacs, and Keven Walzer's AquaMacs, which is an Aquafied\n    >> version of the Carbon Emacs. See\n    >> \n    >> http://www.wordtech-software.com/aquamacs.html\n    >> \n    >> === Jan de Leeuw; Distinguished Professor and Chair, UCLA\n    >> Department of Statistics; Editor: Journal of Multivariate\n    >> Analysis, Journal of Statistical Software US mail: 8130\n    >> Math Sciences Bldg, Box 951554, Los Angeles, CA\n    >> 90095-1554 phone (310)-825-9550; fax (310)-206-5658;\n    >> email: deleeuw@stat.ucla.edu .mac: jdeleeuw ++++++ aim:\n    >> deleeuwjan ++++++ skype: j_deleeuw homepages:\n    >> http://gifi.stat.ucla.edu ++++++\n    >> http://www.cuddyvalley.org\n    >> \n    >> ----------------------------------------------------------------------- \n    >> --------------------------\n    >> No matter where you go, there you are. --- Buckaroo\n    >> Banzai http://gifi.stat.ucla.edu/sounds/nomatter.au\n    >> \n    >> _______________________________________________ R-SIG-Mac\n    >> mailing list R-SIG-Mac@stat.math.ethz.ch\n    >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n    >> \n\n    Stefano> _______________________________________________\n    Stefano> R-SIG-Mac mailing list R-SIG-Mac@stat.math.ethz.ch\n    Stefano> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "n>>>>> \"Stefano\" == stefano iacus <stefano.iacus@unimi.it>\n>>>>>     on Fri, 8 Apr 2005 23:24:43 +0200 writes:\n\n    Stefano> And there is also a Cocoa Emacs by Adrian Robert\n    Stefano> <arobert@cogs",
+      "thread_id": "thread-946b3e3ad04f",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-2c1934d9109e",
+      "message_id": "<6a2c704c05040808531d99c1e0@mail.gmail.com>",
+      "from_name": "Drew Balazs",
+      "from_email_hash": "e6d498d58e8c705643829056aa3b77df71af583b8c3bf487b154efdf99ca42ee",
+      "date": "2005-04-09T23:27:36Z",
+      "subject": "[R-SIG-Mac] BUG in RODBC with OS X?",
+      "subject_clean": "BUG in RODBC with OS X?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This is my second posting on this topic, the first recieved no\nreplies.  Has anyone successfully used RODBC on the OS X platform? \nI've tested the ODBC drivers I'm using with two other applications and\nI've had no problems.  I begining to think the problem is with R/RODBC\nand not the drivers.\n\nHere are the specifics:\n\nI'm having a problem connecting to an MS SQL Database via RODBC on OS\nX. If I try to connect through the GUI using  chan <-\nodbcConnect(\"drewdb\", uid=\"user\", pwd =\"pwd\") it simply crashes R with\nthe following crash report:\n\nDate/Time:      2005-03-28 12:30:48 -0600\nOS Version:     10.3.8 (Build 7U16)\nReport Version: 2\n\nCommand: R\nPath:    /Applications/R.app/Contents/MacOS/R\nVersion: 1.01 (1.01)\nPID:     507\nThread:  0\n\nException:  EXC_BAD_ACCESS (0x0001)\nCodes:      KERN_PROTECTION_FAILURE (0x0002) at 0x000001fc\n\nHowever, if I try it through an xterm (command line), I get the following:\n\nWarning messages:\n1: [RODBC] ERROR: state IM004, code 0, message [iODBC][Driver\nManager]Driver's SQLAllocEnv() failed\n2: ODBC connection failed in: odbcDriverConnect(st, case = case,\nbelieveNRows = believeNRows)\n\nI'm reasonably sure the DSN is okay because I can use it to connect to\nthe DB with other applications.\nAny suggestions?\n\n-Drew\n\nSpecific Info:\n Machine Model:        PowerBook5,6\n CPU Type:     PowerPC G4  (1.2)\n Number Of CPUs:       1\n CPU Speed:    1.67 GHz\n L2 Cache (per CPU):   512 KB\n Memory:       2 GB\n Bus Speed:    167 MHz\n System Version:       Mac OS X 10.3.8 (7U16)\n Kernel Version:       Darwin 7.8.0\n Boot Volume:  Macintosh HD\n\nR : Copyright 2004, The R Foundation for Statistical Computing\nVersion 2.0.1  (2004-11-15), ISBN 3-900051-07-0",
+      "body_snippet": "This is my second posting on this topic, the first recieved no\nreplies.  Has anyone successfully used RODBC on the OS X platform? \nI've tested the ODBC drivers I'm using with two other applications an",
+      "thread_id": "thread-2c1934d9109e",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-7cb3533b7442",
+      "message_id": "<c6798e1f3818c98417edb46d739ed9c9@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-09T23:48:01Z",
+      "subject": "[R-SIG-Mac] emacs fans",
+      "subject_clean": "emacs fans",
+      "in_reply_to": "<16983.57569.278430.780248@stat.math.ethz.ch>",
+      "references": [
+        "<92EC5056-35CA-4C4F-99FA-D99BB769B954@stat.ucla.edu>",
+        "<db7ac64cdfb62b840b06743e59155e93@unimi.it>",
+        "<16983.57569.278430.780248@stat.math.ethz.ch>"
+      ],
+      "body_plain": "On 09/apr/05, at 16:04, Martin Maechler wrote:\n\n> n>>>>> \"Stefano\" == stefano iacus <stefano.iacus@unimi.it>\n>>>>>>     on Fri, 8 Apr 2005 23:24:43 +0200 writes:\n>\n>     Stefano> And there is also a Cocoa Emacs by Adrian Robert\n>     Stefano> <arobert@cogsci.ucsd.edu>\n>\n>     Stefano> Emacs : GNU Emacs 20.7 (powerpc-apple-darwin7.7.0,\n>     Stefano> *Step 8.0-rc2) of Fri Apr 8 2005 on hal.local\n>     Stefano> Package: Emacs for NeXT/Open/GNUstep / OS X 8.0-rc2\n>\n>     Stefano> I've just installed.\n>\n> Stefano, I don't want to be discouraging,\n> but version 20.7 is ``stone age''.\n> Current is 21.4 (but not available on all platforms), and I\n> think you shouldn't have to use anything earlier than 21.3\n\nsure, I know. But this is the latest stable-cocoa, next stable release  \nof cocoa will be in synch with the latest stable emacs (up to the  \nauthor!)\n\nBTW, it was just to extend the list, if your are curious here is the  \nurl   http://emacs-on-aqua.sourceforge.net/\n\n\nstefano\n\n\n>\n> Martin\n>\n>     Stefano> stefano\n>\n>     Stefano> On 08/apr/05, at 16:40, Jan de Leeuw wrote:\n>\n>>> We now not only have Carbon Emacs in the FSF\n>>> distribution, but also Andrew Choi's version of Carbon\n>>> XEmacs, and Keven Walzer's AquaMacs, which is an Aquafied\n>>> version of the Carbon Emacs. See\n>>>\n>>> http://www.wordtech-software.com/aquamacs.html\n>>>\n>>> === Jan de Leeuw; Distinguished Professor and Chair, UCLA\n>>> Department of Statistics; Editor: Journal of Multivariate\n>>> Analysis, Journal of Statistical Software US mail: 8130\n>>> Math Sciences Bldg, Box 951554, Los Angeles, CA\n>>> 90095-1554 phone (310)-825-9550; fax (310)-206-5658;\n>>> email: deleeuw@stat.ucla.edu .mac: jdeleeuw ++++++ aim:\n>>> deleeuwjan ++++++ skype: j_deleeuw homepages:\n>>> http://gifi.stat.ucla.edu ++++++\n>>> http://www.cuddyvalley.org\n>>>\n>>> --------------------------------------------------------------------- \n>>> --\n>>> --------------------------\n>>> No matter where you go, there you are. --- Buckaroo\n>>> Banzai http://gifi.stat.ucla.edu/sounds/nomatter.au\n>>>\n>>> _______________________________________________ R-SIG-Mac\n>>> mailing list R-SIG-Mac@stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>\n>     Stefano> _______________________________________________\n>     Stefano> R-SIG-Mac mailing list R-SIG-Mac@stat.math.ethz.ch\n>     Stefano> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On 09/apr/05, at 16:04, Martin Maechler wrote:\n\n> n>>>>> \"Stefano\" == stefano iacus <stefano.iacus@unimi.it>\n>>>>>>     on Fri, 8 Apr 2005 23:24:43 +0200 writes:\n>\n>     Stefano> And there is also a C",
+      "thread_id": "thread-946b3e3ad04f",
+      "thread_depth": 3,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-c3b41bb0dc11",
+      "message_id": "<3e235a995aa97db850e0da2c0c038ded@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-04-11T06:33:29Z",
+      "subject": "[R-SIG-Mac] Re: [R] R Gui help",
+      "subject_clean": "R Gui help",
+      "in_reply_to": "<BAY104-F41EA4CCC63D207B34C9130AF320@phx.gbl>",
+      "references": [
+        "<BAY104-F41EA4CCC63D207B34C9130AF320@phx.gbl>"
+      ],
+      "body_plain": "Hi Ben,\n\nWhich version do you mean by the 'newest version'? The latest R.app \n(the Cocoa based\nGUI for R) is available from: http://www.rosuda.org/R/nightly/  (bottom \nof the page). That\nversion only works after you have installed the full CRAN version first.\n\nThere should be an icon in the toolbar that looks like a striped flag. \nA history panel\nwill show up if you click on it.\n\nEven if you don't see the history panel, the up/down arrows should \nrecall history if the cursor is\npositioned at the end of the line with the prompt. Please check the \nStartup preference settings\nto fine tune the history behavior.\n\nRob\n\n\nOn Apr 10, 2005, at 8:43 PM, Ben Johnson wrote:\n\n> I have just downloaded the newest version of R for my mac v10.3 OS. \n> Apparently I am using the Cocoa GUI, but I cannot find the \"History\" \n> menu which would allow me to save plot and scroll between them using \n> up and down arrows. Can anyone help me with this? Is there some \n> installation I am missing??\n>\n> -Ben\n>\n> ______________________________________________\n> R-help@stat.math.ethz.ch mailing list\n> https://stat.ethz.ch/mailman/listinfo/r-help\n> PLEASE do read the posting guide! \n> http://www.R-project.org/posting-guide.html",
+      "body_snippet": "Hi Ben,\n\nWhich version do you mean by the 'newest version'? The latest R.app \n(the Cocoa based\nGUI for R) is available from: http://www.rosuda.org/R/nightly/  (bottom \nof the page). That\nversion only ",
+      "thread_id": "thread-c3b41bb0dc11",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-dc9091f463fa",
+      "message_id": "<BA8CA8E4-DEFF-450B-9055-2EB0E4F957FE@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-11T17:25:11Z",
+      "subject": "[R-SIG-Mac] BUG in RODBC with OS X?",
+      "subject_clean": "BUG in RODBC with OS X?",
+      "in_reply_to": "<6a2c704c05040808531d99c1e0@mail.gmail.com>",
+      "references": [
+        "<6a2c704c05040808531d99c1e0@mail.gmail.com>"
+      ],
+      "body_plain": "Drew,\n\nOn Apr 8, 2005, at 11:53 AM, Drew Balazs wrote:\n\n> This is my second posting on this topic, the first recieved no\n> replies.  Has anyone successfully used RODBC on the OS X platform?\n\nYes - it works pretty much out of the box. I tested it with the  \nActual drivers and they work pretty well (although I don't have any  \nMS box to test the MS SQL part of it).\n\n> If I try to connect through the GUI using  chan <-\n> odbcConnect(\"drewdb\", uid=\"user\", pwd =\"pwd\") it simply crashes R with\n> the following crash report:\n\nWell, you didn't send the crash report, but only a small  \n(unfortunately useless) part of it. Given the error below, chances  \nare that the error is caused by the driver. As of the GUI, you should  \ninclude the version (and possibly revision) of the GUI along with the  \nfull report so we can try to track it down. However, this won't help  \nwith the ODBC problem you have.\n\n> However, if I try it through an xterm (command line), I get the  \n> following:\n>\n> Warning messages:\n> 1: [RODBC] ERROR: state IM004, code 0, message [iODBC][Driver  \n> Manager]Driver's SQLAllocEnv() failed\n\nIf you think this is not a driver problem, you should consider  \ncontacting the package maintainer, although I don't give it much hope  \nas most ODBC problems are driver-related (and most drivers have very  \nlittle OS X support). Alternatively you could ask on the  iODBC pages.\n\nCheers,\nSimon",
+      "body_snippet": "Drew,\n\nOn Apr 8, 2005, at 11:53 AM, Drew Balazs wrote:\n\n> This is my second posting on this topic, the first recieved no\n> replies.  Has anyone successfully used RODBC on the OS X platform?\n\nYes - it ",
+      "thread_id": "thread-2c1934d9109e",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-d90b047475c1",
+      "message_id": "<Pine.LNX.4.61.0504111654500.20348@gannet.stats>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "375ec446f7a1157a4f0268b6dc682d6c2a5b186f57aa61253477aa48159d2329",
+      "date": "2005-04-11T17:56:16Z",
+      "subject": "[R] Re: [R-SIG-Mac] BUG in RODBC with OS X?",
+      "subject_clean": "BUG in RODBC with OS X?",
+      "in_reply_to": "<BA8CA8E4-DEFF-450B-9055-2EB0E4F957FE@r-project.org>",
+      "references": [
+        "<6a2c704c05040808531d99c1e0@mail.gmail.com>",
+        "<BA8CA8E4-DEFF-450B-9055-2EB0E4F957FE@r-project.org>"
+      ],
+      "body_plain": "On Mon, 11 Apr 2005, Simon Urbanek wrote:\n\n> Drew,\n>\n> On Apr 8, 2005, at 11:53 AM, Drew Balazs wrote:\n>\n>> This is my second posting on this topic, the first recieved no\n>> replies.  Has anyone successfully used RODBC on the OS X platform?\n>\n> Yes - it works pretty much out of the box. I tested it with the Actual \n> drivers and they work pretty well (although I don't have any MS box to test \n> the MS SQL part of it).\n>\n>> If I try to connect through the GUI using  chan <-\n>> odbcConnect(\"drewdb\", uid=\"user\", pwd =\"pwd\") it simply crashes R with\n>> the following crash report:\n>\n> Well, you didn't send the crash report, but only a small (unfortunately \n> useless) part of it. Given the error below, chances are that the error is \n> caused by the driver. As of the GUI, you should include the version (and \n> possibly revision) of the GUI along with the full report so we can try to \n> track it down. However, this won't help with the ODBC problem you have.\n>\n>> However, if I try it through an xterm (command line), I get the following:\n>> \n>> Warning messages:\n>> 1: [RODBC] ERROR: state IM004, code 0, message [iODBC][Driver \n>> Manager]Driver's SQLAllocEnv() failed\n>\n> If you think this is not a driver problem, you should consider contacting the \n> package maintainer, although I don't give it much hope as most ODBC problems \n> are driver-related (and most drivers have very little OS X support). \n> Alternatively you could ask on the  iODBC pages.\n\nHe would point out that is an iODBC error message and send you to iODBC \nsupport.\n\n-- \nBrian D. Ripley,                  ripley@stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_snippet": "On Mon, 11 Apr 2005, Simon Urbanek wrote:\n\n> Drew,\n>\n> On Apr 8, 2005, at 11:53 AM, Drew Balazs wrote:\n>\n>> This is my second posting on this topic, the first recieved no\n>> replies.  Has anyone succe",
+      "thread_id": "thread-2c1934d9109e",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-ad7ac6520739",
+      "message_id": "<6a2c704c050411102670083f2b@mail.gmail.com>",
+      "from_name": "Drew Balazs",
+      "from_email_hash": "e6d498d58e8c705643829056aa3b77df71af583b8c3bf487b154efdf99ca42ee",
+      "date": "2005-04-11T20:56:14Z",
+      "subject": "[R] Re: [R-SIG-Mac] BUG in RODBC with OS X?",
+      "subject_clean": "BUG in RODBC with OS X?",
+      "in_reply_to": "<Pine.LNX.4.61.0504111654500.20348@gannet.stats>",
+      "references": [
+        "<6a2c704c05040808531d99c1e0@mail.gmail.com>",
+        "<BA8CA8E4-DEFF-450B-9055-2EB0E4F957FE@r-project.org>",
+        "<Pine.LNX.4.61.0504111654500.20348@gannet.stats>"
+      ],
+      "body_plain": "On Apr 11, 2005 10:56 AM, Prof Brian Ripley <ripley@stats.ox.ac.uk> wrote:\n> On Mon, 11 Apr 2005, Simon Urbanek wrote:\n> \n> > Drew,\n> >\n> > On Apr 8, 2005, at 11:53 AM, Drew Balazs wrote:\n> >\n> >> This is my second posting on this topic, the first recieved no\n> >> replies.  Has anyone successfully used RODBC on the OS X platform?\n> >\n> > Yes - it works pretty much out of the box. I tested it with the Actual\n> > drivers and they work pretty well (although I don't have any MS box to test\n> > the MS SQL part of it).\n> >\n> >> If I try to connect through the GUI using  chan <-\n> >> odbcConnect(\"drewdb\", uid=\"user\", pwd =\"pwd\") it simply crashes R with\n> >> the following crash report:\n> >\n> > Well, you didn't send the crash report, but only a small (unfortunately\n> > useless) part of it. Given the error below, chances are that the error is\n> > caused by the driver. As of the GUI, you should include the version (and\n> > possibly revision) of the GUI along with the full report so we can try to\n> > track it down. However, this won't help with the ODBC problem you have.\n> >\n> >> However, if I try it through an xterm (command line), I get the following:\n> >>\n> >> Warning messages:\n> >> 1: [RODBC] ERROR: state IM004, code 0, message [iODBC][Driver\n> >> Manager]Driver's SQLAllocEnv() failed\n> >\n> > If you think this is not a driver problem, you should consider contacting the\n> > package maintainer, although I don't give it much hope as most ODBC problems\n> > are driver-related (and most drivers have very little OS X support).\n> > Alternatively you could ask on the  iODBC pages.\n> \n> He would point out that is an iODBC error message and send you to iODBC\n> support.\n\nWhile iODBC maybe be a player in this, I think its not alone. Below\nare the results for both the iODBC and Actual drivers. The use of the\nactual drivers result in a seg fault.\n\n(Using the openlink iodbc drivers)\n> chan <- odbcConnect(\"drewdb\", uid=\"user\", pwd =\"pwd\")\nWarning messages: \n1: [RODBC] ERROR: state IM004, code 0, message [iODBC][Driver\nManager]Driver's SQLAllocEnv() failed\n2: ODBC connection failed in: odbcDriverConnect(st, case = case,\nbelieveNRows = believeNRows)\n\n(Using the Actual drivers)\n> chan <- odbcConnect(\"drewsql\", uid=\"user\", pwd =\"pwd\")\nSegmentation fault\nThe-Data-Mangler:~ drew$ \n\n-Drew\n\n\n\n> --\n> Brian D. Ripley,                  ripley@stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>",
+      "body_snippet": "On Apr 11, 2005 10:56 AM, Prof Brian Ripley <ripley@stats.ox.ac.uk> wrote:\n> On Mon, 11 Apr 2005, Simon Urbanek wrote:\n> \n> > Drew,\n> >\n> > On Apr 8, 2005, at 11:53 AM, Drew Balazs wrote:\n> >\n> >> Thi",
+      "thread_id": "thread-2c1934d9109e",
+      "thread_depth": 3,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-bfaed6bae163",
+      "message_id": "<a695fbee0504120115704b650c@mail.gmail.com>",
+      "from_name": "Armin Goralczyk",
+      "from_email_hash": "b59cb414f12fc68362b797a20c6a2f3df54e3a83915e15d5e95709440a8b9432",
+      "date": "2005-04-12T10:15:10Z",
+      "subject": "[R-SIG-Mac] Using quartz-device from Emacs+ess",
+      "subject_clean": "Using quartz-device from Emacs+ess",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi list\nI am new to the list so the following might have been adressed already\n(Sorry, but I searched and found only emails from 2003).\nI'd like to use the quartz device from emacs+ess (installed via fink,\nrunning in apple X11). I like the RAqua GUI (Thanks!), but it would be\nmost comfortable to have everything in emacs (for me).\nFirst I tried:\nstarted the device with\nquartz()\nand I can plot on it and I see the plot in the window\nbut I can'''t do anything with the window (resize, save,etc) since the\n\"rainbow ball\" is spinning all the time. Is there a solution to this\nproblem?\nSince I can see my plots, but nothing alse, I thought to plot on a pdf\nor jpeg device for saving/printing. But if I use\npdf() or jpeg()\nand plot onto the device\nthe file cannot be opened from Preview.app or Adobe reader and the\nfile size is 0kb. What's the matter?\nThanks for help.\nArmin",
+      "body_snippet": "Hi list\nI am new to the list so the following might have been adressed already\n(Sorry, but I searched and found only emails from 2003).\nI'd like to use the quartz device from emacs+ess (installed via ",
+      "thread_id": "thread-bfaed6bae163",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-46392b8b7d66",
+      "message_id": "<800756d902ad5571ceb8d95d1a85712a@stat.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "96054a6fc2ab5940337a3945e39fc6d1008334db662840abd9512700aa3b3d7e",
+      "date": "2005-04-12T10:44:47Z",
+      "subject": "[R-SIG-Mac] Using quartz-device from Emacs+ess",
+      "subject_clean": "Using quartz-device from Emacs+ess",
+      "in_reply_to": "<a695fbee0504120115704b650c@mail.gmail.com>",
+      "references": [
+        "<a695fbee0504120115704b650c@mail.gmail.com>"
+      ],
+      "body_plain": "Sorry, you're basically out of luck---the Terminal version of R (the \none used by ESS) is blocking at the terminal input and not pumping \nevents.\n\n\nOn Apr 12, 2005, at 1:15 AM, Armin Goralczyk wrote:\n\n> Hi list\n> I am new to the list so the following might have been adressed already\n> (Sorry, but I searched and found only emails from 2003).\n> I'd like to use the quartz device from emacs+ess (installed via fink,\n> running in apple X11). I like the RAqua GUI (Thanks!), but it would be\n> most comfortable to have everything in emacs (for me).\n> First I tried:\n> started the device with\n> quartz()\n> and I can plot on it and I see the plot in the window\n> but I can'''t do anything with the window (resize, save,etc) since the\n> \"rainbow ball\" is spinning all the time. Is there a solution to this\n> problem?\n> Since I can see my plots, but nothing alse, I thought to plot on a pdf\n> or jpeg device for saving/printing. But if I use\n> pdf() or jpeg()\n> and plot onto the device\n> the file cannot be opened from Preview.app or Adobe reader and the\n> file size is 0kb. What's the matter?\n> Thanks for help.\n> Armin\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (ellis@stat.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "Sorry, you're basically out of luck---the Terminal version of R (the \none used by ESS) is blocking at the terminal input and not pumping \nevents.\n\n\nOn Apr 12, 2005, at 1:15 AM, Armin Goralczyk wrote:\n",
+      "thread_id": "thread-bfaed6bae163",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-b2afcea4f181",
+      "message_id": "<2294b5afedb40a464b952cd02e8e1d9f@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-12T12:25:54Z",
+      "subject": "[R-SIG-Mac] Using quartz-device from Emacs+ess",
+      "subject_clean": "Using quartz-device from Emacs+ess",
+      "in_reply_to": "<800756d902ad5571ceb8d95d1a85712a@stat.harvard.edu>",
+      "references": [
+        "<a695fbee0504120115704b650c@mail.gmail.com>",
+        "<800756d902ad5571ceb8d95d1a85712a@stat.harvard.edu>"
+      ],
+      "body_plain": "But, he can use Jan Trick (see the FAQ).\nJan?\nstefano\nOn 12/apr/05, at 10:44, Byron Ellis wrote:\n\n> Sorry, you're basically out of luck---the Terminal version of R (the \n> one used by ESS) is blocking at the terminal input and not pumping \n> events.\n>\n>\n> On Apr 12, 2005, at 1:15 AM, Armin Goralczyk wrote:\n>\n>> Hi list\n>> I am new to the list so the following might have been adressed already\n>> (Sorry, but I searched and found only emails from 2003).\n>> I'd like to use the quartz device from emacs+ess (installed via fink,\n>> running in apple X11). I like the RAqua GUI (Thanks!), but it would be\n>> most comfortable to have everything in emacs (for me).\n>> First I tried:\n>> started the device with\n>> quartz()\n>> and I can plot on it and I see the plot in the window\n>> but I can'''t do anything with the window (resize, save,etc) since the\n>> \"rainbow ball\" is spinning all the time. Is there a solution to this\n>> problem?\n>> Since I can see my plots, but nothing alse, I thought to plot on a pdf\n>> or jpeg device for saving/printing. But if I use\n>> pdf() or jpeg()\n>> and plot onto the device\n>> the file cannot be opened from Preview.app or Adobe reader and the\n>> file size is 0kb. What's the matter?\n>> Thanks for help.\n>> Armin\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n> ---\n> Byron Ellis (ellis@stat.harvard.edu)\n> \"Oook\" -- The Librarian\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "But, he can use Jan Trick (see the FAQ).\nJan?\nstefano\nOn 12/apr/05, at 10:44, Byron Ellis wrote:\n\n> Sorry, you're basically out of luck---the Terminal version of R (the \n> one used by ESS) is blocking",
+      "thread_id": "thread-bfaed6bae163",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-a977c50b88ec",
+      "message_id": "<Pine.A41.4.61b.0504120706180.335330@homer08.u.washington.edu>",
+      "from_name": "Thomas Lumley",
+      "from_email_hash": "fd3f6e9367b335430f74a8f6feb36e5e9d187865079d5ca2018b64dfb89dd278",
+      "date": "2005-04-12T16:07:24Z",
+      "subject": "[R-SIG-Mac] Using quartz-device from Emacs+ess",
+      "subject_clean": "Using quartz-device from Emacs+ess",
+      "in_reply_to": "<a695fbee0504120115704b650c@mail.gmail.com>",
+      "references": [
+        "<a695fbee0504120115704b650c@mail.gmail.com>"
+      ],
+      "body_plain": "On Tue, 12 Apr 2005, Armin Goralczyk wrote:\n> Since I can see my plots, but nothing alse, I thought to plot on a pdf\n> or jpeg device for saving/printing. But if I use\n> pdf() or jpeg()\n> and plot onto the device\n> the file cannot be opened from Preview.app or Adobe reader and the\n> file size is 0kb. What's the matter?\n\nDid you remember to close the file with dev.off()?\n\n \t-thomas",
+      "body_snippet": "On Tue, 12 Apr 2005, Armin Goralczyk wrote:\n> Since I can see my plots, but nothing alse, I thought to plot on a pdf\n> or jpeg device for saving/printing. But if I use\n> pdf() or jpeg()\n> and plot ont",
+      "thread_id": "thread-bfaed6bae163",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-b97056e806bc",
+      "message_id": "<425BFF90.6030206@ucdavis.edu>",
+      "from_name": "Julin Maloof",
+      "from_email_hash": "99b5258a1e516382351f94946b203b78325d964e2eef1d9c277136498020ea5b",
+      "date": "2005-04-12T20:05:15Z",
+      "subject": "[R-SIG-Mac] Using quartz-device from Emacs+ess",
+      "subject_clean": "Using quartz-device from Emacs+ess",
+      "in_reply_to": "<200504121004.j3CA3Zjb013746@hypatia.math.ethz.ch>",
+      "references": [
+        "<200504121004.j3CA3Zjb013746@hypatia.math.ethz.ch>"
+      ],
+      "body_plain": "I am not sure if you are \"out of luck\".  Do you need to use a quartz device per se?  I use xemacs + ess in X11 and use the X11() device for graphics, and pdf() or jpeg() for saving images.  I am not sure why the later aren't working for you, however.\n\nJulin\n\n> \n> Message: 5\n> Date: Tue, 12 Apr 2005 01:44:45 -0700\n> From: Byron Ellis <ellis@stat.harvard.edu>\n> Subject: Re: [R-SIG-Mac] Using quartz-device from Emacs+ess\n> To: Armin Goralczyk <agoralczyk@gmail.com>\n> Cc: R-SIG-Mac@stat.math.ethz.ch\n> Message-ID: <800756d902ad5571ceb8d95d1a85712a@stat.harvard.edu>\n> Content-Type: text/plain; charset=US-ASCII; format=flowed\n> \n> Sorry, you're basically out of luck---the Terminal version of R (the \n> one used by ESS) is blocking at the terminal input and not pumping \n> events.\n> \n> \n> On Apr 12, 2005, at 1:15 AM, Armin Goralczyk wrote:\n> \n> \n>>> Hi list\n>>> I am new to the list so the following might have been adressed already\n>>> (Sorry, but I searched and found only emails from 2003).\n>>> I'd like to use the quartz device from emacs+ess (installed via fink,\n>>> running in apple X11). I like the RAqua GUI (Thanks!), but it would be\n>>> most comfortable to have everything in emacs (for me).\n>>> First I tried:\n>>> started the device with\n>>> quartz()\n>>> and I can plot on it and I see the plot in the window\n>>> but I can'''t do anything with the window (resize, save,etc) since the\n>>> \"rainbow ball\" is spinning all the time. Is there a solution to this\n>>> problem?\n>>> Since I can see my plots, but nothing alse, I thought to plot on a pdf\n>>> or jpeg device for saving/printing. But if I use\n>>> pdf() or jpeg()\n>>> and plot onto the device\n>>> the file cannot be opened from Preview.app or Adobe reader and the\n>>> file size is 0kb. What's the matter?\n>>> Thanks for help.\n>>> Armin\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac@stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n> \n> ---\n> Byron Ellis (ellis@stat.harvard.edu)\n> \"Oook\" -- The Librarian\n> \n> \n>",
+      "body_snippet": "I am not sure if you are \"out of luck\".  Do you need to use a quartz device per se?  I use xemacs + ess in X11 and use the X11() device for graphics, and pdf() or jpeg() for saving images.  I am not s",
+      "thread_id": "thread-b97056e806bc",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-e6c5241b8ee0",
+      "message_id": "<B680A144-8071-47BC-BCD5-0CF953C8B88E@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-13T21:51:59Z",
+      "subject": "[R-SIG-Mac] BUG in RODBC with OS X?",
+      "subject_clean": "BUG in RODBC with OS X?",
+      "in_reply_to": "<6a2c704c05040808531d99c1e0@mail.gmail.com>",
+      "references": [
+        "<6a2c704c05040808531d99c1e0@mail.gmail.com>"
+      ],
+      "body_plain": "Just for the record - this problem concerns Actual drivers for Mac OS  \nX 10.3 (later OS X versions are not affected). The current temporary  \nwork-around is to install \"iODBC Runtime\" supplied with the Actual  \ndrivers and compile RODBC as follows (in bash assuming sufficient  \nprivileges):\n\nLIBS='-framework iODBC' PKG_CFLAGS='-I/Library/Frameworks/ \niODBC.framework/Headers' R CMD INSTALL RODBC_1.1-3.tar.gz\n\nSimon",
+      "body_snippet": "Just for the record - this problem concerns Actual drivers for Mac OS  \nX 10.3 (later OS X versions are not affected). The current temporary  \nwork-around is to install \"iODBC Runtime\" supplied with t",
+      "thread_id": "thread-2c1934d9109e",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-507f6516e7e4",
+      "message_id": "<8ec1f0551af0b71eb62f9d1ff74ea4c4@gmail.com>",
+      "from_name": "Armin Goralczyk",
+      "from_email_hash": "b59cb414f12fc68362b797a20c6a2f3df54e3a83915e15d5e95709440a8b9432",
+      "date": "2005-04-14T21:09:04Z",
+      "subject": "[R-SIG-Mac] Using quartz-device from Emacs+ess",
+      "subject_clean": "Using quartz-device from Emacs+ess",
+      "in_reply_to": "<425BFF90.6030206@ucdavis.edu>",
+      "references": [
+        "<200504121004.j3CA3Zjb013746@hypatia.math.ethz.ch>",
+        "<425BFF90.6030206@ucdavis.edu>"
+      ],
+      "body_plain": "Thanks for all the help and sorry to have bothered you. Using pdf() and \njpeg() works fine with dev.off(). I suppose I should have read the \nmanual more thoroughly.\n\nConcerning the ``Trick'' (thanks for your detailed instructions): I \nfollowed the instructions (see below), but behaviour of the window is \nthe same (i.e., quartz window always ``inactive'', ball spinning). But \nI am not sure if I have the right version of R (R 2.0.1 came in \ninstaller with for R Cocoa GUI 1.01). Do I have to recompile as  \ninstructed? Or is the version that comes in the installer already \ncompiled with Aqua Tcl/Tk? I am not an expert concerning these things!\n\nYet another question: Do I get different graphics if I do plots in a \nx11-device then export them via dev.copy() to the pdf-device than using \nthe quartz-device (from the R Cocoa GUI) and save as file? (it says is \nthe R Mac FAQ the plots are ``nicer'' with the quartz?!)\n\nThanks for help.\nArmin\n\n\n\nQuote from Jan de Leeuw:\nUse a version of R compiled with the Aqua Tcl/Tk.\n\n0. Use the terminal\n1. go to /Library/Frameworks/R.framework/Resources/bin/exec\n2. say \"sudo /Developer/Tools/Rez -t APPL Carbon.r -o R\"\n3. in /Library/Frameworks./R.framework/Resources/etc put a file\nwith\n\nlocal({\n        options(device=\"quartz\")\n        old <- getOption(\"defaultPackages\")\n        options(defaultPackages = c(old, \"tcltk\"))\n      })\n\nNow you should be OK. This gives R a resource fork, and actually\nmakes it into a Tcl/Tk application. The Tcl/Tk event loop now takes\ncare of the events in the graphics window.\n\n\nGru?\nArmin\n\n--\nArmin Goralczyk; Guttmannstr. 4; Appartment 2615; 76307 Karlsbad\nTelefon Festnetz: +49 7202 289052; Mobil: +49 179 9162596\nElectronic mail: goralczyk@mac.com\nWeb site: http://homepage.mac.com/goralczyk\n--\nSolange ich lebe, mu? ich damit rechnen, da? ich weiterlebe.\nKarl Valentin\n--",
+      "body_snippet": "Thanks for all the help and sorry to have bothered you. Using pdf() and \njpeg() works fine with dev.off(). I suppose I should have read the \nmanual more thoroughly.\n\nConcerning the ``Trick'' (thanks f",
+      "thread_id": "thread-b97056e806bc",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-c560295b89bf",
+      "message_id": "<726c530f010a834eea75a656626bb628@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2005-04-19T12:17:35Z",
+      "subject": "[R-SIG-Mac] latest two builts refuse to launch",
+      "subject_clean": "latest two builts refuse to launch",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI downloaded versions of R dating from 17 and 18 of April. Both refuse \nto launch. I don't know if the problem is with these builds or with my \nrecent upgrade to 10.3.9...\n\nDouble-clicking produces a short dialog indicating error -10810\n\nThe log that automatically opens when I launch Console.app says:\n2005-04-19 05:59:23.547 SystemUIServer[441] app path = \n/Applications/R.app\n\nI found no crash report (log) for R.\n\nSincerely,\n\nDenis Chabot",
+      "body_snippet": "Hi,\n\nI downloaded versions of R dating from 17 and 18 of April. Both refuse \nto launch. I don't know if the problem is with these builds or with my \nrecent upgrade to 10.3.9...\n\nDouble-clicking produc",
+      "thread_id": "thread-c560295b89bf",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-6e99b56b96c1",
+      "message_id": "<A62ADA9B-CCCC-401F-A672-406E7255670C@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-19T16:17:43Z",
+      "subject": "[R-SIG-Mac] latest two builts refuse to launch",
+      "subject_clean": "latest two builts refuse to launch",
+      "in_reply_to": "<726c530f010a834eea75a656626bb628@globetrotter.net>",
+      "references": [
+        "<726c530f010a834eea75a656626bb628@globetrotter.net>"
+      ],
+      "body_plain": "Denis,\n\nOn Apr 19, 2005, at 5:14 AM, Denis Chabot wrote:\n\n\n> I downloaded versions of R dating from 17 and 18 of April. Both  \n> refuse to launch. I don't know if the problem is with these builds  \n> or with my recent upgrade to 10.3.9...\n>\n\nWe didn't release a binary for Mac OS yet, so there are many  \npossibilities of what could have went wrong - please describe how you  \nbuild your R.\n\n\n> Double-clicking produces a short dialog indicating error -10810\n>\n\nUmm.. how can you double-click R? R is supposed to be run in Terminal  \nor other shell-like environment.\n\n\n> The log that automatically opens when I launch Console.app says:\n> 2005-04-19 05:59:23.547 SystemUIServer[441] app path = / \n> Applications/R.app\n>\n\nR.app has not been released for R 2.1 yet, so I'm wondering what you  \nare trying there. Did you build R.app from the current sources? Note  \nthat the nightly build uses R 2.0 and is therefore not compatible  \nwith R 2.1. We will switch to 2.1 only after the official release of  \nbinaries for Mac OS X.\n\nCheers,\nSimon",
+      "body_snippet": "Denis,\n\nOn Apr 19, 2005, at 5:14 AM, Denis Chabot wrote:\n\n\n> I downloaded versions of R dating from 17 and 18 of April. Both  \n> refuse to launch. I don't know if the problem is with these builds  \n> ",
+      "thread_id": "thread-c560295b89bf",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-912e5e528fe2",
+      "message_id": "<03e97d04d3a006acf1156ef7cca28ac6@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-19T16:43:23Z",
+      "subject": "[R-SIG-Mac] latest two builts refuse to launch",
+      "subject_clean": "latest two builts refuse to launch",
+      "in_reply_to": "<A62ADA9B-CCCC-401F-A672-406E7255670C@r-project.org>",
+      "references": [
+        "<726c530f010a834eea75a656626bb628@globetrotter.net>",
+        "<A62ADA9B-CCCC-401F-A672-406E7255670C@r-project.org>"
+      ],
+      "body_plain": "On 19/apr/05, at 16:17, Simon Urbanek wrote:\n\n> Denis,\n>\n> On Apr 19, 2005, at 5:14 AM, Denis Chabot wrote:\n>\n>\n>> I downloaded versions of R dating from 17 and 18 of April. Both \n>> refuse to launch. I don't know if the problem is with these builds or \n>> with my recent upgrade to 10.3.9...\n>>\n>\n> We didn't release a binary for Mac OS yet, so there are many \n> possibilities of what could have went wrong - please describe how you \n> build your R.\n>\n>\n>> Double-clicking produces a short dialog indicating error -10810\n>>\n>\n> Umm.. how can you double-click R? R is supposed to be run in Terminal \n> or other shell-like environment.\n>\n>\n>> The log that automatically opens when I launch Console.app says:\n>> 2005-04-19 05:59:23.547 SystemUIServer[441] app path = \n>> /Applications/R.app\n>>\n>\n> R.app has not been released for R 2.1 yet, so I'm wondering what you \n> are trying there. Did you build R.app from the current sources? Note \n> that the nightly build uses R 2.0 and is therefore not compatible with \n> R 2.1. We will switch to 2.1 only after the official release of \n> binaries for Mac OS X.\nwhich will be in a day or two (up to mirroring delays)\nstefano\n\n>\n> Cheers,\n> Simon\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On 19/apr/05, at 16:17, Simon Urbanek wrote:\n\n> Denis,\n>\n> On Apr 19, 2005, at 5:14 AM, Denis Chabot wrote:\n>\n>\n>> I downloaded versions of R dating from 17 and 18 of April. Both \n>> refuse to launch.",
+      "thread_id": "thread-c560295b89bf",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-a736c02e850d",
+      "message_id": "<p06210245be8accd3bd44@[165.124.160.147]>",
+      "from_name": "William Revelle",
+      "from_email_hash": "17775642d38a89586519cdb4da8b9881c3da6cb4b5abf51dc2b37a23be377688",
+      "date": "2005-04-19T17:16:24Z",
+      "subject": "[R-SIG-Mac] latest two builts refuse to launch",
+      "subject_clean": "latest two builts refuse to launch",
+      "in_reply_to": "<A62ADA9B-CCCC-401F-A672-406E7255670C@r-project.org>",
+      "references": [
+        "<726c530f010a834eea75a656626bb628@globetrotter.net>",
+        "<A62ADA9B-CCCC-401F-A672-406E7255670C@r-project.org>"
+      ],
+      "body_plain": "Simon and Denis,\n\nTrying to be a good netizin I too tried the Mac nightly build of \nR.app  from Simon's page.  This is the R-GUI.dmg file that a few days \nago worked beautifully. (Thank you for the nice additions).\n\nHowever, when launching the program from the finder (not Terminal), I \ngot the error -10810 reported by Denis.\n\nI am running Mac OSX 10.3.8\n\nI just tried downloading it again, with the same problem.\n\nSimon says that \"R is supposed to be run in Terminal or other \nshell-like environment\" but in fact the daily build of late last week \nwas double clickable from the Finder, leading me to believe that it \nwas meant to behave that way.\n\nI am running R 2.0.1 with Mac Gui 1.01.  It was the attempt at Mac \nGui 1.0.2 pre experimental build 1393 that is causing the problem.\n\nThanks for all the good work.\n\nBill\n\n\nAt 9:17 AM -0500 4/19/05, Simon Urbanek wrote:\n>Denis,\n>\n>On Apr 19, 2005, at 5:14 AM, Denis Chabot wrote:\n>\n>>I downloaded versions of R dating from 17 and 18 of April. Both \n>>refuse to launch. I don't know if the problem is with these builds \n>>or with my recent upgrade to 10.3.9...\n>>\n>\n>We didn't release a binary for Mac OS yet, so there are many \n>possibilities of what could have went wrong - please describe how \n>you build your R.\n>\n>>Double-clicking produces a short dialog indicating error -10810\n>>\n>\n>Umm.. how can you double-click R? R is supposed to be run in \n>Terminal or other shell-like environment.\n>\n>>The log that automatically opens when I launch Console.app says:\n>>2005-04-19 05:59:23.547 SystemUIServer[441] app path = /Applications/R.app\n>>\n>\n>R.app has not been released for R 2.1 yet, so I'm wondering what you \n>are trying there. Did you build R.app from the current sources? Note \n>that the nightly build uses R 2.0 and is therefore not compatible \n>with R 2.1. We will switch to 2.1 only after the official release of \n>binaries for Mac OS X.\n>\n>Cheers,\n>Simon\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac@stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nWilliam Revelle\t\thttp://pmc.psych.northwestern.edu/revelle.html   \nProfessor\t\t\thttp://personality-project.org/personality.html\nDepartment of Psychology       http://www.wcas.northwestern.edu/psych/\nNorthwestern University\thttp://www.northwestern.edu/",
+      "body_snippet": "Simon and Denis,\n\nTrying to be a good netizin I too tried the Mac nightly build of \nR.app  from Simon's page.  This is the R-GUI.dmg file that a few days \nago worked beautifully. (Thank you for the ni",
+      "thread_id": "thread-c560295b89bf",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-f796214263e9",
+      "message_id": "<34a847c05197146662f11763482e3acc@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-04-19T18:17:12Z",
+      "subject": "[R-SIG-Mac] latest two builts refuse to launch",
+      "subject_clean": "latest two builts refuse to launch",
+      "in_reply_to": "<p06210245be8accd3bd44@[165.124.160.147]>",
+      "references": [
+        "<726c530f010a834eea75a656626bb628@globetrotter.net>",
+        "<A62ADA9B-CCCC-401F-A672-406E7255670C@r-project.org>",
+        "<p06210245be8accd3bd44@[165.124.160.147]>"
+      ],
+      "body_plain": "Just checked this on 10.3.8, 10.3.9 and 10.4.pre, they all behave \nsimilarly. On 10.4.pre, from a terminal,\n'open -a R.app' actually works (and shows a minor issue I'll look \ninto). On 10.3 it shows the launch\nservices error -10810.\n\nUnfortunately 10810 is 'unknown error' in the launch services. The 1393 \nXcode builds do\nwork fine on all versions.\n\nCould something have gone wrong in this particular nightly build? It \nhappens with both R-GUI and\nR-GUI-Debug.\n\nRob\n\n\nOn Apr 19, 2005, at 8:16 AM, William Revelle wrote:\n\n> Simon and Denis,\n>\n> Trying to be a good netizin I too tried the Mac nightly build of R.app \n>  from Simon's page.  This is the R-GUI.dmg file that a few days ago \n> worked beautifully. (Thank you for the nice additions).\n>\n> However, when launching the program from the finder (not Terminal), I \n> got the error -10810 reported by Denis.\n>\n> I am running Mac OSX 10.3.8\n>\n> I just tried downloading it again, with the same problem.\n>\n> Simon says that \"R is supposed to be run in Terminal or other \n> shell-like environment\" but in fact the daily build of late last week \n> was double clickable from the Finder, leading me to believe that it \n> was meant to behave that way.\n>\n> I am running R 2.0.1 with Mac Gui 1.01.  It was the attempt at Mac Gui \n> 1.0.2 pre experimental build 1393 that is causing the problem.\n>\n> Thanks for all the good work.\n>\n> Bill\n>\n>\n> At 9:17 AM -0500 4/19/05, Simon Urbanek wrote:\n>> Denis,\n>>\n>> On Apr 19, 2005, at 5:14 AM, Denis Chabot wrote:\n>>\n>>> I downloaded versions of R dating from 17 and 18 of April. Both \n>>> refuse to launch. I don't know if the problem is with these builds \n>>> or with my recent upgrade to 10.3.9...\n>>>\n>>\n>> We didn't release a binary for Mac OS yet, so there are many \n>> possibilities of what could have went wrong - please describe how you \n>> build your R.\n>>\n>>> Double-clicking produces a short dialog indicating error -10810\n>>>\n>>\n>> Umm.. how can you double-click R? R is supposed to be run in Terminal \n>> or other shell-like environment.\n>>\n>>> The log that automatically opens when I launch Console.app says:\n>>> 2005-04-19 05:59:23.547 SystemUIServer[441] app path = \n>>> /Applications/R.app\n>>>\n>>\n>> R.app has not been released for R 2.1 yet, so I'm wondering what you \n>> are trying there. Did you build R.app from the current sources? Note \n>> that the nightly build uses R 2.0 and is therefore not compatible \n>> with R 2.1. We will switch to 2.1 only after the official release of \n>> binaries for Mac OS X.\n>>\n>> Cheers,\n>> Simon\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> -- \n> William Revelle\t\thttp://pmc.psych.northwestern.edu/revelle.html   \n> Professor\t\t\thttp://personality-project.org/personality.html\n> Department of Psychology       http://www.wcas.northwestern.edu/psych/\n> Northwestern University\thttp://www.northwestern.edu/\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Just checked this on 10.3.8, 10.3.9 and 10.4.pre, they all behave \nsimilarly. On 10.4.pre, from a terminal,\n'open -a R.app' actually works (and shows a minor issue I'll look \ninto). On 10.3 it shows t",
+      "thread_id": "thread-c560295b89bf",
+      "thread_depth": 3,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-86e339feaed6",
+      "message_id": "<0c33551e41653909913aa6e1a423b290@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2005-04-20T11:41:44Z",
+      "subject": "[R-SIG-Mac] build 1394",
+      "subject_clean": "build 1394",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI'm sorry to say that today's build 1394 or R Cocoa app (gui) also does \nnot launch under 10.3.8 nor under 10.3.9.\n\nDenis",
+      "body_snippet": "Hi,\n\nI'm sorry to say that today's build 1394 or R Cocoa app (gui) also does \nnot launch under 10.3.8 nor under 10.3.9.\n\nDenis",
+      "thread_id": "thread-86e339feaed6",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-77fd17a5a88c",
+      "message_id": "<855d8ba160269112c36fa2501e06fa79@glam.ac.uk>",
+      "from_name": "Samuel E. Kemp",
+      "from_email_hash": "4c2594f56b7102fcd5b2a9991358d1efc73c49e36c69570daadfa29f522262ee",
+      "date": "2005-04-20T16:57:19Z",
+      "subject": "[R-SIG-Mac] R GUI slow on mac?",
+      "subject_clean": "R GUI slow on mac?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running OS X \n10.3.9. I have noticed that the \"official\" R GUI runs considerably \nslower than R in the terminal and also JGR. Whilst the differences in \nspeed are unimportant for simple parametric stats, it becomes a bit of \na pig when doing non-parametric stats e.g. neural nets, feature \nselection algorithms.\n\nIn all my experiments I have set my CPU speed to \"maximum\" in system \npreferences. I have also looked at the CPU usage for each \nimplementation: on average R in the terminal and JGR manage to get 98% \nof CPU usage, compared to only around 75% for the R GUI.\n\nI guess my questions are:\n\n1) Why the difference in speed when its on the same machine?\n2) Is there any way of tweaking R GUI to make it run faster, a la R in \nthe terminal?\n\nAny help would be appreciated.\n\nBest regards,\n\nSam.",
+      "body_snippet": "Hi,\n\nI have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running OS X \n10.3.9. I have noticed that the \"official\" R GUI runs considerably \nslower than R in the terminal and also JGR. Whilst the ",
+      "thread_id": "thread-77fd17a5a88c",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-ca58dec12d44",
+      "message_id": "<54f3cb7570bd3ca5aec41269aa3e5dae@mail.nih.gov>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2005-04-20T17:08:49Z",
+      "subject": "[R-SIG-Mac] R GUI slow on mac?",
+      "subject_clean": "R GUI slow on mac?",
+      "in_reply_to": "<855d8ba160269112c36fa2501e06fa79@glam.ac.uk>",
+      "references": [
+        "<855d8ba160269112c36fa2501e06fa79@glam.ac.uk>"
+      ],
+      "body_plain": "On Apr 20, 2005, at 10:40 AM, Samuel E. Kemp wrote:\n\n> Hi,\n>\n> I have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running OS X \n> 10.3.9. I have noticed that the \"official\" R GUI runs considerably \n> slower than R in the terminal and also JGR. Whilst the differences in \n> speed are unimportant for simple parametric stats, it becomes a bit of \n> a pig when doing non-parametric stats e.g. neural nets, feature \n> selection algorithms.\n>\n> In all my experiments I have set my CPU speed to \"maximum\" in system \n> preferences. I have also looked at the CPU usage for each \n> implementation: on average R in the terminal and JGR manage to get 98% \n> of CPU usage, compared to only around 75% for the R GUI.\n>\n> I guess my questions are:\n>\n> 1) Why the difference in speed when its on the same machine?\n\nJust a guess, but are you running into memory issues and swapping?  I \ndon't know how much more memory the GUI version uses over the \ncommand-line version--I would have thought not that much.\n\n> 2) Is there any way of tweaking R GUI to make it run faster, a la R in \n> the terminal?\n>\n> Any help would be appreciated.\n>\n> Best regards,\n>\n> Sam.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "On Apr 20, 2005, at 10:40 AM, Samuel E. Kemp wrote:\n\n> Hi,\n>\n> I have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running OS X \n> 10.3.9. I have noticed that the \"official\" R GUI runs considera",
+      "thread_id": "thread-77fd17a5a88c",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-b0a8b47fa7fb",
+      "message_id": "<Pine.A41.4.61b.0504200840380.12952@homer09.u.washington.edu>",
+      "from_name": "Thomas Lumley",
+      "from_email_hash": "fd3f6e9367b335430f74a8f6feb36e5e9d187865079d5ca2018b64dfb89dd278",
+      "date": "2005-04-20T17:42:46Z",
+      "subject": "[R-SIG-Mac] R GUI slow on mac?",
+      "subject_clean": "R GUI slow on mac?",
+      "in_reply_to": "<54f3cb7570bd3ca5aec41269aa3e5dae@mail.nih.gov>",
+      "references": [
+        "<855d8ba160269112c36fa2501e06fa79@glam.ac.uk>",
+        "<54f3cb7570bd3ca5aec41269aa3e5dae@mail.nih.gov>"
+      ],
+      "body_plain": "I think the difference in speed is related to the interrupt processing \ncalls.  It was most dramatic in the beta (or binomial?) distribution code, \nbut that got rewritten to do fewer calls.\n\nPeriodic checking for events is necessary, but the R Gui seems to do a lot \nmore work when it happens.\n\n \t-thomas\n\n\nOn Wed, 20 Apr 2005, Sean Davis wrote:\n\n>\n> On Apr 20, 2005, at 10:40 AM, Samuel E. Kemp wrote:\n>\n>> Hi,\n>> \n>> I have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running OS X \n>> 10.3.9. I have noticed that the \"official\" R GUI runs considerably slower \n>> than R in the terminal and also JGR. Whilst the differences in speed are \n>> unimportant for simple parametric stats, it becomes a bit of a pig when \n>> doing non-parametric stats e.g. neural nets, feature selection algorithms.\n>> \n>> In all my experiments I have set my CPU speed to \"maximum\" in system \n>> preferences. I have also looked at the CPU usage for each implementation: \n>> on average R in the terminal and JGR manage to get 98% of CPU usage, \n>> compared to only around 75% for the R GUI.\n>> \n>> I guess my questions are:\n>> \n>> 1) Why the difference in speed when its on the same machine?\n>\n> Just a guess, but are you running into memory issues and swapping?  I don't \n> know how much more memory the GUI version uses over the command-line \n> version--I would have thought not that much.\n>\n>> 2) Is there any way of tweaking R GUI to make it run faster, a la R in the \n>> terminal?\n>> \n>> Any help would be appreciated.\n>> \n>> Best regards,\n>> \n>> Sam.\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac@stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\nThomas Lumley\t\t\tAssoc. Professor, Biostatistics\ntlumley@u.washington.edu\tUniversity of Washington, Seattle",
+      "body_snippet": "I think the difference in speed is related to the interrupt processing \ncalls.  It was most dramatic in the beta (or binomial?) distribution code, \nbut that got rewritten to do fewer calls.\n\nPeriodic ",
+      "thread_id": "thread-77fd17a5a88c",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-3a2d04170174",
+      "message_id": "<14a40d46e1762702ed849c5d13200c15@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-20T17:43:50Z",
+      "subject": "[R-SIG-Mac] R GUI slow on mac?",
+      "subject_clean": "R GUI slow on mac?",
+      "in_reply_to": "<855d8ba160269112c36fa2501e06fa79@glam.ac.uk>",
+      "references": [
+        "<855d8ba160269112c36fa2501e06fa79@glam.ac.uk>"
+      ],
+      "body_plain": "On 20/apr/05, at 16:40, Samuel E. Kemp wrote:\n\n> Hi,\n>\n> I have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running OS X \n> 10.3.9. I have noticed that the \"official\" R GUI runs considerably \n> slower than R in the terminal and also JGR. Whilst the differences in \n> speed are unimportant for simple parametric stats, it becomes a bit of \n> a pig when doing non-parametric stats e.g. neural nets, feature \n> selection algorithms.\n>\n> In all my experiments I have set my CPU speed to \"maximum\" in system \n> preferences. I have also looked at the CPU usage for each \n> implementation: on average R in the terminal and JGR manage to get 98% \n> of CPU usage, compared to only around 75% for the R GUI.\n>\n> I guess my questions are:\n>\n> 1) Why the difference in speed when its on the same machine?\nR.app is a GUI app (embedding R) and not just a wrapper around a \nterminal command. Which means that R.app calls R for computation, but \nduring R computation some time is spent to handle user events back in \nR.app. It's a real problem, we can't do anything in this direction \nuntil we change the R internal event loop (you can search r-devel \nmaling list).\n\n\n\n> 2) Is there any way of tweaking R GUI to make it run faster, a la R in \n> the terminal?\nno\n\nThe best thing to do is to use the cmd line version in batch mode, i.e. \nR CMD BATCH --vanilla myscript.R\n\nThis is what I actually do when  I don't need interaction on unix as \nwell (which is the case of very long computational tasks)\nstefano\n\n\n>\n> Any help would be appreciated.\n>\n> Best regards,\n>\n> Sam.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On 20/apr/05, at 16:40, Samuel E. Kemp wrote:\n\n> Hi,\n>\n> I have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running OS X \n> 10.3.9. I have noticed that the \"official\" R GUI runs considerably \n>",
+      "thread_id": "thread-77fd17a5a88c",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-6c70b4258c05",
+      "message_id": "<3969C266-2C1E-422B-AFDA-E82EA4CBD345@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-20T17:56:28Z",
+      "subject": "[R-SIG-Mac] R GUI slow on mac?",
+      "subject_clean": "R GUI slow on mac?",
+      "in_reply_to": "<54f3cb7570bd3ca5aec41269aa3e5dae@mail.nih.gov>",
+      "references": [
+        "<855d8ba160269112c36fa2501e06fa79@glam.ac.uk>",
+        "<54f3cb7570bd3ca5aec41269aa3e5dae@mail.nih.gov>"
+      ],
+      "body_plain": "On Apr 20, 2005, at 10:08 AM, Sean Davis wrote:\n\n\n> On Apr 20, 2005, at 10:40 AM, Samuel E. Kemp wrote:\n>\n>\n>> I have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running  \n>> OS X 10.3.9. I have noticed that the \"official\" R GUI runs  \n>> considerably slower than R in the terminal and also JGR. Whilst  \n>> the differences in speed are unimportant for simple parametric  \n>> stats, it becomes a bit of a pig when doing non-parametric stats  \n>> e.g. neural nets, feature selection algorithms.\n>>\n\nIf I remember correctly there was an issue in the internals of pbinom  \nwhere the R_ProcessEvents was called quite often during long  \niterations for extreme p and R_ProcessEvents is not a cheap operation  \nin the way R GUI implements it (it should be in the archives). This  \nwas fixed in R 2.1 so please be patient just a few more days until we  \nrelease R 2.1 binaries and R GUI 1.10.\n\n\n> Just a guess, but are you running into memory issues and swapping?   \n> I don't know how much more memory the GUI version uses over the  \n> command-line version--I would have thought not that much.\n>\n\nSwapping issue would be really surprising - JGR uses Java and it  \ndefinitely uses more memory than the Cocoa GUI ;). JGR uses threads,  \nso it doesn't have to rely on R_ProcessEvents - that may be the  \nreason why it doesn't affect the speed as much as R GUI does.\n\nCheers,\nSimon",
+      "body_snippet": "On Apr 20, 2005, at 10:08 AM, Sean Davis wrote:\n\n\n> On Apr 20, 2005, at 10:40 AM, Samuel E. Kemp wrote:\n>\n>\n>> I have R version 2.0.1 on my PowerBook G4 1.5Ghz, 512RAM, running  \n>> OS X 10.3.9. I hav",
+      "thread_id": "thread-77fd17a5a88c",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-68e1da177921",
+      "message_id": "<c549798b8c900fe4b25ded790ac1ef60@oninetspeed.pt>",
+      "from_name": "Jorge Manuel de Almeida Magalhães",
+      "from_email_hash": "bebf23a56c7e9ce60959d2e7a30dd92c204a605253d09132f86944ed103cadaf",
+      "date": "2005-04-21T14:35:57Z",
+      "subject": "[R-SIG-Mac] rgl on OSX",
+      "subject_clean": "rgl on OSX",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Sir,\n\nI would like make some 3D graphics with RGL.\n\nDid you know how i can fix this related problem.\n\nYour post tmessage:\n\nLooking at the .FirstLib code of rgl I saw\n\n.First.lib <- function(lib, pkg)\n{\n    # For MacOS X we have to remove /usr/X11R6/lib from the\nDYLD_LIBRARY_PATH\n    # because it would override Apple's OpenGL framework\n\nSys.putenv(\"DYLD_LIBRARY_PATH\"=sub(\"/usr/X11R6/\nlib\",\"\",Sys.getenv(\"DYLD_LIBRARY_PATH\")))\n\n    # load shared library\n\n    library.dynam( \"rgl\", pkg, lib)\n\n    ret <- .C( symbol.C(\"rgl_init\"),\n      success=FALSE\n    )\n\n    if (!ret$success) {\n      dyn.unload( file.path( libpath, \"libs\", paste( \"rgl\",\n.Platform$dynlib.ext, sep=\"\") ) )\n      stop(\"error rgl_init\")\n    }\n\n}\n\nIf I suppress the line starting with Sys.putenv (\"....\nthan I get the same error as you.\nIf I leave as it is, I simply cannot load the library.",
+      "body_snippet": "Dear Sir,\n\nI would like make some 3D graphics with RGL.\n\nDid you know how i can fix this related problem.\n\nYour post tmessage:\n\nLooking at the .FirstLib code of rgl I saw\n\n.First.lib <- function(lib, ",
+      "thread_id": "thread-68e1da177921",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-9c069c682ee8",
+      "message_id": "<df3377374a75299ae07cca3b67e83c04@Dartmouth.edu>",
+      "from_name": "Michael Herron",
+      "from_email_hash": "cddf22202a2dfefd484d691c5dc5e431f82a43692a72c0e5e3767137f1a0b4d6",
+      "date": "2005-04-21T17:15:23Z",
+      "subject": "[R-SIG-Mac] R.app crash report (very minor)",
+      "subject_clean": "R.app crash report (very minor)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello.\n\nI just compiled R 2.1.0 on OS X.\n\nI start R, which seems ok, and then:\n\n > update.packages()\n--- Please select a CRAN mirror for use in this session ---\nError in inherits(x, \"factor\") : Object \"res\" not found\n\nThis error is new to me.  I have compiled R on a number of OS X \nmachines in the past and have not seen it.\n\nI'm sure that this is easily fixed on my end so I am not asking for \nhelp.  Rather, given that this did not happen in previous Rs, perhaps \nthere is a bug somewhere.\n\nmh",
+      "body_snippet": "Hello.\n\nI just compiled R 2.1.0 on OS X.\n\nI start R, which seems ok, and then:\n\n > update.packages()\n--- Please select a CRAN mirror for use in this session ---\nError in inherits(x, \"factor\") : Object",
+      "thread_id": "thread-9c069c682ee8",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-277b92da9ff4",
+      "message_id": "<72d00337af0287f8160dc69f7833f835@wmgfunds.com>",
+      "from_name": "John Marsland",
+      "from_email_hash": "ba1b2c355ba225e46628f3ee4baa100ec14866a4ef8f514c6e3b43a42ce3758e",
+      "date": "2005-04-21T18:39:34Z",
+      "subject": "[R-SIG-Mac] timeSequence()",
+      "subject_clean": "timeSequence()",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I'm new to Rmetrics and I've been looking at the fCalendar package with \na view to using it to replace the \"its\" package in my work. However, I \nam having difficulties with the example for timeSequence().\n\n > timeSequence(from = \"2004-01-01\", to = format(Sys.time(), \"%Y-%m-%d\"),\n+         by = \"day\", length.out = NULL, format = \"\", FinCenter = \nmyFinCenter)\nError in seq.POSIXt(from = from, to = to, by = by) :\n\t`to' must be later than `from'\n\nI think the problem lies in default value for format which should be \nNULL rather than \"\". This seems to apply to the function itself as well \nas the example.\n\nAm I missing something?\n\nRegards,\n\nJohn\n\t[[alternative text/enriched version deleted]]",
+      "body_snippet": "I'm new to Rmetrics and I've been looking at the fCalendar package with \na view to using it to replace the \"its\" package in my work. However, I \nam having difficulties with the example for timeSequenc",
+      "thread_id": "thread-277b92da9ff4",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-feeffcae18e7",
+      "message_id": "<2C573B05-F866-4F3B-8604-40CA366BFDEB@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-21T19:03:59Z",
+      "subject": "[R-SIG-Mac] R.app crash report (very minor)",
+      "subject_clean": "R.app crash report (very minor)",
+      "in_reply_to": "<df3377374a75299ae07cca3b67e83c04@Dartmouth.edu>",
+      "references": [
+        "<df3377374a75299ae07cca3b67e83c04@Dartmouth.edu>"
+      ],
+      "body_plain": "Michael,\n\nOn Apr 21, 2005, at 9:13 AM, Michael Herron wrote:\n\n> > update.packages()\n> --- Please select a CRAN mirror for use in this session ---\n> Error in inherits(x, \"factor\") : Object \"res\" not found\n>\n> This error is new to me.  I have compiled R on a number of OS X  \n> machines in the past and have not seen it.\n\nThe subject of your mail differs substantially from the error you  \ndescribe - the above is an error message in R and hence has nothing  \nto do with R.app.\n\nCan you, please, be more specific as of how exactly you compiled R  \n(with tcl/tk or without - aqua or X11 ...), which versions you use  \n(R, R.app 1.01/1.02/1.10, SVN release number, ..) and how you ran it  \n(Terminal, emacs, R.app, ...)? That information is really necessary  \nin order to track it down, because there are simply too many  \npossibilities to build and run R on the Mac nowadays (and we didn't  \nrelease an official reference binary yet).\n\nCheers,\nSimon",
+      "body_snippet": "Michael,\n\nOn Apr 21, 2005, at 9:13 AM, Michael Herron wrote:\n\n> > update.packages()\n> --- Please select a CRAN mirror for use in this session ---\n> Error in inherits(x, \"factor\") : Object \"res\" not fo",
+      "thread_id": "thread-9c069c682ee8",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-03a4c541a410",
+      "message_id": "<fcb9285580d78e2f7ad44a83d8e03455@stat.harvard.edu>",
+      "from_name": "Byron Ellis",
+      "from_email_hash": "96054a6fc2ab5940337a3945e39fc6d1008334db662840abd9512700aa3b3d7e",
+      "date": "2005-04-22T08:57:27Z",
+      "subject": "[R-SIG-Mac] bug in RQuartz?",
+      "subject_clean": "bug in RQuartz?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "There appears to be a retain/release error somewhere in the RQuartz \ndevice. Occasionally graphics devices will become detached from the R \nrepresentation of the device causing a crash. Haven't tracked down the \nsource but it seems to come up eventually under heavy graphics usage \n(but only even a single device).\n\n---\nByron Ellis (ellis@stat.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_snippet": "There appears to be a retain/release error somewhere in the RQuartz \ndevice. Occasionally graphics devices will become detached from the R \nrepresentation of the device causing a crash. Haven't tracke",
+      "thread_id": "thread-03a4c541a410",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-d9fc097f0dee",
+      "message_id": "<910ae4da2c302afa103dfdd05fce9ada@Dartmouth.edu>",
+      "from_name": "Michael Herron",
+      "from_email_hash": "cddf22202a2dfefd484d691c5dc5e431f82a43692a72c0e5e3767137f1a0b4d6",
+      "date": "2005-04-22T10:14:35Z",
+      "subject": "[R-SIG-Mac] R.app crash report (very minor)",
+      "subject_clean": "R.app crash report (very minor)",
+      "in_reply_to": "<2C573B05-F866-4F3B-8604-40CA366BFDEB@r-project.org>",
+      "references": [
+        "<df3377374a75299ae07cca3b67e83c04@Dartmouth.edu>",
+        "<2C573B05-F866-4F3B-8604-40CA366BFDEB@r-project.org>"
+      ],
+      "body_plain": "Simon,\n\n>> > update.packages()\n>> --- Please select a CRAN mirror for use in this session ---\n>> Error in inherits(x, \"factor\") : Object \"res\" not found\n>>\n>> This error is new to me.  I have compiled R on a number of OS X \n>> machines in the past and have not seen it.\n>\n> The subject of your mail differs substantially from the error you \n> describe - the above is an error message in R and hence has nothing to \n> do with R.app.\n>\n> Can you, please, be more specific as of how exactly you compiled R \n> (with tcl/tk or without - aqua or X11 ...), which versions you use (R, \n> R.app 1.01/1.02/1.10, SVN release number, ..) and how you ran it \n> (Terminal, emacs, R.app, ...)? That information is really necessary in \n> order to track it down, because there are simply too many \n> possibilities to build and run R on the Mac nowadays (and we didn't \n> release an official reference binary yet).\n\nHere is the top of my config.log:\n\nIt was created by R configure 2.1.0, which was\ngenerated by GNU Autoconf 2.59.  Invocation command line was\n\n   $ ./configure --with-blas=-framework vecLib --with-lapack --with-aqua \n--enable-R-shlib --with-tcltk --with-lapack\n\nI have the error from Terminal and from xemacs running ESS; I have not \nrun R.app.  In fact, after making and installing R I do not seem to \nhave R.app in /Applications.  I have never checked on this, to be \nhonest, since I use R only from within xemacs.\n\nWhat else can I tell you that would be helpful?\n\nThanks,\n\nMichael",
+      "body_snippet": "Simon,\n\n>> > update.packages()\n>> --- Please select a CRAN mirror for use in this session ---\n>> Error in inherits(x, \"factor\") : Object \"res\" not found\n>>\n>> This error is new to me.  I have compiled",
+      "thread_id": "thread-9c069c682ee8",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-4a3669b9df07",
+      "message_id": "<35fa2002603fd8120986fabe52cedc9e@smalltime.com>",
+      "from_name": "gene",
+      "from_email_hash": "91bd817b952c525e6423d7d052ec62fa855128102bd9ade5c353e60ded4af871",
+      "date": "2005-04-22T23:09:44Z",
+      "subject": "[R-SIG-Mac] Optimization flags for G5 and G4",
+      "subject_clean": "Optimization flags for G5 and G4",
+      "in_reply_to": "<EC351ED3-2725-44E2-BB99-AC411E458C3C@r-project.org>",
+      "references": [
+        "<200502081115.j18BF8PF015259@hypatia.math.ethz.ch>",
+        "<984d7b204db97bcd4de21949209b1ad2@unsw.edu.au>",
+        "<EC351ED3-2725-44E2-BB99-AC411E458C3C@r-project.org>"
+      ],
+      "body_plain": "I tried following Simon's guide to optimization flags, but I'm getting \nstuck.\n\nHere are my compiler versions:\n > gcc -v\nReading specs from \n/usr/local/lib/gcc/powerpc-apple-darwin7.7.0/4.0.0-autovect/specs\nConfigured with: ../gcc/configure --enable-threads=posix \n--enable-languages=f95\nThread model: posix\ngcc version 4.0.0-autovect 20050128 (experimental, \nautovect-merge-20041213)\n\nI downloaded g77 from hps.sourceforge.net:\n > g77 -v\nReading specs from \n/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2/specs\nConfigured with: ../gcc/configure --enable-threads=posix \n--enable-languages=f77 --disable-shared --enable-static\nThread model: posix\ngcc version 3.4.2\n\nShould I be worried that it mentions a different gcc version?\n\n\nI had to take out some of the optimizer flags Simon lists because they \nwere not recognized:\ngcc: -falign-jumps-max-skip=15 -falign-loops-max-skip=15\ng77: -ftree-vectorize\n\n\nFinally, after running ./configure --with-blas='-framework vecLib' \n--with-lapack --with-aqua I get:\nWARNING: g77 and gcc disagree on int and double\n\nconfig.log shows a bunch of errors that look like this: ld instruction \nis only for 64-bit implementations (not allowed without \n-force_cpusubtype_ALL option)",
+      "body_snippet": "I tried following Simon's guide to optimization flags, but I'm getting \nstuck.\n\nHere are my compiler versions:\n > gcc -v\nReading specs from \n/usr/local/lib/gcc/powerpc-apple-darwin7.7.0/4.0.0-autovect",
+      "thread_id": "thread-4a3669b9df07",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-00316a74c0e4",
+      "message_id": "<8C8F48E5-FDFE-4CB7-9F49-C7D3848CF343@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-23T01:35:23Z",
+      "subject": "[R-SIG-Mac] Optimization flags for G5 and G4",
+      "subject_clean": "Optimization flags for G5 and G4",
+      "in_reply_to": "<35fa2002603fd8120986fabe52cedc9e@smalltime.com>",
+      "references": [
+        "<200502081115.j18BF8PF015259@hypatia.math.ethz.ch>",
+        "<984d7b204db97bcd4de21949209b1ad2@unsw.edu.au>",
+        "<EC351ED3-2725-44E2-BB99-AC411E458C3C@r-project.org>",
+        "<35fa2002603fd8120986fabe52cedc9e@smalltime.com>"
+      ],
+      "body_plain": "Gene,\n\nOn Apr 22, 2005, at 4:07 PM, gene wrote:\n\n\n> gcc version 4.0.0-autovect 20050128 (experimental, autovect- \n> merge-20041213)\n>\n> > g77 -v\n> gcc version 3.4.2\n>\n> Should I be worried that it mentions a different gcc version?\n>\n\nYes. You will need to download the corresponding gfortran from the  \ngcc4 suite (also available on the hpc pages).\n\n\n> Finally, after running ./configure --with-blas='-framework vecLib'  \n> --with-lapack --with-aqua I get:\n> WARNING: g77 and gcc disagree on int and double\n>\n\ngcc3 (and hence your g77) has no G5 support - you need gcc4 in order  \nto get optimized binaries.\n\nCheers,\nSimon",
+      "body_snippet": "Gene,\n\nOn Apr 22, 2005, at 4:07 PM, gene wrote:\n\n\n> gcc version 4.0.0-autovect 20050128 (experimental, autovect- \n> merge-20041213)\n>\n> > g77 -v\n> gcc version 3.4.2\n>\n> Should I be worried that it men",
+      "thread_id": "thread-4a3669b9df07",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-848d5a6d9b65",
+      "message_id": "<994935fb0f947a6200f90707fa42301e@globetrotter.net>",
+      "from_name": "Denis Chabot",
+      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
+      "date": "2005-04-23T19:10:30Z",
+      "subject": "[R-SIG-Mac] Re: build 1394",
+      "subject_clean": "build 1394",
+      "in_reply_to": "<200504231000.j3NA022v006001@hypatia.math.ethz.ch>",
+      "references": [
+        "<200504231000.j3NA022v006001@hypatia.math.ethz.ch>"
+      ],
+      "body_plain": "Hi, I've tried today's build (1408) of R cocoa gui and it still gives \nme an error -10810 when I try to use it. At least one other user has \nconfirmed this type of problem in the last few days, but I did not see \nan explanation. Is there one? Must I do something to my setup for these \nnewer versions of R cocoa gui to work?\n\nOn a different topic, I see that the Mac OS X page on CRAN now lists a \nfolder of R 2.1 packages compiled for Mac OS X. But when will there be \na simple installer (on a .dmg) for R2.1?\n\nThanks,\n\nDenis",
+      "body_snippet": "Hi, I've tried today's build (1408) of R cocoa gui and it still gives \nme an error -10810 when I try to use it. At least one other user has \nconfirmed this type of problem in the last few days, but I ",
+      "thread_id": "thread-848d5a6d9b65",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-90cff9a171bb",
+      "message_id": "<04800b8438642cdc85ba98a5c0710059@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-23T21:22:20Z",
+      "subject": "[R-SIG-Mac] Re: build 1394",
+      "subject_clean": "build 1394",
+      "in_reply_to": "<994935fb0f947a6200f90707fa42301e@globetrotter.net>",
+      "references": [
+        "<200504231000.j3NA022v006001@hypatia.math.ethz.ch>",
+        "<994935fb0f947a6200f90707fa42301e@globetrotter.net>"
+      ],
+      "body_plain": "On 23/apr/05, at 19:09, Denis Chabot wrote:\n\n> Hi, I've tried today's build (1408) of R cocoa gui and it still gives \n> me an error -10810 when I try to use it. At least one other user has \n> confirmed this type of problem in the last few days, but I did not see \n> an explanation. Is there one? Must I do something to my setup for \n> these newer versions of R cocoa gui to work?\n>\n> On a different topic, I see that the Mac OS X page on CRAN now lists a \n> folder of R 2.1 packages compiled for Mac OS X. But when will there be \n> a simple installer (on a .dmg) for R2.1?\n\nwe are preparing packages for the 2.1 and we want to have them mirrored \nfor the release. I think we will release VERY soon R.app 2.1\n\nstefano\n>\n> Thanks,\n>\n> Denis\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On 23/apr/05, at 19:09, Denis Chabot wrote:\n\n> Hi, I've tried today's build (1408) of R cocoa gui and it still gives \n> me an error -10810 when I try to use it. At least one other user has \n> confirme",
+      "thread_id": "thread-848d5a6d9b65",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-4d97f8636517",
+      "message_id": "<03ac17ef533af9daaf58025bce939815@stats.ox.ac.uk>",
+      "from_name": "Kjell Konis",
+      "from_email_hash": "9fc03a1c8c6d36b95f8b07f5b3447a6552a353657f44baf8a7ecd567f88ad47b",
+      "date": "2005-04-27T10:36:50Z",
+      "subject": "[R-SIG-Mac] R locale on Mac OS X",
+      "subject_clean": "R locale on Mac OS X",
+      "in_reply_to": "<Pine.LNX.4.61.0504270642550.18495@gannet.stats>",
+      "references": [
+        "<C698D707214E6F4AB39AB7096C3DE5A59E8F2A@phost015.EVAFUNDS.intermedia.net>",
+        "<Pine.LNX.4.61.0504270642550.18495@gannet.stats>"
+      ],
+      "body_plain": "Hi,\n\nI just built R 2.1.0 on my mini following all of the instructions on \nStefano's site.  Now when I start R the initial message is in German \nbut my workspace gets restored in Italian.  Errors and warnings are in \nGerman as well.\n\nAlso, how do I switch to English?\n\nKjell\n\n> R : Copyright 2005, The R Foundation for Statistical Computing\n> Version 2.1.0  (2005-04-18), ISBN 3-900051-07-0\n>\n> R ist freie Software und kommt OHNE JEGLICHE GARANTIE.\n> Sie sind eingeladen, es unter bestimmten Bedingungen weiter zu \n> verbreiten.\n> Tippen Sie 'license()' or 'licence()' f\"ur Details dazu.\n>\n> R ist ein Gemeinschaftsprojekt mit vielen Beitragenden.\n> Tippen Sie 'contributors()' f\"ur mehr Information und 'citation()',\n> um zu erfahren, wie R oder R packages in Publikationen zitiert werden \n> k\"onnen.\n>\n> Tippen Sie 'demo()' f\"ur einige Demos, 'help()' f\"ur on-line Hilfe, \n> oder\n> 'help.start()' f\"ur eine HTML Browserschnittstelle zur Hilfe.\n> Tippen Sie 'q()', um R zu verlassen.\n>\n> [Caricato workspace precedentemente salvato]",
+      "body_snippet": "Hi,\n\nI just built R 2.1.0 on my mini following all of the instructions on \nStefano's site.  Now when I start R the initial message is in German \nbut my workspace gets restored in Italian.  Errors and ",
+      "thread_id": "thread-4d97f8636517",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-a6511955832e",
+      "message_id": "<32C26A83-C6C3-4561-8596-603379542C93@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-27T16:07:23Z",
+      "subject": "[R-SIG-Mac] R locale on Mac OS X",
+      "subject_clean": "R locale on Mac OS X",
+      "in_reply_to": "<03ac17ef533af9daaf58025bce939815@stats.ox.ac.uk>",
+      "references": [
+        "<C698D707214E6F4AB39AB7096C3DE5A59E8F2A@phost015.EVAFUNDS.intermedia.net>",
+        "<Pine.LNX.4.61.0504270642550.18495@gannet.stats>",
+        "<03ac17ef533af9daaf58025bce939815@stats.ox.ac.uk>"
+      ],
+      "body_plain": "Hi Kjell,\n\nOn Apr 27, 2005, at 4:36 AM, Kjell Konis wrote:\n\n> I just built R 2.1.0 on my mini following all of the instructions  \n> on Stefano's site.  Now when I start R the initial message is in  \n> German but my workspace gets restored in Italian.  Errors and  \n> warnings are in German as well.\n\nAs with all Mac posts nowadays - please tell us how exactly you use  \nit (Terminal, Emacs, R.app,...) which versions of the accompanying  \nprograms etc.\n\nIf you use R from (any) shell, regular unix rules apply - i.e. the  \nlocale is determined by your environment settings. Therefore by  \nsetting the local environment variables you choose the locale. Still,  \nI'm wondering how you get that mix of german and italian - I'd really  \nlike to have steps to reproduce this.. dump of your environment vars  \nwould be helpful..\n\nIf you're using the GUI (R.app) then things are different. The GUI  \nuses your System Settings to set the locale - i.e. make sure you have  \nset both \"Language\" and \"Formats\" correctly. If you use the most  \nrecent R.app from the SVN then you can set \"ignore.system.locale\" to  \nYES in \"org.R-project.R\" defaults to force english locale. In the  \ncase you use R.app - what language are the menus in?\n\nCheers,\nSimon",
+      "body_snippet": "Hi Kjell,\n\nOn Apr 27, 2005, at 4:36 AM, Kjell Konis wrote:\n\n> I just built R 2.1.0 on my mini following all of the instructions  \n> on Stefano's site.  Now when I start R the initial message is in  \n>",
+      "thread_id": "thread-4d97f8636517",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-9fbff25df9a5",
+      "message_id": "<036b9e5adf61fcd99f0f07b921bde0e2@stats.ox.ac.uk>",
+      "from_name": "Kjell Konis",
+      "from_email_hash": "9fc03a1c8c6d36b95f8b07f5b3447a6552a353657f44baf8a7ecd567f88ad47b",
+      "date": "2005-04-27T17:15:59Z",
+      "subject": "[R-SIG-Mac] R locale on Mac OS X",
+      "subject_clean": "R locale on Mac OS X",
+      "in_reply_to": "<32C26A83-C6C3-4561-8596-603379542C93@r-project.org>",
+      "references": [
+        "<C698D707214E6F4AB39AB7096C3DE5A59E8F2A@phost015.EVAFUNDS.intermedia.net>",
+        "<Pine.LNX.4.61.0504270642550.18495@gannet.stats>",
+        "<03ac17ef533af9daaf58025bce939815@stats.ox.ac.uk>",
+        "<32C26A83-C6C3-4561-8596-603379542C93@r-project.org>"
+      ],
+      "body_plain": "I still run R in the terminal.  I had my LAND variable set to en which \nis why I wasn't getting English (it should have been LANG=en).  It's \nbeen set that way for over a year and this is the first oddity that has \ncome up (:\n\nYou can probably reproduce the behavior by unsetting your LANG variable.\n\nHere is a dump of my environment:\n\nTERM_PROGRAM=Apple_Terminal\nTERM=xterm-color\nSHELL=/bin/bash\nHISTSIZE=1000\n\nTERM_PROGRAM_VERSION=100.1.4\nHISTFILESIZE=0\nUSER=konis\n__CF_USER_TEXT_ENCODING=0xBE8:0:0\nPAGER=less\nPATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin\n\nEDITOR=pico\nFCEDIT=pico\nLAND=en\nPS1=[\\h] \\W>\nSHLVL=1\n\n\nLOGNAME=konis\nCVS_RSH=ssh\nVISUAL=pico\n\n_=/usr/bin/env\n\n\n\nKjell\n\nOn Apr 27, 2005, at 3:07 PM, Simon Urbanek wrote:\n\n>> I just built R 2.1.0 on my mini following all of the instructions on \n>> Stefano's site.  Now when I start R the initial message is in German \n>> but my workspace gets restored in Italian.  Errors and warnings are \n>> in German as well.\n>\n> As with all Mac posts nowadays - please tell us how exactly you use it \n> (Terminal, Emacs, R.app,...) which versions of the accompanying \n> programs etc.\n>\n> If you use R from (any) shell, regular unix rules apply - i.e. the \n> locale is determined by your environment settings. Therefore by \n> setting the local environment variables you choose the locale. Still, \n> I'm wondering how you get that mix of german and italian - I'd really \n> like to have steps to reproduce this.. dump of your environment vars \n> would be helpful..\n>\n> If you're using the GUI (R.app) then things are different. The GUI \n> uses your System Settings to set the locale - i.e. make sure you have \n> set both \"Language\" and \"Formats\" correctly. If you use the most \n> recent R.app from the SVN then you can set \"ignore.system.locale\" to \n> YES in \"org.R-project.R\" defaults to force english locale. In the case \n> you use R.app - what language are the menus in?",
+      "body_snippet": "I still run R in the terminal.  I had my LAND variable set to en which \nis why I wasn't getting English (it should have been LANG=en).  It's \nbeen set that way for over a year and this is the first od",
+      "thread_id": "thread-4d97f8636517",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-6e5393985aac",
+      "message_id": "<0e16d2641386d0d9399d369284cfc4d4@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-04-28T01:22:01Z",
+      "subject": "[R-SIG-Mac] Re: [R] tcl/tk problem",
+      "subject_clean": "tcl/tk problem",
+      "in_reply_to": "<p06110413be95b8577074@[128.32.214.130]>",
+      "references": [
+        "<p06110413be95b8577074@[128.32.214.130]>"
+      ],
+      "body_plain": "Hi Jennifer,\n\nYou need to start X11 before loading tcltk.\n\nRob\n\n\nOn Apr 27, 2005, at 3:57 PM, Jennifer Skene wrote:\n\n> I have JUST started using R.  I am using R 2.0.1 on a mac (os x) to  \n> run another program (called GRASPER, Generalized Regression Analysis  \n> and Spatial Prediction for R).  When I try to run Grasper, I get an  \n> error for tcl/tk:\n>\n>>  library(grasper)\n> Loading required package: mgcv\n> This is mgcv 1.1-8\n> Loading required package: MASS\n> Loading required package: tcltk\n> Error in dyn.load(x, as.logical(local), as.logical(now)) :\n> \tunable to load shared library  \n> \"/Library/Frameworks/R.framework/Resources/library/tcltk/libs/ \n> tcltk.so\":\n>   dlcompat: dyld: /Applications/R.app/Contents/MacOS/R can't open  \n> library: /usr/X11R6/lib/libX11.6.dylib  (No such file or directory,  \n> errno = 2)\n> Error: .onLoad failed in loadNamespace for 'tcltk'\n> Error: package 'tcltk' could not be loaded\n>\n>\n> However, tcl/tk appears to be there:\n>\n>>  capabilities()\n>     jpeg      png    tcltk      X11    GNOME     libz http/ftp  sockets\n>     TRUE     TRUE     TRUE     TRUE    FALSE     TRUE     TRUE     TRUE\n>   libxml     fifo   cledit  IEEE754    bzip2     PCRE\n>     TRUE     TRUE     TRUE     TRUE     TRUE     TRUE\n>\n> Does anyone know of a solution to this?\n>\n> Thanks,\n> Jennifer Skene\n>\n> ______________________________________________\n> R-help@stat.math.ethz.ch mailing list\n> https://stat.ethz.ch/mailman/listinfo/r-help\n> PLEASE do read the posting guide!  \n> http://www.R-project.org/posting-guide.html",
+      "body_snippet": "Hi Jennifer,\n\nYou need to start X11 before loading tcltk.\n\nRob\n\n\nOn Apr 27, 2005, at 3:57 PM, Jennifer Skene wrote:\n\n> I have JUST started using R.  I am using R 2.0.1 on a mac (os x) to  \n> run anoth",
+      "thread_id": "thread-6e5393985aac",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-a2587f11f257",
+      "message_id": "<4DDBB3FC-B315-45B3-8F43-06519BD01E18@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-28T03:57:42Z",
+      "subject": "[R-SIG-Mac] Re: [R] tcl/tk problem",
+      "subject_clean": "tcl/tk problem",
+      "in_reply_to": "<0e16d2641386d0d9399d369284cfc4d4@mac.com>",
+      "references": [
+        "<p06110413be95b8577074@[128.32.214.130]>",
+        "<0e16d2641386d0d9399d369284cfc4d4@mac.com>"
+      ],
+      "body_plain": "Jennifer,\n\nOn Apr 27, 2005, at 7:21 PM, Rob J Goedman wrote:\n\n> You need to start X11 before loading tcltk.\n\nRob is right, of course. In fact, you need to install it [X11] in the  \nfirst place... If you use Mac OS X 10.3 or higher, it's located on  \nthe installation CDs/DVD - look for the X11User.pkg (depending on the  \nexact version it may be well hidden). For 10.2 or older you need  \neither Apple's beta or XDarwin, whichever you'll find first.\n\nYou will also need the tcltk library itself which is supplied in the  \nCRAN installer, but optional by default.\n\nCheers,\nSimon\n\n>> Error in dyn.load(x, as.logical(local), as.logical(now)) :\n>>     unable to load shared library \"/Library/Frameworks/R.framework/ \n>> Resources/library/tcltk/libs/tcltk.so\":\n>>   dlcompat: dyld: /Applications/R.app/Contents/MacOS/R can't open  \n>> library: /usr/X11R6/lib/libX11.6.dylib  (No such file or  \n>> directory, errno = 2)",
+      "body_snippet": "Jennifer,\n\nOn Apr 27, 2005, at 7:21 PM, Rob J Goedman wrote:\n\n> You need to start X11 before loading tcltk.\n\nRob is right, of course. In fact, you need to install it [X11] in the  \nfirst place... If y",
+      "thread_id": "thread-6e5393985aac",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-295e9e305188",
+      "message_id": "<e0cb11deea48d7ae5d9dcef3728fc1da@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-28T15:48:21Z",
+      "subject": "[R-SIG-Mac] R 2.1.0 for Mac OS X released",
+      "subject_clean": "R 2.1.0 for Mac OS X released",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "[apologizes for cross-posting]\n\n\nIn addition to support for innovations in R itself (see the official \nR-2.1.0 announcement, accessible via the Help menu) this new version \nprovides a very significant, must-have update of the Cocoa-based GUI \nfor R:\n- Major enhancements to the built-in editor, such as configurable \nsyntax coloring, brace highlighting, line numbers, submission of edited \ntext and a toolbar featuring access to a function index field for fast \naccess to chunk of codes and abbreviated help.\n- Drag and drop capability has been extended and startup behavior is \ncontrolled by the user via preference settings (e.g. the initial \nworking directory can be specified once in the preferences or can be \nchanged at startup using the location of a directory/file dropped on \nthe R icon).\n- Command history loading and saving is compatible to R versions on \nother platforms.\n- Enhanced command and/or file completion on the R Console.\n- Configurable Quartz graphics settings to override standard R settings.\n- Quartz windows can be saved (in PDF format) and printed directly from \nthe menu.\n- R.app is fully internationalized, supporting special characters.\n- Localized versions for English, German, French, Italian and Japanese \n(in high demand!) are available.\n- Enhanced integrated help system.\n- Substantially updated Mac OS X FAQ to reflect changes in the new \nversion of R.app.\n- CRAN mirror can be now specified by the user interactively or in \npreferences and the choice applies to all internet activity related to \npackages installation and updating.\n- Improved installer for contributed packages, resolving several issues \n(e.g. on authentication).\n- Updated, pre-compiled binaries for Mac OS X for hundreds of available \nR source packages, including the BioConductor suite(*).\n- Many fixes and optimizations to speed up R.app and to add stability \nto the GUI.\n\nThis version requires Mac OS X 10.3 (Panther) or higher and it is fully \ncompatible with upcoming Mac OS X 10.4 (Tiger), even using some new, \nexciting features of Tiger!  Mac OS X 10.2 users can still work with \nprevious versions of R.app.\n\n(*) Note for BioConductor users: BioC v1.5 is not compatible with \nR-2.1.0 and BioC v1.6 (compatible with R-2.1.0) is announced for May \n16th 2005. So BioC OS X binaries for this release of R 2.1.0 will be \navailable after May 16th 2005.",
+      "body_snippet": "[apologizes for cross-posting]\n\n\nIn addition to support for innovations in R itself (see the official \nR-2.1.0 announcement, accessible via the Help menu) this new version \nprovides a very significant",
+      "thread_id": "thread-295e9e305188",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-516f276f4753",
+      "message_id": "<p06210207be96cc3fb03d@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "175f4fa90b8d6445baa141105bd5754ace34836009cb94ddb056a9ce4ea7ff75",
+      "date": "2005-04-28T19:46:14Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "It appears to me that the Gui-based installer for binary format \npackages in the new R 2.1.0 binary distribution can report a package \nas installed when in fact it has not been successfully installed. \nThis results from a previous attempt to install the package from \nsource code that failed.\n\nDetails:\n\nI just installed the new R 2.1.0 binary for OS X.\nI installed over the existing R 2.0.1, which had also been installed \nfrom the binary.\nOther then the fact that it was installed over the previous version, \nthis is a completely fresh installation of R 2.1.0.\n\nI started R by double-clicking R.app.\nThe very first thing I tried to do was to install the deldir package.\nIn the console, I typed\n    install.packages('deldir')\n\nThe installation failed, final message was\n   \"installation of package 'deldir' had a non-zero exit status...\"\n\nI then went to the GUI menu item for installing binary format \npackages. I found deldir. However, it told me I had an installed \nversion of deldir (there was an entry in the \"Installed Version\" \ncolumn of the GUI window). Since the attempt to install from source \nhad failed, this is not correct.\n\nThe version number for deldir in the GUI package installer window was \nthe same as that of the attempt to install from source.\nI had not installed deldir in R 2.0.1 (even if I had, it shouldn't be \nrelevant, I believe)\n\n-Don\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA",
+      "body_snippet": "It appears to me that the Gui-based installer for binary format \npackages in the new R 2.1.0 binary distribution can report a package \nas installed when in fact it has not been successfully installed.",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-02b5905e4665",
+      "message_id": "<7F67B0F3-8965-4FA1-B111-799495C2DE9C@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-28T20:09:32Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": "<p06210207be96cc3fb03d@[128.115.153.6]>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>"
+      ],
+      "body_plain": "Don,\n\nOn Apr 28, 2005, at 1:46 PM, Don MacQueen wrote:\n\n> The installation failed, final message was\n>   \"installation of package 'deldir' had a non-zero exit status...\"\n\nThis doesn't necessarily mean that the installation failed. Does\nlibrary(deldir)\nwork?\n\n> I then went to the GUI menu item for installing binary format  \n> packages. I found deldir. However, it told me I had an installed  \n> version of deldir (there was an entry in the \"Installed Version\"  \n> column of the GUI window). Since the attempt to install from source  \n> had failed, this is not correct.\n\nSee above - the installation may have been successful with non-zero  \nexit status. In that case it may be ineresting to figure out why  \nexactly (I remember that sometimes the script tries to change  \npermissions of the .css file, which fails depending on your setup,  \nbut that's irrelevat for the package), but if a package is retained  \nafter installation it usaully indicates that the installation was  \nsuccessful, regardles of the exit status.\n\nCheers,\nSimon",
+      "body_snippet": "Don,\n\nOn Apr 28, 2005, at 1:46 PM, Don MacQueen wrote:\n\n> The installation failed, final message was\n>   \"installation of package 'deldir' had a non-zero exit status...\"\n\nThis doesn't necessarily mean",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-87fa4c5a2c18",
+      "message_id": "<02bd0ff32bc18d805909555461946692@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-04-28T20:11:06Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": "<p06210207be96cc3fb03d@[128.115.153.6]>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>"
+      ],
+      "body_plain": "Don,\n\nCorrect. It does give a hint while installing to remove old versions.\n\nThe safe and correct way to install is removing previous versions of R \n(usually in /Applications) and\nand R.framework (/Library/Frameworks/R.framework). It might ask for \nauthentication to drag these\ninto the Trash.\n\nIf in the past you have used/updated a library in your home directory, \nalso remove this library\n(~/Library/library).\n\nAll packages need to be updated for R-2.1.0.\n\nHope this helps,\nRob\n\nOn Apr 28, 2005, at 10:46 AM, Don MacQueen wrote:\n\n> It appears to me that the Gui-based installer for binary format \n> packages in the new R 2.1.0 binary distribution can report a package \n> as installed when in fact it has not been successfully installed. This \n> results from a previous attempt to install the package from source \n> code that failed.\n>\n> Details:\n>\n> I just installed the new R 2.1.0 binary for OS X.\n> I installed over the existing R 2.0.1, which had also been installed \n> from the binary.\n> Other then the fact that it was installed over the previous version, \n> this is a completely fresh installation of R 2.1.0.\n>\n> I started R by double-clicking R.app.\n> The very first thing I tried to do was to install the deldir package.\n> In the console, I typed\n>    install.packages('deldir')\n>\n> The installation failed, final message was\n>   \"installation of package 'deldir' had a non-zero exit status...\"\n>\n> I then went to the GUI menu item for installing binary format \n> packages. I found deldir. However, it told me I had an installed \n> version of deldir (there was an entry in the \"Installed Version\" \n> column of the GUI window). Since the attempt to install from source \n> had failed, this is not correct.\n>\n> The version number for deldir in the GUI package installer window was \n> the same as that of the attempt to install from source.\n> I had not installed deldir in R 2.0.1 (even if I had, it shouldn't be \n> relevant, I believe)\n>\n> -Don\n> -- \n> --------------------------------------\n> Don MacQueen\n> Environmental Protection Department\n> Lawrence Livermore National Laboratory\n> Livermore, CA, USA\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Don,\n\nCorrect. It does give a hint while installing to remove old versions.\n\nThe safe and correct way to install is removing previous versions of R \n(usually in /Applications) and\nand R.framework (/Li",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-1b8a9b0f7a10",
+      "message_id": "<4271275B.2090805@gmail.com>",
+      "from_name": "Sean",
+      "from_email_hash": "ed06954e71e6bf5d181354cb9f1f66d87dc0c33d3f4789643d055da06de4fa76",
+      "date": "2005-04-28T20:11:31Z",
+      "subject": "[R-SIG-Mac] Missing Color Preference",
+      "subject_clean": "Missing Color Preference",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I don't know if this is the appropriate place for feature requests, so \nI'll just make mine and let people correct me later. :)\n\nI love the ability to set text and syntax colors in RAqua. There are \njust two color settings missing. First, and more important, is the \nability to set the cursor's color. Second, is the highlight color.\n\nThanks for listening,\nSean",
+      "body_snippet": "I don't know if this is the appropriate place for feature requests, so \nI'll just make mine and let people correct me later. :)\n\nI love the ability to set text and syntax colors in RAqua. There are \nj",
+      "thread_id": "thread-1b8a9b0f7a10",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-e0b4ad34bff4",
+      "message_id": "<4476F4E9-7D3F-44E5-873C-D048280A3252@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-28T20:30:56Z",
+      "subject": "[R-SIG-Mac] Missing Color Preference",
+      "subject_clean": "Missing Color Preference",
+      "in_reply_to": "<4271275B.2090805@gmail.com>",
+      "references": [
+        "<4271275B.2090805@gmail.com>"
+      ],
+      "body_plain": "Sean,\n\nOn Apr 28, 2005, at 2:11 PM, Sean wrote:\n\n> I don't know if this is the appropriate place for feature requests,  \n> so I'll just make mine and let people correct me later. :)\n\nYes, it is :)\n\n> I love the ability to set text and syntax colors in RAqua. There  \n> are just two color settings missing. First, and more important, is  \n> the ability to set the cursor's color. Second, is the highlight color.\n\nHighlight color can be set in the System Preferences - it is system- \nwide. The cursor color is currently fixed to black. I agree that it  \nmay be worthwhile to make it configurable (in case you prefer dark  \nbackground...).\n\nThanks,\nSimon",
+      "body_snippet": "Sean,\n\nOn Apr 28, 2005, at 2:11 PM, Sean wrote:\n\n> I don't know if this is the appropriate place for feature requests,  \n> so I'll just make mine and let people correct me later. :)\n\nYes, it is :)\n\n> ",
+      "thread_id": "thread-1b8a9b0f7a10",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-c33ac4376db7",
+      "message_id": "<p06210208be96d9f9e7bf@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "175f4fa90b8d6445baa141105bd5754ace34836009cb94ddb056a9ce4ea7ff75",
+      "date": "2005-04-28T20:35:07Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": "<7F67B0F3-8965-4FA1-B111-799495C2DE9C@r-project.org>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>",
+        "<7F67B0F3-8965-4FA1-B111-799495C2DE9C@r-project.org>"
+      ],
+      "body_plain": "I'm sorry, I thought the non-zero exit status message was sufficient \nand definitive.\n\nYes, it had failed. Prior to that message, it had said, in bright red text,\n\nmake: *** [deldir.so] Error 1\nERROR: compilation failed for package 'deldir'\n\n(and prior to that:  ld: can't locate file for : -lbundle1.o)\n\nSo I had no doubt that the installation had failed.\n\nlibrary(deldir) works in the sense that it returns no error or warning message.\ndeldir then shows up 2nd in the search path, but there's nothing there:\n\n>  ls(2)\ncharacter(0)\n\nAfter all this, there is a folder,\n   ~/Library/R/Library/deldir\nbut its contents are incomplete, having only a DESCRIPTION file, and \n'libs' and 'Meta' folders. The libs folder is empty, the Meta folder \nhas a single file, package.rds. The contents of the DESCRIPTION file \nlook generally ok.\n\nThanks\n-Don\n\nAt 2:09 PM -0400 4/28/05, Simon Urbanek wrote:\n>Don,\n>\n>On Apr 28, 2005, at 1:46 PM, Don MacQueen wrote:\n>\n>>The installation failed, final message was\n>>   \"installation of package 'deldir' had a non-zero exit status...\"\n>\n>This doesn't necessarily mean that the installation failed. Does\n>library(deldir)\n>work?\n>\n>>I then went to the GUI menu item for installing binary format \n>>packages. I found deldir. However, it told me I had an installed \n>>version of deldir (there was an entry in the \"Installed Version\" \n>>column of the GUI window). Since the attempt to install from source \n>>had failed, this is not correct.\n>\n>See above - the installation may have been successful with non-zero \n>exit status. In that case it may be ineresting to figure out why \n>exactly (I remember that sometimes the script tries to change \n>permissions of the .css file, which fails depending on your setup, \n>but that's irrelevat for the package), but if a package is retained \n>after installation it usaully indicates that the installation was \n>successful, regardles of the exit status.\n>\n>Cheers,\n>Simon\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA",
+      "body_snippet": "I'm sorry, I thought the non-zero exit status message was sufficient \nand definitive.\n\nYes, it had failed. Prior to that message, it had said, in bright red text,\n\nmake: *** [deldir.so] Error 1\nERROR:",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-8912195bc58c",
+      "message_id": "<42712DC5.9060408@gmail.com>",
+      "from_name": "Sean",
+      "from_email_hash": "ed06954e71e6bf5d181354cb9f1f66d87dc0c33d3f4789643d055da06de4fa76",
+      "date": "2005-04-28T20:38:56Z",
+      "subject": "[R-SIG-Mac] Missing Color Preference",
+      "subject_clean": "Missing Color Preference",
+      "in_reply_to": "<4476F4E9-7D3F-44E5-873C-D048280A3252@r-project.org>",
+      "references": [
+        "<4271275B.2090805@gmail.com>",
+        "<4476F4E9-7D3F-44E5-873C-D048280A3252@r-project.org>"
+      ],
+      "body_plain": "Simon Urbanek wrote:\n\n> Sean,\n>\n> On Apr 28, 2005, at 2:11 PM, Sean wrote:\n>\n>> I love the ability to set text and syntax colors in RAqua. There  are \n>> just two color settings missing. First, and more important, is  the \n>> ability to set the cursor's color. Second, is the highlight color.\n>\n>\n> Highlight color can be set in the System Preferences - it is system- \n> wide. The cursor color is currently fixed to black. I agree that it  \n> may be worthwhile to make it configurable (in case you prefer dark  \n> background...).\n>\n> Thanks,\n> Simon\n>\n>\n>\nWell, I don't actually care about highlight color, I only mentioned it \nbecause it just happens to be settable in Terminal.app. I just so \nhappens that I was using my Terminal.app settings as the point of \nreference for how I wanted to set RAqua.\n\nYes, it just so happens that I like a black background with off-white text.\n\nThanks again,\nSean",
+      "body_snippet": "Simon Urbanek wrote:\n\n> Sean,\n>\n> On Apr 28, 2005, at 2:11 PM, Sean wrote:\n>\n>> I love the ability to set text and syntax colors in RAqua. There  are \n>> just two color settings missing. First, and mo",
+      "thread_id": "thread-1b8a9b0f7a10",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-b1429651d9c4",
+      "message_id": "<p06210209be96dd5bb2cf@[128.115.153.6]>",
+      "from_name": "Don MacQueen",
+      "from_email_hash": "175f4fa90b8d6445baa141105bd5754ace34836009cb94ddb056a9ce4ea7ff75",
+      "date": "2005-04-28T20:54:03Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": "<02bd0ff32bc18d805909555461946692@mac.com>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>",
+        "<02bd0ff32bc18d805909555461946692@mac.com>"
+      ],
+      "body_plain": "Hi, Rob,\n\nThe only hint I saw, and it showed up in the Installer, was to remove \ncopies of old RAqua. In fact, it says \"previous versions of the Cocoa \nGUI are fine\". Maybe I didn't look hard enough, but that looked \npretty definite to me.\n\nI had some packages previously installed; they were, as usual, gone. \nThat's of course not a problem; it's expected.\n\nThanks\n-Don\n\nAt 11:10 AM -0700 4/28/05, Rob J Goedman wrote:\n>Don,\n>\n>Correct. It does give a hint while installing to remove old versions.\n>\n>The safe and correct way to install is removing previous versions of \n>R (usually in /Applications) and\n>and R.framework (/Library/Frameworks/R.framework). It might ask for \n>authentication to drag these\n>into the Trash.\n>\n>If in the past you have used/updated a library in your home \n>directory, also remove this library\n>(~/Library/library).\n>\n>All packages need to be updated for R-2.1.0.\n>\n>Hope this helps,\n>Rob\n>\n>On Apr 28, 2005, at 10:46 AM, Don MacQueen wrote:\n>\n>>It appears to me that the Gui-based installer for binary format \n>>packages in the new R 2.1.0 binary distribution can report a \n>>package as installed when in fact it has not been successfully \n>>installed. This results from a previous attempt to install the \n>>package from source code that failed.\n>>\n>>Details:\n>>\n>>I just installed the new R 2.1.0 binary for OS X.\n>>I installed over the existing R 2.0.1, which had also been \n>>installed from the binary.\n>>Other then the fact that it was installed over the previous \n>>version, this is a completely fresh installation of R 2.1.0.\n>>\n>>I started R by double-clicking R.app.\n>>The very first thing I tried to do was to install the deldir package.\n>>In the console, I typed\n>>    install.packages('deldir')\n>>\n>>The installation failed, final message was\n>>   \"installation of package 'deldir' had a non-zero exit status...\"\n>>\n>>I then went to the GUI menu item for installing binary format \n>>packages. I found deldir. However, it told me I had an installed \n>>version of deldir (there was an entry in the \"Installed Version\" \n>>column of the GUI window). Since the attempt to install from source \n>>had failed, this is not correct.\n>>\n>>The version number for deldir in the GUI package installer window \n>>was the same as that of the attempt to install from source.\n>>I had not installed deldir in R 2.0.1 (even if I had, it shouldn't \n>>be relevant, I believe)\n>>\n>>-Don\n>>--\n>>--------------------------------------\n>>Don MacQueen\n>>Environmental Protection Department\n>>Lawrence Livermore National Laboratory\n>>Livermore, CA, USA\n>>\n>>_______________________________________________\n>>R-SIG-Mac mailing list\n>>R-SIG-Mac@stat.math.ethz.ch\n>>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \n--------------------------------------\nDon MacQueen\nEnvironmental Protection Department\nLawrence Livermore National Laboratory\nLivermore, CA, USA",
+      "body_snippet": "Hi, Rob,\n\nThe only hint I saw, and it showed up in the Installer, was to remove \ncopies of old RAqua. In fact, it says \"previous versions of the Cocoa \nGUI are fine\". Maybe I didn't look hard enough, ",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 2,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-10df2dd57984",
+      "message_id": "<d36e056eb4e7dc508a16d1f5fbd81999@brown.edu>",
+      "from_name": "Alan Olav Bergland",
+      "from_email_hash": "ec7862f8b69a5ef5ba8b5ccd8aed39547a53ef720cffbac82c2c99f3b4da91be",
+      "date": "2005-04-28T21:26:17Z",
+      "subject": "[R-SIG-Mac] Problem installing R2.1",
+      "subject_clean": "Problem installing R2.1",
+      "in_reply_to": "<200504281854.j3SIs9a5009890@hypatia.math.ethz.ch>",
+      "references": [
+        "<200504281854.j3SIs9a5009890@hypatia.math.ethz.ch>"
+      ],
+      "body_plain": "Hi all,\n\nI tried installing R 2.1 with the new GUI.  It installed just fine, but \nR.app crashes immediately upon opening.  I'm not sure what the best \ninfo to send is, so here is a snippet of the crash log.  Any \nsuggestions\n\n\nDate/Time:      2005-04-28 15:23:38 -0400\nOS Version:     10.3.9 (Build 7W98)\nReport Version: 2\n\nCommand: R\nPath:    /Applications/R.app/Contents/MacOS/R\nVersion: 1.10 (1.10)\nPID:     818\nThread:  0\n\nException:  EXC_BAD_ACCESS (0x0001)\nCodes:      KERN_INVALID_ADDRESS (0x0001) at 0x80000006\n\nThread 0 Crashed:\n0   com.apple.CoreFoundation \t0x901c0f74 CFRetain + 0x20\n1   com.apple.CoreFoundation \t0x901dcc74 CFArrayCreate + 0x144\n2   com.apple.Foundation     \t0x90a6c60c -[NSArray initWithObjects:] + \n0xbc\n3   org.R-project.R          \t0x00003034 -[RController init] + 0x174\n4   com.apple.AppKit         \t0x92f6bd80 -[NSCustomObject \nnibInstantiate] + 0x10c\n5   com.apple.AppKit         \t0x92e9af38 -[NSIBObjectData \ninstantiateObject:] + 0xbc\n6   com.apple.AppKit         \t0x92ea1f64 -[NSIBObjectData \nnibInstantiateWithOwner:topLevelObjects:] + 0x88\n7   com.apple.AppKit         \t0x92f93d04 loadNib + 0xfc\n8   com.apple.AppKit         \t0x92eeaf28 +[NSBundle(NSNibLoading) \n_loadNibFile:nameTable:withZone:ownerBundle:] + 0x2e8\n9   com.apple.AppKit         \t0x92f69e00 +[NSBundle(NSNibLoading) \nloadNibFile:externalNameTable:withZone:] + 0x9c\n10  com.apple.AppKit         \t0x92f7b5f4 +[NSBundle(NSNibLoading) \nloadNibNamed:owner:] + 0x174\n11  com.apple.AppKit         \t0x92f69c68 NSApplicationMain + 0x174\n12  org.R-project.R          \t0x000028f0 _start + 0x188 (crt.c:267)\n13  dyld                     \t0x8fe1a278 _dyld_start + 0x64\n\nCheers,\nAlan",
+      "body_snippet": "Hi all,\n\nI tried installing R 2.1 with the new GUI.  It installed just fine, but \nR.app crashes immediately upon opening.  I'm not sure what the best \ninfo to send is, so here is a snippet of the cras",
+      "thread_id": "thread-10df2dd57984",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-994128cc5e22",
+      "message_id": "<8FD887CA-1241-444C-B2D0-6BFDB0DBD5F2@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-28T22:00:49Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": "<p06210208be96d9f9e7bf@[128.115.153.6]>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>",
+        "<7F67B0F3-8965-4FA1-B111-799495C2DE9C@r-project.org>",
+        "<p06210208be96d9f9e7bf@[128.115.153.6]>"
+      ],
+      "body_plain": "Don,\n\nOn Apr 28, 2005, at 2:34 PM, Don MacQueen wrote:\n\n> I'm sorry, I thought the non-zero exit status message was  \n> sufficient and definitive.\n>\n> Yes, it had failed. Prior to that message, it had said, in bright  \n> red text,\n>\n> make: *** [deldir.so] Error 1\n> ERROR: compilation failed for package 'deldir'\n\nOk, that qualifies for \"failed installation\" :).\n\n> library(deldir) works in the sense that it returns no error or  \n> warning message.\n\nThis is the reason why R.app shows it as installed - the package is  \nthere and loads. In fact R.app simply asks R about the package list -  \nit doesn't try to determine anything on its own. Hence this is not a  \nproblem in R.app (and has nothing to do with consistency of  \ninformation about installed packages - because it is consistent), but  \nrather something with the package installation.\n\n> After all this, there is a folder,\n>   ~/Library/R/Library/deldir\n\nOh, ok - you're installing your own private copy then.\n\nOn Apr 28, 2005, at 2:53 PM, Don MacQueen wrote:\n> The only hint I saw, and it showed up in the Installer, was to  \n> remove copies of old RAqua. In fact, it says \"previous versions of  \n> the Cocoa GUI are fine\". Maybe I didn't look hard enough, but that  \n> looked pretty definite to me.\n\nIt's ok to install over previous version, no problem, but if you use  \nyour own private R packages, you cannot share them across R versions  \n(that's why personally I recommend to avoid that practice unless you  \nhave no admin access). The safest thing is to delete ~/Library/R  \nafter upgrade. We don't want the installer to be destructive, that's  \nwhy don't do it by default.\n\nNevertheless, I still don't know how you happen to get the half- \ninstalled package. Did you use the Package Installer or did you  \ninstall it manually? If so, can you reproduce it even after deleting  \n~/Library/R?\n\nCheers,\nSimon",
+      "body_snippet": "Don,\n\nOn Apr 28, 2005, at 2:34 PM, Don MacQueen wrote:\n\n> I'm sorry, I thought the non-zero exit status message was  \n> sufficient and definitive.\n>\n> Yes, it had failed. Prior to that message, it had",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 3,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-8cbac59011af",
+      "message_id": "<fcc182caaa54c9efcae6b4c6f68d7945@mac.com>",
+      "from_name": "Rob J Goedman",
+      "from_email_hash": "f8034d24965b7a973d7ed3e9471e59ed0d574c35245fad2b7719155850a0d82c",
+      "date": "2005-04-28T22:44:40Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": "<8FD887CA-1241-444C-B2D0-6BFDB0DBD5F2@r-project.org>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>",
+        "<7F67B0F3-8965-4FA1-B111-799495C2DE9C@r-project.org>",
+        "<p06210208be96d9f9e7bf@[128.115.153.6]>",
+        "<8FD887CA-1241-444C-B2D0-6BFDB0DBD5F2@r-project.org>"
+      ],
+      "body_plain": "Hi Don and Simon,\n\nOn Apr 28, 2005, at 1:00 PM, Simon Urbanek wrote:\n\n>> The only hint I saw, and it showed up in the Installer, was to remove \n>> copies of old RAqua. In fact, it says \"previous versions of the Cocoa \n>> GUI are fine\". Maybe I didn't look hard enough, but that looked \n>> pretty definite to me.\n>\n> It's ok to install over previous version, no problem, but if you use \n> your own private R packages, you cannot share them across R versions \n> (that's why personally I recommend to avoid that practice unless you \n> have no admin access). The safest thing is to delete ~/Library/R after \n> upgrade. We don't want the installer to be destructive, that's why \n> don't do it by default.\n\nI know, but if you install R-2.1.0 on top of an existing install, \nexcept the default libraries, doesn't it leave\nall other libraries in the system library folder intact as well? I've \nnot seen many problems with packages in\nthis upgrade (from R-2.0.1 to R-2.1.0), but isn't it a good idea to \npick up a fresh set of packages? Hence\nmy earlier suggestion to delete  both /Library/Frameworks/R.framework \nand ~/Library/R/library before\ndoing the install. And thanks to Stefano nearly all of them are \navailable in binary format on the CRAN\nweb site.\n\nIf Don has a copy of deldir in the system library, could this behaviour \nbe the result?\n\nMaybe helpful for other folks on the mailing list, on the other part of \nSimon's earlier response:\n\n> I remember that sometimes the script tries to change permissions of \n> the .css file, which fails depending on your setup, but that's \n> irrelevat for the package), but if a package is retained after \n> installation it usaully indicates that the installation was \n> successful, regardles of the exit status.\n\nIndeed, I typically change the permissions of the R.css file\n( /Library/Frameworks/R.framework/Resources/library/R.css ) to allow \nRead & Write\npermissions by myself.\n\nRob",
+      "body_snippet": "Hi Don and Simon,\n\nOn Apr 28, 2005, at 1:00 PM, Simon Urbanek wrote:\n\n>> The only hint I saw, and it showed up in the Installer, was to remove \n>> copies of old RAqua. In fact, it says \"previous versi",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 4,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-b9c4b610eb72",
+      "message_id": "<35CD10C6-17EA-4DC2-97D3-F1AA637ECB77@r-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
+      "date": "2005-04-28T23:05:01Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": "<fcc182caaa54c9efcae6b4c6f68d7945@mac.com>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>",
+        "<7F67B0F3-8965-4FA1-B111-799495C2DE9C@r-project.org>",
+        "<p06210208be96d9f9e7bf@[128.115.153.6]>",
+        "<8FD887CA-1241-444C-B2D0-6BFDB0DBD5F2@r-project.org>",
+        "<fcc182caaa54c9efcae6b4c6f68d7945@mac.com>"
+      ],
+      "body_plain": "On Apr 28, 2005, at 4:44 PM, Rob J Goedman wrote:\n\n> On Apr 28, 2005, at 1:00 PM, Simon Urbanek wrote:\n>\n>> It's ok to install over previous version, no problem, but if you  \n>> use your own private R packages, you cannot share them across R  \n>> versions (that's why personally I recommend to avoid that practice  \n>> unless you have no admin access). The safest thing is to delete ~/ \n>> Library/R after upgrade. We don't want the installer to be  \n>> destructive, that's why don't do it by default.\n>>\n>\n> I know, but if you install R-2.1.0 on top of an existing install,  \n> except the default libraries, doesn't it leave\n> all other libraries in the system library folder intact as well?\n\nIt does, but they are in let's say\n/Library/Frameworks/R.framework/Versions/2.0.1/Resources/library\nso they won't bother your most recent R which will look in\n/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library\n\nIn fact each R (unless you use R_HOME or patch the R script) will  \nlook into\n/Library/Frameworks/R.framework/Resources/library\nwhich symlinks to\n/Library/Frameworks/R.framework/Versions/Current/Resources/library\nand \"Current\" is the symlink that the installer changes to point to  \n2.1.0\n\nThe bottom line is that each new version of R framework doesn't care  \nabout any other installed version and won't touch it(*).\n\n> I've not seen many problems with packages in this upgrade (from  \n> R-2.0.1 to R-2.1.0), but isn't it a good idea to pick up a fresh  \n> set of packages?\n\nYes, but the fact that the paths are different will force you to re- \ninstall system-wide packages anyway.(**)\n\n> If Don has a copy of deldir in the system library, could this  \n> behaviour be the result?\n\nIt should not, because install.packages won't touch any other  \nlocations than the one it is told to install the package into. It  \ndoesn't care if there are other versions around, either (AFAIK).\n\n>> I remember that sometimes the script tries to change permissions  \n>> of the .css file, which fails depending on your setup, but that's  \n>> irrelevat for the package), but if a package is retained after  \n>> installation it usaully indicates that the installation was  \n>> successful, regardles of the exit status.\n>>\n>\n> Indeed, I typically change the permissions of the R.css file\n> ( /Library/Frameworks/R.framework/Resources/library/R.css ) to  \n> allow Read & Write\n> permissions by myself.\n\nI may be wrong, but I think that the script actually tries to change  \nthe permissions to g-w, which it's not allowed to as non-root. In a  \nsense it's good that the system prevents it from doing so :P\n\nBTW: I think there may an unrelated bug indeed - for some strange  \nreason my R.app adds ~/library/R to the library paths even if the  \npreferences tell it to not do so - I'll investigate that...\n\nCheers,\nSimon\n\n(*) - technically the latest installer will actually touch all  \nversions inside R.framework, namely setting the permissions to g+w.  \nThis is consistent with Apple's permissions concept and allows admin  \nusers to install system-wide package w/o root authentication. It  \nwon't change any content, though.\n(**) - in order to allow retention of packages across patch-levels,  \nthere is in fact a symlink 2.1 in Versions in the CRAN release, but  \nit's not used (yet).\n(***) - I like those footnotes, don't you? ;)",
+      "body_snippet": "On Apr 28, 2005, at 4:44 PM, Rob J Goedman wrote:\n\n> On Apr 28, 2005, at 1:00 PM, Simon Urbanek wrote:\n>\n>> It's ok to install over previous version, no problem, but if you  \n>> use your own private R",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 5,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-4433dc0eeecf",
+      "message_id": "<3d67c010dc0c703e05f3ec636d90fbb4@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-29T00:59:29Z",
+      "subject": "[R-SIG-Mac] Consistency of information about installed packages",
+      "subject_clean": "Consistency of information about installed packages",
+      "in_reply_to": "<35CD10C6-17EA-4DC2-97D3-F1AA637ECB77@r-project.org>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>",
+        "<7F67B0F3-8965-4FA1-B111-799495C2DE9C@r-project.org>",
+        "<p06210208be96d9f9e7bf@[128.115.153.6]>",
+        "<8FD887CA-1241-444C-B2D0-6BFDB0DBD5F2@r-project.org>",
+        "<fcc182caaa54c9efcae6b4c6f68d7945@mac.com>",
+        "<35CD10C6-17EA-4DC2-97D3-F1AA637ECB77@r-project.org>"
+      ],
+      "body_plain": "It seems clear to be clear to Don, but probably other users will be \ninterested to know this:  when upgrading to a major version of R like \nfrom 2.0.x to 2.1.0 it is not an option to re-install fresh packages as \nmost of the package contain DLL's linked against libR.dylib, and entry \npoints/symbols are stable (inside libR.dylib) only inside each major \nversion of R (i.e. packages built for R 2.0.0 works with R 2.0.1, but \nnot with R 2.1.x)\nstefano\n\nOn 28/apr/05, at 23:04, Simon Urbanek wrote:\n\n> On Apr 28, 2005, at 4:44 PM, Rob J Goedman wrote:\n>\n>> On Apr 28, 2005, at 1:00 PM, Simon Urbanek wrote:\n>>\n>>> It's ok to install over previous version, no problem, but if you use \n>>> your own private R packages, you cannot share them across R versions \n>>> (that's why personally I recommend to avoid that practice unless you \n>>> have no admin access). The safest thing is to delete ~/Library/R \n>>> after upgrade. We don't want the installer to be destructive, that's \n>>> why don't do it by default.\n>>>\n>>\n>> I know, but if you install R-2.1.0 on top of an existing install, \n>> except the default libraries, doesn't it leave\n>> all other libraries in the system library folder intact as well?\n>\n> It does, but they are in let's say\n> /Library/Frameworks/R.framework/Versions/2.0.1/Resources/library\n> so they won't bother your most recent R which will look in\n> /Library/Frameworks/R.framework/Versions/2.1.0/Resources/library\n>\n> In fact each R (unless you use R_HOME or patch the R script) will look \n> into\n> /Library/Frameworks/R.framework/Resources/library\n> which symlinks to\n> /Library/Frameworks/R.framework/Versions/Current/Resources/library\n> and \"Current\" is the symlink that the installer changes to point to \n> 2.1.0\n>\n> The bottom line is that each new version of R framework doesn't care \n> about any other installed version and won't touch it(*).\n>\n>> I've not seen many problems with packages in this upgrade (from \n>> R-2.0.1 to R-2.1.0), but isn't it a good idea to pick up a fresh set \n>> of packages?\n>\n> Yes, but the fact that the paths are different will force you to \n> re-install system-wide packages anyway.(**)\n>\n>> If Don has a copy of deldir in the system library, could this \n>> behaviour be the result?\n>\n> It should not, because install.packages won't touch any other \n> locations than the one it is told to install the package into. It \n> doesn't care if there are other versions around, either (AFAIK).\n>\n>>> I remember that sometimes the script tries to change permissions of \n>>> the .css file, which fails depending on your setup, but that's \n>>> irrelevat for the package), but if a package is retained after \n>>> installation it usaully indicates that the installation was \n>>> successful, regardles of the exit status.\n>>>\n>>\n>> Indeed, I typically change the permissions of the R.css file\n>> ( /Library/Frameworks/R.framework/Resources/library/R.css ) to allow \n>> Read & Write\n>> permissions by myself.\n>\n> I may be wrong, but I think that the script actually tries to change \n> the permissions to g-w, which it's not allowed to as non-root. In a \n> sense it's good that the system prevents it from doing so :P\n>\n> BTW: I think there may an unrelated bug indeed - for some strange \n> reason my R.app adds ~/library/R to the library paths even if the \n> preferences tell it to not do so - I'll investigate that...\n>\n> Cheers,\n> Simon\n>\n> (*) - technically the latest installer will actually touch all \n> versions inside R.framework, namely setting the permissions to g+w. \n> This is consistent with Apple's permissions concept and allows admin \n> users to install system-wide package w/o root authentication. It won't \n> change any content, though.\n> (**) - in order to allow retention of packages across patch-levels, \n> there is in fact a symlink 2.1 in Versions in the CRAN release, but \n> it's not used (yet).\n> (***) - I like those footnotes, don't you? ;)\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "It seems clear to be clear to Don, but probably other users will be \ninterested to know this:  when upgrading to a major version of R like \nfrom 2.0.x to 2.1.0 it is not an option to re-install fresh ",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 6,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-16cc02e0ce48",
+      "message_id": "<p06110417be95d59c4987@[128.32.214.130]>",
+      "from_name": "Jennifer Skene",
+      "from_email_hash": "eee04c5d9c6415d277a08963f56f99ef6c41858241eb89d322c05ad5d3c556d4",
+      "date": "2005-04-29T08:39:03Z",
+      "subject": "[R-SIG-Mac] Re: [R] tcl/tk problem",
+      "subject_clean": "tcl/tk problem",
+      "in_reply_to": "<0e16d2641386d0d9399d369284cfc4d4@mac.com>",
+      "references": [
+        "<p06110413be95b8577074@[128.32.214.130]>",
+        "<0e16d2641386d0d9399d369284cfc4d4@mac.com>"
+      ],
+      "body_plain": "Great.  How do I do this?\n\nThanks,\nJennifer\n\n>Hi Jennifer,\n>\n>You need to start X11 before loading tcltk.\n>\n>Rob\n>\n>\n>On Apr 27, 2005, at 3:57 PM, Jennifer Skene wrote:\n>\n>>I have JUST started using R.  I am using R 2.0.1 on a mac (os x) to \n>>run another program (called GRASPER, Generalized Regression \n>>Analysis and Spatial Prediction for R).  When I try to run Grasper, \n>>I get an error for tcl/tk:\n>>\n>>>  library(grasper)\n>>Loading required package: mgcv\n>>This is mgcv 1.1-8\n>>Loading required package: MASS\n>>Loading required package: tcltk\n>>Error in dyn.load(x, as.logical(local), as.logical(now)) :\n>>\tunable to load shared library \n>>\"/Library/Frameworks/R.framework/Resources/library/tcltk/libs/tcltk.so\":\n>>   dlcompat: dyld: /Applications/R.app/Contents/MacOS/R can't open \n>>library: /usr/X11R6/lib/libX11.6.dylib  (No such file or directory, \n>>errno = 2)\n>>Error: .onLoad failed in loadNamespace for 'tcltk'\n>>Error: package 'tcltk' could not be loaded\n>>\n>>\n>>However, tcl/tk appears to be there:\n>>\n>>>  capabilities()\n>>     jpeg      png    tcltk      X11    GNOME     libz http/ftp  sockets\n>>     TRUE     TRUE     TRUE     TRUE    FALSE     TRUE     TRUE     TRUE\n>>   libxml     fifo   cledit  IEEE754    bzip2     PCRE\n>>     TRUE     TRUE     TRUE     TRUE     TRUE     TRUE\n>>\n>>Does anyone know of a solution to this?\n>>\n>>Thanks,\n>>Jennifer Skene\n>>\n>>______________________________________________\n>>R-help@stat.math.ethz.ch mailing list\n>>https://stat.ethz.ch/mailman/listinfo/r-help\n>>PLEASE do read the posting guide! http://www.R-project.org/posting-guide.html",
+      "body_snippet": "Great.  How do I do this?\n\nThanks,\nJennifer\n\n>Hi Jennifer,\n>\n>You need to start X11 before loading tcltk.\n>\n>Rob\n>\n>\n>On Apr 27, 2005, at 3:57 PM, Jennifer Skene wrote:\n>\n>>I have JUST started using R",
+      "thread_id": "thread-6e5393985aac",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-bc305d886600",
+      "message_id": "<p06210201be9715f65865@[128.253.207.55]>",
+      "from_name": "Stefan Hames",
+      "from_email_hash": "6bd6d263adc0a1a9f905673c94f2b5a86628d8ba3d60b2aa3dcce936f4ca6064",
+      "date": "2005-04-29T14:27:40Z",
+      "subject": "[R-SIG-Mac] Kudos on R-2.1.0",
+      "subject_clean": "Kudos on R-2.1.0",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI just wanted to say thanks very much for Stefano's (and everyone \nelse's) hard work. The install went smoothly, R.app is really great, \nit's very nice to be able to save graphics as pdfs, and to print \ndirectly from the quartz window.  I'm still exploring, but so far \neverything works. I really appreciate all of the precompiled binaries \nand the big efforts that that were made to put all this together.\n\nThank again,\n\nStefan\n-- \n========================================================================\nStefan Hames, PhD\nResearch Associate\nConservation Science\nCornell Laboratory of Ornithology\n159 Sapsucker Woods Road\nIthaca, NY 14850\nPhone: 607-254-2496 (lab)\n        607-254-2104 (fax)\n        607-273-4915 (home)  \n<mailto: rsh5@cornell.edu>",
+      "body_snippet": "Hi,\n\nI just wanted to say thanks very much for Stefano's (and everyone \nelse's) hard work. The install went smoothly, R.app is really great, \nit's very nice to be able to save graphics as pdfs, and to",
+      "thread_id": "thread-bc305d886600",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-d41bc7c4214f",
+      "message_id": "<ab0827e7070d43f7e91fe7390a372126@wmgfunds.com>",
+      "from_name": "John Marsland",
+      "from_email_hash": "ba1b2c355ba225e46628f3ee4baa100ec14866a4ef8f514c6e3b43a42ce3758e",
+      "date": "2005-04-29T18:24:47Z",
+      "subject": "[R-SIG-Mac] R Editor - syntax coloring",
+      "subject_clean": "R Editor - syntax coloring",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "First, of all the new R-2.1.0 looks great on the Mac. It upgraded \neffortlessly and I am hoping to be able to try it out on Tiger later \ntoday, assuming the Police haven't cordoned off the Apple Store in \nLondon!\n\nHowever, I have come across a problem. The new syntax coloring option \nin the R Editor preferences looks great, but on large R script files \n(mine is 500 lines) slows the refresh down incredibly. Each key stroke \ntake several 10's of seconds to action! It seems like the colorisation \nis redone for the whole file on each key stroke? I am running R on an \niBook G4 800MHz with 640Mb and OS X 10.3.9 -- those of you lucky enough \nto have a G5 might not notice any problem!\n\nAs an aside, I note that R participates in Version Tracker but the \nversion number comes out as 1.10 not 2.1.0. I understand the rationale \nfor the Mac GUI having a version number of 1.10 but this is very \nconfusing. Either way the current version should be at least consistent \non Version Tracker.\n\nRegards,\n\nJohn\n\nplatform powerpc-apple-darwin7.9.0\narch     powerpc\nos       darwin7.9.0\nsystem   powerpc, darwin7.9.0\nstatus\nmajor    2\nminor    1.0\nyear     2005\nmonth    04\nday      18\nlanguage R",
+      "body_snippet": "First, of all the new R-2.1.0 looks great on the Mac. It upgraded \neffortlessly and I am hoping to be able to try it out on Tiger later \ntoday, assuming the Police haven't cordoned off the Apple Store",
+      "thread_id": "thread-d41bc7c4214f",
+      "thread_depth": 0,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-a3582cca8c92",
+      "message_id": "<03feacdbbc9ee05c32ca6cbcd74202fa@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-29T18:43:52Z",
+      "subject": "[R-SIG-Mac] R Editor - syntax coloring",
+      "subject_clean": "R Editor - syntax coloring",
+      "in_reply_to": "<ab0827e7070d43f7e91fe7390a372126@wmgfunds.com>",
+      "references": [
+        "<ab0827e7070d43f7e91fe7390a372126@wmgfunds.com>"
+      ],
+      "body_plain": "On 29/apr/05, at 18:24, John Marsland wrote:\n\n> First, of all the new R-2.1.0 looks great on the Mac. It upgraded \n> effortlessly and I am hoping to be able to try it out on Tiger later \n> today, assuming the Police haven't cordoned off the Apple Store in \n> London!\n>\n> However, I have come across a problem. The new syntax coloring option \n> in the R Editor preferences looks great, but on large R script files \n> (mine is 500 lines) slows the refresh down incredibly. Each key stroke \n> take several 10's of seconds to action! It seems like the colorisation \n> is redone for the whole file on each key stroke? I am running R on an \n> iBook G4 800MHz with 640Mb and OS X 10.3.9 -- those of you lucky \n> enough to have a G5 might not notice any problem!\n\nyou can disable coloring from the prefererences\n>\n> As an aside, I note that R participates in Version Tracker but the \n> version number comes out as 1.10 not 2.1.0. I understand the rationale \n> for the Mac GUI having a version number of 1.10 but this is very \n> confusing. Either way the current version should be at least \n> consistent on Version Tracker.\n\nthe version shown on version tracker is 2.1.0\n\nhttp://www.versiontracker.com/dyn/moreinfo/macosx/10661\n\nas this is R for OS X binaries.\n\nOn top of R there is R.app, the GUI, whose development  varies at \ndifferent speed (we have daily building thanks to Simon)\n\nIf you mean the version tracker utils: it could probably be due to the \nfact that they take versioning information from the R.app signature.\n\nI'll try to understand what's happening as I physically do the update \nevery time\n\nstefano\n\n\n>\n> Regards,\n>\n> John\n>\n> platform powerpc-apple-darwin7.9.0\n> arch     powerpc\n> os       darwin7.9.0\n> system   powerpc, darwin7.9.0\n> status\n> major    2\n> minor    1.0\n> year     2005\n> month    04\n> day      18\n> language R\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On 29/apr/05, at 18:24, John Marsland wrote:\n\n> First, of all the new R-2.1.0 looks great on the Mac. It upgraded \n> effortlessly and I am hoping to be able to try it out on Tiger later \n> today, assu",
+      "thread_id": "thread-d41bc7c4214f",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-3dabc84434c9",
+      "message_id": "<e4e9463e5b696686569725ea94f2a8c7@unimi.it>",
+      "from_name": "stefano iacus",
+      "from_email_hash": "01be6412e8f757040268a7a1e0493160e362e221b339410d4861d3d4189ad837",
+      "date": "2005-04-29T18:45:30Z",
+      "subject": "[R-SIG-Mac] Kudos on R-2.1.0",
+      "subject_clean": "Kudos on R-2.1.0",
+      "in_reply_to": "<p06210201be9715f65865@[128.253.207.55]>",
+      "references": [
+        "<p06210201be9715f65865@[128.253.207.55]>"
+      ],
+      "body_plain": "To be honest (see the NEWS file in R.app sources) most of the work on  \nthe Editor is due to Simon and Rob.\nI usually pester them finding small bugs :) they usually fix instantly.\nstefano\n\nOn 29/apr/05, at 14:26, Stefan Hames wrote:\n\n> Hi,\n>\n> I just wanted to say thanks very much for Stefano's (and everyone  \n> else's) hard work. The install went smoothly, R.app is really great,  \n> it's very nice to be able to save graphics as pdfs, and to print  \n> directly from the quartz window.  I'm still exploring, but so far  \n> everything works. I really appreciate all of the precompiled binaries  \n> and the big efforts that that were made to put all this together.\n>\n> Thank again,\n>\n> Stefan\n> --  \n> ======================================================================= \n> =\n> Stefan Hames, PhD\n> Research Associate\n> Conservation Science\n> Cornell Laboratory of Ornithology\n> 159 Sapsucker Woods Road\n> Ithaca, NY 14850\n> Phone: 607-254-2496 (lab)\n>        607-254-2104 (fax)\n>        607-273-4915 (home)  <mailto: rsh5@cornell.edu>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "To be honest (see the NEWS file in R.app sources) most of the work on  \nthe Editor is due to Simon and Rob.\nI usually pester them finding small bugs :) they usually fix instantly.\nstefano\n\nOn 29/apr/0",
+      "thread_id": "thread-bc305d886600",
+      "thread_depth": 1,
+      "month": "2005-04"
+    },
+    {
+      "id": "msg-1091d85d35ef",
+      "message_id": "<p06210200be98234204ac@mail.llnl.gov>",
+      "from_name": "macq",
+      "from_email_hash": "326b385bfa6d745ea9226e6a420f72977bc2b387e447e5ec2fdea5e317ee1937",
+      "date": "2005-04-29T21:43:53Z",
+      "subject": "[R-SIG-Mac] Half-installed package (was Consistency of information...)",
+      "subject_clean": "Half-installed package (was Consistency of information...)",
+      "in_reply_to": "<8FD887CA-1241-444C-B2D0-6BFDB0DBD5F2@r-project.org>",
+      "references": [
+        "<p06210207be96cc3fb03d@[128.115.153.6]>",
+        "<7F67B0F3-8965-4FA1-B111-799495C2DE9C@r-project.org>",
+        "<p06210208be96d9f9e7bf@[128.115.153.6]>",
+        "<8FD887CA-1241-444C-B2D0-6BFDB0DBD5F2@r-project.org>"
+      ],
+      "body_plain": "More details on how I got a half-installed package; see below. (kind of long)\nFundamentally, what's happening (I believe) is that in the context \nwhere I used it,\ninstall.packages() is not cleaning up after itself like it normally does.\n\n-Don\n\nAt 4:00 PM -0400 4/28/05, Simon Urbanek wrote:\n>Don,\n>\n>On Apr 28, 2005, at 2:34 PM, Don MacQueen wrote:\n>\n>>I'm sorry, I thought the non-zero exit status message was \n>>sufficient and definitive.\n>>\n>>Yes, it had failed. Prior to that message, it had said, in bright red text,\n>>\n>>make: *** [deldir.so] Error 1\n>>ERROR: compilation failed for package 'deldir'\n>\n>Ok, that qualifies for \"failed installation\" :).\n>\n>>library(deldir) works in the sense that it returns no error or \n>>warning message.\n>\n>This is the reason why R.app shows it as installed - the package is \n>there and loads. In fact R.app simply asks R about the package list \n>- it doesn't try to determine anything on its own. Hence this is not \n>a problem in R.app (and has nothing to do with consistency of \n>information about installed packages - because it is consistent), \n>but rather something with the package installation.\n>\n>>After all this, there is a folder,\n>>   ~/Library/R/Library/deldir\n>\n>Oh, ok - you're installing your own private copy then.\n>\n>On Apr 28, 2005, at 2:53 PM, Don MacQueen wrote:\n>>The only hint I saw, and it showed up in the Installer, was to \n>>remove copies of old RAqua. In fact, it says \"previous versions of \n>>the Cocoa GUI are fine\". Maybe I didn't look hard enough, but that \n>>looked pretty definite to me.\n>\n>It's ok to install over previous version, no problem, but if you use \n>your own private R packages, you cannot share them across R versions \n>(that's why personally I recommend to avoid that practice unless you \n>have no admin access). The safest thing is to delete ~/Library/R \n>after upgrade. We don't want the installer to be destructive, that's \n>why don't do it by default.\n>\n>Nevertheless, I still don't know how you happen to get the \n>half-installed package. Did you use the Package Installer or did you \n>install it manually? If so, can you reproduce it even after deleting \n>~/Library/R?\n\nYes, I can.\n\nFrist, I decided to make a fresh start by entirely deleting R. I \ndeleted ~Library/R, and  /Library/Frameworks/R.framework. Then I \nreinstalled R (2.1.0) from the mpkg installer. In the custom install \nI selected all three options, including the optional X11/tcltk \npackage.\n\nThen I started R.app. The very first thing I did was use \ninstall.packages('deldir') at the command line in the console. Did \nnot use the GUI package installer. The full transcript is below.\n\nNote that I am installing my own private copy of deldir, but not by \nintent. That's just what happened. I do have admin privileges.\n\nFor comparison, I can mention that on another OS X box, where I have \ninstalled R 2.1.0 from source, installation of deldir by the same \nmethod succeeds, and does install globally, not as a private copy.\n\n\n  R : Copyright 2005, The R Foundation for Statistical Computing\nVersion 2.1.0  (2005-04-18), ISBN 3-900051-07-0\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n   Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for a HTML browser interface to help.\nType 'q()' to quit R.\n\n>  install.packages('deldir')\nWarning in install.packages(\"deldir\") : argument 'lib' is missing: \nusing /Users/macq/Library/R/library\n--- Please select a CRAN mirror for use in this session ---\ntrying URL 'http://cran.cnr.Berkeley.edu/src/contrib/deldir_0.0-2.tar.gz'\nContent type 'application/x-tar' length 33380 bytes\nopened URL\n==================================================\ndownloaded 32Kb\n\n* Installing *source* package 'deldir' ...\n** libs\ng77   -fno-common  -g -O2 -c acchk.f -o acchk.o\ng77   -fno-common  -g -O2 -c addpt.f -o addpt.o\ng77   -fno-common  -g -O2 -c adjchk.f -o adjchk.o\ng77   -fno-common  -g -O2 -c binsrt.f -o binsrt.o\ng77   -fno-common  -g -O2 -c circen.f -o circen.o\ng77   -fno-common  -g -O2 -c cross.f -o cross.o\ng77   -fno-common  -g -O2 -c delet.f -o delet.o\ng77   -fno-common  -g -O2 -c delet1.f -o delet1.o\ng77   -fno-common  -g -O2 -c delout.f -o delout.o\ng77   -fno-common  -g -O2 -c delseg.f -o delseg.o\ng77   -fno-common  -g -O2 -c dirout.f -o dirout.o\ng77   -fno-common  -g -O2 -c dirseg.f -o dirseg.o\ng77   -fno-common  -g -O2 -c inddup.f -o inddup.o\ng77   -fno-common  -g -O2 -c initad.f -o initad.o\ng77   -fno-common  -g -O2 -c inside.f -o inside.o\ng77   -fno-common  -g -O2 -c insrt.f -o insrt.o\ng77   -fno-common  -g -O2 -c insrt1.f -o insrt1.o\ng77   -fno-common  -g -O2 -c locn.f -o locn.o\ng77   -fno-common  -g -O2 -c master.f -o master.o\ng77   -fno-common  -g -O2 -c mnnd.f -o mnnd.o\ng77   -fno-common  -g -O2 -c pred.f -o pred.o\ng77   -fno-common  -g -O2 -c qtest.f -o qtest.o\ng77   -fno-common  -g -O2 -c qtest1.f -o qtest1.o\ng77   -fno-common  -g -O2 -c stoke.f -o stoke.o\ng77   -fno-common  -g -O2 -c succ.f -o succ.o\ng77   -fno-common  -g -O2 -c swap.f -o swap.o\ng77   -fno-common  -g -O2 -c testeq.f -o testeq.o\ng77   -fno-common  -g -O2 -c triar.f -o triar.o\ng77   -fno-common  -g -O2 -c trifnd.f -o trifnd.o\ngcc -bundle -flat_namespace -undefined suppress -L/usr/local/lib -o \ndeldir.so acchk.o addpt.o adjchk.o binsrt.o circen.o cross.o delet.o \ndelet1.o delout.o delseg.o dirout.o dirseg.o inddup.o initad.o \ninside.o insrt.o insrt1.o locn.o master.o mnnd.o pred.o qtest.o \nqtest1.o stoke.o succ.o swap.o testeq.o triar.o trifnd.o \n-L/usr/local/lib/gcc/powerpc-apple-darwin6.8/3.4.2 -lg2c -lSystem \n-lcc_dynamic -framework R\nld: can't locate file for: -lbundle1.o\nmake: *** [deldir.so] Error 1\nERROR: compilation failed for package 'deldir'\n\nThe downloaded packages are in\n\t/private/tmp/RtmpIXX01o/downloaded_packages\nWarning message:\ninstallation of package 'deldir' had non-zero exit status in: \ninstall.packages(\"deldir\")\n>\n>  require(deldir)\nLoading required package: deldir\n[1] TRUE\n>  search()\n  [1] \".GlobalEnv\"        \"package:deldir\"    \"package:methods\" \n\"package:stats\"     \"package:graphics\"\n  [6] \"package:grDevices\" \"package:utils\"     \"package:datasets\" \n\"Autoloads\"         \"package:base\"    \n>  ls(2)\ncharacter(0)\n>\n\n\nAt this point, if I go look in ~/Library/R, I see a folder named \ndeldir, with incomplete contents as I described yesterday.\n\n\n\nNext, if I go to the GUI package installer and install the deldir \nbinary at the \"System Level\", it succeeds.\n\nBut, and I suppose this is no surprise, I now have a half-installed \nprivate deldir, and a fully installed system deldir. require(deldir) \nloads the private one in preference to the system one. The private \none has to be manually deleted outside of R. The lesson here is that \na user can get in trouble by mixing source and binary installations \nof packages.\n\n\nOne more point. If I start R at the command line, using the \nrecommended alias in /usr/bin, then install.packages('deldir') fails \nas in R.app, but it (1) goes for a system install instead of a \nprivate one, and (2) cleans up after itself:\n\nmake: *** [deldir.so] Error 1\nERROR: compilation failed for package 'deldir'\n** Removing \n'/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library/deldir'\n** Restoring previous \n'/Library/Frameworks/R.framework/Versions/2.1.0/Resources/library/deldir'\n\n\n\nAnd just to be complete,\n\n>  version\n          _                       \nplatform powerpc-apple-darwin7.9.0\narch     powerpc                 \nos       darwin7.9.0             \nsystem   powerpc, darwin7.9.0    \nstatus                           \nmajor    2                       \nminor    1.0                     \nyear     2005                    \nmonth    04                      \nday      18                      \nlanguage R                       \n>",
+      "body_snippet": "More details on how I got a half-installed package; see below. (kind of long)\nFundamentally, what's happening (I believe) is that in the context \nwhere I used it,\ninstall.packages() is not cleaning up",
+      "thread_id": "thread-516f276f4753",
+      "thread_depth": 4,
+      "month": "2005-04"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-6e463b77df8a",
+      "subject": "How to Speed up R on the G5",
+      "message_count": 1,
+      "participants": [
+        "Naji"
+      ],
+      "started": "2005-04-03T18:14:34+00:00",
+      "last_reply": "2005-04-03T18:14:34+00:00",
+      "root_message_id": "msg-6e463b77df8a"
+    },
+    {
+      "id": "thread-3079e7a4c9c2",
+      "subject": "NA in table with integer types",
+      "message_count": 2,
+      "participants": [
+        "Don MacQueen",
+        "Paul Rathouz"
+      ],
+      "started": "2005-04-07T21:11:59+00:00",
+      "last_reply": "2005-04-07T21:19:09+00:00",
+      "root_message_id": "msg-3079e7a4c9c2"
+    },
+    {
+      "id": "thread-946b3e3ad04f",
+      "subject": "emacs fans",
+      "message_count": 4,
+      "participants": [
+        "Jan de Leeuw",
+        "Martin Maechler",
+        "stefano iacus"
+      ],
+      "started": "2005-04-08T16:40:27+00:00",
+      "last_reply": "2005-04-09T23:48:01+00:00",
+      "root_message_id": "msg-946b3e3ad04f"
+    },
+    {
+      "id": "thread-2c1934d9109e",
+      "subject": "BUG in RODBC with OS X?",
+      "message_count": 5,
+      "participants": [
+        "Drew Balazs",
+        "Prof Brian Ripley",
+        "Simon Urbanek"
+      ],
+      "started": "2005-04-09T23:27:36+00:00",
+      "last_reply": "2005-04-13T21:51:59+00:00",
+      "root_message_id": "msg-2c1934d9109e"
+    },
+    {
+      "id": "thread-c3b41bb0dc11",
+      "subject": "R Gui help",
+      "message_count": 1,
+      "participants": [
+        "Rob J Goedman"
+      ],
+      "started": "2005-04-11T06:33:29+00:00",
+      "last_reply": "2005-04-11T06:33:29+00:00",
+      "root_message_id": "msg-c3b41bb0dc11"
+    },
+    {
+      "id": "thread-bfaed6bae163",
+      "subject": "Using quartz-device from Emacs+ess",
+      "message_count": 4,
+      "participants": [
+        "Armin Goralczyk",
+        "Byron Ellis",
+        "Thomas Lumley",
+        "stefano iacus"
+      ],
+      "started": "2005-04-12T10:15:10+00:00",
+      "last_reply": "2005-04-12T16:07:24+00:00",
+      "root_message_id": "msg-bfaed6bae163"
+    },
+    {
+      "id": "thread-b97056e806bc",
+      "subject": "Using quartz-device from Emacs+ess",
+      "message_count": 2,
+      "participants": [
+        "Armin Goralczyk",
+        "Julin Maloof"
+      ],
+      "started": "2005-04-12T20:05:15+00:00",
+      "last_reply": "2005-04-14T21:09:04+00:00",
+      "root_message_id": "msg-b97056e806bc"
+    },
+    {
+      "id": "thread-c560295b89bf",
+      "subject": "latest two builts refuse to launch",
+      "message_count": 5,
+      "participants": [
+        "Denis Chabot",
+        "Rob J Goedman",
+        "Simon Urbanek",
+        "William Revelle",
+        "stefano iacus"
+      ],
+      "started": "2005-04-19T12:17:35+00:00",
+      "last_reply": "2005-04-19T18:17:12+00:00",
+      "root_message_id": "msg-c560295b89bf"
+    },
+    {
+      "id": "thread-86e339feaed6",
+      "subject": "build 1394",
+      "message_count": 1,
+      "participants": [
+        "Denis Chabot"
+      ],
+      "started": "2005-04-20T11:41:44+00:00",
+      "last_reply": "2005-04-20T11:41:44+00:00",
+      "root_message_id": "msg-86e339feaed6"
+    },
+    {
+      "id": "thread-77fd17a5a88c",
+      "subject": "R GUI slow on mac?",
+      "message_count": 5,
+      "participants": [
+        "Samuel E. Kemp",
+        "Sean Davis",
+        "Simon Urbanek",
+        "Thomas Lumley",
+        "stefano iacus"
+      ],
+      "started": "2005-04-20T16:57:19+00:00",
+      "last_reply": "2005-04-20T17:56:28+00:00",
+      "root_message_id": "msg-77fd17a5a88c"
+    },
+    {
+      "id": "thread-68e1da177921",
+      "subject": "rgl on OSX",
+      "message_count": 1,
+      "participants": [
+        "Jorge Manuel de Almeida Magalhães"
+      ],
+      "started": "2005-04-21T14:35:57+00:00",
+      "last_reply": "2005-04-21T14:35:57+00:00",
+      "root_message_id": "msg-68e1da177921"
+    },
+    {
+      "id": "thread-9c069c682ee8",
+      "subject": "R.app crash report (very minor)",
+      "message_count": 3,
+      "participants": [
+        "Michael Herron",
+        "Simon Urbanek"
+      ],
+      "started": "2005-04-21T17:15:23+00:00",
+      "last_reply": "2005-04-22T10:14:35+00:00",
+      "root_message_id": "msg-9c069c682ee8"
+    },
+    {
+      "id": "thread-277b92da9ff4",
+      "subject": "timeSequence()",
+      "message_count": 1,
+      "participants": [
+        "John Marsland"
+      ],
+      "started": "2005-04-21T18:39:34+00:00",
+      "last_reply": "2005-04-21T18:39:34+00:00",
+      "root_message_id": "msg-277b92da9ff4"
+    },
+    {
+      "id": "thread-03a4c541a410",
+      "subject": "bug in RQuartz?",
+      "message_count": 1,
+      "participants": [
+        "Byron Ellis"
+      ],
+      "started": "2005-04-22T08:57:27+00:00",
+      "last_reply": "2005-04-22T08:57:27+00:00",
+      "root_message_id": "msg-03a4c541a410"
+    },
+    {
+      "id": "thread-4a3669b9df07",
+      "subject": "Optimization flags for G5 and G4",
+      "message_count": 2,
+      "participants": [
+        "Simon Urbanek",
+        "gene"
+      ],
+      "started": "2005-04-22T23:09:44+00:00",
+      "last_reply": "2005-04-23T01:35:23+00:00",
+      "root_message_id": "msg-4a3669b9df07"
+    },
+    {
+      "id": "thread-848d5a6d9b65",
+      "subject": "build 1394",
+      "message_count": 2,
+      "participants": [
+        "Denis Chabot",
+        "stefano iacus"
+      ],
+      "started": "2005-04-23T19:10:30+00:00",
+      "last_reply": "2005-04-23T21:22:20+00:00",
+      "root_message_id": "msg-848d5a6d9b65"
+    },
+    {
+      "id": "thread-4d97f8636517",
+      "subject": "R locale on Mac OS X",
+      "message_count": 3,
+      "participants": [
+        "Kjell Konis",
+        "Simon Urbanek"
+      ],
+      "started": "2005-04-27T10:36:50+00:00",
+      "last_reply": "2005-04-27T17:15:59+00:00",
+      "root_message_id": "msg-4d97f8636517"
+    },
+    {
+      "id": "thread-6e5393985aac",
+      "subject": "tcl/tk problem",
+      "message_count": 3,
+      "participants": [
+        "Jennifer Skene",
+        "Rob J Goedman",
+        "Simon Urbanek"
+      ],
+      "started": "2005-04-28T01:22:01+00:00",
+      "last_reply": "2005-04-29T08:39:03+00:00",
+      "root_message_id": "msg-6e5393985aac"
+    },
+    {
+      "id": "thread-295e9e305188",
+      "subject": "R 2.1.0 for Mac OS X released",
+      "message_count": 1,
+      "participants": [
+        "stefano iacus"
+      ],
+      "started": "2005-04-28T15:48:21+00:00",
+      "last_reply": "2005-04-28T15:48:21+00:00",
+      "root_message_id": "msg-295e9e305188"
+    },
+    {
+      "id": "thread-516f276f4753",
+      "subject": "Consistency of information about installed packages",
+      "message_count": 10,
+      "participants": [
+        "Don MacQueen",
+        "Rob J Goedman",
+        "Simon Urbanek",
+        "macq",
+        "stefano iacus"
+      ],
+      "started": "2005-04-28T19:46:14+00:00",
+      "last_reply": "2005-04-29T21:43:53+00:00",
+      "root_message_id": "msg-516f276f4753"
+    },
+    {
+      "id": "thread-1b8a9b0f7a10",
+      "subject": "Missing Color Preference",
+      "message_count": 3,
+      "participants": [
+        "Sean",
+        "Simon Urbanek"
+      ],
+      "started": "2005-04-28T20:11:31+00:00",
+      "last_reply": "2005-04-28T20:38:56+00:00",
+      "root_message_id": "msg-1b8a9b0f7a10"
+    },
+    {
+      "id": "thread-10df2dd57984",
+      "subject": "Problem installing R2.1",
+      "message_count": 1,
+      "participants": [
+        "Alan Olav Bergland"
+      ],
+      "started": "2005-04-28T21:26:17+00:00",
+      "last_reply": "2005-04-28T21:26:17+00:00",
+      "root_message_id": "msg-10df2dd57984"
+    },
+    {
+      "id": "thread-bc305d886600",
+      "subject": "Kudos on R-2.1.0",
+      "message_count": 2,
+      "participants": [
+        "Stefan Hames",
+        "stefano iacus"
+      ],
+      "started": "2005-04-29T14:27:40+00:00",
+      "last_reply": "2005-04-29T18:45:30+00:00",
+      "root_message_id": "msg-bc305d886600"
+    },
+    {
+      "id": "thread-d41bc7c4214f",
+      "subject": "R Editor - syntax coloring",
+      "message_count": 2,
+      "participants": [
+        "John Marsland",
+        "stefano iacus"
+      ],
+      "started": "2005-04-29T18:24:47+00:00",
+      "last_reply": "2005-04-29T18:43:52+00:00",
+      "root_message_id": "msg-d41bc7c4214f"
+    }
+  ]
+}
