@@ -1180,61 +1180,6 @@
       "thread_id": "thread-5d5dc9a1b92e",
       "thread_depth": 1,
       "month": "2008-01"
-    },
-    {
-      "id": "msg-89a5a5a1a0e6",
-      "message_id": "<95F733CB-5A0F-4DAB-9DF1-61DE8425A8DD@globetrotter.net>",
-      "from_name": "Denis Chabot",
-      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
-      "date": "2008-01-31T20:25:13-05:00",
-      "subject": "[R-SIG-Mac] R-SIG-Mac Digest, Vol 59, Issue 25",
-      "subject_clean": "R-SIG-Mac Digest, Vol 59, Issue 25",
-      "in_reply_to": "<mailman.671.1201804411.4255.r-sig-mac@stat.math.ethz.ch>",
-      "references": [
-        "<mailman.671.1201804411.4255.r-sig-mac@stat.math.ethz.ch>"
-      ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080131/efd822d3/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080131/efd822d3/attachment.pl",
-      "thread_id": "thread-89a5a5a1a0e6",
-      "thread_depth": 0,
-      "month": "2008-01"
-    },
-    {
-      "id": "msg-5a5a7d928cdf",
-      "message_id": "<6B7A809D-7F2E-4B08-A520-72EBF2E53BDB@r-project.org>",
-      "from_name": "Simon Urbanek",
-      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
-      "date": "2008-01-31T21:55:01-05:00",
-      "subject": "[R-SIG-Mac] R-SIG-Mac Digest, Vol 59, Issue 25",
-      "subject_clean": "R-SIG-Mac Digest, Vol 59, Issue 25",
-      "in_reply_to": "<95F733CB-5A0F-4DAB-9DF1-61DE8425A8DD@globetrotter.net>",
-      "references": [
-        "<mailman.671.1201804411.4255.r-sig-mac@stat.math.ethz.ch>",
-        "<95F733CB-5A0F-4DAB-9DF1-61DE8425A8DD@globetrotter.net>"
-      ],
-      "body_plain": "Denis,\n\nyour build is not up to date. You'll need r44284 or later. With the  \ncurrent RC (which includes the fix) it works for me without problems:\n\n > french.dates <- c(\"7-d?c-07\",  \"11-d?c-07\", \"14-d?c-07\", \"18-d?c-07\",\n+ \"21-d?c-07\", \"24-d?c-07\", \"26-d?c-07\", \"28-d?c-07\", \"31-d?c-07\", \"2-\n+ jan-08\",  \"4-jan-08\",  \"7-jan-08\", \"9-jan-08\", \"11-jan-08\", \"14-\n+ jan-08\", \"16-jan-08\", \"18-jan-08\", \"21-jan-08\", \"23-jan-08\", \"25-\n+ jan-08\", \"28-jan-08\")\n >\n > as.Date(french.dates, \"%d-%b-%y\")\n  [1] \"2007-12-07\" \"2007-12-11\" \"2007-12-14\" \"2007-12-18\" \"2007-12-21\"\n  [6] \"2007-12-24\" \"2007-12-26\" \"2007-12-28\" \"2007-12-31\" NA\n[11] \"2008-01-04\" \"2008-01-07\" \"2008-01-09\" \"2008-01-11\" NA\n[16] \"2008-01-16\" \"2008-01-18\" \"2008-01-21\" \"2008-01-23\" NA\n[21] \"2008-01-28\"\n > sessionInfo()\nR version 2.6.2 RC (2008-01-31 r44290)\ni386-apple-darwin9.1.0\n\nlocale:\nfr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nCheers,\nSimon\n\n\nOn Jan 31, 2008, at 8:25 PM, Denis Chabot wrote:\n\n> Hi Simon,\n>\n> The problem with as.Date is more complicated than I thought as even\n> with my system set to French (not Canadian French),  I can easily\n> crash R (even the latest patched version from today) every single time\n> in a new session with this simple code:\n>\n> french.dates <- c(\"7-d?c-07\",  \"11-d?c-07\", \"14-d?c-07\", \"18-d?c-07\",\n> \"21-d?c-07\", \"24-d?c-07\", \"26-d?c-07\", \"28-d?c-07\", \"31-d?c-07\", \"2-\n> jan-08\",  \"4-jan-08\",  \"7-jan-08\", \"9-jan-08\", \"11-jan-08\", \"14-\n> jan-08\", \"16-jan-08\", \"18-jan-08\", \"21-jan-08\", \"23-jan-08\", \"25-\n> jan-08\", \"28-jan-08\")\n>\n> as.Date(french.dates, \"%d-%b-%y\")\n>\n> As you'll see below, this is in a brand new R session. I have\n> restarted R up to 5 times, this always crashes it. I give you\n> sessionInfo below.\n>\n> But if I run this modified version, it works:\n>\n>> french.dates <- c(\"7-d?c-07\",  \"11-d?c-07\", \"14-d?c-07\", \"18-\n> d?c-07\", \"21-d?c-07\", \"24-d?c-07\", \"26-d?c-07\", \"28-d?c-07\", \"31-\n> d?c-07\", \"2-jan-08\",  \"4-jan-08\",  \"7-jan-08\", \"9-jan-08\", \"11-\n> jan-08\", \"14-jan-08\", \"16-jan-08\", \"18-jan-08\", \"21-jan-08\", \"23-\n> jan-08\", \"25-jan-08\", \"28-jan-08\")\n>>\n>> as.Date(french.dates)\n> Erreur dans fromchar(x) :\n>   la cha?ne de caract?res n'est pas dans un format standard non ambigu\n>>\n>> as.Date(french.dates, \"%d-%b-%y\")\n>  [1] \"2007-12-07\" \"2007-12-11\" \"2007-12-14\" \"2007-12-18\" \"2007-12-21\"\n>  [6] \"2007-12-24\" \"2007-12-26\" \"2007-12-28\" \"2007-12-31\" \"2008-01-02\"\n> [11] \"2008-01-04\" \"2008-01-07\" \"2008-01-09\" \"2008-01-11\" \"2008-01-14\"\n> [16] \"2008-01-16\" \"2008-01-18\" \"2008-01-21\" \"2008-01-23\" \"2008-01-25\"\n> [21] \"2008-01-28\"\n>\n> Cheers,\n>\n> Denis\n>\n>\n>\n> R version 2.6.2 RC (2008-01-30 r44258)\n> Copyright (C) 2008 The R Foundation for Statistical Computing\n> ISBN 3-900051-07-0\n>\n> R est un logiciel libre livr? sans AUCUNE GARANTIE.\n> Vous pouvez le redistribuer sous certaines conditions.\n> Tapez 'license()' ou 'licence()' pour plus de d?tails.\n>\n> R est un projet collaboratif avec de nombreux contributeurs.\n> Tapez 'contributors()' pour plus d'information et\n> 'citation()' pour la fa?on de le citer dans les publications.\n>\n> Tapez 'demo()' pour des d?monstrations, 'help()' pour l'aide\n> en ligne ou 'help.start()' pour obtenir l'aide au format HTML.\n> Tapez 'q()' pour quitter R.\n>\n>> sessionInfo()\n> R version 2.6.2 RC (2008-01-30 r44258)\n> i386-apple-darwin9.1.0\n>\n> locale:\n> fr_FR.UTF-8/fr_FR.UTF-8/fr_FR.UTF-8/C/fr_FR.UTF-8/fr_FR.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>> french.dates <- c(\"7-d?c-07\",  \"11-d?c-07\", \"14-d?c-07\", \"18-\n> d?c-07\", \"21-d?c-07\", \"24-d?c-07\", \"26-d?c-07\", \"28-d?c-07\", \"31-\n> d?c-07\", \"2-jan-08\",  \"4-jan-08\",  \"7-jan-08\", \"9-jan-08\", \"11-\n> jan-08\", \"14-jan-08\", \"16-jan-08\", \"18-jan-08\", \"21-jan-08\", \"23-\n> jan-08\", \"25-jan-08\", \"28-jan-08\")\n>>\n>> as.Date(french.dates, \"%d-%b-%y\")\n>\n>  *** caught bus error ***\n> address 0x8, cause 'non-existent physical address'\n>\n> Traceback:\n>  1: strptime(x, format)\n>  2: as.Date.character(french.dates, \"%d-%b-%y\")\n>  3: as.Date(french.dates, \"%d-%b-%y\")\n>\n> Possible actions:\n> 1: abort (with core dump, if enabled)\n> 2: normal R exit\n> 3: exit R without saving workspace\n> 4: exit R saving workspace\n>\n>\n>\n> Le 31 janv. 08 ? 13:33, r-sig-mac-request at stat.math.ethz.ch a ?crit :\n>\n>> Message: 3\n>> Date: Thu, 31 Jan 2008 13:33:03 -0500\n>> From: Simon Urbanek <simon.urbanek at r-project.org>\n>> Subject: Re: [R-SIG-Mac] R crashes with french canadian OS X format\n>> \t(was:\t[R] dates in French format)\n>> To: Denis Chabot <chabotd at globetrotter.net>\n>> Cc: Gabor Grothendieck <ggrothendieck at gmail.com>,\n>> \tr-sig-mac at stat.math.ethz.ch\n>> Message-ID: <E2BBE11B-3F45-4909-A4DA-005557ED0F5E at r-project.org>\n>> Content-Type: text/plain; charset=ISO-8859-1; format=flowed;  \n>> delsp=yes\n>>\n>> Denis,\n>>\n>> thanks for the report. It should be now fixed in R-patched and R-\n>> devel.\n>>\n>> Cheers,\n>> Simon\n>>\n>>\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
-      "body_snippet": "Denis,\n\nyour build is not up to date. You'll need r44284 or later. With the  \ncurrent RC (which includes the fix) it works for me without problems:\n\n > french.dates <- c(\"7-d?c-07\",  \"11-d?c-07\", \"14-",
-      "thread_id": "thread-89a5a5a1a0e6",
-      "thread_depth": 1,
-      "month": "2008-01"
-    },
-    {
-      "id": "msg-d83c70f5f2e9",
-      "message_id": "<289B8058-DCE6-4C5F-80B4-9F8AB2EE0876@globetrotter.net>",
-      "from_name": "Denis Chabot",
-      "from_email_hash": "e2249e269df0e661c38b38980d7e2138ea9c3c744598b7c43d3a5acd35478707",
-      "date": "2008-01-31T22:04:17-05:00",
-      "subject": "[R-SIG-Mac] vignettes",
-      "subject_clean": "vignettes",
-      "in_reply_to": "<mailman.655.1201803418.4255.r-sig-mac@stat.math.ethz.ch>",
-      "references": [
-        "<mailman.655.1201803418.4255.r-sig-mac@stat.math.ethz.ch>"
-      ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080131/bc43ed7d/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080131/bc43ed7d/attachment.pl",
-      "thread_id": "thread-d83c70f5f2e9",
-      "thread_depth": 0,
-      "month": "2008-01"
     }
   ],
   "threads": [
@@ -1604,29 +1549,6 @@
       "started": "2008-01-31T12:34:20-05:00",
       "last_reply": "2008-01-31T13:43:21-05:00",
       "root_message_id": "msg-d0815f2c870b"
-    },
-    {
-      "id": "thread-89a5a5a1a0e6",
-      "subject": "R-SIG-Mac Digest, Vol 59, Issue 25",
-      "message_count": 2,
-      "participants": [
-        "Denis Chabot",
-        "Simon Urbanek"
-      ],
-      "started": "2008-01-31T20:25:13-05:00",
-      "last_reply": "2008-01-31T21:55:01-05:00",
-      "root_message_id": "msg-89a5a5a1a0e6"
-    },
-    {
-      "id": "thread-d83c70f5f2e9",
-      "subject": "vignettes",
-      "message_count": 1,
-      "participants": [
-        "Denis Chabot"
-      ],
-      "started": "2008-01-31T22:04:17-05:00",
-      "last_reply": "2008-01-31T22:04:17-05:00",
-      "root_message_id": "msg-d83c70f5f2e9"
     }
   ]
 }

@@ -1305,41 +1305,6 @@
       "thread_id": "thread-b322bf41ce95",
       "thread_depth": 2,
       "month": "2022-06"
-    },
-    {
-      "id": "msg-a90e3dc6d821",
-      "message_id": "<CAABHdMkFQ09=kO8_6uZ6PjaF1qPji_aBmEa9vSVCzZv-mcs6jw@mail.gmail.com>",
-      "from_name": "Kieran Healy",
-      "from_email_hash": "fbd7805bc8e79b05b73d95f86e0e0eebf9365d811f705ce5812c5e8dde0d63b7",
-      "date": "2022-06-30T21:10:11-04:00",
-      "subject": "[R-SIG-Mac] R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
-      "subject_clean": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
-      "in_reply_to": null,
-      "references": [],
-      "body_plain": "Hello all,\n\nNot sure at what point along the complex signing/ notarization/ checking/\ninstallation process things fail, but on an M1 MacBook Pro running Monterey\n12.4, with security options set to Allow Apps from the App Store and\nIdentified Developers, I am finding that attempting to install\nR-4.2.1-arm64.pkg from CRAN fails with the GUI error:\n\n?R-4.2.1-arm64.pkg? cannot be opened because it is from an unidentified\ndeveloper. macOS cannot verify that this app is free from malware.\n\nThe SHA-1 is good and when I verify the package with pkgutil\n--check-signature, everything seems fine too:\n\nPackage \"R-4.2.1-arm64.pkg\":\n>    Status: signed by a developer certificate issued by Apple for\n> distribution\n>    Notarization: trusted by the Apple notary service\n>    Signed with a trusted timestamp on: 2022-06-24 10:57:20 +0000\n>    Certificate Chain:\n>     1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>        Expires: 2027-02-01 22:12:15 +0000\n>        SHA256 Fingerprint:\n>            B5 E8 8C 9D 46 50 74 03 6E 27 98 AB 8B 38 08 89 84 CF 60 C3 90\n> C1\n>            8F 6F 5A 9F 0F D4 9B D8 89 FC\n>\n> ------------------------------------------------------------------------\n>     2. Developer ID Certification Authority\n>        Expires: 2027-02-01 22:12:15 +0000\n>        SHA256 Fingerprint:\n>            7A FC 9D 01 A6 2F 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D\n> 03\n>            F2 9C 88 CF B0 B1 BA 63 58 7F\n>\n> ------------------------------------------------------------------------\n>     3. Apple Root CA\n>        Expires: 2035-02-09 21:40:36 +0000\n>        SHA256 Fingerprint:\n>            B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E\n> 2C\n>            68 C5 BE 91 B5 A1 10 01 F0 24\n\n\nHowever, spctl refuses to proceed and gives an error:\n\nspctl -a -vv -t install R-4.2.1-arm64.pkg\n> R-4.2.1-arm64.pkg: rejected\n> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n\n\nI can of course just tell mac os to go ahead anyway. But I thought I'd\nreport it here just in case it was some more general wrinkle in 12.4 or\nhiccup in the toolchain somewhere.\n\nKieran\n\n--\nKieran Healy :: https://kieranhealy.org\n\n\t[[alternative HTML version deleted]]",
-      "body_snippet": "Hello all,\n\nNot sure at what point along the complex signing/ notarization/ checking/\ninstallation process things fail, but on an M1 MacBook Pro running Monterey\n12.4, with security options set to All",
-      "thread_id": "thread-a90e3dc6d821",
-      "thread_depth": 0,
-      "month": "2022-06"
-    },
-    {
-      "id": "msg-9c934194a032",
-      "message_id": "<2C23150A-D9B1-4AE7-AFDF-628E3418756B@gmail.com>",
-      "from_name": "Kieran Healy",
-      "from_email_hash": "fbd7805bc8e79b05b73d95f86e0e0eebf9365d811f705ce5812c5e8dde0d63b7",
-      "date": "2022-06-30T21:51:07-04:00",
-      "subject": "[R-SIG-Mac]  R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
-      "subject_clean": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
-      "in_reply_to": "<54636346-7E54-438E-B439-F1FCCB6AA373@R-project.org>",
-      "references": [
-        "<CAABHdMkFQ09=kO8_6uZ6PjaF1qPji_aBmEa9vSVCzZv-mcs6jw@mail.gmail.com>",
-        "<54636346-7E54-438E-B439-F1FCCB6AA373@R-project.org>"
-      ],
-      "body_plain": "Hi Simon, \n\nThanks for the quick reply. No custom profiles:\n\n> Enrolled via DEP: No\n> MDM enrollment: No\n\nI don?t *think* there?s anything especially unusual about my Mac. I should find some other signed and notarized pkg files to install just to see if they work ...\n\n-- \nKieran Healy :: https://kieranhealy.org\n\n\n\n\n\n\n\n\n\n\n\n\n\n> On Jun 30, 2022, at 9:31 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Kieran,\n> \n> thanks, that is rather very odd. I don't have a macOS 12.4 box at hand at the moment so cannot check, but on both Big Sur and on Monterey 12.1 I get\n> \n> $ spctl -a -vv -t install R-4.2.1-arm64.pkg\n> R-4.2.1-arm64.pkg: accepted\n> source=Notarized Developer ID\n> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n> \n> Is your Mac enrolled in any custom profiles? (This is usually done to corporate machines which are centrally managed). You can check with\n> profiles status -type enrollment\n> Those can override allowed installations.\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On 1/07/2022, at 1:10 PM, Kieran Healy <kjhealy at gmail.com> wrote:\n>> \n>> Hello all,\n>> \n>> Not sure at what point along the complex signing/ notarization/ checking/\n>> installation process things fail, but on an M1 MacBook Pro running Monterey\n>> 12.4, with security options set to Allow Apps from the App Store and\n>> Identified Developers, I am finding that attempting to install\n>> R-4.2.1-arm64.pkg from CRAN fails with the GUI error:\n>> \n>> ?R-4.2.1-arm64.pkg? cannot be opened because it is from an unidentified\n>> developer. macOS cannot verify that this app is free from malware.\n>> \n>> The SHA-1 is good and when I verify the package with pkgutil\n>> --check-signature, everything seems fine too:\n>> \n>> Package \"R-4.2.1-arm64.pkg\":\n>>>  Status: signed by a developer certificate issued by Apple for\n>>> distribution\n>>>  Notarization: trusted by the Apple notary service\n>>>  Signed with a trusted timestamp on: 2022-06-24 10:57:20 +0000\n>>>  Certificate Chain:\n>>>   1. Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>>>      Expires: 2027-02-01 22:12:15 +0000\n>>>      SHA256 Fingerprint:\n>>>          B5 E8 8C 9D 46 50 74 03 6E 27 98 AB 8B 38 08 89 84 CF 60 C3 90\n>>> C1\n>>>          8F 6F 5A 9F 0F D4 9B D8 89 FC\n>>> \n>>> ------------------------------------------------------------------------\n>>>   2. Developer ID Certification Authority\n>>>      Expires: 2027-02-01 22:12:15 +0000\n>>>      SHA256 Fingerprint:\n>>>          7A FC 9D 01 A6 2F 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D\n>>> 03\n>>>          F2 9C 88 CF B0 B1 BA 63 58 7F\n>>> \n>>> ------------------------------------------------------------------------\n>>>   3. Apple Root CA\n>>>      Expires: 2035-02-09 21:40:36 +0000\n>>>      SHA256 Fingerprint:\n>>>          B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E\n>>> 2C\n>>>          68 C5 BE 91 B5 A1 10 01 F0 24\n>> \n>> \n>> However, spctl refuses to proceed and gives an error:\n>> \n>> spctl -a -vv -t install R-4.2.1-arm64.pkg\n>>> R-4.2.1-arm64.pkg: rejected\n>>> origin=Developer ID Installer: Simon Urbanek (VZLD955F6P)\n>> \n>> \n>> I can of course just tell mac os to go ahead anyway. But I thought I'd\n>> report it here just in case it was some more general wrinkle in 12.4 or\n>> hiccup in the toolchain somewhere.\n>> \n>> Kieran\n>> \n>> --\n>> Kieran Healy :: https://kieranhealy.org\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n\n\n\t[[alternative HTML version deleted]]",
-      "body_snippet": "Hi Simon, \n\nThanks for the quick reply. No custom profiles:\n\n> Enrolled via DEP: No\n> MDM enrollment: No\n\nI don?t *think* there?s anything especially unusual about my Mac. I should find some other sig",
-      "thread_id": "thread-9c934194a032",
-      "thread_depth": 0,
-      "month": "2022-06"
     }
   ],
   "threads": [
@@ -1459,28 +1424,6 @@
       "started": "2022-06-14T12:09:42+01:00",
       "last_reply": "2022-06-14T16:13:11+02:00",
       "root_message_id": "msg-b322bf41ce95"
-    },
-    {
-      "id": "thread-a90e3dc6d821",
-      "subject": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
-      "message_count": 1,
-      "participants": [
-        "Kieran Healy"
-      ],
-      "started": "2022-06-30T21:10:11-04:00",
-      "last_reply": "2022-06-30T21:10:11-04:00",
-      "root_message_id": "msg-a90e3dc6d821"
-    },
-    {
-      "id": "thread-9c934194a032",
-      "subject": "R 4.2.1-arm64 pkg is signed and notarized but refuses to install",
-      "message_count": 1,
-      "participants": [
-        "Kieran Healy"
-      ],
-      "started": "2022-06-30T21:51:07-04:00",
-      "last_reply": "2022-06-30T21:51:07-04:00",
-      "root_message_id": "msg-9c934194a032"
     }
   ]
 }

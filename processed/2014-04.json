@@ -727,6 +727,24 @@
       "month": "2014-04"
     },
     {
+      "id": "msg-d018a216c2e3",
+      "message_id": "<d5363dad-c90d-4277-a2de-e20ed2b272e9@googlegroups.com>",
+      "from_name": "James Eales",
+      "from_email_hash": "fea1b65e2ce4be30f7a58f0eb8f4cc1c3d6d36c894a768f84a101ff2c9812b50",
+      "date": "2014-04-15T04:17:24-07:00",
+      "subject": "[R-SIG-Mac] R.app Package Manager Bug?",
+      "subject_clean": "R.app Package Manager Bug?",
+      "in_reply_to": "<80AE0016-A918-4030-A67D-842DAAAB1830@neiltiffin.com>",
+      "references": [
+        "<80AE0016-A918-4030-A67D-842DAAAB1830@neiltiffin.com>"
+      ],
+      "body_plain": "+1\nI see this too, on both mavericks and ordinary mac build of R.app\nIts because R 3.1.0 has made \".find.package\" a defunct function\nWe'll need to wait for the R.app developers to change the code behind the \npackage manager to use \"find.package\" instead of \".find.package\"\nHopefully it'll be a simple fix\n\n> sessionInfo()\nR version 3.1.0 (2014-04-10)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] BiocInstaller_1.15.1\n\nloaded via a namespace (and not attached):\n[1] tools_3.1.0\n\n\nOn Sunday, 13 April 2014 20:11:44 UTC+1, Neil Tiffin wrote:\n>\n> When I select 'Package Manager' from the 'Packages & Data' menu in R.app \n> nothing happens and I get the following in the R Console window: \n>\n> Error: '.find.package' is defunct. \n> Use 'find.package' instead. \n> See help(\"Defunct\") \n>\n> Is this a known problem or do I have something messed up? \n>\n> Thanks, \n> Neil \n>\n> Just upgraded to 3.1.0. \n>\n> > sessionInfo() \n> R version 3.1.0 (2014-04-10) \n> Platform: x86_64-apple-darwin10.8.0 (64-bit) \n>\n> locale: \n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8 \n>\n> attached base packages: \n> [1] stats     graphics  grDevices utile     datasets  methods   base     \n> _______________________________________________ \n> R-SIG-Mac mailing list \n> R-SI... at r-project.org <javascript:> \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac \n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/07067a23/attachment-0001.html>",
+      "body_snippet": "+1\nI see this too, on both mavericks and ordinary mac build of R.app\nIts because R 3.1.0 has made \".find.package\" a defunct function\nWe'll need to wait for the R.app developers to change the code behi",
+      "thread_id": "thread-c9743468b748",
+      "thread_depth": 1,
+      "month": "2014-04"
+    },
+    {
       "id": "msg-aeb30dfb8d83",
       "message_id": "<7b0d-534d1e80-9-6b8b4580@8158875>",
       "from_name": "Agustin Angel Diez Castillo",
@@ -869,6 +887,24 @@
       "month": "2014-04"
     },
     {
+      "id": "msg-5f9228b60c6b",
+      "message_id": "<93a6b68c-419b-42a7-a5be-3ff847bcbe75@googlegroups.com>",
+      "from_name": "James Eales",
+      "from_email_hash": "fea1b65e2ce4be30f7a58f0eb8f4cc1c3d6d36c894a768f84a101ff2c9812b50",
+      "date": "2014-04-16T03:06:45-07:00",
+      "subject": "[R-SIG-Mac] R.app Package Mgr Bug",
+      "subject_clean": "R.app Package Mgr Bug",
+      "in_reply_to": "<2DBCC16CE4CA8C468AAEF0DF346612381E2D37B9@NHC0EX59.goodrich.root.local>",
+      "references": [
+        "<2DBCC16CE4CA8C468AAEF0DF346612381E2D37B9@NHC0EX59.goodrich.root.local>"
+      ],
+      "body_plain": "Unfortunately that didn't work for me, however I may have been doing it \nwrong, I was using \nassign(\".find.package\",func,envir=.GlobalEnv)\n\nBut I just looked at the R.app source\nWhen we click \"Package Manager\"\nit calls package.manager()\nSo you can just rewrite that function like this (notice the call to \n.find.package is replaced with find.package)\nI might try putting this in my profile\n\npackage.manager <- function () \n{\n    if (.Platform$GUI != \"AQUA\") \n        stop(\"this function is intended to work with the Aqua GUI\")\n    loaded.pkgs <- .packages()\n    x <- library()\n    x <- x$results[x$results[, 1] != \"base\", ]\n    pkgs <- x[, 1]\n    pkgs.desc <- x[, 3]\n    is.loaded <- !is.na(match(pkgs, loaded.pkgs))\n    pkgs.status <- character(length(is.loaded))\n    pkgs.status[which(is.loaded)] <- \"loaded\"\n    pkgs.status[which(!is.loaded)] <- \" \"\n    pkgs.url <- file.path(find.package(pkgs), \"html\", \"00Index.html\")\n    load.idx <- .Call(\"pkgmanager\", is.loaded, pkgs, pkgs.desc, \n        pkgs.url)\n    toload <- which(load.idx & !is.loaded)\n    tounload <- which(is.loaded & !load.idx)\n    for (i in tounload) {\n        cat(\"unloading package:\", pkgs[i], \"\\n\")\n        do.call(\"detach\", list(paste(\"package\", pkgs[i], sep = \":\")))\n    }\n    for (i in toload) {\n        cat(\"loading package:\", pkgs[i], \"\\n\")\n        library(pkgs[i], character.only = TRUE)\n    }\n}\n\n\n\n\nOn Tuesday, 15 April 2014 13:07:55 UTC+1, Witthoft, Carl G UTAS wrote:\n>\n> Just a thought, but what if you overload the defunct function in your \n> .Globalenv ? \n>\n> .find.package<-function(package, lib.loc = NULL, quiet = FALSE, \n>              verbose = getOption(\"verbose\") )  find.package(package, \n> lib.loc , quiet,  verbose) \n>\n> I don't know whether that workaround will be \"recognized\" by the package \n> manager. \n>\n> Message: 1 \n> Date: Tue, 15 Apr 2014 04:17:24 -0700 \n> From: James Eales <jeales at gmail.com> \n> To: <r-sig-mac at googlegroups.com> \n> Cc: r-sig-mac at r-project.org \n> Subject: Re: [R-SIG-Mac] R.app Package Manager Bug? \n> Message-ID: <d5363dad-c90d-4277-a2de-e20ed2b272e9 at googlegroups.com> \n> Content-Type: text/plain; charset=\"utf-8\" \n>\n> +1 \n> I see this too, on both mavericks and ordinary mac build of R.app Its \n> because R 3.1.0 has made \".find.package\" a defunct function We'll need to \n> wait for the R.app developers to change the code behind the package manager \n> to use \"find.package\" instead of \".find.package\" \n> Hopefully it'll be a simple fix \n>\n> _______________________________________________ \n> R-SIG-Mac mailing list \n> R-SIG-Mac at r-project.org \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac \n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/ef54ab7c/attachment-0001.html>",
+      "body_snippet": "Unfortunately that didn't work for me, however I may have been doing it \nwrong, I was using \nassign(\".find.package\",func,envir=.GlobalEnv)\n\nBut I just looked at the R.app source\nWhen we click \"Package",
+      "thread_id": "thread-eb01eb17a25e",
+      "thread_depth": 1,
+      "month": "2014-04"
+    },
+    {
       "id": "msg-5c3243796b4c",
       "message_id": "<87d7c984-82ff-48f8-ace3-dc368168572a@googlegroups.com>",
       "from_name": "James Eales",
@@ -881,6 +917,24 @@
         "<CF7321DC.1159%daveiles@omicsltd.com>"
       ],
       "body_plain": "Hello,\nI had exactly the same trouble\nTry pasting this into the console then click \"Package Manager\" again\n\npackage.manager <- function () \n{\n    if (.Platform$GUI != \"AQUA\") \n        stop(\"this function is intended to work with the Aqua GUI\")\n    loaded.pkgs <- .packages()\n    x <- library()\n    x <- x$results[x$results[, 1] != \"base\", ]\n    pkgs <- x[, 1]\n    pkgs.desc <- x[, 3]\n    is.loaded <- !is.na(match(pkgs, loaded.pkgs))\n    pkgs.status <- character(length(is.loaded))\n    pkgs.status[which(is.loaded)] <- \"loaded\"\n    pkgs.status[which(!is.loaded)] <- \" \"\n    pkgs.url <- file.path(find.package(pkgs), \"html\", \"00Index.html\")\n    load.idx <- .Call(\"pkgmanager\", is.loaded, pkgs, pkgs.desc, \n        pkgs.url)\n    toload <- which(load.idx & !is.loaded)\n    tounload <- which(is.loaded & !load.idx)\n    for (i in tounload) {\n        cat(\"unloading package:\", pkgs[i], \"\\n\")\n        do.call(\"detach\", list(paste(\"package\", pkgs[i], sep = \":\")))\n    }\n    for (i in toload) {\n        cat(\"loading package:\", pkgs[i], \"\\n\")\n        library(pkgs[i], character.only = TRUE)\n    }\n}\n\nOn Wednesday, 16 April 2014 10:20:49 UTC+1, David Iles wrote:\n>\n> Hi Folks, \n>\n> I updated my version of R yesterday using the R-3.1.0-snowleopard.pkg \n> downloaded from CRAN. I tried to open Package Manager, but it failed to \n> open, with the following message.... \n>\n> Error: '.find.package' is defunct. \n> Use 'find.package' instead. \n> See help(\"Defunct\") \n>\n> I deleted R.app and the R frameworks folder, and re-installed R from \n> scratch, but the error persists. Clearly I have missed something from \n> previous installations that is still lurking somewhere on my computer. Can \n> anyone point me to what I need to delete/edit/update to correct this issue? \n>\n> Many thanks, \n>\n> Dr David Iles \n> Visiting Research Fellow \n> School of Biology \n> University of Leeds \n> Leeds LS2 9JT \n>\n> > sessionInfo() \n> R version 3.1.0 (2014-04-10) \n> Platform: x86_64-apple-darwin10.8.0 (64-bit) \n>\n> locale: \n> [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8 \n>\n> attached base packages: \n> [1] stats     graphics  grDevices utils     datasets  methods   base \n> > \n>\n>         [[alternative HTML version deleted]] \n>\n> _______________________________________________ \n> R-SIG-Mac mailing list \n> R-SI... at r-project.org <javascript:> \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac \n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/c878422b/attachment-0001.html>",
+      "body_snippet": "Hello,\nI had exactly the same trouble\nTry pasting this into the console then click \"Package Manager\" again\n\npackage.manager <- function () \n{\n    if (.Platform$GUI != \"AQUA\") \n        stop(\"this funct",
+      "thread_id": "thread-a8bcf3b16690",
+      "thread_depth": 1,
+      "month": "2014-04"
+    },
+    {
+      "id": "msg-5c3243796b4c",
+      "message_id": "<87d7c984-82ff-48f8-ace3-dc368168572a@googlegroups.com>",
+      "from_name": "James Eales",
+      "from_email_hash": "fea1b65e2ce4be30f7a58f0eb8f4cc1c3d6d36c894a768f84a101ff2c9812b50",
+      "date": "2014-04-16T03:08:35-07:00",
+      "subject": "[R-SIG-Mac] OS X R console Package Manager error",
+      "subject_clean": "OS X R console Package Manager error",
+      "in_reply_to": "<CF7321DC.1159%daveiles@omicsltd.com>",
+      "references": [
+        "<CF7321DC.1159%daveiles@omicsltd.com>"
+      ],
+      "body_plain": "Hello,\nI had exactly the same trouble\nTry pasting this into the console then click \"Package Manager\" again\n\npackage.manager <- function () \n{\n    if (.Platform$GUI != \"AQUA\") \n        stop(\"this function is intended to work with the Aqua GUI\")\n    loaded.pkgs <- .packages()\n    x <- library()\n    x <- x$results[x$results[, 1] != \"base\", ]\n    pkgs <- x[, 1]\n    pkgs.desc <- x[, 3]\n    is.loaded <- !is.na(match(pkgs, loaded.pkgs))\n    pkgs.status <- character(length(is.loaded))\n    pkgs.status[which(is.loaded)] <- \"loaded\"\n    pkgs.status[which(!is.loaded)] <- \" \"\n    pkgs.url <- file.path(find.package(pkgs), \"html\", \"00Index.html\")\n    load.idx <- .Call(\"pkgmanager\", is.loaded, pkgs, pkgs.desc, \n        pkgs.url)\n    toload <- which(load.idx & !is.loaded)\n    tounload <- which(is.loaded & !load.idx)\n    for (i in tounload) {\n        cat(\"unloading package:\", pkgs[i], \"\\n\")\n        do.call(\"detach\", list(paste(\"package\", pkgs[i], sep = \":\")))\n    }\n    for (i in toload) {\n        cat(\"loading package:\", pkgs[i], \"\\n\")\n        library(pkgs[i], character.only = TRUE)\n    }\n}\n\nOn Wednesday, 16 April 2014 10:20:49 UTC+1, David Iles wrote:\n>\n> Hi Folks, \n>\n> I updated my version of R yesterday using the R-3.1.0-snowleopard.pkg \n> downloaded from CRAN. I tried to open Package Manager, but it failed to \n> open, with the following message.... \n>\n> Error: '.find.package' is defunct. \n> Use 'find.package' instead. \n> See help(\"Defunct\") \n>\n> I deleted R.app and the R frameworks folder, and re-installed R from \n> scratch, but the error persists. Clearly I have missed something from \n> previous installations that is still lurking somewhere on my computer. Can \n> anyone point me to what I need to delete/edit/update to correct this issue? \n>\n> Many thanks, \n>\n> Dr David Iles \n> Visiting Research Fellow \n> School of Biology \n> University of Leeds \n> Leeds LS2 9JT \n>\n> > sessionInfo() \n> R version 3.1.0 (2014-04-10) \n> Platform: x86_64-apple-darwin10.8.0 (64-bit) \n>\n> locale: \n> [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8 \n>\n> attached base packages: \n> [1] stats     graphics  grDevices utils     datasets  methods   base \n> > \n>\n>         [[alternative HTML version deleted]] \n>\n> _______________________________________________ \n> R-SIG-Mac mailing list \n> R-SI... at r-project.org <javascript:> \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac \n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/c878422b/attachment-0002.html>",
       "body_snippet": "Hello,\nI had exactly the same trouble\nTry pasting this into the console then click \"Package Manager\" again\n\npackage.manager <- function () \n{\n    if (.Platform$GUI != \"AQUA\") \n        stop(\"this funct",
       "thread_id": "thread-a8bcf3b16690",
       "thread_depth": 1,
@@ -1014,6 +1068,25 @@
         "<7b0d-534d1e80-9-6b8b4580@8158875>"
       ],
       "body_plain": "Hi --\n\nI ran into this issue as well.  I think the issue is that the binaries are \nlisted separately for the Mavericks build of R 3.1.  I had success \ninstalling the binary which is supposed to be for the regular R 3.1 build \nlisted here:\n\nhttp://cran.r-project.org/bin/macosx/contrib/3.1/\n\n\n\nOn Tuesday, April 15, 2014 7:57:04 AM UTC-4, Agustin Angel Diez Castillo \nwrote:\n>\n> Hi,\n> I'm in trouble when trying to update rgdal in 3.1.0 in Mavericks. There is \n> no binary and installing for source claims that I've no libproj in standard \n> or given locations. I do have several libproj both in /usr/local/lib and in \n> /Library/Frameworks/PROJ.framework/Versions/4.8/unix/lib/, how can I to \n> force the build to look to the later that I'm more confident is the wright \n> one?\n> Any help will be very much appreciated.\n> Thanks.\n> A\n>\n>\n> sessionInfo()\n> R version 3.1.0 (2014-04-10)\n> Platform: x86_64-apple-darwin13.1.0 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base \n>\n> checking for pj_init_plus in -lproj... no\n> configure: error: libproj not found in standard or given locations.\n> ERROR: configuration failed for package ?rgdal?\n> * removing ?/Users/adiez/Library/R/3.1/library/rgdal?\n>\n> The downloaded source packages are in\n>         ?/private/var/folders/sm/1djysrdj1clbzvn35gv8vqq40000gn/T/Rtmpl6DW9M/downloaded_packages?* \n> restoring previous ?/Users/adiez/Library/R/3.1/library/rgdal?\n>\n> Warning message:\n> In install.packages(\"rgdal\", type = \"source\") :\n>   installation of package ?rgdal? had non-zero exit status\n>\n>\n> install.packages(\"rgdal\")\n> Installing package into ?/Users/adiez/Library/R/3.1/library?\n> (as ?lib? is unspecified)\n>\n>    package ?rgdal? is available as a source package but not as a binary\n>\n> Warning message:\n> package ?rgdal? is not available (for R version 3.1.0)\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SI... at r-project.org <javascript:>\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/0215b1d9/attachment.html>",
+      "body_snippet": "Hi --\n\nI ran into this issue as well.  I think the issue is that the binaries are \nlisted separately for the Mavericks build of R 3.1.  I had success \ninstalling the binary which is supposed to be for",
+      "thread_id": "thread-681ed73bbe37",
+      "thread_depth": 5,
+      "month": "2014-04"
+    },
+    {
+      "id": "msg-b78b9c91c64d",
+      "message_id": "<569fdfb4-2601-40da-8147-31cc0ae825ff@googlegroups.com>",
+      "from_name": "jheffner at azavea.com",
+      "from_email_hash": "d4bc8e9bc933c351326a825f76015d538daecabe954182fe3a7798fd73288bbf",
+      "date": "2014-04-16T11:43:26-07:00",
+      "subject": "[R-SIG-Mac] Problems updating rgdal in 3.1.0 (when building from source)",
+      "subject_clean": "Problems updating rgdal in 3.1.0 (when building from source)",
+      "in_reply_to": "<7b0d-534d1e80-9-6b8b4580@8158875>",
+      "references": [
+        "<534D14AF.8020500@gmail.com>",
+        "<7b0d-534d1e80-9-6b8b4580@8158875>"
+      ],
+      "body_plain": "Hi --\n\nI ran into this issue as well.  I think the issue is that the binaries are \nlisted separately for the Mavericks build of R 3.1.  I had success \ninstalling the binary which is supposed to be for the regular R 3.1 build \nlisted here:\n\nhttp://cran.r-project.org/bin/macosx/contrib/3.1/\n\n\n\nOn Tuesday, April 15, 2014 7:57:04 AM UTC-4, Agustin Angel Diez Castillo \nwrote:\n>\n> Hi,\n> I'm in trouble when trying to update rgdal in 3.1.0 in Mavericks. There is \n> no binary and installing for source claims that I've no libproj in standard \n> or given locations. I do have several libproj both in /usr/local/lib and in \n> /Library/Frameworks/PROJ.framework/Versions/4.8/unix/lib/, how can I to \n> force the build to look to the later that I'm more confident is the wright \n> one?\n> Any help will be very much appreciated.\n> Thanks.\n> A\n>\n>\n> sessionInfo()\n> R version 3.1.0 (2014-04-10)\n> Platform: x86_64-apple-darwin13.1.0 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base \n>\n> checking for pj_init_plus in -lproj... no\n> configure: error: libproj not found in standard or given locations.\n> ERROR: configuration failed for package ?rgdal?\n> * removing ?/Users/adiez/Library/R/3.1/library/rgdal?\n>\n> The downloaded source packages are in\n>         ?/private/var/folders/sm/1djysrdj1clbzvn35gv8vqq40000gn/T/Rtmpl6DW9M/downloaded_packages?* \n> restoring previous ?/Users/adiez/Library/R/3.1/library/rgdal?\n>\n> Warning message:\n> In install.packages(\"rgdal\", type = \"source\") :\n>   installation of package ?rgdal? had non-zero exit status\n>\n>\n> install.packages(\"rgdal\")\n> Installing package into ?/Users/adiez/Library/R/3.1/library?\n> (as ?lib? is unspecified)\n>\n>    package ?rgdal? is available as a source package but not as a binary\n>\n> Warning message:\n> package ?rgdal? is not available (for R version 3.1.0)\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SI... at r-project.org <javascript:>\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/0215b1d9/attachment-0001.html>",
       "body_snippet": "Hi --\n\nI ran into this issue as well.  I think the issue is that the binaries are \nlisted separately for the Mavericks build of R 3.1.  I had success \ninstalling the binary which is supposed to be for",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 5,
@@ -1408,6 +1481,24 @@
         "<CAGx1TMBfeW+QswMcADb2yUhH9hkZCi1xVNJ6iDskHqZt27gwsA@mail.gmail.com>"
       ],
       "body_plain": "Dear Rich,\n\nI have several students that report problem in one of our R package \ninstallation after upgrading their macs to Mavericks.\n\nOne of the package, Hydromad (for hydrological modeling), have to be \ninstalled, with several terminal script. \n\nHopefully your upgrade to Mavericks won't trouble you in your R working \nenvironment.   \n\nregards,\nErwin\n\n\nOn Saturday, 29 March 2014 01:54:11 UTC+11, Richard M. Heiberger wrote:\n>\n> Apple has been popping an offer for a free upgrade to Mavericks. \n> (I currently have OS X Lion10.7.5 on an 8GB MacBook Air). \n> Other than this offer from Apple, I have no dissatisfaction with the Mac \n> for my use pattern. \n>\n> There has been much comment on this list about the difficulties of \n> compiling R with Mac. \n> I am not planning to compile R. \n>\n> Are there any remaining issues with using R on the Mac that should make \n> we want to not upgrade?  Or is Mavericks now stable enough that upgrading \n> would make sense. \n>\n> Thanks \n> Rich \n>\n> _______________________________________________ \n> R-SIG-Mac mailing list \n> R-SI... at r-project.org <javascript:> \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac \n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140424/f89e908b/attachment.html>",
+      "body_snippet": "Dear Rich,\n\nI have several students that report problem in one of our R package \ninstallation after upgrading their macs to Mavericks.\n\nOne of the package, Hydromad (for hydrological modeling), have t",
+      "thread_id": "thread-311433cec0c8",
+      "thread_depth": 0,
+      "month": "2014-04"
+    },
+    {
+      "id": "msg-311433cec0c8",
+      "message_id": "<8c037d4c-15e5-43de-ae19-cc0a3b036878@googlegroups.com>",
+      "from_name": "Dasapta Erwin Irawan",
+      "from_email_hash": "5d39c7d4a12e5c0dae044046e187aa02d3d64136d2eded3ce3b5ebb445c5cf76",
+      "date": "2014-04-24T15:27:36-07:00",
+      "subject": "[R-SIG-Mac] upgrade to Mavericks",
+      "subject_clean": "upgrade to Mavericks",
+      "in_reply_to": "<CAGx1TMBfeW+QswMcADb2yUhH9hkZCi1xVNJ6iDskHqZt27gwsA@mail.gmail.com>",
+      "references": [
+        "<CAGx1TMBfeW+QswMcADb2yUhH9hkZCi1xVNJ6iDskHqZt27gwsA@mail.gmail.com>"
+      ],
+      "body_plain": "Dear Rich,\n\nI have several students that report problem in one of our R package \ninstallation after upgrading their macs to Mavericks.\n\nOne of the package, Hydromad (for hydrological modeling), have to be \ninstalled, with several terminal script. \n\nHopefully your upgrade to Mavericks won't trouble you in your R working \nenvironment.   \n\nregards,\nErwin\n\n\nOn Saturday, 29 March 2014 01:54:11 UTC+11, Richard M. Heiberger wrote:\n>\n> Apple has been popping an offer for a free upgrade to Mavericks. \n> (I currently have OS X Lion10.7.5 on an 8GB MacBook Air). \n> Other than this offer from Apple, I have no dissatisfaction with the Mac \n> for my use pattern. \n>\n> There has been much comment on this list about the difficulties of \n> compiling R with Mac. \n> I am not planning to compile R. \n>\n> Are there any remaining issues with using R on the Mac that should make \n> we want to not upgrade?  Or is Mavericks now stable enough that upgrading \n> would make sense. \n>\n> Thanks \n> Rich \n>\n> _______________________________________________ \n> R-SIG-Mac mailing list \n> R-SI... at r-project.org <javascript:> \n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac \n>\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140424/f89e908b/attachment-0001.html>",
       "body_snippet": "Dear Rich,\n\nI have several students that report problem in one of our R package \ninstallation after upgrading their macs to Mavericks.\n\nOne of the package, Hydromad (for hydrological modeling), have t",
       "thread_id": "thread-311433cec0c8",
       "thread_depth": 0,
@@ -1837,7 +1928,7 @@
     {
       "id": "thread-681ed73bbe37",
       "subject": "R 3.1.0: Running 'R CMD Sweave' deletes non tex files created upon batch mode exit",
-      "message_count": 10,
+      "message_count": 11,
       "participants": [
         "Agustin Angel Diez Castillo",
         "Duncan Murdoch",
@@ -1856,7 +1947,7 @@
     {
       "id": "thread-c9743468b748",
       "subject": "R.app Package Manager Bug?",
-      "message_count": 3,
+      "message_count": 4,
       "participants": [
         "James Eales",
         "Neil Tiffin",
@@ -1880,7 +1971,7 @@
     {
       "id": "thread-eb01eb17a25e",
       "subject": "R.app Package Mgr Bug",
-      "message_count": 2,
+      "message_count": 3,
       "participants": [
         "James Eales",
         "Witthoft, Carl G UTAS"
@@ -1905,7 +1996,7 @@
     {
       "id": "thread-a8bcf3b16690",
       "subject": "OS X R console Package Manager error",
-      "message_count": 3,
+      "message_count": 4,
       "participants": [
         "David Iles",
         "James Eales"
@@ -2001,6 +2092,17 @@
       "started": "2014-04-23T00:04:44-07:00",
       "last_reply": "2014-04-23T09:46:13-04:00",
       "root_message_id": "msg-c9153cd58a52"
+    },
+    {
+      "id": "thread-311433cec0c8",
+      "subject": "upgrade to Mavericks",
+      "message_count": 1,
+      "participants": [
+        "Dasapta Erwin Irawan"
+      ],
+      "started": "2014-04-24T15:27:36-07:00",
+      "last_reply": "2014-04-24T15:27:36-07:00",
+      "root_message_id": "msg-311433cec0c8"
     },
     {
       "id": "thread-311433cec0c8",

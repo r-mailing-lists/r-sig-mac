@@ -1691,40 +1691,6 @@
       "thread_id": "thread-efb266d2db28",
       "thread_depth": 5,
       "month": "2011-03"
-    },
-    {
-      "id": "msg-48f04a4355fb",
-      "message_id": "<683065.43009.qm@web37908.mail.mud.yahoo.com>",
-      "from_name": "Carl pfisterer",
-      "from_email_hash": "66a4f0940af09883aa95f4a432ccb3814fe66667b52ef28d4d19386a165afe23",
-      "date": "2011-03-31T15:58:37-07:00",
-      "subject": "[R-SIG-Mac] Executing R from perl script called from browser",
-      "subject_clean": "Executing R from perl script called from browser",
-      "in_reply_to": null,
-      "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110331/174c802a/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110331/174c802a/attachment.pl>",
-      "thread_id": "thread-48f04a4355fb",
-      "thread_depth": 0,
-      "month": "2011-03"
-    },
-    {
-      "id": "msg-23882bb388aa",
-      "message_id": "<F0462FD7-D7B1-44D6-83F2-335C360BE1AB@r-project.org>",
-      "from_name": "Simon Urbanek",
-      "from_email_hash": "4b8015e605c1e8a78e0fc166d7f94d0bc9cab6230366ee1dfdd8a0de17b4b371",
-      "date": "2011-03-31T21:04:21-04:00",
-      "subject": "[R-SIG-Mac] Executing R from perl script called from browser",
-      "subject_clean": "Executing R from perl script called from browser",
-      "in_reply_to": "<683065.43009.qm@web37908.mail.mud.yahoo.com>",
-      "references": [
-        "<683065.43009.qm@web37908.mail.mud.yahoo.com>"
-      ],
-      "body_plain": "Carl,\n\nany reason why you're not using more reliable and faster solutions like FastRWeb? ;)\nAnyway, your R code is not syntactically legal, so I would not be surprised if you don't see anything (open2 doesn't cover STDERR AFAIR). If I were you, I'd not use embedded code to start with -- you'd make your life (=debugging) much easier if you simply evaluated something like try(source('..foo.R'),silent=TRUE) -- and you don't need such complicated contraptions for that, actually ...\n\nCheers,\nSimon\n\nOn Mar 31, 2011, at 6:58 PM, Carl pfisterer wrote:\n\n> I am attempting execute a perl script that calls R from a browser.  My test script currently executes the R code which creates a plot as a png and displays the png file in the browser.  The perl code executes fine under the command line but the R code does not appear to be called when executed from the browser (png file does not update).  I am currently storing the perl script in ~/Sites and calling from the browser by http://localhost/~carlp/htmltest.cgi.  When I refresh the browser, top will show perl and R start briefly and although the perl code executes, the R code does not.  The R code itself queries a MySQL database though a JDBC connection.  The test perl code is as follows:\n> #!/usr/bin/perl#htmltest.cgiuse strict;use warnings;use IPC::Open2;use CGI;\n> createPlot();printHTML();\n> sub createPlot {\tmy @projects = (\"Project1\",\"Project2\"); \tmy $line = \"test\";\n> \tmy $pid = open2(*READ_R, *WRITE_R, '/usr/bin/R', '--slave', '--silent', '--args', @projects);\tprint WRITE_R \"\t\tArgs = commandArgs(TRUE)\t\tsource('/Users/carlp/Documents/RWork/QueryFunctions.R');\t\tpng('/Users/carlp/Sites/plot.png',height = 600,width = 800);\t\tplotDailyByProject(Project = Args,Year=2010,Species = 'Chinook');\t\tdev.off();\t\tq('no')\t\";\n> \twhile ($line = <READ_R>) {  \t\tchomp $line;  \t\t#print \"[$line]\\n\"; \t}\tclose(WRITE_R);\tclose(READ_R);}\n> sub printHTML {\tmy $cgi = new CGI;\tprint $cgi->header(),$cgi->start_html(\"Welcome to htmltest.cgi\");\tprint $cgi->center(\"Plots Generated in R\");\tprint '<img src=\"plot.png\">';\tprint $cgi->end_html();}\n> I was unsure whether to post this to the mac list since I am using Mac OS X 10.6.7 or to the general help list but I thought I'd try here first.  Any suggestions would be greatly appreciated!\n> -Carl\n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
-      "body_snippet": "Carl,\n\nany reason why you're not using more reliable and faster solutions like FastRWeb? ;)\nAnyway, your R code is not syntactically legal, so I would not be surprised if you don't see anything (open2",
-      "thread_id": "thread-48f04a4355fb",
-      "thread_depth": 1,
-      "month": "2011-03"
     }
   ],
   "threads": [
@@ -2058,18 +2024,6 @@
       "started": "2011-03-30T16:56:39+02:00",
       "last_reply": "2011-03-31T10:23:13+02:00",
       "root_message_id": "msg-efb266d2db28"
-    },
-    {
-      "id": "thread-48f04a4355fb",
-      "subject": "Executing R from perl script called from browser",
-      "message_count": 2,
-      "participants": [
-        "Carl pfisterer",
-        "Simon Urbanek"
-      ],
-      "started": "2011-03-31T15:58:37-07:00",
-      "last_reply": "2011-03-31T21:04:21-04:00",
-      "root_message_id": "msg-48f04a4355fb"
     }
   ]
 }
