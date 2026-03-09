@@ -21,6 +21,225 @@
       "thread_id": "thread-7507081b0de1",
       "thread_depth": 0,
       "month": "2021-10"
+    },
+    {
+      "id": "msg-e7af910d2dd1",
+      "message_id": "<CADUbQ5gHRuMapkG7BQsuBHC902UfEbkBP0G0OnhfpYLJp3PPuQ@mail.gmail.com>",
+      "from_name": "Dominick Samperi",
+      "from_email_hash": "d646b4d091830eb18348bac8762165f99d34071db072a025aadde4fedaced375",
+      "date": "2021-10-07T12:56:08-04:00",
+      "subject": "[R-SIG-Mac] [Rcpp-devel] Any recent change that would remove Rcpp_precious_remove?",
+      "subject_clean": "[Rcpp-devel] Any recent change that would remove Rcpp_precious_remove?",
+      "in_reply_to": "<4410C325-BE26-4617-90F8-299A1C341DB4@R-project.org>",
+      "references": [
+        "<PR3P194MB0812D2DFEDE1FE7636E40E0EB1129@PR3P194MB0812.EURP194.PROD.OUTLOOK.COM>",
+        "<24816.9790.765864.646219@rob.eddelbuettel.com>",
+        "<CADUbQ5i+cihTu2csXCZw8OAQpH7qyie0YThriJ8w_PkE09iDVQ@mail.gmail.com>",
+        "<4410C325-BE26-4617-90F8-299A1C341DB4@R-project.org>"
+      ],
+      "body_plain": "Simon,\n\nOn your dynamic vs static linking comment (R-exts 5.8), is there anything\nspecific to MacOS that adds complexity, or is this generic to UNIX systems\nthat use the -rpath flag to hard-code the path into the executable? I\nunderstand that there are potential versioning issues with the use of\nshared libraries as well.\n\nOn Mon, Oct 4, 2021 at 6:04 PM Simon Urbanek <simon.urbanek at r-project.org>\nwrote:\n\n> Dominick,\n>\n> in that case this would be best reported on R-SIG-Mac. I just happen to be\n> on this list so it worked ;).\n>\n> Re-building RInside seems to fix the issue, now updated.\n>\n> While I have you here, unrelated, but please note that linking to packages\n> dynamically is not supported (see R-exts 5.8), so your makefile needs to be\n> fixed to use static libRInside.a (and RInside shouldn't be really creating\n> or installing .dylib at all as it cannot be used reliably).\n>\n> Cheers,\n> Simon\n>\n>\n>\n> On Oct 3, 2021, at 1:55 AM, Dominick Samperi <djsamperi at gmail.com> wrote:\n>\n> Forcing source install of the latest versions of Rcpp and RInside is\n> required\n> under MacOS. By default MacOS installs binary versions of the latest\n> versions, 1.0.7 and 0.2.16, resp., and a simple repl app seg faults.\n>\n> It appears that there is a problem with the current binary distribution\n> under\n> MacOS.\n>\n> Under Ubuntu the packages are installed from source by default, and\n> there are no problems. There are also no problems under Windows.\n>\n>\n>\n> On Thu, Jul 15, 2021 at 8:13 AM Dirk Eddelbuettel <edd at debian.org> wrote:\n>\n>>\n>> On 15 July 2021 at 08:24, ma wh wrote:\n>> | Colleague of mine wrote some R last week that was working OK, and\n>> hasn't been changed in itself since that time. This week it's ceased\n>> working( I've tried it on my machine and also see a fail, the following\n>> error is encountered:\n>> |\n>> | Error in C_valid_tz(tzone): Function 'Rcpp_precious_remove' not\n>> provided by package 'Rcpp'\n>> |\n>> | Searching around there aren't many hits. Those I do find seem quite\n>> recent (stackoverflow questions or GitHub issues logged in various\n>> projects, dates of posting are within the last few days). None of the\n>> posted queries seem to have a solution, one person said restarting RStudio\n>> helped, but not in my case. The SO question I found was marked as deleted.\n>> The GitHub issue I found was \"I solved it\" but no mention of how. The SO\n>> question was asking about svg export:\n>> https://stackoverflow.com/questions/68345118/exporting-a-ggplot-in-svg-call-a-non-esixting-function\n>> | The GitHub were also asking about packages I don't use -\n>> | https://github.com/r-spatial/spdep/issues/60\n>> | https://github.com/drizopoulos/JMbayes2/issues/5\n>> |\n>> | Anyone on the list have any pointers? Thanks\n>>\n>> Packages following a the GNU style often have a file ChangeLog which\n>> \"details\n>> changes made to the code\". Rcpp follows this convention, see 2021-07-05\n>> and\n>> 2021-01-017.\n>>\n>> Packages following the R packaging conventions often have a file\n>> inst/NEWS.rd\n>> (also rendered as NEWS at CRAN). Rcpp follow this conventions, see the\n>> Rcpp\n>> 1.0.7 release (even if the functions is not named).\n>>\n>> Packages have source code you can search.I like `ag` aka \"the\n>> silversearcher\":\n>>\n>>   edd at rob:~/git/rcpp(master)$ ag -c Rcpp_precious_remove\n>>   ChangeLog:2\n>>   inst/include/Rcpp/routines.h:3\n>>   inst/include/RcppCommon.h:2\n>>   src/rcpp_init.cpp:1\n>>   src/barrier.cpp:1\n>>   edd at rob:~/git/rcpp(master)$\n>>\n>> It is still there, and available via the standard export mechanism.\n>>\n>> I recommend your friend take a look. The function is a) still there yet\n>> has\n>> also b) been supplanted by a more sufficient alternative.\n>>\n>> Otherwise, a reproducible example would be the only way to make this\n>> concrete.\n>>\n>> Hope this helps, Dirk\n>>\n>> --\n>> https://dirk.eddelbuettel.com | @eddelbuettel | edd at debian.org\n>> _______________________________________________\n>> Rcpp-devel mailing list\n>> Rcpp-devel at lists.r-forge.r-project.org\n>> https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel\n>\n> _______________________________________________\n> Rcpp-devel mailing list\n> Rcpp-devel at lists.r-forge.r-project.org\n> https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Simon,\n\nOn your dynamic vs static linking comment (R-exts 5.8), is there anything\nspecific to MacOS that adds complexity, or is this generic to UNIX systems\nthat use the -rpath flag to hard-code the p",
+      "thread_id": "thread-e7af910d2dd1",
+      "thread_depth": 0,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-cb9c3b6342df",
+      "message_id": "<CAPcHnpSuKFbc66S4eu5teyAwH1VhcOkNfaRKZnC5JyMn0mAsRg@mail.gmail.com>",
+      "from_name": "Andrew Simmons",
+      "from_email_hash": "40b01f168beec35ef27cb62ca97f7a4b288ecbda9c188bcf84504fdbe44290e9",
+      "date": "2021-10-09T23:23:09-04:00",
+      "subject": "[R-SIG-Mac] Retrieving Script Path in R.app",
+      "subject_clean": "Retrieving Script Path in R.app",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\n\nI'd like to programmatically retrieve the path of the currently open script\nin R.app.\nSomething like, if I had written:\n\nthis.path()\n\nwithin a script that was open in R.app, and I ran that line with\nCommand+Enter,\nI'd like it to return the path of the script.\nIt seems like this should be possible since Command+E runs the following:\n\nsource(\"/absolute/path/to/file\")\n\nso R.app knows the path of the open script, but I was unable to find\nanything that would retrieve it on my own. First, I tried looking through\nthe environment 'as.environment(\"tools:RGUI\")', but I didn't find anything\nthat looked like what I was looking for. Second, I tried comparing the\nfunctions available in the base packages between Windows and macOS, and\nwhile there are a few functions available for macOS that are not for\nWindows, none of them looked like what I was looking for.\nAny help will be greatly appreciated, thank you!\n\n\nRegards,\n    Andrew Simmons\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello,\n\n\nI'd like to programmatically retrieve the path of the currently open script\nin R.app.\nSomething like, if I had written:\n\nthis.path()\n\nwithin a script that was open in R.app, and I ran that li",
+      "thread_id": "thread-cb9c3b6342df",
+      "thread_depth": 0,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-f32a8725875e",
+      "message_id": "<7141D0F4-F1F8-4292-B707-F304016CB2C6@gmail.com>",
+      "from_name": "Thomas Hopper",
+      "from_email_hash": "1196f2e332f32a65b98efee9529a499f3f08460cf683671def79ea71c0705100",
+      "date": "2021-10-10T11:10:37-04:00",
+      "subject": "[R-SIG-Mac] Retrieving Script Path in R.app",
+      "subject_clean": "Retrieving Script Path in R.app",
+      "in_reply_to": "<CAPcHnpSuKFbc66S4eu5teyAwH1VhcOkNfaRKZnC5JyMn0mAsRg@mail.gmail.com>",
+      "references": [
+        "<CAPcHnpSuKFbc66S4eu5teyAwH1VhcOkNfaRKZnC5JyMn0mAsRg@mail.gmail.com>"
+      ],
+      "body_plain": "You may want to look at the ?here? package. \n\nSent from my iPhone\n\n> On Oct 9, 2021, at 23:23, Andrew Simmons <akwsimmo at gmail.com> wrote:\n> \n> ?Hello,\n> \n> \n> I'd like to programmatically retrieve the path of the currently open script\n> in R.app.\n> Something like, if I had written:\n> \n> this.path()\n> \n> within a script that was open in R.app, and I ran that line with\n> Command+Enter,\n> I'd like it to return the path of the script.\n> It seems like this should be possible since Command+E runs the following:\n> \n> source(\"/absolute/path/to/file\")\n> \n> so R.app knows the path of the open script, but I was unable to find\n> anything that would retrieve it on my own. First, I tried looking through\n> the environment 'as.environment(\"tools:RGUI\")', but I didn't find anything\n> that looked like what I was looking for. Second, I tried comparing the\n> functions available in the base packages between Windows and macOS, and\n> while there are a few functions available for macOS that are not for\n> Windows, none of them looked like what I was looking for.\n> Any help will be greatly appreciated, thank you!\n> \n> \n> Regards,\n>    Andrew Simmons\n> \n>    [[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "You may want to look at the ?here? package. \n\nSent from my iPhone\n\n> On Oct 9, 2021, at 23:23, Andrew Simmons <akwsimmo at gmail.com> wrote:\n> \n> ?Hello,\n> \n> \n> I'd like to programmatically retrieve ",
+      "thread_id": "thread-cb9c3b6342df",
+      "thread_depth": 1,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-f3d8552e211a",
+      "message_id": "<CALrbzg1reWHzL0EAATPN+_prBVODMpc33NFWfQgpZVp7XSdxLQ@mail.gmail.com>",
+      "from_name": "Ben Tupper",
+      "from_email_hash": "715c796f300568f44190a795995f5d8c66b19c1f8bc2156d2221fcda4991bb5a",
+      "date": "2021-10-10T11:14:42-04:00",
+      "subject": "[R-SIG-Mac] Retrieving Script Path in R.app",
+      "subject_clean": "Retrieving Script Path in R.app",
+      "in_reply_to": "<CAPcHnpSuKFbc66S4eu5teyAwH1VhcOkNfaRKZnC5JyMn0mAsRg@mail.gmail.com>",
+      "references": [
+        "<CAPcHnpSuKFbc66S4eu5teyAwH1VhcOkNfaRKZnC5JyMn0mAsRg@mail.gmail.com>"
+      ],
+      "body_plain": "Hi,\n\nWould ?getSrcDirectory help?\n\nBen\n\nOn Sat, Oct 9, 2021 at 11:23 PM Andrew Simmons <akwsimmo at gmail.com> wrote:\n>\n> Hello,\n>\n>\n> I'd like to programmatically retrieve the path of the currently open script\n> in R.app.\n> Something like, if I had written:\n>\n> this.path()\n>\n> within a script that was open in R.app, and I ran that line with\n> Command+Enter,\n> I'd like it to return the path of the script.\n> It seems like this should be possible since Command+E runs the following:\n>\n> source(\"/absolute/path/to/file\")\n>\n> so R.app knows the path of the open script, but I was unable to find\n> anything that would retrieve it on my own. First, I tried looking through\n> the environment 'as.environment(\"tools:RGUI\")', but I didn't find anything\n> that looked like what I was looking for. Second, I tried comparing the\n> functions available in the base packages between Windows and macOS, and\n> while there are a few functions available for macOS that are not for\n> Windows, none of them looked like what I was looking for.\n> Any help will be greatly appreciated, thank you!\n>\n>\n> Regards,\n>     Andrew Simmons\n>\n>         [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\n-- \nBen Tupper (he/him)\nBigelow Laboratory for Ocean Science\nEast Boothbay, Maine\nhttp://www.bigelow.org/\nhttps://eco.bigelow.org",
+      "body_snippet": "Hi,\n\nWould ?getSrcDirectory help?\n\nBen\n\nOn Sat, Oct 9, 2021 at 11:23 PM Andrew Simmons <akwsimmo at gmail.com> wrote:\n>\n> Hello,\n>\n>\n> I'd like to programmatically retrieve the path of the currently o",
+      "thread_id": "thread-cb9c3b6342df",
+      "thread_depth": 1,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-3dcc5bc8982a",
+      "message_id": "<CAPcHnpT7s=R1BMpXGtB1Vj4+a4rvM30MyuLnSXJ2DDCj_109og@mail.gmail.com>",
+      "from_name": "Andrew Simmons",
+      "from_email_hash": "40b01f168beec35ef27cb62ca97f7a4b288ecbda9c188bcf84504fdbe44290e9",
+      "date": "2021-10-10T11:29:03-04:00",
+      "subject": "[R-SIG-Mac] Retrieving Script Path in R.app",
+      "subject_clean": "Retrieving Script Path in R.app",
+      "in_reply_to": "<CALrbzg1reWHzL0EAATPN+_prBVODMpc33NFWfQgpZVp7XSdxLQ@mail.gmail.com>",
+      "references": [
+        "<CAPcHnpSuKFbc66S4eu5teyAwH1VhcOkNfaRKZnC5JyMn0mAsRg@mail.gmail.com>",
+        "<CALrbzg1reWHzL0EAATPN+_prBVODMpc33NFWfQgpZVp7XSdxLQ@mail.gmail.com>"
+      ],
+      "body_plain": "getSrcDirectory is fine, but it only works when using 'source' with\n'keep.source = TRUE', so it severely limits how I can run my scripts.\n\nI've made a function / / package called this.path which returns the path of\nthe executing script, and right now it works from Rscript, when using\nsource, when running in RStudio, and when running from Rgui on Windows, but\nnot in R.app on macOS. Similar idea to getSrcDirectory, but you can run it\nany way with or without keep.source\n\n\nOn Sun, Oct 10, 2021, 11:14 Ben Tupper <btupper at bigelow.org> wrote:\n\n> Hi,\n>\n> Would ?getSrcDirectory help?\n>\n> Ben\n>\n> On Sat, Oct 9, 2021 at 11:23 PM Andrew Simmons <akwsimmo at gmail.com> wrote:\n> >\n> > Hello,\n> >\n> >\n> > I'd like to programmatically retrieve the path of the currently open\n> script\n> > in R.app.\n> > Something like, if I had written:\n> >\n> > this.path()\n> >\n> > within a script that was open in R.app, and I ran that line with\n> > Command+Enter,\n> > I'd like it to return the path of the script.\n> > It seems like this should be possible since Command+E runs the following:\n> >\n> > source(\"/absolute/path/to/file\")\n> >\n> > so R.app knows the path of the open script, but I was unable to find\n> > anything that would retrieve it on my own. First, I tried looking through\n> > the environment 'as.environment(\"tools:RGUI\")', but I didn't find\n> anything\n> > that looked like what I was looking for. Second, I tried comparing the\n> > functions available in the base packages between Windows and macOS, and\n> > while there are a few functions available for macOS that are not for\n> > Windows, none of them looked like what I was looking for.\n> > Any help will be greatly appreciated, thank you!\n> >\n> >\n> > Regards,\n> >     Andrew Simmons\n> >\n> >         [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n>\n> --\n> Ben Tupper (he/him)\n> Bigelow Laboratory for Ocean Science\n> East Boothbay, Maine\n> http://www.bigelow.org/\n> https://eco.bigelow.org\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "getSrcDirectory is fine, but it only works when using 'source' with\n'keep.source = TRUE', so it severely limits how I can run my scripts.\n\nI've made a function / / package called this.path which retur",
+      "thread_id": "thread-cb9c3b6342df",
+      "thread_depth": 2,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-9709d5cf15c6",
+      "message_id": "<4ad04acd-aaad-041b-2ad0-d1bd63c1c0d4@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2021-10-10T12:31:38-04:00",
+      "subject": "[R-SIG-Mac] Retrieving Script Path in R.app",
+      "subject_clean": "Retrieving Script Path in R.app",
+      "in_reply_to": "<CAPcHnpSuKFbc66S4eu5teyAwH1VhcOkNfaRKZnC5JyMn0mAsRg@mail.gmail.com>",
+      "references": [
+        "<CAPcHnpSuKFbc66S4eu5teyAwH1VhcOkNfaRKZnC5JyMn0mAsRg@mail.gmail.com>"
+      ],
+      "body_plain": "See https://stackoverflow.com/a/47045368/2554330 for a risky-looking method.\n\nI think the non-RStudio method is equivalent to this function:\n\nthis.path <- function() {\n   sys.frame(-5)$srcfile\n}\n\nwhich works for me using Cmd-E, but of course it doesn't work using \nCmd-Enter, because that doesn't call source().\n\nMy conclusion would be to use RStudio rather than the R.app editor.  I \nprefer R.app for interactive use, but not at all for code development.\n\nDuncan Murdoch\n\n\nOn 09/10/2021 11:23 p.m., Andrew Simmons wrote:\n> Hello,\n> \n> \n> I'd like to programmatically retrieve the path of the currently open script\n> in R.app.\n> Something like, if I had written:\n> \n> this.path()\n> \n> within a script that was open in R.app, and I ran that line with\n> Command+Enter,\n> I'd like it to return the path of the script.\n> It seems like this should be possible since Command+E runs the following:\n> \n> source(\"/absolute/path/to/file\")\n> \n> so R.app knows the path of the open script, but I was unable to find\n> anything that would retrieve it on my own. First, I tried looking through\n> the environment 'as.environment(\"tools:RGUI\")', but I didn't find anything\n> that looked like what I was looking for. Second, I tried comparing the\n> functions available in the base packages between Windows and macOS, and\n> while there are a few functions available for macOS that are not for\n> Windows, none of them looked like what I was looking for.\n> Any help will be greatly appreciated, thank you!\n> \n> \n> Regards,\n>      Andrew Simmons\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "See https://stackoverflow.com/a/47045368/2554330 for a risky-looking method.\n\nI think the non-RStudio method is equivalent to this function:\n\nthis.path <- function() {\n   sys.frame(-5)$srcfile\n}\n\nwhic",
+      "thread_id": "thread-cb9c3b6342df",
+      "thread_depth": 1,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-3e38a9e378f3",
+      "message_id": "<D9957CE9-CB2E-48DC-BB55-B5A91EC31D07@depauw.edu>",
+      "from_name": "Bryan Hanson",
+      "from_email_hash": "a8281090fe3f4c60194a9bdbee79c82d7c808f157ccc9059c884ffe8cb2ccf91",
+      "date": "2021-10-22T15:29:36-07:00",
+      "subject": "[R-SIG-Mac] Link to headers lost? Headers not where they should be?",
+      "subject_clean": "Link to headers lost? Headers not where they should be?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I don?t know how/when this problem arose, but as of a few days ago, I can?t build source packages any longer.  I?ve been through quite a lot of resources looking for answers and no luck so far, so turning to the mercies of this list.\n\nI have this problem with either R 4.1.1 or R 4.2.0  I?ve disabled .Rprofile and .cshrc files and the problem persists.  Running BigSur 10.16\n\nWhen I try for instance to install MASS (as an example, the problem occurs with any pkg needing compilation) I see this:\n\n[Abbott-2:~/Desktop] bryanhanson% R CMD INSTALL MASS\n* installing to library ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library?\n* installing *source* package ?MASS? ...\n** package ?MASS? successfully unpacked and MD5 sums checked\n** using staged installation\n** libs\n/usr/local/clang4/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c MASS.c -o MASS.o\nMASS.c:18:10: fatal error: 'stdlib.h' file not found\n#include <stdlib.h>\n         ^~~~~~~~~~\n1 error generated.\nmake: *** [MASS.o] Error 1\nERROR: compilation failed for package ?MASS?\n* removing ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library/MASS?\n* restoring previous ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library/MASS?\n\nI think this feedback says the compiler is present and working. \n\nMost resources about \"fatal error: 'stdlib.h' file not found? end up being cases  of the headers are actually not installed.  However I can see the ?missing? headers in /Library/Developer/CommandLineTools/usr/include/c++/v1 but I?m not sure this is place R is looking (information on the web is sometimes dated, and Apple seems to have moved things around in recent versions).  So my best guess is that R is looking elsewhere or doesn?t have a link to the correct location.  R Installation and Administration doesn?t appear to spell the location or I missed it.\n\nI have carefully uninstalled Xcode (13) and re-installed it, and run Xcode-select ?install (it thinks the CLTs are already installed).  This does not make any difference, the problem persists.  Restarting the machine after updates does not make a difference either.\n\nThanks for any suggestions, as I?m really stuck...\n\nBryan\n\n\n> sessionInfo()\nR version 4.1.1 Patched (2021-10-18 r81073)\nPlatform: x86_64-apple-darwin17.0 (64-bit)\nRunning under: macOS Big Sur 10.16\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib\nLAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib\n\nRandom number generation:\n RNG:     Mersenne-Twister \n Normal:  Inversion \n Sample:  Rounding \n \nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.1.1",
+      "body_snippet": "I don?t know how/when this problem arose, but as of a few days ago, I can?t build source packages any longer.  I?ve been through quite a lot of resources looking for answers and no luck so far, so tur",
+      "thread_id": "thread-3e38a9e378f3",
+      "thread_depth": 0,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-40db1311a08a",
+      "message_id": "<35C78FA2-4716-4ED2-B9A4-3498383488CD@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2021-10-23T11:54:08+13:00",
+      "subject": "[R-SIG-Mac]  Link to headers lost? Headers not where they should be?",
+      "subject_clean": "Link to headers lost? Headers not where they should be?",
+      "in_reply_to": "<D9957CE9-CB2E-48DC-BB55-B5A91EC31D07@depauw.edu>",
+      "references": [
+        "<D9957CE9-CB2E-48DC-BB55-B5A91EC31D07@depauw.edu>"
+      ],
+      "body_plain": "Bryan,\n\nyou seen to be using non-standard compiler in /usr/local/clang4. Remove it and check you overrides - do you have some forgotten invalid ~/.R/Makeconf file? Remove those if you do - and check ~/.R for any old stuff. (In fact the latter will probably fix it alone).\n\nCheers,\nSimon\n\n\n\n> On Oct 23, 2021, at 11:29 AM, Bryan Hanson <hanson at depauw.edu> wrote:\n> \n> I don?t know how/when this problem arose, but as of a few days ago, I can?t build source packages any longer.  I?ve been through quite a lot of resources looking for answers and no luck so far, so turning to the mercies of this list.\n> \n> I have this problem with either R 4.1.1 or R 4.2.0  I?ve disabled .Rprofile and .cshrc files and the problem persists.  Running BigSur 10.16\n> \n> When I try for instance to install MASS (as an example, the problem occurs with any pkg needing compilation) I see this:\n> \n> [Abbott-2:~/Desktop] bryanhanson% R CMD INSTALL MASS\n> * installing to library ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library?\n> * installing *source* package ?MASS? ...\n> ** package ?MASS? successfully unpacked and MD5 sums checked\n> ** using staged installation\n> ** libs\n> /usr/local/clang4/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c MASS.c -o MASS.o\n> MASS.c:18:10: fatal error: 'stdlib.h' file not found\n> #include <stdlib.h>\n>         ^~~~~~~~~~\n> 1 error generated.\n> make: *** [MASS.o] Error 1\n> ERROR: compilation failed for package ?MASS?\n> * removing ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library/MASS?\n> * restoring previous ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library/MASS?\n> \n> I think this feedback says the compiler is present and working. \n> \n> Most resources about \"fatal error: 'stdlib.h' file not found? end up being cases  of the headers are actually not installed.  However I can see the ?missing? headers in /Library/Developer/CommandLineTools/usr/include/c++/v1 but I?m not sure this is place R is looking (information on the web is sometimes dated, and Apple seems to have moved things around in recent versions).  So my best guess is that R is looking elsewhere or doesn?t have a link to the correct location.  R Installation and Administration doesn?t appear to spell the location or I missed it.\n> \n> I have carefully uninstalled Xcode (13) and re-installed it, and run Xcode-select ?install (it thinks the CLTs are already installed).  This does not make any difference, the problem persists.  Restarting the machine after updates does not make a difference either.\n> \n> Thanks for any suggestions, as I?m really stuck...\n> \n> Bryan\n> \n> \n>> sessionInfo()\n> R version 4.1.1 Patched (2021-10-18 r81073)\n> Platform: x86_64-apple-darwin17.0 (64-bit)\n> Running under: macOS Big Sur 10.16\n> \n> Matrix products: default\n> BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib\n> LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib\n> \n> Random number generation:\n> RNG:     Mersenne-Twister \n> Normal:  Inversion \n> Sample:  Rounding \n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base     \n> \n> loaded via a namespace (and not attached):\n> [1] compiler_4.1.1\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Bryan,\n\nyou seen to be using non-standard compiler in /usr/local/clang4. Remove it and check you overrides - do you have some forgotten invalid ~/.R/Makeconf file? Remove those if you do - and check ~",
+      "thread_id": "thread-3e38a9e378f3",
+      "thread_depth": 1,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-c15e05305c6c",
+      "message_id": "<A525B876-2A4A-42AA-B212-631C09695A81@depauw.edu>",
+      "from_name": "Bryan Hanson",
+      "from_email_hash": "a8281090fe3f4c60194a9bdbee79c82d7c808f157ccc9059c884ffe8cb2ccf91",
+      "date": "2021-10-22T16:24:20-07:00",
+      "subject": "[R-SIG-Mac]  Link to headers lost? Headers not where they should be?",
+      "subject_clean": "Link to headers lost? Headers not where they should be?",
+      "in_reply_to": "<35C78FA2-4716-4ED2-B9A4-3498383488CD@R-project.org>",
+      "references": [
+        "<D9957CE9-CB2E-48DC-BB55-B5A91EC31D07@depauw.edu>",
+        "<35C78FA2-4716-4ED2-B9A4-3498383488CD@R-project.org>"
+      ],
+      "body_plain": "Thank you Simon, that was spot-on!  There was a stale Makevars file from about a year ago when a particular package needed a kluge to compile with openMP.  Much appreciated!  Bryan\n\n> On Oct 22, 2021, at 3:54 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Bryan,\n> \n> you seen to be using non-standard compiler in /usr/local/clang4. Remove it and check you overrides - do you have some forgotten invalid ~/.R/Makeconf file? Remove those if you do - and check ~/.R for any old stuff. (In fact the latter will probably fix it alone).\n> \n> Cheers,\n> Simon\n> \n> \n> \n>> On Oct 23, 2021, at 11:29 AM, Bryan Hanson <hanson at depauw.edu> wrote:\n>> \n>> I don?t know how/when this problem arose, but as of a few days ago, I can?t build source packages any longer.  I?ve been through quite a lot of resources looking for answers and no luck so far, so turning to the mercies of this list.\n>> \n>> I have this problem with either R 4.1.1 or R 4.2.0  I?ve disabled .Rprofile and .cshrc files and the problem persists.  Running BigSur 10.16\n>> \n>> When I try for instance to install MASS (as an example, the problem occurs with any pkg needing compilation) I see this:\n>> \n>> [Abbott-2:~/Desktop] bryanhanson% R CMD INSTALL MASS\n>> * installing to library ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library?\n>> * installing *source* package ?MASS? ...\n>> ** package ?MASS? successfully unpacked and MD5 sums checked\n>> ** using staged installation\n>> ** libs\n>> /usr/local/clang4/bin/clang -I\"/Library/Frameworks/R.framework/Resources/include\" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c MASS.c -o MASS.o\n>> MASS.c:18:10: fatal error: 'stdlib.h' file not found\n>> #include <stdlib.h>\n>>        ^~~~~~~~~~\n>> 1 error generated.\n>> make: *** [MASS.o] Error 1\n>> ERROR: compilation failed for package ?MASS?\n>> * removing ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library/MASS?\n>> * restoring previous ?/Library/Frameworks/R.framework/Versions/4.1/Resources/library/MASS?\n>> \n>> I think this feedback says the compiler is present and working. \n>> \n>> Most resources about \"fatal error: 'stdlib.h' file not found? end up being cases  of the headers are actually not installed.  However I can see the ?missing? headers in /Library/Developer/CommandLineTools/usr/include/c++/v1 but I?m not sure this is place R is looking (information on the web is sometimes dated, and Apple seems to have moved things around in recent versions).  So my best guess is that R is looking elsewhere or doesn?t have a link to the correct location.  R Installation and Administration doesn?t appear to spell the location or I missed it.\n>> \n>> I have carefully uninstalled Xcode (13) and re-installed it, and run Xcode-select ?install (it thinks the CLTs are already installed).  This does not make any difference, the problem persists.  Restarting the machine after updates does not make a difference either.\n>> \n>> Thanks for any suggestions, as I?m really stuck...\n>> \n>> Bryan\n>> \n>> \n>>> sessionInfo()\n>> R version 4.1.1 Patched (2021-10-18 r81073)\n>> Platform: x86_64-apple-darwin17.0 (64-bit)\n>> Running under: macOS Big Sur 10.16\n>> \n>> Matrix products: default\n>> BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib\n>> LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib\n>> \n>> Random number generation:\n>> RNG:     Mersenne-Twister \n>> Normal:  Inversion \n>> Sample:  Rounding \n>> \n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> \n>> loaded via a namespace (and not attached):\n>> [1] compiler_4.1.1\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>",
+      "body_snippet": "Thank you Simon, that was spot-on!  There was a stale Makevars file from about a year ago when a particular package needed a kluge to compile with openMP.  Much appreciated!  Bryan\n\n> On Oct 22, 2021,",
+      "thread_id": "thread-3e38a9e378f3",
+      "thread_depth": 2,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-cccba69cc82f",
+      "message_id": "<F311C911-F19E-4CC4-B177-34EFBFC32CC9@gmail.com>",
+      "from_name": "Tim Bates",
+      "from_email_hash": "ffb123f9baccaf6b74db0bf4d17706dacb07ea25d79b547c8886dc6864d3054d",
+      "date": "2021-10-31T13:48:35Z",
+      "subject": "[R-SIG-Mac] https://mac.r-project.org/benchmarks/",
+      "subject_clean": "https://mac.r-project.org/benchmarks/",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I wonder if this (2008/R 2.7) page could be updated with some current benchmark runs?\n\nEspecially current Intel server chips, i9, and M1/+ \n\nI'm guessing if Simon could help upload the resulting updated page, people here could contribute bench mark runs on different hardware.\n\n\nAlso be interesting to see different blas results.\n\nI wonder if either intel or arm chip \"neural\" cores (dot product engines?) or multi-core and GPU are being used in current R builds?\n\ntim",
+      "body_snippet": "I wonder if this (2008/R 2.7) page could be updated with some current benchmark runs?\n\nEspecially current Intel server chips, i9, and M1/+ \n\nI'm guessing if Simon could help upload the resulting updat",
+      "thread_id": "thread-cccba69cc82f",
+      "thread_depth": 0,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-a7aff42bcca2",
+      "message_id": "<9C722E0A-DF3F-45AF-9DA2-A8D152B3AF02@gmail.com>",
+      "from_name": "Kieran Healy",
+      "from_email_hash": "fbd7805bc8e79b05b73d95f86e0e0eebf9365d811f705ce5812c5e8dde0d63b7",
+      "date": "2021-10-31T18:31:55-04:00",
+      "subject": "[R-SIG-Mac] https://mac.r-project.org/benchmarks/",
+      "subject_clean": "https://mac.r-project.org/benchmarks/",
+      "in_reply_to": "<8D07527C-3EF3-4815-8B1E-E8ED939611AF@R-project.org>",
+      "references": [
+        "<F311C911-F19E-4CC4-B177-34EFBFC32CC9@gmail.com>",
+        "<8D07527C-3EF3-4815-8B1E-E8ED939611AF@R-project.org>"
+      ],
+      "body_plain": "Hello, \n\nJust out of interest, I ran benchmark-25.R from Simon?s repo, as I have access to an M1 Max. Are the *very* long times on cross-product, linear regression, and Matrix functions a consequence of the BLAS version?\n\nKieran\n\n> sessionInfo()\nR version 4.1.1 (2021-08-10)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS Monterey 12.0.1\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib\nLAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib\n\n\n> source(\"R-benchmark-25.R\")\nLoading required package: SuppDists\n\n\n   R Benchmark 2.5\n   ===============\nNumber of times each test is run__________________________:  3\n\n   I. Matrix calculation\n   ---------------------\nCreation, transp., deformation of a 2500x2500 matrix (sec):  0.249666666666656\n2400x2400 normal distributed random matrix ^1000____ (sec):  0.105000000000009\nSorting of 7,000,000 random values__________________ (sec):  0.594666666666673\n2800x2800 cross-product matrix (b = a' * a)_________ (sec):  13.3016666666667\nLinear regr. over a 3000x3000 matrix (c = a \\ b')___ (sec):  6.27033333333334\n                      --------------------------------------------\n                 Trimmed geom. mean (2 extremes eliminated):  0.976431082297569\n\n   II. Matrix functions\n   --------------------\nFFT over 2,400,000 random values____________________ (sec):  0.0726666666666631\nEigenvalues of a 640x640 random matrix______________ (sec):  0.425666666666672\nDeterminant of a 2500x2500 random matrix____________ (sec):  1.73833333333333\nCholesky decomposition of a 3000x3000 matrix________ (sec):  5.17333333333333\nInverse of a 1600x1600 random matrix________________ (sec):  1.43099999999996\n                      --------------------------------------------\n                Trimmed geom. mean (2 extremes eliminated):  1.01925013610031\n\n   III. Programmation\n   ------------------\n3,500,000 Fibonacci numbers calculation (vector calc)(sec):  0.0950000000000273\nCreation of a 3000x3000 Hilbert matrix (matrix calc) (sec):  0.115333333333335\nGrand common divisors of 400,000 pairs (recursion)__ (sec):  0.0799999999999841\nCreation of a 500x500 Toeplitz matrix (loops)_______ (sec):  0.0173333333333593\nEscoufier's method on a 45x45 matrix (mixed)________ (sec):  0.152999999999963\n                      --------------------------------------------\n                Trimmed geom. mean (2 extremes eliminated):  0.0957023962714685\n\n\nTotal time for all 15 tests_________________________ (sec):  29.823\nOverall mean (sum of I, II and III trimmed means/3)_ (sec):  0.45668322781674\n                      --- End of test ---\n\nWarning messages:\n1: In remove(\"a\", \"b\") : object 'a' not found\n2: In remove(\"a\", \"b\") : object 'b' not found\n\n> On Oct 31, 2021, at 5:11 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> \n> Tim,\n> \n> that is a great idea, those test are really old. Just for the fun of it I have run the tests on my old iMac, but with R 4.1.2 and they still work.\n> It's nice to see the huge speed improvements in loops and similar (see below - recall the original tests were scaled to be around 1).\n> \n> I have added the page to the repo\n> https://github.com/R-macos/R-mac-dev\n> so I'd be happy to review PRs, but I'll probably want to re-do it first so it is better organized for comparisons as we have to also accommodate M1 etc.\n> \n> Cheers,\n> Simon\n> \n> ---\n> iMac14,2 3.2Ghz i5, macOS 10.4.6, R 4.1.2 vecib/Accelerate BLAS\n> \n> \n>   R Benchmark 2.5\n>   ===============\n> Number of times each test is run__________________________:  3\n> \n>   I. Matrix calculation\n>   ---------------------\n> Creation, transp., deformation of a 2500x2500 matrix (sec):  0.829666666666667 \n> 2400x2400 normal distributed random matrix ^1000____ (sec):  0.155333333333334 \n> Sorting of 7,000,000 random values__________________ (sec):  0.638333333333334 \n> 2800x2800 cross-product matrix (b = a' * a)_________ (sec):  0.242000000000001 \n> Linear regr. over a 3000x3000 matrix (c = a \\ b')___ (sec):  0.170999999999999 \n>                      --------------------------------------------\n>                 Trimmed geom. mean (2 extremes eliminated):  0.29781941072597 \n> \n>   II. Matrix functions\n>   --------------------\n> FFT over 2,400,000 random values____________________ (sec):  0.331333333333333 \n> Eigenvalues of a 640x640 random matrix______________ (sec):  0.347000000000001 \n> Determinant of a 2500x2500 random matrix____________ (sec):  0.207000000000001 \n> Cholesky decomposition of a 3000x3000 matrix________ (sec):  0.254333333333334 \n> Inverse of a 1600x1600 random matrix________________ (sec):  0.345666666666663 \n>                      --------------------------------------------\n>                Trimmed geom. mean (2 extremes eliminated):  0.307686639256803 \n> \n>   III. Programmation\n>   ------------------\n> 3,500,000 Fibonacci numbers calculation (vector calc)(sec):  0.245 \n> Creation of a 3000x3000 Hilbert matrix (matrix calc) (sec):  0.289666666666669 \n> Grand common divisors of 400,000 pairs (recursion)__ (sec):  0.259333333333331 \n> Creation of a 500x500 Toeplitz matrix (loops)_______ (sec):  0.0400000000000015 \n> Escoufier's method on a 45x45 matrix (mixed)________ (sec):  0.263000000000005 \n>                      --------------------------------------------\n>                Trimmed geom. mean (2 extremes eliminated):  0.255658395143118 \n> \n> \n> Total time for all 15 tests_________________________ (sec):  4.61866666666667 \n> Overall mean (sum of I, II and III trimmed means/3)_ (sec):  0.286136920519432 \n>                      --- End of test ---\n> \n> \n> \n>> On Nov 1, 2021, at 2:48 AM, Tim Bates <timothy.c.bates at gmail.com> wrote:\n>> \n>> I wonder if this (2008/R 2.7) page could be updated with some current benchmark runs?\n>> \n>> Especially current Intel server chips, i9, and M1/+ \n>> \n>> I'm guessing if Simon could help upload the resulting updated page, people here could contribute bench mark runs on different hardware.\n>> \n>> \n>> Also be interesting to see different blas results.\n>> \n>> I wonder if either intel or arm chip \"neural\" cores (dot product engines?) or multi-core and GPU are being used in current R builds?\n>> \n>> tim\n>> \n>> \n>> \n>> \n>> \n>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "Hello, \n\nJust out of interest, I ran benchmark-25.R from Simon?s repo, as I have access to an M1 Max. Are the *very* long times on cross-product, linear regression, and Matrix functions a consequence ",
+      "thread_id": "thread-a7aff42bcca2",
+      "thread_depth": 0,
+      "month": "2021-10"
+    },
+    {
+      "id": "msg-adb34e337cf7",
+      "message_id": "<EB4445AE-1F58-4376-8323-DB58AB356177@gmail.com>",
+      "from_name": "Kieran Healy",
+      "from_email_hash": "fbd7805bc8e79b05b73d95f86e0e0eebf9365d811f705ce5812c5e8dde0d63b7",
+      "date": "2021-10-31T22:00:31-04:00",
+      "subject": "[R-SIG-Mac] https://mac.r-project.org/benchmarks/",
+      "subject_clean": "https://mac.r-project.org/benchmarks/",
+      "in_reply_to": "<6C4FABC7-3654-470A-B68F-3050782D3A5A@R-project.org>",
+      "references": [
+        "<F311C911-F19E-4CC4-B177-34EFBFC32CC9@gmail.com>",
+        "<8D07527C-3EF3-4815-8B1E-E8ED939611AF@R-project.org>",
+        "<9C722E0A-DF3F-45AF-9DA2-A8D152B3AF02@gmail.com>",
+        "<6C4FABC7-3654-470A-B68F-3050782D3A5A@R-project.org>"
+      ],
+      "body_plain": "Thanks, Simon. \n\nWith the vecLib/Accelerate BLAS, the results are indeed rather faster :)\n\nKieran\n\n\n14? MacBook Pro / M1 Max\n\n   R Benchmark 2.5\n   ===============\nNumber of times each test is run__________________________:  3\n\n   I. Matrix calculation\n   ---------------------\nCreation, transp., deformation of a 2500x2500 matrix (sec):  0.260999999999999\n2400x2400 normal distributed random matrix ^1000____ (sec):  0.105\nSorting of 7,000,000 random values__________________ (sec):  0.595\n2800x2800 cross-product matrix (b = a' * a)_________ (sec):  0.056666666666666\nLinear regr. over a 3000x3000 matrix (c = a \\ b')___ (sec):  0.0446666666666668\n                      --------------------------------------------\n                 Trimmed geom. mean (2 extremes eliminated):  0.115802825957684\n\n   II. Matrix functions\n   --------------------\nFFT over 2,400,000 random values____________________ (sec):  0.0723333333333329\nEigenvalues of a 640x640 random matrix______________ (sec):  0.156666666666667\nDeterminant of a 2500x2500 random matrix____________ (sec):  0.098999999999999\nCholesky decomposition of a 3000x3000 matrix________ (sec):  0.0716666666666654\nInverse of a 1600x1600 random matrix________________ (sec):  0.082666666666667\n                      --------------------------------------------\n                Trimmed geom. mean (2 extremes eliminated):  0.0839655943753058\n\n   III. Programmation\n   ------------------\n3,500,000 Fibonacci numbers calculation (vector calc)(sec):  0.0933333333333337\nCreation of a 3000x3000 Hilbert matrix (matrix calc) (sec):  0.112333333333332\nGrand common divisors of 400,000 pairs (recursion)__ (sec):  0.0776666666666657\nCreation of a 500x500 Toeplitz matrix (loops)_______ (sec):  0.0173333333333332\nEscoufier's method on a 45x45 matrix (mixed)________ (sec):  0.111999999999998\n                      --------------------------------------------\n                Trimmed geom. mean (2 extremes eliminated):  0.0932888677080541\n\n\nTotal time for all 15 tests_________________________ (sec):  1.95733333333333\nOverall mean (sum of I, II and III trimmed means/3)_ (sec):  0.0968018035139188\n                      --- End of test ---\n\n> On Oct 31, 2021, at 9:03 PM, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Kieran,\n> \n> the reference benchmarks have been calibrated against vecLib/Accelerate BLAS. If you use reference BLAS it can be a lot slower. You can switch between reference BLAS and vecLib in R CRAN releases simply by switching the libRblas.dylib symlink (in $R_HOME/lib), e.g.:\n> \n> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas*dylib\n> -rwxrwxr-x  1 root     admin  226288 Oct 31 14:41 /Library/Frameworks/R.framework/Resources/lib/libRblas.0.dylib\n> lrwxr-xr-x  1 root.    admin      21 Nov  1 09:56 /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib -> libRblas.vecLib.dylib\n> -rwxrwxr-x  1 root     admin  154368 Oct 31 14:41 /Library/Frameworks/R.framework/Resources/lib/libRblas.vecLib.dylib\n> \n> (For recent R you'll need R 4.1.1 or higher)\n> \n> Cheers,\n> Simon\n> \n> PS: reminder to everyone, please test R 4.1.2 RC - now are the last few hours to report anything!\n> \n>",
+      "body_snippet": "Thanks, Simon. \n\nWith the vecLib/Accelerate BLAS, the results are indeed rather faster :)\n\nKieran\n\n\n14? MacBook Pro / M1 Max\n\n   R Benchmark 2.5\n   ===============\nNumber of times each test is run____",
+      "thread_id": "thread-adb34e337cf7",
+      "thread_depth": 0,
+      "month": "2021-10"
     }
   ],
   "threads": [
@@ -34,6 +253,76 @@
       "started": "2021-10-01T10:23:16+13:00",
       "last_reply": "2021-10-01T10:23:16+13:00",
       "root_message_id": "msg-7507081b0de1"
+    },
+    {
+      "id": "thread-e7af910d2dd1",
+      "subject": "[Rcpp-devel] Any recent change that would remove Rcpp_precious_remove?",
+      "message_count": 1,
+      "participants": [
+        "Dominick Samperi"
+      ],
+      "started": "2021-10-07T12:56:08-04:00",
+      "last_reply": "2021-10-07T12:56:08-04:00",
+      "root_message_id": "msg-e7af910d2dd1"
+    },
+    {
+      "id": "thread-cb9c3b6342df",
+      "subject": "Retrieving Script Path in R.app",
+      "message_count": 5,
+      "participants": [
+        "Andrew Simmons",
+        "Ben Tupper",
+        "Duncan Murdoch",
+        "Thomas Hopper"
+      ],
+      "started": "2021-10-09T23:23:09-04:00",
+      "last_reply": "2021-10-10T12:31:38-04:00",
+      "root_message_id": "msg-cb9c3b6342df"
+    },
+    {
+      "id": "thread-3e38a9e378f3",
+      "subject": "Link to headers lost? Headers not where they should be?",
+      "message_count": 3,
+      "participants": [
+        "Bryan Hanson",
+        "Simon Urbanek"
+      ],
+      "started": "2021-10-22T15:29:36-07:00",
+      "last_reply": "2021-10-22T16:24:20-07:00",
+      "root_message_id": "msg-3e38a9e378f3"
+    },
+    {
+      "id": "thread-cccba69cc82f",
+      "subject": "https://mac.r-project.org/benchmarks/",
+      "message_count": 1,
+      "participants": [
+        "Tim Bates"
+      ],
+      "started": "2021-10-31T13:48:35+00:00",
+      "last_reply": "2021-10-31T13:48:35+00:00",
+      "root_message_id": "msg-cccba69cc82f"
+    },
+    {
+      "id": "thread-a7aff42bcca2",
+      "subject": "https://mac.r-project.org/benchmarks/",
+      "message_count": 1,
+      "participants": [
+        "Kieran Healy"
+      ],
+      "started": "2021-10-31T18:31:55-04:00",
+      "last_reply": "2021-10-31T18:31:55-04:00",
+      "root_message_id": "msg-a7aff42bcca2"
+    },
+    {
+      "id": "thread-adb34e337cf7",
+      "subject": "https://mac.r-project.org/benchmarks/",
+      "message_count": 1,
+      "participants": [
+        "Kieran Healy"
+      ],
+      "started": "2021-10-31T22:00:31-04:00",
+      "last_reply": "2021-10-31T22:00:31-04:00",
+      "root_message_id": "msg-adb34e337cf7"
     }
   ]
 }
