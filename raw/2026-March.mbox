@@ -352,3 +352,172 @@ Office: A 4.23
 Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com
 
 
+From jeroenoom@ @end|ng |rom gm@||@com  Mon Mar 16 13:23:59 2026
+From: jeroenoom@ @end|ng |rom gm@||@com (Jeroen Ooms)
+Date: Mon, 16 Mar 2026 13:23:59 +0100
+Subject: [R-SIG-Mac] data.table fails to load on R-4.6-x86_64
+Message-ID: <CABFfbXte6TWma7Obnm8OdeRa2qCXtKjPvvoAAvzLdtjfdjz0JQ@mail.gmail.com>
+
+Using the latest CRAN binary:
+https://cloud.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.6/data.table_1.18.2.1.tgz
+
+We get
+
+unable to load shared object
+'/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/library/data.table/libs/data_table.so':
+dlopen(/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/library/data.table/libs/data_table.so,
+0x0006): Symbol not found: _IS_GROWABLE
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Mon Mar 16 13:57:27 2026
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Mon, 16 Mar 2026 08:57:27 -0400
+Subject: [R-SIG-Mac] data.table fails to load on R-4.6-x86_64
+In-Reply-To: <CABFfbXte6TWma7Obnm8OdeRa2qCXtKjPvvoAAvzLdtjfdjz0JQ@mail.gmail.com>
+References: <CABFfbXte6TWma7Obnm8OdeRa2qCXtKjPvvoAAvzLdtjfdjz0JQ@mail.gmail.com>
+Message-ID: <981db87c-61fb-4df0-9f59-100ea4815685@gmail.com>
+
+On 2026-03-16 8:23 a.m., Jeroen Ooms wrote:
+> Using the latest CRAN binary:
+> https://cloud.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.6/data.table_1.18.2.1.tgz
+> 
+> We get
+> 
+> unable to load shared object
+> '/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/library/data.table/libs/data_table.so':
+> dlopen(/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/library/data.table/libs/data_table.so,
+> 0x0006): Symbol not found: _IS_GROWABLE
+> 
+
+It loads for me on my slightly out of date system:
+
+R version 4.5.2 (2025-10-31)
+Platform: aarch64-apple-darwin20
+Running under: macOS Sequoia 15.7.4
+
+Duncan Murdoch
+
+
+From jeroenoom@ @end|ng |rom gm@||@com  Mon Mar 16 14:40:24 2026
+From: jeroenoom@ @end|ng |rom gm@||@com (Jeroen Ooms)
+Date: Mon, 16 Mar 2026 14:40:24 +0100
+Subject: [R-SIG-Mac] data.table fails to load on R-4.6-x86_64
+In-Reply-To: <981db87c-61fb-4df0-9f59-100ea4815685@gmail.com>
+References: <CABFfbXte6TWma7Obnm8OdeRa2qCXtKjPvvoAAvzLdtjfdjz0JQ@mail.gmail.com>
+ <981db87c-61fb-4df0-9f59-100ea4815685@gmail.com>
+Message-ID: <CABFfbXt_wy8NjUih-Vp6M=9U5bPwiE9hZpvZykc4SiSQyHV+sw@mail.gmail.com>
+
+Yes this is a problem with r-devel (4.6) specifically where a lot of
+APIs were removed and renamed recently.
+
+
+On Mon, Mar 16, 2026 at 1:57?PM Duncan Murdoch <murdoch.duncan at gmail.com> wrote:
+>
+> On 2026-03-16 8:23 a.m., Jeroen Ooms wrote:
+> > Using the latest CRAN binary:
+> > https://cloud.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.6/data.table_1.18.2.1.tgz
+> >
+> > We get
+> >
+> > unable to load shared object
+> > '/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/library/data.table/libs/data_table.so':
+> > dlopen(/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/library/data.table/libs/data_table.so,
+> > 0x0006): Symbol not found: _IS_GROWABLE
+> >
+>
+> It loads for me on my slightly out of date system:
+>
+> R version 4.5.2 (2025-10-31)
+> Platform: aarch64-apple-darwin20
+> Running under: macOS Sequoia 15.7.4
+>
+> Duncan Murdoch
+
+
+From r|p|eybd @end|ng |rom |c|oud@com  Mon Mar 16 14:42:49 2026
+From: r|p|eybd @end|ng |rom |c|oud@com (Prof Brian Ripley)
+Date: Mon, 16 Mar 2026 13:42:49 +0000
+Subject: [R-SIG-Mac] data.table fails to load on R-4.6-x86_64
+In-Reply-To: <981db87c-61fb-4df0-9f59-100ea4815685@gmail.com>
+References: <CABFfbXte6TWma7Obnm8OdeRa2qCXtKjPvvoAAvzLdtjfdjz0JQ@mail.gmail.com>
+ <981db87c-61fb-4df0-9f59-100ea4815685@gmail.com>
+Message-ID: <274a1d12-4d30-4a47-bce6-9ce07d424d0a@icloud.com>
+
+On 16/03/2026 12:57, Duncan Murdoch wrote:
+> On 2026-03-16 8:23 a.m., Jeroen Ooms wrote:
+>> Using the latest CRAN binary:
+>> https://cloud.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.6/ 
+>> data.table_1.18.2.1.tgz
+>>
+>> We get
+>>
+>> unable to load shared object
+>> '/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/ 
+>> library/data.table/libs/data_table.so':
+>> dlopen(/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/ 
+>> library/data.table/libs/data_table.so,
+>> 0x0006): Symbol not found: _IS_GROWABLE
+
+We weren't told precisely what version of R was used ... pace the 
+posting guide.
+
+> It loads for me on my slightly out of date system:
+> 
+> R version 4.5.2 (2025-10-31)
+> Platform: aarch64-apple-darwin20
+> Running under: macOS Sequoia 15.7.4
+
+Note he has '4.6' hence for R-devel, not 4.5.x.
+
+The exported entry points in R-devel have been under rapid change, the 
+most pervasive of which were rolled back temporarily (but are expected 
+to reappear before 4.6.0 is released).
+
+Most of the binary packages at
+
+https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.6/
+
+are months old, including the data.table one.
+
+I would expect to have to install packages using compiled code from 
+source on R-devel, maybe frequently.
+
+
+-- 
+Brian D. Ripley,                  ripleybd at icloud.com
+Emeritus Professor of Applied Statistics, University of Oxford
+
+
+From |kry|ov @end|ng |rom d|@root@org  Mon Mar 16 15:20:18 2026
+From: |kry|ov @end|ng |rom d|@root@org (Ivan Krylov)
+Date: Mon, 16 Mar 2026 17:20:18 +0300
+Subject: [R-SIG-Mac] data.table fails to load on R-4.6-x86_64
+In-Reply-To: <CABFfbXte6TWma7Obnm8OdeRa2qCXtKjPvvoAAvzLdtjfdjz0JQ@mail.gmail.com>
+References: <CABFfbXte6TWma7Obnm8OdeRa2qCXtKjPvvoAAvzLdtjfdjz0JQ@mail.gmail.com>
+Message-ID: <20260316172018.2cc01d9b@arachnoid>
+
+On Mon, 16 Mar 2026 13:23:59 +0100
+Jeroen Ooms <jeroenooms at gmail.com> wrote:
+
+> unable to load shared object
+> '/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/library/data.table/libs/data_table.so':
+> dlopen(/Library/Frameworks/R.framework/Versions/4.6-x86_64/Resources/library/data.table/libs/data_table.so,
+> 0x0006): Symbol not found: _IS_GROWABLE
+
+That's strange, data.table is supposed to use IS_GROWABLE only on old
+enough R where it needs the new APIs backported (testing both
+R_Version() and the SVN revision). 'llvm-otool-14 -Vt data_table.so'
+shows calls to IS_GROWABLE() & TRUELENGTH(), and also data.table's own
+backports of R_resizeVector() & R_maxLength() & friends being present
+inside the package dynamic library.
+
+I would expect something like this to happen only if
+data.table_1.18.2.1.tgz (January 2026) was built using R-devel prior to
+r89077 (November 2025). Are the build logs of 4.6 binaries for
+big-sur-x86_64 available anywhere?
+
+-- 
+Best regards,
+Ivan
+
+
