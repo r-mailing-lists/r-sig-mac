@@ -1,0 +1,195 @@
+From murdoch@dunc@n @end|ng |rom gm@||@com  Wed Apr  1 21:32:59 2026
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Wed, 1 Apr 2026 15:32:59 -0400
+Subject: [R-SIG-Mac] Sys.sleep() in R.app can't be interrupted
+Message-ID: <ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>
+
+This might be a well known issue, but I couldn't spot it in the FAQ or 
+bug list or mailing list archives.
+
+If you execute Sys.sleep(60) in R.app, the command can't be interrupted 
+by ESC or Cmd-C until it is done.  R.app becomes completely unresponsive.
+
+The number 60 isn't important, as far as I can tell this is true for any 
+sleep time.
+
+A simple workaround is to limit the duration of Sys.sleep() calls, e.g. 
+using a function like this:
+
+  Sleep <- function(duration) {
+   seconds <- floor(duration)
+   for (i in seq_len(seconds))
+     Sys.sleep(1)
+   Sys.sleep(duration - seconds)
+  }
+
+R.app handles interrupts every time Sys.sleep returns, so this means the 
+biggest delay is 1 second.
+
+In case this isn't universal, here's my session info:
+
+```
+R version 4.5.3 (2026-03-11)
+Platform: aarch64-apple-darwin20
+Running under: macOS Sequoia 15.7.4
+
+Matrix products: default
+BLAS: 
+/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
+
+LAPACK: 
+/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib; 
+  LAPACK version 3.12.1
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Toronto
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+loaded via a namespace (and not attached):
+[1] compiler_4.5.3
+```
+
+Duncan Murdoch
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Thu Apr  2 00:39:57 2026
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Wed, 1 Apr 2026 18:39:57 -0400
+Subject: [R-SIG-Mac] Sys.sleep() in R.app can't be interrupted
+In-Reply-To: <ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>
+References: <ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>
+Message-ID: <95c5ff6c-76cc-4ed2-89b1-dbb112f78cfd@gmail.com>
+
+As I've realized, my simple workaround is a little too simple, not 
+necessarily matching the requested duration.  A better one looks at the 
+elapsed time after the "one second" sleep.
+
+Duncan Murdoch
+
+On 2026-04-01 3:32 p.m., Duncan Murdoch wrote:
+> This might be a well known issue, but I couldn't spot it in the FAQ or
+> bug list or mailing list archives.
+> 
+> If you execute Sys.sleep(60) in R.app, the command can't be interrupted
+> by ESC or Cmd-C until it is done.  R.app becomes completely unresponsive.
+> 
+> The number 60 isn't important, as far as I can tell this is true for any
+> sleep time.
+> 
+> A simple workaround is to limit the duration of Sys.sleep() calls, e.g.
+> using a function like this:
+> 
+>    Sleep <- function(duration) {
+>     seconds <- floor(duration)
+>     for (i in seq_len(seconds))
+>       Sys.sleep(1)
+>     Sys.sleep(duration - seconds)
+>    }
+> 
+> R.app handles interrupts every time Sys.sleep returns, so this means the
+> biggest delay is 1 second.
+> 
+> In case this isn't universal, here's my session info:
+> 
+> ```
+> R version 4.5.3 (2026-03-11)
+> Platform: aarch64-apple-darwin20
+> Running under: macOS Sequoia 15.7.4
+> 
+> Matrix products: default
+> BLAS:
+> /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib
+> 
+> LAPACK:
+> /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;
+>    LAPACK version 3.12.1
+> 
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+> 
+> time zone: America/Toronto
+> tzcode source: internal
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> loaded via a namespace (and not attached):
+> [1] compiler_4.5.3
+> ```
+> 
+> Duncan Murdoch
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Thu Apr  2 01:20:02 2026
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Thu, 2 Apr 2026 12:20:02 +1300
+Subject: [R-SIG-Mac] Sys.sleep() in R.app can't be interrupted
+In-Reply-To: <ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>
+References: <ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>
+Message-ID: <FADD90A5-E3EA-4B91-9955-157D9D745460@R-project.org>
+
+Duncan,
+
+thanks. I can replicate it. Something must have happened with the meshing of the event loops, because Sys.sleep() is not supposed to actually sleep the whole time, it should run the system event loop to check for interrupts periodically, but apparently doesn't.
+
+Cheers,
+Simon
+
+
+> On 2 Apr 2026, at 08:32, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:
+> 
+> This might be a well known issue, but I couldn't spot it in the FAQ or bug list or mailing list archives.
+> 
+> If you execute Sys.sleep(60) in R.app, the command can't be interrupted by ESC or Cmd-C until it is done.  R.app becomes completely unresponsive.
+> 
+> The number 60 isn't important, as far as I can tell this is true for any sleep time.
+> 
+> A simple workaround is to limit the duration of Sys.sleep() calls, e.g. using a function like this:
+> 
+> Sleep <- function(duration) {
+>  seconds <- floor(duration)
+>  for (i in seq_len(seconds))
+>    Sys.sleep(1)
+>  Sys.sleep(duration - seconds)
+> }
+> 
+> R.app handles interrupts every time Sys.sleep returns, so this means the biggest delay is 1 second.
+> 
+> In case this isn't universal, here's my session info:
+> 
+> ```
+> R version 4.5.3 (2026-03-11)
+> Platform: aarch64-apple-darwin20
+> Running under: macOS Sequoia 15.7.4
+> 
+> Matrix products: default
+> BLAS: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
+> LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+> 
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+> 
+> time zone: America/Toronto
+> tzcode source: internal
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> loaded via a namespace (and not attached):
+> [1] compiler_4.5.3
+> ```
+> 
+> Duncan Murdoch
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+

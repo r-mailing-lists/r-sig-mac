@@ -1,0 +1,73 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2026-04",
+  "messages": [
+    {
+      "id": "msg-32cebec3434a",
+      "message_id": "<ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2026-04-01T19:32:59Z",
+      "subject": "[R-SIG-Mac] Sys.sleep() in R.app can't be interrupted",
+      "subject_clean": "Sys.sleep() in R.app can't be interrupted",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "This might be a well known issue, but I couldn't spot it in the FAQ or \nbug list or mailing list archives.\n\nIf you execute Sys.sleep(60) in R.app, the command can't be interrupted \nby ESC or Cmd-C until it is done.  R.app becomes completely unresponsive.\n\nThe number 60 isn't important, as far as I can tell this is true for any \nsleep time.\n\nA simple workaround is to limit the duration of Sys.sleep() calls, e.g. \nusing a function like this:\n\n  Sleep <- function(duration) {\n   seconds <- floor(duration)\n   for (i in seq_len(seconds))\n     Sys.sleep(1)\n   Sys.sleep(duration - seconds)\n  }\n\nR.app handles interrupts every time Sys.sleep returns, so this means the \nbiggest delay is 1 second.\n\nIn case this isn't universal, here's my session info:\n\n```\nR version 4.5.3 (2026-03-11)\nPlatform: aarch64-apple-darwin20\nRunning under: macOS Sequoia 15.7.4\n\nMatrix products: default\nBLAS: \n/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib \n\nLAPACK: \n/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib; \n  LAPACK version 3.12.1\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: America/Toronto\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.3\n```\n\nDuncan Murdoch",
+      "body_snippet": "This might be a well known issue, but I couldn't spot it in the FAQ or \nbug list or mailing list archives.\n\nIf you execute Sys.sleep(60) in R.app, the command can't be interrupted \nby ESC or Cmd-C unt",
+      "thread_id": "thread-32cebec3434a",
+      "thread_depth": 0,
+      "month": "2026-04"
+    },
+    {
+      "id": "msg-3be3c12c53a3",
+      "message_id": "<95c5ff6c-76cc-4ed2-89b1-dbb112f78cfd@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2026-04-01T22:39:57Z",
+      "subject": "[R-SIG-Mac] Sys.sleep() in R.app can't be interrupted",
+      "subject_clean": "Sys.sleep() in R.app can't be interrupted",
+      "in_reply_to": "<ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>",
+      "references": [
+        "<ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>"
+      ],
+      "body_plain": "As I've realized, my simple workaround is a little too simple, not \nnecessarily matching the requested duration.  A better one looks at the \nelapsed time after the \"one second\" sleep.\n\nDuncan Murdoch\n\nOn 2026-04-01 3:32 p.m., Duncan Murdoch wrote:\n> This might be a well known issue, but I couldn't spot it in the FAQ or\n> bug list or mailing list archives.\n> \n> If you execute Sys.sleep(60) in R.app, the command can't be interrupted\n> by ESC or Cmd-C until it is done.  R.app becomes completely unresponsive.\n> \n> The number 60 isn't important, as far as I can tell this is true for any\n> sleep time.\n> \n> A simple workaround is to limit the duration of Sys.sleep() calls, e.g.\n> using a function like this:\n> \n>    Sleep <- function(duration) {\n>     seconds <- floor(duration)\n>     for (i in seq_len(seconds))\n>       Sys.sleep(1)\n>     Sys.sleep(duration - seconds)\n>    }\n> \n> R.app handles interrupts every time Sys.sleep returns, so this means the\n> biggest delay is 1 second.\n> \n> In case this isn't universal, here's my session info:\n> \n> ```\n> R version 4.5.3 (2026-03-11)\n> Platform: aarch64-apple-darwin20\n> Running under: macOS Sequoia 15.7.4\n> \n> Matrix products: default\n> BLAS:\n> /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib\n> \n> LAPACK:\n> /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;\n>    LAPACK version 3.12.1\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> \n> time zone: America/Toronto\n> tzcode source: internal\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> loaded via a namespace (and not attached):\n> [1] compiler_4.5.3\n> ```\n> \n> Duncan Murdoch",
+      "body_snippet": "As I've realized, my simple workaround is a little too simple, not \nnecessarily matching the requested duration.  A better one looks at the \nelapsed time after the \"one second\" sleep.\n\nDuncan Murdoch\n",
+      "thread_id": "thread-32cebec3434a",
+      "thread_depth": 1,
+      "month": "2026-04"
+    },
+    {
+      "id": "msg-67394b60730c",
+      "message_id": "<FADD90A5-E3EA-4B91-9955-157D9D745460@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2026-04-01T23:20:02Z",
+      "subject": "[R-SIG-Mac] Sys.sleep() in R.app can't be interrupted",
+      "subject_clean": "Sys.sleep() in R.app can't be interrupted",
+      "in_reply_to": "<ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>",
+      "references": [
+        "<ae420c75-dd74-4e6c-8798-c6af314ebd1e@gmail.com>"
+      ],
+      "body_plain": "Duncan,\n\nthanks. I can replicate it. Something must have happened with the meshing of the event loops, because Sys.sleep() is not supposed to actually sleep the whole time, it should run the system event loop to check for interrupts periodically, but apparently doesn't.\n\nCheers,\nSimon\n\n\n> On 2 Apr 2026, at 08:32, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> This might be a well known issue, but I couldn't spot it in the FAQ or bug list or mailing list archives.\n> \n> If you execute Sys.sleep(60) in R.app, the command can't be interrupted by ESC or Cmd-C until it is done.  R.app becomes completely unresponsive.\n> \n> The number 60 isn't important, as far as I can tell this is true for any sleep time.\n> \n> A simple workaround is to limit the duration of Sys.sleep() calls, e.g. using a function like this:\n> \n> Sleep <- function(duration) {\n>  seconds <- floor(duration)\n>  for (i in seq_len(seconds))\n>    Sys.sleep(1)\n>  Sys.sleep(duration - seconds)\n> }\n> \n> R.app handles interrupts every time Sys.sleep returns, so this means the biggest delay is 1 second.\n> \n> In case this isn't universal, here's my session info:\n> \n> ```\n> R version 4.5.3 (2026-03-11)\n> Platform: aarch64-apple-darwin20\n> Running under: macOS Sequoia 15.7.4\n> \n> Matrix products: default\n> BLAS: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib \n> LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> \n> time zone: America/Toronto\n> tzcode source: internal\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> loaded via a namespace (and not attached):\n> [1] compiler_4.5.3\n> ```\n> \n> Duncan Murdoch\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Duncan,\n\nthanks. I can replicate it. Something must have happened with the meshing of the event loops, because Sys.sleep() is not supposed to actually sleep the whole time, it should run the system ev",
+      "thread_id": "thread-32cebec3434a",
+      "thread_depth": 1,
+      "month": "2026-04"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-32cebec3434a",
+      "subject": "Sys.sleep() in R.app can't be interrupted",
+      "message_count": 3,
+      "participants": [
+        "Duncan Murdoch",
+        "Simon Urbanek"
+      ],
+      "started": "2026-04-01T19:32:59Z",
+      "last_reply": "2026-04-01T23:20:02Z",
+      "root_message_id": "msg-32cebec3434a"
+    }
+  ]
+}
