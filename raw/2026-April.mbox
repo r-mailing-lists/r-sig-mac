@@ -193,3 +193,34 @@ Simon
 > 
 
 
+From murdoch@dunc@n @end|ng |rom gm@||@com  Sat Apr 18 22:34:12 2026
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Sat, 18 Apr 2026 16:34:12 -0400
+Subject: [R-SIG-Mac] Failing to build R-devel: lzma.h missing
+Message-ID: <8bf3e308-416f-4560-be16-8e0793b8240a@gmail.com>
+
+I'm trying to build R-devel.  I used this command line to configure it:
+
+../R-devel-src//configure -C --enable-R-shlib --enable-memory-profiling 
+--x-includes=/opt/X11/include --x-libraries=/opt/X11/lib 
+--with-tcl-config=/opt/R/arm64/lib/tclConfig.sh 
+--with-tk-config=/opt/R/arm64/lib/tkConfig.sh 
+PKG_CONFIG_PATH=/opt/R/arm64/lib/pkgconfig:/usr/lib/pkgconfig
+
+(I found that in the old config.log, with "pkg-config" in the 
+PKG_CONFIG_PATH instead of "pkgconfig".  Neither one works.  I think it 
+also matches the suggestion in the R-admin manual.)  Is there something 
+missing?  It fails with this error at the end:
+
+
+   checking for lzma_version_number in -llzma... yes
+   checking for lzma.h... no
+   configure: error: "liblzma library and headers are required"
+
+But I see lzma.h in /opt/R/arm64/include, and that's where pkg-config 
+--cflags liblzma says it should be.  I tried removing PKG_CONFIG_PATH 
+and got the same result.
+
+Duncan Murdoch
+
+
