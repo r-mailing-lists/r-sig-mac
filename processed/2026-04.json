@@ -70,6 +70,43 @@
       "thread_id": "thread-7633545a95b1",
       "thread_depth": 0,
       "month": "2026-04"
+    },
+    {
+      "id": "msg-f942a36188cf",
+      "message_id": "<AA5957B9-7FD6-4AC1-9CB5-DA5779BCD468@gmail.com>",
+      "from_name": "peter dalgaard",
+      "from_email_hash": "5d0f61ffffc9a67fd86f4b9a1ea3fac7d731c19e1d8679b6ae315232b22874e8",
+      "date": "2026-04-19T07:44:52Z",
+      "subject": "[R-SIG-Mac] Failing to build R-devel: lzma.h missing",
+      "subject_clean": "Failing to build R-devel: lzma.h missing",
+      "in_reply_to": "<8bf3e308-416f-4560-be16-8e0793b8240a@gmail.com>",
+      "references": [
+        "<8bf3e308-416f-4560-be16-8e0793b8240a@gmail.com>"
+      ],
+      "body_plain": "I have\n\n$ cat ~/r-devel/BUILD/config.site \nCPPFLAGS=-I/opt/R/x86_64/include\nLDFLAGS=-L/opt/R/x86_64/lib\nwith_tcl_config=/opt/R/x86_64/lib/tclConfig.sh\nwith_tk_config=/opt/R/x86_64/lib/tkConfig.sh\n\n(even though Simon says I shouldn't use config files...)\n\nI.e. you may need to set the *FLAGS in your setup (switch out the arch of course).\n\n-pd\n\n\n> On 18 Apr 2026, at 22.34, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n> \n> I'm trying to build R-devel.  I used this command line to configure it:\n> \n> ../R-devel-src//configure -C --enable-R-shlib --enable-memory-profiling --x-includes=/opt/X11/include --x-libraries=/opt/X11/lib --with-tcl-config=/opt/R/arm64/lib/tclConfig.sh --with-tk-config=/opt/R/arm64/lib/tkConfig.sh PKG_CONFIG_PATH=/opt/R/arm64/lib/pkgconfig:/usr/lib/pkgconfig\n> \n> (I found that in the old config.log, with \"pkg-config\" in the PKG_CONFIG_PATH instead of \"pkgconfig\".  Neither one works.  I think it also matches the suggestion in the R-admin manual.)  Is there something missing?  It fails with this error at the end:\n> \n> \n>  checking for lzma_version_number in -llzma... yes\n>  checking for lzma.h... no\n>  configure: error: \"liblzma library and headers are required\"\n> \n> But I see lzma.h in /opt/R/arm64/include, and that's where pkg-config --cflags liblzma says it should be.  I tried removing PKG_CONFIG_PATH and got the same result.\n> \n> Duncan Murdoch\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nOffice: A 4.23\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_snippet": "I have\n\n$ cat ~/r-devel/BUILD/config.site \nCPPFLAGS=-I/opt/R/x86_64/include\nLDFLAGS=-L/opt/R/x86_64/lib\nwith_tcl_config=/opt/R/x86_64/lib/tclConfig.sh\nwith_tk_config=/opt/R/x86_64/lib/tkConfig.sh\n\n(ev",
+      "thread_id": "thread-7633545a95b1",
+      "thread_depth": 1,
+      "month": "2026-04"
+    },
+    {
+      "id": "msg-7a826581b8b3",
+      "message_id": "<aa9b8cad-7391-44c2-a1d0-b0cb30e3bca3@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2026-04-19T10:11:56Z",
+      "subject": "[R-SIG-Mac] Failing to build R-devel: lzma.h missing",
+      "subject_clean": "Failing to build R-devel: lzma.h missing",
+      "in_reply_to": "<AA5957B9-7FD6-4AC1-9CB5-DA5779BCD468@gmail.com>",
+      "references": [
+        "<8bf3e308-416f-4560-be16-8e0793b8240a@gmail.com>",
+        "<AA5957B9-7FD6-4AC1-9CB5-DA5779BCD468@gmail.com>"
+      ],
+      "body_plain": "Thanks, that was it.  I had something similar to yours, but mine \ndepended on $LOCAL as in the R-admin value, and I didn't have $LOCAL set \nproperly.\n\nDuncan\n\nOn 2026-04-19 3:44 a.m., peter dalgaard wrote:\n> I have\n> \n> $ cat ~/r-devel/BUILD/config.site\n> CPPFLAGS=-I/opt/R/x86_64/include\n> LDFLAGS=-L/opt/R/x86_64/lib\n> with_tcl_config=/opt/R/x86_64/lib/tclConfig.sh\n> with_tk_config=/opt/R/x86_64/lib/tkConfig.sh\n> \n> (even though Simon says I shouldn't use config files...)\n> \n> I.e. you may need to set the *FLAGS in your setup (switch out the arch of course).\n> \n> -pd\n> \n> \n>> On 18 Apr 2026, at 22.34, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n>>\n>> I'm trying to build R-devel.  I used this command line to configure it:\n>>\n>> ../R-devel-src//configure -C --enable-R-shlib --enable-memory-profiling --x-includes=/opt/X11/include --x-libraries=/opt/X11/lib --with-tcl-config=/opt/R/arm64/lib/tclConfig.sh --with-tk-config=/opt/R/arm64/lib/tkConfig.sh PKG_CONFIG_PATH=/opt/R/arm64/lib/pkgconfig:/usr/lib/pkgconfig\n>>\n>> (I found that in the old config.log, with \"pkg-config\" in the PKG_CONFIG_PATH instead of \"pkgconfig\".  Neither one works.  I think it also matches the suggestion in the R-admin manual.)  Is there something missing?  It fails with this error at the end:\n>>\n>>\n>>   checking for lzma_version_number in -llzma... yes\n>>   checking for lzma.h... no\n>>   configure: error: \"liblzma library and headers are required\"\n>>\n>> But I see lzma.h in /opt/R/arm64/include, and that's where pkg-config --cflags liblzma says it should be.  I tried removing PKG_CONFIG_PATH and got the same result.\n>>\n>> Duncan Murdoch\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Thanks, that was it.  I had something similar to yours, but mine \ndepended on $LOCAL as in the R-admin value, and I didn't have $LOCAL set \nproperly.\n\nDuncan\n\nOn 2026-04-19 3:44 a.m., peter dalgaard w",
+      "thread_id": "thread-7633545a95b1",
+      "thread_depth": 2,
+      "month": "2026-04"
     }
   ],
   "threads": [
@@ -88,12 +125,13 @@
     {
       "id": "thread-7633545a95b1",
       "subject": "Failing to build R-devel: lzma.h missing",
-      "message_count": 1,
+      "message_count": 3,
       "participants": [
-        "Duncan Murdoch"
+        "Duncan Murdoch",
+        "peter dalgaard"
       ],
       "started": "2026-04-18T20:34:12Z",
-      "last_reply": "2026-04-18T20:34:12Z",
+      "last_reply": "2026-04-19T10:11:56Z",
       "root_message_id": "msg-7633545a95b1"
     }
   ]
