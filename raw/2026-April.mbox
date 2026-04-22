@@ -333,3 +333,166 @@ On 2026-04-19 3:44 a.m., peter dalgaard wrote:
 >
 
 
+From hp@ge@@on@g|thub @end|ng |rom gm@||@com  Wed Apr 22 00:35:55 2026
+From: hp@ge@@on@g|thub @end|ng |rom gm@||@com (=?UTF-8?B?SGVydsOpIFBhZ8Oocw==?=)
+Date: Tue, 21 Apr 2026 15:35:55 -0700
+Subject: [R-SIG-Mac] utils:::.available.both() breaks install.packages() on
+ Mac sonoma-arm64
+Message-ID: <5c3413f9-72cc-49cc-8cad-7ea8473ded88@gmail.com>
+
+With?R 4.6 >= r89829? we're seeing this install.packages() error on Mac 
+sonoma-arm64 in various places:
+
+ ? ? Error in av.src[pkg.bin, "Version"] : subscript out of bounds
+
+This happens for example with install.packages("OSTA.data", 
+repos=BiocManager::repositories()).
+
+Also started to happen in this GitHub action a few days ago: 
+https://github.com/HyrienLab/igblastr/actions/runs/24495733061/job/71590105822
+
+The error occurs in the new utils:::.available.both() function 
+introduced at r89827 in trunk and?r89829 in R-4-6-branch (file 
+src/library/utils/R/packages.R). It can simply be reproduced with:
+
+utils:::.available.both("https://cran.r-project.org")
+
+ ? ? # Error in av.src[pkg.bin, "Version"] : subscript out of bounds
+
+It seems that the function should be able to handle the situation where 
+some binary packages in the repo don't have a corresponding source 
+package. Something like this maybe:
+
+.available.both <- function(repos, method, ...) {
+ ? ? ## "both" gets complicated as we have to use available.packages twice
+ ? ? fields <- c(tools:::.get_standard_repository_db_fields(), "File", 
+"Built")
+ ? ? av.src <- available.packages(contriburl = contrib.url(repos, 
+"source"), method = method, fields = fields, ...)
+ ? ? av.bin <- available.packages(contriburl = contrib.url(repos, 
+"binary"), method = method, fields = fields, ...)
+ ? ? ## we keep things simple in that we use source unless there is the 
+same binary version
+ ? ? ## so that we can get at the Built field. This is more simple than 
+in install.packages
+ ? ? ## since we only care about determining whether a package is new, 
+but not which type is
+ ? ? ## preferred - install.packages will sort that out.
+ ? ? all_src_pkgs <- row.names(av.src)
+ ? ? all_bin_pkgs <- row.names(av.bin)
+ ? ? dual_pkgs <- intersect(all_src_pkgs, all_bin_pkgs)
+ ? ? src_ver <- av.src[dual_pkgs, "Version"]
+ ? ? bin_ver <- av.bin[dual_pkgs, "Version"]
+ ? ? use_bin <- as.numeric_version(bin_ver) >= as.numeric_version(src_ver)
+ ? ? ## If for some reason 'src_ver' or 'bin_ver' contain NAs, they 
+would propagate
+ ? ? ## to 'use_bin', but can this ever happen?
+ ? ? use_bin[is.na(use_bin)] <- TRUE
+ ? ? src_pkgs <- c(setdiff(all_src_pkgs, dual_pkgs), dual_pkgs[!use_bin])
+ ? ? bin_pkgs <- c(setdiff(all_bin_pkgs, dual_pkgs), dual_pkgs[use_bin])
+ ? ? ## Returned matrix has 1 row per package in 'union(all_src_pkgs, 
+all_bin_pkgs)'.
+ ? ? rbind(av.src[src_pkgs, ], av.bin[bin_pkgs, ])
+}
+
+Best,
+
+H.
+
+-- 
+Herv? Pag?s
+
+Bioconductor Core Team
+hpages.on.github at gmail.com
+
+
+From hp@ge@@on@g|thub @end|ng |rom gm@||@com  Wed Apr 22 01:00:29 2026
+From: hp@ge@@on@g|thub @end|ng |rom gm@||@com (=?UTF-8?B?SGVydsOpIFBhZ8Oocw==?=)
+Date: Tue, 21 Apr 2026 16:00:29 -0700
+Subject: [R-SIG-Mac] 
+ utils:::.available.both() breaks install.packages() on
+ Mac sonoma-arm64
+In-Reply-To: <5c3413f9-72cc-49cc-8cad-7ea8473ded88@gmail.com>
+References: <5c3413f9-72cc-49cc-8cad-7ea8473ded88@gmail.com>
+Message-ID: <3c26aa77-32e7-4d3e-ad51-02c004bbf0fe@gmail.com>
+
+Also
+
+ ? ? rbind(av.src[src_pkgs, ], av.bin[bin_pkgs, ])
+
+should be
+
+ ? ? rbind(av.src[src_pkgs, , drop=FALSE], av.bin[bin_pkgs, , drop=FALSE])
+
+or bad things will happen if src_pkgs or bin_pkgs have length 1.
+
+H.
+
+
+On 21/04/2026 15:35, Herv? Pag?s wrote:
+> With?R 4.6 >= r89829? we're seeing this install.packages() error on 
+> Mac sonoma-arm64 in various places:
+>
+> ? ? Error in av.src[pkg.bin, "Version"] : subscript out of bounds
+>
+> This happens for example with install.packages("OSTA.data", 
+> repos=BiocManager::repositories()).
+>
+> Also started to happen in this GitHub action a few days ago: 
+> https://github.com/HyrienLab/igblastr/actions/runs/24495733061/job/71590105822
+>
+> The error occurs in the new utils:::.available.both() function 
+> introduced at r89827 in trunk and?r89829 in R-4-6-branch (file 
+> src/library/utils/R/packages.R). It can simply be reproduced with:
+>
+> utils:::.available.both("https://cran.r-project.org")
+>
+> ? ? # Error in av.src[pkg.bin, "Version"] : subscript out of bounds
+>
+> It seems that the function should be able to handle the situation 
+> where some binary packages in the repo don't have a corresponding 
+> source package. Something like this maybe:
+>
+> .available.both <- function(repos, method, ...) {
+> ? ? ## "both" gets complicated as we have to use available.packages twice
+> ? ? fields <- c(tools:::.get_standard_repository_db_fields(), "File", 
+> "Built")
+> ? ? av.src <- available.packages(contriburl = contrib.url(repos, 
+> "source"), method = method, fields = fields, ...)
+> ? ? av.bin <- available.packages(contriburl = contrib.url(repos, 
+> "binary"), method = method, fields = fields, ...)
+> ? ? ## we keep things simple in that we use source unless there is the 
+> same binary version
+> ? ? ## so that we can get at the Built field. This is more simple than 
+> in install.packages
+> ? ? ## since we only care about determining whether a package is new, 
+> but not which type is
+> ? ? ## preferred - install.packages will sort that out.
+> ? ? all_src_pkgs <- row.names(av.src)
+> ? ? all_bin_pkgs <- row.names(av.bin)
+> ? ? dual_pkgs <- intersect(all_src_pkgs, all_bin_pkgs)
+> ? ? src_ver <- av.src[dual_pkgs, "Version"]
+> ? ? bin_ver <- av.bin[dual_pkgs, "Version"]
+> ? ? use_bin <- as.numeric_version(bin_ver) >= as.numeric_version(src_ver)
+> ? ? ## If for some reason 'src_ver' or 'bin_ver' contain NAs, they 
+> would propagate
+> ? ? ## to 'use_bin', but can this ever happen?
+> ? ? use_bin[is.na(use_bin)] <- TRUE
+> ? ? src_pkgs <- c(setdiff(all_src_pkgs, dual_pkgs), dual_pkgs[!use_bin])
+> ? ? bin_pkgs <- c(setdiff(all_bin_pkgs, dual_pkgs), dual_pkgs[use_bin])
+> ? ? ## Returned matrix has 1 row per package in 'union(all_src_pkgs, 
+> all_bin_pkgs)'.
+> ? ? rbind(av.src[src_pkgs, ], av.bin[bin_pkgs, ])
+> }
+>
+> Best,
+>
+> H.
+>
+-- 
+Herv? Pag?s
+
+Bioconductor Core Team
+hpages.on.github at gmail.com
+
+
