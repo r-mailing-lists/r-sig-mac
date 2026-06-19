@@ -1,0 +1,38 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2026-06",
+  "messages": [
+    {
+      "id": "msg-479da616ab00",
+      "message_id": "<D6F1F971-2BB3-4332-AFF6-597C10D97164@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2026-06-19T02:09:32Z",
+      "subject": "[R-SIG-Mac] Change in macOS Framework directory for arm64 4.6",
+      "subject_clean": "Change in macOS Framework directory for arm64 4.6",
+      "in_reply_to": "<9610F0FB-5398-4D8A-BE83-4BFB066B637F@mac.com>",
+      "references": [
+        "<9610F0FB-5398-4D8A-BE83-4BFB066B637F@mac.com>"
+      ],
+      "body_plain": "John,\n\nthe version is historically just x.y for almost all versions:\n\ndrwxrwxr-x  6 root  admin  192 19 Jun 13:59 2.10\ndrwxrwxr-x  6 root  admin  192 19 Jun 14:00 2.15\ndrwxrwxr-x  6 root  admin  192 19 Jun 13:58 3.5\ndrwxrwxr-x  6 root  admin  192 19 Jun 13:58 3.6\ndrwxr-xr-x  6 root  admin  192 19 Jun 13:52 4.0\ndrwxr-xr-x  6 root  admin  192 19 Jun 13:52 4.1\ndrwxr-xr-x  6 root  admin  192 19 Jun 13:53 4.2\n\nsince that is the Apple framework standard. However, with the introduction of macOS 11 and arm64 it was no longer practical to have single universal installation as that was too hard to maintain. Therefore we decided to temporarily add the architecture designator which would allow both versions to co-exist, as a work-around. \n\nNow with the Apple decision to drop x86_64 support and the Sonoma build no longer targeting x86_64 we no longer need that distinction, so we can go back to the standard. Therefore the big-sur build (used for arm64 only in versions 4.3-4.5) is the only build of all R builds that used that special designation, all others use (what all tools should expect as it was always the case before) the official x.y version.\n\nCheers,\nSimon\n\n\n> On 1 May 2026, at 10:02, John Benninghoff via R-SIG-Mac <r-sig-mac at r-project.org> wrote:\n> \n> Hello,\n> \n> Previous versions of R (since R 4.3) have consistently named directories within /Library/Frameworks/R.framework/Versions (Major.Minor-platform):\n> \n> On Intel:\n> \n> drwxrwxr-x  7 root       admin  224 Apr 24 08:34 4.3-x86_64\n> drwxrwxr-x@ 7 root       admin  224 Apr 24 08:35 4.4-x86_64\n> drwxrwxr-x@ 7 root       admin  224 Apr 26 08:14 4.5-x86_64\n> drwxrwxr-x@ 7 root       admin  224 Apr 26 08:29 4.6-x86_64\n> \n> \n> On Apple Silicon:\n> \n> drwxrwxr-x  7 root       admin  224 Mar 16  2024 4.1-arm64\n> drwxrwxr-x  7 root       admin  224 Mar 16  2024 4.2-arm64\n> drwxrwxr-x  7 root       admin  224 Apr 24  2024 4.3-arm64\n> drwxrwxr-x  7 root       admin  224 Oct  2  2025 4.4-arm64\n> drwxrwxr-x@ 7 root       admin  224 Apr 28 07:38 4.5-arm64\n> drwxrwxr-x  7 root       admin  224 Apr 28 07:38 4.6\n> \n> However, with 4.6, the naming convention has changed, and only for arm-based platforms (making the names inconsistent). I wasn?t expecting this and it led to a minor scripting failure. I can work around this change on my end, but I?m curious to know: was this change intentional, and if so, why the change?\n> \n> Thanks,\n> John Benninghoff\n> [[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "John,\n\nthe version is historically just x.y for almost all versions:\n\ndrwxrwxr-x  6 root  admin  192 19 Jun 13:59 2.10\ndrwxrwxr-x  6 root  admin  192 19 Jun 14:00 2.15\ndrwxrwxr-x  6 root  admin  192 1",
+      "thread_id": "thread-479da616ab00",
+      "thread_depth": 0,
+      "month": "2026-06"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-479da616ab00",
+      "subject": "Change in macOS Framework directory for arm64 4.6",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2026-06-19T02:09:32Z",
+      "last_reply": "2026-06-19T02:09:32Z",
+      "root_message_id": "msg-479da616ab00"
+    }
+  ]
+}
