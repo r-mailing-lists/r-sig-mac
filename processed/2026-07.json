@@ -118,13 +118,34 @@
       "thread_id": "thread-77717c618f00",
       "thread_depth": 5,
       "month": "2026-07"
+    },
+    {
+      "id": "msg-c2f7b1af6c0b",
+      "message_id": "<CAJXgQP1Za-fQYxnYggsWpQ=uCJJEe-dbMNi9v+UmC7py2OTq+A@mail.gmail.com>",
+      "from_name": "Kevin Ushey",
+      "from_email_hash": "c0bffc799bd95bf26caa6b1c9abdc3f8fdc556eac7399824869756688d2f0689",
+      "date": "2026-07-27T05:54:53Z",
+      "subject": "[R-SIG-Mac] cmake on build servers",
+      "subject_clean": "cmake on build servers",
+      "in_reply_to": "<C1D1F464-1069-43D1-8DD2-3898F5E54873@R-project.org>",
+      "references": [
+        "<CABFfbXvsS+gORusHOwzSQfLrCG9h_ybGJbZsy3yo_ejmJOgzkA@mail.gmail.com>",
+        "<D3B0BA84-6D92-4C1F-9809-AC2100DE93B9@R-project.org>",
+        "<CAJXgQP0voH7wPexYR2VfNoKKmqsOBC7Ht2MNjhRS3Qr1KZN0Cw@mail.gmail.com>",
+        "<C1D1F464-1069-43D1-8DD2-3898F5E54873@R-project.org>"
+      ],
+      "body_plain": "Hi Simon,\n\nThanks, that makes it clear. I'd argue that the world would be simpler\nif this was pushed to users; that is, R required users to put cmake on\nthe PATH via some means before installing packages which use it. Users\nwho choose to install packages from sources on macOS are already\naccepting a (potentially substantial) burden; asking these users to\nhave cmake on their PATH is simple compared to some other package's\nrequirements. But I can understand the motivation for the current\nbehavior.\n\nThe other pain point for package authors is that this error isn't\nsurfaced until after a package has been accepted on CRAN, when failing\nchecks are later discovered on macOS. Ideally, such an error could be\ndetected before submission via R CMD check. I've put up a proposal\nhere that would have R check for usages of plain 'cmake' here:\n\nhttps://github.com/r-devel/r-svn/pull/277\n\nI can also create a patch on Bugzilla if this is worth considering.\n\nAs an aside (also included in the changes above), I suspect this line in R-exts\n\nif test -f \"$CMAKE\"; then echo \"no 'cmake' command found\"; exit 1; fi\n\nshould be e.g.\n\nif ! test -f \"$CMAKE\"; then echo \"no 'cmake' command found\"; exit 1; fi\n\nBest,\nKevin\n\nOn Sun, Jul 26, 2026 at 3:53?PM Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n>\n> Kevin,\n>\n>\n> > On 27 Jul 2026, at 10:13, Kevin Ushey <kevinushey at gmail.com> wrote:\n> >\n> > Hi Simon,\n> >\n> > Would you be willing to put cmake on the PATH by default on the macOS\n> > CRAN build servers? Or, if you wanted to be judicious, do so only for\n> > packages which declare SystemRequirements: CMake in their DESCRIPTION?\n> >\n>\n>\n> For the latter, the VM setup is not conditional, so we certainly don't want to mess with the setup as-hoc - it should stay reproducible.\n>\n> To the former, I'm a bit surprised this is even an issue, since this is the status quo for years and has been always documented, so it boils down to people not bothering to read the manuals. The main reason for cmake not being on the PATH is that CMake officially doesn't do that so we cannot expect users to mess with their PATH (it gets complicated since there is not a single place to change the PATH on macOS as R can be run from applications that don't use the profile), so the packages should be able to deal with that, otherwise they won't install for the users, either. I wouldn't want to make cmake part of recipes, because it is already maintained by Kitware, so we want to rely on official binaries where possible. This is not about CRAN machines, but the ability to install the package from sources at all.\n>\n> Cheers,\n> Simon\n>\n>\n> > On Sun, Jul 26, 2026 at 2:47?PM Simon Urbanek\n> > <simon.urbanek at r-project.org> wrote:\n> >>\n> >> It is available on all machines, please read R-exts 1.2.6:\n> >>\n> >> [1] https://cran.r-project.org/doc/manuals/r-devel/R-exts.html#Using-cmake\n> >>\n> >> Cheers,\n> >> Simon\n> >>\n> >>\n> >>> On 26 Jul 2026, at 19:28, Jeroen Ooms <jeroenooms at gmail.com> wrote:\n> >>>\n> >>> Would it be possible to install cmake on the CRAN macos servers (or if\n> >>> it is there, add it to the PATH)? Right now it only is available on\n> >>> the \"sonoma\" target (arm64 release), see e.g.\n> >>> https://cran.r-project.org/web/checks/check_results_RcppParallel.html\n> >>>\n> >>> We could add cmake to the 'recipes' but an easier route is just to\n> >>> install it from https://cmake.org/download/ (as done for the sonoma\n> >>> server).\n> >>>\n> >>> Thank you!\n> >>>\n> >>> Jeroen\n> >>>\n> >>> _______________________________________________\n> >>> R-SIG-Mac mailing list\n> >>> R-SIG-Mac at r-project.org\n> >>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>>\n> >>\n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n>",
+      "body_snippet": "Hi Simon,\n\nThanks, that makes it clear. I'd argue that the world would be simpler\nif this was pushed to users; that is, R required users to put cmake on\nthe PATH via some means before installing packa",
+      "thread_id": "thread-77717c618f00",
+      "thread_depth": 4,
+      "month": "2026-07"
     }
   ],
   "threads": [
     {
       "id": "thread-77717c618f00",
       "subject": "cmake on build servers",
-      "message_count": 6,
+      "message_count": 7,
       "participants": [
         "Jeff Newmiller",
         "Jeroen Ooms",
@@ -132,7 +153,7 @@
         "Simon Urbanek"
       ],
       "started": "2026-07-26T07:28:05Z",
-      "last_reply": "2026-07-27T01:10:28Z",
+      "last_reply": "2026-07-27T05:54:53Z",
       "root_message_id": "msg-77717c618f00"
     }
   ]
