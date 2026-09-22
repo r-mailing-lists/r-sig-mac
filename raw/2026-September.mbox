@@ -25,3 +25,77 @@ Gabor
 	[[alternative HTML version deleted]]
 
 
+From @|mon@urb@nek @end|ng |rom R-project@org  Mon Sep 21 04:54:01 2026
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Mon, 21 Sep 2026 14:54:01 +1200
+Subject: [R-SIG-Mac] Upcoming changes to macOS repository binaries for
+ R-devel
+Message-ID: <FFE56B2D-4F20-4A2B-88DA-20DD5B748FD9@R-project.org>
+
+TL;DR macOS R-devel arm64 binaries now use:
+> .Platform$pkgType
+[1] "macos.binary.arm64"
+> contrib.url("", type="binary")
+[1] "/bin/macos/arm64/contrib/4.7"
+(note the lack of x at the end of macos!) and .tar.xz binaries instead of .tgz. In addition, we are experimenting with switching to the flang compiler: https://github.com/R-macos/llvm-project/releases
+
+---
+
+Starting with R 4.6.0 we have introduced new features for packages such as SHA256 checksums, signing and well-defined repository layout and format for binaries regardless of platform. In R 4.6.0 macOS and Windows are still using "legacy" binaries, but for R-devel (presumably 4.7.0-to-be) we want to switch to the new layout/format so we can deprecate the old format, code and use the new features.
+
+To that end, the R-devel nightly builds are now setup to use "macos.binary.arm64" as R_PLATFORM_PKGTYPE which means the location of binaries is now "/bin/macos/arm64/contrib/4.7". The custom binaries are now defined as .tar.xz (we experimented with .tar.zstd, but unfortunately macOS tools only support xz natively and the differences are not worth the bother). This means that the repository layout is changing - there was a request to drop the x at the end of macosx since it is long disused and now leveraging R_PLATFORM_PKGTYPE allows us to finally do that.
+
+If you have tools that assumed .tgz as macOS binaries, those will need to be adjusted to recognize .tar.xz as well (while at it, you should so that ideally in platform-independent way as this can be used for Linux, Windows and others). Officially, binaries are now defined by their Built: field and in PACKAGES metadata the location is recorded in the File: field and possible extensions are .tar.bz2, .tar.xz and .tar.zstd.
+
+As part of the modernisation of the toolchain we are now experimenting with the flang compiler, the latest binaries are available at
+https://github.com/R-macos/llvm-project/releases
+but those may still be updated as needed for better compatibility.
+
+As this point the package binaries are not synced to the CRAN master yet, so use https://mac.r-project.org as the mirror for the latest R-devel macOS package binaries.
+
+This is mainly a heads-up for things to come, nothing is set in stone so comments are welcome.
+
+Cheers,
+Simon
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Mon Sep 21 04:59:01 2026
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Mon, 21 Sep 2026 14:59:01 +1200
+Subject: [R-SIG-Mac] zstd/xz compressed macos binaries
+In-Reply-To: <CABtg=K=m-UN4PYsxvAANXUS+bx=fuRP6SEp353oU-sgP30=wug@mail.gmail.com>
+References: <CABtg=K=m-UN4PYsxvAANXUS+bx=fuRP6SEp353oU-sgP30=wug@mail.gmail.com>
+Message-ID: <BB023CC8-0238-4EB2-A82B-1FB20431097C@R-project.org>
+
+G?bor,
+
+
+> On 20 Sep 2026, at 20:24, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:
+> 
+> Just saw that (some of?) the new macOS binaries for R 4.6 are zstd compressed:
+> 
+> ? curl -LO
+> https://cloud.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/knitr_1.52.tgz
+> 
+> ? file knitr_1.52.tgz
+> knitr_1.52.tgz: Zstandard compressed data (v0.8+), Dictionary ID: None
+> 
+
+
+Ah, no, thanks, that's a bug, likely resulting from earlier updates where we were experimenting with using zstd for 4.7 binaries, but that didn't go well since stock macOS bsdtar cannot handle them. The 4.6 binaries should be gzip as usual.
+
+
+> OTOH the new 4.7 binaries are xz compressed, with a new file name scheme:
+> https://mac.r-project.org/bin/macos/arm64/contrib/4.7/
+> 
+> Is this what we can expect for the near future, gz/zstd in .tgz for 4.6 and
+> xz in .tar.xz starting from 4.7, or this might still change?
+> 
+
+
+I just sent the announcement, so, yes, tar.xz is the plan for 4.7, but nothing should change for 4.6 and earlier (and nothing will change for the x86_64 big sur builds, either).
+
+Thanks,
+Simon
+
+

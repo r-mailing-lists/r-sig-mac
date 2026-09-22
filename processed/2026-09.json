@@ -18,19 +18,65 @@
       "thread_id": "thread-71886ce6f721",
       "thread_depth": 0,
       "month": "2026-09"
+    },
+    {
+      "id": "msg-cb42bdea72a4",
+      "message_id": "<FFE56B2D-4F20-4A2B-88DA-20DD5B748FD9@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2026-09-21T02:54:01Z",
+      "subject": "[R-SIG-Mac] Upcoming changes to macOS repository binaries for R-devel",
+      "subject_clean": "Upcoming changes to macOS repository binaries for R-devel",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "TL;DR macOS R-devel arm64 binaries now use:\n> .Platform$pkgType\n[1] \"macos.binary.arm64\"\n> contrib.url(\"\", type=\"binary\")\n[1] \"/bin/macos/arm64/contrib/4.7\"\n(note the lack of x at the end of macos!) and .tar.xz binaries instead of .tgz. In addition, we are experimenting with switching to the flang compiler: https://github.com/R-macos/llvm-project/releases\n\n---\n\nStarting with R 4.6.0 we have introduced new features for packages such as SHA256 checksums, signing and well-defined repository layout and format for binaries regardless of platform. In R 4.6.0 macOS and Windows are still using \"legacy\" binaries, but for R-devel (presumably 4.7.0-to-be) we want to switch to the new layout/format so we can deprecate the old format, code and use the new features.\n\nTo that end, the R-devel nightly builds are now setup to use \"macos.binary.arm64\" as R_PLATFORM_PKGTYPE which means the location of binaries is now \"/bin/macos/arm64/contrib/4.7\". The custom binaries are now defined as .tar.xz (we experimented with .tar.zstd, but unfortunately macOS tools only support xz natively and the differences are not worth the bother). This means that the repository layout is changing - there was a request to drop the x at the end of macosx since it is long disused and now leveraging R_PLATFORM_PKGTYPE allows us to finally do that.\n\nIf you have tools that assumed .tgz as macOS binaries, those will need to be adjusted to recognize .tar.xz as well (while at it, you should so that ideally in platform-independent way as this can be used for Linux, Windows and others). Officially, binaries are now defined by their Built: field and in PACKAGES metadata the location is recorded in the File: field and possible extensions are .tar.bz2, .tar.xz and .tar.zstd.\n\nAs part of the modernisation of the toolchain we are now experimenting with the flang compiler, the latest binaries are available at\nhttps://github.com/R-macos/llvm-project/releases\nbut those may still be updated as needed for better compatibility.\n\nAs this point the package binaries are not synced to the CRAN master yet, so use https://mac.r-project.org as the mirror for the latest R-devel macOS package binaries.\n\nThis is mainly a heads-up for things to come, nothing is set in stone so comments are welcome.\n\nCheers,\nSimon",
+      "body_snippet": "TL;DR macOS R-devel arm64 binaries now use:\n> .Platform$pkgType\n[1] \"macos.binary.arm64\"\n> contrib.url(\"\", type=\"binary\")\n[1] \"/bin/macos/arm64/contrib/4.7\"\n(note the lack of x at the end of macos!) a",
+      "thread_id": "thread-cb42bdea72a4",
+      "thread_depth": 0,
+      "month": "2026-09"
+    },
+    {
+      "id": "msg-c1f394555cd3",
+      "message_id": "<BB023CC8-0238-4EB2-A82B-1FB20431097C@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2026-09-21T02:59:01Z",
+      "subject": "[R-SIG-Mac] zstd/xz compressed macos binaries",
+      "subject_clean": "zstd/xz compressed macos binaries",
+      "in_reply_to": "<CABtg=K=m-UN4PYsxvAANXUS+bx=fuRP6SEp353oU-sgP30=wug@mail.gmail.com>",
+      "references": [
+        "<CABtg=K=m-UN4PYsxvAANXUS+bx=fuRP6SEp353oU-sgP30=wug@mail.gmail.com>"
+      ],
+      "body_plain": "G?bor,\n\n\n> On 20 Sep 2026, at 20:24, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n> Just saw that (some of?) the new macOS binaries for R 4.6 are zstd compressed:\n> \n> ? curl -LO\n> https://cloud.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/knitr_1.52.tgz\n> \n> ? file knitr_1.52.tgz\n> knitr_1.52.tgz: Zstandard compressed data (v0.8+), Dictionary ID: None\n> \n\n\nAh, no, thanks, that's a bug, likely resulting from earlier updates where we were experimenting with using zstd for 4.7 binaries, but that didn't go well since stock macOS bsdtar cannot handle them. The 4.6 binaries should be gzip as usual.\n\n\n> OTOH the new 4.7 binaries are xz compressed, with a new file name scheme:\n> https://mac.r-project.org/bin/macos/arm64/contrib/4.7/\n> \n> Is this what we can expect for the near future, gz/zstd in .tgz for 4.6 and\n> xz in .tar.xz starting from 4.7, or this might still change?\n> \n\n\nI just sent the announcement, so, yes, tar.xz is the plan for 4.7, but nothing should change for 4.6 and earlier (and nothing will change for the x86_64 big sur builds, either).\n\nThanks,\nSimon",
+      "body_snippet": "G?bor,\n\n\n> On 20 Sep 2026, at 20:24, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n> Just saw that (some of?) the new macOS binaries for R 4.6 are zstd compressed:\n> \n> ? curl -LO\n> https://cloud",
+      "thread_id": "thread-71886ce6f721",
+      "thread_depth": 1,
+      "month": "2026-09"
     }
   ],
   "threads": [
     {
       "id": "thread-71886ce6f721",
       "subject": "zstd/xz compressed macos binaries",
-      "message_count": 1,
+      "message_count": 2,
       "participants": [
-        "Gábor Csárdi"
+        "Gábor Csárdi",
+        "Simon Urbanek"
       ],
       "started": "2026-09-20T08:24:43Z",
-      "last_reply": "2026-09-20T08:24:43Z",
+      "last_reply": "2026-09-21T02:59:01Z",
       "root_message_id": "msg-71886ce6f721"
+    },
+    {
+      "id": "thread-cb42bdea72a4",
+      "subject": "Upcoming changes to macOS repository binaries for R-devel",
+      "message_count": 1,
+      "participants": [
+        "Simon Urbanek"
+      ],
+      "started": "2026-09-21T02:54:01Z",
+      "last_reply": "2026-09-21T02:54:01Z",
+      "root_message_id": "msg-cb42bdea72a4"
     }
   ]
 }
