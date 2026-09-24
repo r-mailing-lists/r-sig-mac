@@ -52,6 +52,56 @@
       "thread_id": "thread-71886ce6f721",
       "thread_depth": 1,
       "month": "2026-09"
+    },
+    {
+      "id": "msg-651776c9acb9",
+      "message_id": "<CANkkNchHyYeJiagY3TA_=X7wwX3wTmV+i=9W0sMJTo17KSih5w@mail.gmail.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "a0e78a44ef969c66c0e77fd091f97cfc1a0da10d94e3590420d41ea75cd90884",
+      "date": "2026-09-23T14:49:57Z",
+      "subject": "[R-SIG-Mac] can't close unsaved doc",
+      "subject_clean": "can't close unsaved doc",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Strange thing:   open a new Untitled document ,   type some junk.\n\nHit the red Close button or CMD-W  , get the dialog about save or name it\n;  click on the Delete button, and nothing happens (except that the dialog\nbox goes away).\n\nI have to SaveAs , then close the document.\n\nR 6.5 and 4.6.1  macos M4\n\nCarl\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Strange thing:   open a new Untitled document ,   type some junk.\n\nHit the red Close button or CMD-W  , get the dialog about save or name it\n;  click on the Delete button, and nothing happens (except ",
+      "thread_id": "thread-651776c9acb9",
+      "thread_depth": 0,
+      "month": "2026-09"
+    },
+    {
+      "id": "msg-f559c38a792f",
+      "message_id": "<CANkkNchOTAUppbAhnJ08nftorXbZVCU1cL7RDmQsDykWHUzMxA@mail.gmail.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "a0e78a44ef969c66c0e77fd091f97cfc1a0da10d94e3590420d41ea75cd90884",
+      "date": "2026-09-23T14:51:56Z",
+      "subject": "[R-SIG-Mac] memory leak in Ryacas?",
+      "subject_clean": "memory leak in Ryacas?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Wondering if anyone else has seen this:\nI am running an iMac M4, Sequoia 15.7.9  and R 4.6.1 .\n\nI notice that every call to yac_str   increases the memory usage as\nreported with the MacOS Activity Monitor.  Running gc() doesn't change\nanything.\n\nThe function I hacked together :\n\nfibinet <- function(fidx = 5) {\nif(is.numeric(fidx)) {\n        fidx <- as.character(trunc(fidx))\n    }\n# loop over length(fidx)\nfout <- as.bigz(rep(0,length=length(fidx)))\n    for(jf in 1:length(fidx)) {\n        foo <- paste0('Simplify(1/k* (  ( (1 + k)/2)^', fidx[jf], '- ((1 -\nk)/2)^', fidx[jf], ' ) )')\n        bar <- yac_str(foo)\n        foob <- gsub('[/]([0-9]{1,})','/as.bigz(\"\\\\1\")',bar)\n        foond <- unlist(strsplit(foob,'/'))\n\n        foos <- unlist(strsplit(foond[1], '\\\\^'))\n# \"fix\" first element as it's not in the loop\n        foos[1] <- '(1'\n# need to fix the final numerator element's ')'\n        foos[length(foos)] <- gsub(')','',foos[length(foos)] )\n        for(jp in 2:(length(foos))) {\n            pxe <- regmatches(foos[jp],regexpr('^[0-9]{1,}',foos[jp]) )\n            # that gets the exponent as a string\n            fxe <- as.character(as.numeric(pxe)/2)\n            foos[jp] <- gsub(paste0('^',pxe),paste0('^',fxe), foos[jp])\n            # except that those coefficients in numerator exceed maxInt, so\nhave to fix them\n        # one by one as well.  ewwww\n            pxc <- unlist(strsplit(foos[jp],'[+]'))\n            pxc[2] <- gsub('[*]k','',pxc[2])\n            fxc <- paste0('*k',pxc[1], '+as.bigz(\"', pxc[2],'\")')\n            foos[jp] <- fxc\n            } #end jp loop\n    foof <- paste0(c(foos,')'),collapse='',sep='')\n    foof <- gsub('k','5',foof)\n    fout[jf] <- eval(parse(t= paste0(foof,'/',foond[2])))\n    }    #end jf loop\nreturn(invisible(list(idx=fidx,valx=fout)))\n}\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Wondering if anyone else has seen this:\nI am running an iMac M4, Sequoia 15.7.9  and R 4.6.1 .\n\nI notice that every call to yac_str   increases the memory usage as\nreported with the MacOS Activity Mon",
+      "thread_id": "thread-f559c38a792f",
+      "thread_depth": 0,
+      "month": "2026-09"
+    },
+    {
+      "id": "msg-d2cbb2f09e54",
+      "message_id": "<25f7ad0a-2909-412f-beff-899ee36b40d4@gmail.com>",
+      "from_name": "Duncan Murdoch",
+      "from_email_hash": "f9a415d339fb179db05d60d3dad3c3f8a3545457db293eaaaa76ffc7f4ce0713",
+      "date": "2026-09-23T22:12:03Z",
+      "subject": "[R-SIG-Mac] memory leak in Ryacas?",
+      "subject_clean": "memory leak in Ryacas?",
+      "in_reply_to": "<CANkkNchOTAUppbAhnJ08nftorXbZVCU1cL7RDmQsDykWHUzMxA@mail.gmail.com>",
+      "references": [
+        "<CANkkNchOTAUppbAhnJ08nftorXbZVCU1cL7RDmQsDykWHUzMxA@mail.gmail.com>"
+      ],
+      "body_plain": "On 2026-09-23 10:51 a.m., Carl Witthoft wrote:\n> Wondering if anyone else has seen this:\n> I am running an iMac M4, Sequoia 15.7.9  and R 4.6.1 .\n> \n> I notice that every call to yac_str   increases the memory usage as\n> reported with the MacOS Activity Monitor.  Running gc() doesn't change\n> anything.\n\nWhat is yac_str?  It's not a base function, and you haven't shown us \nwhere it was defined in your code snippet.\n\nDuncan Murdoch\n\n> \n> The function I hacked together :\n> \n> fibinet <- function(fidx = 5) {\n> if(is.numeric(fidx)) {\n>          fidx <- as.character(trunc(fidx))\n>      }\n> # loop over length(fidx)\n> fout <- as.bigz(rep(0,length=length(fidx)))\n>      for(jf in 1:length(fidx)) {\n>          foo <- paste0('Simplify(1/k* (  ( (1 + k)/2)^', fidx[jf], '- ((1 -\n> k)/2)^', fidx[jf], ' ) )')\n>          bar <- yac_str(foo)\n>          foob <- gsub('[/]([0-9]{1,})','/as.bigz(\"\\\\1\")',bar)\n>          foond <- unlist(strsplit(foob,'/'))\n> \n>          foos <- unlist(strsplit(foond[1], '\\\\^'))\n> # \"fix\" first element as it's not in the loop\n>          foos[1] <- '(1'\n> # need to fix the final numerator element's ')'\n>          foos[length(foos)] <- gsub(')','',foos[length(foos)] )\n>          for(jp in 2:(length(foos))) {\n>              pxe <- regmatches(foos[jp],regexpr('^[0-9]{1,}',foos[jp]) )\n>              # that gets the exponent as a string\n>              fxe <- as.character(as.numeric(pxe)/2)\n>              foos[jp] <- gsub(paste0('^',pxe),paste0('^',fxe), foos[jp])\n>              # except that those coefficients in numerator exceed maxInt, so\n> have to fix them\n>          # one by one as well.  ewwww\n>              pxc <- unlist(strsplit(foos[jp],'[+]'))\n>              pxc[2] <- gsub('[*]k','',pxc[2])\n>              fxc <- paste0('*k',pxc[1], '+as.bigz(\"', pxc[2],'\")')\n>              foos[jp] <- fxc\n>              } #end jp loop\n>      foof <- paste0(c(foos,')'),collapse='',sep='')\n>      foof <- gsub('k','5',foof)\n>      fout[jf] <- eval(parse(t= paste0(foof,'/',foond[2])))\n>      }    #end jf loop\n> return(invisible(list(idx=fidx,valx=fout)))\n> }\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "On 2026-09-23 10:51 a.m., Carl Witthoft wrote:\n> Wondering if anyone else has seen this:\n> I am running an iMac M4, Sequoia 15.7.9  and R 4.6.1 .\n> \n> I notice that every call to yac_str   increases t",
+      "thread_id": "thread-f559c38a792f",
+      "thread_depth": 1,
+      "month": "2026-09"
     }
   ],
   "threads": [
@@ -77,6 +127,29 @@
       "started": "2026-09-21T02:54:01Z",
       "last_reply": "2026-09-21T02:54:01Z",
       "root_message_id": "msg-cb42bdea72a4"
+    },
+    {
+      "id": "thread-651776c9acb9",
+      "subject": "can't close unsaved doc",
+      "message_count": 1,
+      "participants": [
+        "Carl Witthoft"
+      ],
+      "started": "2026-09-23T14:49:57Z",
+      "last_reply": "2026-09-23T14:49:57Z",
+      "root_message_id": "msg-651776c9acb9"
+    },
+    {
+      "id": "thread-f559c38a792f",
+      "subject": "memory leak in Ryacas?",
+      "message_count": 2,
+      "participants": [
+        "Carl Witthoft",
+        "Duncan Murdoch"
+      ],
+      "started": "2026-09-23T14:51:56Z",
+      "last_reply": "2026-09-23T22:12:03Z",
+      "root_message_id": "msg-f559c38a792f"
     }
   ]
 }

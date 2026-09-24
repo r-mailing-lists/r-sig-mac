@@ -99,3 +99,150 @@ Thanks,
 Simon
 
 
+From ce||ocgw @end|ng |rom gm@||@com  Wed Sep 23 16:49:57 2026
+From: ce||ocgw @end|ng |rom gm@||@com (Carl Witthoft)
+Date: Wed, 23 Sep 2026 10:49:57 -0400
+Subject: [R-SIG-Mac] can't close unsaved doc
+Message-ID: <CANkkNchHyYeJiagY3TA_=X7wwX3wTmV+i=9W0sMJTo17KSih5w@mail.gmail.com>
+
+Strange thing:   open a new Untitled document ,   type some junk.
+
+Hit the red Close button or CMD-W  , get the dialog about save or name it
+;  click on the Delete button, and nothing happens (except that the dialog
+box goes away).
+
+I have to SaveAs , then close the document.
+
+R 6.5 and 4.6.1  macos M4
+
+Carl
+
+	[[alternative HTML version deleted]]
+
+
+From ce||ocgw @end|ng |rom gm@||@com  Wed Sep 23 16:51:56 2026
+From: ce||ocgw @end|ng |rom gm@||@com (Carl Witthoft)
+Date: Wed, 23 Sep 2026 10:51:56 -0400
+Subject: [R-SIG-Mac] memory leak in Ryacas?
+Message-ID: <CANkkNchOTAUppbAhnJ08nftorXbZVCU1cL7RDmQsDykWHUzMxA@mail.gmail.com>
+
+Wondering if anyone else has seen this:
+I am running an iMac M4, Sequoia 15.7.9  and R 4.6.1 .
+
+I notice that every call to yac_str   increases the memory usage as
+reported with the MacOS Activity Monitor.  Running gc() doesn't change
+anything.
+
+The function I hacked together :
+
+fibinet <- function(fidx = 5) {
+if(is.numeric(fidx)) {
+        fidx <- as.character(trunc(fidx))
+    }
+# loop over length(fidx)
+fout <- as.bigz(rep(0,length=length(fidx)))
+    for(jf in 1:length(fidx)) {
+        foo <- paste0('Simplify(1/k* (  ( (1 + k)/2)^', fidx[jf], '- ((1 -
+k)/2)^', fidx[jf], ' ) )')
+        bar <- yac_str(foo)
+        foob <- gsub('[/]([0-9]{1,})','/as.bigz("\\1")',bar)
+        foond <- unlist(strsplit(foob,'/'))
+
+        foos <- unlist(strsplit(foond[1], '\\^'))
+# "fix" first element as it's not in the loop
+        foos[1] <- '(1'
+# need to fix the final numerator element's ')'
+        foos[length(foos)] <- gsub(')','',foos[length(foos)] )
+        for(jp in 2:(length(foos))) {
+            pxe <- regmatches(foos[jp],regexpr('^[0-9]{1,}',foos[jp]) )
+            # that gets the exponent as a string
+            fxe <- as.character(as.numeric(pxe)/2)
+            foos[jp] <- gsub(paste0('^',pxe),paste0('^',fxe), foos[jp])
+            # except that those coefficients in numerator exceed maxInt, so
+have to fix them
+        # one by one as well.  ewwww
+            pxc <- unlist(strsplit(foos[jp],'[+]'))
+            pxc[2] <- gsub('[*]k','',pxc[2])
+            fxc <- paste0('*k',pxc[1], '+as.bigz("', pxc[2],'")')
+            foos[jp] <- fxc
+            } #end jp loop
+    foof <- paste0(c(foos,')'),collapse='',sep='')
+    foof <- gsub('k','5',foof)
+    fout[jf] <- eval(parse(t= paste0(foof,'/',foond[2])))
+    }    #end jf loop
+return(invisible(list(idx=fidx,valx=fout)))
+}
+
+	[[alternative HTML version deleted]]
+
+
+From murdoch@dunc@n @end|ng |rom gm@||@com  Thu Sep 24 00:12:03 2026
+From: murdoch@dunc@n @end|ng |rom gm@||@com (Duncan Murdoch)
+Date: Wed, 23 Sep 2026 18:12:03 -0400
+Subject: [R-SIG-Mac] memory leak in Ryacas?
+In-Reply-To: <CANkkNchOTAUppbAhnJ08nftorXbZVCU1cL7RDmQsDykWHUzMxA@mail.gmail.com>
+References: <CANkkNchOTAUppbAhnJ08nftorXbZVCU1cL7RDmQsDykWHUzMxA@mail.gmail.com>
+Message-ID: <25f7ad0a-2909-412f-beff-899ee36b40d4@gmail.com>
+
+On 2026-09-23 10:51 a.m., Carl Witthoft wrote:
+> Wondering if anyone else has seen this:
+> I am running an iMac M4, Sequoia 15.7.9  and R 4.6.1 .
+> 
+> I notice that every call to yac_str   increases the memory usage as
+> reported with the MacOS Activity Monitor.  Running gc() doesn't change
+> anything.
+
+What is yac_str?  It's not a base function, and you haven't shown us 
+where it was defined in your code snippet.
+
+Duncan Murdoch
+
+> 
+> The function I hacked together :
+> 
+> fibinet <- function(fidx = 5) {
+> if(is.numeric(fidx)) {
+>          fidx <- as.character(trunc(fidx))
+>      }
+> # loop over length(fidx)
+> fout <- as.bigz(rep(0,length=length(fidx)))
+>      for(jf in 1:length(fidx)) {
+>          foo <- paste0('Simplify(1/k* (  ( (1 + k)/2)^', fidx[jf], '- ((1 -
+> k)/2)^', fidx[jf], ' ) )')
+>          bar <- yac_str(foo)
+>          foob <- gsub('[/]([0-9]{1,})','/as.bigz("\\1")',bar)
+>          foond <- unlist(strsplit(foob,'/'))
+> 
+>          foos <- unlist(strsplit(foond[1], '\\^'))
+> # "fix" first element as it's not in the loop
+>          foos[1] <- '(1'
+> # need to fix the final numerator element's ')'
+>          foos[length(foos)] <- gsub(')','',foos[length(foos)] )
+>          for(jp in 2:(length(foos))) {
+>              pxe <- regmatches(foos[jp],regexpr('^[0-9]{1,}',foos[jp]) )
+>              # that gets the exponent as a string
+>              fxe <- as.character(as.numeric(pxe)/2)
+>              foos[jp] <- gsub(paste0('^',pxe),paste0('^',fxe), foos[jp])
+>              # except that those coefficients in numerator exceed maxInt, so
+> have to fix them
+>          # one by one as well.  ewwww
+>              pxc <- unlist(strsplit(foos[jp],'[+]'))
+>              pxc[2] <- gsub('[*]k','',pxc[2])
+>              fxc <- paste0('*k',pxc[1], '+as.bigz("', pxc[2],'")')
+>              foos[jp] <- fxc
+>              } #end jp loop
+>      foof <- paste0(c(foos,')'),collapse='',sep='')
+>      foof <- gsub('k','5',foof)
+>      fout[jf] <- eval(parse(t= paste0(foof,'/',foond[2])))
+>      }    #end jf loop
+> return(invisible(list(idx=fidx,valx=fout)))
+> }
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
