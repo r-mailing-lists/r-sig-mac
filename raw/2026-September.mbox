@@ -246,3 +246,96 @@ Duncan Murdoch
 > https://stat.ethz.ch/mailman/listinfo/r-sig-mac
 
 
+From @|mon@urb@nek @end|ng |rom R-project@org  Thu Sep 24 05:50:17 2026
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Thu, 24 Sep 2026 15:50:17 +1200
+Subject: [R-SIG-Mac] can't close unsaved doc
+In-Reply-To: <CANkkNchHyYeJiagY3TA_=X7wwX3wTmV+i=9W0sMJTo17KSih5w@mail.gmail.com>
+References: <CANkkNchHyYeJiagY3TA_=X7wwX3wTmV+i=9W0sMJTo17KSih5w@mail.gmail.com>
+Message-ID: <C97BCB39-B95B-4440-9B2B-877ECA2E62F3@R-project.org>
+
+Carl,
+
+this is a known issue in recent macOS versions. Unfortunately, it is unclear how to fix this, since the behaviour is outside of the R.app code - the GUI itself is never notified by the system, it is entirely internal to the macOS document handling, so if anyone can shed any light on this, it would be appreciated.
+
+Cheers,
+Simon
+
+
+> On 24 Sep 2026, at 02:49, Carl Witthoft <cellocgw at gmail.com> wrote:
+> 
+> Strange thing:   open a new Untitled document ,   type some junk.
+> 
+> Hit the red Close button or CMD-W  , get the dialog about save or name it
+> ;  click on the Delete button, and nothing happens (except that the dialog
+> box goes away).
+> 
+> I have to SaveAs , then close the document.
+> 
+> R 6.5 and 4.6.1  macos M4
+> 
+> Carl
+> 
+> [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Thu Sep 24 07:29:44 2026
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Thu, 24 Sep 2026 17:29:44 +1200
+Subject: [R-SIG-Mac] can't close unsaved doc
+In-Reply-To: <C97BCB39-B95B-4440-9B2B-877ECA2E62F3@R-project.org>
+References: <CANkkNchHyYeJiagY3TA_=X7wwX3wTmV+i=9W0sMJTo17KSih5w@mail.gmail.com>
+ <C97BCB39-B95B-4440-9B2B-877ECA2E62F3@R-project.org>
+Message-ID: <4803C510-F779-4762-B187-66D53058FCAB@R-project.org>
+
+Thanks to Kevin Ushey this is now fixed!
+
+Cheers,
+Simon
+
+
+> On 24 Sep 2026, at 15:50, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+> 
+> Carl,
+> 
+> this is a known issue in recent macOS versions. Unfortunately, it is unclear how to fix this, since the behaviour is outside of the R.app code - the GUI itself is never notified by the system, it is entirely internal to the macOS document handling, so if anyone can shed any light on this, it would be appreciated.
+> 
+> Cheers,
+> Simon
+> 
+> 
+>> On 24 Sep 2026, at 02:49, Carl Witthoft <cellocgw at gmail.com> wrote:
+>> 
+>> Strange thing:   open a new Untitled document ,   type some junk.
+>> 
+>> Hit the red Close button or CMD-W  , get the dialog about save or name it
+>> ;  click on the Delete button, and nothing happens (except that the dialog
+>> box goes away).
+>> 
+>> I have to SaveAs , then close the document.
+>> 
+>> R 6.5 and 4.6.1  macos M4
+>> 
+>> Carl
+>> 
+>> [[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
