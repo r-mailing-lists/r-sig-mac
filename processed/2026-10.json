@@ -115,19 +115,42 @@
       "thread_id": "thread-c84eea9b577c",
       "thread_depth": 4,
       "month": "2026-10"
+    },
+    {
+      "id": "msg-c37b24056b47",
+      "message_id": "<84A872F5-2E77-4671-8962-671DF61ED9C8@R-project.org>",
+      "from_name": "Simon Urbanek",
+      "from_email_hash": "0f7a36ede18d495e19236834ee83f5b20722f5d7cec3588576a59851b948b51a",
+      "date": "2026-10-04T02:49:23Z",
+      "subject": "[R-SIG-Mac] gfortran and macos 27",
+      "subject_clean": "gfortran and macos 27",
+      "in_reply_to": "<BC067312-1763-4952-9E35-F5149E814A22@univie.ac.at>",
+      "references": [
+        "<20F7F466-F3FE-4A71-8A57-10E76EBA6DD1@univie.ac.at>",
+        "<AC028CA7-0647-461A-90D8-8CCDD5355F56@gmail.com>",
+        "<7EF54A45-D1FF-4064-B3D8-07AFAD262806@univie.ac.at>",
+        "<F74959A8-22A7-419B-BA16-43761D4525EC@univie.ac.at>",
+        "<BC067312-1763-4952-9E35-F5149E814A22@univie.ac.at>"
+      ],
+      "body_plain": "Erich,\n\nHomebrew compilers are incompatible with Apple's so generally it is not a godd idea to mix them.\n\nThere is a much easier solution, simply set\n\nMACOSX_DEPLOYMENT_TARGET=28.0\n\nin your environment (or you can use any other valid macOS version such as 15.0 or 26.0).\n\nCheers,\nSimon\n\n\n\n> On 4/10/2026, at 01:29, Erich Neuwirth <erich.neuwirth at univie.ac.at> wrote:\n> \n> Pronblem solved.\n> I had gcc from homebrew also installed.\n> Putting\n> \n> # GNU Fortran for Apple Silicon:\n> # Work around the toolchain's invalid default macOS 18.0 target.\n> FC      = /opt/gfortran/bin/gfortran -arch arm64\n> F77     = /opt/gfortran/bin/gfortran -arch arm64\n> FFLAGS  += -mmacosx-version-min=15.0\n> FCFLAGS += -mmacosx-version-min=15.0\n> \n> # OpenMP via Homebrew libomp\n> CPPFLAGS += -I/opt/homebrew/opt/libomp/include -Xpreprocessor -fopenmp\n> LDFLAGS  += -L/opt/homebrew/opt/libomp/lib -lomp\n> \n> \n> in ~/.R/Makevars solved the problem. \n> \n> \n>> On Oct 3, 2026, at 2:06?PM, Erich Neuwirth <erich.neuwirth at univie.ac.at> wrote:\n>> \n>> The problem seems to be buried in clang.\n>> \n>> I reinstalled gfortran \n>> and ran the following test (recommended by perplexity)\n>> \n>> ~ /opt/gfortran/bin/gfortran --version\n>> \n>> cat > /tmp/check.f <<'EOF'\n>>     program check\n>>     print *, 'OK'\n>>     end\n>> EOF\n>> \n>> /opt/gfortran/bin/gfortran -arch arm64 \\\n>> /tmp/check.f -o /tmp/check\n>> \n>> /tmp/check\n>> \n>> GNU Fortran (GCC) 14.2.0\n>> Copyright (C) 2024 Free Software Foundation, Inc.\n>> This is free software; see the source for copying conditions.  There is NO\n>> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n>> \n>> clang: error: invalid version number in '-mmacosx-version-min=18.0'\n>> zsh: no such file or directory: /tmp/check\n>> \n>> \n>> \n>> \n>> \n>> \n>> \n>> \n>>> On Oct 3, 2026, at 12:38?PM, Erich Neuwirth <erich.neuwirth at univie.ac.at> wrote:\n>>> \n>>> Hi Peter,\n>>> I sett FFLAGS in .Renviron\n>>>> Sys.getenv(\"FFLAGS\")\n>>> [1] \"-mmacosx-version-min=26.0?\n>>> \n>>> but when compiling still get the error\n>>> clang: error: invalid version number in '-mmacosx-version-min=18.0'\n>>> make: *** [qapsim.o] Error 1\n>>> ERROR: compilation failed for package ?qap?\n>>> \n>>> \n>>> \n>>>> On Oct 2, 2026, at 1:43?PM, Peter Dalgaard <pdalgd at gmail.com> wrote:\n>>>> \n>>>> FFLAGS=-mmacosx-version-min=26.0\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "Erich,\n\nHomebrew compilers are incompatible with Apple's so generally it is not a godd idea to mix them.\n\nThere is a much easier solution, simply set\n\nMACOSX_DEPLOYMENT_TARGET=28.0\n\nin your environmen",
+      "thread_id": "thread-c84eea9b577c",
+      "thread_depth": 5,
+      "month": "2026-10"
     }
   ],
   "threads": [
     {
       "id": "thread-c84eea9b577c",
       "subject": "gfortran and macos 27",
-      "message_count": 6,
+      "message_count": 7,
       "participants": [
         "Erich Neuwirth",
-        "Peter Dalgaard"
+        "Peter Dalgaard",
+        "Simon Urbanek"
       ],
       "started": "2026-10-02T10:47:13Z",
-      "last_reply": "2026-10-03T12:29:07Z",
+      "last_reply": "2026-10-04T02:49:23Z",
       "root_message_id": "msg-c84eea9b577c"
     }
   ]

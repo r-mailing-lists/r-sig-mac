@@ -323,3 +323,121 @@ in ~/.R/Makevars solved the problem.
 > https://stat.ethz.ch/mailman/listinfo/r-sig-mac
 
 
+From @|mon@urb@nek @end|ng |rom R-project@org  Sun Oct  4 04:49:23 2026
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Sun, 4 Oct 2026 15:49:23 +1300
+Subject: [R-SIG-Mac] gfortran and macos 27
+In-Reply-To: <BC067312-1763-4952-9E35-F5149E814A22@univie.ac.at>
+References: <20F7F466-F3FE-4A71-8A57-10E76EBA6DD1@univie.ac.at>
+ <AC028CA7-0647-461A-90D8-8CCDD5355F56@gmail.com>
+ <7EF54A45-D1FF-4064-B3D8-07AFAD262806@univie.ac.at>
+ <F74959A8-22A7-419B-BA16-43761D4525EC@univie.ac.at>
+ <BC067312-1763-4952-9E35-F5149E814A22@univie.ac.at>
+Message-ID: <84A872F5-2E77-4671-8962-671DF61ED9C8@R-project.org>
+
+Erich,
+
+Homebrew compilers are incompatible with Apple's so generally it is not a godd idea to mix them.
+
+There is a much easier solution, simply set
+
+MACOSX_DEPLOYMENT_TARGET=28.0
+
+in your environment (or you can use any other valid macOS version such as 15.0 or 26.0).
+
+Cheers,
+Simon
+
+
+
+> On 4/10/2026, at 01:29, Erich Neuwirth <erich.neuwirth at univie.ac.at> wrote:
+> 
+> Pronblem solved.
+> I had gcc from homebrew also installed.
+> Putting
+> 
+> # GNU Fortran for Apple Silicon:
+> # Work around the toolchain's invalid default macOS 18.0 target.
+> FC      = /opt/gfortran/bin/gfortran -arch arm64
+> F77     = /opt/gfortran/bin/gfortran -arch arm64
+> FFLAGS  += -mmacosx-version-min=15.0
+> FCFLAGS += -mmacosx-version-min=15.0
+> 
+> # OpenMP via Homebrew libomp
+> CPPFLAGS += -I/opt/homebrew/opt/libomp/include -Xpreprocessor -fopenmp
+> LDFLAGS  += -L/opt/homebrew/opt/libomp/lib -lomp
+> 
+> 
+> in ~/.R/Makevars solved the problem. 
+> 
+> 
+>> On Oct 3, 2026, at 2:06?PM, Erich Neuwirth <erich.neuwirth at univie.ac.at> wrote:
+>> 
+>> The problem seems to be buried in clang.
+>> 
+>> I reinstalled gfortran 
+>> and ran the following test (recommended by perplexity)
+>> 
+>> ~ /opt/gfortran/bin/gfortran --version
+>> 
+>> cat > /tmp/check.f <<'EOF'
+>>     program check
+>>     print *, 'OK'
+>>     end
+>> EOF
+>> 
+>> /opt/gfortran/bin/gfortran -arch arm64 \
+>> /tmp/check.f -o /tmp/check
+>> 
+>> /tmp/check
+>> 
+>> GNU Fortran (GCC) 14.2.0
+>> Copyright (C) 2024 Free Software Foundation, Inc.
+>> This is free software; see the source for copying conditions.  There is NO
+>> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+>> 
+>> clang: error: invalid version number in '-mmacosx-version-min=18.0'
+>> zsh: no such file or directory: /tmp/check
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>>> On Oct 3, 2026, at 12:38?PM, Erich Neuwirth <erich.neuwirth at univie.ac.at> wrote:
+>>> 
+>>> Hi Peter,
+>>> I sett FFLAGS in .Renviron
+>>>> Sys.getenv("FFLAGS")
+>>> [1] "-mmacosx-version-min=26.0?
+>>> 
+>>> but when compiling still get the error
+>>> clang: error: invalid version number in '-mmacosx-version-min=18.0'
+>>> make: *** [qapsim.o] Error 1
+>>> ERROR: compilation failed for package ?qap?
+>>> 
+>>> 
+>>> 
+>>>> On Oct 2, 2026, at 1:43?PM, Peter Dalgaard <pdalgd at gmail.com> wrote:
+>>>> 
+>>>> FFLAGS=-mmacosx-version-min=26.0
+>>> 
+>>> _______________________________________________
+>>> R-SIG-Mac mailing list
+>>> R-SIG-Mac at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+>> 
+>> _______________________________________________
+>> R-SIG-Mac mailing list
+>> R-SIG-Mac at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
