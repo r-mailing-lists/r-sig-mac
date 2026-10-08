@@ -441,3 +441,119 @@ Simon
 > 
 
 
+From edo@rdo@m@r|@@@c@bb| @end|ng |rom un|-m@nnhe|m@de  Mon Oct  5 17:17:56 2026
+From: edo@rdo@m@r|@@@c@bb| @end|ng |rom un|-m@nnhe|m@de (Edoardo Maria Acabbi)
+Date: Mon, 5 Oct 2026 17:17:56 +0200
+Subject: [R-SIG-Mac] macOS 27 on M4: handled signals corrupt vecLib
+ (Accelerate) BLAS results
+Message-ID: <B90F7875-9364-48C3-8990-A783858D6012@uni-mannheim.de>
+
+
+> Dear all,
+> 
+> On an M4 Max with macOS 27.0.1 (26A434) and CRAN R 4.6.1, with R switched to the vecLib BLAS (libRblas.dylib -> libRblas.vecLib.dylib), matrix products are silently wrong whenever a signal that R handles arrives during the BLAS call. Two R-level triggers we hit:
+> - the SIGCHLD handler that parallel installs: children of mcparallel()/mclapply() exiting while the parent multiplies;
+> - Rprof()'s SIGPROF: R dies with an illegal instruction.
+> 
+> The fault is not in R. The C program below reproduces it with Accelerate's cblas_dgemm and an empty SIGUSR1 handler: 328 of 500 products of 400x400 matrices are wrong, some cells exactly zero. Inside the handler, SVCR shows that the thread is still in SME streaming mode with ZA enabled. Ignored signals, or signals blocked during the call, give 0 of 500 wrong. R's reference BLAS (libRblas.0.dylib) and OpenBLAS 0.3.30 (non-SME core) give 0 wrong under the same signal load.
+> 
+> The public xnu source (xnu-12377.121.6, the macOS 26 line) points to the cause: signal delivery does not leave streaming mode, and sigreturn truncates the streaming vector registers to 128 bits. If that reading is right, macOS 26 on M4 is affected too; we have not run the test on macOS 26. Reported to Apple as FB25068706.
+> 
+> This differs from the fork-safety problem discussed in January (https://stat.ethz.ch/pipermail/r-sig-mac/2026-January/015322.html). There the forked child fails. Here the parent's own product is corrupted, and no fork is needed: any handled signal does it.
+> 
+> Until Apple fixes it, users of SME Macs (M4 and later) who switched to vecLib may want to switch back to the reference BLAS, the CRAN default:
+> 
+>     cd /Library/Frameworks/R.framework/Resources/lib
+>     ln -sf libRblas.0.dylib libRblas.dylib
+> 
+> A line in the vecLib section of the R for macOS FAQ might help others.
+> 
+> Reproducer (clang -O2 -o apple_repro apple_repro.c -framework Accelerate):
+> 
+> // Minimal reproducer: a signal with a user handler, delivered while a thread is inside
+> // Accelerate cblas_dgemm on an SME-capable Mac, corrupts the product.
+> // Build: clang -O2 -o apple_repro apple_repro.c -framework Accelerate
+> // Run:   VECLIB_MAXIMUM_THREADS=1 ./apple_repro            (handled SIGUSR1 storm)
+> //        VECLIB_MAXIMUM_THREADS=1 ./apple_repro ignore     (same storm, SIG_IGN: control)
+> //        VECLIB_MAXIMUM_THREADS=1 ./apple_repro mask       (handled, but blocked during dgemm: control)
+> #define ACCELERATE_NEW_LAPACK
+> #include <Accelerate/Accelerate.h>
+> #include <pthread.h>
+> #include <signal.h>
+> #include <stdint.h>
+> #include <stdio.h>
+> #include <stdlib.h>
+> #include <string.h>
+> #include <unistd.h>
+> 
+> enum { N = 400, REPS = 500 };
+> static volatile sig_atomic_t n_sig, n_streaming, n_za;
+> static volatile int running = 1;
+> static pthread_t worker;
+> 
+> static void handler(int s) {  // touches no FP/SIMD/SME state
+>   (void)s;
+>   uint64_t svcr;
+>   __asm__ volatile("mrs %0, S3_3_C4_C2_2" : "=r"(svcr));  // SVCR: bit0 = PSTATE.SM, bit1 = PSTATE.ZA
+>   n_sig++;
+>   if (svcr & 1) n_streaming++;
+>   if (svcr & 2) n_za++;
+> }
+> static void *pump(void *a) {
+>   (void)a;
+>   while (running) { pthread_kill(worker, SIGUSR1); usleep(50); }
+>   return NULL;
+> }
+> static void gemm(const double *A, const double *B, double *C) {
+>   cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, N, N, N, 1.0, A, N, B, N, 0.0, C, N);
+> }
+> 
+> int main(int argc, char **argv) {
+>   const char *mode = argc > 1 ? argv[1] : "handle";
+>   double *A = malloc(N * N * 8), *B = malloc(N * N * 8), *R = malloc(N * N * 8), *C = malloc(N * N * 8);
+>   uint64_t x = 12345;
+>   for (int i = 0; i < N * N; i++) { x = x * 6364136223846793005ULL + 1; A[i] = (x >> 11) * 0x1p-53; }
+>   for (int i = 0; i < N * N; i++) { x = x * 6364136223846793005ULL + 1; B[i] = (x >> 11) * 0x1p-53; }
+>   gemm(A, B, R);  // reference, computed before any signal is sent
+> 
+>   if (!strcmp(mode, "ignore")) signal(SIGUSR1, SIG_IGN);
+>   else {
+>     struct sigaction sa = {0};
+>     sa.sa_handler = handler;
+>     sa.sa_flags = SA_RESTART;
+>     sigaction(SIGUSR1, &sa, NULL);
+>   }
+>   sigset_t usr1;
+>   sigemptyset(&usr1);
+>   sigaddset(&usr1, SIGUSR1);
+>   worker = pthread_self();
+>   pthread_t th;
+>   pthread_create(&th, NULL, pump, NULL);
+> 
+>   int bad = 0;
+>   long bad_cells = 0, zero_cells = 0;
+>   for (int r = 0; r < REPS; r++) {
+>     if (!strcmp(mode, "mask")) pthread_sigmask(SIG_BLOCK, &usr1, NULL);
+>     gemm(A, B, C);
+>     if (!strcmp(mode, "mask")) pthread_sigmask(SIG_UNBLOCK, &usr1, NULL);
+>     int nb = 0;
+>     for (int i = 0; i < N * N; i++)
+>       if (C[i] != R[i]) { nb++; zero_cells += C[i] == 0; }
+>     bad += nb > 0;
+>     bad_cells += nb;
+>   }
+>   running = 0;
+>   pthread_join(th, NULL);
+>   printf("mode=%s: %d/%d products differ from the reference (%ld cells, %ld set to 0); "
+>          "handler entered %d times, %d in streaming mode, %d with ZA enabled\n",
+>          mode, bad, REPS, bad_cells, zero_cells, (int)n_sig, (int)n_streaming, (int)n_za);
+>   return bad > 0;
+> }
+> 
+> Best,
+> Edoardo Maria Acabbi
+> University of Mannheim
+
+	[[alternative HTML version deleted]]
+
+

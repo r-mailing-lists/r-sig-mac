@@ -137,6 +137,22 @@
       "thread_id": "thread-c84eea9b577c",
       "thread_depth": 5,
       "month": "2026-10"
+    },
+    {
+      "id": "msg-8fb94a18f98f",
+      "message_id": "<B90F7875-9364-48C3-8990-A783858D6012@uni-mannheim.de>",
+      "from_name": "Edoardo Maria Acabbi",
+      "from_email_hash": "b141b105d01463dfb74384c4c0bbd6d299215483000c013394bce4af8c5fe68b",
+      "date": "2026-10-05T15:17:56Z",
+      "subject": "[R-SIG-Mac] macOS 27 on M4: handled signals corrupt vecLib (Accelerate) BLAS results",
+      "subject_clean": "macOS 27 on M4: handled signals corrupt vecLib (Accelerate) BLAS results",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "> Dear all,\n> \n> On an M4 Max with macOS 27.0.1 (26A434) and CRAN R 4.6.1, with R switched to the vecLib BLAS (libRblas.dylib -> libRblas.vecLib.dylib), matrix products are silently wrong whenever a signal that R handles arrives during the BLAS call. Two R-level triggers we hit:\n> - the SIGCHLD handler that parallel installs: children of mcparallel()/mclapply() exiting while the parent multiplies;\n> - Rprof()'s SIGPROF: R dies with an illegal instruction.\n> \n> The fault is not in R. The C program below reproduces it with Accelerate's cblas_dgemm and an empty SIGUSR1 handler: 328 of 500 products of 400x400 matrices are wrong, some cells exactly zero. Inside the handler, SVCR shows that the thread is still in SME streaming mode with ZA enabled. Ignored signals, or signals blocked during the call, give 0 of 500 wrong. R's reference BLAS (libRblas.0.dylib) and OpenBLAS 0.3.30 (non-SME core) give 0 wrong under the same signal load.\n> \n> The public xnu source (xnu-12377.121.6, the macOS 26 line) points to the cause: signal delivery does not leave streaming mode, and sigreturn truncates the streaming vector registers to 128 bits. If that reading is right, macOS 26 on M4 is affected too; we have not run the test on macOS 26. Reported to Apple as FB25068706.\n> \n> This differs from the fork-safety problem discussed in January (https://stat.ethz.ch/pipermail/r-sig-mac/2026-January/015322.html). There the forked child fails. Here the parent's own product is corrupted, and no fork is needed: any handled signal does it.\n> \n> Until Apple fixes it, users of SME Macs (M4 and later) who switched to vecLib may want to switch back to the reference BLAS, the CRAN default:\n> \n>     cd /Library/Frameworks/R.framework/Resources/lib\n>     ln -sf libRblas.0.dylib libRblas.dylib\n> \n> A line in the vecLib section of the R for macOS FAQ might help others.\n> \n> Reproducer (clang -O2 -o apple_repro apple_repro.c -framework Accelerate):\n> \n> // Minimal reproducer: a signal with a user handler, delivered while a thread is inside\n> // Accelerate cblas_dgemm on an SME-capable Mac, corrupts the product.\n> // Build: clang -O2 -o apple_repro apple_repro.c -framework Accelerate\n> // Run:   VECLIB_MAXIMUM_THREADS=1 ./apple_repro            (handled SIGUSR1 storm)\n> //        VECLIB_MAXIMUM_THREADS=1 ./apple_repro ignore     (same storm, SIG_IGN: control)\n> //        VECLIB_MAXIMUM_THREADS=1 ./apple_repro mask       (handled, but blocked during dgemm: control)\n> #define ACCELERATE_NEW_LAPACK\n> #include <Accelerate/Accelerate.h>\n> #include <pthread.h>\n> #include <signal.h>\n> #include <stdint.h>\n> #include <stdio.h>\n> #include <stdlib.h>\n> #include <string.h>\n> #include <unistd.h>\n> \n> enum { N = 400, REPS = 500 };\n> static volatile sig_atomic_t n_sig, n_streaming, n_za;\n> static volatile int running = 1;\n> static pthread_t worker;\n> \n> static void handler(int s) {  // touches no FP/SIMD/SME state\n>   (void)s;\n>   uint64_t svcr;\n>   __asm__ volatile(\"mrs %0, S3_3_C4_C2_2\" : \"=r\"(svcr));  // SVCR: bit0 = PSTATE.SM, bit1 = PSTATE.ZA\n>   n_sig++;\n>   if (svcr & 1) n_streaming++;\n>   if (svcr & 2) n_za++;\n> }\n> static void *pump(void *a) {\n>   (void)a;\n>   while (running) { pthread_kill(worker, SIGUSR1); usleep(50); }\n>   return NULL;\n> }\n> static void gemm(const double *A, const double *B, double *C) {\n>   cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, N, N, N, 1.0, A, N, B, N, 0.0, C, N);\n> }\n> \n> int main(int argc, char **argv) {\n>   const char *mode = argc > 1 ? argv[1] : \"handle\";\n>   double *A = malloc(N * N * 8), *B = malloc(N * N * 8), *R = malloc(N * N * 8), *C = malloc(N * N * 8);\n>   uint64_t x = 12345;\n>   for (int i = 0; i < N * N; i++) { x = x * 6364136223846793005ULL + 1; A[i] = (x >> 11) * 0x1p-53; }\n>   for (int i = 0; i < N * N; i++) { x = x * 6364136223846793005ULL + 1; B[i] = (x >> 11) * 0x1p-53; }\n>   gemm(A, B, R);  // reference, computed before any signal is sent\n> \n>   if (!strcmp(mode, \"ignore\")) signal(SIGUSR1, SIG_IGN);\n>   else {\n>     struct sigaction sa = {0};\n>     sa.sa_handler = handler;\n>     sa.sa_flags = SA_RESTART;\n>     sigaction(SIGUSR1, &sa, NULL);\n>   }\n>   sigset_t usr1;\n>   sigemptyset(&usr1);\n>   sigaddset(&usr1, SIGUSR1);\n>   worker = pthread_self();\n>   pthread_t th;\n>   pthread_create(&th, NULL, pump, NULL);\n> \n>   int bad = 0;\n>   long bad_cells = 0, zero_cells = 0;\n>   for (int r = 0; r < REPS; r++) {\n>     if (!strcmp(mode, \"mask\")) pthread_sigmask(SIG_BLOCK, &usr1, NULL);\n>     gemm(A, B, C);\n>     if (!strcmp(mode, \"mask\")) pthread_sigmask(SIG_UNBLOCK, &usr1, NULL);\n>     int nb = 0;\n>     for (int i = 0; i < N * N; i++)\n>       if (C[i] != R[i]) { nb++; zero_cells += C[i] == 0; }\n>     bad += nb > 0;\n>     bad_cells += nb;\n>   }\n>   running = 0;\n>   pthread_join(th, NULL);\n>   printf(\"mode=%s: %d/%d products differ from the reference (%ld cells, %ld set to 0); \"\n>          \"handler entered %d times, %d in streaming mode, %d with ZA enabled\\n\",\n>          mode, bad, REPS, bad_cells, zero_cells, (int)n_sig, (int)n_streaming, (int)n_za);\n>   return bad > 0;\n> }\n> \n> Best,\n> Edoardo Maria Acabbi\n> University of Mannheim\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "> Dear all,\n> \n> On an M4 Max with macOS 27.0.1 (26A434) and CRAN R 4.6.1, with R switched to the vecLib BLAS (libRblas.dylib -> libRblas.vecLib.dylib), matrix products are silently wrong whenever a s",
+      "thread_id": "thread-8fb94a18f98f",
+      "thread_depth": 0,
+      "month": "2026-10"
     }
   ],
   "threads": [
@@ -152,6 +168,17 @@
       "started": "2026-10-02T10:47:13Z",
       "last_reply": "2026-10-04T02:49:23Z",
       "root_message_id": "msg-c84eea9b577c"
+    },
+    {
+      "id": "thread-8fb94a18f98f",
+      "subject": "macOS 27 on M4: handled signals corrupt vecLib (Accelerate) BLAS results",
+      "message_count": 1,
+      "participants": [
+        "Edoardo Maria Acabbi"
+      ],
+      "started": "2026-10-05T15:17:56Z",
+      "last_reply": "2026-10-05T15:17:56Z",
+      "root_message_id": "msg-8fb94a18f98f"
     }
   ]
 }
