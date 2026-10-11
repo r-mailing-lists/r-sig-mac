@@ -557,3 +557,93 @@ Message-ID: <B90F7875-9364-48C3-8990-A783858D6012@uni-mannheim.de>
 	[[alternative HTML version deleted]]
 
 
+From i@mi511 m@iii@g oii @iity@com  Sat Oct 10 15:09:33 2026
+From: i@mi511 m@iii@g oii @iity@com (i@mi511 m@iii@g oii @iity@com)
+Date: Sat, 10 Oct 2026 22:09:33 +0900 (JST)
+Subject: [R-SIG-Mac] R Commander crashes with X_OpenFont error on Apple
+ Silicon Mac
+Message-ID: <1331763687.20040.1791637773182.iami511@nifty.com>
+
+Dear R for macOS Development Team,
+
+I am experiencing a reproducible crash when launching R Commander (Rcmdr) on 
+my Apple Silicon Mac. I would appreciate your advice on how to resolve this 
+issue.
+
+System information:
+
+Mac: MacBook Air with Apple M4 chip
+
+macOS: Tahoe 26.6.2
+
+R: 4.6.1 (arm64)
+
+R Commander (Rcmdr): 2.15.0
+
+EZR (RcmdrPlugin.EZR): 1.70
+
+Tcl/Tk: 8.6.13, installed through the official R macOS package
+
+XQuartz: 2.8.6
+
+Problem:
+
+When I launch R from Terminal and execute:
+
+library(Rcmdr)
+
+R begins loading the required packages but then terminates with the following 
+X11 error:
+
+X Error of failed request: BadValue (integer parameter out of range for 
+operation)
+  Major opcode of failed request: 45 (X_OpenFont)
+  Value in failed request: 0xa00228
+  Serial number of failed request: 2199
+  Current serial number in output stream: 2200
+
+The Terminal then returns to the shell prompt.
+
+Troubleshooting already performed:
+
+Confirmed that Tcl/Tk is available in R.
+
+Confirmed that a basic Tk window can be created successfully.
+
+Confirmed that the Tk wish8.6 application can display text using standard Tk 
+fonts.
+
+Confirmed that XQuartz is installed and can display X11 applications.
+
+Refreshed the font cache and restarted XQuartz.
+
+Tried changing Tk font settings, including Helvetica and Courier.
+
+Tried modifying the X11 font path.
+
+Tested R Commander with alternative R options, without success.
+
+The same X_OpenFont error occurs consistently.
+
+I understand that newer Tcl/Tk releases may include fixes related to X11 font 
+errors. However, the Tcl/Tk installation bundled with my R environment is 
+version 8.6.13.
+
+Could you please advise:
+
+Is this a known compatibility issue involving R Commander, Tcl/Tk 8.6.13, 
+XQuartz, and recent macOS versions?
+
+Is there an officially supported way to update Tcl/Tk without breaking the 
+existing R installation?
+
+Is there a recommended workaround for running R Commander and EZR on an Apple 
+Silicon Mac?
+
+I would prefer to preserve my existing R and EZR installation if possible.
+
+Thank you very much for your time and assistance.
+
+Best regards
+
+
