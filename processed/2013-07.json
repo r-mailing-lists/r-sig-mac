@@ -132,11 +132,14 @@
       "subject_clean": "GUI segfault",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20130726/6687eeb9/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20130726/6687eeb9/attachment.pl>",
+      "body_plain": "I THINK I've pinned down a reproducible example of a segfault that has been annoying me intermittently since upgrading to v3 (now using R 3.0.1 GUI 1.61 Snow Leopard build (6492))\n\nI'm afraid I've got no idea what sort of thing might lie behind this, but perhaps someone who understands these things might be able to figure it out and get it fixed in future releases (?):\n\nFirst write a file of gibberish of a similar size to the actual files of code I've been having the problem with (seems not to happen with a smaller files, but it seems not to be dependent on the seed)\n\nset.seed(456)\nf<-file(\"gibberish.R\", open=\"w\")\nfor(i in 1:1500){\ngibberish<-paste(sample(letters,50, replace=TRUE), collapse=\"\")\ncat(gibberish, \"\\n\", file=f)\n}\nclose(f)\n\nStart a new GUI session (for me this loads .Rhistory but not a workspace) and open the gibberish.R file (via the file menu)\n\nScroll to the bottom of the file (can happen at the top but it doesn't seem reproducible for me there)\n\nCopy some text (either from the file or here) that is a small subset of those last few lines, e.g. the following letters\n\nctuswt\n\nHighlight the last 5 lines of text (exact number doesn't matter but it does need to include the copied text)\n\nOpen a find window with cmd f\n\npaste the text into both boxes (one can alter the text in the replace box but don't have to)\n\npress the alt key, so that \"Replace All\" changes to \"In Selection\" and click on it\n\nI then get a segfault:\n\n *** caught segfault ***\naddress 0x0, cause 'memory not mapped'\n\nPossible actions:\n1: abort (with core dump, if enabled)\n2: normal R exit\n3: exit R without saving workspace\n4: exit R saving workspace\n>\nSelection:\n\nThis seems to happen reproducibly both on my Mountain Lion and Snow Leopard machines.\n\nRegards,\n\nChris\n\n------------------------------------------------------------------------\nDr Christopher Knight                             Michael Smith Building\nWellcome Trust RCD Fellow                       Faculty of Life Sciences\nTel:  +44 (0)161 2755378                    The University of Manchester\nroom B.2012                                                  Oxford Road\ntinyurl.com/knightLab/<http://tinyurl.com/knightLab/>                                Manchester M13 9PT\n· . ,,><(((°>                                                         UK\n------------------------------------------------------------------------\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I THINK I've pinned down a reproducible example of a segfault that has been annoying me intermittently since upgrading to v3 (now using R 3.0.1 GUI 1.61 Snow Leopard build (6492))\n\nI'm afraid I've got",
       "thread_id": "thread-c5f8405d27b3",
       "thread_depth": 0,
-      "month": "2013-07"
+      "month": "2013-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20130726/6687eeb9/attachment.pl"
+      ]
     }
   ],
   "threads": [

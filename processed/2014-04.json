@@ -86,11 +86,14 @@
         "<B322950D-2A9A-4A2A-8F74-7FD562547299@u.washington.edu>",
         "<533CDF59.3080807@stats.ox.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140402/ef3de7b2/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140402/ef3de7b2/attachment.pl>",
+      "body_plain": "Thank you for the pointer.  That’s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n\nOn Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n\n> Package ptinpoly has generated hangs/segfaults in its checks for years, across platforms.  That is why there are all the exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html .\n> \n> On 03/04/2014 01:48, Don McKenzie wrote:\n>> I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the end (below in a toy example) crashes R when I try to ID the points in the hull using pip3d(), from package ptinpoly. convhulln() is from package geometry.  Have I not supplied the right “Faces” argument to pip3d()?\n>> \n>> The objects are not large and are reproduced at the bottom of this message.\n>> \n>> Thanks\n>> \n>> ------------------------\n>>> sessionInfo()\n>> R version 3.0.3 (2014-03-06)\n>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>> \n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>> \n>> other attached packages:\n>> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6    abind_1.4-0\n>> \n>> loaded via a namespace (and not attached):\n>> [1] tools_3.0.3\n>> \n>> ——\n>> \n>>> set1 <- matrix(rnorm(99),ncol=3)\n>>> ch1 <- convhulln(set1)\n>> \n>> Output completed.  Verifying that all points are below outer planes of\n>> all facets.  Will make 594 distance computations.\n>> \n>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>> \n>>> temp.out <- pip3d(set1,ch1,set2)\n>> \n>> R CRASHES HERE\n>> \n>> ----------------------------------\n>> \n>> \n>> Don McKenzie\n>> Research Ecologist\n>> Pacific Wildland Fire Sciences Lab\n>> US Forest Service\n>> \n>> Affiliate Professor\n>> School of Environmental and Forest Sciences\n>> University of Washington\n>> dmck at uw.edu\n>> \n>> \n>> \n>> ————————————————\n>> \n>> set1\n>>              [,1]        [,2]        [,3]\n>>  [1,] -0.36381788  0.96624676 -1.09251167\n>>  [2,] -1.09242946 -0.82002293  0.42005666\n>>  [3,]  0.93852498  1.18059117 -0.34816811\n>>  [4,] -0.77413132  1.06018374 -0.37589340\n>>  [5,] -1.67759103 -1.52469985  0.85310979\n>>  [6,]  0.81729494 -0.18900503  0.83172169\n>>  [7,]  0.30546957  0.97549183 -1.30815121\n>>  [8,]  0.22201517 -0.38260850 -0.05412764\n>>  [9,]  0.48817331  1.30314678  0.19143994\n>> [10,]  1.89836307 -0.34575059  0.55599170\n>> [11,]  0.20776401  0.04977816 -0.78034565\n>> [12,] -0.76819740  0.24554574  0.40398017\n>> [13,]  0.38369531  1.07688341 -0.22686023\n>> [14,]  0.31806928  1.15482656 -0.99259846\n>> [15,]  1.07142182 -1.03495199 -0.15650968\n>> [16,] -1.24667302 -0.35217160  0.71090188\n>> [17,] -0.92079326 -1.44075490 -0.42838857\n>> [18,]  0.16907840  0.37587569  1.34994069\n>> [19,]  0.50947015  1.81852997 -1.83315646\n>> [20,]  0.52015187  1.56904146  0.90679914\n>> [21,] -0.04261864 -1.22145642  0.51953397\n>> [22,] -0.86611946 -1.21106313 -0.86571463\n>> [23,] -0.13147715  0.07893287  0.83513033\n>> [24,] -0.63488792 -0.89396994  0.70103420\n>> [25,] -0.11370015  2.00351619 -0.17652412\n>> [26,] -1.04527261 -0.14570830  1.64893662\n>> [27,]  0.46238598 -0.07990767  0.16431874\n>> [28,] -0.72396505  1.45081393 -0.91068823\n>> [29,] -0.48892499 -1.05289633  1.36531224\n>> [30,]  1.83781721  1.50964339  1.85100986\n>> [31,]  1.00023790 -0.92779325 -2.16783507\n>> [32,] -0.51429532 -1.44766548 -1.41456589\n>> [33,] -0.93249545 -0.21845332  0.75023990\n>> \n>>> ch1\n>>       [,1] [,2] [,3]\n>>  [1,]   15   31   10\n>>  [2,]   29   30   10\n>>  [3,]   29   15   10\n>>  [4,]   26   28   25\n>>  [5,]   26   29    5\n>>  [6,]   26   29   30\n>>  [7,]   32   15   31\n>>  [8,]   19   28   25\n>>  [9,]   19   32   31\n>> [10,]   19   32   28\n>> [11,]   19   30   25\n>> [12,]   19   31   10\n>> [13,]   19   30   10\n>> [14,]   21   29    5\n>> [15,]   21   29   15\n>> [16,]   21   32    5\n>> [17,]   21   32   15\n>> [18,]   20   30   25\n>> [19,]   20   26   25\n>> [20,]   20   26   30\n>> [21,]   16   28    5\n>> [22,]   16   26    5\n>> [23,]   16   26   28\n>> [24,]   22   28    5\n>> [25,]   22   32    5\n>> [26,]   22   32   28\n>> \n>>> set2\n>>               [,1]         [,2]        [,3]\n>>  [1,]  0.061298933  0.561676607 -0.29029312\n>>  [2,] -0.227292687  0.980185118  0.21751216\n>>  [3,]  0.182482967  0.913803801 -0.08308208\n>>  [4,] -0.143596376 -0.007469921 -0.33050543\n>>  [5,] -0.354096826  0.023132113  0.45463150\n>>  [6,]  0.006247011  0.183155253  0.97496500\n>>  [7,]  0.128600720 -0.249603537 -0.24710206\n>>  [8,] -0.418782299 -0.325201099  0.28908138\n>>  [9,]  0.231829464  0.343250895  0.65134735\n>> [10,] -0.392597726  0.126741875  0.21411363\n>> [11,] -0.051290704 -1.007826669  0.92808143\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> \n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n\nDon McKenzie\nResearch Ecologist\nPacific Wildland Fire Sciences Lab\nUS Forest Service\n\nAffiliate Professor\nSchool of Environmental and Forest Sciences\nUniversity of Washington\ndmck at uw.edu\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thank you for the pointer.  That’s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n\nOn Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <riple",
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140402/ef3de7b2/attachment.pl"
+      ]
     },
     {
       "id": "msg-f1d73fa99948",
@@ -177,11 +180,14 @@
         "<667A81C6-A23D-425B-B060-2FD3379CFB73@u.washington.edu>",
         "<9BBDD3F2-A65C-47E2-9E6E-87534A7DA39D@comcast.net>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140406/2d77f863/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140406/2d77f863/attachment.pl>",
+      "body_plain": "On Apr 6, 2014, at 9:50 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n\n> \n> On Apr 3, 2014, at 7:29 AM, Don McKenzie wrote:\n> \n>> Just to complicate things   :-(\n>> \n>> If I load alphashape3d, I get a crash with the following error\n>> \n>> “To open “R”, you need to install X11. Would you like to install X11 now?”\n>> \n>> I have been running R 3.0.3. in a vanilla quartz window in Mavericks (OSX 10.9) on an iMac.\n>> \n>>> sessionInfo()\n>> R version 3.0.2 (2013-09-25)\n>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>> \n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>> \n>>> library(\"alphashape3d”)\n>> \n>> CRASH AND ERROR POPUP\n> \n> That didn't look like an error message but rather an opportunity. Do you have XQuartz installed in your Mac? (I haven't upgraded to Mavericks so do not know if XQuartz ships with that version.)\n> \n> https://xquartz.macosforge.org/landing/\n\nI think it’s just the vanilla quartz that ships with Mavericks, so that would be what I have, but I do need to check that.  Thanks for the tip.\n\nDon\n\n> \n> -- \n> David.\n> \n>> On Apr 3, 2014, at 2:25 AM, Agustin Angel Diez Castillo <agustin.diez at uv.es> wrote:\n>> \n>>> Hi,\n>>> If i got it right, the original question can be addressed somewhat with inashape3d (alphashape3d package), something like:\n>>> library(alphashape3d)\n>>> set1 <- matrix(rnorm(333)/2,ncol=3)\n>>> plot3d(set1)\n>>> ashape3d.obj <- ashape3d(set1, alpha = 2)\n>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>>> in3d <- inashape3d(ashape3d.obj, points = set2)\n>>> plot(ashape3d.obj, transparency = 0.2)\n>>> rgl.points(points[in3d,], col =\"blue\")\n>>> \n>>> On Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu> wrote:\n>>> \n>>>> Thank you for the pointer.  That’s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n>>>> \n>>>> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>>>> \n>>>>> Package ptinpoly has generated hangs/segfaults in its checks for years, across platforms.  That is why there are all the exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html .\n>>>>> \n>>>>> On 03/04/2014 01:48, Don McKenzie wrote:\n>>>>>> I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the end (below in a toy example) crashes R when I try to ID the points in the hull using pip3d(), from package ptinpoly. convhulln() is from package geometry.  Have I not supplied the right “Faces” argument to pip3d()?\n>>>>>> \n>>>>>> The objects are not large and are reproduced at the bottom of this message.\n>>>>>> \n>>>>>> Thanks\n>>>>>> \n>>>>>> ------------------------\n>>>>>>> sessionInfo()\n>>>>>> R version 3.0.3 (2014-03-06)\n>>>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>>>> \n>>>>>> locale:\n>>>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>>>> \n>>>>>> attached base packages:\n>>>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>>>> \n>>>>>> other attached packages:\n>>>>>> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6    abind_1.4-0\n>>>>>> \n>>>>>> loaded via a namespace (and not attached):\n>>>>>> [1] tools_3.0.3\n>>>>>> \n>>>>>> ——\n>>>>>> \n>>>>>>> set1 <- matrix(rnorm(99),ncol=3)\n>>>>>>> ch1 <- convhulln(set1)\n>>>>>> \n>>>>>> Output completed.  Verifying that all points are below outer planes of\n>>>>>> all facets.  Will make 594 distance computations.\n>>>>>> \n>>>>>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>>>>>> \n>>>>>>> temp.out <- pip3d(set1,ch1,set2)\n>>>>>> \n>>>>>> R CRASHES HERE\n>>>>>> \n>>>>>> ----------------------------------\n>>>>>> \n>>>>>> \n>>>>>> Don McKenzie\n>>>>>> Research Ecologist\n>>>>>> Pacific Wildland Fire Sciences Lab\n>>>>>> US Forest Service\n>>>>>> \n>>>>>> Affiliate Professor\n>>>>>> School of Environmental and Forest Sciences\n>>>>>> University of Washington\n>>>>>> dmck at uw.edu\n>>>>>> \n>>>>>> \n>>>>>> \n>>>>>> ————————————————\n>>>>>> \n>>>>>> set1\n>>>>>>           [,1]        [,2]        [,3]\n>>>>>> [1,] -0.36381788  0.96624676 -1.09251167\n>>>>>> [2,] -1.09242946 -0.82002293  0.42005666\n>>>>>> [3,]  0.93852498  1.18059117 -0.34816811\n>>>>>> [4,] -0.77413132  1.06018374 -0.37589340\n>>>>>> [5,] -1.67759103 -1.52469985  0.85310979\n>>>>>> [6,]  0.81729494 -0.18900503  0.83172169\n>>>>>> [7,]  0.30546957  0.97549183 -1.30815121\n>>>>>> [8,]  0.22201517 -0.38260850 -0.05412764\n>>>>>> [9,]  0.48817331  1.30314678  0.19143994\n>>>>>> [10,]  1.89836307 -0.34575059  0.55599170\n>>>>>> [11,]  0.20776401  0.04977816 -0.78034565\n>>>>>> [12,] -0.76819740  0.24554574  0.40398017\n>>>>>> [13,]  0.38369531  1.07688341 -0.22686023\n>>>>>> [14,]  0.31806928  1.15482656 -0.99259846\n>>>>>> [15,]  1.07142182 -1.03495199 -0.15650968\n>>>>>> [16,] -1.24667302 -0.35217160  0.71090188\n>>>>>> [17,] -0.92079326 -1.44075490 -0.42838857\n>>>>>> [18,]  0.16907840  0.37587569  1.34994069\n>>>>>> [19,]  0.50947015  1.81852997 -1.83315646\n>>>>>> [20,]  0.52015187  1.56904146  0.90679914\n>>>>>> [21,] -0.04261864 -1.22145642  0.51953397\n>>>>>> [22,] -0.86611946 -1.21106313 -0.86571463\n>>>>>> [23,] -0.13147715  0.07893287  0.83513033\n>>>>>> [24,] -0.63488792 -0.89396994  0.70103420\n>>>>>> [25,] -0.11370015  2.00351619 -0.17652412\n>>>>>> [26,] -1.04527261 -0.14570830  1.64893662\n>>>>>> [27,]  0.46238598 -0.07990767  0.16431874\n>>>>>> [28,] -0.72396505  1.45081393 -0.91068823\n>>>>>> [29,] -0.48892499 -1.05289633  1.36531224\n>>>>>> [30,]  1.83781721  1.50964339  1.85100986\n>>>>>> [31,]  1.00023790 -0.92779325 -2.16783507\n>>>>>> [32,] -0.51429532 -1.44766548 -1.41456589\n>>>>>> [33,] -0.93249545 -0.21845332  0.75023990\n>>>>>> \n>>>>>>> ch1\n>>>>>>    [,1] [,2] [,3]\n>>>>>> [1,]   15   31   10\n>>>>>> [2,]   29   30   10\n>>>>>> [3,]   29   15   10\n>>>>>> [4,]   26   28   25\n>>>>>> [5,]   26   29    5\n>>>>>> [6,]   26   29   30\n>>>>>> [7,]   32   15   31\n>>>>>> [8,]   19   28   25\n>>>>>> [9,]   19   32   31\n>>>>>> [10,]   19   32   28\n>>>>>> [11,]   19   30   25\n>>>>>> [12,]   19   31   10\n>>>>>> [13,]   19   30   10\n>>>>>> [14,]   21   29    5\n>>>>>> [15,]   21   29   15\n>>>>>> [16,]   21   32    5\n>>>>>> [17,]   21   32   15\n>>>>>> [18,]   20   30   25\n>>>>>> [19,]   20   26   25\n>>>>>> [20,]   20   26   30\n>>>>>> [21,]   16   28    5\n>>>>>> [22,]   16   26    5\n>>>>>> [23,]   16   26   28\n>>>>>> [24,]   22   28    5\n>>>>>> [25,]   22   32    5\n>>>>>> [26,]   22   32   28\n>>>>>> \n>>>>>>> set2\n>>>>>>            [,1]         [,2]        [,3]\n>>>>>> [1,]  0.061298933  0.561676607 -0.29029312\n>>>>>> [2,] -0.227292687  0.980185118  0.21751216\n>>>>>> [3,]  0.182482967  0.913803801 -0.08308208\n>>>>>> [4,] -0.143596376 -0.007469921 -0.33050543\n>>>>>> [5,] -0.354096826  0.023132113  0.45463150\n>>>>>> [6,]  0.006247011  0.183155253  0.97496500\n>>>>>> [7,]  0.128600720 -0.249603537 -0.24710206\n>>>>>> [8,] -0.418782299 -0.325201099  0.28908138\n>>>>>> [9,]  0.231829464  0.343250895  0.65134735\n>>>>>> [10,] -0.392597726  0.126741875  0.21411363\n>>>>>> [11,] -0.051290704 -1.007826669  0.92808143\n>>>>>> \n>>>>>> _______________________________________________\n>>>>>> R-SIG-Mac mailing list\n>>>>>> R-SIG-Mac at r-project.org\n>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>> \n>>>>> \n>>>>> \n>>>>> -- \n>>>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>>> \n>>>> Don McKenzie\n>>>> Research Ecologist\n>>>> Pacific Wildland Fire Sciences Lab\n>>>> US Forest Service\n>>>> \n>>>> Affiliate Professor\n>>>> School of Environmental and Forest Sciences\n>>>> University of Washington\n>>>> dmck at uw.edu\n>>>> \n>>>> \n>>>> \n>>>> \n>>>> \n>>>> \t[[alternative HTML version deleted]]\n>>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> Don McKenzie\n>> Research Ecologist\n>> Pacific Wildland Fire Sciences Lab\n>> US Forest Service\n>> \n>> Affiliate Professor\n>> School of Environmental and Forest Sciences\n>> University of Washington\n>> \n>> dmck at uw.edu\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n> David Winsemius, MD\n> Alameda, CA, USA\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDon McKenzie\nResearch Ecologist\nPacific Wildland Fire Sciences Lab\nUS Forest Service\n\nAffiliate Professor\nSchool of Environmental and Forest Sciences\nUniversity of Washington\ndmck at uw.edu\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Apr 6, 2014, at 9:50 AM, David Winsemius <dwinsemius at comcast.net> wrote:\n\n> \n> On Apr 3, 2014, at 7:29 AM, Don McKenzie wrote:\n> \n>> Just to complicate things   :-(\n>> \n>> If I load alphashape3d",
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 6,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140406/2d77f863/attachment.pl"
+      ]
     },
     {
       "id": "msg-3014eb5f552e",
@@ -230,11 +236,14 @@
         "<5342DA68.9030605@u.washington.edu>",
         "<7447E29B-5E35-4EB8-B598-693A41748101@gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140408/d21b6948/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140408/d21b6948/attachment.pl>",
+      "body_plain": "Do you use the same .emacs as before?  This sounds like having to do with\nfortification and the R buffer, and might be solvable by using\n  (setq comint-scroll-to-bottom-on-output 'others)\nin your .emacs.\n\nIt would be strange if this is the source of your problem unless you're\nusing a new .emacs.\n\nBest,\nKasper\n\n\nOn Mon, Apr 7, 2014 at 1:37 PM, peter dalgaard <pdalgd at gmail.com> wrote:\n\n> Hmm,\n>\n> Tried aquamacs? Hasn't been giving me problems lately. Otherwise, you\n> might check the Activity Monitor and see if any involved processes turns\n> App Nap on.\n>\n> -pd\n>\n>\n> On 07 Apr 2014, at 19:03 , Stephanie M. Gogarten <\n> sdmorris at u.washington.edu> wrote:\n>\n> > Hi,\n> >\n> > I just upgraded to Mavericks and I'm having trouble with ESS.  I have R\n> 3.0.3, and I tried both the ESS-included Emacs binary (\n> http://vgoulet.act.ulaval.ca/en/emacs/) and the binary without extras (\n> http://emacsformacosx.com/) and installing ESS from source.\n> >\n> > In both cases, I'm getting really slow response when using the \"Execute\n> this line\" button in Emacs.  The simplest R functions take several seconds\n> to process.  Typing directly in the R buffer doesn't have this problem.\n> >\n> > Has anyone else seen this behavior, or know of a fix?\n> >\n> > thanks,\n> > Stephanie\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> --\n> Peter Dalgaard, Professor,\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Do you use the same .emacs as before?  This sounds like having to do with\nfortification and the R buffer, and might be solvable by using\n  (setq comint-scroll-to-bottom-on-output 'others)\nin your .ema",
       "thread_id": "thread-3014eb5f552e",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140408/d21b6948/attachment.pl"
+      ]
     },
     {
       "id": "msg-d8f69da586f5",
@@ -300,11 +309,14 @@
       "subject_clean": "Unexpected behavior of R round function on Mac",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/03e5cd39/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/03e5cd39/attachment.pl>",
+      "body_plain": "Hi all\n\nI have encountered some strange/wrong behavior of the round function in R.\n\nThis is the behavior on my mac laptop:\n\n> R.version\n               _\nplatform       x86_64-apple-darwin13.0.2\narch           x86_64\nos             darwin13.0.2\nsystem         x86_64, darwin13.0.2\nstatus\nmajor          3\nminor          0.2\nyear           2013\nmonth          09\nday            25\nsvn rev        63987\nlanguage       R\nversion.string R version 3.0.2 (2013-09-25)\nnickname       Frisbee Sailing\n> round(1.5)\n[1] 2\n> round(4.5)\n[1] 4\n> floor(1.5 + 0.5)\n[1] 2\n> floor(4.5 + 0.5)\n[1] 5\n\nThis is the behavior on Ubuntu 12.04 running in a virtual machine on the\nsame mac:\n\n> R.version\n               _\nplatform       x86_64-pc-linux-gnu\narch           x86_64\nos             linux-gnu\nsystem         x86_64, linux-gnu\nstatus         beta\nmajor          3\nminor          1.0\nyear           2014\nmonth          03\nday            28\nsvn rev        65330\nlanguage       R\nversion.string R version 3.1.0 beta (2014-03-28 r65330)\nnickname       Spring Dance\n> round(1.5)\n[1] 2\n> round(4.5)\n[1] 4\n> floor(1.5 + 0.5)\n[1] 2\n> floor(4.5 + 0.5)\n[1] 5\n\nI would expect round(x.5) = x+1, which only happens sometimes. My colleague\nusing R version 3.1.0 on Linux on a Lenovo laptop gets the expected result\nin all cases.\n\nIs this a bug or somehow expected behavior? It seems to be related to the\nmac hardware. I can ad hoc fix it using floor, but that is hardly optimal.\n\nThanks,\nPer\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all\n\nI have encountered some strange/wrong behavior of the round function in R.\n\nThis is the behavior on my mac laptop:\n\n> R.version\n               _\nplatform       x86_64-apple-darwin13.0.2\narch  ",
       "thread_id": "thread-933f4b11f318",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/03e5cd39/attachment.pl"
+      ]
     },
     {
       "id": "msg-c28c398c2d35",
@@ -337,11 +349,14 @@
         "<CAGtYnKh5LVdG4-W04xMfL4BTEkOFkOuCfS-CJxDns7KqNv=j6Q@mail.gmail.com>",
         "<99DF324F-AFFE-41C4-BDFD-ECAA0A71E292@gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/0d1cb245/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/0d1cb245/attachment.pl>",
+      "body_plain": "Ahh, I had no idea of this difference in rouding rules. I double\nchecked my colleagues\nlaptop and it indeed agrees with my laptop.\n\nThanks,\nPer\n\nOn Fri, Apr 11, 2014 at 11:04 AM, peter dalgaard <PDalgd at gmail.com> wrote:\n\n> Google for \"round to even\", and read the Details section of ?round.\n>\n>\n> On 11 Apr 2014, at 10:42 , Per Nielsen <evilper at gmail.com> wrote:\n>\n> > Hi all\n> >\n> > I have encountered some strange/wrong behavior of the round function in\n> R.\n> >\n> > This is the behavior on my mac laptop:\n> >\n> >> R.version\n> >               _\n> > platform       x86_64-apple-darwin13.0.2\n> > arch           x86_64\n> > os             darwin13.0.2\n> > system         x86_64, darwin13.0.2\n> > status\n> > major          3\n> > minor          0.2\n> > year           2013\n> > month          09\n> > day            25\n> > svn rev        63987\n> > language       R\n> > version.string R version 3.0.2 (2013-09-25)\n> > nickname       Frisbee Sailing\n> >> round(1.5)\n> > [1] 2\n> >> round(4.5)\n> > [1] 4\n> >> floor(1.5 + 0.5)\n> > [1] 2\n> >> floor(4.5 + 0.5)\n> > [1] 5\n> >\n> > This is the behavior on Ubuntu 12.04 running in a virtual machine on the\n> > same mac:\n> >\n> >> R.version\n> >               _\n> > platform       x86_64-pc-linux-gnu\n> > arch           x86_64\n> > os             linux-gnu\n> > system         x86_64, linux-gnu\n> > status         beta\n> > major          3\n> > minor          1.0\n> > year           2014\n> > month          03\n> > day            28\n> > svn rev        65330\n> > language       R\n> > version.string R version 3.1.0 beta (2014-03-28 r65330)\n> > nickname       Spring Dance\n> >> round(1.5)\n> > [1] 2\n> >> round(4.5)\n> > [1] 4\n> >> floor(1.5 + 0.5)\n> > [1] 2\n> >> floor(4.5 + 0.5)\n> > [1] 5\n> >\n> > I would expect round(x.5) = x+1, which only happens sometimes. My\n> colleague\n> > using R version 3.1.0 on Linux on a Lenovo laptop gets the expected\n> result\n> > in all cases.\n> >\n> > Is this a bug or somehow expected behavior? It seems to be related to the\n> > mac hardware. I can ad hoc fix it using floor, but that is hardly\n> optimal.\n> >\n> > Thanks,\n> > Per\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> --\n> Peter Dalgaard, Professor\n> Center for Statistics, Copenhagen Business School\n> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n> Phone: (+45)38153501\n> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Ahh, I had no idea of this difference in rouding rules. I double\nchecked my colleagues\nlaptop and it indeed agrees with my laptop.\n\nThanks,\nPer\n\nOn Fri, Apr 11, 2014 at 11:04 AM, peter dalgaard <PDalg",
       "thread_id": "thread-933f4b11f318",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/0d1cb245/attachment.pl"
+      ]
     },
     {
       "id": "msg-e1c7f3738477",
@@ -376,11 +391,14 @@
         "<99DF324F-AFFE-41C4-BDFD-ECAA0A71E292@gmail.com>",
         "<5347F149.2060604@gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/d663f589/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/d663f589/attachment.pl>",
+      "body_plain": "That was a mistake on my part, the shout-across-the-office communication\nbetween him and me caused a misunderstanding. Everything is according to\nthe details in ?round, both on our mac and linux laptops :)\n\n\n\n\nOn Fri, Apr 11, 2014 at 3:42 PM, Duncan Murdoch <murdoch.duncan at gmail.com>wrote:\n\n> On 11/04/2014, 5:04 AM, peter dalgaard wrote:\n>\n>> Google for \"round to even\", and read the Details section of ?round.\n>>\n>\n> The behaviour on the Linux laptop does sound problematic, if it is really\n> giving round(4.5) = 5.  We do have the warning there that it depends on OS\n> services, but this could cause other problems.\n>\n> Duncan Murdoch\n>\n>\n>\n>\n>>\n>> On 11 Apr 2014, at 10:42 , Per Nielsen <evilper at gmail.com> wrote:\n>>\n>>  Hi all\n>>>\n>>> I have encountered some strange/wrong behavior of the round function in\n>>> R.\n>>>\n>>> This is the behavior on my mac laptop:\n>>>\n>>>  R.version\n>>>>\n>>>                _\n>>> platform       x86_64-apple-darwin13.0.2\n>>> arch           x86_64\n>>> os             darwin13.0.2\n>>> system         x86_64, darwin13.0.2\n>>> status\n>>> major          3\n>>> minor          0.2\n>>> year           2013\n>>> month          09\n>>> day            25\n>>> svn rev        63987\n>>> language       R\n>>> version.string R version 3.0.2 (2013-09-25)\n>>> nickname       Frisbee Sailing\n>>>\n>>>> round(1.5)\n>>>>\n>>> [1] 2\n>>>\n>>>> round(4.5)\n>>>>\n>>> [1] 4\n>>>\n>>>> floor(1.5 + 0.5)\n>>>>\n>>> [1] 2\n>>>\n>>>> floor(4.5 + 0.5)\n>>>>\n>>> [1] 5\n>>>\n>>> This is the behavior on Ubuntu 12.04 running in a virtual machine on the\n>>> same mac:\n>>>\n>>>  R.version\n>>>>\n>>>                _\n>>> platform       x86_64-pc-linux-gnu\n>>> arch           x86_64\n>>> os             linux-gnu\n>>> system         x86_64, linux-gnu\n>>> status         beta\n>>> major          3\n>>> minor          1.0\n>>> year           2014\n>>> month          03\n>>> day            28\n>>> svn rev        65330\n>>> language       R\n>>> version.string R version 3.1.0 beta (2014-03-28 r65330)\n>>> nickname       Spring Dance\n>>>\n>>>> round(1.5)\n>>>>\n>>> [1] 2\n>>>\n>>>> round(4.5)\n>>>>\n>>> [1] 4\n>>>\n>>>> floor(1.5 + 0.5)\n>>>>\n>>> [1] 2\n>>>\n>>>> floor(4.5 + 0.5)\n>>>>\n>>> [1] 5\n>>>\n>>> I would expect round(x.5) = x+1, which only happens sometimes. My\n>>> colleague\n>>> using R version 3.1.0 on Linux on a Lenovo laptop gets the expected\n>>> result\n>>> in all cases.\n>>>\n>>> Is this a bug or somehow expected behavior? It seems to be related to the\n>>> mac hardware. I can ad hoc fix it using floor, but that is hardly\n>>> optimal.\n>>>\n>>> Thanks,\n>>> Per\n>>>\n>>>         [[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>\n>>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "That was a mistake on my part, the shout-across-the-office communication\nbetween him and me caused a misunderstanding. Everything is according to\nthe details in ?round, both on our mac and linux lapto",
       "thread_id": "thread-933f4b11f318",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/d663f589/attachment.pl"
+      ]
     },
     {
       "id": "msg-67282d113564",
@@ -410,11 +428,14 @@
       "subject_clean": "request for removal from R-sig",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/e69e9499/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/e69e9499/attachment.pl>",
+      "body_plain": "Hello,\n\nPlease remove me from this mailing list. \n\nPlease confirm that I have been removed.\n\nThank you,\n\nMarc Dubin\n\nmdubin at gmail.com\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello,\n\nPlease remove me from this mailing list. \n\nPlease confirm that I have been removed.\n\nThank you,\n\nMarc Dubin\n\nmdubin at gmail.com\n\n\n\n\t[[alternative HTML version deleted]]",
       "thread_id": "thread-12c6f75d1d1a",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/e69e9499/attachment.pl"
+      ]
     },
     {
       "id": "msg-5da8ffcfc499",
@@ -463,11 +484,14 @@
       "subject_clean": "Problems with R 1.",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140412/bc74ba5b/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140412/bc74ba5b/attachment.pl>",
+      "body_plain": "First, sorry if this is a repeat: I just joined the list and don't know\nwhat has been discussed recently. Thanks for listening!\n\nI just installed the latest version of R (3.1.0).  I also reinstalled the\nggplot2 package. As soon as I execute library(\"ggplot2\") I get the bomb\nmessage \"R Session Aborted\" (in RStudio) or \"caught segfault\" message (in\nthe R Console).\n\nI'm on Mac OS X Mavericks. I downloaded the Mavericks version, which is\nspecifically designed for the new XCode (or something).\n\nI haven't tried on my Linux because I want to keep at least one working\nversion of R/RStudio.\n\nI tried to look at the log files here:\nHelp Menu -> Diagnostics -> Show Log Files\n\nbut they are from last week, which is odd because I use R/RStudio every day.\n\nIn the R Console:\nlibrary(\"ggplot2\")\n\n *** caught segfault ***\naddress 0x18, cause 'memory not mapped'\n\nTraceback:\n 1: dyn.load(file, DLLpath = DLLpath, ...)\n 2: library.dynam(lib, package, package.lib)\n 3: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck =\nvI[[j]])\n 4: asNamespace(ns)\n 5: namespaceImportFrom(ns, loadNamespace(j <- i[[1L]], c(lib.loc,\n.libPaths()), versionCheck = vI[[j]]), i[[2L]], from = package)\n 6: loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])\n 7: namespaceImport(ns, loadNamespace(i, c(lib.loc, .libPaths()),\nversionCheck = vI[[i]]), from = package)\n 8: loadNamespace(package, c(which.lib.loc, lib.loc))\n 9: doTryCatch(return(expr), name, parentenv, handler)\n10: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n11: tryCatchList(expr, classes, parentenv, handlers)\n12: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if\n(!is.null(call)) {        if (identical(call[[1L]],\nquote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\ndeparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\nLONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg,\n\"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L], type\n= \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type = \"b\")\n+ nchar(sm[1L],                 type = \"b\")        if (w >\nLONG)             prefix <- paste0(prefix, \"\\n  \")    }    else prefix <-\n\"Error : \"    msg <- paste0(prefix, conditionMessage(e), \"\\n\")\n.Internal(seterrmessage(msg[1L]))    if (!silent &&\nidentical(getOption(\"show.error.messages\"),         TRUE)) {\ncat(msg, file = stderr())        .Internal(printDeferredWarnings())    }\ninvisible(structure(msg, class = \"try-error\", condition = e))})\n13: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc))    env\n<- attachNamespace(ns, pos = pos, deps)})\n14: library(\"ggplot2\")\n\nPossible actions:\n1: abort (with core dump, if enabled)\n2: normal R exit\n3: exit R without saving workspace\n4: exit R saving workspace\nSelection:\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "First, sorry if this is a repeat: I just joined the list and don't know\nwhat has been discussed recently. Thanks for listening!\n\nI just installed the latest version of R (3.1.0).  I also reinstalled t",
       "thread_id": "thread-34eaea04e46c",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140412/bc74ba5b/attachment.pl"
+      ]
     },
     {
       "id": "msg-2152046e1736",
@@ -538,11 +562,14 @@
       "references": [
         "<CABFfbXvEGL_KBonimW-o5PWSuUfYcfSKiQFT-27WFPJnET0qGA@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/350e444e/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/350e444e/attachment.pl>",
+      "body_plain": "There are actually over 500 packages that do not have a mavericks build.\nMaybe send some auto generated emails to maintainers?\n\nmav <- read.dcf(url(\"\nhttp://cran.r-project.org/bin/macosx/mavericks/contrib/3.1/PACKAGES\"))\nosx <- read.dcf(url(\"\nhttp://cran.r-project.org/bin/macosx/contrib/3.1/PACKAGES\"))\nmav <- as.data.frame(mav, stringsAsFactors=FALSE)\nosx <- as.data.frame(osx, stringsAsFactors=FALSE)\nmav$Package[!(mav$Package %in% osx$Package)]\nosx$Package[!(osx$Package %in% mav$Package)]\n\n\n\n\nOn Thu, Apr 10, 2014 at 9:54 PM, Jeroen Ooms <jeroen.ooms at stat.ucla.edu>wrote:\n\n> Running update.packages on R 3.1 for Mavericks complains that some\n> CRAN packages do not have binary builds available. For example lme4 is\n> missing from http://cran.r-project.org/bin/macosx/mavericks/contrib/3.1/.\n>\n> Is there any reason for this, or do I just need some patience? I\n> installed lme4 from source and it seems to build without problems.\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "There are actually over 500 packages that do not have a mavericks build.\nMaybe send some auto generated emails to maintainers?\n\nmav <- read.dcf(url(\"\nhttp://cran.r-project.org/bin/macosx/mavericks/con",
       "thread_id": "thread-19a82493e63f",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/350e444e/attachment.pl"
+      ]
     },
     {
       "id": "msg-fb2aa7a48963",
@@ -794,11 +821,14 @@
         "<CAD32310-9E37-43A0-8CA6-9FF4A01C5324@me.com>",
         "<534D14AF.8020500@gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/9016db80/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/9016db80/attachment.pl>",
+      "body_plain": "On Tue, Apr 15, 2014 at 7:14 AM, Duncan Murdoch <murdoch.duncan at gmail.com>wrote:\n\n> On 14/04/2014, 10:23 AM, Marc Schwartz wrote:\n>\n>> Hi Martin,\n>>\n>> Thanks for your confirmation on this.\n>>\n>> I normally do not use R CMD Sweave, as I too run under ESS in normal day\n>> to day operations. This finding was a quirk of having a particular Rnw\n>> document that I occasionally run using R CMD Sweave and I had done so over\n>> the weekend, realizing this behavior.\n>>\n>\n> This sounds like an argument for dropping R CMD Sweave, rather than fixing\n> it.  The bug was introduced in July, 2013, and nobody noticed it because so\n> few people use that feature, and apparently nobody who does use it bothers\n> to test pre-release versions.\n>\n\nOr they just fix it for themselves, and do not report it. At least I know\nof one such case....\n\nGabor\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Tue, Apr 15, 2014 at 7:14 AM, Duncan Murdoch <murdoch.duncan at gmail.com>wrote:\n\n> On 14/04/2014, 10:23 AM, Marc Schwartz wrote:\n>\n>> Hi Martin,\n>>\n>> Thanks for your confirmation on this.\n>>\n>> I",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 4,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/9016db80/attachment.pl"
+      ]
     },
     {
       "id": "msg-e9a518eba359",
@@ -828,11 +858,14 @@
       "references": [
         "<CABFfbXumM2V24SEb3eyXcwmBS12W58=2q72=w=6E+idE0m0u8Q@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/8c9d2817/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/8c9d2817/attachment.pl>",
+      "body_plain": "Can you try setting FC_DEBUG environment variable to see what fonts.conf\nfile it is loading, what fonts it tries to read, etc?  The fontconfig\nlibrary will print useful output to stderr when the right env bars are set.\n\nMurray (mobile)\nOn Apr 15, 2014 7:57 PM, \"Jeroen Ooms\" <jeroen.ooms at stat.ucla.edu> wrote:\n\n> Running on R 3.1 on my Mavericks laptop:\n>\n> options(bitmapType = \"cairo\");\n> svg(\"cars.svg\", width=11.69, height=8.27)\n> plot(cars)\n> dev.off()\n>\n> Gives a message: Fontconfig error: Cannot load default config file.\n> The text in the svg seems heavily pixelated. The same happens when\n> using png().\n>\n> IIRC, this did not happen on R 3.0, although I am now starting to\n> doubt this. Is there anything on my machine that I try to\n> update/reinstall to fix this?\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Can you try setting FC_DEBUG environment variable to see what fonts.conf\nfile it is loading, what fonts it tries to read, etc?  The fontconfig\nlibrary will print useful output to stderr when the right",
       "thread_id": "thread-e9a518eba359",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/8c9d2817/attachment.pl"
+      ]
     },
     {
       "id": "msg-a8bcf3b16690",
@@ -844,11 +877,14 @@
       "subject_clean": "OS X R console Package Manager error",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/3fc66e16/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/3fc66e16/attachment.pl>",
+      "body_plain": "Hi Folks,\n\nI updated my version of R yesterday using the R-3.1.0-snowleopard.pkg downloaded from CRAN. I tried to open Package Manager, but it failed to open, with the following message....\n\nError: '.find.package' is defunct.\nUse 'find.package' instead.\nSee help(\"Defunct\")\n\nI deleted R.app and the R frameworks folder, and re-installed R from scratch, but the error persists. Clearly I have missed something from previous installations that is still lurking somewhere on my computer. Can anyone point me to what I need to delete/edit/update to correct this issue?\n\nMany thanks,\n\nDr David Iles\nVisiting Research Fellow\nSchool of Biology\nUniversity of Leeds\nLeeds LS2 9JT\n\n> sessionInfo()\nR version 3.1.0 (2014-04-10)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Folks,\n\nI updated my version of R yesterday using the R-3.1.0-snowleopard.pkg downloaded from CRAN. I tried to open Package Manager, but it failed to open, with the following message....\n\nError: '.",
       "thread_id": "thread-a8bcf3b16690",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/3fc66e16/attachment.pl"
+      ]
     },
     {
       "id": "msg-5f9228b60c6b",
@@ -899,11 +935,14 @@
         "<CF7321DC.1159%daveiles@omicsltd.com>",
         "<87d7c984-82ff-48f8-ace3-dc368168572a@googlegroups.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/2bc485f7/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/2bc485f7/attachment.pl>",
+      "body_plain": "James - that worked perfectly.  Many thanks.\n\nDr David Iles\nVisiting Research Fellow\nSchool of Biology\nUniversity of Leeds\nLeeds LS2 9JT\n\nFrom: James Eales <jeales at gmail.com<mailto:jeales at gmail.com>>\nDate: Wednesday, 16 April 2014 11:08\nTo: \"r-sig-mac at googlegroups.com<mailto:r-sig-mac at googlegroups.com>\" <r-sig-mac at googlegroups.com<mailto:r-sig-mac at googlegroups.com>>\nCc: \"R-SIG-Mac at R-project.org<mailto:R-SIG-Mac at R-project.org>\" <R-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>>, Dave Iles <daveiles at omicsltd.com<mailto:daveiles at omicsltd.com>>\nSubject: Re: [R-SIG-Mac] OS X R console Package Manager error\n\nHello,\nI had exactly the same trouble\nTry pasting this into the console then click \"Package Manager\" again\n\npackage.manager <- function ()\n{\n    if (.Platform$GUI != \"AQUA\")\n        stop(\"this function is intended to work with the Aqua GUI\")\n    loaded.pkgs <- .packages()\n    x <- library()\n    x <- x$results[x$results[, 1] != \"base\", ]\n    pkgs <- x[, 1]\n    pkgs.desc <- x[, 3]\n    is.loaded <- !is.na<http://is.na/>(match(pkgs, loaded.pkgs))\n    pkgs.status <- character(length(is.loaded))\n    pkgs.status[which(is.loaded)] <- \"loaded\"\n    pkgs.status[which(!is.loaded)] <- \" \"\n    pkgs.url <- file.path(find.package(pkgs), \"html\", \"00Index.html\")\n    load.idx <- .Call(\"pkgmanager\", is.loaded, pkgs, pkgs.desc,\n        pkgs.url)\n    toload <- which(load.idx & !is.loaded)\n    tounload <- which(is.loaded & !load.idx)\n    for (i in tounload) {\n        cat(\"unloading package:\", pkgs[i], \"\\n\")\n        do.call(\"detach\", list(paste(\"package\", pkgs[i], sep = \":\")))\n    }\n    for (i in toload) {\n        cat(\"loading package:\", pkgs[i], \"\\n\")\n        library(pkgs[i], character.only = TRUE)\n    }\n}\n\nOn Wednesday, 16 April 2014 10:20:49 UTC+1, David Iles wrote:\nHi Folks,\n\nI updated my version of R yesterday using the R-3.1.0-snowleopard.pkg downloaded from CRAN. I tried to open Package Manager, but it failed to open, with the following message....\n\nError: '.find.package' is defunct.\nUse 'find.package' instead.\nSee help(\"Defunct\")\n\nI deleted R.app and the R frameworks folder, and re-installed R from scratch, but the error persists. Clearly I have missed something from previous installations that is still lurking somewhere on my computer. Can anyone point me to what I need to delete/edit/update to correct this issue?\n\nMany thanks,\n\nDr David Iles\nVisiting Research Fellow\nSchool of Biology\nUniversity of Leeds\nLeeds LS2 9JT\n\n> sessionInfo()\nR version 3.1.0 (2014-04-10)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n>\n\n        [[alternative HTML version deleted]]\n\n_______________________________________________\nR-SIG-Mac mailing list\nR-SI... at r-project.org<javascript:>\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "James - that worked perfectly.  Many thanks.\n\nDr David Iles\nVisiting Research Fellow\nSchool of Biology\nUniversity of Leeds\nLeeds LS2 9JT\n\nFrom: James Eales <jeales at gmail.com<mailto:jeales at gmail.",
       "thread_id": "thread-a8bcf3b16690",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/2bc485f7/attachment.pl"
+      ]
     },
     {
       "id": "msg-db121edee8c4",
@@ -1082,11 +1121,14 @@
       "subject_clean": "error in Package manager in GUI",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140418/08ecb6a8/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140418/08ecb6a8/attachment.pl>",
+      "body_plain": "I just installed 3.1.0 (sessionInfo below). Using the dropdown Packages & Data -> Package Manager in the GUI\nthrows an error onto the console\n\nError: '.find.package' is defunct.\nUse 'find.package' instead.\nSee help(\"Defunct”)\n\nIs the GUI dropdown calling a defunct function?  I have always found this GUI item to be a handy way to see what I have installed and loaded, so would hate to see it go away. Of course I know I can use the command line to get the same info.\n\nThanks\n\n> sessionInfo()\nR version 3.1.0 (2014-04-10)\nPlatform: x86_64-apple-darwin13.1.0 (64-bit)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] tools_3.1.0\n\n\n\nDon McKenzie\nResearch Ecologist\nPacific Wildland Fire Sciences Lab\nUS Forest Service\n\nAffiliate Professor\nSchool of Environmental and Forest Sciences\nUniversity of Washington\ndmck at uw.edu\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I just installed 3.1.0 (sessionInfo below). Using the dropdown Packages & Data -> Package Manager in the GUI\nthrows an error onto the console\n\nError: '.find.package' is defunct.\nUse 'find.package' ins",
       "thread_id": "thread-1a4b3df78882",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140418/08ecb6a8/attachment.pl"
+      ]
     },
     {
       "id": "msg-fcb1bab088f7",
@@ -1119,11 +1161,14 @@
         "<D630F08B-E5FF-46E6-8145-A3A6D3B37547@u.washington.edu>",
         "<8F233DFC-2F1E-44B3-B667-645A477B0807@hbs.edu>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140418/bd21ea9d/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140418/bd21ea9d/attachment.pl>",
+      "body_plain": "thanks and my apologies to Simon for not remembering his post from Wednesday.\n\nOn Apr 18, 2014, at 12:05 PM, Gow, Ian <igow at hbs.edu> wrote:\n\n> I think you're not alone. See here for solution: https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010820.html\n> \n> On Apr 18, 2014, at 2:45 PM, Don McKenzie <dmck at u.washington.edu> wrote:\n> \n>> I just installed 3.1.0 (sessionInfo below). Using the dropdown Packages & Data -> Package Manager in the GUI\n>> throws an error onto the console\n>> \n>> Error: '.find.package' is defunct.\n>> Use 'find.package' instead.\n>> See help(\"Defunct”)\n>> \n>> Is the GUI dropdown calling a defunct function?  I have always found this GUI item to be a handy way to see what I have installed and loaded, so would hate to see it go away. Of course I know I can use the command line to get the same info.\n>> \n>> Thanks\n>> \n>>> sessionInfo()\n>> R version 3.1.0 (2014-04-10)\n>> Platform: x86_64-apple-darwin13.1.0 (64-bit)\n>> \n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> \n>> loaded via a namespace (and not attached):\n>> [1] tools_3.1.0\n>> \n>> \n>> \n>> Don McKenzie\n>> Research Ecologist\n>> Pacific Wildland Fire Sciences Lab\n>> US Forest Service\n>> \n>> Affiliate Professor\n>> School of Environmental and Forest Sciences\n>> University of Washington\n>> dmck at uw.edu\n>> \n>> \n>> \n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> <ATT00001.c>\n> \n\nDon McKenzie\nResearch Ecologist\nPacific Wildland Fire Sciences Lab\nUS Forest Service\n\nAffiliate Professor\nSchool of Environmental and Forest Sciences\nUniversity of Washington\ndmck at uw.edu\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "thanks and my apologies to Simon for not remembering his post from Wednesday.\n\nOn Apr 18, 2014, at 12:05 PM, Gow, Ian <igow at hbs.edu> wrote:\n\n> I think you're not alone. See here for solution: https",
       "thread_id": "thread-1a4b3df78882",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140418/bd21ea9d/attachment.pl"
+      ]
     },
     {
       "id": "msg-2abac679fc6b",
@@ -1174,11 +1219,14 @@
       "subject_clean": "Package \"spdep\" Compilation Failed on Mac 10.9, R 3.1.0",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140421/cf4beae8/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140421/cf4beae8/attachment.pl>",
+      "body_plain": "Hi all,\n\nI am new to this community so sorry if this question has already been\nanswered.\n\nI was trying to build the spdep package from source. However, I encountered\nerror message like the following:\n\nclang -dynamiclib -Wl,-headerpad_max_install_names -undefined\ndynamic_lookup -single_module -multiply_defined suppress -L/usr/local/lib\n-o spdep.so card.o dfs_ncomp.o dnn.o gabriel.o gearyw.o gsymtest.o init.o\ninsiders.o jc.o knn.o lagw.o listw2Matrix.o listw2sn.o ml_sse.o mom_calc.o\nnbdists.o polypoly.o relative.o skater.o soigraph.o symtest.o\n-L/Library/Frameworks/R.framework/Resources/lib -lRlapack\n-L/Library/Frameworks/R.framework/Resources/lib -lRblas\n-L/usr/local/lib/gcc/x86_64-apple-darwin13.0.0/4.8.2 -lgfortran -lquadmath\n-lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n-Wl,CoreFoundation\n\n\nld: warning: directory not found for option\n'-L/usr/local/lib/gcc/x86_64-apple-darwin13.0.0/4.8.2'\n\n\nld: library not found for -lquadmath\n\n\nclang: error: linker command failed with exit code 1 (use -v to see\ninvocation)\n\nmake: *** [spdep.so] Error 1\n\nERROR: compilation failed for package ‘spdep’\n\nI checked my L/usr/local/lib/gcc/ directory, there is no folder, but there\nare i686-apple-darwin8 powerpc-apple-darwin8. I suspect this is because on\nthe native gcc with Xcode command line tool is version 4.2. But when I run\ngcc -v it shows:\n\nConfigured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr\n--with-gxx-include-dir=/usr/include/c++/4.2.1\n\nApple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)\n\nTarget: x86_64-apple-darwin13.1.0\nThread model: posix\n\nHow could I point it to the correct directory?\nAny thoughts will be greatly appreciated! I am totally lost..\n\nThanks,\nAllen\n\n-- \n林轶伦 LIN, Yilun (Allen)\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all,\n\nI am new to this community so sorry if this question has already been\nanswered.\n\nI was trying to build the spdep package from source. However, I encountered\nerror message like the following:\n",
       "thread_id": "thread-646ec78af0af",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140421/cf4beae8/attachment.pl"
+      ]
     },
     {
       "id": "msg-e3d06cf930ac",
@@ -1211,11 +1259,14 @@
         "<CAM=hxMxpNOEFUHLym6pa6nZ68EPWAPRvv2G=ZLV8HsA0Mg_kPg@mail.gmail.com>",
         "<535589B0.8070906@stats.ox.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140421/e0e459f1/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140421/e0e459f1/attachment.pl>",
+      "body_plain": "Dear Prof. Ripley,\n\nThanks for your help. Yes, I will check the manual for the building\nparameters. For the Fortran compile, I am using\ngfortran-4.2.3.pkg<http://cran.r-project.org/bin/macosx/tools/gfortran-4.2.3.pkg>\nprovided\nhere http://cran.r-project.org/bin/macosx/tools/. It seems to be\nout-dated...\n\nFor R version, I was using *R 3.1.0* binary for Mac OS X 10.9 (Mavericks),\nif that matters.\n\nThanks again for your help. I will try that!\nAllen\n\n\n\n\nOn Mon, Apr 21, 2014 at 4:12 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk>wrote:\n\n> On 21/04/2014 21:44, Allen Lin wrote:\n>\n>> Hi all,\n>>\n>> I am new to this community so sorry if this question has already been\n>> answered.\n>>\n>\n> Yes, in the R-admin manual.\n>\n> 'The current CRAN ‘Mavericks’ distribution of R is built using\n>\n> CC=clang\n> CXX=clang++\n> F77=gfortran-4.8\n> FC=$F77\n> OBJC=clang\n>\n> with clang and clang++ from Xcode 5, and the Fortran compiler from\n> http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2.'\n>\n> It seems you have not installed that Fortran compiler. (I am guessing: you\n> did not tell us how your R was built, or if a binary installation from\n> CRAN, which one.)\n>\n>\n>> I was trying to build the spdep package from source. However, I\n>> encountered\n>> error message like the following:\n>>\n>> clang -dynamiclib -Wl,-headerpad_max_install_names -undefined\n>> dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/lib\n>> -o spdep.so card.o dfs_ncomp.o dnn.o gabriel.o gearyw.o gsymtest.o init.o\n>> insiders.o jc.o knn.o lagw.o listw2Matrix.o listw2sn.o ml_sse.o mom_calc.o\n>> nbdists.o polypoly.o relative.o skater.o soigraph.o symtest.o\n>> -L/Library/Frameworks/R.framework/Resources/lib -lRlapack\n>> -L/Library/Frameworks/R.framework/Resources/lib -lRblas\n>> -L/usr/local/lib/gcc/x86_64-apple-darwin13.0.0/4.8.2 -lgfortran\n>> -lquadmath\n>> -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n>> -Wl,CoreFoundation\n>>\n>>\n>> ld: warning: directory not found for option\n>> '-L/usr/local/lib/gcc/x86_64-apple-darwin13.0.0/4.8.2'\n>>\n>>\n>> ld: library not found for -lquadmath\n>>\n>>\n>> clang: error: linker command failed with exit code 1 (use -v to see\n>> invocation)\n>>\n>> make: *** [spdep.so] Error 1\n>>\n>> ERROR: compilation failed for package â€˜spdepâ€™\n>>\n>>\n>> I checked my L/usr/local/lib/gcc/ directory, there is no folder, but there\n>> are i686-apple-darwin8 powerpc-apple-darwin8. I suspect this is because on\n>> the native gcc with Xcode command line tool is version 4.2. But when I run\n>> gcc -v it shows:\n>>\n>> Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr\n>> --with-gxx-include-dir=/usr/include/c++/4.2.1\n>>\n>> Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)\n>>\n>> Target: x86_64-apple-darwin13.1.0\n>> Thread model: posix\n>>\n>> How could I point it to the correct directory?\n>> Any thoughts will be greatly appreciated! I am totally lost..\n>>\n>> Thanks,\n>> Allen\n>>\n>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>\n> --\n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n\n-- \n林轶伦 LIN, Yilun (Allen)\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear Prof. Ripley,\n\nThanks for your help. Yes, I will check the manual for the building\nparameters. For the Fortran compile, I am using\ngfortran-4.2.3.pkg<http://cran.r-project.org/bin/macosx/tools/gf",
       "thread_id": "thread-646ec78af0af",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140421/e0e459f1/attachment.pl"
+      ]
     },
     {
       "id": "msg-358d0cf7dd49",
@@ -1625,11 +1676,14 @@
       "references": [
         "<CC228526-4798-4815-AEA6-080E29CF9DAC@stat.ucla.edu>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140430/c728d7bb/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140430/c728d7bb/attachment.pl>",
+      "body_plain": "Hi Ian,\n\nI installed from here:\n\nhttp://cran.r-project.org/bin/macosx/contrib/3.1/\n\nManuel\n\n\n2014-04-29 15:08 GMT-06:00 Ian Fellows <ian.fellows at stat.ucla.edu>:\n\n> Hi All,\n>\n> Does anyone know if there are plans to have rgdal compile correctly on the\n> CRAN Mavericks machine? I’ve really been enjoying the binaries that have\n> been available as building from source is a non-trival hassle.\n>\n>\n> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>\n> Best,\n> Ian\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n\n-- \n*Manuel Spínola, Ph.D.*\nInstituto Internacional en Conservación y Manejo de Vida Silvestre\nUniversidad Nacional\nApartado 1350-3000\nHeredia\nCOSTA RICA\nmspinola at una.ac.cr\nmspinola10 at gmail.com\nTeléfono: (506) 2277-3598\nFax: (506) 2237-7036\nPersonal website: Lobito de río <https://sites.google.com/site/lobitoderio/>\nInstitutional website: ICOMVIS <http://www.icomvis.una.ac.cr/>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Ian,\n\nI installed from here:\n\nhttp://cran.r-project.org/bin/macosx/contrib/3.1/\n\nManuel\n\n\n2014-04-29 15:08 GMT-06:00 Ian Fellows <ian.fellows at stat.ucla.edu>:\n\n> Hi All,\n>\n> Does anyone know if t",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140430/c728d7bb/attachment.pl"
+      ]
     },
     {
       "id": "msg-8383003eb222",

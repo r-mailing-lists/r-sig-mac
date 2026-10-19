@@ -348,11 +348,14 @@
       "subject_clean": "Wrong architecture when using \"R CMD COMPILE\"",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060706/f3594cba/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060706/f3594cba/attachment.pl",
+      "body_plain": "Hi,\n\nI have a Powerbook G4 and I've installed R 2.3.1. When I try to  \ninstall a package that involves compilation, like ROracle, I find  \nthat \"R CMD COMPILE\" uses arch=i386 instead of ppc. For example,\n\nR CMD COMPILE RS-DBI.c\ngcc-4.0 -arch i386 -I/Library/Frameworks/R.framework/Resources/ \ninclude -I/Library/Frameworks/R.framework/Resources/include/i386  - \nmsse3 -D__NO_MATH_INLINES  -fPIC -fno-common  -g -O2 -std=gnu99 - \nmarch=pentium-m -mtune=prescott -c RS-DBI.c -o RS-DBI.o\n\nBUT,\n\nR CMD config CC\ngcc-4.0 -arch ppc\n\nWhy is R CMD COMPILE doing the wrong thing and how can I fix it?  \nThanks for any advice!\n\n--- Adam\n\nAdam Lyon (lyon at fnal.gov)\nFermi National Accelerator Laboratory\nComputing Division / D0 Experiment\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\nI have a Powerbook G4 and I've installed R 2.3.1. When I try to  \ninstall a package that involves compilation, like ROracle, I find  \nthat \"R CMD COMPILE\" uses arch=i386 instead of ppc. For examp",
       "thread_id": "thread-2f54f6f7d86f",
       "thread_depth": 0,
-      "month": "2006-07"
+      "month": "2006-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060706/f3594cba/attachment.pl"
+      ]
     },
     {
       "id": "msg-5f78076d40da",
@@ -828,11 +831,14 @@
       "subject_clean": "Compiling ROracle on OSX 10.4.7/R 2.3.1",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060731/8d100690/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060731/8d100690/attachment.pl",
+      "body_plain": "Dear list,\n\nI have one or several problems with compiling ROracle under OS X  \n10.4.7 (ppc) and R 2.3.1, using the Oracle client v. 10g:\n\n1) The default build process produces an empty dll: When running R  \nCMD INSTALL, for some reason gcc is invoked with -arch i386 for  \ncompiling RS-DBI.c and RS-Oracle.c, but with -arch pcc for building  \nthe library. Not surprisingly, the build is not successful, though it  \ndoes not crash, but only warns:\n\nR CMD SHLIB -o ROracle.so RS-DBI.o RS-Oracle.o\ngcc-4.0 -arch ppc -flat_namespace -bundle -undefined suppress -L/usr/ \nlocal/lib -o ROracle.so RS-DBI.o RS-Oracle.o -L/opt/oracle/product/ \n10g/client/lib -L/opt/oracle/product/10g/client/network/lib - \nlclntst10 -lnbeq10 -lnhost10 -lnus10 -lnldap10 -lldapclnt10 -lnsslb10  \n-lntcp10 -lntcps10 -lnsslb10 -lntcp10 -lntns10 -ldl -lpoll -lm - \nlpthread -L/opt/oracle/product/10g/client/lib -lm   -L/Library/ \nFrameworks/R.framework/Resources/lib/ppc -lR\n/usr/bin/ld: warning RS-DBI.o cputype (7, architecture i386) does not  \nmatch cputype (18) for specified -arch flag: ppc (file not loaded)\n/usr/bin/ld: warning RS-Oracle.o cputype (7, architecture i386) does  \nnot match cputype (18) for specified -arch flag: ppc (file not loaded)\n\nThe library installs fine, but when I call Oracle(), bad things happen:\n\nibrary(ROracle)\nora = Oracle()\nError in .Call(\"RS_Ora_init\", config.params, reload, PACKAGE  \n= .OraPkgName) :\n\tC entry point \"RS_Ora_init\" not in DLL for package \"ROracle\"\n\nwhich is not surprising, as the .o file were never included in the  \nlibrary.\n\nAny suggestion how this can happen? And possibly be avoided?\n\n2) Fine, so I have hand-compiled by setting -arch ppc and removing  \nthe arguments '-march=pentium-m -mtune=prescott', and built the  \nlibrary without getting the error message. Then I copy the ROracle.so  \nin the libs/ppc directory of the previous installation, but hsi does  \nnot work either:\n\nLoading required package: DBI\nError in dyn.load(x, as.logical(local), as.logical(now)) :\n\tunable to load shared library '/Users/aleplo/Library/R/library/ \nROracle/libs/ppc/ROracle.so':\n   dlopen(/Users/aleplo/Library/R/library/ROracle/libs/ppc/ \nROracle.so, 6): Symbol not found: _sqlcxt\n   Referenced from: /Users/aleplo/Library/R/library/ROracle/libs/ppc/ \nROracle.so\n   Expected in: flat namespace\nError in library(ROracle) : .First.lib failed for 'ROracle'\n\nThe README file suggests to 1) set the LD_LIBRARY_PATH to the Oracle  \nlib directory or 2) to build a static library, however, both of these  \nprocude the same error.\n\nAny suggestions here?\n\nThanks for your time,\n\nalexander\n\n\nAlexander.Ploner at ki.se\nMedical Epidemiology & Biostatistics\nKarolinska Institutet, Stockholm\nTel: ++46-8-524-82329\nFax: ++46-8-31 49 75\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear list,\n\nI have one or several problems with compiling ROracle under OS X  \n10.4.7 (ppc) and R 2.3.1, using the Oracle client v. 10g:\n\n1) The default build process produces an empty dll: When runni",
       "thread_id": "thread-9adc983a7243",
       "thread_depth": 0,
-      "month": "2006-07"
+      "month": "2006-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060731/8d100690/attachment.pl"
+      ]
     },
     {
       "id": "msg-8cf6ab40beb2",

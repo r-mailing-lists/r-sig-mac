@@ -70,11 +70,14 @@
       "subject_clean": "EBImage segfault",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100201/31d98eca/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100201/31d98eca/attachment.pl>",
+      "body_plain": "Maybe more of a BioC forum question, but seemingly applicable here: after\ncompiling EBImage, I catch a segfault upon trying to load the library.\n\n** R\n> ** inst\n> ** preparing package for lazy loading\n> ** help\n> *** installing help indices\n> ** building package indices ...\n> * DONE (EBImage)\n>\n> > library(EBImage)\n> Loading required package: abind\n>\n>  *** caught segfault ***\n> address 0x10, cause 'memory not mapped'\n>\n> Traceback:\n>  1: dyn.load(file, DLLpath = DLLpath, ...)\n>  2: library.dynam(lib, package, package.lib)\n>  3: loadNamespace(package, c(which.lib.loc, lib.loc), keep.source =\n> keep.source)\n>  4: doTryCatch(return(expr), name, parentenv, handler)\n>  5: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n>  6: tryCatchList(expr, classes, parentenv, handlers)\n>  7: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if\n> (!is.null(call)) {        if (identical(call[[1L]],\n> quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\n> LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg,\n> \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L], type\n> = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type =\n> \"b\") + nchar(sm[1L],                 type = \"b\")        if (w >\n> LONG)             prefix <- paste(prefix, \"\\n  \", sep = \"\")    }    else\n> prefix <- \"Error : \"    msg <- paste(prefix, conditionMessage(e), \"\\n\", sep\n> = \"\")    .Internal(seterrmessage(msg[1L]))    if (!silent &&\n> identical(getOption(\"show.error.messages\"),         TRUE)) {        cat(msg,\n> file = stderr())        .Internal(printDeferredWarnings())    }\n> invisible(structure(msg, class = \"try-error\"))})\n>  8: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc),\n> keep.source = keep.source)    dataPath <- file.path(which.lib.loc, package,\n> \"data\")    env <- attachNamespace(ns, pos = pos, dataPath = dataPath)})\n>  9: library(EBImage)\n>\n\nWhy bother compiling my own, you ask? Because this is what you get from\ntrying the precompiled binary on my machine:\n\n> library(EBImage)\n> Loading required package: abind\n> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>   unable to load shared library\n> '/Library/Frameworks/R.framework/Resources/library/EBImage/libs/x86_64/EBImage.so':\n>\n> dlopen(/Library/Frameworks/R.framework/Resources/library/EBImage/libs/x86_64/EBImage.so,\n> 6): Library not loaded:\n> /Library/Frameworks/GTK+.framework/Versions/2.14.X11/Resources/lib/libpangoft2-1.0.0.dylib\n>   Referenced from:\n> /Library/Frameworks/R.framework/Resources/library/EBImage/libs/x86_64/EBImage.so\n>   Reason: Incompatible library version: EBImage.so requires version\n> 2201.0.0 or later, but libpangoft2-1.0.0.dylib provides version 1905.0.0\n> Error: package/namespace load failed for 'EBImage'\n>\n\nAnyone out there have this library working or some thoughts on the matter? R\n2.10.1, OSX 10.6.2, fresh R gtk library install.\nThanks,\nEric\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Maybe more of a BioC forum question, but seemingly applicable here: after\ncompiling EBImage, I catch a segfault upon trying to load the library.\n\n** R\n> ** inst\n> ** preparing package for lazy loading",
       "thread_id": "thread-7f354237b74f",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100201/31d98eca/attachment.pl"
+      ]
     },
     {
       "id": "msg-626fb0bd14d1",
@@ -107,11 +110,14 @@
         "<4f4b5f351002011051i34809c4cwa5b40bb5a61b8b8e@mail.gmail.com>",
         "<3CE99953-BBCE-47D5-8C26-8613418635BC@r-project.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100201/4f56e060/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100201/4f56e060/attachment.pl>",
+      "body_plain": "That's the GTK I have installed in the framework path...but there's also a\nGTK installation in /usr/local.\n\nOtool of the Frameworks version gives:\n/Library/Frameworks/GTK+.framework/Resources/lib/libpangoft2-1.0.0.dylib\n(compatibility version 2601.0.0, current version 2601.1.0)\n\nWhich should be just fine according to EBImage;  the usr/local/lib version,\non the other hand:\n/usr/local/lib/libpangoft2-1.0.0.dylib (compatibility version 2106.0.0,\ncurrent version 2106.0.0)\n\nWhich made me realize I just needed to install with:\nR CMD INSTALL EBImage_3.2.0.tar.gz\n--libdir=/Library/Frameworks/GTK+.framework/Versions/2.18.X11/Resources/lib\n--includedir=/Library/Frameworks/GTK+.framework/Versions/2.18.X11/Resources/include\n\n\nAnd it worked; loads fine now.\n\nThanks,\nEric\n\n\nOn Mon, Feb 1, 2010 at 2:20 PM, Simon Urbanek\n<simon.urbanek at r-project.org>wrote:\n\n>\n> On Feb 1, 2010, at 13:51 , Eric Wooten wrote:\n>\n>  Maybe more of a BioC forum question, but seemingly applicable here: after\n>> compiling EBImage, I catch a segfault upon trying to load the library.\n>>\n>> ** R\n>>\n>>> ** inst\n>>> ** preparing package for lazy loading\n>>> ** help\n>>> *** installing help indices\n>>> ** building package indices ...\n>>> * DONE (EBImage)\n>>>\n>>>  library(EBImage)\n>>>>\n>>> Loading required package: abind\n>>>\n>>> *** caught segfault ***\n>>> address 0x10, cause 'memory not mapped'\n>>>\n>>> Traceback:\n>>> 1: dyn.load(file, DLLpath = DLLpath, ...)\n>>> 2: library.dynam(lib, package, package.lib)\n>>> 3: loadNamespace(package, c(which.lib.loc, lib.loc), keep.source =\n>>> keep.source)\n>>> 4: doTryCatch(return(expr), name, parentenv, handler)\n>>> 5: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n>>> 6: tryCatchList(expr, classes, parentenv, handlers)\n>>> 7: tryCatch(expr, error = function(e) {    call <- conditionCall(e)    if\n>>> (!is.null(call)) {        if (identical(call[[1L]],\n>>> quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n>>> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\n>>> LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg,\n>>> \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L],\n>>> type\n>>> = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type =\n>>> \"b\") + nchar(sm[1L],                 type = \"b\")        if (w >\n>>> LONG)             prefix <- paste(prefix, \"\\n  \", sep = \"\")    }    else\n>>> prefix <- \"Error : \"    msg <- paste(prefix, conditionMessage(e), \"\\n\",\n>>> sep\n>>> = \"\")    .Internal(seterrmessage(msg[1L]))    if (!silent &&\n>>> identical(getOption(\"show.error.messages\"),         TRUE)) {\n>>>  cat(msg,\n>>> file = stderr())        .Internal(printDeferredWarnings())    }\n>>> invisible(structure(msg, class = \"try-error\"))})\n>>> 8: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc),\n>>> keep.source = keep.source)    dataPath <- file.path(which.lib.loc,\n>>> package,\n>>> \"data\")    env <- attachNamespace(ns, pos = pos, dataPath = dataPath)})\n>>> 9: library(EBImage)\n>>>\n>>>\n>> Why bother compiling my own, you ask? Because this is what you get from\n>> trying the precompiled binary on my machine:\n>>\n>>  library(EBImage)\n>>> Loading required package: abind\n>>> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>>>  unable to load shared library\n>>>\n>>> '/Library/Frameworks/R.framework/Resources/library/EBImage/libs/x86_64/EBImage.so':\n>>>\n>>>\n>>> dlopen(/Library/Frameworks/R.framework/Resources/library/EBImage/libs/x86_64/EBImage.so,\n>>> 6): Library not loaded:\n>>>\n>>> /Library/Frameworks/GTK+.framework/Versions/2.14.X11/Resources/lib/libpangoft2-1.0.0.dylib\n>>>  Referenced from:\n>>>\n>>> /Library/Frameworks/R.framework/Resources/library/EBImage/libs/x86_64/EBImage.so\n>>>  Reason: Incompatible library version: EBImage.so requires version\n>>> 2201.0.0 or later, but libpangoft2-1.0.0.dylib provides version 1905.0.0\n>>> Error: package/namespace load failed for 'EBImage'\n>>>\n>>>\n>> Anyone out there have this library working or some thoughts on the matter?\n>>\n>\n> My thoughts are that BioC have some issues with the binaries ;). 64-bit\n> works only with the 64-bit GTK 2.18 builds:\n> http://r.research.att.com/libs/GTK+_2.18.5-X11-darwin9-bin3.tar.gz\n>\n> (The previous 2.14 build does not contain 64-bit libraries)\n>\n> The same applies to your attempt - you didn't give us any details, so there\n> is not much I can help you with but I would expect it to work with the\n> above.\n>\n> Cheers,\n> Simon\n>\n>\n>  R\n>> 2.10.1, OSX 10.6.2, fresh R gtk library install.\n>> Thanks,\n>> Eric\n>>\n>>        [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "That's the GTK I have installed in the framework path...but there's also a\nGTK installation in /usr/local.\n\nOtool of the Frameworks version gives:\n/Library/Frameworks/GTK+.framework/Resources/lib/libp",
       "thread_id": "thread-7f354237b74f",
       "thread_depth": 2,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100201/4f56e060/attachment.pl"
+      ]
     },
     {
       "id": "msg-08817127809b",
@@ -183,11 +189,14 @@
       "subject_clean": "\"optim\"",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100203/5525c309/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100203/5525c309/attachment.pl>",
+      "body_plain": "Hi,\n\n\tI would greatly appreciate learning of a good paper or manual for \"optim.\"\n\n\tMore specifically: Often I  get error messages and suggestions - as below \"lbfgs\" - that are beyond my knowledge and insufficient advice to address the issue.  I have also received \"Lapack\" messages of the same type. \n\nThanks,\n\nPaul\n\t\n\n\nWarning message:\nIn `+.dlm`(mod1, mod2) : the value of mod1$V has been discarded\n> fit\t\t<- dlmMLE(y, x, expfunc, control = list(trace = 3, REPORT = 2))\nN = 19, M = 5 machine precision = 2.22045e-16\nThis problem is unconstrained.\nAt X0, 0 variables are exactly at the bounds\nAt iterate     0  f=   1.8212e+07  |proj g|=   1.2433e+07\nAt iterate     2  f =   2.3753e+06  |proj g|=    2.8063e+06\nAt iterate     4  f =   2.9465e+05  |proj g|=    4.7382e+05\nAt iterate     6  f =        93564  |proj g|=    1.1105e+05\nAt iterate     8  f =        51371  |proj g|=         26356\n\nAt iterate    64  f =        26612  |proj g|=        29.567\nys=-1.949e+01  -gs= 9.047e+00, BFGS update SKIPPED\nAt iterate    66  f =        26610  |proj g|=        124.86\nAt iterate    68  f =        26606  |proj g|=        82.252\nBad direction in the line search;\n  refresh the lbfgs memory and restart the iteration.\nError in optim(parm, logLik, method = method, ...) : \n non-finite finite-difference value [3]\nIn addition: There were 50 or more warnings (use warnings() to see the first 50)\n> \t\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\n\tI would greatly appreciate learning of a good paper or manual for \"optim.\"\n\n\tMore specifically: Often I  get error messages and suggestions - as below \"lbfgs\" - that are beyond my knowledge and ",
       "thread_id": "thread-b3c3c985b96e",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100203/5525c309/attachment.pl"
+      ]
     },
     {
       "id": "msg-8e56db8ca959",
@@ -203,11 +212,14 @@
         "<9EA70A0C-75A4-4A77-BCD2-67F8AE96F383@r-project.org>",
         "<9c9a19a81001310850j4bb54380k443b9b7f0e0a1c1@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100204/79583fbc/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100204/79583fbc/attachment.pl>",
+      "body_plain": "I found the problem with the Arial font.\n\nApparently this is due to a conflict between the Arial font installed by MS\nEntourage (argh!) and the default Arial in Snow leopard. The MS version\ninstalled in /Library/Fonts/Microsoft\nis not compatible with Snow and shows as blank font. Unfortunately it seems\nto take priority to the default Snow Arial and is not visible in font book.\n\nDeleting Arial from /Library/Fonts/Microsoft fixed the problem for me.\n\nI found this because Entourage was having the same trouble displaying html\nmail with Arial and this pointed me in the right direction.\n\nThanks,\ngommo.\n\nPS: I don't seem to find my messages in the r-sig-mac archives... any\nproblem there?\n\nOn Sun, Jan 31, 2010 at 5:50 PM, Gommo Skipper <gommoskipper at gmail.com>wrote:\n\n> Simon,\n> thank you for the quick reply. Indeed, seems you've nailed the problem.\n>\n> This has the problem:\n> > hist(rnorm(100),main=\"HELLO\",family=\"Arial\")\n>\n> Helvetica instead works properly:\n> > hist(rnorm(100),main=\"HELLO\",family=\"Helvetica\")\n>\n> My quartz.options() shows:\n> $family\n> [1] \"Helvetica\"\n>\n> If I open a new quartz with par(family=\"Helvetica\"), I can use both\n>\n> hist(rnorm(100),main=\"HELLO\")\n> hist(rnorm(100),main=\"HELLO\",family=\"<whatever>\")\n>\n> But family=\"Arial\" shows empty labels.\n>\n> This might seem a stupid question, but:\n>  1. How do I change the default font family for quartz?\n> 2. How do I check if Arial family is disabled (it is installed in my Mac\n> and I can use the font in other programs).\n>\n> I don't really need \"Arial\", but I can't seem to find the correct way to\n> specity a different default family (par(\"mono\") opens a new quartz window\n> and\n>\n> Thank you.\n> Gommo\n>\n> On Sun, Jan 31, 2010 at 4:49 PM, Simon Urbanek <\n> simon.urbanek at r-project.org> wrote:\n>\n>>\n>> On Jan 31, 2010, at 10:31 AM, Gommo Skipper wrote:\n>>\n>> > Hello,\n>> >\n>> > I'm trying to use the mac port of R and have problem seeing any label in\n>> my\n>> > plots. There's no main title, labels and no errors spitting from the R\n>> > console.\n>> >\n>> >> sessionInfo()\n>> > I'm trying to use quartz on a x64 snow leopard:\n>> >\n>> > R version 2.10.1 (2009-12-14)\n>> > x86_64-apple-darwin9.8.0\n>> >\n>> > locale:\n>> > [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>> >\n>> > attached base packages:\n>> > [1] stats     graphics  grDevices utils     datasets  methods   base\n>> >> hist(rnorm(100),main=\"HELLO\")\n>> >>\n>> >\n>> > This is a stock installation, and I'm out of ideas on how to fix it.\n>> > Any hints?\n>> >\n>>\n>> I cannot reproduce it, but this sounds like a font issue. Have you\n>> disabled some fonts (such as Arial) on your system? (see the recent\n>> discussion on this) Try using some font that you have on your system, e.g.\n>> hist(rnorm(100),main=\"HELLO\",family=\"Monaco\")\n>> or\n>> hist(rnorm(100),main=\"HELLO\",family=\"Helvetica\")\n>>\n>> Cheers,\n>> Simon\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I found the problem with the Arial font.\n\nApparently this is due to a conflict between the Arial font installed by MS\nEntourage (argh!) and the default Arial in Snow leopard. The MS version\ninstalled ",
       "thread_id": "thread-8e56db8ca959",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100204/79583fbc/attachment.pl"
+      ]
     },
     {
       "id": "msg-bde3d41484b9",
@@ -240,11 +252,14 @@
       "subject_clean": "R start-up problems in Snow Leopard",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100206/1e990129/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100206/1e990129/attachment.pl>",
+      "body_plain": "Hello My name is Renzo De la Peña, I change to R from SAS some time ago and I had never an inconvenient, until I changed to Snow Leopard couple week ago. I read all the FAQ's and instructions. I install Xcode from my retail DVD, downloaded gFortran even reinstalled X11 and every time I keep receiving this message when I statup \nDuring startup - Warning messages:\n>>> 1: Setting LC_CTYPE failed, using \"C\"\n>>> 2: Setting LC_COLLATE failed, using \"C\"\n>>> 3: Setting LC_TIME failed, using \"C\"\n>>> 4: Setting LC_MESSAGES failed, using \"C\"\n>>> [R.app GUI 1.31 (5537) i386-apple-darwin9.8.0]\nWARNING: You're using a non-UTF8 locale, therefore only ASCII\n>>> characters will work.\n>>> Please read R for Mac OS X FAQ (see Help) section 9 and adjust your\n>>> system preferences accordingly.\n\nI am running Java in 32-bits because I also use Berkeley Madonna for modeling which does not supports 64-bit for the chartflows,\n\nI really don't know what else to do here, if someone could help me I will be eternally grateful.\n\nThank You very much!  \n\n \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello My name is Renzo De la Peña, I change to R from SAS some time ago and I had never an inconvenient, until I changed to Snow Leopard couple week ago. I read all the FAQ's and instructions. I insta",
       "thread_id": "thread-1bd6210ed96b",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100206/1e990129/attachment.pl"
+      ]
     },
     {
       "id": "msg-c82cfd0a6648",
@@ -256,11 +271,14 @@
       "subject_clean": "Installation",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100206/94b14421/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100206/94b14421/attachment.pl>",
+      "body_plain": "Hello My name is Renzo De la Peña, I change to R from SAS some time ago and I had never an inconvenient, until I changed to Snow Leopard couple weeks ago. I read all the FAQ's and instructions. I install Xcode from my retail DVD, downloaded gFortran even reinstalled X11 and every time I keep receiving this message when I statup \nDuring startup - Warning messages:\n>>> 1: Setting LC_CTYPE failed, using \"C\"\n>>> 2: Setting LC_COLLATE failed, using \"C\"\n>>> 3: Setting LC_TIME failed, using \"C\"\n>>> 4: Setting LC_MESSAGES failed, using \"C\"\n>>> [R.app GUI 1.31 (5537) i386-apple-darwin9.8.0]\nWARNING: You're using a non-UTF8 locale, therefore only ASCII\n>>> characters will work.\n>>> Please read R for Mac OS X FAQ (see Help) section 9 and adjust your\n>>> system preferences accordingly.\nI am running Java in 32-bits because I also use Berkeley Madonna for modeling which does not supports 64-bit for the chartflows,\n\nI really don't know what else to do here, if someone could help me I will be eternally grateful.\n\nThank You very much!  \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello My name is Renzo De la Peña, I change to R from SAS some time ago and I had never an inconvenient, until I changed to Snow Leopard couple weeks ago. I read all the FAQ's and instructions. I inst",
       "thread_id": "thread-c82cfd0a6648",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100206/94b14421/attachment.pl"
+      ]
     },
     {
       "id": "msg-5064382a6d56",
@@ -457,11 +475,14 @@
       "subject_clean": "Should packages installed with 64-bit GUI of R 2.10 still contain 'R-ex' directories?",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100208/4d249468/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100208/4d249468/attachment.pl>",
+      "body_plain": "Should packages installed with 64-bit GUI of R 2.10 still contain 'R-ex'\ndirectories?\n\nI installed a universal binary of R 2.10 on Leopard (10.5.8) to run the\n64-bit GUI (R64.app).\nI installed all my packages 'At System Level' to\n\n~/Library/Frameworks/R.framework/Versions/2.10/Resources/library/\n\nusing a combination of 'install.views()' or by selecting 'local source\npackage' when packages\nwere not available on CRAN. For older binaries of R, packages always\ninstalled a directory\n'R-ex' with demo scripts that helped me learn how to navigate functions.\n\nWas 'R-ex' directory discontinued, or did something change about\ninstallations?\n\nCheers,\nJason\n\n\n\n-- \n\n*Jason MacKenzie, PhD*\n*\nClimate Change Adaptation Fellow*\nThe Nature Conservancy\n201 Mission Street, 4th Floor\nSan Francisco, CA 94105\njmackenzie at tnc.org\n\n(415) 281 0472            [work]\n(415) 777 0244            [fax]\n(510) 717 1544            [cell]\njasonbmackenzie        [skype]\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Should packages installed with 64-bit GUI of R 2.10 still contain 'R-ex'\ndirectories?\n\nI installed a universal binary of R 2.10 on Leopard (10.5.8) to run the\n64-bit GUI (R64.app).\nI installed all my ",
       "thread_id": "thread-21847e5d3520",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100208/4d249468/attachment.pl"
+      ]
     },
     {
       "id": "msg-6513a2d9a9b6",
@@ -544,11 +565,14 @@
       "subject_clean": "Error on forcing change to utf-8 locale on R.app",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100210/227e3f39/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100210/227e3f39/attachment.pl>",
+      "body_plain": "Dear all,\n\nI am a new mac user and an inexperienced R user, now using the latter on the\nformer!\n\nOn running the R.app on my Macbook Pro with OS X Snowleopard, warnings about\nnon UTF-8 locale showed up.\n\n>You're using a non-UTF8 locale, therefore only ASCII characters will work.\n>Please read R for Mac OS X FAQ (see Help) section 9 and adjust your system\npreferences accordingly.\n\nAs per the R for Mac OS X FAQ as well as this (\nhttps://stat.ethz.ch/pipermail/r-sig-mac/2008-October/005395.html) post, I\nran the following in the app.\n\n> defaults write org.R-project.R force.LANG en_US.UTF-8\n> Error: unexpected symbol in \"defaults write\"\n\nCould somebody help with this?\n\nRegards,\nPrashanth\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear all,\n\nI am a new mac user and an inexperienced R user, now using the latter on the\nformer!\n\nOn running the R.app on my Macbook Pro with OS X Snowleopard, warnings about\nnon UTF-8 locale showed up",
       "thread_id": "thread-ccbe3e8bf40b",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100210/227e3f39/attachment.pl"
+      ]
     },
     {
       "id": "msg-d83017637fcb",
@@ -562,11 +586,14 @@
       "references": [
         "<alpine.LFD.2.00.1002100753200.28818@gannet.stats.ox.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100210/95e58d58/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100210/95e58d58/attachment.pl>",
+      "body_plain": "I'm reposting my original message here per request (see below)\n\nAs a workaround, I've used this tip (http://www.mail-archive.com/r-sig-mac at stat.math.ethz.ch/msg04700.html \n) to make R display help files in my default web browser (Camino)  \nwhich displays all text correctly.\n\nI took the opportunity to look at the CSS stylesheet for the help file  \nwhen displayed in the browser, and all it calls for it is a monospace  \nfont family (not a specific font).  As far as I can tell, the help  \nbrowser (help viewer?  What is it actually called?) is not finding a  \nmonospace font to use.  Anyone have any ideas why?  I recently  \nupgraded (fresh install, Migration Assistant) to Snow Leopard and I  \nthink that is where the problem occurred.\n\nMatt\n\n\n\nBegin forwarded message:\n\n> From: Prof Brian Ripley <ripley at stats.ox.ac.uk>\n> Date: 10 February, 2010 1:57:08 AM CST\n> To: Matthew Burton-Kelly <matthew.burton.kelly at und.edu>\n> Subject: Re: [R] Bad characters/fonts or something in R Help\n>\n> That is a screenshot from R.app, for which you were advised to use  \n> the R-sig-mac list (and I suggest you do ask there).  On a Mac, such  \n> things are often a corrupt font cache, so you could try rebuilding  \n> that first.  See e.g.\n> http://www.macworld.com/article/139383/2009/03/fontcacheclear.html\n>\n> On Tue, 9 Feb 2010, Matthew Burton-Kelly wrote:\n>\n>> Hello,\n>> I am experiencing problems viewing the help files in R.  The easiest\n>> way to describe this is to just post an image.  You can see what I'm\n>> talking about here: http://www.flickr.com/photos/matthewbk/ \n>> 4344722268/\n>>\n>> If I copy and paste the \"weird\" characters, they show up like they\n>> should.  Am I missing a specific font?\n>>\n>> Mac 10.6 Snow Leopard\n>> R 2.10.1 GUI 1.31 Leopard build 32-bit (5537)\n>>\n>> Thanks for any help.  I have uninstalled and reinstalled but to no\n>> avail.\n>>\n>> Matt\n>>\n>>\n>>\n>> -----------------------------\n>> Matthew Burton-Kelly, M.S.\n>> Graduate Student\n>> Department of Geology and Geological Engineering\n>> University of North Dakota\n>> (802) 922-3696\n>> matthew.burton.kelly at und.nodak.edu\n>> matthew.burtonkelly at gmail.com\n>> http://www.protichnoctem.com\n>> --------------------------------------------\n>> \"About thirty years ago there was much talk that geologists ought  \n>> only\n>> to observe and not theorize; and I well remember someone saying that\n>> at this rate a man might as well go into a gravelpit and count the\n>> pebbles and describe the colors.  How odd it is that anyone should  \n>> not\n>> see that all observation must be for or against some view if it is to\n>> be of any service!\"\n>> -Charles Darwin, in an 1861 letter to Henry Fawcett.\n>>\n>>\n>> \t[[alternative HTML version deleted]]\n>>\n>> ______________________________________________\n>> R-help at r-project.org mailing list\n>> https://stat.ethz.ch/mailman/listinfo/r-help\n>> PLEASE do read the posting guide http://www.R-project.org/posting-guide.html\n>> and provide commented, minimal, self-contained, reproducible code.\n>>\n>\n> -- \n> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> University of Oxford,             Tel:  +44 1865 272861 (self)\n> 1 South Parks Road,                     +44 1865 272866 (PA)\n> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n\n\n\n\n-----------------------------\nMatthew Burton-Kelly, M.S.\nGraduate Student\nDepartment of Geology and Geological Engineering\nUniversity of North Dakota\n(802) 922-3696\nmatthew.burton.kelly at und.nodak.edu\nmatthew.burtonkelly at gmail.com\nhttp://www.protichnoctem.com\n--------------------------------------------\n\"About thirty years ago there was much talk that geologists ought only  \nto observe and not theorize; and I well remember someone saying that  \nat this rate a man might as well go into a gravelpit and count the  \npebbles and describe the colors.  How odd it is that anyone should not  \nsee that all observation must be for or against some view if it is to  \nbe of any service!\"\n-Charles Darwin, in an 1861 letter to Henry Fawcett.\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I'm reposting my original message here per request (see below)\n\nAs a workaround, I've used this tip (http://www.mail-archive.com/r-sig-mac at stat.math.ethz.ch/msg04700.html \n) to make R display help ",
       "thread_id": "thread-d83017637fcb",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100210/95e58d58/attachment.pl"
+      ]
     },
     {
       "id": "msg-6c31884b7182",
@@ -1371,11 +1398,14 @@
         "<285C6C30-2F0D-43EA-8D73-E40ABD225AE9@umsl.edu>",
         "<317737de1002202321sec6ffecyeb280d1657c4ee41@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100221/bdb55aed/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100221/bdb55aed/attachment.pl>",
+      "body_plain": "Thanks Jorge, you answered my generic R question!\n\nCheers,\n\nFelipe\n\n\nOn Feb 21, 2010, at 1:21 AM, Jorge Ivan Velez wrote:\n\n> Hi Felipe,\n>\n> Try this:\n>\n> m1 <- matrix(c(0, 1, 2,\n>                1, 0, 3,\n>                2, 3, 0), 3,3)\n> m1\n>\n> m2 <- matrix(c(0, 4, 5,\n> \t       4, 0, 6,\n> \t       5, 6, 0), 3,3)\n> m2\t\n> \t\n> m3 <- matrix(0, 3, 3)\n> m3[lower.tri(m3)] <- m1[lower.tri(m1)]\n> m3[t(lower.tri(m3))] <- m2[t(lower.tri(m1))]\n> m3\n>\n> HTH,\n> Jorge\n>\n> On Sun, Feb 21, 2010 at 2:02 AM, Felipe Zapata <> wrote:\n> A general question for R users about matrix manipulation:\n>\n> I have two symmetric distance matrices (measuring distances in 2  \n> different variables) and I am trying to build a new matrix showing  \n> one half of one of the matrices (below diagonal) and the other half  \n> of other matrix (above he diagonal). Is there any R function to do  \n> this?? any help would be appreciated.\n>\n> This is what i am talking about\n>\n> The matrices I have:\n>\n> matrix 1:\n>        [1]     [2]     [3]\n> [1]     0       a       b\n> [2]     a       0       c\n> [3]     b       c       0\n>\n> matrix 2\n>        [1]     [2]     [3]\n> [1]     0       x       y\n> [2]     x       0       z\n> [3]     y       z       0\n>\n> The matrix I want\n>        [1]     [2]     [3]\n> [1]     0       a       b\n> [2]     x       0       c\n> [3]     y       z       0\n>\n> Thanks,\n>\n> FZ.\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks Jorge, you answered my generic R question!\n\nCheers,\n\nFelipe\n\n\nOn Feb 21, 2010, at 1:21 AM, Jorge Ivan Velez wrote:\n\n> Hi Felipe,\n>\n> Try this:\n>\n> m1 <- matrix(c(0, 1, 2,\n>                1, 0,",
       "thread_id": "thread-16d4792e38e3",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100221/bdb55aed/attachment.pl"
+      ]
     },
     {
       "id": "msg-df6852ff2304",
@@ -1405,11 +1435,14 @@
       "subject_clean": "Read.table for MAC",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100224/0f317a3a/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100224/0f317a3a/attachment.pl>",
+      "body_plain": "Hi  Hi listers,\nI just got\na MAC, so I am trying to use the\ncommand READ.TABLE but I am getting a\nerror that is probably caused by the wrong path that I am using...\n\nThe command is the following... \n\nfile<-read.table(\"/Users/Márcio/UdeM/Travail\nDirigé/Data/MU284 Population.txt\",header=T,skip=24) \n\nAnd I am getting the following error... \nErro em\nfile(file, \"rt\") : não é possível abrir a\nconexão\nAlém disso: Warning message:\nIn file(file,\n\"rt\") :\n  cannot open file\n'/Users/Márcio/UdeM/Travail Dirigé/Data/MU284\nPopulation.txt': No such file or directory\n\nDoes anybody knows what I am doing wrong? Any suggestions?\n\nThanks in advance, \nMarcio  \t \t\t\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi  Hi listers,\nI just got\na MAC, so I am trying to use the\ncommand READ.TABLE but I am getting a\nerror that is probably caused by the wrong path that I am using...\n\nThe command is the following... \n\n",
       "thread_id": "thread-b3ac32c097b1",
       "thread_depth": 0,
-      "month": "2010-02"
+      "month": "2010-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20100224/0f317a3a/attachment.pl"
+      ]
     },
     {
       "id": "msg-96136eadda81",

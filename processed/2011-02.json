@@ -36,11 +36,14 @@
       "subject_clean": "R-engine failure on Mac OS Snow Leopard 10.6.4, 32 bits, with java 1.6",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110201/c89ee773/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110201/c89ee773/attachment.pl>",
+      "body_plain": "Hi,\nI have developped a java swing application (1.6) embedding R (using the \nJRI, JRengine) and all was fine on my previous laptop (Mac OS X Leopard, \n10.5).\n\nBut I had to change my laptop (Snow Leopard 10.6.4, 32 bits with java \n1.6), and now there is a failure, which seems to come from cocoa (read \nthis on other forums). The error \"__NSAutoreleaseNoPool\" is on all \nforums.//For instance, see\nhttp://www.omnigroup.com/mailman/archive/macosx-dev/2001-July/029778.html/\n/\nI use the R  binairies downloaded from CRAN :\nhttp://cran.r-project.org/\nI also have installed the Xcode SDK\n\nHere is my stack trace :\n------------------------------------------------------------------------\njava.library.path: \n/Library/Frameworks/R.framework/Resources/library/rJava/jri\nR_HOME: /Library/Frameworks/R.framework/Resources\n\nR version 2.12.1 (2010-12-16)\nCopyright (C) 2010 The R Foundation for Statistical Computing\nISBN 3-900051-07-0\nPlatform: i386-apple-darwin9.8.0/i386 (32-bit)\n...\nChargement de Tcl/Tk... termin?\nLe chargement a n?cessit? le package : mvoutlier\n** R loaded**\n------------------------------------------------------------------------\nOk all is fine\nBut ...\n------------------------------------------------------------------------\n\n2011-02-01 14:16:47.428 java[377:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x1130840 of class NSConcreteMapTableValueEnumerator autoreleased \nwith no pool in place - just leaking\n2011-02-01 14:16:47.432 java[377:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x150c440 of class NSConcreteMapTableValueEnumerator autoreleased \nwith no pool in place - just leaking\n\n------------------------------------------------------------------------\n\nReading this post, \nhttps://stat.ethz.ch/pipermail/r-sig-mac/2010-December/007913.html, I \nunderstood that\n\n/\"the latest update to Snow Leopard (10.6.5) removes necessary header/  /files from the system Java installation.\"\n/\n\nOK, and all this have been ennoying other people using the mac OS X JVM \nfor other applications.\n/\n/\nSo I have followed the advice : installed the Xcode SDK and made java \nreconf for R with good CPP flags/\n\n/------------------------------------------------------------------------\nplumejeau:ESTIM christineplumejeaud$ \nJAVA_CPPFLAGS=-I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers \nR CMD javareconf\nJava interpreter : \n/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/java\nJava version     : 1.6.0_22\nJava home path   : \n/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home\nJava compiler    : \n/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javac\nJava headers gen.: \n/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javah\nJava archive tool: \n/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/jar\nJava library path:\nJNI linker flags : -framework JavaVM\nJNI cpp flags    : \n-I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers\n\nUpdating Java configuration in /Library/Frameworks/R.framework/Resources\nDone.\n------------------------------------------------------------------------\n\nUnfortunatly, the problem is going on...\n\nHave you any idea ?\n\nHere is the command to launch my application.\njava -d32 \n-Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri \n-cp \"${ESTIM_DIR}/lib/JRI.jar:${ESTIM_DIR}/lib/JRIEngine.jar --arch \ni386:${ESTIM_DIR}/lib/postgis_1_0_0.jar:${ESTIM_DIR}/lib/postgresql-8.1-404.jdbc3.jar:${ESTIM_DIR}/lib/REngine.jar:${ESTIM_DIR}/dist/ESTIM.jar\" \nEstim\n\nThanks in advance,\nChristine\n\n-- \nChristine Plumejeaud\nEquipe Steamer, Laboratoire d'Informatique de Grenoble\n681 rue de la Passerelle\n38400 St Martin d'Hères\n04 76 82 72 11\nchristine.plumejeaud at imag.fr\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\nI have developped a java swing application (1.6) embedding R (using the \nJRI, JRengine) and all was fine on my previous laptop (Mac OS X Leopard, \n10.5).\n\nBut I had to change my laptop (Snow Leopa",
       "thread_id": "thread-2288ee09e505",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110201/c89ee773/attachment.pl"
+      ]
     },
     {
       "id": "msg-74e880552405",
@@ -89,11 +92,14 @@
       "subject_clean": "open help in browser",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110203/5439b54a/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110203/5439b54a/attachment.pl>",
+      "body_plain": "Hello,\n\nIs there a way to open help files in the default web browser instead of a\nnew R-window\nwhen I use the help-functions (like ?, help.search() etc.)?\n\nI have tried options(htmlhelp=TRUE) and options(help_type = \"html\"), both\ndoes not work.\n\nI am using R 2.12.1 on Mac OS X 10.6.6.\n\nThanks in advance.\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello,\n\nIs there a way to open help files in the default web browser instead of a\nnew R-window\nwhen I use the help-functions (like ?, help.search() etc.)?\n\nI have tried options(htmlhelp=TRUE) and opti",
       "thread_id": "thread-baedf8b5b828",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110203/5439b54a/attachment.pl"
+      ]
     },
     {
       "id": "msg-863ab2568b6b",
@@ -126,11 +132,14 @@
         "<AANLkTikEEwVyKBeSwBjQKekH1PzPiKdVa_25V4Ouv+gn@mail.gmail.com>",
         "<18ACC3DF-5598-465D-B8DD-0528D9B91ED9@r-project.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110203/7e363bfd/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110203/7e363bfd/attachment.pl>",
+      "body_plain": "Thanks!\n\nI just tried but got an issue, whenever I invoked help, a blank R help\nwindow will always jump first, after that the browser shows. Is there any\nway to avoid this behavior?\n\nOn 3 February 2011 21:08, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n\n>\n> On Feb 3, 2011, at 3:31 PM, DONG Keren wrote:\n>\n> > Hello,\n> >\n> > Is there a way to open help files in the default web browser instead of a\n> > new R-window\n> > when I use the help-functions (like ?, help.search() etc.)?\n> >\n>\n> Yes, from the NEWS for R 2.10.1:\n>\n> *       Added \"use.external.help\" preference entry. If set to\n>        YES then the configured R browser is used to display\n>        help pages instead of the internal one.\n>\n> Also it was discussed here before:\n>\n> http://www.mail-archive.com/r-sig-mac at r-project.org/msg00017.html\n>\n> Cheers,\n> Simon\n>\n>\n>\n> > I have tried options(htmlhelp=TRUE) and options(help_type = \"html\"), both\n> > does not work.\n> >\n> > I am using R 2.12.1 on Mac OS X 10.6.6.\n> >\n> > Thanks in advance.\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> >\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks!\n\nI just tried but got an issue, whenever I invoked help, a blank R help\nwindow will always jump first, after that the browser shows. Is there any\nway to avoid this behavior?\n\nOn 3 February 201",
       "thread_id": "thread-baedf8b5b828",
       "thread_depth": 2,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110203/7e363bfd/attachment.pl"
+      ]
     },
     {
       "id": "msg-5cd70f30c503",
@@ -251,11 +260,14 @@
       "subject_clean": "GUI data editor",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/ca608912/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/ca608912/attachment.pl>",
+      "body_plain": "Hello,\n\nI am confused, is there a GUI data editor that can be invoked by edit()?\nI am looking at the book R in a Nutshell, and there is a picture of a nice\nspreadsheet that should come up. When I use edit() all I get is a text\neditor?\n\nThank you!\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello,\n\nI am confused, is there a GUI data editor that can be invoked by edit()?\nI am looking at the book R in a Nutshell, and there is a picture of a nice\nspreadsheet that should come up. When I use ",
       "thread_id": "thread-af9f3ddbb239",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/ca608912/attachment.pl"
+      ]
     },
     {
       "id": "msg-39bbb6d40196",
@@ -288,11 +300,14 @@
         "<AANLkTi=4+YVOJyoswg8Y6O0mmJD+o7YVm5XvsfQ8Hq0s@mail.gmail.com>",
         "<B36D0AD1-5F7C-46BF-A884-9CE795B61454@r-project.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/175a3163/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/175a3163/attachment.pl>",
+      "body_plain": "thank you for the clarification, so to edit a vector I guess one might do\nthis:\n\nx = c(1,2,3)\n\nx = as.vector(edit(as.matrix(x)))\n\n\n\n\n\nOn Sat, Feb 5, 2011 at 3:14 PM, Simon Urbanek\n<simon.urbanek at r-project.org>wrote:\n\n>\n> On Feb 5, 2011, at 1:42 PM, Ahnate Lim wrote:\n>\n> > Hello,\n> >\n> > I am confused, is there a GUI data editor that can be invoked by edit()?\n>\n>\n> Yes.\n>\n> For example\n> m=edit(matrix(0,4,4))\n> or\n> d=edit(iris)\n>\n>\n> > I am looking at the book R in a Nutshell, and there is a picture of a\n> nice\n> > spreadsheet that should come up. When I use edit() all I get is a text\n> > editor?\n> >\n>\n> It means that you're trying to edit something that doesn't fit a\n> spreadsheet.\n>\n> Cheers,\n> Simon\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "thank you for the clarification, so to edit a vector I guess one might do\nthis:\n\nx = c(1,2,3)\n\nx = as.vector(edit(as.matrix(x)))\n\n\n\n\n\nOn Sat, Feb 5, 2011 at 3:14 PM, Simon Urbanek\n<simon.urbanek at r-",
       "thread_id": "thread-af9f3ddbb239",
       "thread_depth": 2,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/175a3163/attachment.pl"
+      ]
     },
     {
       "id": "msg-91a3f2d4174d",
@@ -329,11 +344,14 @@
         "<AANLkTik_RuOPF6EA3q4AEUcAAW2FB9RCzN4==LZrw1RN@mail.gmail.com>",
         "<FDEAD711-4DDF-466C-B5B5-7154E168BDF0@comcast.net>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/59e5db11/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/59e5db11/attachment.pl>",
+      "body_plain": "That's strange, it does work for me.\n\n\n\nOn Sat, Feb 5, 2011 at 5:54 PM, David Winsemius <dwinsemius at comcast.net>wrote:\n\n>\n> On Feb 5, 2011, at 9:38 PM, Ahnate Lim wrote:\n>\n>  thank you for the clarification, so to edit a vector I guess one might do\n>> this:\n>>\n>> x = c(1,2,3)\n>>\n>> x = as.vector(edit(as.matrix(x)))\n>>\n>\n> Did you try that? It didn't work for me, but this did:\n>\n>\n> > x = c(1,2,3)\n> >\n> > x = as.vector(edit(as.matrix(x)))\n> >\n> > x\n> [1] 1 2 3\n> > x = as.vector(x <- edit(as.matrix(x)))\n> > x\n> [1] 1 4 3\n>\n> Generally one needs to assign the result of edit() to <something>.\n> --\n> David.\n>\n>>\n>>\n>>\n>>\n>>\n>> On Sat, Feb 5, 2011 at 3:14 PM, Simon Urbanek\n>> <simon.urbanek at r-project.org>wrote:\n>>\n>>\n>>> On Feb 5, 2011, at 1:42 PM, Ahnate Lim wrote:\n>>>\n>>>  Hello,\n>>>>\n>>>> I am confused, is there a GUI data editor that can be invoked by edit()?\n>>>>\n>>>\n>>>\n>>> Yes.\n>>>\n>>> For example\n>>> m=edit(matrix(0,4,4))\n>>> or\n>>> d=edit(iris)\n>>>\n>>>\n>>>  I am looking at the book R in a Nutshell, and there is a picture of a\n>>>>\n>>> nice\n>>>\n>>>> spreadsheet that should come up. When I use edit() all I get is a text\n>>>> editor?\n>>>>\n>>>>\n>>> It means that you're trying to edit something that doesn't fit a\n>>> spreadsheet.\n>>>\n>>> Cheers,\n>>> Simon\n>>>\n>>>\n>>>\n>>>\n>>        [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>\n> David Winsemius, MD\n> West Hartford, CT\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "That's strange, it does work for me.\n\n\n\nOn Sat, Feb 5, 2011 at 5:54 PM, David Winsemius <dwinsemius at comcast.net>wrote:\n\n>\n> On Feb 5, 2011, at 9:38 PM, Ahnate Lim wrote:\n>\n>  thank you for the clar",
       "thread_id": "thread-af9f3ddbb239",
       "thread_depth": 4,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/59e5db11/attachment.pl"
+      ]
     },
     {
       "id": "msg-bc80b0395b46",
@@ -363,11 +381,14 @@
       "references": [
         "<0A2DE20B-562C-4BF7-BFD6-5001CFEEB919@stat.unipd.it>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110208/fb3f5a46/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110208/fb3f5a46/attachment.pl>",
+      "body_plain": "Greetings,\n\nI cannot reproduce the error on my machine. library(nlme) works fine in my\ncase.\n\n R.version\n               _\nplatform       i386-apple-darwin9.8.0\narch           i386\nos             darwin9.8.0\nsystem         i386, darwin9.8.0\nstatus         Patched\nmajor          2\nminor          12.1\nyear           2011\nmonth          02\nday            03\nsvn rev        54216\nlanguage       R\nversion.string R version 2.12.1 Patched (2011-02-03 r54216)\n\n\n\nOn Tue, Feb 8, 2011 at 9:00 AM, Adelchi Azzalini <azzalini at stat.unipd.it>wrote:\n\n> library(nlme) does not load,\n> this is what I get:\n>\n> R> library(nlme)\n> Error in .Call(\"R_lazyLoadDBfetch\", key, file, compressed, hook, PACKAGE =\n> \"base\") :\n>  C symbol name \"R_lazyLoadDBfetch\" not in DLL for package \"base\"\n>\n> However the probleme could be in the base package.\n> If I try with the Package Manger, then I get this:\n>\n> Error in .Call(\"R_lazyLoadDBfetch\", key, file, compressed, hook, PACKAGE =\n> \"base\") :\n>  C symbol name \"R_lazyLoadDBfetch\" not in DLL for package \"base\"\n> In addition: Warning message:\n> In FUN(\"Orthodont\"[[1L]], ...) : restarting interrupted promise evaluation\n> starting httpd help server ... done\n>\n> details about my intallation are below.\n>\n> Regards,\n>\n> Adelchi Azzalini\n>\n> ---\n> R> R.version\n>               _\n> platform       i386-apple-darwin9.8.0\n> arch           i386\n> os             darwin9.8.0\n> system         i386, darwin9.8.0\n> status\n> major          2\n> minor          12.1\n> year           2010\n> month          12\n> day            16\n> svn rev        53855\n> language       R\n> version.string R version 2.12.1 (2010-12-16)\n> R>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Greetings,\n\nI cannot reproduce the error on my machine. library(nlme) works fine in my\ncase.\n\n R.version\n               _\nplatform       i386-apple-darwin9.8.0\narch           i386\nos             darwi",
       "thread_id": "thread-bc80b0395b46",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110208/fb3f5a46/attachment.pl"
+      ]
     },
     {
       "id": "msg-058902bb01a3",
@@ -450,11 +471,14 @@
       "subject_clean": "lattice-wireframe change colours",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110224/c4aa2982/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110224/c4aa2982/attachment.pl>",
+      "body_plain": "Hi all,\n\nI'm trying to plot a 3D graph using wireframe, and I want to colour the graph dependent on z axis values.  my z axis range is 0 - 2. Basically what I want is to colour from various points different colours. so say 1.4-2 would be blue, 0.4-1.4 red 0 - 0.4 green or whatever colours.\n\n\ndata.m = as.matrix(read.table(\"data.txt\", sep='\\t', header=T))[,-1]\nlibrary(lattice)\nwireframe(data.m,aspect = c(0.3), shade=TRUE, screen = list(z = 0, x = -45), light.source = c(0,0,10), distance = 0.2,zlab=\"Freq\",xlab=\"base\",ylab=\"Fragment\")\n\n\nThat is what I have so far, this just uses the rainbow colour, but i want to assign specific colours to specific regions. I have tried to look through the documentation but its not terribly clear to me.\n\nThanks for any help,  James\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all,\n\nI'm trying to plot a 3D graph using wireframe, and I want to colour the graph dependent on z axis values.  my z axis range is 0 - 2. Basically what I want is to colour from various points dif",
       "thread_id": "thread-ec8c27716475",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110224/c4aa2982/attachment.pl"
+      ]
     },
     {
       "id": "msg-e5f04b3857b1",
@@ -487,11 +511,14 @@
         "<BLU0-SMTP12532E8B3A4A67B4337D824B2DA0@phx.gbl>",
         "<246578CF-418A-4EF3-9668-202C39D69C8A@comcast.net>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110225/eeee48fe/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110225/eeee48fe/attachment.pl>",
+      "body_plain": "Sorry about not including data. Its quite a large dataset.\n\t\t\t\t\n1\t2\t3\n0\t0.334643563\t0.350913807\t0.383652307\n15\t0.370325283\t0.38779016\t0.42387392\n30\t0.39861579\t0.418389687\t0.460692165\n45\t0.43888516\t0.468015843\t0.520560489\n60\t0.499544084\t0.535099422\t0.60982153\n75\t0.569888047\t0.634351734\t0.717646392\n90\t0.717202578\t0.810887467\t0.935152498\n105\t0.901982916\t1.044895388\t1.228306176\n120\t1.12856184\t1.314210456\t1.462055626\n135\t1.377314404\t1.540372345\t1.6206216\n150\t1.494044604\t1.618244219\t1.631295797\n\n\nTheres another 10 columns of that and another 160+ rows\nThe first column are x-axis labels hence I didn't load them ([,-1])\nFirst row is the y axis values.\nOther values are z-axis values, these range between 0 and 2.\n\nI couldn't get it to work, I'm reasonably new to R. I guess the question is what values should be in place of x and in your code the two 30 numbers. I had a look through the help to no avail.\n\n(also sorry about posting to the wrong list - if it makes it any better I am on a Macbook pro)\n\nThanks, James\n\nOn 24 Feb 2011, at 19:56, David Winsemius wrote:\n\n> \n> On Feb 24, 2011, at 1:01 PM, James Platt wrote:\n> \n>> Hi all,\n>> \n>> I'm trying to plot a 3D graph using wireframe, and I want to colour the graph dependent on z axis values.  my z axis range is 0 - 2. Basically what I want is to colour from various points different colours. so say 1.4-2 would be blue, 0.4-1.4 red 0 - 0.4 green or whatever colours.\n>> \n>> \n>> data.m = as.matrix(read.table(\"data.txt\", sep='\\t', header=T))[,-1]\n>> library(lattice)\n>> wireframe(data.m,aspect = c(0.3), shade=TRUE, screen = list(z = 0, x = -45), light.source = c(0,0,10), distance = 0.2,zlab=\"Freq\",xlab=\"base\",ylab=\"Fragment\")\n>> \n>> \n>> That is what I have so far, this just uses the rainbow colour, but i want to assign specific colours to specific regions. I have tried to look through the documentation but its not terribly clear to me.\n> \n> Following the advice in help(wirefrane) you need to look at the levelplot section for advice re: a proper specification to colorkey and follow the appropriate links in the help pages. Whether your data is a proper input to wireframe cannot be determined from the included information, although I suppose your reported success suggests it is.\n> \n> This is an untested (since there was nothing to test) wild-assed guess after reading the material I pointed to:\n> \n> wireframe(data.m,aspect = c(0.3), shade=TRUE, screen = list(z = 0, x = -45),\n>   light.source = c(0,0,10), distance = 0.2,zlab=\"Freq\",xlab=\"base\",ylab=\"Fragment\",\n>   col=level.colors(x, at = do.breaks(range(data.m), 30),\n>                    col.regions = colorRampPalette(c(\"red\", \"white\", \"blue\")(30))\n>      )\n> \n> (Also not a Mac question so is on the wrong list.)\n> \n> --\n> \n> David Winsemius, MD\n> West Hartford, CT\n> \n> \n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Sorry about not including data. Its quite a large dataset.\n\t\t\t\t\n1\t2\t3\n0\t0.334643563\t0.350913807\t0.383652307\n15\t0.370325283\t0.38779016\t0.42387392\n30\t0.39861579\t0.418389687\t0.460692165\n45\t0.43888516\t0.4",
       "thread_id": "thread-ec8c27716475",
       "thread_depth": 2,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110225/eeee48fe/attachment.pl"
+      ]
     },
     {
       "id": "msg-9bc68c144664",
@@ -503,11 +530,14 @@
       "subject_clean": "Tcl/Tk problem with time-consuming function",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110227/1c768805/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110227/1c768805/attachment.pl>",
+      "body_plain": "Hi,\nI have made a minimal example of my problem:\n\n\nrequire(tcltk)\ntt <- tktoplevel();\nAUS <- function()\n{\n\ttest(\"hello\");\n}\nAUSButton.but <- tkbutton(tt,text=\"OK\",command=AUS)\ntkgrid(AUSButton.but)\ntkfocus(tt);\n\ntest <- function(parameter) {\n\tfor (i in 1:100) {\n\t\tfor (j in 1:100000) { j <- j + 1;}\n\t\tprint(i);\n\t\tflush.console();\n\t}\n}\n\n\nThere ist the function test (with a parameter), and this function does a time-consuming calculation, but shows the progress with the numbers from 1 to 100.\n\nWhen I click the button \"OK\", the tktoplevel window and R don't response anymore and there are no numbers on the console until the  outer for loop   is finished. Then there are printed out all numbers at once.\n\nIs there a possibility to change the call of the function test() that R and the tktoplevel window don't \"crash\" and the function test is \"normally\" executed at the console?\n\nThank you!\n\nStefan Richter\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\nI have made a minimal example of my problem:\n\n\nrequire(tcltk)\ntt <- tktoplevel();\nAUS <- function()\n{\n\ttest(\"hello\");\n}\nAUSButton.but <- tkbutton(tt,text=\"OK\",command=AUS)\ntkgrid(AUSButton.but)\ntk",
       "thread_id": "thread-9bc68c144664",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110227/1c768805/attachment.pl"
+      ]
     }
   ],
   "threads": [

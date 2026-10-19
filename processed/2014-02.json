@@ -31,11 +31,14 @@
       "subject_clean": "installing lme4.0 on OS X 10.9",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140210/d805d30e/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140210/d805d30e/attachment.pl>",
+      "body_plain": "I'm forwarding this to R-sig-Mac.\n\nTim Cole\n--\nTim.Cole at ucl.ac.uk<mailto:Tim.Cole at ich.ucl.ac.uk> Phone +44(0)20 7905 2666 Fax +44(0)20 7905 2381\nCentre for Paediatric Epidemiology and Biostatistics\nUCL Institute of Child Health, London WC1N 1EH, UK\n\nFrom: Tobias Heed <tobias.heed.uhh at gmail.com<mailto:tobias.heed.uhh at gmail.com>>\nTo: Levy, Roger <rlevy at ucsd.edu<mailto:rlevy at ucsd.edu>>\nCc: \"=?utf-8?Q?r-sig-mixed-models=40r-project.org?=\"\n<r-sig-mixed-models at r-project.org<mailto:r-sig-mixed-models at r-project.org>>\nSubject: Re: [R-sig-ME] installing lme4.0 on OS X 10.9\nMessage-ID: <etPan.52f88faa.3730bb65.2e5a at Macintosh.local<mailto:etPan.52f88faa.3730bb65.2e5a at Macintosh.local>>\nContent-Type: text/plain\n\nRoger,\n\nsorry to hear this didn’t work. Unfortunately, I do not recall everything I tried back then. I do recall that the problem was that gcc doesn’t come with Mavericks. A few things still,\n1, after reinstalling your Mac, did you update XCode? This is probably necessary.\n2, after making the Makevars file, did you restart R?\n\nAssuming that most probably you did both, I found these links in my notes, maybe they can point you in the right direction.\nhttp://stackoverflow.com/questions/19503995/error-when-with-xcode-5-0-and-rcpp-command-line-tools-are-installed\nhttp://stackoverflow.com/questions/19533220/cannot-install-r-package-from-source-in-mac-osx-maverick\n\nhope this helps.\nBest,\nTobias\n\n\n--\n--------------------------------------------------------------------------------------------------------------\nTobias Heed, PhD\nBiological Psychology and Neuropsychology\nDepartment of Psychology & Human Movement Science  |  University of Hamburg\nVon-Melle-Park 11, Room 208  |  D-20146 Hamburg, Germany\nPhone: (49) 40 - 42838 5831  |  Fax:   (49) 40 - 42838 6591\ntobias.heed at uni-hamburg.de<mailto:tobias.heed at uni-hamburg.de>  |  Website  |  Google Scholar\n--------------------------------------------------------------------------------------------------------------\nFrom: Levy, Roger rlevy at ucsd.edu<mailto:rlevy at ucsd.edu>\nReply: Levy, Roger rlevy at ucsd.edu<mailto:rlevy at ucsd.edu>\nDate: February 9,2014 at 23:41:48\nTo: Tobias Heed tobias.heed.uhh at gmail.com<mailto:tobias.heed.uhh at gmail.com>\nCc: r-sig-mixed-models at r-project.org<mailto:r-sig-mixed-models at r-project.org> r-sig-mixed-models at r-project.org<mailto:r-sig-mixed-models at r-project.org>\nSubject:  Re: [R-sig-ME] installing lme4.0 on OS X 10.9\nThanks so much, Tobias. Unfortunately, setting up a Makevars file like you suggested simply leaves me with the same errors in R as I get in the command line:\n\ninstall.packages(\"lme4.0\", repos=\"http://r-forge.r-project.org\",type=\"source\")\n…\n<snip>\n…\nclang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/lib -L/usr/local/lib -o lme4.so init.o lmer.o local_stubs.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3/x86_64 -L/usr/local/lib/x86_64 -L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3 -lgfortran -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\n…\nld: warning: directory not found for option '-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3/x86_64'\nld: warning: directory not found for option '-L/usr/local/lib/x86_64'\nld: warning: directory not found for option '-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3'\nld: library not found for -lgfortran\nclang: error: linker command failed with exit code 1 (use -v to see invocation)\n\n\nAny further thoughts or suggestions on this, anyone?\n\nBest\n\nRoger\n\nOn Feb 7, 2014, at 12:06 PM, Tobias Heed <tobias.heed.uhh at gmail.com<mailto:tobias.heed.uhh at gmail.com>> wrote:\n\nDear Roger,\n\nif I remember correctly, this solved the problem for me:\non the top level of your user account, create a folder .R (if it’s not there yet);\nin there, create a new text file named Makevars;\ninto this file, paste the following:\n\nCC=clang\nCXX=clang++ -arch x86_64 -ftemplate-depth-256 -stdlib=libstdc++\nCXXFLAGS= -O3 -pedantic\n\nhope it helps\nBest,\nTobias\n\n\nFrom: Levy, Roger rlevy at ucsd.edu<mailto:rlevy at ucsd.edu>\nReply: Levy, Roger rlevy at ucsd.edu<mailto:rlevy at ucsd.edu>\nDate: February 7,2014 at 20:59:11\nTo: r-sig-mixed-models at r-project.org<mailto:r-sig-mixed-models at r-project.org> r-sig-mixed-models at r-project.org<mailto:r-sig-mixed-models at r-project.org>\nSubject: [R-sig-ME] installing lme4.0 on OS X 10.9\nHi all,\n\nMy Mac laptop died and I am now reinstalling all my packages from scratch. Previously I was using lme4_0.999999-2 and I figure that with a fresh install, I might as well install lme4.0 instead. But I am having trouble compiling it:\n\n> install.packages(\"lme4.0\", repos=\"http://r-forge.r-project.org\",type=\"source\")\ntrying URL 'http://r-forge.r-project.org/src/contrib/lme4.0_0.999999-4.tar.gz'\nContent type 'application/x-gzip' length 772384 bytes (754 Kb)\nopened URL\n==================================================\ndownloaded 754 Kb\n\n* installing *source* package ‘lme4.0’ ...\n** libs\nllvm-gcc-4.2 -arch x86_64 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG -I/usr/local/include -I\"/Library/Frameworks/R.framework/Versions/3.0/Resources/library/Matrix/include\" -I\"/Library/Frameworks/R.framework/Versions/3.0/Resources/library/stats/include\" -fPIC -mtune=core2 -g -O2 -c init.c -o init.o\n/bin/sh: llvm-gcc-4.2: command not found\n\n\nThis happens even after I install Xcode and also llvm-gcc42 on MacPorts;\n\nDoes anyone have any suggestions? FWIW:\n\n> sessionInfo()\nR version 3.0.2 (2013-09-25)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats graphics grDevices utils datasets methods base\n\nloaded via a namespace (and not attached):\n[1] tools_3.0.2\n\n\nI’ve also tried installing from the command line; this bottoms out in a different error:\n\n$ R CMD build lme4.0\n…\n<snip>\n…\nld: warning: directory not found for option ‘-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3/x86_64’\nld: warning: directory not found for option ‘-L/usr/local/lib/x86_64’\nld: warning: directory not found for option ‘-L/usr/local/lib/gcc/i686-apple-darwin8/4.2.3’\nld: library not found for -lgfortran\nclang: error: linker command failed with exit code 1 (use -v to see invocation)\nmake: *** [lme4.so] Error 1\n\n\nMore generally, I’m having trouble figuring out what I should install in order to be able to compile lme4.0 from source.\n\nBest & many thanks in advance for any guidance,\n\nRoger Levy\n\n_______________________________________________\nR-sig-mixed-models at r-project.org<mailto:R-sig-mixed-models at r-project.org> mailing list\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mixed-models\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I'm forwarding this to R-sig-Mac.\n\nTim Cole\n--\nTim.Cole at ucl.ac.uk<mailto:Tim.Cole at ich.ucl.ac.uk> Phone +44(0)20 7905 2666 Fax +44(0)20 7905 2381\nCentre for Paediatric Epidemiology and Biostatist",
       "thread_id": "thread-5db55877fb20",
       "thread_depth": 0,
-      "month": "2014-02"
+      "month": "2014-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140210/d805d30e/attachment.pl"
+      ]
     },
     {
       "id": "msg-e443150a1776",
@@ -175,11 +178,14 @@
       "references": [
         "<7F21F857-C0AD-4BB7-ABB3-52229F243580@colorado.edu>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/075a518d/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/075a518d/attachment.pl>",
+      "body_plain": "Have you set an alias or soft link somewhere?  Try\n  which -a R\nand look in your .bashrc / .profile.\n\nKasper\n\n\n\nOn Wed, Feb 12, 2014 at 7:39 AM, Catherine A. Lozupone <\nCatherine.Lozupone at colorado.edu> wrote:\n\n> Hello,\n>\n> I am on Mac OS X Version 10.8.5. I recently installed R-3.0.2.pkg on my\n> machine which by default put the R application in my /Applications folder.\n> When I envoke R by double clicking on the R application file in my\n> Applications folder it opens up a GUI just fine. However, when I try to\n> invoke R from a terminal window I get the error \"-bash: R64: command not\n> found.\" This appears to be unrelated to R not being in my path.\n> /Applications is in my path and when I cd to the /Applications folder and\n> try and invoke R by typing \"R\" or \"R --help\" I get the same \"command not\n> found\" error. I read in the R installation and Administration manual that\n> \"A version of R can be run directly from the command-line as e.g.\n> /Library/Frameworks/R.framework/Versions/3.0/Resources/bin/R). However when\n> I cd to this directory and type \"R\" I get the same \"command not found\"\n> error again. It also does not appear related to R not being executable. The\n> R installation in my /Applications folder looks like thi!\n>  s with ls -l:\n>\n> drwxrwxr-x    3 root      admin            102 Feb 12 05:20 R.app\n>\n> Any advice?\n>\n> Thanks,\n> Cathy\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Have you set an alias or soft link somewhere?  Try\n  which -a R\nand look in your .bashrc / .profile.\n\nKasper\n\n\n\nOn Wed, Feb 12, 2014 at 7:39 AM, Catherine A. Lozupone <\nCatherine.Lozupone at colorado.",
       "thread_id": "thread-44148876130f",
       "thread_depth": 1,
-      "month": "2014-02"
+      "month": "2014-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/075a518d/attachment.pl"
+      ]
     },
     {
       "id": "msg-71d40238a9e3",
@@ -193,11 +199,14 @@
       "references": [
         "<7F21F857-C0AD-4BB7-ABB3-52229F243580@colorado.edu>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/12d1cf23/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/12d1cf23/attachment.pl>",
+      "body_plain": "Catherine\nIt will depend on your path variable,\nif you look at the path by doing\n\necho $PATH\n\nNormally you should see in the path something that includes\n/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin\n\nif you do\nwhereis R\nit should answer\n/usr/bin/R\nwhich is probably an alias\n\n\n\nSusan Holmes\nProfessor, Statistics and BioX\nJohn Henry Samter University Fellow\nin Undergraduate Education\nDirector, Mathematical and Computational Sciences\nStanford\nhttp://www-stat.stanford.edu/~susan/\n\n\n\nOn Wed, Feb 12, 2014 at 1:39 PM, Catherine A. Lozupone <\nCatherine.Lozupone at colorado.edu> wrote:\n\n> Hello,\n>\n> I am on Mac OS X Version 10.8.5. I recently installed R-3.0.2.pkg on my\n> machine which by default put the R application in my /Applications folder.\n> When I envoke R by double clicking on the R application file in my\n> Applications folder it opens up a GUI just fine. However, when I try to\n> invoke R from a terminal window I get the error \"-bash: R64: command not\n> found.\" This appears to be unrelated to R not being in my path.\n> /Applications is in my path and when I cd to the /Applications folder and\n> try and invoke R by typing \"R\" or \"R --help\" I get the same \"command not\n> found\" error. I read in the R installation and Administration manual that\n> \"A version of R can be run directly from the command-line as e.g.\n> /Library/Frameworks/R.framework/Versions/3.0/Resources/bin/R). However when\n> I cd to this directory and type \"R\" I get the same \"command not found\"\n> error again. It also does not appear related to R not being executable. The\n> R installation in my /Applications folder looks like thi!\n>  s with ls -l:\n>\n> drwxrwxr-x    3 root      admin            102 Feb 12 05:20 R.app\n>\n> Any advice?\n>\n> Thanks,\n> Cathy\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Catherine\nIt will depend on your path variable,\nif you look at the path by doing\n\necho $PATH\n\nNormally you should see in the path something that includes\n/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin\n\n",
       "thread_id": "thread-44148876130f",
       "thread_depth": 1,
-      "month": "2014-02"
+      "month": "2014-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/12d1cf23/attachment.pl"
+      ]
     },
     {
       "id": "msg-a40518ae8347",
@@ -212,11 +221,14 @@
         "<7F21F857-C0AD-4BB7-ABB3-52229F243580@colorado.edu>",
         "<CAKRhawmr9-mk1nGTkkmX+W0B1VpriwLSvrBUY8_a03XaJ7sDOw@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/e0a86ab3/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/e0a86ab3/attachment.pl>",
+      "body_plain": "Thanks so much Susan and Kasper!\n\nI did have an alias. It works now. You guys are awesome :-)\n\nCathy\n\n\nOn Feb 12, 2014, at 7:14 AM, Susan Holmes <susanatstat at gmail.com<mailto:susanatstat at gmail.com>> wrote:\n\nCatherine\nIt will depend on your path variable,\nif you look at the path by doing\n\necho $PATH\n\nNormally you should see in the path something that includes\n/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin\n\nif you do\nwhereis R\nit should answer\n/usr/bin/R\nwhich is probably an alias\n\n\n\nSusan Holmes\nProfessor, Statistics and BioX\nJohn Henry Samter University Fellow\nin Undergraduate Education\nDirector, Mathematical and Computational Sciences\nStanford\nhttp://www-stat.stanford.edu/~susan/\n\n\n\nOn Wed, Feb 12, 2014 at 1:39 PM, Catherine A. Lozupone <Catherine.Lozupone at colorado.edu<mailto:Catherine.Lozupone at colorado.edu>> wrote:\nHello,\n\nI am on Mac OS X Version 10.8.5. I recently installed R-3.0.2.pkg on my machine which by default put the R application in my /Applications folder. When I envoke R by double clicking on the R application file in my Applications folder it opens up a GUI just fine. However, when I try to invoke R from a terminal window I get the error \"-bash: R64: command not found.\" This appears to be unrelated to R not being in my path. /Applications is in my path and when I cd to the /Applications folder and try and invoke R by typing \"R\" or \"R --help\" I get the same \"command not found\" error. I read in the R installation and Administration manual that \"A version of R can be run directly from the command-line as e.g. /Library/Frameworks/R.framework/Versions/3.0/Resources/bin/R). However when I cd to this directory and type \"R\" I get the same \"command not found\" error again. It also does not appear related to R not being executable. The R installation in my /Applications folder looks like thi!\n s with ls -l:\n\ndrwxrwxr-x    3 root      admin            102 Feb 12 05:20 R.app\n\nAny advice?\n\nThanks,\nCathy\n_______________________________________________\nR-SIG-Mac mailing list\nR-SIG-Mac at r-project.org<mailto:R-SIG-Mac at r-project.org>\nhttps://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks so much Susan and Kasper!\n\nI did have an alias. It works now. You guys are awesome :-)\n\nCathy\n\n\nOn Feb 12, 2014, at 7:14 AM, Susan Holmes <susanatstat at gmail.com<mailto:susanatstat at gmail.c",
       "thread_id": "thread-44148876130f",
       "thread_depth": 2,
-      "month": "2014-02"
+      "month": "2014-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140212/e0a86ab3/attachment.pl"
+      ]
     },
     {
       "id": "msg-c5cda3177b6c",
@@ -319,11 +331,14 @@
       "subject_clean": "building 32-bit version of R 3.x",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140225/8ce18c3e/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140225/8ce18c3e/attachment.pl>",
+      "body_plain": "I have a niche reason to build a 32-bit version of R.  I'm playing with F#\non Mono on Mac OSX, and specifically with Deedle, a data frame\nimplementation in F#.  There's an RProvider, a type provider in F# -- a\nhigher-level way to provide a set of functionality, types, and data to F#.\n RProvider links to the local R library similarly to rJava.  Since Mono is\n32-bit by default, and its IDE, Xamarin Studio, runs only in 32-bit mode,\nit's thought to be much easier to recompile R for 32-bit mode than the\nwhole of Mono.\n\nLooking at the sources, there's no obvious way to switch to 32-bit.  The\ngfortran.pkg (4.2.3) seems obsolete; I've configured the default setup\nsuccessfully only after installing gfortran 4.8.2 via brew.  But setting\nCPPFLAGS=\"-arch x686\" reports that Fortran mangling is messed up.\n\nSo how do I build me a shared R library for 32-bit mode?\n\nA+\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I have a niche reason to build a 32-bit version of R.  I'm playing with F#\non Mono on Mac OSX, and specifically with Deedle, a data frame\nimplementation in F#.  There's an RProvider, a type provider i",
       "thread_id": "thread-9b413d8a00bb",
       "thread_depth": 0,
-      "month": "2014-02"
+      "month": "2014-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140225/8ce18c3e/attachment.pl"
+      ]
     },
     {
       "id": "msg-1753e1405aea",
@@ -405,11 +420,14 @@
       "subject_clean": "Rmpi package",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/74dc96a6/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/74dc96a6/attachment.pl>",
+      "body_plain": "I have had success in installing Rmpi on Mavericks, and it may be helpful\nto others:\n\nI first installed *gfortran* and *open-mpi*:\nbrew install gfortran\nbrew install open-mpi\n\nThen in R I installed Rmpi using this command:\n*install.packages(\"Rmpi\", type=\"source\",\nconfigure.args=\"with-mpi=/usr/local/opt/open-mpi\")*\n\n(The *configure.args* parameter got around the following error: \"Cannot\nfind mpi.h header file\".)\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I have had success in installing Rmpi on Mavericks, and it may be helpful\nto others:\n\nI first installed *gfortran* and *open-mpi*:\nbrew install gfortran\nbrew install open-mpi\n\nThen in R I installed Rm",
       "thread_id": "thread-c1fdba5abb2a",
       "thread_depth": 0,
-      "month": "2014-02"
+      "month": "2014-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/74dc96a6/attachment.pl"
+      ]
     },
     {
       "id": "msg-46ea3d454b1c",
@@ -458,11 +476,14 @@
       "subject_clean": "Installing Rmpi on Mavericks",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/6a8a0a71/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/6a8a0a71/attachment.pl>",
+      "body_plain": "I have had success in installing Rmpi on Mavericks, and it may be helpful\nto others:\n\nI first installed *gfortran* and *open-mpi*:\nbrew install gfortran\nbrew install open-mpi\n\nThen in R I installed Rmpi using this command:\n*install.packages(\"Rmpi\", type=\"source\",\nconfigure.args=\"with-mpi=/usr/local/opt/open-mpi\")*\n\n(The *configure.args* parameter got around the following error: \"Cannot\nfind mpi.h header file\".)\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I have had success in installing Rmpi on Mavericks, and it may be helpful\nto others:\n\nI first installed *gfortran* and *open-mpi*:\nbrew install gfortran\nbrew install open-mpi\n\nThen in R I installed Rm",
       "thread_id": "thread-fdb358c2719a",
       "thread_depth": 0,
-      "month": "2014-02"
+      "month": "2014-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/6a8a0a71/attachment.pl"
+      ]
     },
     {
       "id": "msg-65cae5f76faf",
@@ -492,11 +513,14 @@
       "subject_clean": "R console and R controller error message",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/8497a720/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/8497a720/attachment.pl>",
+      "body_plain": "Dear list,\nI want to report an error on the R console I see.  I double clicked on R\ncommand History, the window that pop up on the right side of R console.\n\n\n> plot(dat,ylab=\"Number of people\",main=\"Progress over time\",type=\"o\")\n2014-02-28 18:37:26.720 R[2649:707] *** RController: caught ObjC exception\nwhile processing system events. Update to the latest GUI version and\nconsider reporting this properly (see FAQ) if it persists and is not known.\n*** reason: *** -[__NSArrayM objectAtIndex:]: index 18446744073709551615\nbeyond bounds [0 .. 55]\n*** name: NSRangeException, info: (null)\n*** Version: R 3.0.2 () R.app R 3.0.2 GUI 1.62 Snow Leopard build(null)\nConsider saving your work soon in case this develops into a problem.\n2014-02-28 18:37:26.722 R[2649:707] *** RController: caught ObjC exception\nwhile processing system events. Update to the latest GUI version and\nconsider reporting this properly (see FAQ) if it persists and is not known.\n*** reason: *** -[__NSArrayM objectAtIndex:]: index 18446744073709551615\nbeyond bounds [0 .. 55]\n*** name: NSRangeException, info: (null)\n*** Version: R 3.0.2 () R.app R 3.0.2 GUI 1.62 Snow Leopard build(null)\nConsider saving your work soon in case this develops into a problem.\n2014-02-28 18:37:26.753 R[2649:707] *** RController: caught ObjC exception\nwhile processing system events. Update to the latest GUI version and\nconsider reporting this properly (see FAQ) if it persists and is not known.\n*** reason: *** -[__NSArrayM objectAtIndex:]: index 18446744073709551615\nbeyond bounds [0 .. 55]\n*** name: NSRangeException, info: (null)\n*** Version: R 3.0.2 () R.app R 3.0.2 GUI 1.62 Snow Leopard build(null)\nConsider saving your work soon in case this develops into a problem.\n2014-02-28 18:37:26.771 R[2649:707] *** RController: caught ObjC exception\nwhile processing system events. Update to the latest GUI version and\nconsider reporting this properly (see FAQ) if it persists and is not known.\n*** reason: *** -[__NSArrayM objectAtIndex:]: index 18446744073709551615\nbeyond bounds [0 .. 55]\n*** name: NSRangeException, info: (null)\n*** Version: R 3.0.2 () R.app R 3.0.2 GUI 1.62 Snow Leopard build(null)\nConsider saving your work soon in case this develops into a problem.\n2014-02-28 18:37:26.789 R[2649:707] *** RController: caught ObjC exception\nwhile processing system events. Update to the latest GUI version and\nconsider reporting this properly (see FAQ) if it persists and is not known.\n*** reason: *** -[__NSArrayM objectAtIndex:]: index 18446744073709551615\nbeyond bounds [0 .. 55]\n*** name: NSRangeException, info: (null)\n*** Version: R 3.0.2 () R.app R 3.0.2 GUI 1.62 Snow Leopard build(null)\nConsider saving your work soon in case this develops into a problem.\n\n\n\n> sessionInfo()\nR version 3.0.2 (2013-09-25)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] astsa_1.1\n\nloaded via a namespace (and not attached):\n[1] tools_3.0.2\n\n\nThanks,\nMike\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear list,\nI want to report an error on the R console I see.  I double clicked on R\ncommand History, the window that pop up on the right side of R console.\n\n\n> plot(dat,ylab=\"Number of people\",main=\"P",
       "thread_id": "thread-5d1ef6beaf61",
       "thread_depth": 0,
-      "month": "2014-02"
+      "month": "2014-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140228/8497a720/attachment.pl"
+      ]
     }
   ],
   "threads": [

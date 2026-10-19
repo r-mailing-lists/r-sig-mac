@@ -95,11 +95,14 @@
       "subject_clean": "Problems with installing packages",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060604/1b3e75b3/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060604/1b3e75b3/attachment.pl",
+      "body_plain": "I am not sure if this matters or not, but on installing the base packages\nvia bioLitec, at the end of the install process I get the email:\n\ncannot create HTML package index in: make.packages.html()\n\n\nWhat does this mean?\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I am not sure if this matters or not, but on installing the base packages\nvia bioLitec, at the end of the install process I get the email:\n\ncannot create HTML package index in: make.packages.html()\n\n\n",
       "thread_id": "thread-83e35115b48b",
       "thread_depth": 0,
-      "month": "2006-06"
+      "month": "2006-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060604/1b3e75b3/attachment.pl"
+      ]
     },
     {
       "id": "msg-bd92b97945c4",
@@ -270,11 +273,14 @@
       "references": [
         "<8A0CADA7-D38B-4352-AB3D-8FEC1E75B986@louspringer.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060607/057190db/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060607/057190db/attachment.pl",
+      "body_plain": "I've got at least a partial resolution and workaround to my issue.\n\nThe default unix.socket parameter on the dbConnect call is \"/opt/ \nlocal/var/run/mysql5/mysqld.sock\" if unix.sock is not specified. I'm  \nnot sure where this unix.socket is coming from, but it doesn't work  \nfor me.\n\nThe correct unix.sock parameter for my case is  \"/tmp/mysql.sock\".\n\nThis works:\n\ncon <- dbConnect(dbDriver(\"MySQL\"), username=\"myuser\",  \nhost=\"localhost\", dbname=\"mydb\", password=\"secret\", unix.sock=\"/tmp/ \nmysql.sock\")\n\nThis does not:\n\ncon <- dbConnect(dbDriver(\"MySQL\"), username=\"myuser\",  \nhost=\"localhost\", dbname=\"mydb\", password=\"secret\")\n\nI also have a patch to RS-MySQL.c to display the error message  \nreturned by MySQL on a connect error. What should I do with this? Who  \nis the current maintainer for this code?\n\nThe bit around the \"my_sql_real_connect\" should read something like:\n\n   if(!mysql_real_connect(my_connection, host, user, passwd, dbname,\n\t\t       port, unix_socket, client_flags)){\n     char buf[2048];\n     sprintf(buf, \"could not connect %s@%s on dbname \\\"%s\\\"\\nError:%s \n\\n\",\n\t    user, host, dbname, mysql_error(my_connection));\n     RS_DBI_errorMessage(buf, RS_DBI_ERROR);\n   }\n\nThe current version clobbers \"my_connection\" on a failed connection  \nrendering any call to \"mysql_error(my_connection)\" useless. My hacked  \nRS-MySQL.c returns:\n\nError in mysqlNewConnection(drv, ...) : RS-DBI driver: (could not  \nconnect myuser at localhost on dbname \"mydb\"\nError:Can't connect to local MySQL server through socket '/opt/local/ \nvar/run/mysql5/mysqld.sock' (2)\n\nfor the error I was having, returning an informative mysql error  \nmessage on the failed connection.\n\n\nLou\n\nOn Jun 7, 2006, at 9:58 PM, Louis Springer wrote:\n\n> In reference to a meesage from \"jhorn at bu.edu\", installation and\n> build problems on OSX Tiger for R and RMySQL, \"RMySQL Error Messages,\n> crashing R\" (https://stat.ethz.ch/pipermail/r-sig-mac/2006-February/\n> 002686.html), was Jason ever able to resolve the issues? I'm not\n> getting any of the compile issues referred to, but am unable to\n> connect, getting:\n>\n> RS-DBI driver: (could not connect xxx at localhost on dbname \"dbname\"\n>\n> My R version is R for Mac OS X Aqua GUI, 1.16 (3198), R 2.3.1  \n> Framework\n> RMySQL version RMySQL_0.5-7\n> MySQL version mysql  Ver 14.12 Distrib 5.0.13-rc, for apple-\n> darwin8.2.0 (powerpc) using readline 5.0\n>\n> Thanks,\n> Lou\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I've got at least a partial resolution and workaround to my issue.\n\nThe default unix.socket parameter on the dbConnect call is \"/opt/ \nlocal/var/run/mysql5/mysqld.sock\" if unix.sock is not specified. ",
       "thread_id": "thread-a99d2befa2a2",
       "thread_depth": 1,
-      "month": "2006-06"
+      "month": "2006-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060607/057190db/attachment.pl"
+      ]
     },
     {
       "id": "msg-500f1efbd268",
@@ -462,11 +468,14 @@
       "references": [
         "<4487FA5F.4020500@student.ethz.ch>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060610/7c89eef3/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060610/7c89eef3/attachment.pl",
+      "body_plain": "On Jun 8, 2006, at 12:22 PM, sj wrote:\n\n> therefor I used the following commands to install:\n>\n> export CPPFLAGS=\"-I/sw/include\"\n> export LDFLAGS=\"-L/sw/lib\"\n> R CMD INSTALL rgdal_0.4-4.tar.gz\n\n\nGiven that it worked in /usr/local as you stated in your last post,  \nmy guess is that the make step doesn't respect the above flags. I  \ndidn't have a look at rgdal, but a very common mistake is to use  \nCPPFLAGS/LDFLAG at configure time while not passing them to  \nPKG_CPPFLAGS/PKG_LIBS.\n\nCheers,\nSimon\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Jun 8, 2006, at 12:22 PM, sj wrote:\n\n> therefor I used the following commands to install:\n>\n> export CPPFLAGS=\"-I/sw/include\"\n> export LDFLAGS=\"-L/sw/lib\"\n> R CMD INSTALL rgdal_0.4-4.tar.gz\n\n\nGiven",
       "thread_id": "thread-d3243b2d1713",
       "thread_depth": 1,
-      "month": "2006-06"
+      "month": "2006-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060610/7c89eef3/attachment.pl"
+      ]
     },
     {
       "id": "msg-c2bb695eee35",
@@ -569,11 +578,14 @@
       "references": [
         "<C907AAE7-9D6E-431B-A748-3777168A9743@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060612/f47c3002/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060612/f47c3002/attachment.pl",
+      "body_plain": "Dear All,\n\n\tEarlier I posted a message to r-help reporting a strange behaviour  \nwhen rotating viewports in grid. As it turns out, this only happens  \nwhen running the mac GUI, from the terminal it does not happen.  \nPlease see the details in my earlier messages below.\n\tBest,\n\tr.\n\nBegin forwarded message:\n\n> From: Rafael Najmanovich <rafael.najmanovich at ebi.ac.uk>\n> Date: 12 June 2006 15:04:34 BDT\n> To: r-help at stat.math.ethz.ch\n> Subject: Re: strange behaviour with rotated viewports in grid\n>\n> \tDear All,\n>\n> \tThe issue I reported earlier seems to be restricted at least to  \n> Mac OSX GUI using 2.3.1. It does not occur in the Terminal in Mac  \n> OSX (R version 2.3.1) or in Linux (R version 2.2.1). I will  \n> separately send this to r-sig-mac.\n> \tBest,\n>\n> On 12 Jun 2006, at 11:26, Rafael Najmanovich wrote:\n>\n>> \tDear all,\n>>\n>> \tI am having a problem using grid when rotating a viewport. It  \n>> seems to plot everything on a grey background colour which I am  \n>> not able to get rid of. Even book examples such as that that plot  \n>> figure 5.10 in P. Murrell's R Graphics book show the same behaviour.\n>> \tThe following example illustrates this issue. I would appreciate  \n>> if anyone has a way to solve this.\n>> \tBest regards,\n>>\n>> \tr.\n>>\n>> pushViewport(viewport(width=0.9,height=0.9,name=\"vp1\"))\n>> grid.rect()\n>> pushViewport(viewport(width=0.3,height=0.9,angle=0,name=\"vp2\"))\n>> grid.rect()\n>> upViewport()\n>> pushViewport(viewport(width=0.3,height=0.9,angle=10,name=\"vp3\"))\n>> grid.rect()\n>>\n>>\n>> Dr. Rafael Najmanovich\n>> European Bioinformatics Institute\n>> Wellcome Trust Genome Campus\n>> Cambridge CB10 1SD\n>> United Kingdom\n>>\n>> rafael.najmanovich at ebi.ac.uk - www.ebi.ac.uk/~rafi\n>> +44-1223-492599 (voice) +44-7786-968257(mobile) +44-1223-494468 (fax)\n>>\n>>\n>\n> Dr. Rafael Najmanovich\n> European Bioinformatics Institute\n> Wellcome Trust Genome Campus\n> Cambridge CB10 1SD\n> United Kingdom\n>\n> rafael.najmanovich at ebi.ac.uk - www.ebi.ac.uk/~rafi\n> +44-1223-492599 (voice) +44-7786-968257(mobile) +44-1223-494468 (fax)\n>\n>\n\nDr. Rafael Najmanovich\nEuropean Bioinformatics Institute\nWellcome Trust Genome Campus\nCambridge CB10 1SD\nUnited Kingdom\n\nrafael.najmanovich at ebi.ac.uk - www.ebi.ac.uk/~rafi\n+44-1223-492599 (voice) +44-7786-968257(mobile) +44-1223-494468 (fax)\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear All,\n\n\tEarlier I posted a message to r-help reporting a strange behaviour  \nwhen rotating viewports in grid. As it turns out, this only happens  \nwhen running the mac GUI, from the terminal it do",
       "thread_id": "thread-3f358c243ca5",
       "thread_depth": 0,
-      "month": "2006-06"
+      "month": "2006-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060612/f47c3002/attachment.pl"
+      ]
     },
     {
       "id": "msg-a35bfdb32580",
@@ -965,11 +977,14 @@
       "references": [
         "<A9DB22CE-E249-4587-9E74-8F38F80855FD@comcast.net>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060630/01957e3c/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060630/01957e3c/attachment.pl",
+      "body_plain": "Here is the code I am using (which I know is not quite right).  It  \nproduces the output below.  The data frame summary seems to print  \ncorrectly, but the call to 'lm' says that I do not have a 'terms  \ncomponent'.   I think I am confused about whether objects reside in R  \nor Perl although my code assumes I can create a Perl object (in this  \ncase df) that can be passed back to R as a data frame.  Can someone  \nclarify this for me?\n\n--------------\nR::initR(\"--silent\");\n&R::library(\"RSPerl\");\n\nmy @df = &R::callWithNames( \"data.frame\", { 'date', $r_date[0], 'r1',  \n$e_ret[0], 'r2', $e_ret[1] } );\n\nprint \"Printing summary of df\\n\";\n&R::call( \"print\", @df);\n\nprint \"Computing linear model parameters\\n\";\n&R::callWithNames( \"lm\", { 'r2 ~ r1' , 'data', \\@df }  );\n\n--------------\n\n          date                    r2                    r1\n1  2006-05-01   -0.0573445954863402   -0.0112231851115216\n2  2006-05-02    0.0150507525376269    0.0290229885057473\n3  2006-05-03 -0.000275862068965462  -0.00670203853672164\n4  2006-05-04    0.0117273730684326 -0.000140567894293015\n5  2006-05-05    0.0278876312559662    0.0106846618866864\n6  2006-05-08    -0.054792703150912                     0\n7  2006-05-09  -0.00357919854024857   -0.0119627208234803\n8  2006-05-10  0.000986054373855577  -0.00605378009291858\n9  2006-05-11  -0.00830284266816779   -0.0347025495750707\n10 2006-05-12  -0.00744997871434661  -0.00660308143800444\n11 2006-05-15  -0.00986489384516403   0.00132939438700153\n12 2006-05-16   0.00678651360912568   -0.0414515415252987\n13 2006-05-17   -0.0254571531014699   0.00430901815943369\n14 2006-05-18   -0.0300956585724798   -0.0318725099601594\n15 2006-05-19   0.00485547378802812      0.02105096549541\n16 2006-05-22   -0.0130615326538316   -0.0175166640830879\n17 2006-05-23    0.0155293757649939   -0.0036289050173557\n18 2006-05-24    0.0207909604519773   0.00300870942201116\n19 2006-05-25   0.00715814331045678    0.0156299336911903\n20 2006-05-26   0.00600820633059805   -0.0121249805689414\nPrinting summary of df\n          date                    r2                    r1\n1  2006-05-01   -0.0573445954863402   -0.0112231851115216\n2  2006-05-02    0.0150507525376269    0.0290229885057473\n3  2006-05-03 -0.000275862068965462  -0.00670203853672164\n4  2006-05-04    0.0117273730684326 -0.000140567894293015\n5  2006-05-05    0.0278876312559662    0.0106846618866864\n6  2006-05-08    -0.054792703150912                     0\n7  2006-05-09  -0.00357919854024857   -0.0119627208234803\n8  2006-05-10  0.000986054373855577  -0.00605378009291858\n9  2006-05-11  -0.00830284266816779   -0.0347025495750707\n10 2006-05-12  -0.00744997871434661  -0.00660308143800444\n11 2006-05-15  -0.00986489384516403   0.00132939438700153\n12 2006-05-16   0.00678651360912568   -0.0414515415252987\n13 2006-05-17   -0.0254571531014699   0.00430901815943369\n14 2006-05-18   -0.0300956585724798   -0.0318725099601594\n15 2006-05-19   0.00485547378802812      0.02105096549541\n16 2006-05-22   -0.0130615326538316   -0.0175166640830879\n17 2006-05-23    0.0155293757649939   -0.0036289050173557\n18 2006-05-24    0.0207909604519773   0.00300870942201116\n19 2006-05-25   0.00715814331045678    0.0156299336911903\n20 2006-05-26   0.00600820633059805   -0.0121249805689414\nComputing linear model parameters\nError in terms.formula(formula, data = data) :\n         argument is not a valid model\n\n\nBegin forwarded message:\n\n> From: Adam Wizon <adamwizon at comcast.net>\n> Date: June 28, 2006 10:58:35 AM EDT\n> To: r-sig-mac at stat.math.ethz.ch\n> Subject: [R-SIG-Mac] Passing data to lm using RSPerl\n>\n> I have successfully installed RSPerl.  I am retrieving data from a\n> database in Perl and trying to run a linear model.  I have read the\n> documentation, but I do not quite understand how to set up the call\n> to 'lm' inside Perl.  Can someone provide an example I can work\n> from?  Thanks.\n>\n> Adam Wizon\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Here is the code I am using (which I know is not quite right).  It  \nproduces the output below.  The data frame summary seems to print  \ncorrectly, but the call to 'lm' says that I do not have a 'term",
       "thread_id": "thread-0a82a8f15940",
       "thread_depth": 1,
-      "month": "2006-06"
+      "month": "2006-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060630/01957e3c/attachment.pl"
+      ]
     },
     {
       "id": "msg-62c3ce2c9a3d",
@@ -997,11 +1012,14 @@
       "subject_clean": "Starting–R error message",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060630/99018743/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060630/99018743/attachment.pl",
+      "body_plain": "I just moved from a PowerBook to a MacBook Pro and I get the following\nmessage when starting R:\n\n2006-06-30 14:19:12.305 R[1425] *** -[NSBundle load]: Error loading code\n/Library/InputManagers/SIMBL/SIMBL.bundle/Contents/MacOS/SIMBL for bundle\n/Library/InputManagers/SIMBL/SIMBL.bundle, error code 2 (link edit error\ncode 0, error number 0 ())\n2006-06-30 14:19:13.058 R[1425] CFLog (21): dyld returns 2 when trying to\nload /Users/roberto/Library/ScriptingAdditions/24U Appearance\nOSAX.osax/Contents/MacOS/24U\nAppearance OSAX\n2006-06-30 14:19:13.059 R[1425] CFLog (21): dyld returns 2 when trying to\nload\n/Users/roberto/Library/ScriptingAdditions/KeyCue.1.0.osax/Contents/MacOS/KeyCue\n\nThe message persisted even after I reinstalled.\n\nThanks for any help,\n\nRoberto\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I just moved from a PowerBook to a MacBook Pro and I get the following\nmessage when starting R:\n\n2006-06-30 14:19:12.305 R[1425] *** -[NSBundle load]: Error loading code\n/Library/InputManagers/SIMBL/S",
       "thread_id": "thread-5d4ee4020780",
       "thread_depth": 0,
-      "month": "2006-06"
+      "month": "2006-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060630/99018743/attachment.pl"
+      ]
     },
     {
       "id": "msg-5c3973b16075",

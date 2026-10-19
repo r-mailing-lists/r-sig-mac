@@ -396,11 +396,14 @@
         "<FD73534C-6C7A-494C-A67E-10463F45E9F5@earthlink.net>",
         "<Pine.LNX.4.63.0509061851230.23734@illuminati.stderr.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050906/98ff3b41/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050906/98ff3b41/attachment.pl",
+      "body_plain": "Good to know it is not specific to my setup at least.  Thanks.\n\nJim\n\nOn Sep 6, 2005, at 4:52 PM, elijah wright wrote:\n\n>\n>\n>> Subject: Re: [R-SIG-Mac] R 2.1.1 available in DarwinPorts\n>> I just tried building from darwin ports today, and got the error  \n>> below while bulding R.  To confirm, this is for darwin ports on  \n>> Tiger, right? Any help appreciated, looks like there is some kind  \n>> of symbol conflict.\n>>\n>\n> i got the same error when i tried a build a couple of days ago -- i  \n> hadn't had time to get back to it yet.  [and i have a radmind  \n> overload of darwinports that contains a working R (from previous  \n> build attempt), so i wasn't in a hurry to break it either...]\n>\n> Kjell, are there things we can do to help you?  Other than to  \n> continue testing?  :)\n>\n> --elijah\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Good to know it is not specific to my setup at least.  Thanks.\n\nJim\n\nOn Sep 6, 2005, at 4:52 PM, elijah wright wrote:\n\n>\n>\n>> Subject: Re: [R-SIG-Mac] R 2.1.1 available in DarwinPorts\n>> I just tried ",
       "thread_id": "thread-678fe8d46eee",
       "thread_depth": 3,
-      "month": "2005-09"
+      "month": "2005-09",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050906/98ff3b41/attachment.pl"
+      ]
     },
     {
       "id": "msg-78a0f9f21d58",
@@ -614,11 +617,14 @@
         "<B23FE1F4-1DF3-4FBA-AEB5-B83A62EA782F@r-project.org>",
         "<FB716540-796D-4496-8290-4419A6B358A0@stats.ox.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050907/04a159fe/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050907/04a159fe/attachment.pl",
+      "body_plain": "1. I am up to date with darwin ports:\n\nshiney:~ jim$ port version\nVersion: 1.012\n\n> I actually changed the Portfile so that when the host is running OS X\n> the Apple gcc-3.3 and g++-3.3 get used instead of the GNU compilers\n> that are installed by DarwinPorts.  For some reason on my computer -\n> lcc_dynamic is passed to gcc-3.3 when libR.dylib is created (see\n> below) but it looks like this is specific to me.  I am testing a\n> Portfile with -lcc_dynamic included in LDFLAGS and it looks like it\n> still works for me (but honestly why wouldn't it).  Hopefully it will\n> work for Elijah and Jim too.\n\n2. I noticed that when I first did `sudo install port R` yesterday,  \nit built a version of gcc (gcc-dp-3.4), so it must not be using the  \nosx gcc 3.3 by default.  `port variants R` returns:\n\ndarwin_6\nmacosx\n\nso it might be that we need to run `sudo port install R +macosx` to  \nforce usage of the built in gcc-3.3.  However, When I tried this, I  \ngot the same error as in 3 below (for the non-variant port).\n\n3. I tried adding -lcc_dynamic to the LDFLAGS, but it still did not  \nbuild.  It now fails with:\n\n--->  Fetching R\n--->  Attempting to fetch R-2.1.1.tar.gz from http://cran.r- \nproject.org/src/base/R-2/\n--->  Verifying checksum(s) for R\n--->  Extracting R\n--->  Configuring R\nError: Target com.apple.configure returned: configure failure: shell  \ncommand \"cd \"/opt/local/var/db/dports/build/ \nfile._opt_local_var_db_dports_sources_rsync.rsync.opendarwin.org_dpupdat \ne_dports_math_R/work/R-2.1.1\" && CPPFLAGS=\"-I/opt/local/include\"  \nLDFLAGS=\"-L/opt/local/lib -lcc_dynamic\" CC=gcc-dp-3.4 CXX=g++-dp-3.4  \nF77=g77-dp-3.4 CC=gcc-3.3 CXX=g++-3.3 ./configure --prefix=/opt/local  \n--with-tcl-config=\"/opt/local/lib/tclConfig.sh\" --with-tk-config=\"/ \nopt/local/lib/tkConfig.sh\" --disable-R-framework --enable-R-shlib -- \nwith-blas=\"-framework vecLib\" --with-lapack\" returned error 77\nCommand output: checking for dvips... /opt/local/bin/dvips\nchecking for tex... /opt/local/bin/tex\nchecking for latex... /opt/local/bin/latex\nchecking for makeindex... /opt/local/bin/makeindex\nchecking for pdftex... /opt/local/bin/pdftex\nchecking for pdflatex... /opt/local/bin/pdflatex\nchecking for makeinfo... /opt/local/bin/makeinfo\nchecking for unzip... /usr/bin/unzip\nchecking for zip... /usr/bin/zip\nchecking for gzip... /usr/bin/gzip\nchecking for firefox... no\nchecking for mozilla... no\nchecking for netscape... no\nchecking for galeon... no\nchecking for kfmclient... no\nchecking for opera... no\nchecking for gnome-moz-remote... no\nchecking for open... /usr/bin/open\nusing default browser ... /usr/bin/open\nchecking for acroread... no\nchecking for acroread4... no\nchecking for xpdf... no\nchecking for gv... no\nchecking for gnome-gv... no\nchecking for ggv... no\nchecking for kghostview... no\nchecking for open... /usr/bin/open\nchecking for gcc... gcc-3.3\nchecking for C compiler default output file name... configure: error:  \nC compiler cannot create executables\nSee `config.log' for more details.\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "1. I am up to date with darwin ports:\n\nshiney:~ jim$ port version\nVersion: 1.012\n\n> I actually changed the Portfile so that when the host is running OS X\n> the Apple gcc-3.3 and g++-3.3 get used inste",
       "thread_id": "thread-678fe8d46eee",
       "thread_depth": 7,
-      "month": "2005-09"
+      "month": "2005-09",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050907/04a159fe/attachment.pl"
+      ]
     },
     {
       "id": "msg-d7c456be7654",
@@ -782,11 +788,14 @@
         "<6924CD7F-3C01-44FF-8B1C-B9B026074368@stats.ox.ac.uk>",
         "<58A09D75-2C42-4DBE-A98A-D58232C708D3@r-project.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050907/6e0d0bba/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050907/6e0d0bba/attachment.pl",
+      "body_plain": "On Sep 7, 2005, at 5:35 PM, Simon Urbanek wrote:\n\n> This will be the case if you default gcc is 4.0. You should run\n> sudo gcc_select 3.3\n> then it should be there.\n\nThanks.  This was it - executing this before building via DP did the  \ntrick.  So to recap, the DP port should\n\n1. Make sure that gcc 3.3 is selected via gcc_select, (possibly  \nresetting to its initial value afterwards)\n2. add -lcc_dynamic to LDFLAGS\n\ncheers,\n\nJim\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Sep 7, 2005, at 5:35 PM, Simon Urbanek wrote:\n\n> This will be the case if you default gcc is 4.0. You should run\n> sudo gcc_select 3.3\n> then it should be there.\n\nThanks.  This was it - executing t",
       "thread_id": "thread-3054ea6424a6",
       "thread_depth": 2,
-      "month": "2005-09"
+      "month": "2005-09",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050907/6e0d0bba/attachment.pl"
+      ]
     },
     {
       "id": "msg-42bd40892ace",
@@ -998,11 +1007,14 @@
       "subject_clean": "vecLibg95 not found in alpha build",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050913/309ef3e7/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050913/309ef3e7/attachment.pl",
+      "body_plain": "Dear List,\n\nI tried to build an R alpha version, r35558, dated 09/12.\n\nI'm on a G4: uname -a\n\nDarwin jackman17.stanford.edu 8.2.0 Darwin Kernel Version 8.2.0: Fri  \nJun 24 17:46:54 PDT 2005; root:xnu-792.2.4.obj~3/RELEASE_PPC Power  \nMacintosh powerpc\n\nwith latest Xtools: gcc --version\npowerpc-apple-darwin8-gcc-4.0.0 (GCC) 4.0.0 (Apple Computer, Inc.  \nbuild 5026)\n\ngfortran --version\nGNU Fortran 95 (GCC 4.0.0 (Apple Computer, Inc. build 5202))\n\nI configure as follows:\n\n./configure --with-blas='-framework vecLib' --with-lapack --with-aqua\n\n[...]\n\nR is now configured for powerpc-apple-darwin8.2.0\n\n   Source directory:          .\n   Installation directory:    /Library/Frameworks\n\n   C compiler:                gcc  -g -O2\n   C++ compiler:              g++  -g -O2\n   Fortran compiler:          gfortran  -g -O2\n\n   Interfaces supported:      X11, aqua\n   External libraries:        readline, BLAS(generic), LAPACK(in blas)\n   Additional capabilities:   PNG, JPEG, iconv, MBCS, NLS\n   Options enabled:           framework, R profiling\n\n   Recommended packages:      yes\n\nThe build hits snag down in /src/modules/lapack where it chokes on  \nthe error\n\n*** No rule to make target `vecLibg95c.c', needed by `Makefile'.  Stop.\n\nthe svnlog for R comes up with a reference to this file:\n\nr35468 | urbaneks | 2005-08-31 15:00:56 -0400 (Wed, 31 Aug 2005) | 1  \nline\nChanged paths:\n    M /trunk/configure\n    M /trunk/m4/R.m4\n    M /trunk/src/modules/lapack/Makefile.in\n    A /trunk/src/modules/lapack/vecLibg95c.c\n    A /trunk/src/modules/lapack/vecLibg95f.f\n\nAdd fix for gfortran ABI (which is differt from the one used by g77)  \nin conjunction with vecLib on OS X. This adds stub functions that  \ncall cblas_.._sub from vecLib.\n\nso maybe Simon U.  can help on this one.\n\nthanks\n\n-- simon jackman\n\nSimon Jackman, Assoc Prof and Director of Graduate Studies,\nDept of Political Science and (by courtesy) Dept of Statistics,\nStanford University, Stanford, CA 94305-6044, USA.\nhttp://jackman.stanford.edu\nDirector, Political Science Computational Lab. http://pscl.stanford.edu\n\nph: +1 (650) 723-4760  cell: +1 (650) 387 3019\nfax: +1 (650) 723-1808\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear List,\n\nI tried to build an R alpha version, r35558, dated 09/12.\n\nI'm on a G4: uname -a\n\nDarwin jackman17.stanford.edu 8.2.0 Darwin Kernel Version 8.2.0: Fri  \nJun 24 17:46:54 PDT 2005; root:xnu-",
       "thread_id": "thread-ba38e084eb0b",
       "thread_depth": 0,
-      "month": "2005-09"
+      "month": "2005-09",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050913/309ef3e7/attachment.pl"
+      ]
     },
     {
       "id": "msg-76b42b61b542",
@@ -1100,11 +1112,14 @@
       "subject_clean": "R 2.1.1 tiger compile problem",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050921/d26881ae/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050921/d26881ae/attachment.pl",
+      "body_plain": "Hi,\n\nI'm trying to compile R-2.1.1 on a Tiger/G5 - Darwin 8.2.0 - XCode 2.1.\nThe gcc is:\npowerpc-apple-darwin8-gcc-4.0.0 (GCC) 4.0.0 (Apple Computer, Inc. build\n5026)\n\nThe gfortran is:\nGNU Fortran 95 (GCC 4.0.0 (Apple Computer, Inc. build 5202))\n\nMy configure line is:\n./configure F77=gfortran FLIBS=/usr/lib/libgfortran.a\n\nThe make runs for a long while and then crashes out with this output:\ngfortran -fno-common -g -O2 -c cmplxblas.f -o cmplxblas.lo\ngcc -dynamiclib -L/sw/lib -L/usr/local/lib -install_name\n/Library/Frameworks/R.framework/Version\ns/2.1.1/Resources/lib/libRlapack.dylib -o libRlapack.dylib dlamc.lo\ndlapack0.lo dlapack1.lo dlap\nack2.lo dlapack3.lo cmplx.lo cmplxblas.lo /usr/lib/libgfortran.a\nld: Undefined symbols:\n_dasum_\n_daxpy_\n_dcopy_\n...\n_dsyr_\n_dtbmv_\n_zgemm_\n/usr/bin/libtool: internal link edit command failed\nmake[4]: *** [libRlapack.dylib] Error 1\nmake[3]: *** [R] Error 2\nmake[2]: *** [R] Error 1\nmake[1]: *** [R] Error 1\nmake: *** [R] Error 1\n\n--EOF--\n\nAny idea how to fix this?\n\nBest,\n\nJoel\n\n--\nJoel Bremson\nGraduate Student\nInstitute for Transportation Studies - UC Davis\nhttp://etrans.blogspot.com\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\nI'm trying to compile R-2.1.1 on a Tiger/G5 - Darwin 8.2.0 - XCode 2.1.\nThe gcc is:\npowerpc-apple-darwin8-gcc-4.0.0 (GCC) 4.0.0 (Apple Computer, Inc. build\n5026)\n\nThe gfortran is:\nGNU Fortran 95 ",
       "thread_id": "thread-90e7f8c84c9e",
       "thread_depth": 0,
-      "month": "2005-09"
+      "month": "2005-09",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050921/d26881ae/attachment.pl"
+      ]
     },
     {
       "id": "msg-23c325e8ba19",
@@ -1207,11 +1222,14 @@
         "<mailman.1.1127383200.22046.r-sig-mac@stat.math.ethz.ch>",
         "<5A442927-AC27-4C6E-9320-748F322A9925@unsw.edu.au>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050926/51b78d0b/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050926/51b78d0b/attachment.pl",
+      "body_plain": "Thanks Bill.\n\nI was able to build R-2.1.1 on the Tiger/G5 with configure command you\ngave, adding in F77=gfortran but my package will not build correctly. It\ndies\nwith a namespace load error during the R CMD CHECK. If I ignore the\nnamespace error and just install it the code segfaults.\n\nHowever, the package does build and run correctly on a Tiger/G4 machine. The\ndifference is\nthat on the G4 we run gcc-4.0 apple build 4061 and gfortran 4.1.0 v20050517.\nOn the\nG5 we're running gcc-4.0 apple build 5026 and gfortran apple build 5202.\n\nSince the code compiles and runs properly on the G4 I'm assuming the\ncode is fine. Now we're thinking of running the same compilers on the G5.\n\nAny advice would be appreciated.\n\nJoel\n\nOn 9/26/05, Bill Northcott <w.northcott at unsw.edu.au> wrote:\n>\n> On 22/09/2005, at 8:00 PM, Joel Bremson wrote:\n> > I'm trying to compile R-2.1.1 on a Tiger/G5 - Darwin 8.2.0 - XCode\n> > 2.1.\n> > The gcc is:\n> > powerpc-apple-darwin8-gcc-4.0.0 (GCC) 4.0.0 (Apple Computer, Inc.\n> > build\n> > 5026)\n> >\n> > The gfortran is:\n> > GNU Fortran 95 (GCC 4.0.0 (Apple Computer, Inc. build 5202))\n> >\n> > My configure line is:\n> > ./configure F77=gfortran FLIBS=/usr/lib/libgfortran.a\n> >\n> > The make runs for a long while and then crashes out with this output:\n> > gfortran -fno-common -g -O2 -c cmplxblas.f -o cmplxblas.lo\n> > gcc -dynamiclib -L/sw/lib -L/usr/local/lib -install_name\n> > /Library/Frameworks/R.framework/Version\n>\n> Your problem is not the compiler. It is the configure command that\n> is wrong. There is no problem building R with gfortran and gcc-4.\n> The F77 define is probably necessary, but you should not need to add\n> standard Fortran libraries.\n>\n> The recommended configure command is\n> ./configure --with-blas='-framework vecLib' --with-lapack --with-aqua\n> see http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html\n>\n> BLAS and LAPACK are part of the Accelerate framework in MacOS X.\n> Because you have omitted the '--with-blas' and '--with-lapack'\n> options R is trying to build its own LAPACK which AFAIK is not\n> supported on MacOS X. Hence your problems.\n>\n> Bill Northcott\n>\n\n\n\n--\nJoel Bremson\nGraduate Student\nInstitute for Transportation Studies - UC Davis\nhttp://etrans.blogspot.com\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks Bill.\n\nI was able to build R-2.1.1 on the Tiger/G5 with configure command you\ngave, adding in F77=gfortran but my package will not build correctly. It\ndies\nwith a namespace load error during th",
       "thread_id": "thread-9ad2668def1c",
       "thread_depth": 1,
-      "month": "2005-09"
+      "month": "2005-09",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050926/51b78d0b/attachment.pl"
+      ]
     },
     {
       "id": "msg-200a23bc400d",
@@ -1403,11 +1421,14 @@
       "references": [
         "<F34FDDF2-798F-4849-88DD-A659B8B2EB8E@globetrotter.net>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050929/0bf65cec/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050929/0bf65cec/attachment.pl",
+      "body_plain": "On Sep 29, 2005, at 10:51 AM, Denis Chabot wrote:\n\n> I tried to find some information to compile a package. I went to the\n> wiki page:\n> http://wiki.urbanek.info/index.cgi?BuildingForMacOSX\n>\n> But it is unusable. I tried the latest Safari and fairly recent\n> copies of Camino and Firefox, and in all cases I saw raw html. Here\n>\n\nThanks, Denis, for reporting it. Sometimes people deface Wikis and  \nthat is what happened. Fortunately the Wiki has a revisioning system  \nso it's easy to restore.\n\nThanks,\nSimon\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Sep 29, 2005, at 10:51 AM, Denis Chabot wrote:\n\n> I tried to find some information to compile a package. I went to the\n> wiki page:\n> http://wiki.urbanek.info/index.cgi?BuildingForMacOSX\n>\n> But it",
       "thread_id": "thread-64e1776f04c4",
       "thread_depth": 1,
-      "month": "2005-09"
+      "month": "2005-09",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20050929/0bf65cec/attachment.pl"
+      ]
     },
     {
       "id": "msg-748cffef615e",

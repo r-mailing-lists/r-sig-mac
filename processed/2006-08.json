@@ -546,11 +546,14 @@
       "subject_clean": "Summary: Compiling ROracle on OSX 10.4.7/R 2.3.1",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060815/88ab1241/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060815/88ab1241/attachment.pl",
+      "body_plain": "Recently, I have asked the list for advice with problems when  \ncompiling ROracle 0.5.7 on OSX 10.4.7/R.2.3.1 Thanks to Simon  \nUrbanek's response, and with the support from Johan Söderberg at our  \ndepartment, I have manged to compile & load ROracle, and to actually  \nconnect to our Oracle server. Below, I have summarized the crucial  \npoints, hoping that it may be useful for people with similar tsuris.\n\n1) Setting up the Oracle client: Johan installed the full  \nAdminstrator client (Oracle 10g) on my machine. He notes two  \nimportant things:\n\n1.1) Our Oracle realease (10.1.0.3.0) doesn't work with gcc version  \n4, so he needed to switch back to gcc version 3.3. You can do that by  \nsu:ing to root and using the gcc_select command, i.e.\n\n\tgcc_select 3.3\n\n1.2) The default installation process created an empty library  \nlibclntst10.a This can be solved by regenerating it:\n\n\t$ cd $ORACLE_HOME/bin\n\t$ ./genclntst\n\nwhere $RORACLE_HOME is the home directory for your Oracle  \ninstallation (e.g. /opt/oracle/product/10g/client)\n\n2) Compiling ROracle:  Again, two crucial things:\n\n2.1) Make sure that you have a patched or development version of R  \n2.3.1, or, as Simon instructed edit the file Library/Frameworks/ \nR.framework/Resources/bin/COMPILE by changing line 31 from\n\n\tmakefiles=\"-f \\\"${R_HOME}/etc/Makeconf\\\"\"\n\nto\n\n\tmakefiles=\"-f \\\"${R_HOME}/etc${R_ARCH}/Makeconf\\\"\"\n\n2.2) I included the option --configure-args='--enable-extralibs' when  \ncompiling, otherwise R reported it did not find the symbol _sqlcxt.  \nIn other words, for a local installation, I run\n\n\tR CMD INSTALL --configure-args='--enable-extralibs' --library=~/ \nLibrary/R/library/ ROracle_0.5-7.tar.gz\n\n3) Loading ROracle: You need DBI installed for that, but that never  \nwas a problem to build or install; this is the weird part: you have  \nto load ROracle TWICE!! On my machine:\n\n > require(ROracle)\nLoading required package: ROracle\nLoading required package: DBI\nError in dyn.load(x, as.logical(local), as.logical(now)) :\n\tunable to load shared library '/Users/aleplo/Library/R/library/ \nROracle/libs/ppc/ROracle.so':\n   dlopen(/Users/aleplo/Library/R/library/ROracle/libs/ppc/ \nROracle.so, 6): Library not loaded: /opt/oracle/product/10g/client/ \nlib/libnnz10.dylib\n   Referenced from: /opt/oracle/product/10g/client/lib/libsqlplus.dylib\n   Reason: image not found\n[1] FALSE\n > require(ROracle)\nLoading required package: ROracle\n[1] TRUE\n\n4) Using ROracle: from that point on, no problem - I could do the  \nexample in ?Oracle.\n\n\n  Configuration:\n===========\n\nR:\nplatform       powerpc-apple-darwin8.6.0\narch           powerpc\nos             darwin8.6.0\nsystem         powerpc, darwin8.6.0\nstatus\nmajor          2\nminor          3.1\nyear           2006\nmonth          06\nday            01\nsvn rev        38247\nlanguage       R\nversion.string Version 2.3.1 (2006-06-01)\n\nROracle: 0.5-7\n\nMac OS X:\nProductVersion: 10.4.7\nBuildVersion:   8J135\nArchitecture:\tPPC\n\nOracle 10g: Release 10.1.0.3.0\n\n\nAlexander.Ploner at ki.se\nMedical Epidemiology & Biostatistics\nKarolinska Institutet, Stockholm\nTel: ++46-8-524-82329\nFax: ++46-8-31 49 75\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Recently, I have asked the list for advice with problems when  \ncompiling ROracle 0.5.7 on OSX 10.4.7/R.2.3.1 Thanks to Simon  \nUrbanek's response, and with the support from Johan Söderberg at our  \nd",
       "thread_id": "thread-d06d6944b147",
       "thread_depth": 0,
-      "month": "2006-08"
+      "month": "2006-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060815/88ab1241/attachment.pl"
+      ]
     },
     {
       "id": "msg-c95d53201113",
@@ -562,11 +565,14 @@
       "subject_clean": "Memory error in PowerPC G5",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060816/29d53936/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060816/29d53936/attachment.pl",
+      "body_plain": "Dear All,\nWhen I attempt to run a SVM-RFE with data 1302 x 665 (row x column), I\nget the following\nerror message:\n \n            R(8958) malloc: *** vm_allocate(size=1101824) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=1093632) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=1085440) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=503808) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=925696) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=876544) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=827392) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=786432) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=745472) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=3256320) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            R(8958) malloc: *** vm_allocate(size=3256320) failed (error\ncode=3)\n            R(8958) malloc: *** error: can't allocate region\n            R(8958) malloc: *** set a breakpoint in szone_error to debug\n            .\n            .\n            .\n            Error: cannot allocate vector of size 3177 Kb\n \n \nI'm running R Version 2.3.1  (2006-06-01) on a Mac cluster  with Dual\n2.3GHz PowerPC G5 , \n2GB RAM and running MAC OS 10.4.4 \n \nAny suggestions?\n \nEakasit Pacharawongsakda\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear All,\nWhen I attempt to run a SVM-RFE with data 1302 x 665 (row x column), I\nget the following\nerror message:\n \n            R(8958) malloc: *** vm_allocate(size=1101824) failed (error\ncode=3)\n    ",
       "thread_id": "thread-c95d53201113",
       "thread_depth": 0,
-      "month": "2006-08"
+      "month": "2006-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060816/29d53936/attachment.pl"
+      ]
     },
     {
       "id": "msg-e2546dab3f84",
@@ -1475,11 +1481,14 @@
       "subject_clean": "how can i install: glib/gtk 1.2.10",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060831/dbea49dc/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060831/dbea49dc/attachment.pl",
+      "body_plain": "hi,\nat :\nhttp://r.research.att.com/\n  i've download :\n\nglib/gtk 1.2.10 (w/patches)\nglibgtk-1.2.10-univ.tar.gz\n\n\nbut i do not know how can i install it :-(\nit is a folder :\nhttp://img350.imageshack.us/img350/7388/immagine4by9.png\n\nsorry for the newbie question\ni hope that you can halpe me,\nthanks.\nMassimo\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "hi,\nat :\nhttp://r.research.att.com/\n  i've download :\n\nglib/gtk 1.2.10 (w/patches)\nglibgtk-1.2.10-univ.tar.gz\n\n\nbut i do not know how can i install it :-(\nit is a folder :\nhttp://img350.imageshack.us/",
       "thread_id": "thread-ecf7ca7890b3",
       "thread_depth": 0,
-      "month": "2006-08"
+      "month": "2006-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20060831/dbea49dc/attachment.pl"
+      ]
     },
     {
       "id": "msg-4d51b154d254",

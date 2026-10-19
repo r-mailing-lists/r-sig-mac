@@ -83,11 +83,14 @@
       "subject_clean": "(no subject)",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20070316/6dd5db6e/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20070316/6dd5db6e/attachment.pl",
+      "body_plain": "Hi,\n\nI downloaded the R for mac sources and was browsing through the code  \nof RDocument. In - (void)close method I noticed comment:\n\t\t// --- something is broken - winctrl close doesn't work - I have no  \nidea why - this is a horrible hack to cover up\n\nI think I found why, in the method - (void) makeWindowControllers the  \nwindow controller for document is allocated and added to the document  \nbut <<never>> released. The document <<retains>> window controller so  \nthe code should read something like that:\n\nmyWinCtrl = [[RDocumentWinCtrl alloc]  \ninitWithWindowNibName:@\"RDocument\"];\n[self addWindowController:myWinCtrl];\n[myWinCtrl release];\n\nNow window controller will be correctly released on document close  \nand will also correctly release the nib's top level objects.\n\nHope this will help,\nGorazd\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\nI downloaded the R for mac sources and was browsing through the code  \nof RDocument. In - (void)close method I noticed comment:\n\t\t// --- something is broken - winctrl close doesn't work - I have ",
       "thread_id": "thread-61b01f04efc3",
       "thread_depth": 0,
-      "month": "2007-03"
+      "month": "2007-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20070316/6dd5db6e/attachment.pl"
+      ]
     },
     {
       "id": "msg-57979cb9fc27",
