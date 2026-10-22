@@ -17,7 +17,8 @@
       "body_snippet": "Hi all,\nI am using Mathew's method for installing 64 bit R on Leopard\n(http://www.matthewckeller.com/html/64_bit_r_on_mac.html). When I try to\nplot in an X11 window R keeps crashing. Has anyone else e",
       "thread_id": "thread-29afe7f3fdea",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005286.html"
     },
     {
       "id": "msg-468aff5504ca",
@@ -33,7 +34,8 @@
       "body_snippet": "Hi.\n\nUse of tilde in filenames passed to graphics drivers crashes R on Mac\n(2.7.1.45970/i386/9.4.0/MacBookPro3,1/2/4).  This is true in the GUI\nas well as on the command line.  For example...\n\npng(\"~/",
       "thread_id": "thread-468aff5504ca",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005287.html"
     },
     {
       "id": "msg-63e75b41787f",
@@ -51,7 +53,8 @@
       "body_snippet": "On Mon, 1 Sep 2008, Tim Bergsma wrote:\n\n> Hi.\n>\n> Use of tilde in filenames passed to graphics drivers crashes R on Mac\n> (2.7.1.45970/i386/9.4.0/MacBookPro3,1/2/4).  This is true in the GUI\n> as well",
       "thread_id": "thread-468aff5504ca",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005288.html"
     },
     {
       "id": "msg-5124c9e394ef",
@@ -78,11 +81,12 @@
         "<4BA5BB22-FEBA-4D41-A9FB-70C5A7540744@r-project.org>",
         "<09526EAE-247C-442F-ACE6-06ED6F435015@eva.mpg.de>"
       ],
-      "body_plain": "On 28.08.2008, at 19:59, Hans-J?rg Bibiko wrote:\n> On 28.08.2008, at 19:41, Simon Urbanek wrote:\n>>> The only idea I have for now is to use a scripting language to  \n>>> write a primitive audio player, and the only language which is  \n>>> installed by default on all these platforms is Java. It shouldn't  \n>>> be that problem to write such a JFrame jar.\n>>>\n>> ... But, yes, using Java would be one option except that Java is  \n>> quite a heavy requirement for such task ...\n> Now I only try to avoid a GUI. It looks different on each OS, thus I  \n> try to write a simple command line tool\n\nWell, I tried it out and I came up with a Java command line tool as a  \njar file (size with source code 4171 bytes).\nI ran it on Win XP, Vista, Linux SuSe 9.0 and 10.2, Mac Tiger ppc, Mac  \nLeopard i386 and it seems to work properly.\n\nThe Java tool simply plays back a given linear PCM sound file  \n(supported formats: wav, aifc, aiff, au, snd). This tool can only run  \nonce on a machine, meaning if one invokes it and while playing back a  \nsound file one invokes it with an other sound file, the currently  \nrunning sound file will be stopped before the next one will be  \nstarted. This is done by using a simple lock-file mechanism.\n\nIf playLinearAudioFile.jar detects a running process it will delete  \none lock file to interrupt the current process. Due to that fact that  \nthe Java script sends buffer by buffer to the audio stream (to  \nminimize CPU and RAM resources) it could take some ticks (depending on  \nthe buffer size) before the current process will be interrupted.\n\nTo stop a running process one invokes playLinearAudioFile.jar without  \nany arguments. If there's no running process it outputs the usage  \nmessage.\n\nFurthermore there's an option called '--deleteAfterPlay'. This option  \nenables the user to say, please delete the given sound file after play- \nback (useful for playing back temporarily generated sound files).\n\nOf course, as already mentioned Java takes some ticks to start that  \njar script but I've also tested it on slow machines and the time was  \nalways below 500ms.\n\nI've also tested it with R. It seems to work, even with the system()'s  \nargument wait=FALSE. While listing to the sound one can do other stuff  \nwith R.\n\nTo invoke it simply write:\n\njava -jar playLinearAudio.jar SOUND_FILE\n\nThe Java script only makes usage of commands and packages which are  \navailable since Java 1.3.\n\nUnfortunately I couldn't test it on Solaris, AIX, IRIX, ... but if  \nJava 1.3 or up is installed it should work.\n\nThe source file and the manifest file 'mainClass.txt' are included in  \nthe jar archive.\nTo create a jar archive:\njar cmf mainClass.txt playLinearAudioFile.jar *.class *.java  \nmainClass.txt\n\n\nIf there's an interest, please check it on other OS. I'd be  \nappreciated for any critique.\n\nCheers,\n\nHans\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: playLinearAudioFile.jar\nType: application/java-archive\nSize: 4171 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080902/66ba7e2f/attachment.bin>\n-------------- next part --------------",
-      "body_snippet": "On 28.08.2008, at 19:59, Hans-J?rg Bibiko wrote:\n> On 28.08.2008, at 19:41, Simon Urbanek wrote:\n>>> The only idea I have for now is to use a scripting language to  \n>>> write a primitive audio player",
+      "body_plain": "On 28.08.2008, at 19:59, Hans-Jörg Bibiko wrote:\n> On 28.08.2008, at 19:41, Simon Urbanek wrote:\n>>> The only idea I have for now is to use a scripting language to  \n>>> write a primitive audio player, and the only language which is  \n>>> installed by default on all these platforms is Java. It shouldn't  \n>>> be that problem to write such a JFrame jar.\n>>>\n>> ... But, yes, using Java would be one option except that Java is  \n>> quite a heavy requirement for such task ...\n> Now I only try to avoid a GUI. It looks different on each OS, thus I  \n> try to write a simple command line tool\n\nWell, I tried it out and I came up with a Java command line tool as a  \njar file (size with source code 4171 bytes).\nI ran it on Win XP, Vista, Linux SuSe 9.0 and 10.2, Mac Tiger ppc, Mac  \nLeopard i386 and it seems to work properly.\n\nThe Java tool simply plays back a given linear PCM sound file  \n(supported formats: wav, aifc, aiff, au, snd). This tool can only run  \nonce on a machine, meaning if one invokes it and while playing back a  \nsound file one invokes it with an other sound file, the currently  \nrunning sound file will be stopped before the next one will be  \nstarted. This is done by using a simple lock-file mechanism.\n\nIf playLinearAudioFile.jar detects a running process it will delete  \none lock file to interrupt the current process. Due to that fact that  \nthe Java script sends buffer by buffer to the audio stream (to  \nminimize CPU and RAM resources) it could take some ticks (depending on  \nthe buffer size) before the current process will be interrupted.\n\nTo stop a running process one invokes playLinearAudioFile.jar without  \nany arguments. If there's no running process it outputs the usage  \nmessage.\n\nFurthermore there's an option called '--deleteAfterPlay'. This option  \nenables the user to say, please delete the given sound file after play- \nback (useful for playing back temporarily generated sound files).\n\nOf course, as already mentioned Java takes some ticks to start that  \njar script but I've also tested it on slow machines and the time was  \nalways below 500ms.\n\nI've also tested it with R. It seems to work, even with the system()'s  \nargument wait=FALSE. While listing to the sound one can do other stuff  \nwith R.\n\nTo invoke it simply write:\n\njava -jar playLinearAudio.jar SOUND_FILE\n\nThe Java script only makes usage of commands and packages which are  \navailable since Java 1.3.\n\nUnfortunately I couldn't test it on Solaris, AIX, IRIX, ... but if  \nJava 1.3 or up is installed it should work.\n\nThe source file and the manifest file 'mainClass.txt' are included in  \nthe jar archive.\nTo create a jar archive:\njar cmf mainClass.txt playLinearAudioFile.jar *.class *.java  \nmainClass.txt\n\n\nIf there's an interest, please check it on other OS. I'd be  \nappreciated for any critique.\n\nCheers,\n\nHans\n\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: playLinearAudioFile.jar\nType: application/java-archive\nSize: 4171 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080902/66ba7e2f/attachment.bin>\n-------------- next part --------------",
+      "body_snippet": "On 28.08.2008, at 19:59, Hans-Jörg Bibiko wrote:\n> On 28.08.2008, at 19:41, Simon Urbanek wrote:\n>>> The only idea I have for now is to use a scripting language to  \n>>> write a primitive audio player",
       "thread_id": "thread-5124c9e394ef",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005289.html"
     },
     {
       "id": "msg-da721185ca4a",
@@ -98,7 +102,8 @@
       "body_snippet": "I have now moved rgl to R-forge, which means there will be regular \nautomatic builds of the development versions.  I notice that the Mac OS \nbuild failed with the familiar\n\nld: warning, duplicate dyli",
       "thread_id": "thread-da721185ca4a",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005290.html"
     },
     {
       "id": "msg-d0e747917880",
@@ -117,7 +122,8 @@
       "body_snippet": "That worked - thanks!\n\nOn Aug 10, 5:33 pm, Simon Urbanek <simon.urba... at r-project.org> wrote:\n> On Aug 8, 2008, at 7:02 PM, Sourya Shrestha wrote:\n>\n> > Hi,\n>\n> > I am using osx 10.4.11 with R vers",
       "thread_id": "thread-d0e747917880",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005293.html"
     },
     {
       "id": "msg-5de22cd6f1d2",
@@ -133,7 +139,8 @@
       "body_snippet": "I am just doing my first steps in building an R package with C code on  \nmy Mac.\nI get the same warning Duncan mentioned in his last message.\nld: warning, duplicate dylib /Developer/SDKs/MacOSX10.4u.s",
       "thread_id": "thread-5de22cd6f1d2",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005291.html"
     },
     {
       "id": "msg-674b8ad481eb",
@@ -151,7 +158,8 @@
       "body_snippet": "On Sep 3, 2008, at 13:19 , Erich Neuwirth wrote:\n\n> I am just doing my first steps in building an R package with C code  \n> on my Mac.\n> I get the same warning Duncan mentioned in his last message.\n> ",
       "thread_id": "thread-5de22cd6f1d2",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005292.html"
     },
     {
       "id": "msg-3b09b92a8d9a",
@@ -169,7 +177,8 @@
       "body_snippet": "I'm looking for an ISP or web hosting company in North America with  \nexperience hosting web applications using R on the back end for  \nstatistical analysis. Does anyone have experience with such a pl",
       "thread_id": "thread-3b09b92a8d9a",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005294.html"
     },
     {
       "id": "msg-7428b5e11389",
@@ -188,7 +197,8 @@
       "body_snippet": "On Thu, Sep 4, 2008 at 6:16 AM, Corinna Cohn <corinna at otakurama.com> wrote:\n> I'm looking for an ISP or web hosting company in North America with\n> experience hosting web applications using R on th",
       "thread_id": "thread-3b09b92a8d9a",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005295.html"
     },
     {
       "id": "msg-ee9b3f7f6f8f",
@@ -207,7 +217,8 @@
       "body_snippet": "On Sep 4, 2008, at 6:16 , Corinna Cohn wrote:\n\n> I'm looking for an ISP or web hosting company in North America with  \n> experience hosting web applications using R on the back end for  \n> statistical",
       "thread_id": "thread-3b09b92a8d9a",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005296.html"
     },
     {
       "id": "msg-e458aef09b1b",
@@ -224,6 +235,7 @@
       "thread_id": "thread-e458aef09b1b",
       "thread_depth": 0,
       "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005297.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080904/024cfa5d/attachment.pl"
       ]
@@ -244,7 +256,8 @@
       "body_snippet": "Try another mirror: this is not the first time we've seen problems at \nwww.ibiblio.org.\n\nOn Thu, 4 Sep 2008, Brant Inman wrote:\n\n> R-helpers:\n>\n> I just updated from R 7.0 to R 7.2.2 today.  I am usin",
       "thread_id": "thread-e458aef09b1b",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005298.html"
     },
     {
       "id": "msg-4a9de24080dd",
@@ -263,7 +276,8 @@
       "body_snippet": "Thank you for your suggestion.  I did as you suggested and switched  \nfrom USA (NC) to USA (IA).\n\nAgain, the packages seemed to download OK but this time a single error  \nmessage appeared:\n\n----------",
       "thread_id": "thread-e458aef09b1b",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005299.html"
     },
     {
       "id": "msg-e593fc71ac57",
@@ -283,7 +297,8 @@
       "body_snippet": "On Thu, 4 Sep 2008, Brant Inman wrote:\n\n> Thank you for your suggestion.  I did as you suggested and switched from USA \n> (NC) to USA (IA).\n>\n> Again, the packages seemed to download OK but this time ",
       "thread_id": "thread-e458aef09b1b",
       "thread_depth": 3,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005300.html"
     },
     {
       "id": "msg-3d20dae848c3",
@@ -299,7 +314,8 @@
       "body_snippet": "Hi,\n\nI am not a profound Mac oficionado, but under the new Mac OSX 10.5 \nLeopard I installed R-2.7.2 out of the box. When I start R in the \nterminal, I can see that it hangs at loading Tcl/Tk. Using >",
       "thread_id": "thread-3d20dae848c3",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005301.html"
     },
     {
       "id": "msg-8c9cde4b03b4",
@@ -317,7 +333,8 @@
       "body_snippet": "Christian,\n\nOn Sep 5, 2008, at 9:59 , Christian Hoffmann wrote:\n\n> I am not a profound Mac oficionado, but under the new Mac OSX 10.5  \n> Leopard I installed R-2.7.2 out of the box. When I start R in ",
       "thread_id": "thread-3d20dae848c3",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005302.html"
     },
     {
       "id": "msg-2c4844141a9f",
@@ -333,7 +350,8 @@
       "body_snippet": "Hi,\n\nCreating a graphics device with a tilde in the file name leads to a\nbus error in recent versions of R on the Mac. I'm running Mac OS X\n10.5.4. A sample session:\n\n> sessionInfo()\nR version 2.7.2 (",
       "thread_id": "thread-2c4844141a9f",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005303.html"
     },
     {
       "id": "msg-529aaa447253",
@@ -351,7 +369,8 @@
       "body_snippet": "It is not that there is a tilde in the name, but that the filename is \ninvalid (nothing said that tilde would be interpreted, and R's help \nusually does when this is the case).\n\nThe crash is AFAIK alr",
       "thread_id": "thread-2c4844141a9f",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005304.html"
     },
     {
       "id": "msg-9105c0895cbe",
@@ -370,7 +389,8 @@
       "body_snippet": "I quoted the section of R help that says the tilde would be expanded\nif supported by the platform.\n\nOn Fri, Sep 5, 2008 at 11:48 AM, Prof Brian Ripley\n<ripley at stats.ox.ac.uk> wrote:\n> It is not tha",
       "thread_id": "thread-2c4844141a9f",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005305.html"
     },
     {
       "id": "msg-7f9a7f848678",
@@ -386,7 +406,8 @@
       "body_snippet": "I would like to install gnucash on a Macbook running OS X 10.5.4.  It\nappears that I would need either Fink or Darwinports installed to\ninstall gnucash.  Because my past experiences with Fink have not",
       "thread_id": "thread-7f9a7f848678",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005306.html"
     },
     {
       "id": "msg-3c3452a86ba4",
@@ -404,7 +425,8 @@
       "body_snippet": "On Sep 7, 2008, at 8:54 AM, Douglas Bates wrote:\n\n> I would like to install gnucash on a Macbook running OS X 10.5.4.   \n> It appears that I would need either Fink or Darwinports installed to  \n> inst",
       "thread_id": "thread-7f9a7f848678",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005307.html"
     },
     {
       "id": "msg-dcbd3ad41eac",
@@ -422,7 +444,8 @@
       "body_snippet": "On Sep 7, 2008, at 8:54 AM, Douglas Bates wrote:\n\n> I would like to install gnucash on a Macbook running OS X 10.5.4.  It\n> appears that I would need either Fink or Darwinports installed to\n> install ",
       "thread_id": "thread-7f9a7f848678",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005308.html"
     },
     {
       "id": "msg-ef826b84a325",
@@ -441,7 +464,8 @@
       "body_snippet": "On Sep 7, 2008, at 3:46 PM, Charilaos Skiadas wrote:\n\n> Btw, I believe it's called MacPorts now.\n\nOne caveat: when the name of the DarwinPorts project was changed to  \nMacPorts, darwinports.ORG became",
       "thread_id": "thread-7f9a7f848678",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005309.html"
     },
     {
       "id": "msg-19ff57f2b0c8",
@@ -459,7 +483,8 @@
       "body_snippet": "> From: Douglas Bates \n> Date: Sun, 7 Sep 2008 07:54:32 -0500\n> Subject: [R-SIG-Mac] Do Darwinports and R play nice on Tiger?\n\n> I would like to install gnucash on a Macbook running OS X 10.5.4.  It\n>",
       "thread_id": "thread-7f9a7f848678",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005310.html"
     },
     {
       "id": "msg-d5dc6834630f",
@@ -478,7 +503,8 @@
       "body_snippet": "One small correction, I should have said \"MacPorts\" instead of\n\"Darwinports\".  (Thanks to Kjell Konis for reminding me of the name\nchange).\n\n\n> From: Steve  Revilak <steve at srevilak.net>\n> Date: Sun",
       "thread_id": "thread-7f9a7f848678",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005311.html"
     },
     {
       "id": "msg-3bfe0267c94a",
@@ -495,6 +521,7 @@
       "thread_id": "thread-3bfe0267c94a",
       "thread_depth": 0,
       "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005312.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080908/0c13e717/attachment.pl"
       ]
@@ -515,7 +542,8 @@
       "body_snippet": "?BiodiversityGUI\n\nOn Mon, Sep 8, 2008 at 12:38 PM, dougwyu <dougwyu at gmail.com> wrote:\n> I'm trying to install the package BiodiversityR to run under Rcmdr on\n> the mac.  Has anyone done this succes",
       "thread_id": "thread-3bfe0267c94a",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005313.html"
     },
     {
       "id": "msg-fa3c2af4e36f",
@@ -533,7 +561,8 @@
       "body_snippet": "I've found out it takes two steps.  1.  Load the Biodiversity  \npackage.  2.  Type the command \"BiodiversityRGUI()\" into the R  \nconsole.  That will launch R commander with Biodiversity in the main  \n",
       "thread_id": "thread-fa3c2af4e36f",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005314.html"
     },
     {
       "id": "msg-38162d0aa973",
@@ -551,7 +580,8 @@
       "body_snippet": "[This should probably go to R-SIG-Mac, so I'm moving the thread there.]\n\n\n> I'm tryin' to install Rpy under Mac Os X but I receive the following\n> message:\n\nI suppose you're talking about the alpha re",
       "thread_id": "thread-38162d0aa973",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005315.html"
     },
     {
       "id": "msg-b4cabc712f05",
@@ -571,6 +601,7 @@
       "thread_id": "thread-38162d0aa973",
       "thread_depth": 1,
       "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005316.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080911/2e4bd848/attachment.pl"
       ]
@@ -589,7 +620,8 @@
       "body_snippet": "Hi,\n\nRecently, R.app (2.7.2 on Leopard 10.5.4) has begun to append newlines \nat the end of commands, so that if I press the up key, the newline gets \nreproduced again. I've been running 2.7.2 since it",
       "thread_id": "thread-390b3274e4ef",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005317.html"
     },
     {
       "id": "msg-d61e079a23c7",
@@ -603,11 +635,12 @@
       "references": [
         "<48CA02B1.80104@csse.unimelb.edu.au>"
       ],
-      "body_plain": "Gad Abraham <gabraham <at> csse.unimelb.edu.au> writes:\n> Recently, R.app (2.7.2 on Leopard 10.5.4) has begun to append newlines \n> at the end of commands, so that if I press the up key, the newline gets \n> reproduced again. I've been running 2.7.2 since it came out but this \n> behaviour is recent (past couple of days):\n>  > ls()\n> character(0)\n> [press up and enter]\n>  > ls()\n> character(0)\n> [press up and enter]\n>  > ls()\n> character(0)\n>  >\n>  >\n> [press up and enter]\n>  > ls()\n> character(0)\n\n> Thanks,\n> Gad\n\nHave you checked the R.app preferences.  \nI think that you want to have Cleanup history entries\nchecked under the startup preferences.\n\nKen\n-- \nKen Knoblauch\nInserm U846\nInstitut Cellule Souche et Cerveau\nD?partement Neurosciences Int?gratives\n18 avenue du Doyen L?pine\n69500 Bron\nFrance\ntel: +33 (0)4 72 91 34 77\nfax: +33 (0)4 72 91 34 61\nportable: +33 (0)6 84 10 64 10\nhttp://www.sbri.fr",
+      "body_plain": "Gad Abraham <gabraham <at> csse.unimelb.edu.au> writes:\n> Recently, R.app (2.7.2 on Leopard 10.5.4) has begun to append newlines \n> at the end of commands, so that if I press the up key, the newline gets \n> reproduced again. I've been running 2.7.2 since it came out but this \n> behaviour is recent (past couple of days):\n>  > ls()\n> character(0)\n> [press up and enter]\n>  > ls()\n> character(0)\n> [press up and enter]\n>  > ls()\n> character(0)\n>  >\n>  >\n> [press up and enter]\n>  > ls()\n> character(0)\n\n> Thanks,\n> Gad\n\nHave you checked the R.app preferences.  \nI think that you want to have Cleanup history entries\nchecked under the startup preferences.\n\nKen\n-- \nKen Knoblauch\nInserm U846\nInstitut Cellule Souche et Cerveau\nDépartement Neurosciences Intégratives\n18 avenue du Doyen Lépine\n69500 Bron\nFrance\ntel: +33 (0)4 72 91 34 77\nfax: +33 (0)4 72 91 34 61\nportable: +33 (0)6 84 10 64 10\nhttp://www.sbri.fr",
       "body_snippet": "Gad Abraham <gabraham <at> csse.unimelb.edu.au> writes:\n> Recently, R.app (2.7.2 on Leopard 10.5.4) has begun to append newlines \n> at the end of commands, so that if I press the up key, the newline g",
       "thread_id": "thread-390b3274e4ef",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005318.html"
     },
     {
       "id": "msg-37939116e2c3",
@@ -626,7 +659,8 @@
       "body_snippet": "Ken Knoblauch wrote:\n> Gad Abraham <gabraham <at> csse.unimelb.edu.au> writes:\n>> Recently, R.app (2.7.2 on Leopard 10.5.4) has begun to append newlines \n>> at the end of commands, so that if I press ",
       "thread_id": "thread-390b3274e4ef",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005319.html"
     },
     {
       "id": "msg-734a2e9230c6",
@@ -642,7 +676,8 @@
       "body_snippet": "Hi,\n\nThis is almost certainly a naive question, but what happened to R- \ndevel (2.8.0) for Leopard at http://r.research.att.com/ ?  The nightly  \nbuild appears to be failing.  Is there another locatio",
       "thread_id": "thread-734a2e9230c6",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005320.html"
     },
     {
       "id": "msg-2ff0ceede6f5",
@@ -660,7 +695,8 @@
       "body_snippet": "On Sep 16, 2008, at 12:25 , joseph franklin wrote:\n\n> Hi,\n>\n> This is almost certainly a naive question, but what happened to R- \n> devel (2.8.0) for Leopard at http://r.research.att.com/ ?  The  \n> n",
       "thread_id": "thread-734a2e9230c6",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005321.html"
     },
     {
       "id": "msg-3e824a2e2630",
@@ -676,7 +712,8 @@
       "body_snippet": "I have an old ibook that is not ready to go out to pasture\n256 RAM\n933 processor\n\nCan I build R 2.7.2 and up on this computer so that it will work with\ninstall.packages()\n\nor will I have to also build",
       "thread_id": "thread-3e824a2e2630",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005322.html"
     },
     {
       "id": "msg-ed41b7673d80",
@@ -694,7 +731,8 @@
       "body_snippet": "On 17 Sep 2008, at 1:22, stephen sefick wrote:\n\n> I have an old ibook that is not ready to go out to pasture\n> 256 RAM\n> 933 processor\n>\n> Can I build R 2.7.2 and up on this computer so that it will w",
       "thread_id": "thread-3e824a2e2630",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005323.html"
     },
     {
       "id": "msg-31d5055616e5",
@@ -712,7 +750,8 @@
       "body_snippet": "On Sep 16, 2008, at 18:22 , stephen sefick wrote:\n\n> I have an old ibook that is not ready to go out to pasture\n> 256 RAM\n> 933 processor\n>\n> Can I build R 2.7.2 and up on this computer so that it wil",
       "thread_id": "thread-3e824a2e2630",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005324.html"
     },
     {
       "id": "msg-4dcbe9531b38",
@@ -731,7 +770,8 @@
       "body_snippet": "On Sep 17, 2008, at 0:45 , Jari Oksanen wrote:\n\n>\n> On 17 Sep 2008, at 1:22, stephen sefick wrote:\n>\n>> I have an old ibook that is not ready to go out to pasture\n>> 256 RAM\n>> 933 processor\n>>\n>> Can",
       "thread_id": "thread-3e824a2e2630",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005325.html"
     },
     {
       "id": "msg-a8ef4ffd77e0",
@@ -751,7 +791,8 @@
       "body_snippet": "I am not concerned about the mac goodies.  I am comfortable with the\ncommand line and X11 version.  I want to know will R act like R\n(getting packages without having to build them from source) if I bu",
       "thread_id": "thread-3e824a2e2630",
       "thread_depth": 3,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005326.html"
     },
     {
       "id": "msg-cf29340b8a85",
@@ -772,7 +813,8 @@
       "body_snippet": "On Wed, 2008-09-17 at 10:36 -0400, stephen sefick wrote:\n> I am not concerned about the mac goodies.  I am comfortable with the\n> command line and X11 version.  I want to know will R act like R\n> (get",
       "thread_id": "thread-3e824a2e2630",
       "thread_depth": 4,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005327.html"
     },
     {
       "id": "msg-96fd579a75a6",
@@ -793,7 +835,8 @@
       "body_snippet": "On Sep 17, 2008, at 10:36 , stephen sefick wrote:\n\n> I am not concerned about the mac goodies.  I am comfortable with the  \n> command line and X11 version.  I want to know will R act like R  \n> (getti",
       "thread_id": "thread-3e824a2e2630",
       "thread_depth": 4,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005328.html"
     },
     {
       "id": "msg-c2b7b4d06d6a",
@@ -809,7 +852,8 @@
       "body_snippet": "Hi,\nI would like to fit a GLM model with GEE on clustered data.\nI tried to use gee in the GEE package on a twin data set. All cluster\nare of size 2. I removed the missing data first.\n\n> gee(Y ~ X1 + X",
       "thread_id": "thread-c2b7b4d06d6a",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005329.html"
     },
     {
       "id": "msg-f392b34111fe",
@@ -827,7 +871,8 @@
       "body_snippet": "Please, use the appropriate list, e.g. r-help and you'll get a useful  \nanswer with higher probability than here.\nThere is nothing mac specific in your mails\nstefano\n\nOn 19/set/08, at 01:30, david dav",
       "thread_id": "thread-c2b7b4d06d6a",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005330.html"
     },
     {
       "id": "msg-c208da49fb7e",
@@ -839,11 +884,12 @@
       "subject_clean": "R 2.7.2 for Mac OS X released",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "Dear Simon\n\nFor some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\nI cannot find\ninstallations for R-2.7.1 either.\n\nThe explanations do not help me. I need the programme for the statistic course\nat Uni Z?rich.\n\nHope you can help me!\n\nThanks a lot and best wishes\n\nAnastassia Scheidegger",
+      "body_plain": "Dear Simon\n\nFor some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\nI cannot find\ninstallations for R-2.7.1 either.\n\nThe explanations do not help me. I need the programme for the statistic course\nat Uni Zürich.\n\nHope you can help me!\n\nThanks a lot and best wishes\n\nAnastassia Scheidegger",
       "body_snippet": "Dear Simon\n\nFor some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\nI cannot find\ninstallations for R-2.7.1 either.\n\nThe explanations do not help me. I need the programme for the statis",
       "thread_id": "thread-c208da49fb7e",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005337.html"
     },
     {
       "id": "msg-ce9b7057ec56",
@@ -861,7 +907,8 @@
       "body_snippet": "---------- Forwarded message ----------\nFrom: stephen sefick <ssefick at gmail.com>\nDate: Sun, Sep 21, 2008 at 3:09 PM\nSubject: making binaries for os x 10.3.9\nTo: R-help Mailing List <r-help-sig at r",
       "thread_id": "thread-ce9b7057ec56",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005331.html"
     },
     {
       "id": "msg-11bed662933a",
@@ -877,7 +924,8 @@
       "body_snippet": "I am trying to compile R 2.7.2 from source and running the ./configure\ncommand ends with\n\nconfigure: error: --with-x=yes (default) and X11 headers/libs are not available\n\nI have found out that apple X",
       "thread_id": "thread-11bed662933a",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005332.html"
     },
     {
       "id": "msg-6957f7986d09",
@@ -895,7 +943,8 @@
       "body_snippet": "On Sun, Sep 21, 2008 at 5:31 PM, stephen sefick <ssefick at gmail.com> wrote:\n> I am trying to compile R 2.7.2 from source and running the ./configure\n> command ends with\n>\n> configure: error: --with-",
       "thread_id": "thread-11bed662933a",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005333.html"
     },
     {
       "id": "msg-40b7b1cb1feb",
@@ -914,7 +963,8 @@
       "body_snippet": "after a day of fooling around with this I had to install X11 SDK\nwithin the Xcode tools.  I am getting close to getting making the file\nand I am sure that there will be some sort of hang up,  but you'",
       "thread_id": "thread-11bed662933a",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005334.html"
     },
     {
       "id": "msg-05ecbedc6a69",
@@ -930,7 +980,8 @@
       "body_snippet": "making aqua.d from aqua.c\nIn file included from\n/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Headers/CarbonCore.h:113,\n                 from\n/System/Library/Framew",
       "thread_id": "thread-05ecbedc6a69",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005335.html"
     },
     {
       "id": "msg-594068f3a97f",
@@ -946,7 +997,8 @@
       "body_snippet": "I have compiled R 2.7.2 on mac 10.3.9 and can run it within an xterm\nwindow.  I compiled it with the --without-aqua so I am only using x11.\n I don't have access to the x11 device within the terminal w",
       "thread_id": "thread-594068f3a97f",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005336.html"
     },
     {
       "id": "msg-4462ca10d899",
@@ -964,7 +1016,8 @@
       "body_snippet": "On Mon, Sep 22, 2008 at 12:09 AM, stephen sefick <ssefick at gmail.com> wrote:\n> I have compiled R 2.7.2 on mac 10.3.9 and can run it within an xterm\n> window.  I compiled it with the --without-aqua s",
       "thread_id": "thread-594068f3a97f",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005338.html"
     },
     {
       "id": "msg-e26b6df95df7",
@@ -978,11 +1031,12 @@
       "references": [
         "<6148d0a30809201404j1382fdd4id9d7f84a1d4b37b7@mail.gmail.com>"
       ],
-      "body_plain": "Anastassia,\n\nOn Sep 20, 2008, at 5:04 PM, Anastassia Scheidegger wrote:\n\n> Dear Simon\n>\n> For some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\n\nunfortunately we don't support 10.3 (Panther) anymore. It is way too  \nold (almost 5 years now) and with the introduction of Intel Macs the  \nnewer systems diverged too much such that it is not possible to use  \nthe same code on new systems and Panther. Therefore you'll have to  \nupgrade at least to 10.4 to use R binaries (it's faster so if you have  \na G4 it's a good idea to do so).\n\nAlternatively you can compile R yourself (which is what Stephen is  \nreporting about here), but R starting with 2.7 Aqua/Quartz is no  \nlonger supported on 10.3 even in the sources, so you can only use the  \nX11 interface. Also you'll need to compile packages from sources (use  \ntype='source' in install.packages).\n\nFinally, the last R binary supporting OS X 10.3 was R-2.2.1 which is  \nstill available from CRAN. It is very old, so it will lack many new  \nfeatures and bugfixes.\n\n\n> I cannot find\n> installations for R-2.7.1 either.\n>\n\nSee the \"old\" directory on the CRAN page.\n\nCheers,\nSimon\n\n\n> The explanations do not help me. I need the programme for the  \n> statistic course\n> at Uni Z?rich.\n>\n> Hope you can help me!\n>\n> Thanks a lot and best wishes\n>\n> Anastassia Scheidegger\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_plain": "Anastassia,\n\nOn Sep 20, 2008, at 5:04 PM, Anastassia Scheidegger wrote:\n\n> Dear Simon\n>\n> For some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\n\nunfortunately we don't support 10.3 (Panther) anymore. It is way too  \nold (almost 5 years now) and with the introduction of Intel Macs the  \nnewer systems diverged too much such that it is not possible to use  \nthe same code on new systems and Panther. Therefore you'll have to  \nupgrade at least to 10.4 to use R binaries (it's faster so if you have  \na G4 it's a good idea to do so).\n\nAlternatively you can compile R yourself (which is what Stephen is  \nreporting about here), but R starting with 2.7 Aqua/Quartz is no  \nlonger supported on 10.3 even in the sources, so you can only use the  \nX11 interface. Also you'll need to compile packages from sources (use  \ntype='source' in install.packages).\n\nFinally, the last R binary supporting OS X 10.3 was R-2.2.1 which is  \nstill available from CRAN. It is very old, so it will lack many new  \nfeatures and bugfixes.\n\n\n> I cannot find\n> installations for R-2.7.1 either.\n>\n\nSee the \"old\" directory on the CRAN page.\n\nCheers,\nSimon\n\n\n> The explanations do not help me. I need the programme for the  \n> statistic course\n> at Uni Zürich.\n>\n> Hope you can help me!\n>\n> Thanks a lot and best wishes\n>\n> Anastassia Scheidegger\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
       "body_snippet": "Anastassia,\n\nOn Sep 20, 2008, at 5:04 PM, Anastassia Scheidegger wrote:\n\n> Dear Simon\n>\n> For some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\n\nunfortunately we don't support 10.3 (P",
       "thread_id": "thread-c208da49fb7e",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005339.html"
     },
     {
       "id": "msg-45217c9445c9",
@@ -997,11 +1051,12 @@
         "<6148d0a30809201404j1382fdd4id9d7f84a1d4b37b7@mail.gmail.com>",
         "<C724CC99-D919-4AAA-BBEE-6C565EDEC37B@r-project.org>"
       ],
-      "body_plain": "Dear  Jari & Simon\n\nThanx a lot for your very prompt answers. So if I get you correctly,\nthere is no way\nto install R 2.7.2 on Mac OS 10.3.9.\n\nI'll try to uptgrade to 10.4 then, and hope that R-2.7.2 is\ngoing to work.\n\nCheers, Anastassia\n\n\n\n\n\n2008/9/22 Simon Urbanek <simon.urbanek at r-project.org>:\n> Anastassia,\n>\n> On Sep 20, 2008, at 5:04 PM, Anastassia Scheidegger wrote:\n>\n>> Dear Simon\n>>\n>> For some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\n>\n> unfortunately we don't support 10.3 (Panther) anymore. It is way too old\n> (almost 5 years now) and with the introduction of Intel Macs the newer\n> systems diverged too much such that it is not possible to use the same code\n> on new systems and Panther. Therefore you'll have to upgrade at least to\n> 10.4 to use R binaries (it's faster so if you have a G4 it's a good idea to\n> do so).\n>\n> Alternatively you can compile R yourself (which is what Stephen is reporting\n> about here), but R starting with 2.7 Aqua/Quartz is no longer supported on\n> 10.3 even in the sources, so you can only use the X11 interface. Also you'll\n> need to compile packages from sources (use type='source' in\n> install.packages).\n>\n> Finally, the last R binary supporting OS X 10.3 was R-2.2.1 which is still\n> available from CRAN. It is very old, so it will lack many new features and\n> bugfixes.\n>\n>\n>> I cannot find\n>> installations for R-2.7.1 either.\n>>\n>\n> See the \"old\" directory on the CRAN page.\n>\n> Cheers,\n> Simon\n>\n>\n>> The explanations do not help me. I need the programme for the statistic\n>> course\n>> at Uni Z?rich.\n>>\n>> Hope you can help me!\n>>\n>> Thanks a lot and best wishes\n>>\n>> Anastassia Scheidegger\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>\n>",
+      "body_plain": "Dear  Jari & Simon\n\nThanx a lot for your very prompt answers. So if I get you correctly,\nthere is no way\nto install R 2.7.2 on Mac OS 10.3.9.\n\nI'll try to uptgrade to 10.4 then, and hope that R-2.7.2 is\ngoing to work.\n\nCheers, Anastassia\n\n\n\n\n\n2008/9/22 Simon Urbanek <simon.urbanek at r-project.org>:\n> Anastassia,\n>\n> On Sep 20, 2008, at 5:04 PM, Anastassia Scheidegger wrote:\n>\n>> Dear Simon\n>>\n>> For some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\n>\n> unfortunately we don't support 10.3 (Panther) anymore. It is way too old\n> (almost 5 years now) and with the introduction of Intel Macs the newer\n> systems diverged too much such that it is not possible to use the same code\n> on new systems and Panther. Therefore you'll have to upgrade at least to\n> 10.4 to use R binaries (it's faster so if you have a G4 it's a good idea to\n> do so).\n>\n> Alternatively you can compile R yourself (which is what Stephen is reporting\n> about here), but R starting with 2.7 Aqua/Quartz is no longer supported on\n> 10.3 even in the sources, so you can only use the X11 interface. Also you'll\n> need to compile packages from sources (use type='source' in\n> install.packages).\n>\n> Finally, the last R binary supporting OS X 10.3 was R-2.2.1 which is still\n> available from CRAN. It is very old, so it will lack many new features and\n> bugfixes.\n>\n>\n>> I cannot find\n>> installations for R-2.7.1 either.\n>>\n>\n> See the \"old\" directory on the CRAN page.\n>\n> Cheers,\n> Simon\n>\n>\n>> The explanations do not help me. I need the programme for the statistic\n>> course\n>> at Uni Zürich.\n>>\n>> Hope you can help me!\n>>\n>> Thanks a lot and best wishes\n>>\n>> Anastassia Scheidegger\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>\n>",
       "body_snippet": "Dear  Jari & Simon\n\nThanx a lot for your very prompt answers. So if I get you correctly,\nthere is no way\nto install R 2.7.2 on Mac OS 10.3.9.\n\nI'll try to uptgrade to 10.4 then, and hope that R-2.7.2 ",
       "thread_id": "thread-c208da49fb7e",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005342.html"
     },
     {
       "id": "msg-2065092924f6",
@@ -1017,11 +1072,12 @@
         "<C724CC99-D919-4AAA-BBEE-6C565EDEC37B@r-project.org>",
         "<6148d0a30809221254n3e9e98a3r96087b7158ebd4a9@mail.gmail.com>"
       ],
-      "body_plain": "it will work, but you will have to build it from source, which took me\nall day yesterday.  I don't know what I am doing, admittedly.  It is\neasier to use the binaries if you can afford the upgrade.\n\nOn Mon, Sep 22, 2008 at 3:54 PM, Anastassia Scheidegger\n<anastassia.scheidegger at googlemail.com> wrote:\n> Dear  Jari & Simon\n>\n> Thanx a lot for your very prompt answers. So if I get you correctly,\n> there is no way\n> to install R 2.7.2 on Mac OS 10.3.9.\n>\n> I'll try to uptgrade to 10.4 then, and hope that R-2.7.2 is\n> going to work.\n>\n> Cheers, Anastassia\n>\n>\n>\n>\n>\n> 2008/9/22 Simon Urbanek <simon.urbanek at r-project.org>:\n>> Anastassia,\n>>\n>> On Sep 20, 2008, at 5:04 PM, Anastassia Scheidegger wrote:\n>>\n>>> Dear Simon\n>>>\n>>> For some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\n>>\n>> unfortunately we don't support 10.3 (Panther) anymore. It is way too old\n>> (almost 5 years now) and with the introduction of Intel Macs the newer\n>> systems diverged too much such that it is not possible to use the same code\n>> on new systems and Panther. Therefore you'll have to upgrade at least to\n>> 10.4 to use R binaries (it's faster so if you have a G4 it's a good idea to\n>> do so).\n>>\n>> Alternatively you can compile R yourself (which is what Stephen is reporting\n>> about here), but R starting with 2.7 Aqua/Quartz is no longer supported on\n>> 10.3 even in the sources, so you can only use the X11 interface. Also you'll\n>> need to compile packages from sources (use type='source' in\n>> install.packages).\n>>\n>> Finally, the last R binary supporting OS X 10.3 was R-2.2.1 which is still\n>> available from CRAN. It is very old, so it will lack many new features and\n>> bugfixes.\n>>\n>>\n>>> I cannot find\n>>> installations for R-2.7.1 either.\n>>>\n>>\n>> See the \"old\" directory on the CRAN page.\n>>\n>> Cheers,\n>> Simon\n>>\n>>\n>>> The explanations do not help me. I need the programme for the statistic\n>>> course\n>>> at Uni Z?rich.\n>>>\n>>> Hope you can help me!\n>>>\n>>> Thanks a lot and best wishes\n>>>\n>>> Anastassia Scheidegger\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>>\n>>\n>>\n>\n\n\n\n-- \nStephen Sefick\nResearch Scientist\nSoutheastern Natural Sciences Academy\n\nLet's not spend our time and resources thinking about things that are\nso little or so large that all they really do for us is puff us up and\nmake us feel like gods. We are mammals, and have not exhausted the\nannoying little problems of being mammals.\n\n\t-K. Mullis",
+      "body_plain": "it will work, but you will have to build it from source, which took me\nall day yesterday.  I don't know what I am doing, admittedly.  It is\neasier to use the binaries if you can afford the upgrade.\n\nOn Mon, Sep 22, 2008 at 3:54 PM, Anastassia Scheidegger\n<anastassia.scheidegger at googlemail.com> wrote:\n> Dear  Jari & Simon\n>\n> Thanx a lot for your very prompt answers. So if I get you correctly,\n> there is no way\n> to install R 2.7.2 on Mac OS 10.3.9.\n>\n> I'll try to uptgrade to 10.4 then, and hope that R-2.7.2 is\n> going to work.\n>\n> Cheers, Anastassia\n>\n>\n>\n>\n>\n> 2008/9/22 Simon Urbanek <simon.urbanek at r-project.org>:\n>> Anastassia,\n>>\n>> On Sep 20, 2008, at 5:04 PM, Anastassia Scheidegger wrote:\n>>\n>>> Dear Simon\n>>>\n>>> For some reason I cannto install R-2.7.2 on my Mac (Mac OS 10.3.9) and\n>>\n>> unfortunately we don't support 10.3 (Panther) anymore. It is way too old\n>> (almost 5 years now) and with the introduction of Intel Macs the newer\n>> systems diverged too much such that it is not possible to use the same code\n>> on new systems and Panther. Therefore you'll have to upgrade at least to\n>> 10.4 to use R binaries (it's faster so if you have a G4 it's a good idea to\n>> do so).\n>>\n>> Alternatively you can compile R yourself (which is what Stephen is reporting\n>> about here), but R starting with 2.7 Aqua/Quartz is no longer supported on\n>> 10.3 even in the sources, so you can only use the X11 interface. Also you'll\n>> need to compile packages from sources (use type='source' in\n>> install.packages).\n>>\n>> Finally, the last R binary supporting OS X 10.3 was R-2.2.1 which is still\n>> available from CRAN. It is very old, so it will lack many new features and\n>> bugfixes.\n>>\n>>\n>>> I cannot find\n>>> installations for R-2.7.1 either.\n>>>\n>>\n>> See the \"old\" directory on the CRAN page.\n>>\n>> Cheers,\n>> Simon\n>>\n>>\n>>> The explanations do not help me. I need the programme for the statistic\n>>> course\n>>> at Uni Zürich.\n>>>\n>>> Hope you can help me!\n>>>\n>>> Thanks a lot and best wishes\n>>>\n>>> Anastassia Scheidegger\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>\n>>>\n>>\n>>\n>\n\n\n\n-- \nStephen Sefick\nResearch Scientist\nSoutheastern Natural Sciences Academy\n\nLet's not spend our time and resources thinking about things that are\nso little or so large that all they really do for us is puff us up and\nmake us feel like gods. We are mammals, and have not exhausted the\nannoying little problems of being mammals.\n\n\t-K. Mullis",
       "body_snippet": "it will work, but you will have to build it from source, which took me\nall day yesterday.  I don't know what I am doing, admittedly.  It is\neasier to use the binaries if you can afford the upgrade.\n\nO",
       "thread_id": "thread-c208da49fb7e",
       "thread_depth": 3,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005340.html"
     },
     {
       "id": "msg-fb57cb0b5e7a",
@@ -1037,7 +1093,8 @@
       "body_snippet": "Has anyone been able to get packages that rely on Gtk2 to run under  \nLeopard?\n\nI have experimented with the playwith package, as depending on a small  \nnumber of packages additional to Gtk2.   I can ",
       "thread_id": "thread-fb57cb0b5e7a",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005341.html"
     },
     {
       "id": "msg-c18edd56c281",
@@ -1055,7 +1112,8 @@
       "body_snippet": "On Sep 23, 2008, at 0:20 , John Maindonald wrote:\n\n> Has anyone been able to get packages that rely on Gtk2 to run under  \n> Leopard?\n>\n\nYes, I see no problem with Gtk2.\n\n\n> I have experimented with t",
       "thread_id": "thread-fb57cb0b5e7a",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005343.html"
     },
     {
       "id": "msg-73246668ce1f",
@@ -1074,7 +1132,8 @@
       "body_snippet": "I've had a brief exchange of emails, to which Simon is privy, with  \nMichael Lawrence.\n\n\"From what I've heard, people who compile the entire toolchain, i.e.  \ndo not use Simon's GTK+, cairo, etc binar",
       "thread_id": "thread-fb57cb0b5e7a",
       "thread_depth": 2,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005344.html"
     },
     {
       "id": "msg-40d9f2a360c7",
@@ -1094,7 +1153,8 @@
       "body_snippet": "On Sep 24, 2008, at 7:12 , John Maindonald wrote:\n\n> I've had a brief exchange of emails, to which Simon is privy, with  \n> Michael Lawrence.\n>\n> \"From what I've heard, people who compile the entire t",
       "thread_id": "thread-fb57cb0b5e7a",
       "thread_depth": 3,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005345.html"
     },
     {
       "id": "msg-cfa287485630",
@@ -1116,6 +1176,7 @@
       "thread_id": "thread-fb57cb0b5e7a",
       "thread_depth": 4,
       "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005346.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080924/4c0024ab/attachment.pl"
       ]
@@ -1140,7 +1201,8 @@
       "body_snippet": "Thanks, Michael and Simon.  My main concern was to discover\nwhere we are at.  It will be great if this can be resolved for 2.8\nCheers\nJohn.\n\nJohn Maindonald             email: john.maindonald at anu.e",
       "thread_id": "thread-fb57cb0b5e7a",
       "thread_depth": 5,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005347.html"
     },
     {
       "id": "msg-8f8ad1aeedf2",
@@ -1156,7 +1218,8 @@
       "body_snippet": "Hi there,\n\nWhen I build my R package with below command on leopard, MacOS 10.5,\nit reports that the ppc architecture library file is missing. I was\nwondering how can I build this package only with i38",
       "thread_id": "thread-8f8ad1aeedf2",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005348.html"
     },
     {
       "id": "msg-d8fb0651c549",
@@ -1170,11 +1233,12 @@
       "references": [
         "<e936a3d0809260357u202f5d4i8e126000243c3528@mail.gmail.com>"
       ],
-      "body_plain": "On Sep 26, 2008, at 6:57 , F?n L?ng wrote:\n\n> Hi there,\n>\n> When I build my R package with below command on leopard, MacOS 10.5,\n> it reports that the ppc architecture library file is missing.\n\nFirst, note that you have a problem with the compilers you're using.  \nThey are not compatible with R. It is strongly discouraged to use 3rd  \nparty compilers, because they usually don't work. Use Apple compilers  \nplus our Fortran build (see http://r.research.att.com/tools/ for  \ndetails). The offending file (/usr/local/lib/libgcc_s.10.4.dylib) is  \nfrom some 3rd party gcc installation.\n\n\n> I was wondering how can I build this package only with i386 arch,  \n> and don't build the ppc architecture.\n>\n\nUnfortunately there is no flag to disable multi-arch builds. The only  \nway is to remove the architectures you're not using from R, most  \neasily from bin/exec (i.e. look in\n/Library/Frameworks/R.framework/Resources/bin/exec\nand remove any architectures you don't want to use).\n\nHowever, as stated before the problem is in your tools, not in the ppc  \narchitecture.\n\nCheers,\nSimon\n\n\n> Below is my build command and build result:\n>\n> ----------------\n> R CMD build ?binary my_package_src_dir\n> R_ARCH=/i386 R CMD INSTALL --with-package-versions my_package_tarball\n>\n> ---------------\n> * Installing *source* package 'mypackage' ...\n> ** libs\n> ** arch - i386\n> g++ -arch i386 -isysroot /Developer/SDKs/MacOSX10.4u.sdk\n> -mmacosx-version-min=10.4\n> -I/Library/Frameworks/R.framework/Resources/include\n> -I/Library/Frameworks/R.framework/Resources/include/i386 -DDARWIN\n> -msse3    -fPIC  -g -O2 -march=nocona -c RInvokeApp.cpp -o\n> RInvokeApp.o\n> g++ -arch i386 -isysroot /Developer/SDKs/MacOSX10.4u.sdk\n> -mmacosx-version-min=10.4 -dynamiclib -Wl,-headerpad_max_install_names\n> -mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n> -multiply_defined suppress -L/usr/local/lib -o mypackage.so\n> RInvokeApp.o   -F/Library/Frameworks/R.framework/.. -framework R\n> -Wl,-framework -Wl,CoreFoundation\n> ld: warning, duplicate dylib\n> /Developer/SDKs/MacOSX10.4u.sdk/usr/local/lib/libgcc_s.1.dylib\n> ** arch - ppc\n> g++ -arch ppc -isysroot /Developer/SDKs/MacOSX10.4u.sdk\n> -mmacosx-version-min=10.4\n> -I/Library/Frameworks/R.framework/Resources/include\n> -I/Library/Frameworks/R.framework/Resources/include/ppc -DDARWIN\n> -I/usr/local/include    -fPIC  -g -O2 -c RInvoke.cpp -o RInvoke.o\n> g++ -arch ppc -isysroot /Developer/SDKs/MacOSX10.4u.sdk\n> -mmacosx-version-min=10.4 -dynamiclib -Wl,-headerpad_max_install_names\n> -mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n> -multiply_defined suppress -L/usr/local/lib -o .so RInvoke.o\n> -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n> -Wl,CoreFoundation\n> ld: warning in /Developer/SDKs/MacOSX10.4u.sdk/usr/local/lib/ \n> libgcc_s.10.4.dylib,\n> missing required architecture ppc in file\n> ld: in /Developer/SDKs/MacOSX10.4u.sdk/usr/local/lib/libgcc_s.1.dylib,\n> missing required architecture ppc in file\n> collect2: ld returned 1 exit status\n> make: *** [.so] Error 1\n> chmod: /var/folders/B3/B3WXtjTxEN4bWH6AxrGJNU+++TI/-Tmp-/ \n> Rinst629842306//libs/ppc/*:\n> No such file or directory\n> ERROR: compilation failed for package 'mypackage'\n> ** Removing '/var/folders/B3/B3WXtjTxEN4bWH6AxrGJNU+++TI/-Tmp-/ \n> Rinst629842306/mypackage'\n> ERROR\t\n> * installation failed\n>\n>\n> Thank you in advance!\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
-      "body_snippet": "On Sep 26, 2008, at 6:57 , F?n L?ng wrote:\n\n> Hi there,\n>\n> When I build my R package with below command on leopard, MacOS 10.5,\n> it reports that the ppc architecture library file is missing.\n\nFirst,",
+      "body_plain": "On Sep 26, 2008, at 6:57 , Fán Lóng wrote:\n\n> Hi there,\n>\n> When I build my R package with below command on leopard, MacOS 10.5,\n> it reports that the ppc architecture library file is missing.\n\nFirst, note that you have a problem with the compilers you're using.  \nThey are not compatible with R. It is strongly discouraged to use 3rd  \nparty compilers, because they usually don't work. Use Apple compilers  \nplus our Fortran build (see http://r.research.att.com/tools/ for  \ndetails). The offending file (/usr/local/lib/libgcc_s.10.4.dylib) is  \nfrom some 3rd party gcc installation.\n\n\n> I was wondering how can I build this package only with i386 arch,  \n> and don't build the ppc architecture.\n>\n\nUnfortunately there is no flag to disable multi-arch builds. The only  \nway is to remove the architectures you're not using from R, most  \neasily from bin/exec (i.e. look in\n/Library/Frameworks/R.framework/Resources/bin/exec\nand remove any architectures you don't want to use).\n\nHowever, as stated before the problem is in your tools, not in the ppc  \narchitecture.\n\nCheers,\nSimon\n\n\n> Below is my build command and build result:\n>\n> ----------------\n> R CMD build –binary my_package_src_dir\n> R_ARCH=/i386 R CMD INSTALL --with-package-versions my_package_tarball\n>\n> ---------------\n> * Installing *source* package 'mypackage' ...\n> ** libs\n> ** arch - i386\n> g++ -arch i386 -isysroot /Developer/SDKs/MacOSX10.4u.sdk\n> -mmacosx-version-min=10.4\n> -I/Library/Frameworks/R.framework/Resources/include\n> -I/Library/Frameworks/R.framework/Resources/include/i386 -DDARWIN\n> -msse3    -fPIC  -g -O2 -march=nocona -c RInvokeApp.cpp -o\n> RInvokeApp.o\n> g++ -arch i386 -isysroot /Developer/SDKs/MacOSX10.4u.sdk\n> -mmacosx-version-min=10.4 -dynamiclib -Wl,-headerpad_max_install_names\n> -mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n> -multiply_defined suppress -L/usr/local/lib -o mypackage.so\n> RInvokeApp.o   -F/Library/Frameworks/R.framework/.. -framework R\n> -Wl,-framework -Wl,CoreFoundation\n> ld: warning, duplicate dylib\n> /Developer/SDKs/MacOSX10.4u.sdk/usr/local/lib/libgcc_s.1.dylib\n> ** arch - ppc\n> g++ -arch ppc -isysroot /Developer/SDKs/MacOSX10.4u.sdk\n> -mmacosx-version-min=10.4\n> -I/Library/Frameworks/R.framework/Resources/include\n> -I/Library/Frameworks/R.framework/Resources/include/ppc -DDARWIN\n> -I/usr/local/include    -fPIC  -g -O2 -c RInvoke.cpp -o RInvoke.o\n> g++ -arch ppc -isysroot /Developer/SDKs/MacOSX10.4u.sdk\n> -mmacosx-version-min=10.4 -dynamiclib -Wl,-headerpad_max_install_names\n> -mmacosx-version-min=10.4 -undefined dynamic_lookup -single_module\n> -multiply_defined suppress -L/usr/local/lib -o .so RInvoke.o\n> -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework\n> -Wl,CoreFoundation\n> ld: warning in /Developer/SDKs/MacOSX10.4u.sdk/usr/local/lib/ \n> libgcc_s.10.4.dylib,\n> missing required architecture ppc in file\n> ld: in /Developer/SDKs/MacOSX10.4u.sdk/usr/local/lib/libgcc_s.1.dylib,\n> missing required architecture ppc in file\n> collect2: ld returned 1 exit status\n> make: *** [.so] Error 1\n> chmod: /var/folders/B3/B3WXtjTxEN4bWH6AxrGJNU+++TI/-Tmp-/ \n> Rinst629842306//libs/ppc/*:\n> No such file or directory\n> ERROR: compilation failed for package 'mypackage'\n> ** Removing '/var/folders/B3/B3WXtjTxEN4bWH6AxrGJNU+++TI/-Tmp-/ \n> Rinst629842306/mypackage'\n> ERROR\t\n> * installation failed\n>\n>\n> Thank you in advance!\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>",
+      "body_snippet": "On Sep 26, 2008, at 6:57 , Fán Lóng wrote:\n\n> Hi there,\n>\n> When I build my R package with below command on leopard, MacOS 10.5,\n> it reports that the ppc architecture library file is missing.\n\nFirst,",
       "thread_id": "thread-8f8ad1aeedf2",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005349.html"
     },
     {
       "id": "msg-f824c49cb81a",
@@ -1191,6 +1255,7 @@
       "thread_id": "thread-f824c49cb81a",
       "thread_depth": 0,
       "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005350.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080927/081ccf01/attachment.pl"
       ]
@@ -1211,7 +1276,8 @@
       "body_snippet": "On Sep 27, 2008, at 4:41 PM, Kurt Newman wrote:\n\n> Hello,I have used Matthew's method to install 64 bit R on Leopard (http://www.matthewckeller.com/html/64_bit_r_on_mac.html \n> ) and from the command ",
       "thread_id": "thread-f824c49cb81a",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005351.html"
     },
     {
       "id": "msg-d7ee1ddb1c67",
@@ -1231,6 +1297,7 @@
       "thread_id": "thread-f824c49cb81a",
       "thread_depth": 2,
       "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005353.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080928/1b4d34bd/attachment.pl"
       ]
@@ -1253,7 +1320,8 @@
       "body_snippet": "Kurt,\n\nthanks for the report. That is indeed a bug the the GUI (some older  \ncode was not 64-bit safe). I have fixed it in SVN, so either re-run  \nthe commands I sent or you can simply update your SVN",
       "thread_id": "thread-f824c49cb81a",
       "thread_depth": 3,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005352.html"
     },
     {
       "id": "msg-7f960c6a7866",
@@ -1269,7 +1337,8 @@
       "body_snippet": "Hi,\n\nYou can solve local problem by adding the following lines in ~/.Rprofile\n\n.First <- function() {\n   cat(\"\\n   Welcome to R!\\n\\n\")\n   Sys.setlocale(category = \"LC_ALL\", locale = \"en_US.UTF-8\")\n}\n.",
       "thread_id": "thread-7f960c6a7866",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005355.html"
     },
     {
       "id": "msg-019d93b34911",
@@ -1285,7 +1354,8 @@
       "body_snippet": "I have a package that needs to link against a different set of  \nlibraries on OS X than on other *NIXes. I looked from things like  \nMakevars.{mac,darwin,osx} in the Writing R Extensions manual but  \n",
       "thread_id": "thread-019d93b34911",
       "thread_depth": 0,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005354.html"
     },
     {
       "id": "msg-e3568ec28f3b",
@@ -1303,7 +1373,8 @@
       "body_snippet": "On Sep 29, 2008, at 12:00 , Kjell Konis wrote:\n\n> I have a package that needs to link against a different set of  \n> libraries on OS X than on other *NIXes. I looked from things like  \n> Makevars.{mac",
       "thread_id": "thread-019d93b34911",
       "thread_depth": 1,
-      "month": "2008-09"
+      "month": "2008-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-September/005356.html"
     }
   ],
   "threads": [

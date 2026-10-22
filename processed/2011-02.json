@@ -24,7 +24,8 @@
       "body_snippet": "Thank You Marc, Brian and Simon,\n\nI am indeed first going to understand if the MySQL server can be accessed from a web connection using my machine and then I will take a look at the solutions you sugg",
       "thread_id": "thread-c518b113326e",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008029.html"
     },
     {
       "id": "msg-2288ee09e505",
@@ -41,6 +42,7 @@
       "thread_id": "thread-2288ee09e505",
       "thread_depth": 0,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008030.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110201/c89ee773/attachment.pl"
       ]
@@ -57,11 +59,12 @@
       "references": [
         "<4D482031.7050301@imag.fr>"
       ],
-      "body_plain": "On Feb 1, 2011, at 10:01 AM, Christine Plumejeaud wrote:\n\n> Hi,\n> I have developped a java swing application (1.6) embedding R (using the \n> JRI, JRengine) and all was fine on my previous laptop (Mac OS X Leopard, \n> 10.5).\n> \n> But I had to change my laptop (Snow Leopard 10.6.4, 32 bits with java \n> 1.6), and now there is a failure, which seems to come from cocoa (read \n> this on other forums). The error \"__NSAutoreleaseNoPool\" is on all \n> forums.//For instance, see\n> http://www.omnigroup.com/mailman/archive/macosx-dev/2001-July/029778.html/\n> /\n\nCan you be more specific as of what you do? Can you include your exact setup and Java code? There is a lot of things that can break in R embedded into Java because of the way Java interacts with the OS - for example I'm surprised to see you load Tcl/Tk as that in itself is possibly problematic (at the very least it won't work properly with Java GUIs). As for the actual warnings you post those are technically harmless and easy to remove, but the underlying problem is that of Java co-operating (or not) with other libraries that interact with the OS -- if you want stability you really want to stay within the Java realm (i.e. use JavaGD instead of Quartz, don't even think about Tcl/Tk and use iWidgets/gWidgetsJava etc.). Also you don't want to call and UI code other than on the main thread (technically we allow apps to call R from other threads as long as they are synchronized but that won't work for OS interactions which have to be on the main thread).\n\nCheers,\nSimon\n\n\n> I use the R  binairies downloaded from CRAN :\n> http://cran.r-project.org/\n> I also have installed the Xcode SDK\n> \n> Here is my stack trace :\n> ------------------------------------------------------------------------\n> java.library.path: \n> /Library/Frameworks/R.framework/Resources/library/rJava/jri\n> R_HOME: /Library/Frameworks/R.framework/Resources\n> \n> R version 2.12.1 (2010-12-16)\n> Copyright (C) 2010 The R Foundation for Statistical Computing\n> ISBN 3-900051-07-0\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit)\n> ...\n> Chargement de Tcl/Tk... termin?\n> Le chargement a n?cessit? le package : mvoutlier\n> ** R loaded**\n> ------------------------------------------------------------------------\n> Ok all is fine\n> But ...\n> ------------------------------------------------------------------------\n> \n> 2011-02-01 14:16:47.428 java[377:a0f] *** __NSAutoreleaseNoPool(): \n> Object 0x1130840 of class NSConcreteMapTableValueEnumerator autoreleased \n> with no pool in place - just leaking\n> 2011-02-01 14:16:47.432 java[377:a0f] *** __NSAutoreleaseNoPool(): \n> Object 0x150c440 of class NSConcreteMapTableValueEnumerator autoreleased \n> with no pool in place - just leaking\n> \n> ------------------------------------------------------------------------\n> \n> Reading this post, \n> https://stat.ethz.ch/pipermail/r-sig-mac/2010-December/007913.html, I \n> understood that\n> \n> /\"the latest update to Snow Leopard (10.6.5) removes necessary header/  /files from the system Java installation.\"\n> /\n> \n> OK, and all this have been ennoying other people using the mac OS X JVM \n> for other applications.\n> /\n> /\n> So I have followed the advice : installed the Xcode SDK and made java \n> reconf for R with good CPP flags/\n> \n> /------------------------------------------------------------------------\n> plumejeau:ESTIM christineplumejeaud$ \n> JAVA_CPPFLAGS=-I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers \n> R CMD javareconf\n> Java interpreter : \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/java\n> Java version     : 1.6.0_22\n> Java home path   : \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home\n> Java compiler    : \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javac\n> Java headers gen.: \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javah\n> Java archive tool: \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/jar\n> Java library path:\n> JNI linker flags : -framework JavaVM\n> JNI cpp flags    : \n> -I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers\n> \n> Updating Java configuration in /Library/Frameworks/R.framework/Resources\n> Done.\n> ------------------------------------------------------------------------\n> \n> Unfortunatly, the problem is going on...\n> \n> Have you any idea ?\n> \n> Here is the command to launch my application.\n> java -d32 \n> -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri \n> -cp \"${ESTIM_DIR}/lib/JRI.jar:${ESTIM_DIR}/lib/JRIEngine.jar --arch \n> i386:${ESTIM_DIR}/lib/postgis_1_0_0.jar:${ESTIM_DIR}/lib/postgresql-8.1-404.jdbc3.jar:${ESTIM_DIR}/lib/REngine.jar:${ESTIM_DIR}/dist/ESTIM.jar\" \n> Estim\n> \n> Thanks in advance,\n> Christine\n> \n> -- \n> Christine Plumejeaud\n> Equipe Steamer, Laboratoire d'Informatique de Grenoble\n> 681 rue de la Passerelle\n> 38400 St Martin d'H?res\n> 04 76 82 72 11\n> christine.plumejeaud at imag.fr\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "On Feb 1, 2011, at 10:01 AM, Christine Plumejeaud wrote:\n\n> Hi,\n> I have developped a java swing application (1.6) embedding R (using the \n> JRI, JRengine) and all was fine on my previous laptop (Mac OS X Leopard, \n> 10.5).\n> \n> But I had to change my laptop (Snow Leopard 10.6.4, 32 bits with java \n> 1.6), and now there is a failure, which seems to come from cocoa (read \n> this on other forums). The error \"__NSAutoreleaseNoPool\" is on all \n> forums.//For instance, see\n> http://www.omnigroup.com/mailman/archive/macosx-dev/2001-July/029778.html/\n> /\n\nCan you be more specific as of what you do? Can you include your exact setup and Java code? There is a lot of things that can break in R embedded into Java because of the way Java interacts with the OS - for example I'm surprised to see you load Tcl/Tk as that in itself is possibly problematic (at the very least it won't work properly with Java GUIs). As for the actual warnings you post those are technically harmless and easy to remove, but the underlying problem is that of Java co-operating (or not) with other libraries that interact with the OS -- if you want stability you really want to stay within the Java realm (i.e. use JavaGD instead of Quartz, don't even think about Tcl/Tk and use iWidgets/gWidgetsJava etc.). Also you don't want to call and UI code other than on the main thread (technically we allow apps to call R from other threads as long as they are synchronized but that won't work for OS interactions which have to be on the main thread).\n\nCheers,\nSimon\n\n\n> I use the R  binairies downloaded from CRAN :\n> http://cran.r-project.org/\n> I also have installed the Xcode SDK\n> \n> Here is my stack trace :\n> ------------------------------------------------------------------------\n> java.library.path: \n> /Library/Frameworks/R.framework/Resources/library/rJava/jri\n> R_HOME: /Library/Frameworks/R.framework/Resources\n> \n> R version 2.12.1 (2010-12-16)\n> Copyright (C) 2010 The R Foundation for Statistical Computing\n> ISBN 3-900051-07-0\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit)\n> ...\n> Chargement de Tcl/Tk... termin?\n> Le chargement a n?cessit? le package : mvoutlier\n> ** R loaded**\n> ------------------------------------------------------------------------\n> Ok all is fine\n> But ...\n> ------------------------------------------------------------------------\n> \n> 2011-02-01 14:16:47.428 java[377:a0f] *** __NSAutoreleaseNoPool(): \n> Object 0x1130840 of class NSConcreteMapTableValueEnumerator autoreleased \n> with no pool in place - just leaking\n> 2011-02-01 14:16:47.432 java[377:a0f] *** __NSAutoreleaseNoPool(): \n> Object 0x150c440 of class NSConcreteMapTableValueEnumerator autoreleased \n> with no pool in place - just leaking\n> \n> ------------------------------------------------------------------------\n> \n> Reading this post, \n> https://stat.ethz.ch/pipermail/r-sig-mac/2010-December/007913.html, I \n> understood that\n> \n> /\"the latest update to Snow Leopard (10.6.5) removes necessary header/  /files from the system Java installation.\"\n> /\n> \n> OK, and all this have been ennoying other people using the mac OS X JVM \n> for other applications.\n> /\n> /\n> So I have followed the advice : installed the Xcode SDK and made java \n> reconf for R with good CPP flags/\n> \n> /------------------------------------------------------------------------\n> plumejeau:ESTIM christineplumejeaud$ \n> JAVA_CPPFLAGS=-I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers \n> R CMD javareconf\n> Java interpreter : \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/java\n> Java version     : 1.6.0_22\n> Java home path   : \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home\n> Java compiler    : \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javac\n> Java headers gen.: \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javah\n> Java archive tool: \n> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/jar\n> Java library path:\n> JNI linker flags : -framework JavaVM\n> JNI cpp flags    : \n> -I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers\n> \n> Updating Java configuration in /Library/Frameworks/R.framework/Resources\n> Done.\n> ------------------------------------------------------------------------\n> \n> Unfortunatly, the problem is going on...\n> \n> Have you any idea ?\n> \n> Here is the command to launch my application.\n> java -d32 \n> -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri \n> -cp \"${ESTIM_DIR}/lib/JRI.jar:${ESTIM_DIR}/lib/JRIEngine.jar --arch \n> i386:${ESTIM_DIR}/lib/postgis_1_0_0.jar:${ESTIM_DIR}/lib/postgresql-8.1-404.jdbc3.jar:${ESTIM_DIR}/lib/REngine.jar:${ESTIM_DIR}/dist/ESTIM.jar\" \n> Estim\n> \n> Thanks in advance,\n> Christine\n> \n> -- \n> Christine Plumejeaud\n> Equipe Steamer, Laboratoire d'Informatique de Grenoble\n> 681 rue de la Passerelle\n> 38400 St Martin d'Hères\n> 04 76 82 72 11\n> christine.plumejeaud at imag.fr\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "On Feb 1, 2011, at 10:01 AM, Christine Plumejeaud wrote:\n\n> Hi,\n> I have developped a java swing application (1.6) embedding R (using the \n> JRI, JRengine) and all was fine on my previous laptop (Mac ",
       "thread_id": "thread-2288ee09e505",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008031.html"
     },
     {
       "id": "msg-3d6fd1fcef95",
@@ -76,11 +79,12 @@
         "<4D482031.7050301@imag.fr>",
         "<05CB9C63-E2E1-4D62-91DA-90B7AADCC98B@r-project.org>"
       ],
-      "body_plain": "Hello,\nThank you very much for your answer.\nMy program don't use directly Tcl/TK - this is R that loads it when it \nloads the 'aplpack' package.  Indeed, my program works  when this \npackage is commented (Tcl/Tk is not loaded anymore). Now, there is just \nto find a library for computing bagplot which does not require tcl/tk.\n\nCheers\nChristine\n\nI put bellow the code and the stack trace that was loading R (and failing).\n\n\n------------------------------------------------------------------------------------------------------------------------\nHere is the java code :\n------------------------------------------------------------------------------------------------------------------------\n\npackage RMethods;\nimport org.rosuda.JRI.Rengine;\npublic class RengineObject {\n\n     public static Rengine rengine;\n\n     /**\n      * Constructeur de la classe RengineObject. Permet de cr?er la \nmachine virtuelle R et de charger tous les\n      * paquetages R n?cessaire au bon fonctionnement de l'application\n      * @param args\n      *          Arguments entr?s en ligne de commande\n      */\n     public RengineObject(String[] args) {\n\n         // on cr?e la machine R\n         rengine = new Rengine(args, false, new RConsole());\n\n         // on v?rifie qu'on a la bonne version de la JRI\n         if (!Rengine.versionCheck()) {\n             System.err\n                     .println(\"** Version mismatch - Java files don't \nmatch library version.\");\n             System.exit(1);\n         }\n\n         // la machine qui est cr??e est un thread donc on attend qu'il \nsoit pr?t\n         if (!rengine.waitForR()) {\n             System.out.println(\"Cannot load R\");\n             return;\n         }\n\n         // on charge dans la machine R toutes les librairies \nn?cessaires au bon fonctionnement de l'application\n         rengine.eval(\"require(GISTools)\");\n         rengine.eval(\"require(png)\");\n         // librairie pour script 2\n         rengine.eval(\"require(moments)\");\n         rengine.eval(\"require(robustbase)\");\n         rengine.eval(\"require(locfit)\");\n         // librairie pour script3\n         rengine.eval(\"require(aplpack)\");// Package for bagplots...\n         rengine.eval(\"require(mvoutlier)\");// Load the necessary package...\n         System.out.println(\"** R loaded ** \");\n     }\n}\n------------------------------------------------------------------------------------------------------------------------\nHere the output in java console\n------------------------------------------------------------------------------------------------------------------------\n\nplumejeau:ESTIM christineplumejeaud$ ./run.sh\nestim directory : ./\njava.library.path: \n/Library/Frameworks/R.framework/Resources/library/rJava/jri\nR_HOME: /Library/Frameworks/R.framework/Resources\n\nR version 2.12.1 (2010-12-16)\nCopyright (C) 2010 The R Foundation for Statistical Computing\nISBN 3-900051-07-0\nPlatform: i386-apple-darwin9.8.0/i386 (32-bit)\n\nR est un logiciel libre livr? sans AUCUNE GARANTIE.\nVous pouvez le redistribuer sous certaines conditions.\nTapez 'license()' ou 'licence()' pour plus de d?tails.\n\nR est un projet collaboratif avec de nombreux contributeurs.\nTapez 'contributors()' pour plus d'information et\n'citation()' pour la fa?on de le citer dans les publications.\n\nTapez 'demo()' pour des d?monstrations, 'help()' pour l'aide\nen ligne ou 'help.start()' pour obtenir l'aide au format HTML.\nTapez 'q()' pour quitter R.\n\nLe chargement a n?cessit? le package : GISTools\nLe chargement a n?cessit? le package : maptools\nLe chargement a n?cessit? le package : foreign\nLe chargement a n?cessit? le package : sp\nLe chargement a n?cessit? le package : lattice\n\n     Note: polygon geometry computations in maptools\n      depend on the package gpclib, which has a\n      restricted licence. It is disabled by default;\n      to enable gpclib, type gpclibPermit()\n\nChecking rgeos availability as gpclib substitute:\nFALSE\nLe chargement a n?cessit? le package : RColorBrewer\nLe chargement a n?cessit? le package : spdep\nLe chargement a n?cessit? le package : boot\n\nAttachement du package : 'boot'\n\nThe following object(s) are masked from 'package:lattice':\n\n     melanoma\n\nLe chargement a n?cessit? le package : Matrix\n\nAttachement du package : 'Matrix'\n\nThe following object(s) are masked from 'package:base':\n\n     det\n\nLe chargement a n?cessit? le package : MASS\nLe chargement a n?cessit? le package : nlme\nLe chargement a n?cessit? le package : deldir\ndeldir 0.0-13\n\n      Please note: The process for determining duplicated points\n      has changed from that used in version 0.0-9 (and previously).\n\nLe chargement a n?cessit? le package : coda\nLe chargement a n?cessit? le package : spgwr\nNOTE: default kernel and CV criteria changed\nsee help pages for details\nLe chargement a n?cessit? le package : tripack\nLe chargement a n?cessit? le package : gpclib\nGeneral Polygon Clipper Library for R (version 1.5-1)\n     Type 'class ? gpc.poly' for help\n\nGISTools library now loaded.\nLe chargement a n?cessit? le package : png\nLe chargement a n?cessit? le package : moments\n\nAttachement du package : 'moments'\n\nThe following object(s) are masked from 'package:spdep':\n\n     geary\n\nLe chargement a n?cessit? le package : robustbase\n\nAttachement du package : 'robustbase'\n\nThe following object(s) are masked from 'package:boot':\n\n     salinity\n\nLe chargement a n?cessit? le package : locfit\nLe chargement a n?cessit? le package : akima\nlocfit 1.5-6      2010-01-20\nLe chargement a n?cessit? le package : aplpack\nLe chargement a n?cessit? le package : tcltk\nChargement de Tcl/Tk... termin?\nLe chargement a n?cessit? le package : mvoutlier\n** R loaded**\n2011-02-01 16:57:34.923 java[2429:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x122dc80 of class NSConcreteMapTableValueEnumerator autoreleased \nwith no pool in place - just leaking\n2011-02-01 16:57:34.933 java[2429:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x1404cf0 of class NSConcreteMapTableValueEnumerator autoreleased \nwith no pool in place - just leaking\ntailleEcran : 1440x900\ntailleAppli : 1024x768\nEstim-->initProperties from resource file \n:jar:file:/Users/christine/Dev/estim/ESTIM/dist/ESTIM.jar!/messages.en.txt\nEstim-->initProperties from resource file \n:jar:file:/Users/christine/Dev/estim/ESTIM/dist/ESTIM.jar!/messages.en.txt\npanelVisualisationDimension 673x384\n2011-02-01 16:57:36.055 java[2429:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x12804a0 of class __NSCFDate autoreleased with no pool in place \n- just leaking\n2011-02-01 16:57:36.055 java[2429:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x1280990 of class NSCFTimer autoreleased with no pool in place - \njust leaking\n------------------------------------------------------------------------------------------------------------------------\n\n\nLe 01/02/11 16:25, Simon Urbanek a ?crit :\n> On Feb 1, 2011, at 10:01 AM, Christine Plumejeaud wrote:\n>\n>> Hi,\n>> I have developped a java swing application (1.6) embedding R (using the\n>> JRI, JRengine) and all was fine on my previous laptop (Mac OS X Leopard,\n>> 10.5).\n>>\n>> But I had to change my laptop (Snow Leopard 10.6.4, 32 bits with java\n>> 1.6), and now there is a failure, which seems to come from cocoa (read\n>> this on other forums). The error \"__NSAutoreleaseNoPool\" is on all\n>> forums.//For instance, see\n>> http://www.omnigroup.com/mailman/archive/macosx-dev/2001-July/029778.html/\n>> /\n> Can you be more specific as of what you do? Can you include your exact setup and Java code? There is a lot of things that can break in R embedded into Java because of the way Java interacts with the OS - for example I'm surprised to see you load Tcl/Tk as that in itself is possibly problematic (at the very least it won't work properly with Java GUIs). As for the actual warnings you post those are technically harmless and easy to remove, but the underlying problem is that of Java co-operating (or not) with other libraries that interact with the OS -- if you want stability you really want to stay within the Java realm (i.e. use JavaGD instead of Quartz, don't even think about Tcl/Tk and use iWidgets/gWidgetsJava etc.). Also you don't want to call and UI code other than on the main thread (technically we allow apps to call R from other threads as long as they are synchronized but that won't work for OS interactions which have to be on the main thread).\n>\n> Cheers,\n> Simon\n>\n>\n>> I use the R  binairies downloaded from CRAN :\n>> http://cran.r-project.org/\n>> I also have installed the Xcode SDK\n>>\n>> Here is my stack trace :\n>> ------------------------------------------------------------------------\n>> java.library.path:\n>> /Library/Frameworks/R.framework/Resources/library/rJava/jri\n>> R_HOME: /Library/Frameworks/R.framework/Resources\n>>\n>> R version 2.12.1 (2010-12-16)\n>> Copyright (C) 2010 The R Foundation for Statistical Computing\n>> ISBN 3-900051-07-0\n>> Platform: i386-apple-darwin9.8.0/i386 (32-bit)\n>> ...\n>> Chargement de Tcl/Tk... termin?\n>> Le chargement a n?cessit? le package : mvoutlier\n>> ** R loaded**\n>> ------------------------------------------------------------------------\n>> Ok all is fine\n>> But ...\n>> ------------------------------------------------------------------------\n>>\n>> 2011-02-01 14:16:47.428 java[377:a0f] *** __NSAutoreleaseNoPool():\n>> Object 0x1130840 of class NSConcreteMapTableValueEnumerator autoreleased\n>> with no pool in place - just leaking\n>> 2011-02-01 14:16:47.432 java[377:a0f] *** __NSAutoreleaseNoPool():\n>> Object 0x150c440 of class NSConcreteMapTableValueEnumerator autoreleased\n>> with no pool in place - just leaking\n>>\n>> ------------------------------------------------------------------------\n>>\n>> Reading this post,\n>> https://stat.ethz.ch/pipermail/r-sig-mac/2010-December/007913.html, I\n>> understood that\n>>\n>> /\"the latest update to Snow Leopard (10.6.5) removes necessary header/  /files from the system Java installation.\"\n>> /\n>>\n>> OK, and all this have been ennoying other people using the mac OS X JVM\n>> for other applications.\n>> /\n>> /\n>> So I have followed the advice : installed the Xcode SDK and made java\n>> reconf for R with good CPP flags/\n>>\n>> /------------------------------------------------------------------------\n>> plumejeau:ESTIM christineplumejeaud$\n>> JAVA_CPPFLAGS=-I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers\n>> R CMD javareconf\n>> Java interpreter :\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/java\n>> Java version     : 1.6.0_22\n>> Java home path   :\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home\n>> Java compiler    :\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javac\n>> Java headers gen.:\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javah\n>> Java archive tool:\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/jar\n>> Java library path:\n>> JNI linker flags : -framework JavaVM\n>> JNI cpp flags    :\n>> -I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers\n>>\n>> Updating Java configuration in /Library/Frameworks/R.framework/Resources\n>> Done.\n>> ------------------------------------------------------------------------\n>>\n>> Unfortunatly, the problem is going on...\n>>\n>> Have you any idea ?\n>>\n>> Here is the command to launch my application.\n>> java -d32\n>> -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri\n>> -cp \"${ESTIM_DIR}/lib/JRI.jar:${ESTIM_DIR}/lib/JRIEngine.jar --arch\n>> i386:${ESTIM_DIR}/lib/postgis_1_0_0.jar:${ESTIM_DIR}/lib/postgresql-8.1-404.jdbc3.jar:${ESTIM_DIR}/lib/REngine.jar:${ESTIM_DIR}/dist/ESTIM.jar\"\n>> Estim\n>>\n>> Thanks in advance,\n>> Christine\n>>\n>> -- \n>> Christine Plumejeaud\n>> Equipe Steamer, Laboratoire d'Informatique de Grenoble\n>> 681 rue de la Passerelle\n>> 38400 St Martin d'H?res\n>> 04 76 82 72 11\n>> christine.plumejeaud at imag.fr\n>>\n>>\n>> \t[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "Hello,\nThank you very much for your answer.\nMy program don't use directly Tcl/TK - this is R that loads it when it \nloads the 'aplpack' package.  Indeed, my program works  when this \npackage is commented (Tcl/Tk is not loaded anymore). Now, there is just \nto find a library for computing bagplot which does not require tcl/tk.\n\nCheers\nChristine\n\nI put bellow the code and the stack trace that was loading R (and failing).\n\n\n------------------------------------------------------------------------------------------------------------------------\nHere is the java code :\n------------------------------------------------------------------------------------------------------------------------\n\npackage RMethods;\nimport org.rosuda.JRI.Rengine;\npublic class RengineObject {\n\n     public static Rengine rengine;\n\n     /**\n      * Constructeur de la classe RengineObject. Permet de créer la \nmachine virtuelle R et de charger tous les\n      * paquetages R nécessaire au bon fonctionnement de l'application\n      * @param args\n      *          Arguments entrés en ligne de commande\n      */\n     public RengineObject(String[] args) {\n\n         // on crée la machine R\n         rengine = new Rengine(args, false, new RConsole());\n\n         // on vérifie qu'on a la bonne version de la JRI\n         if (!Rengine.versionCheck()) {\n             System.err\n                     .println(\"** Version mismatch - Java files don't \nmatch library version.\");\n             System.exit(1);\n         }\n\n         // la machine qui est créée est un thread donc on attend qu'il \nsoit prêt\n         if (!rengine.waitForR()) {\n             System.out.println(\"Cannot load R\");\n             return;\n         }\n\n         // on charge dans la machine R toutes les librairies \nnécessaires au bon fonctionnement de l'application\n         rengine.eval(\"require(GISTools)\");\n         rengine.eval(\"require(png)\");\n         // librairie pour script 2\n         rengine.eval(\"require(moments)\");\n         rengine.eval(\"require(robustbase)\");\n         rengine.eval(\"require(locfit)\");\n         // librairie pour script3\n         rengine.eval(\"require(aplpack)\");// Package for bagplots...\n         rengine.eval(\"require(mvoutlier)\");// Load the necessary package...\n         System.out.println(\"** R loaded ** \");\n     }\n}\n------------------------------------------------------------------------------------------------------------------------\nHere the output in java console\n------------------------------------------------------------------------------------------------------------------------\n\nplumejeau:ESTIM christineplumejeaud$ ./run.sh\nestim directory : ./\njava.library.path: \n/Library/Frameworks/R.framework/Resources/library/rJava/jri\nR_HOME: /Library/Frameworks/R.framework/Resources\n\nR version 2.12.1 (2010-12-16)\nCopyright (C) 2010 The R Foundation for Statistical Computing\nISBN 3-900051-07-0\nPlatform: i386-apple-darwin9.8.0/i386 (32-bit)\n\nR est un logiciel libre livr? sans AUCUNE GARANTIE.\nVous pouvez le redistribuer sous certaines conditions.\nTapez 'license()' ou 'licence()' pour plus de d?tails.\n\nR est un projet collaboratif avec de nombreux contributeurs.\nTapez 'contributors()' pour plus d'information et\n'citation()' pour la fa?on de le citer dans les publications.\n\nTapez 'demo()' pour des d?monstrations, 'help()' pour l'aide\nen ligne ou 'help.start()' pour obtenir l'aide au format HTML.\nTapez 'q()' pour quitter R.\n\nLe chargement a n?cessit? le package : GISTools\nLe chargement a n?cessit? le package : maptools\nLe chargement a n?cessit? le package : foreign\nLe chargement a n?cessit? le package : sp\nLe chargement a n?cessit? le package : lattice\n\n     Note: polygon geometry computations in maptools\n      depend on the package gpclib, which has a\n      restricted licence. It is disabled by default;\n      to enable gpclib, type gpclibPermit()\n\nChecking rgeos availability as gpclib substitute:\nFALSE\nLe chargement a n?cessit? le package : RColorBrewer\nLe chargement a n?cessit? le package : spdep\nLe chargement a n?cessit? le package : boot\n\nAttachement du package : 'boot'\n\nThe following object(s) are masked from 'package:lattice':\n\n     melanoma\n\nLe chargement a n?cessit? le package : Matrix\n\nAttachement du package : 'Matrix'\n\nThe following object(s) are masked from 'package:base':\n\n     det\n\nLe chargement a n?cessit? le package : MASS\nLe chargement a n?cessit? le package : nlme\nLe chargement a n?cessit? le package : deldir\ndeldir 0.0-13\n\n      Please note: The process for determining duplicated points\n      has changed from that used in version 0.0-9 (and previously).\n\nLe chargement a n?cessit? le package : coda\nLe chargement a n?cessit? le package : spgwr\nNOTE: default kernel and CV criteria changed\nsee help pages for details\nLe chargement a n?cessit? le package : tripack\nLe chargement a n?cessit? le package : gpclib\nGeneral Polygon Clipper Library for R (version 1.5-1)\n     Type 'class ? gpc.poly' for help\n\nGISTools library now loaded.\nLe chargement a n?cessit? le package : png\nLe chargement a n?cessit? le package : moments\n\nAttachement du package : 'moments'\n\nThe following object(s) are masked from 'package:spdep':\n\n     geary\n\nLe chargement a n?cessit? le package : robustbase\n\nAttachement du package : 'robustbase'\n\nThe following object(s) are masked from 'package:boot':\n\n     salinity\n\nLe chargement a n?cessit? le package : locfit\nLe chargement a n?cessit? le package : akima\nlocfit 1.5-6      2010-01-20\nLe chargement a n?cessit? le package : aplpack\nLe chargement a n?cessit? le package : tcltk\nChargement de Tcl/Tk... termin?\nLe chargement a n?cessit? le package : mvoutlier\n** R loaded**\n2011-02-01 16:57:34.923 java[2429:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x122dc80 of class NSConcreteMapTableValueEnumerator autoreleased \nwith no pool in place - just leaking\n2011-02-01 16:57:34.933 java[2429:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x1404cf0 of class NSConcreteMapTableValueEnumerator autoreleased \nwith no pool in place - just leaking\ntailleEcran : 1440x900\ntailleAppli : 1024x768\nEstim-->initProperties from resource file \n:jar:file:/Users/christine/Dev/estim/ESTIM/dist/ESTIM.jar!/messages.en.txt\nEstim-->initProperties from resource file \n:jar:file:/Users/christine/Dev/estim/ESTIM/dist/ESTIM.jar!/messages.en.txt\npanelVisualisationDimension 673x384\n2011-02-01 16:57:36.055 java[2429:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x12804a0 of class __NSCFDate autoreleased with no pool in place \n- just leaking\n2011-02-01 16:57:36.055 java[2429:a0f] *** __NSAutoreleaseNoPool(): \nObject 0x1280990 of class NSCFTimer autoreleased with no pool in place - \njust leaking\n------------------------------------------------------------------------------------------------------------------------\n\n\nLe 01/02/11 16:25, Simon Urbanek a écrit :\n> On Feb 1, 2011, at 10:01 AM, Christine Plumejeaud wrote:\n>\n>> Hi,\n>> I have developped a java swing application (1.6) embedding R (using the\n>> JRI, JRengine) and all was fine on my previous laptop (Mac OS X Leopard,\n>> 10.5).\n>>\n>> But I had to change my laptop (Snow Leopard 10.6.4, 32 bits with java\n>> 1.6), and now there is a failure, which seems to come from cocoa (read\n>> this on other forums). The error \"__NSAutoreleaseNoPool\" is on all\n>> forums.//For instance, see\n>> http://www.omnigroup.com/mailman/archive/macosx-dev/2001-July/029778.html/\n>> /\n> Can you be more specific as of what you do? Can you include your exact setup and Java code? There is a lot of things that can break in R embedded into Java because of the way Java interacts with the OS - for example I'm surprised to see you load Tcl/Tk as that in itself is possibly problematic (at the very least it won't work properly with Java GUIs). As for the actual warnings you post those are technically harmless and easy to remove, but the underlying problem is that of Java co-operating (or not) with other libraries that interact with the OS -- if you want stability you really want to stay within the Java realm (i.e. use JavaGD instead of Quartz, don't even think about Tcl/Tk and use iWidgets/gWidgetsJava etc.). Also you don't want to call and UI code other than on the main thread (technically we allow apps to call R from other threads as long as they are synchronized but that won't work for OS interactions which have to be on the main thread).\n>\n> Cheers,\n> Simon\n>\n>\n>> I use the R  binairies downloaded from CRAN :\n>> http://cran.r-project.org/\n>> I also have installed the Xcode SDK\n>>\n>> Here is my stack trace :\n>> ------------------------------------------------------------------------\n>> java.library.path:\n>> /Library/Frameworks/R.framework/Resources/library/rJava/jri\n>> R_HOME: /Library/Frameworks/R.framework/Resources\n>>\n>> R version 2.12.1 (2010-12-16)\n>> Copyright (C) 2010 The R Foundation for Statistical Computing\n>> ISBN 3-900051-07-0\n>> Platform: i386-apple-darwin9.8.0/i386 (32-bit)\n>> ...\n>> Chargement de Tcl/Tk... termin?\n>> Le chargement a n?cessit? le package : mvoutlier\n>> ** R loaded**\n>> ------------------------------------------------------------------------\n>> Ok all is fine\n>> But ...\n>> ------------------------------------------------------------------------\n>>\n>> 2011-02-01 14:16:47.428 java[377:a0f] *** __NSAutoreleaseNoPool():\n>> Object 0x1130840 of class NSConcreteMapTableValueEnumerator autoreleased\n>> with no pool in place - just leaking\n>> 2011-02-01 14:16:47.432 java[377:a0f] *** __NSAutoreleaseNoPool():\n>> Object 0x150c440 of class NSConcreteMapTableValueEnumerator autoreleased\n>> with no pool in place - just leaking\n>>\n>> ------------------------------------------------------------------------\n>>\n>> Reading this post,\n>> https://stat.ethz.ch/pipermail/r-sig-mac/2010-December/007913.html, I\n>> understood that\n>>\n>> /\"the latest update to Snow Leopard (10.6.5) removes necessary header/  /files from the system Java installation.\"\n>> /\n>>\n>> OK, and all this have been ennoying other people using the mac OS X JVM\n>> for other applications.\n>> /\n>> /\n>> So I have followed the advice : installed the Xcode SDK and made java\n>> reconf for R with good CPP flags/\n>>\n>> /------------------------------------------------------------------------\n>> plumejeau:ESTIM christineplumejeaud$\n>> JAVA_CPPFLAGS=-I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers\n>> R CMD javareconf\n>> Java interpreter :\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/java\n>> Java version     : 1.6.0_22\n>> Java home path   :\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home\n>> Java compiler    :\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javac\n>> Java headers gen.:\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/javah\n>> Java archive tool:\n>> /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/jar\n>> Java library path:\n>> JNI linker flags : -framework JavaVM\n>> JNI cpp flags    :\n>> -I/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Headers\n>>\n>> Updating Java configuration in /Library/Frameworks/R.framework/Resources\n>> Done.\n>> ------------------------------------------------------------------------\n>>\n>> Unfortunatly, the problem is going on...\n>>\n>> Have you any idea ?\n>>\n>> Here is the command to launch my application.\n>> java -d32\n>> -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri\n>> -cp \"${ESTIM_DIR}/lib/JRI.jar:${ESTIM_DIR}/lib/JRIEngine.jar --arch\n>> i386:${ESTIM_DIR}/lib/postgis_1_0_0.jar:${ESTIM_DIR}/lib/postgresql-8.1-404.jdbc3.jar:${ESTIM_DIR}/lib/REngine.jar:${ESTIM_DIR}/dist/ESTIM.jar\"\n>> Estim\n>>\n>> Thanks in advance,\n>> Christine\n>>\n>> -- \n>> Christine Plumejeaud\n>> Equipe Steamer, Laboratoire d'Informatique de Grenoble\n>> 681 rue de la Passerelle\n>> 38400 St Martin d'Hères\n>> 04 76 82 72 11\n>> christine.plumejeaud at imag.fr\n>>\n>>\n>> \t[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "Hello,\nThank you very much for your answer.\nMy program don't use directly Tcl/TK - this is R that loads it when it \nloads the 'aplpack' package.  Indeed, my program works  when this \npackage is commen",
       "thread_id": "thread-2288ee09e505",
       "thread_depth": 2,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008032.html"
     },
     {
       "id": "msg-baedf8b5b828",
@@ -97,6 +101,7 @@
       "thread_id": "thread-baedf8b5b828",
       "thread_depth": 0,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008035.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110203/5439b54a/attachment.pl"
       ]
@@ -117,7 +122,8 @@
       "body_snippet": "On Feb 3, 2011, at 3:31 PM, DONG Keren wrote:\n\n> Hello,\n> \n> Is there a way to open help files in the default web browser instead of a\n> new R-window\n> when I use the help-functions (like ?, help.sear",
       "thread_id": "thread-baedf8b5b828",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008036.html"
     },
     {
       "id": "msg-2e01099a6772",
@@ -137,6 +143,7 @@
       "thread_id": "thread-baedf8b5b828",
       "thread_depth": 2,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008058.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110203/7e363bfd/attachment.pl"
       ]
@@ -159,7 +166,8 @@
       "body_snippet": "On Feb 3, 2011, at 4:15 PM, Keren DONG wrote:\n\n> Thanks!\n> \n> I just tried but got an issue, whenever I invoked help, a blank R help window will always jump first, after that the browser shows. Is the",
       "thread_id": "thread-baedf8b5b828",
       "thread_depth": 3,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008037.html"
     },
     {
       "id": "msg-daef4958bdff",
@@ -175,7 +183,8 @@
       "body_snippet": "On my PC I can find my R package files under\nC:\\apps\\R\\R-2.12.1\\library\n(we seem to have a local tradition here to use 'apps' rather than \n'Program Files').\n\nI think I have done a fairly standard R in",
       "thread_id": "thread-daef4958bdff",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008038.html"
     },
     {
       "id": "msg-97c448f5e90e",
@@ -193,7 +202,8 @@
       "body_snippet": "/Library/Frameworks/R.framework/Resources/library\n\nbut you can check that by typing\n\n.libPaths()\n\nin R, once you load it.\n\nb\n\nOn 3 February 2011 23:30, Murray Jorgensen <maj at waikato.ac.nz> wrote:\n>",
       "thread_id": "thread-daef4958bdff",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008039.html"
     },
     {
       "id": "msg-5df62c0d2049",
@@ -211,7 +221,8 @@
       "body_snippet": "> system.file()\n[1] \"/Library/Frameworks/R.framework/Resources/library/base\"\n\nThere is much else that you can do with system.file(), \ne.g.\n> system.file(\"misc/ViewTemps.RData\", package=\"DAAG\")\n[1] \"/L",
       "thread_id": "thread-daef4958bdff",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008040.html"
     },
     {
       "id": "msg-b884a29feead",
@@ -229,7 +240,8 @@
       "body_snippet": "On Feb 3, 2011, at 6:30 PM, Murray Jorgensen wrote:\n\n> On my PC I can find my R package files under\n> C:\\apps\\R\\R-2.12.1\\library\n> (we seem to have a local tradition here to use 'apps' rather than  \n>",
       "thread_id": "thread-daef4958bdff",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008041.html"
     },
     {
       "id": "msg-68d7ed67e9bb",
@@ -248,7 +260,8 @@
       "body_snippet": "Thank you to David, John, Benilton and Jorge!\n\n.Library and system.file() are tools I will remember. (Rash statement at \nmy age.)\n\nMurray\n\n-- \nDr Murray Jorgensen      http://www.stats.waikato.ac.nz/S",
       "thread_id": "thread-daef4958bdff",
       "thread_depth": 2,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008042.html"
     },
     {
       "id": "msg-af9f3ddbb239",
@@ -265,6 +278,7 @@
       "thread_id": "thread-af9f3ddbb239",
       "thread_depth": 0,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008043.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/ca608912/attachment.pl"
       ]
@@ -285,7 +299,8 @@
       "body_snippet": "On Feb 5, 2011, at 1:42 PM, Ahnate Lim wrote:\n\n> Hello,\n> \n> I am confused, is there a GUI data editor that can be invoked by edit()?\n\n\nYes.\n\nFor example\nm=edit(matrix(0,4,4))\nor\nd=edit(iris)\n\n\n> I am",
       "thread_id": "thread-af9f3ddbb239",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008044.html"
     },
     {
       "id": "msg-786baf23c5ce",
@@ -305,6 +320,7 @@
       "thread_id": "thread-af9f3ddbb239",
       "thread_depth": 2,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008045.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/175a3163/attachment.pl"
       ]
@@ -327,7 +343,8 @@
       "body_snippet": "On Feb 5, 2011, at 9:38 PM, Ahnate Lim wrote:\n\n> thank you for the clarification, so to edit a vector I guess one  \n> might do\n> this:\n>\n> x = c(1,2,3)\n>\n> x = as.vector(edit(as.matrix(x)))\n\nDid you t",
       "thread_id": "thread-af9f3ddbb239",
       "thread_depth": 3,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008046.html"
     },
     {
       "id": "msg-21ca68e6e094",
@@ -349,6 +366,7 @@
       "thread_id": "thread-af9f3ddbb239",
       "thread_depth": 4,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008047.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110205/59e5db11/attachment.pl"
       ]
@@ -367,7 +385,8 @@
       "body_snippet": "library(nlme) does not load,\nthis is what I get:\n\nR> library(nlme)\nError in .Call(\"R_lazyLoadDBfetch\", key, file, compressed, hook,  \nPACKAGE = \"base\") :\n   C symbol name \"R_lazyLoadDBfetch\" not in DL",
       "thread_id": "thread-bc80b0395b46",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008048.html"
     },
     {
       "id": "msg-69b9360a9a2b",
@@ -386,6 +405,7 @@
       "thread_id": "thread-bc80b0395b46",
       "thread_depth": 1,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008049.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110208/fb3f5a46/attachment.pl"
       ]
@@ -406,7 +426,8 @@
       "body_snippet": "On Tue, 8 Feb 2011, Adelchi Azzalini wrote:\n\n> library(nlme) does not load,\n> this is what I get:\n>\n> R> library(nlme)\n> Error in .Call(\"R_lazyLoadDBfetch\", key, file, compressed, hook, PACKAGE = \n> \"",
       "thread_id": "thread-bc80b0395b46",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008050.html"
     },
     {
       "id": "msg-4562d8e2f59a",
@@ -422,7 +443,8 @@
       "body_snippet": "(reposting here, from r-help, as requested)\n\nHi,\n\nI have read some of the documentation relative to character encodings\nand non-standard fonts (including previous answered questions and the\n2006-2 R i",
       "thread_id": "thread-4562d8e2f59a",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008051.html"
     },
     {
       "id": "msg-de0755d8e9b9",
@@ -440,7 +462,8 @@
       "body_snippet": "Alberto,\n\nyou simply need a font that has those characters. For example on 10.6 this works:\n\nplot.new(); plot.window(0:1,0:1); text(0.5,0.5,\"??\",cex=10,family=\"Hei\")\n\nYou may want to check your system",
       "thread_id": "thread-4562d8e2f59a",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008052.html"
     },
     {
       "id": "msg-78a7f793b223",
@@ -459,7 +482,8 @@
       "body_snippet": "Thank you Simon,\n\nit works fine now.\n\nAlberto\n\n2011/2/9 Simon Urbanek <simon.urbanek at r-project.org>:\n> Alberto,\n>\n> you simply need a font that has those characters. For example on 10.6 this works:",
       "thread_id": "thread-4562d8e2f59a",
       "thread_depth": 2,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008053.html"
     },
     {
       "id": "msg-ec8c27716475",
@@ -476,6 +500,7 @@
       "thread_id": "thread-ec8c27716475",
       "thread_depth": 0,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008054.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110224/c4aa2982/attachment.pl"
       ]
@@ -496,7 +521,8 @@
       "body_snippet": "On Feb 24, 2011, at 1:01 PM, James Platt wrote:\n\n> Hi all,\n>\n> I'm trying to plot a 3D graph using wireframe, and I want to colour  \n> the graph dependent on z axis values.  my z axis range is 0 - 2. ",
       "thread_id": "thread-ec8c27716475",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008055.html"
     },
     {
       "id": "msg-09681c4604b0",
@@ -516,6 +542,7 @@
       "thread_id": "thread-ec8c27716475",
       "thread_depth": 2,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008056.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110225/eeee48fe/attachment.pl"
       ]
@@ -535,6 +562,7 @@
       "thread_id": "thread-9bc68c144664",
       "thread_depth": 0,
       "month": "2011-02",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2011-February/008057.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20110227/1c768805/attachment.pl"
       ]

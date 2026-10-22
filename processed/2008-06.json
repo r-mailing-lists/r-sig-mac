@@ -13,11 +13,12 @@
       "subject_clean": "Building packages under R >= 2.7.0 (issue with gcc-4.2)",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "My package checked and buit fine under 2.6.2 on Leopard 10.5.2. Under  \n2.7.0, 2.7.0 patched (2008-05-29) and R-devel (2008-05-30) it always  \nfails at the \"checking whether package 'actuar' can be installed\"   \nstep. The 00install.log tells me that R tried to call gcc-4.2, which I  \ndon't have. It is my understanding from reading the documentation that  \nthis version of gcc is not mandatory. I have XCode v. 3.0 installed.\n\nFurthermore, I noticed that, for 2.7.0, the /Library/Frameworks/ \nR.framework/Resources/etc/*/Makeconf files refer to gcc for i386 and  \nppc, and to gcc-4.2 on x86_64. For 2.7.0 patched and R-devel, the  \nMakeconf files refer to gcc-4.2 on all architectures.\n\nI can't see what I did wrong, but then I'm certainly not the first one  \nto compile a package from source since the release of 2.7.0. Any help  \nwould be appreciated.\n\nThanks in advance!\n\n---\n   Vincent Goulet, Associate Professor\n   ?cole d'actuariat\n   Universit? Laval, Qu?bec\n   Vincent.Goulet at act.ulaval.ca   http://vgoulet.act.ulaval.ca",
+      "body_plain": "My package checked and buit fine under 2.6.2 on Leopard 10.5.2. Under  \n2.7.0, 2.7.0 patched (2008-05-29) and R-devel (2008-05-30) it always  \nfails at the \"checking whether package 'actuar' can be installed\"   \nstep. The 00install.log tells me that R tried to call gcc-4.2, which I  \ndon't have. It is my understanding from reading the documentation that  \nthis version of gcc is not mandatory. I have XCode v. 3.0 installed.\n\nFurthermore, I noticed that, for 2.7.0, the /Library/Frameworks/ \nR.framework/Resources/etc/*/Makeconf files refer to gcc for i386 and  \nppc, and to gcc-4.2 on x86_64. For 2.7.0 patched and R-devel, the  \nMakeconf files refer to gcc-4.2 on all architectures.\n\nI can't see what I did wrong, but then I'm certainly not the first one  \nto compile a package from source since the release of 2.7.0. Any help  \nwould be appreciated.\n\nThanks in advance!\n\n---\n   Vincent Goulet, Associate Professor\n   École d'actuariat\n   Université Laval, Québec\n   Vincent.Goulet at act.ulaval.ca   http://vgoulet.act.ulaval.ca",
       "body_snippet": "My package checked and buit fine under 2.6.2 on Leopard 10.5.2. Under  \n2.7.0, 2.7.0 patched (2008-05-29) and R-devel (2008-05-30) it always  \nfails at the \"checking whether package 'actuar' can be in",
       "thread_id": "thread-1bc64955729d",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005034.html"
     },
     {
       "id": "msg-90e306a1a61c",
@@ -35,7 +36,8 @@
       "body_snippet": "Vincent,\n\nI'm sorry but somehow I have no idea what you're talking about. Your  \npackage \"actuar\" (in the most recent version 0.9-7 on CRAN) passes  \n\"make check\" with R 2.7.0 and it is available in b",
       "thread_id": "thread-1bc64955729d",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005035.html"
     },
     {
       "id": "msg-5db2306f6209",
@@ -49,11 +51,12 @@
       "references": [
         "<20080529151728.w67jcd5assw0c4gg@imp.inserm.fr>"
       ],
-      "body_plain": "Ken,\n\nthanks for the report. The issue is really puzzling, because the line  \nspecification code has not changed since previous R versions (which  \nwork as expected) and I cannot reproduce it in any test applications  \n(i.e. if I take the current Quartz code and run it outside R it works  \nas expected). At any rate I'm continuing to investigate it and keep  \nyou posted.\n\nThanks,\nSimon\n\n\nOn May 29, 2008, at 9:17 AM, Kenneth Knoblauch wrote:\n\n> There was some discussion about slowdowns in the new quartz device a  \n> few weeks ago that had to do with line drawing but I don't think  \n> that the following has been mentioned.\n>\n> I've noticed a \"new\" behavior in the quartz device that can be seen  \n> by running\n>\n> xx <- seq(1:100)\n> plot(xx, xx^2, type = \"l\", lty = 2)\n>\n> On my display, the dash spacing disappears for xx < 40 for the  \n> default window size.\n> In addition, the dashes are obliterated by increasing the line width,\n>\n> lines(xx, 0.5 * xx^2, lty = 2, lwd = 2)\n>\n> unless I enlarge the window.  The same occurs for lty = 3.\n>\n> The dash spacing seems to depend on the slope of the contour.\n>\n> plot(rep(1, 100), lty = 2, type = \"l\", ylim = c(0, 100))\n> lines(xx, lty = 2)\n> lines(2 * xx, lty = 2)\n>\n> This did not occur in an earlier version of R that I tried (R 2.2.0)  \n> and does not occur in other graphic devices that I have tried (x11  \n> and pdf, so far).\n>\n> sessionInfo()\n> R version 2.7.0 Patched (2008-05-28 r45808)\n> i386-apple-darwin8.10.1\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> Does anyone else see this?  Apologies in advance if this is normal\n> behavior.  Thank you.\n>\n> best,\n>\n> Ken\n>\n>\n> -- \n> Ken Knoblauch\n> Inserm U846\n> Institut Cellule Souche et Cerveau\n> D?partement Neurosciences Int?gratives\n> 18 avenue du Doyen L?pine\n> 69500 Bron\n> France\n> tel: +33 (0)4 72 91 34 77\n> fax: +33 (0)4 72 91 34 61\n> portable: +33 (0)6 84 10 64 10\n> http://www.sbri.fr\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "Ken,\n\nthanks for the report. The issue is really puzzling, because the line  \nspecification code has not changed since previous R versions (which  \nwork as expected) and I cannot reproduce it in any test applications  \n(i.e. if I take the current Quartz code and run it outside R it works  \nas expected). At any rate I'm continuing to investigate it and keep  \nyou posted.\n\nThanks,\nSimon\n\n\nOn May 29, 2008, at 9:17 AM, Kenneth Knoblauch wrote:\n\n> There was some discussion about slowdowns in the new quartz device a  \n> few weeks ago that had to do with line drawing but I don't think  \n> that the following has been mentioned.\n>\n> I've noticed a \"new\" behavior in the quartz device that can be seen  \n> by running\n>\n> xx <- seq(1:100)\n> plot(xx, xx^2, type = \"l\", lty = 2)\n>\n> On my display, the dash spacing disappears for xx < 40 for the  \n> default window size.\n> In addition, the dashes are obliterated by increasing the line width,\n>\n> lines(xx, 0.5 * xx^2, lty = 2, lwd = 2)\n>\n> unless I enlarge the window.  The same occurs for lty = 3.\n>\n> The dash spacing seems to depend on the slope of the contour.\n>\n> plot(rep(1, 100), lty = 2, type = \"l\", ylim = c(0, 100))\n> lines(xx, lty = 2)\n> lines(2 * xx, lty = 2)\n>\n> This did not occur in an earlier version of R that I tried (R 2.2.0)  \n> and does not occur in other graphic devices that I have tried (x11  \n> and pdf, so far).\n>\n> sessionInfo()\n> R version 2.7.0 Patched (2008-05-28 r45808)\n> i386-apple-darwin8.10.1\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> Does anyone else see this?  Apologies in advance if this is normal\n> behavior.  Thank you.\n>\n> best,\n>\n> Ken\n>\n>\n> -- \n> Ken Knoblauch\n> Inserm U846\n> Institut Cellule Souche et Cerveau\n> Département Neurosciences Intégratives\n> 18 avenue du Doyen Lépine\n> 69500 Bron\n> France\n> tel: +33 (0)4 72 91 34 77\n> fax: +33 (0)4 72 91 34 61\n> portable: +33 (0)6 84 10 64 10\n> http://www.sbri.fr\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "Ken,\n\nthanks for the report. The issue is really puzzling, because the line  \nspecification code has not changed since previous R versions (which  \nwork as expected) and I cannot reproduce it in any t",
       "thread_id": "thread-5db2306f6209",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005036.html"
     },
     {
       "id": "msg-f9e9e09dfdad",
@@ -72,7 +75,8 @@
       "body_snippet": "Simon,\n\nThanks for your reply. Please see inline.\n\nLe lun. 02 juin ? 09:16, Simon Urbanek a ?crit :\n\n> Vincent,\n>\n> I'm sorry but somehow I have no idea what you're talking about. Your  \n> package \"ac",
       "thread_id": "thread-1bc64955729d",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005037.html"
     },
     {
       "id": "msg-8dfc12376bb1",
@@ -92,7 +96,8 @@
       "body_snippet": "On Jun 2, 2008, at 10:10 AM, Vincent Goulet wrote:\n\n> Simon,\n>\n> Thanks for your reply. Please see inline.\n>\n> Le lun. 02 juin ? 09:16, Simon Urbanek a ?crit :\n>\n>> Vincent,\n>>\n>> I'm sorry but someho",
       "thread_id": "thread-1bc64955729d",
       "thread_depth": 3,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005038.html"
     },
     {
       "id": "msg-37675b087e87",
@@ -110,7 +115,8 @@
       "body_snippet": "Hi,\n\nI thought (and the help confirms this belief) that ESC was one way to  \nget out of a locator call before reaching the number of points  \nspecified in the call. I cannot get this to work on my Mac",
       "thread_id": "thread-37675b087e87",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005039.html"
     },
     {
       "id": "msg-ef7f18b1c04f",
@@ -129,7 +135,8 @@
       "body_snippet": "On Jun 2, 2008, at 9:02 PM, Denis Chabot wrote:\n\n> Hi,\n>\n> I thought (and the help confirms this belief) that ESC was one way  \n> to get out of a locator call before reaching the number of points  \n> ",
       "thread_id": "thread-37675b087e87",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005040.html"
     },
     {
       "id": "msg-0bf58c87577f",
@@ -149,7 +156,8 @@
       "body_snippet": "Thanks Simon, I'm downloading the most recent versions of R2.7.0  \nLeopard and the R gui right now.\n\nDenis\nLe 08-06-03 ? 09:05, Simon Urbanek a ?crit :\n\n>\n> On Jun 2, 2008, at 9:02 PM, Denis Chabot wr",
       "thread_id": "thread-37675b087e87",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005041.html"
     },
     {
       "id": "msg-6c2fadd7d2cd",
@@ -165,7 +173,8 @@
       "body_snippet": "Dear r-sig-mac list members,\n\nI've been trying to get the Eclipse IDE with the StatET plug-in to  \nwork on my MacBook under OS X 10.5.2. I've been generally successful  \n-- e.g., I can run R within Ec",
       "thread_id": "thread-6c2fadd7d2cd",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005042.html"
     },
     {
       "id": "msg-608db03fb5e3",
@@ -183,7 +192,8 @@
       "body_snippet": "I promise I put in a ton of time looking thru the manuals and the R-OSX \nFAQ.  I can't find a list of the configuration commands to put in \n.Rprofile or other startup file that will set the font and f",
       "thread_id": "thread-608db03fb5e3",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005043.html"
     },
     {
       "id": "msg-3c463787f70d",
@@ -202,7 +212,8 @@
       "body_snippet": "On Jun 3, 2008, at 4:06 PM, Carl Witthoft wrote:\n\n> I promise I put in a ton of time looking thru the manuals and the R- \n> OSX FAQ.  I can't find a list of the configuration commands to put  \n> in .R",
       "thread_id": "thread-608db03fb5e3",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005044.html"
     },
     {
       "id": "msg-16eb8081eaf2",
@@ -220,7 +231,8 @@
       "body_snippet": "Hi,\n\na bit frivolous, I know, but I thought of adding a small picture of  \neach species of fish onto the upper right corner of plots dealing with  \nmetabolic rate of several species of fish.\n\nThe only",
       "thread_id": "thread-16eb8081eaf2",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005045.html"
     },
     {
       "id": "msg-d16d3f34adfe",
@@ -232,11 +244,12 @@
       "subject_clean": "add a bitmap graphic onto a plot",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "Hi,\n\nHave a look at these sites for the portable anymap file format (pnm)\n\nhttp://www.martinreddy.net/gfx/2d-hi.html\n\nhttp://www.martinreddy.net/gfx/2d/PNM.txt\n\nwhich seems to be in the pbm family.\n\n\nken\n\n\n> Hi,\n>\n> a bit frivolous, I know, but I thought of adding a small picture of\n> each species of fish onto the upper right corner of plots dealing with\n> metabolic rate of several species of fish.\n>\n> The only information I could find about doing this involved a package\n> named pixmap. But from what I understand, I must first make the\n> picture of each fish (diverse original formats, gif, jpeg, pdf) into a\n> pnm format.\n>\n> How do I manage this on Mac OS X? I had never come across this format\n> before.\n>\n> I have seen another way using grImport to import postscript vector\n> graphics. Does anyone here know if this will also work if I transform\n> my original pictures and drawings into postscript format (which\n> obvisouly won't be vector based)?\n>\n> Thanks,\n>\n> Denis Chabot\n-- \nKen Knoblauch\nInserm U846\nInstitut Cellule Souche et Cerveau\nD?partement Neurosciences Int?gratives\n18 avenue du Doyen L?pine\n69500 Bron\nFrance\ntel: +33 (0)4 72 91 34 77\nfax: +33 (0)4 72 91 34 61\nportable: +33 (0)6 84 10 64 10\nhttp://www.sbri.fr",
+      "body_plain": "Hi,\n\nHave a look at these sites for the portable anymap file format (pnm)\n\nhttp://www.martinreddy.net/gfx/2d-hi.html\n\nhttp://www.martinreddy.net/gfx/2d/PNM.txt\n\nwhich seems to be in the pbm family.\n\n\nken\n\n\n> Hi,\n>\n> a bit frivolous, I know, but I thought of adding a small picture of\n> each species of fish onto the upper right corner of plots dealing with\n> metabolic rate of several species of fish.\n>\n> The only information I could find about doing this involved a package\n> named pixmap. But from what I understand, I must first make the\n> picture of each fish (diverse original formats, gif, jpeg, pdf) into a\n> pnm format.\n>\n> How do I manage this on Mac OS X? I had never come across this format\n> before.\n>\n> I have seen another way using grImport to import postscript vector\n> graphics. Does anyone here know if this will also work if I transform\n> my original pictures and drawings into postscript format (which\n> obvisouly won't be vector based)?\n>\n> Thanks,\n>\n> Denis Chabot\n-- \nKen Knoblauch\nInserm U846\nInstitut Cellule Souche et Cerveau\nDépartement Neurosciences Intégratives\n18 avenue du Doyen Lépine\n69500 Bron\nFrance\ntel: +33 (0)4 72 91 34 77\nfax: +33 (0)4 72 91 34 61\nportable: +33 (0)6 84 10 64 10\nhttp://www.sbri.fr",
       "body_snippet": "Hi,\n\nHave a look at these sites for the portable anymap file format (pnm)\n\nhttp://www.martinreddy.net/gfx/2d-hi.html\n\nhttp://www.martinreddy.net/gfx/2d/PNM.txt\n\nwhich seems to be in the pbm family.\n\n\n",
       "thread_id": "thread-d16d3f34adfe",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005046.html"
     },
     {
       "id": "msg-8032ab8a25d3",
@@ -255,7 +268,8 @@
       "body_snippet": "On Jun 5, 2008, at 7:36 AM, Denis Chabot wrote:\n\n> Hi,\n>\n> a bit frivolous, I know, but I thought of adding a small picture of  \n> each species of fish onto the upper right corner of plots dealing  \n>",
       "thread_id": "thread-16eb8081eaf2",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005047.html"
     },
     {
       "id": "msg-914b70513732",
@@ -271,7 +285,8 @@
       "body_snippet": "Hello, again, list:\n\nAt long last, I have been able to compile from source a working 64-bit  \nimplementation of R 2.7.0 on my Intel Mac Pro x86_64, running MacOS  \n10.5.3.  I am now trying to install ",
       "thread_id": "thread-914b70513732",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005048.html"
     },
     {
       "id": "msg-3c3f03f03788",
@@ -287,7 +302,8 @@
       "body_snippet": "Having just switched over from Windows to Mac, I am struggling with \nincorporating pictures generated by R into MSOffice documents. A quick \nread through archives and google suggests that this is almo",
       "thread_id": "thread-3c3f03f03788",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005049.html"
     },
     {
       "id": "msg-6ec51af25dc9",
@@ -305,7 +321,8 @@
       "body_snippet": "On Jun 5, 2008, at 8:24 AM, Adam Kleczkowski wrote:\n\n> Having just switched over from Windows to Mac, I am struggling with  \n> incorporating pictures generated by R into MSOffice documents. A  \n> quic",
       "thread_id": "thread-3c3f03f03788",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005050.html"
     },
     {
       "id": "msg-eb398e6f7cdc",
@@ -322,6 +339,7 @@
       "thread_id": "thread-eb398e6f7cdc",
       "thread_depth": 0,
       "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005051.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080605/99fbec11/attachment.pl"
       ]
@@ -342,7 +360,8 @@
       "body_snippet": "David,\n\nNot sure if you have installed R.app, but in R FAQ for Mac OS (section  \n6) an example id given how to do this.\nI have used variants of these for SubEthaEdit, Smultron and TextMate.\n\nR.app of ",
       "thread_id": "thread-eb398e6f7cdc",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005052.html"
     },
     {
       "id": "msg-aa4779632c83",
@@ -359,6 +378,7 @@
       "thread_id": "thread-aa4779632c83",
       "thread_depth": 0,
       "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005053.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080606/063e0bf2/attachment.pl"
       ]
@@ -375,11 +395,12 @@
       "references": [
         "<20080529151728.w67jcd5assw0c4gg@imp.inserm.fr>"
       ],
-      "body_plain": "Ken,\n\nit turned out that the speed optimization fix was the reason for this  \nnew behavior (and strangely enough only on Leopard). I have replaced  \nit with another variant that should keep the dashes (mostly) intact in  \nthe current R-patched and R-devel (binaries will be available  \ntonight). For contiguous lines with hundreds of points there may be  \ngaps due to re-starting dashes at break points (for speed up), but we  \ncan't do much about it now simply because the drawing slows down to a  \ncrawl otherwise.\n\nCheers,\nSimon\n\n\nOn May 29, 2008, at 9:17 AM, Kenneth Knoblauch wrote:\n\n> Hi,\n>\n> There was some discussion about slowdowns in the new quartz\n> device a few weeks ago that had to do with line drawing but\n> I don't think that the following has been mentioned.\n>\n> I've noticed a \"new\" behavior in the quartz device that can be seen\n> by running\n>\n> xx <- seq(1:100)\n> plot(xx, xx^2, type = \"l\", lty = 2)\n>\n> On my display, the dash spacing disappears for xx < 40\n> for the default window size.\n> In addition, the dashes are obliterated by increasing the\n> line width,\n>\n> lines(xx, 0.5 * xx^2, lty = 2, lwd = 2)\n>\n> unless I enlarge the window.  The same occurs for lty = 3.\n>\n> The dash spacing seems to depend on the slope of the contour.\n>\n> plot(rep(1, 100), lty = 2, type = \"l\", ylim = c(0, 100))\n> lines(xx, lty = 2)\n> lines(2 * xx, lty = 2)\n>\n> This did not occur in an earlier version of R that I tried (R 2.2.0)\n> and does not occur in other graphic devices that I have tried\n> (x11 and pdf, so far).\n>\n> sessionInfo()\n> R version 2.7.0 Patched (2008-05-28 r45808)\n> i386-apple-darwin8.10.1\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> Does anyone else see this?  Apologies in advance if this is normal\n> behavior.  Thank you.\n>\n> best,\n>\n> Ken\n>\n>\n> -- \n> Ken Knoblauch\n> Inserm U846\n> Institut Cellule Souche et Cerveau\n> D?partement Neurosciences Int?gratives\n> 18 avenue du Doyen L?pine\n> 69500 Bron\n> France\n> tel: +33 (0)4 72 91 34 77\n> fax: +33 (0)4 72 91 34 61\n> portable: +33 (0)6 84 10 64 10\n> http://www.sbri.fr\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "Ken,\n\nit turned out that the speed optimization fix was the reason for this  \nnew behavior (and strangely enough only on Leopard). I have replaced  \nit with another variant that should keep the dashes (mostly) intact in  \nthe current R-patched and R-devel (binaries will be available  \ntonight). For contiguous lines with hundreds of points there may be  \ngaps due to re-starting dashes at break points (for speed up), but we  \ncan't do much about it now simply because the drawing slows down to a  \ncrawl otherwise.\n\nCheers,\nSimon\n\n\nOn May 29, 2008, at 9:17 AM, Kenneth Knoblauch wrote:\n\n> Hi,\n>\n> There was some discussion about slowdowns in the new quartz\n> device a few weeks ago that had to do with line drawing but\n> I don't think that the following has been mentioned.\n>\n> I've noticed a \"new\" behavior in the quartz device that can be seen\n> by running\n>\n> xx <- seq(1:100)\n> plot(xx, xx^2, type = \"l\", lty = 2)\n>\n> On my display, the dash spacing disappears for xx < 40\n> for the default window size.\n> In addition, the dashes are obliterated by increasing the\n> line width,\n>\n> lines(xx, 0.5 * xx^2, lty = 2, lwd = 2)\n>\n> unless I enlarge the window.  The same occurs for lty = 3.\n>\n> The dash spacing seems to depend on the slope of the contour.\n>\n> plot(rep(1, 100), lty = 2, type = \"l\", ylim = c(0, 100))\n> lines(xx, lty = 2)\n> lines(2 * xx, lty = 2)\n>\n> This did not occur in an earlier version of R that I tried (R 2.2.0)\n> and does not occur in other graphic devices that I have tried\n> (x11 and pdf, so far).\n>\n> sessionInfo()\n> R version 2.7.0 Patched (2008-05-28 r45808)\n> i386-apple-darwin8.10.1\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> Does anyone else see this?  Apologies in advance if this is normal\n> behavior.  Thank you.\n>\n> best,\n>\n> Ken\n>\n>\n> -- \n> Ken Knoblauch\n> Inserm U846\n> Institut Cellule Souche et Cerveau\n> Département Neurosciences Intégratives\n> 18 avenue du Doyen Lépine\n> 69500 Bron\n> France\n> tel: +33 (0)4 72 91 34 77\n> fax: +33 (0)4 72 91 34 61\n> portable: +33 (0)6 84 10 64 10\n> http://www.sbri.fr\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "Ken,\n\nit turned out that the speed optimization fix was the reason for this  \nnew behavior (and strangely enough only on Leopard). I have replaced  \nit with another variant that should keep the dashes",
       "thread_id": "thread-3bf40da35363",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005054.html"
     },
     {
       "id": "msg-e6ccae00c2ef",
@@ -397,7 +418,8 @@
       "body_snippet": "On Jun 5, 2008, at 4:56 PM, Jose A. Garcia wrote:\n\n> Hi Adam,\n>\n> I think that the best option for integrating graphics to MS Word is to\n> either save the plot as jpg (for medium-quality graphs) or to",
       "thread_id": "thread-aa4779632c83",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005055.html"
     },
     {
       "id": "msg-57ea02f874fc",
@@ -413,7 +435,8 @@
       "body_snippet": "Something is amiss with the mechanism that\nrecalls the last command when the user hits\nthe up-arrow key in the R.app GUI listener:\n\n\n> formatC(0.0059999, digits=2,format=\"fg\",flag=\"#\")\n[1] \"0.0060\"\n> ",
       "thread_id": "thread-57ea02f874fc",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005056.html"
     },
     {
       "id": "msg-ae85bd93c0d4",
@@ -431,7 +454,8 @@
       "body_snippet": "Adam,\n\nI would suggest getting iWork for $79 (http://store.apple.com/us/browse/home/shop_mac/software?mco=MTE2ODk \n) from Apple, which includes Pages, Numbers, & Keynote (wordprocessor,  \nspreadsheet,",
       "thread_id": "thread-3c3f03f03788",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005057.html"
     },
     {
       "id": "msg-349e4ca8d588",
@@ -447,7 +471,8 @@
       "body_snippet": "Maybe I missed something in an earlier post about this, but if not this\nmight help. The whole process seems simpler than some of the fixes I've seen\nsuggested.\n\nI am using Office 2004 (with all availa",
       "thread_id": "thread-3c3f03f03788",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005058.html"
     },
     {
       "id": "msg-0318709e0c1d",
@@ -465,7 +490,8 @@
       "body_snippet": "I find that R graphics saved as PNG files import into Word 2004 for \nMac with good quality.\nThis is with the \"Insert Picture from File\" command, rather than copy/paste.\n\n(Illustrator for Mac has a \"Sa",
       "thread_id": "thread-3c3f03f03788",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005059.html"
     },
     {
       "id": "msg-3d8c7fc605ca",
@@ -483,7 +509,8 @@
       "body_snippet": "Bryan,\n\nMy apologies if I confused the thread. I was simply offering up a very  \ngood alternative to the MS Office suite, regardless of what one might  \ndo in the MS-Word environment, as you offered. ",
       "thread_id": "thread-3c3f03f03788",
       "thread_depth": 3,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005060.html"
     },
     {
       "id": "msg-45d3d4f5419f",
@@ -503,7 +530,8 @@
       "body_snippet": "Thanks Simon, this works really well.\n\nThanks Ken also for the information on the pnm utilities, but at the  \nmoment I did not have time to figure out how to get and install them.  \nThe R function is ",
       "thread_id": "thread-16eb8081eaf2",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005061.html"
     },
     {
       "id": "msg-12026741accb",
@@ -519,7 +547,8 @@
       "body_snippet": "Hi Folks,\nI am using R version 2.7.0 (2008-04-22). The problem I describe is new  \nsince 2.6.2.\n\nI find that\n\nx11(width=7, height=7)\n\ngives me a square device but\n\nquartz(,7,7)\nor\nplot(1:10)\n\nresults ",
       "thread_id": "thread-12026741accb",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005062.html"
     },
     {
       "id": "msg-3e2fe5089f84",
@@ -537,7 +566,8 @@
       "body_snippet": "Hank,\n\nR 2.7.0 (unlike previous versions) allows non-square pixels and  \ndetermines the pixel aspect ratio from the physical dimensions of the  \nscreen (unless specified directly). In your case I susp",
       "thread_id": "thread-12026741accb",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005063.html"
     },
     {
       "id": "msg-c36efaaa95e2",
@@ -556,7 +586,8 @@
       "body_snippet": "Hi Simon,\ndpi=100 works great. Thanks!\nHank\nOn Jun 8, 2008, at 1:07 PM, Simon Urbanek wrote:\n\n> Hank,\n>\n> R 2.7.0 (unlike previous versions) allows non-square pixels and\n> determines the pixel aspect ",
       "thread_id": "thread-12026741accb",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005064.html"
     },
     {
       "id": "msg-430e18fc79ea",
@@ -573,6 +604,7 @@
       "thread_id": "thread-430e18fc79ea",
       "thread_depth": 0,
       "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005065.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080609/293ab489/attachment.pl"
       ]
@@ -593,7 +625,8 @@
       "body_snippet": "On Jun 9, 2008, at 1:25 PM, Robert Chatfield wrote:\n\n> Way back in 2005 you wrote --\n>\n\nYou = ?!?\n\n\n> I've written a BBEdit syntax coloring module for R language.  I think\n> it might work with the fre",
       "thread_id": "thread-430e18fc79ea",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005066.html"
     },
     {
       "id": "msg-630c24fdb27a",
@@ -611,7 +644,8 @@
       "body_snippet": "Many thanks for all suggestions. I have in the meantime installed MS \nOffice 2008 and it appears that I can simply copy and paste the Quartz \nimage onto the document and subsequently open in in Window",
       "thread_id": "thread-3c3f03f03788",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005068.html"
     },
     {
       "id": "msg-b284d27f8458",
@@ -629,7 +663,8 @@
       "body_snippet": "I am thoroughly enjoying the built-in R editor. However, I noticed that once I open files in it, the whole R GUI becomes very sluggish. For example, I have been changing Quartz parameters via 'Prefere",
       "thread_id": "thread-3c3f03f03788",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005067.html"
     },
     {
       "id": "msg-cd27ee615e63",
@@ -647,7 +682,8 @@
       "body_snippet": "I tripped across that a month or two ago; it seems to work fine.\nI dropped a line to Bare Bones Software suggesting they add it to their \nplug-in list; dunno if that ever happened.\n\nCarl\n\n\n> \n> I've w",
       "thread_id": "thread-cd27ee615e63",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005069.html"
     },
     {
       "id": "msg-752b522e2090",
@@ -663,7 +699,8 @@
       "body_snippet": "Hi,\nI a newbie, I work with a mac.\nIs there any package that I can use to generate random samples for  \narbitrary distribution, that is , user defined distribution ?\n\nlike the simplest\n > x <- rnorm( ",
       "thread_id": "thread-752b522e2090",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005070.html"
     },
     {
       "id": "msg-fc29eab161fa",
@@ -681,7 +718,8 @@
       "body_snippet": "Please ask such non-Mac-specific questions on R-help.\n\nFor 'arbitrary', no.  But there are lots of helpers, including\nRunuran, SuppDists and distrSim, which cover lots of univariate \ndistribtutions.  ",
       "thread_id": "thread-752b522e2090",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005071.html"
     },
     {
       "id": "msg-67e59ed8cbb5",
@@ -697,7 +735,8 @@
       "body_snippet": "Hi ,\n  I have some data in Numbers, which is a data managing software for  \nMac OS. How can I import them to R ?\n  Or how can I import my data from R to Numbers ?  Any interfaces  \nbetween R and Numbe",
       "thread_id": "thread-67e59ed8cbb5",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005072.html"
     },
     {
       "id": "msg-3fa748407547",
@@ -715,7 +754,8 @@
       "body_snippet": "Hi,\n\nThere's many ways to do it. I would suggest using comma separated  \nvalues as a \"bridge\" filetype.\n\n From Numbers, save your data as a .csv file (comma separated value).\nThen, in R, import the da",
       "thread_id": "thread-67e59ed8cbb5",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005073.html"
     },
     {
       "id": "msg-105b83d57675",
@@ -734,7 +774,8 @@
       "body_snippet": "On Jun 13, 2008, at 4:43 AM, Emiliano Guevara wrote:\n\n> Hi,\n>\n> There's many ways to do it. I would suggest using comma separated  \n> values as a \"bridge\" filetype.\n>\n\nI find copy/paste more convenien",
       "thread_id": "thread-67e59ed8cbb5",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005074.html"
     },
     {
       "id": "msg-7835a33f9467",
@@ -750,11 +791,12 @@
         "<2BFC201C-376A-41EF-AD6F-41AAF06B2D82@unibo.it>",
         "<54BF8FBF-6E43-43EB-BABC-639DEF2B5EB8@r-project.org>"
       ],
-      "body_plain": "I agree with Simon that copy paste is the easiest way to go.\n\nHowever, because I was unable to remember the \nread.table(pipe(\"pbpaste\")) command and wanted to \ngive instructions to students that were platform \nindependent, I created a little function \n(read.clipboard) that works on PCs or Macs .  It \nis available in the psych package:\n\"read.clipboard\" <-\nfunction(header=TRUE,...) {\n     MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin system?\n    if (!MAC ) {if (header) \nread.clipboard<-read.table(file(\"clipboard\"),header=TRUE,...)\n             else read.clipboard<-read.table(file(\"clipboard\"),...) }\n     else {\n    if (header) read.clipboard<-  read.table(pipe(\"pbpaste\"),header=TRUE,...)\n    else read.clipboard<- read.table(pipe(\"pbpaste\"),...)}\n    }\n\nWith the addition of  a sep=\",\" option, it can also read csv copied files:\n\n\n\"read.clipboard.csv\" <-\nfunction(header=TRUE,sep=',',...) {  #same as read.clipboard(sep=',')\n     MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin system?\n    if (!MAC ) {if (header) \nread.clipboard<-read.table(file(\"clipboard\"),header=TRUE,sep,...)\n             else read.clipboard<-read.table(file(\"clipboard\"),sep,...) }\n     else {\n    if (header) read.clipboard<- \nread.table(pipe(\"pbpaste\"),header=TRUE,sep,...)\n    else read.clipboard<- read.table(pipe(\"pbpaste\") ,sep,...)}\n    }\n\n\nBill\n\n\nAt 10:53 AM -0400 6/13/08, Simon Urbanek wrote:\n>On Jun 13, 2008, at 4:43 AM, Emiliano Guevara wrote:\n>\n>>Hi,\n>>\n>>There's many ways to do it. I would suggest \n>>using comma separated values as a \"bridge\" \n>>filetype.\n>>\n>\n>I find copy/paste more convenient for most \n>simple tables - simply select the table in \n>Numbers, press <Cmd><C> (Copy) and then read the \n>clipboard in R:\n>\n>read.table(pipe(\"pbpaste\"))\n>\n>Cheers,\n>Simon\n>\n>>From Numbers, save your data as a .csv file (comma separated value).\n>>Then, in R, import the data from the file using:\n>>\n>>>  read.csv(file.csv)\n>>\n>>That should be it,\n>>\n>>Best wishes,\n>>\n>>E.\n>>\n>>\n>>On Jun 13, 2008, at 05:34 AM, Peng Jiang wrote:\n>>\n>>>Hi ,\n>>>I have some data in Numbers, which is a data \n>>>managing software for Mac OS. How can I import \n>>>them to R ?\n>>>Or how can I import my data from R to Numbers \n>>>?  Any interfaces between R and Numbers or \n>>>something ?\n>>>\n>>>I am a newbie so if the question is toooooo simple, please take it easy.\n>>>\n>>>Thanks!\n>>>\n>>>--------------------------\n>>>Peng Jiang\n>>>?]??\n>>>Ph.D. Candidate\n>>>\n>>>Antai College of Economics & Management\n>>>?????????????w?@\n>>>Department of Mathematics\n>>>???w?n\n>>>Shanghai Jiaotong University (Minhang Campus)\n>>>800 Dongchuan Road\n>>>200240 Shanghai\n>>>P. R. China\n>>\n>>****************************************\n>>Emiliano R. Guevara\n>>Facolt? di Lingue e Lett. Straniere\n>>Dipart. di Lingue e Lett. Straniere\n>>Universit? di Bologna\n>>Via Cartoleria 5 (40124) Bologna, Italia\n>>  http://morbo.lingue.unibo.it/\n>>  emiliano.guevara at unibo.it\n>>  emiguevara at gmail.com\n>>\n>>_______________________________________________\n>>R-SIG-Mac mailing list\n>>R-SIG-Mac at stat.math.ethz.ch\n>>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nWilliam Revelle\t\thttp://personality-project.org/revelle.html\nProfessor\t\t\thttp://personality-project.org/personality.html\nDepartment of Psychology             http://www.wcas.northwestern.edu/psych/\nNorthwestern University\thttp://www.northwestern.edu/\nAttend  ISSID/ARP:2009               http://issid.org/issid.2009/",
+      "body_plain": "I agree with Simon that copy paste is the easiest way to go.\n\nHowever, because I was unable to remember the \nread.table(pipe(\"pbpaste\")) command and wanted to \ngive instructions to students that were platform \nindependent, I created a little function \n(read.clipboard) that works on PCs or Macs .  It \nis available in the psych package:\n\"read.clipboard\" <-\nfunction(header=TRUE,...) {\n     MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin system?\n    if (!MAC ) {if (header) \nread.clipboard<-read.table(file(\"clipboard\"),header=TRUE,...)\n             else read.clipboard<-read.table(file(\"clipboard\"),...) }\n     else {\n    if (header) read.clipboard<-  read.table(pipe(\"pbpaste\"),header=TRUE,...)\n    else read.clipboard<- read.table(pipe(\"pbpaste\"),...)}\n    }\n\nWith the addition of  a sep=\",\" option, it can also read csv copied files:\n\n\n\"read.clipboard.csv\" <-\nfunction(header=TRUE,sep=',',...) {  #same as read.clipboard(sep=',')\n     MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin system?\n    if (!MAC ) {if (header) \nread.clipboard<-read.table(file(\"clipboard\"),header=TRUE,sep,...)\n             else read.clipboard<-read.table(file(\"clipboard\"),sep,...) }\n     else {\n    if (header) read.clipboard<- \nread.table(pipe(\"pbpaste\"),header=TRUE,sep,...)\n    else read.clipboard<- read.table(pipe(\"pbpaste\") ,sep,...)}\n    }\n\n\nBill\n\n\nAt 10:53 AM -0400 6/13/08, Simon Urbanek wrote:\n>On Jun 13, 2008, at 4:43 AM, Emiliano Guevara wrote:\n>\n>>Hi,\n>>\n>>There's many ways to do it. I would suggest \n>>using comma separated values as a \"bridge\" \n>>filetype.\n>>\n>\n>I find copy/paste more convenient for most \n>simple tables - simply select the table in \n>Numbers, press <Cmd><C> (Copy) and then read the \n>clipboard in R:\n>\n>read.table(pipe(\"pbpaste\"))\n>\n>Cheers,\n>Simon\n>\n>>From Numbers, save your data as a .csv file (comma separated value).\n>>Then, in R, import the data from the file using:\n>>\n>>>  read.csv(file.csv)\n>>\n>>That should be it,\n>>\n>>Best wishes,\n>>\n>>E.\n>>\n>>\n>>On Jun 13, 2008, at 05:34 AM, Peng Jiang wrote:\n>>\n>>>Hi ,\n>>>I have some data in Numbers, which is a data \n>>>managing software for Mac OS. How can I import \n>>>them to R ?\n>>>Or how can I import my data from R to Numbers \n>>>?  Any interfaces between R and Numbers or \n>>>something ?\n>>>\n>>>I am a newbie so if the question is toooooo simple, please take it easy.\n>>>\n>>>Thanks!\n>>>\n>>>--------------------------\n>>>Peng Jiang\n>>>ç]‰Ù\n>>>Ph.D. Candidate\n>>>\n>>>Antai College of Economics & Management\n>>>à¿??????????äwâ@\n>>>Department of Mathematics\n>>>êîäwån\n>>>Shanghai Jiaotong University (Minhang Campus)\n>>>800 Dongchuan Road\n>>>200240 Shanghai\n>>>P. R. China\n>>\n>>****************************************\n>>Emiliano R. Guevara\n>>Facoltà di Lingue e Lett. Straniere\n>>Dipart. di Lingue e Lett. Straniere\n>>Università di Bologna\n>>Via Cartoleria 5 (40124) Bologna, Italia\n>>  http://morbo.lingue.unibo.it/\n>>  emiliano.guevara at unibo.it\n>>  emiguevara at gmail.com\n>>\n>>_______________________________________________\n>>R-SIG-Mac mailing list\n>>R-SIG-Mac at stat.math.ethz.ch\n>>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at stat.math.ethz.ch\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n-- \nWilliam Revelle\t\thttp://personality-project.org/revelle.html\nProfessor\t\t\thttp://personality-project.org/personality.html\nDepartment of Psychology             http://www.wcas.northwestern.edu/psych/\nNorthwestern University\thttp://www.northwestern.edu/\nAttend  ISSID/ARP:2009               http://issid.org/issid.2009/",
       "body_snippet": "I agree with Simon that copy paste is the easiest way to go.\n\nHowever, because I was unable to remember the \nread.table(pipe(\"pbpaste\")) command and wanted to \ngive instructions to students that were ",
       "thread_id": "thread-67e59ed8cbb5",
       "thread_depth": 3,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005075.html"
     },
     {
       "id": "msg-6b64807407e3",
@@ -771,11 +813,12 @@
         "<54BF8FBF-6E43-43EB-BABC-639DEF2B5EB8@r-project.org>",
         "<p06240803c4783e4b2e3a@[165.124.160.10]>"
       ],
-      "body_plain": "I agree that the difference between Mac and others WRT clipboard is a  \nbit annoying. I'll see if I can fix that.\n\nThanks,\nSimon\n\nOn Jun 13, 2008, at 11:16 AM, William Revelle wrote:\n\n> I agree with Simon that copy paste is the easiest way to go.\n>\n> However, because I was unable to remember the  \n> read.table(pipe(\"pbpaste\")) command and wanted to give instructions  \n> to students that were platform independent, I created a little  \n> function (read.clipboard) that works on PCs or Macs .  It is  \n> available in the psych package:\n> \"read.clipboard\" <-\n> function(header=TRUE,...) {\n>    MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin  \n> system?\n>   if (!MAC ) {if (header) read.clipboard<- \n> read.table(file(\"clipboard\"),header=TRUE,...)\n>            else read.clipboard<-read.table(file(\"clipboard\"),...) }\n>    else {\n>   if (header) read.clipboard<-   \n> read.table(pipe(\"pbpaste\"),header=TRUE,...)\n>   else read.clipboard<- read.table(pipe(\"pbpaste\"),...)}\n>   }\n>\n> With the addition of  a sep=\",\" option, it can also read csv copied  \n> files:\n>\n>\n> \"read.clipboard.csv\" <-\n> function(header=TRUE,sep=',',...) {  #same as read.clipboard(sep=',')\n>    MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin  \n> system?\n>   if (!MAC ) {if (header) read.clipboard<- \n> read.table(file(\"clipboard\"),header=TRUE,sep,...)\n>            else read.clipboard<- \n> read.table(file(\"clipboard\"),sep,...) }\n>    else {\n>   if (header) read.clipboard<-  \n> read.table(pipe(\"pbpaste\"),header=TRUE,sep,...)\n>   else read.clipboard<- read.table(pipe(\"pbpaste\") ,sep,...)}\n>   }\n>\n>\n> Bill\n>\n>\n> At 10:53 AM -0400 6/13/08, Simon Urbanek wrote:\n>> On Jun 13, 2008, at 4:43 AM, Emiliano Guevara wrote:\n>>\n>>> Hi,\n>>>\n>>> There's many ways to do it. I would suggest using comma separated  \n>>> values as a \"bridge\" filetype.\n>>>\n>>\n>> I find copy/paste more convenient for most simple tables - simply  \n>> select the table in Numbers, press <Cmd><C> (Copy) and then read  \n>> the clipboard in R:\n>>\n>> read.table(pipe(\"pbpaste\"))\n>>\n>> Cheers,\n>> Simon\n>>\n>>> From Numbers, save your data as a .csv file (comma separated value).\n>>> Then, in R, import the data from the file using:\n>>>\n>>>> read.csv(file.csv)\n>>>\n>>> That should be it,\n>>>\n>>> Best wishes,\n>>>\n>>> E.\n>>>\n>>>\n>>> On Jun 13, 2008, at 05:34 AM, Peng Jiang wrote:\n>>>\n>>>> Hi ,\n>>>> I have some data in Numbers, which is a data managing software  \n>>>> for Mac OS. How can I import them to R ?\n>>>> Or how can I import my data from R to Numbers ?  Any interfaces  \n>>>> between R and Numbers or something ?\n>>>>\n>>>> I am a newbie so if the question is toooooo simple, please take  \n>>>> it easy.\n>>>>\n>>>> Thanks!\n>>>>\n>>>> --------------------------\n>>>> Peng Jiang\n>>>> ?]??\n>>>> Ph.D. Candidate\n>>>>\n>>>> Antai College of Economics & Management\n>>>> ?????????????w?@\n>>>> Department of Mathematics\n>>>> ???w?n\n>>>> Shanghai Jiaotong University (Minhang Campus)\n>>>> 800 Dongchuan Road\n>>>> 200240 Shanghai\n>>>> P. R. China\n>>>\n>>> ****************************************\n>>> Emiliano R. Guevara\n>>> Facolt? di Lingue e Lett. Straniere\n>>> Dipart. di Lingue e Lett. Straniere\n>>> Universit? di Bologna\n>>> Via Cartoleria 5 (40124) Bologna, Italia\n>>> http://morbo.lingue.unibo.it/\n>>> emiliano.guevara at unibo.it\n>>> emiguevara at gmail.com\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> --\n> William Revelle\t\thttp://personality-project.org/revelle.html\n> Professor\t\t\thttp://personality-project.org/personality.html\n> Department of Psychology             http://www.wcas.northwestern.edu/psych/\n> Northwestern University\thttp://www.northwestern.edu/\n> Attend  ISSID/ARP:2009               http://issid.org/issid.2009/\n>\n>",
+      "body_plain": "I agree that the difference between Mac and others WRT clipboard is a  \nbit annoying. I'll see if I can fix that.\n\nThanks,\nSimon\n\nOn Jun 13, 2008, at 11:16 AM, William Revelle wrote:\n\n> I agree with Simon that copy paste is the easiest way to go.\n>\n> However, because I was unable to remember the  \n> read.table(pipe(\"pbpaste\")) command and wanted to give instructions  \n> to students that were platform independent, I created a little  \n> function (read.clipboard) that works on PCs or Macs .  It is  \n> available in the psych package:\n> \"read.clipboard\" <-\n> function(header=TRUE,...) {\n>    MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin  \n> system?\n>   if (!MAC ) {if (header) read.clipboard<- \n> read.table(file(\"clipboard\"),header=TRUE,...)\n>            else read.clipboard<-read.table(file(\"clipboard\"),...) }\n>    else {\n>   if (header) read.clipboard<-   \n> read.table(pipe(\"pbpaste\"),header=TRUE,...)\n>   else read.clipboard<- read.table(pipe(\"pbpaste\"),...)}\n>   }\n>\n> With the addition of  a sep=\",\" option, it can also read csv copied  \n> files:\n>\n>\n> \"read.clipboard.csv\" <-\n> function(header=TRUE,sep=',',...) {  #same as read.clipboard(sep=',')\n>    MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin  \n> system?\n>   if (!MAC ) {if (header) read.clipboard<- \n> read.table(file(\"clipboard\"),header=TRUE,sep,...)\n>            else read.clipboard<- \n> read.table(file(\"clipboard\"),sep,...) }\n>    else {\n>   if (header) read.clipboard<-  \n> read.table(pipe(\"pbpaste\"),header=TRUE,sep,...)\n>   else read.clipboard<- read.table(pipe(\"pbpaste\") ,sep,...)}\n>   }\n>\n>\n> Bill\n>\n>\n> At 10:53 AM -0400 6/13/08, Simon Urbanek wrote:\n>> On Jun 13, 2008, at 4:43 AM, Emiliano Guevara wrote:\n>>\n>>> Hi,\n>>>\n>>> There's many ways to do it. I would suggest using comma separated  \n>>> values as a \"bridge\" filetype.\n>>>\n>>\n>> I find copy/paste more convenient for most simple tables - simply  \n>> select the table in Numbers, press <Cmd><C> (Copy) and then read  \n>> the clipboard in R:\n>>\n>> read.table(pipe(\"pbpaste\"))\n>>\n>> Cheers,\n>> Simon\n>>\n>>> From Numbers, save your data as a .csv file (comma separated value).\n>>> Then, in R, import the data from the file using:\n>>>\n>>>> read.csv(file.csv)\n>>>\n>>> That should be it,\n>>>\n>>> Best wishes,\n>>>\n>>> E.\n>>>\n>>>\n>>> On Jun 13, 2008, at 05:34 AM, Peng Jiang wrote:\n>>>\n>>>> Hi ,\n>>>> I have some data in Numbers, which is a data managing software  \n>>>> for Mac OS. How can I import them to R ?\n>>>> Or how can I import my data from R to Numbers ?  Any interfaces  \n>>>> between R and Numbers or something ?\n>>>>\n>>>> I am a newbie so if the question is toooooo simple, please take  \n>>>> it easy.\n>>>>\n>>>> Thanks!\n>>>>\n>>>> --------------------------\n>>>> Peng Jiang\n>>>> ç]‰Ù\n>>>> Ph.D. Candidate\n>>>>\n>>>> Antai College of Economics & Management\n>>>> ????????????äwâ@\n>>>> Department of Mathematics\n>>>> êîäwån\n>>>> Shanghai Jiaotong University (Minhang Campus)\n>>>> 800 Dongchuan Road\n>>>> 200240 Shanghai\n>>>> P. R. China\n>>>\n>>> ****************************************\n>>> Emiliano R. Guevara\n>>> Facoltà di Lingue e Lett. Straniere\n>>> Dipart. di Lingue e Lett. Straniere\n>>> Università di Bologna\n>>> Via Cartoleria 5 (40124) Bologna, Italia\n>>> http://morbo.lingue.unibo.it/\n>>> emiliano.guevara at unibo.it\n>>> emiguevara at gmail.com\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> --\n> William Revelle\t\thttp://personality-project.org/revelle.html\n> Professor\t\t\thttp://personality-project.org/personality.html\n> Department of Psychology             http://www.wcas.northwestern.edu/psych/\n> Northwestern University\thttp://www.northwestern.edu/\n> Attend  ISSID/ARP:2009               http://issid.org/issid.2009/\n>\n>",
       "body_snippet": "I agree that the difference between Mac and others WRT clipboard is a  \nbit annoying. I'll see if I can fix that.\n\nThanks,\nSimon\n\nOn Jun 13, 2008, at 11:16 AM, William Revelle wrote:\n\n> I agree with S",
       "thread_id": "thread-67e59ed8cbb5",
       "thread_depth": 4,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005076.html"
     },
     {
       "id": "msg-5a9c323be3c9",
@@ -793,11 +836,12 @@
         "<p06240803c4783e4b2e3a@[165.124.160.10]>",
         "<3F611A34-19DB-41E6-8135-B330DFD3B50D@r-project.org>"
       ],
-      "body_plain": "On Fri, 13 Jun 2008, Simon Urbanek wrote:\n\n> I agree that the difference between Mac and others WRT clipboard is a bit \n> annoying. I'll see if I can fix that.\n\nIf you do, can you leave a way to read from the X11 primary selection for \nthose who like to use X11 applications on Mac OS?  I'm not objecting to \nfile=\"clipboard\" changing its meaning, but \"X11_clipboard\" is taken, so \nperhaps \"X11_primary\" or some such.\n\nBrian\n\n>\n> Thanks,\n> Simon\n>\n> On Jun 13, 2008, at 11:16 AM, William Revelle wrote:\n>\n>> I agree with Simon that copy paste is the easiest way to go.\n>> \n>> However, because I was unable to remember the read.table(pipe(\"pbpaste\")) \n>> command and wanted to give instructions to students that were platform \n>> independent, I created a little function (read.clipboard) that works on PCs \n>> or Macs .  It is available in the psych package:\n>> \"read.clipboard\" <-\n>> function(header=TRUE,...) {\n>>   MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin system?\n>>  if (!MAC ) {if (header) \n>> read.clipboard<-read.table(file(\"clipboard\"),header=TRUE,...)\n>>           else read.clipboard<-read.table(file(\"clipboard\"),...) }\n>>   else {\n>>  if (header) read.clipboard<-  read.table(pipe(\"pbpaste\"),header=TRUE,...)\n>>  else read.clipboard<- read.table(pipe(\"pbpaste\"),...)}\n>>  }\n>> \n>> With the addition of  a sep=\",\" option, it can also read csv copied files:\n>> \n>> \n>> \"read.clipboard.csv\" <-\n>> function(header=TRUE,sep=',',...) {  #same as read.clipboard(sep=',')\n>>   MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin system?\n>>  if (!MAC ) {if (header) \n>> read.clipboard<-read.table(file(\"clipboard\"),header=TRUE,sep,...)\n>>           else read.clipboard<-read.table(file(\"clipboard\"),sep,...) }\n>>   else {\n>>  if (header) read.clipboard<- \n>> read.table(pipe(\"pbpaste\"),header=TRUE,sep,...)\n>>  else read.clipboard<- read.table(pipe(\"pbpaste\") ,sep,...)}\n>>  }\n>> \n>> \n>> Bill\n>> \n>> \n>> At 10:53 AM -0400 6/13/08, Simon Urbanek wrote:\n>>> On Jun 13, 2008, at 4:43 AM, Emiliano Guevara wrote:\n>>> \n>>>> Hi,\n>>>> \n>>>> There's many ways to do it. I would suggest using comma separated values \n>>>> as a \"bridge\" filetype.\n>>>> \n>>> \n>>> I find copy/paste more convenient for most simple tables - simply select \n>>> the table in Numbers, press <Cmd><C> (Copy) and then read the clipboard in \n>>> R:\n>>> \n>>> read.table(pipe(\"pbpaste\"))\n>>> \n>>> Cheers,\n>>> Simon\n>>> \n>>>> From Numbers, save your data as a .csv file (comma separated value).\n>>>> Then, in R, import the data from the file using:\n>>>> \n>>>>> read.csv(file.csv)\n>>>> \n>>>> That should be it,\n>>>> \n>>>> Best wishes,\n>>>> \n>>>> E.\n>>>> \n>>>> \n>>>> On Jun 13, 2008, at 05:34 AM, Peng Jiang wrote:\n>>>> \n>>>>> Hi ,\n>>>>> I have some data in Numbers, which is a data managing software for Mac \n>>>>> OS. How can I import them to R ?\n>>>>> Or how can I import my data from R to Numbers ?  Any interfaces between \n>>>>> R and Numbers or something ?\n>>>>> \n>>>>> I am a newbie so if the question is toooooo simple, please take it easy.\n>>>>> \n>>>>> Thanks!\n>>>>> \n>>>>> --------------------------\n>>>>> Peng Jiang\n>>>>> ?]??\n>>>>> Ph.D. Candidate\n>>>>> \n>>>>> Antai College of Economics & Management\n>>>>> ?????????????w?@\n>>>>> Department of Mathematics\n>>>>> ???w?n\n>>>>> Shanghai Jiaotong University (Minhang Campus)\n>>>>> 800 Dongchuan Road\n>>>>> 200240 Shanghai\n>>>>> P. R. China\n>>>> \n>>>> ****************************************\n>>>> Emiliano R. Guevara\n>>>> Facolt? di Lingue e Lett. Straniere\n>>>> Dipart. di Lingue e Lett. Straniere\n>>>> Universit? di Bologna\n>>>> Via Cartoleria 5 (40124) Bologna, Italia\n>>>> http://morbo.lingue.unibo.it/\n>>>> emiliano.guevara at unibo.it\n>>>> emiguevara at gmail.com\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at stat.math.ethz.ch\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> \n>> --\n>> William Revelle\t\thttp://personality-project.org/revelle.html\n>> Professor \n>> http://personality-project.org/personality.html\n>> Department of Psychology \n>> http://www.wcas.northwestern.edu/psych/\n>> Northwestern University\thttp://www.northwestern.edu/\n>> Attend  ISSID/ARP:2009               http://issid.org/issid.2009/\n>> \n>> \n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_plain": "On Fri, 13 Jun 2008, Simon Urbanek wrote:\n\n> I agree that the difference between Mac and others WRT clipboard is a bit \n> annoying. I'll see if I can fix that.\n\nIf you do, can you leave a way to read from the X11 primary selection for \nthose who like to use X11 applications on Mac OS?  I'm not objecting to \nfile=\"clipboard\" changing its meaning, but \"X11_clipboard\" is taken, so \nperhaps \"X11_primary\" or some such.\n\nBrian\n\n>\n> Thanks,\n> Simon\n>\n> On Jun 13, 2008, at 11:16 AM, William Revelle wrote:\n>\n>> I agree with Simon that copy paste is the easiest way to go.\n>> \n>> However, because I was unable to remember the read.table(pipe(\"pbpaste\")) \n>> command and wanted to give instructions to students that were platform \n>> independent, I created a little function (read.clipboard) that works on PCs \n>> or Macs .  It is available in the psych package:\n>> \"read.clipboard\" <-\n>> function(header=TRUE,...) {\n>>   MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin system?\n>>  if (!MAC ) {if (header) \n>> read.clipboard<-read.table(file(\"clipboard\"),header=TRUE,...)\n>>           else read.clipboard<-read.table(file(\"clipboard\"),...) }\n>>   else {\n>>  if (header) read.clipboard<-  read.table(pipe(\"pbpaste\"),header=TRUE,...)\n>>  else read.clipboard<- read.table(pipe(\"pbpaste\"),...)}\n>>  }\n>> \n>> With the addition of  a sep=\",\" option, it can also read csv copied files:\n>> \n>> \n>> \"read.clipboard.csv\" <-\n>> function(header=TRUE,sep=',',...) {  #same as read.clipboard(sep=',')\n>>   MAC<-Sys.info()[1]==\"Darwin\"    #are we on a Mac using the Darwin system?\n>>  if (!MAC ) {if (header) \n>> read.clipboard<-read.table(file(\"clipboard\"),header=TRUE,sep,...)\n>>           else read.clipboard<-read.table(file(\"clipboard\"),sep,...) }\n>>   else {\n>>  if (header) read.clipboard<- \n>> read.table(pipe(\"pbpaste\"),header=TRUE,sep,...)\n>>  else read.clipboard<- read.table(pipe(\"pbpaste\") ,sep,...)}\n>>  }\n>> \n>> \n>> Bill\n>> \n>> \n>> At 10:53 AM -0400 6/13/08, Simon Urbanek wrote:\n>>> On Jun 13, 2008, at 4:43 AM, Emiliano Guevara wrote:\n>>> \n>>>> Hi,\n>>>> \n>>>> There's many ways to do it. I would suggest using comma separated values \n>>>> as a \"bridge\" filetype.\n>>>> \n>>> \n>>> I find copy/paste more convenient for most simple tables - simply select \n>>> the table in Numbers, press <Cmd><C> (Copy) and then read the clipboard in \n>>> R:\n>>> \n>>> read.table(pipe(\"pbpaste\"))\n>>> \n>>> Cheers,\n>>> Simon\n>>> \n>>>> From Numbers, save your data as a .csv file (comma separated value).\n>>>> Then, in R, import the data from the file using:\n>>>> \n>>>>> read.csv(file.csv)\n>>>> \n>>>> That should be it,\n>>>> \n>>>> Best wishes,\n>>>> \n>>>> E.\n>>>> \n>>>> \n>>>> On Jun 13, 2008, at 05:34 AM, Peng Jiang wrote:\n>>>> \n>>>>> Hi ,\n>>>>> I have some data in Numbers, which is a data managing software for Mac \n>>>>> OS. How can I import them to R ?\n>>>>> Or how can I import my data from R to Numbers ?  Any interfaces between \n>>>>> R and Numbers or something ?\n>>>>> \n>>>>> I am a newbie so if the question is toooooo simple, please take it easy.\n>>>>> \n>>>>> Thanks!\n>>>>> \n>>>>> --------------------------\n>>>>> Peng Jiang\n>>>>> ç]‰Ù\n>>>>> Ph.D. Candidate\n>>>>> \n>>>>> Antai College of Economics & Management\n>>>>> ????????????äwâ@\n>>>>> Department of Mathematics\n>>>>> êîäwån\n>>>>> Shanghai Jiaotong University (Minhang Campus)\n>>>>> 800 Dongchuan Road\n>>>>> 200240 Shanghai\n>>>>> P. R. China\n>>>> \n>>>> ****************************************\n>>>> Emiliano R. Guevara\n>>>> Facoltà di Lingue e Lett. Straniere\n>>>> Dipart. di Lingue e Lett. Straniere\n>>>> Università di Bologna\n>>>> Via Cartoleria 5 (40124) Bologna, Italia\n>>>> http://morbo.lingue.unibo.it/\n>>>> emiliano.guevara at unibo.it\n>>>> emiguevara at gmail.com\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at stat.math.ethz.ch\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> \n>> --\n>> William Revelle\t\thttp://personality-project.org/revelle.html\n>> Professor \n>> http://personality-project.org/personality.html\n>> Department of Psychology \n>> http://www.wcas.northwestern.edu/psych/\n>> Northwestern University\thttp://www.northwestern.edu/\n>> Attend  ISSID/ARP:2009               http://issid.org/issid.2009/\n>> \n>> \n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
       "body_snippet": "On Fri, 13 Jun 2008, Simon Urbanek wrote:\n\n> I agree that the difference between Mac and others WRT clipboard is a bit \n> annoying. I'll see if I can fix that.\n\nIf you do, can you leave a way to read ",
       "thread_id": "thread-67e59ed8cbb5",
       "thread_depth": 5,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005077.html"
     },
     {
       "id": "msg-e2ffb3e1770f",
@@ -815,7 +859,8 @@
       "body_snippet": "Well, let's be careful :-).  True, there are numerical methods\n(transforms and such ) for a limited set of distribution functions.\n\nBut, given huge amounts of computer time,  the uniform distribution ",
       "thread_id": "thread-e2ffb3e1770f",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005078.html"
     },
     {
       "id": "msg-a85bcb36c88a",
@@ -831,7 +876,8 @@
       "body_snippet": "Hello Everyone,\n\nI was hoping to make the following feature request: I've noticed that  \nR.app uses the standard Ctrl-a and Ctrl-e to jump to the beginning and  \nthe end of the line on the console and",
       "thread_id": "thread-a85bcb36c88a",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005079.html"
     },
     {
       "id": "msg-3a16809178a1",
@@ -847,7 +893,8 @@
       "body_snippet": "Hi,\n\nI'm using R version 2.7.0 (2008-04-22) on my MacBook Pro running Mac  \nOS X.5.2. I installed R using the universal binary from CRAN, so I  \nguess my R uses the gfortran compiler provided in the b",
       "thread_id": "thread-3a16809178a1",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005080.html"
     },
     {
       "id": "msg-3f4df9aef964",
@@ -865,7 +912,8 @@
       "body_snippet": "Hi again,\n\nI want to apologize for posting my question prematurely to the list. I  \nhave been able to find the problem. R tried to compile using the  \ngfortran of my fink distribution which came with ",
       "thread_id": "thread-3a16809178a1",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005081.html"
     },
     {
       "id": "msg-408d23f9322e",
@@ -883,7 +931,8 @@
       "body_snippet": "On Jun 13, 2008, at 11:24 PM, Vadim Patsalo wrote:\n\n> Hello Everyone,\n>\n> I was hoping to make the following feature request: I've noticed  \n> that R.app uses the standard Ctrl-a and Ctrl-e to jump to",
       "thread_id": "thread-a85bcb36c88a",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005082.html"
     },
     {
       "id": "msg-346f59e9145c",
@@ -899,7 +948,8 @@
       "body_snippet": "I have just downloaded the latest version of R for mac.  I have mac  \nOS10 (leopard). Several things are different, including  plotting, I  \ncan no longer copy the Quartz window directly and PASTE.  T",
       "thread_id": "thread-346f59e9145c",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005083.html"
     },
     {
       "id": "msg-c5f32d478615",
@@ -917,7 +967,8 @@
       "body_snippet": "On Sun, 15 Jun 2008, Margarete Mehrabian wrote:\n\n> I have just downloaded the latest version of R for mac.  I have mac OS10 \n> (leopard). Several things are different, including  plotting, I can no lo",
       "thread_id": "thread-346f59e9145c",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005084.html"
     },
     {
       "id": "msg-2dd18454118c",
@@ -933,7 +984,8 @@
       "body_snippet": "hi,\n\nI use the example code from a R book ,\n\n > x = rnorm( 100 )\n > hist( x, probability = TRUE, col = gray(.9), main=\"normal mu = 0 ,  \nsigma = 1\") #this works well\n\n\n > curve( dnorm(x),add =T) # but",
       "thread_id": "thread-2dd18454118c",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005085.html"
     },
     {
       "id": "msg-dde3f5ab8f1d",
@@ -951,7 +1003,8 @@
       "body_snippet": "On 16/06/2008 6:07 AM, Peng Jiang wrote:\n> hi,\n> \n> I use the example code from a R book ,\n> \n>  > x = rnorm( 100 )\n>  > hist( x, probability = TRUE, col = gray(.9), main=\"normal mu = 0 ,  \n> sigma = ",
       "thread_id": "thread-2dd18454118c",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005086.html"
     },
     {
       "id": "msg-90c304544473",
@@ -969,7 +1022,8 @@
       "body_snippet": "On Mon, Jun 16, 2008 at 6:07 AM, Peng Jiang <jp021 at sjtu.edu.cn> wrote:\n> hi,\n>\n> I use the example code from a R book ,\n>\n>> x = rnorm( 100 )\n>> hist( x, probability = TRUE, col = gray(.9), main=\"n",
       "thread_id": "thread-2dd18454118c",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005087.html"
     },
     {
       "id": "msg-b1ee8e7296b6",
@@ -987,7 +1041,8 @@
       "body_snippet": "On 16/06/2008, at 8:07 PM, Peng Jiang wrote:\n\n> hi,\n>\n> I use the example code from a R book ,\n>\n> > x = rnorm( 100 )\n> > hist( x, probability = TRUE, col = gray(.9), main=\"normal mu = 0 ,  \n> sigma =",
       "thread_id": "thread-2dd18454118c",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005088.html"
     },
     {
       "id": "msg-c5b836378023",
@@ -1003,7 +1058,8 @@
       "body_snippet": "Hi ,\n\n  I don't know whether it is a Mac specific problem. I hope it does  \nnot bother you.\n\nWhen I start R each time I got the following warning , I reinstall for  \nmany times the problem still exist",
       "thread_id": "thread-c5b836378023",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005089.html"
     },
     {
       "id": "msg-732bcdf40573",
@@ -1021,7 +1077,8 @@
       "body_snippet": "On 14 Jun 2008, at 07:24, Vadim Patsalo wrote:\n\n> I was hoping to make the following feature request: I've noticed  \n> that R.app uses the standard Ctrl-a and Ctrl-e to jump to the  \n> beginning and t",
       "thread_id": "thread-a85bcb36c88a",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005090.html"
     },
     {
       "id": "msg-bc4b393a5c5c",
@@ -1039,7 +1096,8 @@
       "body_snippet": "> On Jun 13, 2008, at 11:24 PM, Vadim Patsalo wrote:\n> \n>> Hello Everyone,\n>>\n>> I was hoping to make the following feature request: I've noticed  \n>> that R.app uses the standard Ctrl-a and Ctrl-e to",
       "thread_id": "thread-bc4b393a5c5c",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005091.html"
     },
     {
       "id": "msg-cadafc91ea63",
@@ -1058,7 +1116,8 @@
       "body_snippet": "Dear Carl,\n\nMy guess is that the funny boxes are either Unicode characters and  \nthat the editor you are opening the file with is not Unicode-aware, or  \nthat they are control characters like backspac",
       "thread_id": "thread-bc4b393a5c5c",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005092.html"
     },
     {
       "id": "msg-c92b86c021e8",
@@ -1076,7 +1135,8 @@
       "body_snippet": "Hi Vadim,\n\nCtrl-k clears the current line for me,\nso hopefully all you need to do is get\nthis version of the R.app GUI:\n\nR.app GUI 1.24 (5102), S.Urbanek & S.M.Iacus, ? R Foundation for Statistical Co",
       "thread_id": "thread-a85bcb36c88a",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005093.html"
     },
     {
       "id": "msg-36d654880fe0",
@@ -1092,7 +1152,8 @@
       "body_snippet": "Hello all members!\n\nI work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \nRplot.pdf a quartz() device generated with image() function, still  \nappears gray rectangles over the image ( the",
       "thread_id": "thread-36d654880fe0",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005094.html"
     },
     {
       "id": "msg-62e83761c7e3",
@@ -1109,6 +1170,7 @@
       "thread_id": "thread-62e83761c7e3",
       "thread_depth": 0,
       "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005095.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080618/369e1bcd/attachment.pl"
       ]
@@ -1125,11 +1187,12 @@
       "references": [
         "<6EADEE6F-F339-42BD-AD82-CA4927C72093@alfomega.es>"
       ],
-      "body_plain": "On Jun 18, 2008, at 2:49 AM, Angel Berihuete Mac?as wrote:\n\n> Hello all members!\n>\n> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n> Rplot.pdf a quartz() device generated with image() function, still  \n> appears gray rectangles over the image ( the image in the quartz()  \n> device is all right! )\n>\n\nThat is a rendering issue in Preview (zoom in and you'll see that  \nthere are no lines), it is unrelated to the Quartz device. The PDF  \nitself is fine, but Preview doesn't correct for anti-aliasing effects.  \nI think using Acrobat may work (I don't want to install it since it  \nmesses up the system so I cannot check).\n\nCheers,\nSimon",
-      "body_snippet": "On Jun 18, 2008, at 2:49 AM, Angel Berihuete Mac?as wrote:\n\n> Hello all members!\n>\n> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n> Rplot.pdf a quartz() device generated with ima",
+      "body_plain": "On Jun 18, 2008, at 2:49 AM, Angel Berihuete Macías wrote:\n\n> Hello all members!\n>\n> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n> Rplot.pdf a quartz() device generated with image() function, still  \n> appears gray rectangles over the image ( the image in the quartz()  \n> device is all right! )\n>\n\nThat is a rendering issue in Preview (zoom in and you'll see that  \nthere are no lines), it is unrelated to the Quartz device. The PDF  \nitself is fine, but Preview doesn't correct for anti-aliasing effects.  \nI think using Acrobat may work (I don't want to install it since it  \nmesses up the system so I cannot check).\n\nCheers,\nSimon",
+      "body_snippet": "On Jun 18, 2008, at 2:49 AM, Angel Berihuete Macías wrote:\n\n> Hello all members!\n>\n> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n> Rplot.pdf a quartz() device generated with ima",
       "thread_id": "thread-36d654880fe0",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005096.html"
     },
     {
       "id": "msg-5a1bad46a4d1",
@@ -1147,7 +1210,8 @@
       "body_snippet": "No problems here w/ a few test images.\n\n\n> \n> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n> Rplot.pdf a quartz() device generated with image() function, still  \n> appears gray r",
       "thread_id": "thread-5a1bad46a4d1",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005097.html"
     },
     {
       "id": "msg-60ccf9034143",
@@ -1162,11 +1226,12 @@
         "<6EADEE6F-F339-42BD-AD82-CA4927C72093@alfomega.es>",
         "<26CF90BD-4B4E-4CDE-96D9-3DDBF0E1C50E@r-project.org>"
       ],
-      "body_plain": "Thank you very much,  Simon!\n\nI zoom in the image, but no changes. There are lines, ugly gray lines.  \nNext, I open the image with Acrobat Reader and again no changes.\n\nAny help will be wellcome.\n\n?ngel Berihuete.\n\nEl 18/06/2008, a las 17:26, Simon Urbanek escribi?:\n\n>\n> On Jun 18, 2008, at 2:49 AM, Angel Berihuete Mac?as wrote:\n>\n>> Hello all members!\n>>\n>> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n>> Rplot.pdf a quartz() device generated with image() function, still  \n>> appears gray rectangles over the image ( the image in the quartz()  \n>> device is all right! )\n>>\n>\n> That is a rendering issue in Preview (zoom in and you'll see that  \n> there are no lines), it is unrelated to the Quartz device. The PDF  \n> itself is fine, but Preview doesn't correct for anti-aliasing  \n> effects. I think using Acrobat may work (I don't want to install it  \n> since it messes up the system so I cannot check).\n>\n> Cheers,\n> Simon\n>\n>",
-      "body_snippet": "Thank you very much,  Simon!\n\nI zoom in the image, but no changes. There are lines, ugly gray lines.  \nNext, I open the image with Acrobat Reader and again no changes.\n\nAny help will be wellcome.\n\n?ng",
+      "body_plain": "Thank you very much,  Simon!\n\nI zoom in the image, but no changes. There are lines, ugly gray lines.  \nNext, I open the image with Acrobat Reader and again no changes.\n\nAny help will be wellcome.\n\nÁngel Berihuete.\n\nEl 18/06/2008, a las 17:26, Simon Urbanek escribió:\n\n>\n> On Jun 18, 2008, at 2:49 AM, Angel Berihuete Macías wrote:\n>\n>> Hello all members!\n>>\n>> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n>> Rplot.pdf a quartz() device generated with image() function, still  \n>> appears gray rectangles over the image ( the image in the quartz()  \n>> device is all right! )\n>>\n>\n> That is a rendering issue in Preview (zoom in and you'll see that  \n> there are no lines), it is unrelated to the Quartz device. The PDF  \n> itself is fine, but Preview doesn't correct for anti-aliasing  \n> effects. I think using Acrobat may work (I don't want to install it  \n> since it messes up the system so I cannot check).\n>\n> Cheers,\n> Simon\n>\n>",
+      "body_snippet": "Thank you very much,  Simon!\n\nI zoom in the image, but no changes. There are lines, ugly gray lines.  \nNext, I open the image with Acrobat Reader and again no changes.\n\nAny help will be wellcome.\n\nÁng",
       "thread_id": "thread-36d654880fe0",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005098.html"
     },
     {
       "id": "msg-1be34e4199be",
@@ -1185,7 +1250,8 @@
       "body_snippet": "Hello Carl, thanks for your answer.\n\nPlease, can you expecify MacOs and R versions?\n\nAngel Berihuete\n\nEl 18/06/2008, a las 22:55, Carl Witthoft escribi?:\n\n> No problems here w/ a few test images.\n>\n>\n",
       "thread_id": "thread-5a1bad46a4d1",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005099.html"
     },
     {
       "id": "msg-84cbd95f9a9f",
@@ -1201,11 +1267,12 @@
         "<26CF90BD-4B4E-4CDE-96D9-3DDBF0E1C50E@r-project.org>",
         "<97D07C6F-F16D-4C0A-8FCC-DB6E6D63A8D8@alfomega.es>"
       ],
-      "body_plain": "On Jun 18, 2008, at 5:21 PM, Angel Berihuete Mac?as wrote:\n\n> Thank you very much,  Simon!\n>\n> I zoom in the image, but no changes. There are lines, ugly gray  \n> lines. Next, I open the image with Acrobat Reader and again no  \n> changes.\n>\n\nCan you tell me exactly how you create the PDF?\n\nThanks,\nSimon\n\n\n> Any help will be wellcome.\n>\n> ?ngel Berihuete.\n>\n> El 18/06/2008, a las 17:26, Simon Urbanek escribi?:\n>\n>>\n>> On Jun 18, 2008, at 2:49 AM, Angel Berihuete Mac?as wrote:\n>>\n>>> Hello all members!\n>>>\n>>> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n>>> Rplot.pdf a quartz() device generated with image() function, still  \n>>> appears gray rectangles over the image ( the image in the quartz()  \n>>> device is all right! )\n>>>\n>>\n>> That is a rendering issue in Preview (zoom in and you'll see that  \n>> there are no lines), it is unrelated to the Quartz device. The PDF  \n>> itself is fine, but Preview doesn't correct for anti-aliasing  \n>> effects. I think using Acrobat may work (I don't want to install it  \n>> since it messes up the system so I cannot check).\n>>\n>> Cheers,\n>> Simon\n>>\n>>\n>\n>",
-      "body_snippet": "On Jun 18, 2008, at 5:21 PM, Angel Berihuete Mac?as wrote:\n\n> Thank you very much,  Simon!\n>\n> I zoom in the image, but no changes. There are lines, ugly gray  \n> lines. Next, I open the image with Ac",
+      "body_plain": "On Jun 18, 2008, at 5:21 PM, Angel Berihuete Macías wrote:\n\n> Thank you very much,  Simon!\n>\n> I zoom in the image, but no changes. There are lines, ugly gray  \n> lines. Next, I open the image with Acrobat Reader and again no  \n> changes.\n>\n\nCan you tell me exactly how you create the PDF?\n\nThanks,\nSimon\n\n\n> Any help will be wellcome.\n>\n> Ángel Berihuete.\n>\n> El 18/06/2008, a las 17:26, Simon Urbanek escribió:\n>\n>>\n>> On Jun 18, 2008, at 2:49 AM, Angel Berihuete Macías wrote:\n>>\n>>> Hello all members!\n>>>\n>>> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n>>> Rplot.pdf a quartz() device generated with image() function, still  \n>>> appears gray rectangles over the image ( the image in the quartz()  \n>>> device is all right! )\n>>>\n>>\n>> That is a rendering issue in Preview (zoom in and you'll see that  \n>> there are no lines), it is unrelated to the Quartz device. The PDF  \n>> itself is fine, but Preview doesn't correct for anti-aliasing  \n>> effects. I think using Acrobat may work (I don't want to install it  \n>> since it messes up the system so I cannot check).\n>>\n>> Cheers,\n>> Simon\n>>\n>>\n>\n>",
+      "body_snippet": "On Jun 18, 2008, at 5:21 PM, Angel Berihuete Macías wrote:\n\n> Thank you very much,  Simon!\n>\n> I zoom in the image, but no changes. There are lines, ugly gray  \n> lines. Next, I open the image with Ac",
       "thread_id": "thread-36d654880fe0",
       "thread_depth": 3,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005100.html"
     },
     {
       "id": "msg-2b4e1c898c0d",
@@ -1222,11 +1289,12 @@
         "<97D07C6F-F16D-4C0A-8FCC-DB6E6D63A8D8@alfomega.es>",
         "<45E638A1-8337-4108-A6B3-959E172C49A0@r-project.org>"
       ],
-      "body_plain": "I work with three functions.\n\n1) CreaPaleta64(), creates my color palette.\n2) normalize(), standardize dataset (usually matrix)\n3) Spec2D.Draw(), which plot the image.\n\nOk, let's do it\n\n >Colors= CreaPaleta64(64)\n >X=matrix(1:120*50,nrow=120,ncol=50)\n >Spec2D.Draw(X,Colors)\n\nNow I have a quarzt() device, but when I \"save as\" Rplot.pdf the gray  \nlines appear over the image.\n\nThanks\n\n\n%%%%%%%%%%%%%%%%%%%\n\nCreaPaleta <- function(n=64) {\n  C <-c(\n      0.0417,         0,        0,\n      0.0833,         0,        0,\n      0.1250,         0,        0,\n      0.1667,         0,        0,\n      0.2083,         0,        0,\n      0.2500,         0,        0,\n      0.2917,         0,        0,\n      0.3333,         0,        0,\n      0.3750,         0,        0,\n      0.4167,         0,        0,\n      0.4583,         0,        0,\n      0.5000,         0,        0,\n      0.5417,         0,        0,\n      0.5833,         0,        0,\n      0.6250,         0,        0,\n      0.6667,         0,        0,\n      0.7083,         0,        0,\n      0.7500,         0,        0,\n      0.7917,         0,        0,\n      0.8333,         0,        0,\n      0.8750,         0,        0,\n      0.9167,         0,        0,\n      0.9583,         0,        0,\n      1.0000,         0,        0,\n      1.0000,    0.0417,        0,\n      1.0000,    0.0833,        0,\n      1.0000,    0.1250,        0,\n      1.0000,    0.1667,        0,\n      1.0000,    0.2083,        0,\n      1.0000,    0.2500,        0,\n      1.0000,    0.2917,        0,\n      1.0000,    0.3333,        0,\n      1.0000,    0.3750,        0,\n      1.0000,    0.4167,        0,\n      1.0000,    0.4583,        0,\n      1.0000,    0.5000,        0,\n      1.0000,    0.5417,        0,\n      1.0000,    0.5833,        0,\n      1.0000,    0.6250,        0,\n      1.0000,    0.6667,        0,\n      1.0000,    0.7083,        0,\n      1.0000,    0.7500,        0,\n      1.0000,    0.7917,        0,\n      1.0000,    0.8333,        0,\n      1.0000,    0.8750,        0,\n      1.0000,    0.9167,        0,\n      1.0000,    0.9583,        0,\n      1.0000,    1.0000,        0,\n      1.0000,    1.0000,   0.0625,\n      1.0000,    1.0000,   0.1250,\n      1.0000,    1.0000,   0.1875,\n      1.0000,    1.0000,   0.2500,\n      1.0000,    1.0000,   0.3125,\n      1.0000,    1.0000,   0.3750,\n      1.0000,    1.0000,   0.4375,\n      1.0000,    1.0000,   0.5000,\n      1.0000,    1.0000,   0.5625,\n      1.0000,    1.0000,   0.6250,\n      1.0000,    1.0000,   0.6875,\n      1.0000,    1.0000,   0.7500,\n      1.0000,    1.0000,   0.8125,\n      1.0000,    1.0000,   0.8750,\n      1.0000,    1.0000,   0.9375,\n      1.0000,    1.0000,   1.0000 )\n\n  C <- matrix(C, nrow = 64, ncol = 3, byrow = TRUE)\n\n   Chex <- rgb(C[,1], C[,2], C[,3])\n  paleta  <- palette( Chex )\n\n  Chex <- rgb(C[,1], C[,2], C[,3])\n  paleta  <- palette( Chex )\n\n  if( n == 32 )  { return(paleta[seq(1,64,2)]) }\n  if( n == 16 )  { return(paleta[seq(1,64,4)]) }\n  if( n == 8 )   { return(paleta[seq(1,64,8)]) }\nreturn(paleta)\n} # -- Andres Jimenez 2008-jun -------------------------------------\n\nnormalize <- function(img) {\n\n(img-min(img))/(max(img)-min(img))\n\n}  \n#-----------------------------------------------------------------------------\n\nSpec2D.Draw <- function(S, Colores, labx=\"\", laby=\"\") {\n     image((1:nrow(S)), (1:ncol(S)), normalize(S),\n            col=Colores, axes = FALSE, xlab=labx, ylab=laby)\n} # -- Andres Jimenez 2008 -jun---------------------------------------\n\n\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\nEl 18/06/2008, a las 23:48, Simon Urbanek escribi?:\n\n>\n> On Jun 18, 2008, at 5:21 PM, Angel Berihuete Mac?as wrote:\n>\n>> Thank you very much,  Simon!\n>>\n>> I zoom in the image, but no changes. There are lines, ugly gray  \n>> lines. Next, I open the image with Acrobat Reader and again no  \n>> changes.\n>>\n>\n> Can you tell me exactly how you create the PDF?\n>\n> Thanks,\n> Simon\n>\n>\n>> Any help will be wellcome.\n>>\n>> ?ngel Berihuete.\n>>\n>> El 18/06/2008, a las 17:26, Simon Urbanek escribi?:\n>>\n>>>\n>>> On Jun 18, 2008, at 2:49 AM, Angel Berihuete Mac?as wrote:\n>>>\n>>>> Hello all members!\n>>>>\n>>>> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n>>>> Rplot.pdf a quartz() device generated with image() function,  \n>>>> still appears gray rectangles over the image ( the image in the  \n>>>> quartz() device is all right! )\n>>>>\n>>>\n>>> That is a rendering issue in Preview (zoom in and you'll see that  \n>>> there are no lines), it is unrelated to the Quartz device. The PDF  \n>>> itself is fine, but Preview doesn't correct for anti-aliasing  \n>>> effects. I think using Acrobat may work (I don't want to install  \n>>> it since it messes up the system so I cannot check).\n>>>\n>>> Cheers,\n>>> Simon\n>>>\n>>>\n>>\n>>\n>",
+      "body_plain": "I work with three functions.\n\n1) CreaPaleta64(), creates my color palette.\n2) normalize(), standardize dataset (usually matrix)\n3) Spec2D.Draw(), which plot the image.\n\nOk, let's do it\n\n >Colors= CreaPaleta64(64)\n >X=matrix(1:120*50,nrow=120,ncol=50)\n >Spec2D.Draw(X,Colors)\n\nNow I have a quarzt() device, but when I \"save as\" Rplot.pdf the gray  \nlines appear over the image.\n\nThanks\n\n\n%%%%%%%%%%%%%%%%%%%\n\nCreaPaleta <- function(n=64) {\n  C <-c(\n      0.0417,         0,        0,\n      0.0833,         0,        0,\n      0.1250,         0,        0,\n      0.1667,         0,        0,\n      0.2083,         0,        0,\n      0.2500,         0,        0,\n      0.2917,         0,        0,\n      0.3333,         0,        0,\n      0.3750,         0,        0,\n      0.4167,         0,        0,\n      0.4583,         0,        0,\n      0.5000,         0,        0,\n      0.5417,         0,        0,\n      0.5833,         0,        0,\n      0.6250,         0,        0,\n      0.6667,         0,        0,\n      0.7083,         0,        0,\n      0.7500,         0,        0,\n      0.7917,         0,        0,\n      0.8333,         0,        0,\n      0.8750,         0,        0,\n      0.9167,         0,        0,\n      0.9583,         0,        0,\n      1.0000,         0,        0,\n      1.0000,    0.0417,        0,\n      1.0000,    0.0833,        0,\n      1.0000,    0.1250,        0,\n      1.0000,    0.1667,        0,\n      1.0000,    0.2083,        0,\n      1.0000,    0.2500,        0,\n      1.0000,    0.2917,        0,\n      1.0000,    0.3333,        0,\n      1.0000,    0.3750,        0,\n      1.0000,    0.4167,        0,\n      1.0000,    0.4583,        0,\n      1.0000,    0.5000,        0,\n      1.0000,    0.5417,        0,\n      1.0000,    0.5833,        0,\n      1.0000,    0.6250,        0,\n      1.0000,    0.6667,        0,\n      1.0000,    0.7083,        0,\n      1.0000,    0.7500,        0,\n      1.0000,    0.7917,        0,\n      1.0000,    0.8333,        0,\n      1.0000,    0.8750,        0,\n      1.0000,    0.9167,        0,\n      1.0000,    0.9583,        0,\n      1.0000,    1.0000,        0,\n      1.0000,    1.0000,   0.0625,\n      1.0000,    1.0000,   0.1250,\n      1.0000,    1.0000,   0.1875,\n      1.0000,    1.0000,   0.2500,\n      1.0000,    1.0000,   0.3125,\n      1.0000,    1.0000,   0.3750,\n      1.0000,    1.0000,   0.4375,\n      1.0000,    1.0000,   0.5000,\n      1.0000,    1.0000,   0.5625,\n      1.0000,    1.0000,   0.6250,\n      1.0000,    1.0000,   0.6875,\n      1.0000,    1.0000,   0.7500,\n      1.0000,    1.0000,   0.8125,\n      1.0000,    1.0000,   0.8750,\n      1.0000,    1.0000,   0.9375,\n      1.0000,    1.0000,   1.0000 )\n\n  C <- matrix(C, nrow = 64, ncol = 3, byrow = TRUE)\n\n   Chex <- rgb(C[,1], C[,2], C[,3])\n  paleta  <- palette( Chex )\n\n  Chex <- rgb(C[,1], C[,2], C[,3])\n  paleta  <- palette( Chex )\n\n  if( n == 32 )  { return(paleta[seq(1,64,2)]) }\n  if( n == 16 )  { return(paleta[seq(1,64,4)]) }\n  if( n == 8 )   { return(paleta[seq(1,64,8)]) }\nreturn(paleta)\n} # -- Andres Jimenez 2008-jun -------------------------------------\n\nnormalize <- function(img) {\n\n(img-min(img))/(max(img)-min(img))\n\n}  \n#-----------------------------------------------------------------------------\n\nSpec2D.Draw <- function(S, Colores, labx=\"\", laby=\"\") {\n     image((1:nrow(S)), (1:ncol(S)), normalize(S),\n            col=Colores, axes = FALSE, xlab=labx, ylab=laby)\n} # -- Andres Jimenez 2008 -jun---------------------------------------\n\n\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\nEl 18/06/2008, a las 23:48, Simon Urbanek escribió:\n\n>\n> On Jun 18, 2008, at 5:21 PM, Angel Berihuete Macías wrote:\n>\n>> Thank you very much,  Simon!\n>>\n>> I zoom in the image, but no changes. There are lines, ugly gray  \n>> lines. Next, I open the image with Acrobat Reader and again no  \n>> changes.\n>>\n>\n> Can you tell me exactly how you create the PDF?\n>\n> Thanks,\n> Simon\n>\n>\n>> Any help will be wellcome.\n>>\n>> Ángel Berihuete.\n>>\n>> El 18/06/2008, a las 17:26, Simon Urbanek escribió:\n>>\n>>>\n>>> On Jun 18, 2008, at 2:49 AM, Angel Berihuete Macías wrote:\n>>>\n>>>> Hello all members!\n>>>>\n>>>> I work with version 2.7.1 RC (2008-06-15 r45927). When I save as  \n>>>> Rplot.pdf a quartz() device generated with image() function,  \n>>>> still appears gray rectangles over the image ( the image in the  \n>>>> quartz() device is all right! )\n>>>>\n>>>\n>>> That is a rendering issue in Preview (zoom in and you'll see that  \n>>> there are no lines), it is unrelated to the Quartz device. The PDF  \n>>> itself is fine, but Preview doesn't correct for anti-aliasing  \n>>> effects. I think using Acrobat may work (I don't want to install  \n>>> it since it messes up the system so I cannot check).\n>>>\n>>> Cheers,\n>>> Simon\n>>>\n>>>\n>>\n>>\n>",
       "body_snippet": "I work with three functions.\n\n1) CreaPaleta64(), creates my color palette.\n2) normalize(), standardize dataset (usually matrix)\n3) Spec2D.Draw(), which plot the image.\n\nOk, let's do it\n\n >Colors= Crea",
       "thread_id": "thread-36d654880fe0",
       "thread_depth": 4,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005101.html"
     },
     {
       "id": "msg-ff8582f24427",
@@ -1245,6 +1313,7 @@
       "thread_id": "thread-ff8582f24427",
       "thread_depth": 0,
       "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005102.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080619/2dfe22d6/attachment.pl"
       ]
@@ -1266,7 +1335,8 @@
       "body_snippet": "Dear Alan,\n\nyour description of the \"bug\" makes it very clear that the problem is  \nwith M$ Word 2004.\nAny solution should therefore come from Micro$oft... but this is very  \nunlikely\n\nHowever, you ca",
       "thread_id": "thread-ff8582f24427",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005103.html"
     },
     {
       "id": "msg-25e8cc191f02",
@@ -1284,7 +1354,8 @@
       "body_snippet": "Ok, I will take this over to the R-SIG-Mac list and cc Herve who is  \nthe build manager of Bioconductor. I suspect that something is wrong  \nwith the Bioconductor builds.\n\nSynopsis: Jason is running R",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005104.html"
     },
     {
       "id": "msg-eb183f759aa9",
@@ -1303,7 +1374,8 @@
       "body_snippet": "More seriously, it expects /usr/local/lib/libgcc_s.1.dylib, which  \ncorresponds\nwith a rogue gcc.\n\nOn Jun 19, 2008, at 09:58 , Kasper Daniel Hansen wrote:\n\n> Ok, I will take this over to the R-SIG-Mac",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005105.html"
     },
     {
       "id": "msg-6a42948897d4",
@@ -1322,7 +1394,8 @@
       "body_snippet": "Hi,\n\nOn Jun 19, 2008, at 12:58 PM, Kasper Daniel Hansen wrote:\n\n> Ok, I will take this over to the R-SIG-Mac list and cc Herve who is  \n> the build manager of Bioconductor. I suspect that something is",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005112.html"
     },
     {
       "id": "msg-b9f195a09ca9",
@@ -1341,7 +1414,8 @@
       "body_snippet": "On Jun 19, 2008, at 12:58 PM, Kasper Daniel Hansen wrote:\n\n> Ok, I will take this over to the R-SIG-Mac list and cc Herve who is  \n> the build manager of Bioconductor. I suspect that something is wron",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005106.html"
     },
     {
       "id": "msg-9a9556ec5b94",
@@ -1361,7 +1435,8 @@
       "body_snippet": "Another way Jason can get up and run quickly is to do something like\n\nR> options(pkgType = \"source\")\n\nand then do biocLite. That is probably a better solution than trying  \nto install gettext\n\nKasper\n",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005107.html"
     },
     {
       "id": "msg-ae748cbf194d",
@@ -1380,7 +1455,8 @@
       "body_snippet": "Hello Carl, thanks for your answer.\n\nPlease, can you expecify MacOs and R versions?\n\nAngel Berihuete\nEl 18/06/2008, a las 22:55, Carl Witthoft escribi?:\n\n> No problems here w/ a few test images.\n>\n>\n>",
       "thread_id": "thread-5a1bad46a4d1",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005108.html"
     },
     {
       "id": "msg-87ca26c19b32",
@@ -1401,7 +1477,8 @@
       "body_snippet": "On Jun 19, 2008, at 2:03 PM, Kasper Daniel Hansen wrote:\n\n> Another way Jason can get up and run quickly is to do something like\n>\n> R> options(pkgType = \"source\")\n>\n> and then do biocLite. That is pr",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 3,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005109.html"
     },
     {
       "id": "msg-9d450fb80613",
@@ -1423,7 +1500,8 @@
       "body_snippet": "On Jun 19, 2008, at 11:42 AM, Simon Urbanek wrote:\n\n> Are you? Did you actually test it? I'm pretty sure that you're  \n> wrong, because the commands below compile libintl.8.dylib(!) and  \n> thus won't",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 4,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005110.html"
     },
     {
       "id": "msg-e4e5d8b3cab1",
@@ -1445,7 +1523,8 @@
       "body_snippet": "> Are you? Did you actually test it? I'm pretty sure that you're  \n> wrong, because the commands below compile libintl.8.dylib(!) and  \n> thus won't help (that one is fine and part of your Gtk binary)",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 4,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005113.html"
     },
     {
       "id": "msg-a978594eb91d",
@@ -1463,7 +1542,8 @@
       "body_snippet": "I was wondering what the \"top right/bottom right/middle/....\" preference \nis supposed to do?\nI've tried changing that value (and it does change in the plist file), \nbut every new quartz window always ",
       "thread_id": "thread-a978594eb91d",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005111.html"
     },
     {
       "id": "msg-4b7efa432910",
@@ -1479,7 +1559,8 @@
       "body_snippet": "R-devel compiles, builds, and passes make check with the llvm-gcc  \nfrontend.\n\nI happen to use ifort-10.1 for the fortran compiler. I have not tried  \nany fancy\noptimization options yet. Just changed ",
       "thread_id": "thread-4b7efa432910",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005114.html"
     },
     {
       "id": "msg-533f31fb897d",
@@ -1496,6 +1577,7 @@
       "thread_id": "thread-533f31fb897d",
       "thread_depth": 0,
       "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005115.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080622/7580aa5f/attachment.pl"
       ]
@@ -1516,7 +1598,8 @@
       "body_snippet": "According to the documentation, the scaling parameter 'cex' is callable \ninside plot().  However,  I can't get it to change anything.\n\nIf I set cex using par(),  the graph parameters scale appropriate",
       "thread_id": "thread-c09d5f73c665",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005116.html"
     },
     {
       "id": "msg-031392bfd11a",
@@ -1532,7 +1615,8 @@
       "body_snippet": "Here's an answer by Professor Ripley to the R-help list a few years ago to\nthe same question:\nhttp://tolstoy.newcastle.edu.au/R/help/01a/0413.html\n\nBasically, cex set using par sets the initial scale ",
       "thread_id": "thread-c09d5f73c665",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005117.html"
     },
     {
       "id": "msg-31c26ed2f380",
@@ -1551,7 +1635,8 @@
       "body_snippet": "On Mon, 23 Jun 2008, Carl Witthoft wrote:\n\n> According to the documentation, the scaling parameter 'cex' is callable \n> inside plot().  However,  I can't get it to change anything.\n\nWhich documentatio",
       "thread_id": "thread-c09d5f73c665",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005118.html"
     },
     {
       "id": "msg-a41565e4e5a5",
@@ -1567,7 +1652,8 @@
       "body_snippet": "hello,\n\nas it seems(...):\nafter a recent update of Xcode tools (I presume from the dates this is\nthe culprit) a new  (link to)\n\nlibtclstub8.4.a\n\nwas installed in /usr/lib. up to then\nR was having no d",
       "thread_id": "thread-a41565e4e5a5",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005119.html"
     },
     {
       "id": "msg-2882c6079fc1",
@@ -1585,7 +1671,8 @@
       "body_snippet": "hello again,\n\n\"answering\" my own mail to keep it in this thread:\n\nfirst, I forgot to mention the version: 2.7.0. \nbut anyway, I now updated R to 2.7.1 and the problem went away.\nnevertheless if someon",
       "thread_id": "thread-a41565e4e5a5",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005120.html"
     },
     {
       "id": "msg-dd20102972c6",
@@ -1607,7 +1694,8 @@
       "body_snippet": "Thanks to all for bringing this issue of the BioC 2.2 Max OS X binary \npackages to light, and I apologize for any inconvenience these \nnon-standard binary packages have caused the BioC user community.",
       "thread_id": "thread-25e8cc191f02",
       "thread_depth": 4,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005121.html"
     },
     {
       "id": "msg-cf2753038223",
@@ -1624,6 +1712,7 @@
       "thread_id": "thread-cf2753038223",
       "thread_depth": 0,
       "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005122.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080625/142e8ee2/attachment.pl"
       ]
@@ -1644,7 +1733,8 @@
       "body_snippet": "On Wed, Jun 25, 2008 at 10:13 AM, stephen sefick <ssefick at gmail.com> wrote:\n> 10.5.3\n> R 2.7\n>\n> the sowas package is located at :\n>\n> http://tocsy.agnld.uni-potsdam.de/wavelets/\n>\n> install.packag",
       "thread_id": "thread-cf2753038223",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005123.html"
     },
     {
       "id": "msg-bee802615a00",
@@ -1664,6 +1754,7 @@
       "thread_id": "thread-cf2753038223",
       "thread_depth": 2,
       "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005124.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20080625/553ad6c9/attachment.pl"
       ]
@@ -1682,7 +1773,8 @@
       "body_snippet": "Hi,\n\ni would like to create a minimal build of the R engine to package together with\na Java application. So far i have succeeded in doing this by compiling the R sources\nusing the following args to co",
       "thread_id": "thread-8bda30af14d5",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005125.html"
     },
     {
       "id": "msg-f827dc9da32d",
@@ -1700,7 +1792,8 @@
       "body_snippet": "On Thu, 26 Jun 2008, Marc Lohse wrote:\n\n> Hi,\n>\n> i would like to create a minimal build of the R engine to package together with\n> a Java application. So far i have succeeded in doing this by compili",
       "thread_id": "thread-8bda30af14d5",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005126.html"
     },
     {
       "id": "msg-94a118772f08",
@@ -1716,7 +1809,8 @@
       "body_snippet": "Hi everybody,\n\nI have a memory allocation problem while using  R in my macbook pro,\nwhich runs the latest leopard. I'm trying to run a monte carlo\nsimulation with 500,000 interactions, but the machine",
       "thread_id": "thread-94a118772f08",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005128.html"
     },
     {
       "id": "msg-dae4d2a9c50c",
@@ -1732,7 +1826,8 @@
       "body_snippet": "Hi,\n\nI am writing to report the error when installed the package RMySQL.\nI tried installing for like 5 times and it gives the following error  \nevery time.\n\ngzip: stdin: unexpected end of file\ntar: Un",
       "thread_id": "thread-dae4d2a9c50c",
       "thread_depth": 0,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005127.html"
     },
     {
       "id": "msg-11b9395fba77",
@@ -1750,7 +1845,8 @@
       "body_snippet": "On Sun, Jun 29, 2008 at 6:35 AM, Antonio P. Ramos\n<ramos.grad.student at gmail.com> wrote:\n> Hi everybody,\n>\n> I have a memory allocation problem while using  R in my macbook pro,\n> which runs the lat",
       "thread_id": "thread-94a118772f08",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005129.html"
     },
     {
       "id": "msg-e3186c7a3660",
@@ -1768,7 +1864,8 @@
       "body_snippet": "You get an error saying that whatever you have downloaded is not  \nreally a valid *.tar.gz file. This is most likely a download error.  \nYou could try downloading the file manually and then use R CMD ",
       "thread_id": "thread-dae4d2a9c50c",
       "thread_depth": 1,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005130.html"
     },
     {
       "id": "msg-1f61901ed603",
@@ -1787,7 +1884,8 @@
       "body_snippet": "Like Sean is aying, you most likely are using _way_ more memory than  \n1.2 GB.\n\nHowever, if you a re running 32bit R (which is the case if you use the  \nCRAN binary) R can only access 2GB, so you can ",
       "thread_id": "thread-94a118772f08",
       "thread_depth": 2,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005131.html"
     },
     {
       "id": "msg-6a96f735cfbe",
@@ -1807,7 +1905,8 @@
       "body_snippet": "On Jun 30, 2008, at 1:04 PM, Kasper Daniel Hansen wrote:\n\n> Like Sean is aying, you most likely are using _way_ more memory than  \n> 1.2 GB.\n>\n> However, if you a re running 32bit R (which is the case",
       "thread_id": "thread-94a118772f08",
       "thread_depth": 3,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005132.html"
     },
     {
       "id": "msg-fdffcf6066bf",
@@ -1828,7 +1927,8 @@
       "body_snippet": "Thanks for the clarification. How did you get that output?\n\nKasper\n\nOn Jun 30, 2008, at 10:23 AM, Simon Urbanek wrote:\n\n>\n> On Jun 30, 2008, at 1:04 PM, Kasper Daniel Hansen wrote:\n>\n>> Like Sean is a",
       "thread_id": "thread-94a118772f08",
       "thread_depth": 4,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005133.html"
     },
     {
       "id": "msg-573b014fab8b",
@@ -1850,7 +1950,8 @@
       "body_snippet": "Thanks for the comments.\n\nWhat I'm doing is very simple: I'm running an one dimensional item\nresponse model, similar to the ones use in psychology and educational\ntesting data via Markov Chain Monte C",
       "thread_id": "thread-94a118772f08",
       "thread_depth": 5,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005136.html"
     },
     {
       "id": "msg-3e369668154b",
@@ -1873,7 +1974,8 @@
       "body_snippet": "On Jun 30, 2008, at 12:07 PM, Antonio P. Ramos wrote:\n\n> Thanks for the comments.\n>\n> What I'm doing is very simple: I'm running an one dimensional item\n> response model, similar to the ones use in ps",
       "thread_id": "thread-94a118772f08",
       "thread_depth": 6,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005134.html"
     },
     {
       "id": "msg-1fc4b42f3b3b",
@@ -1897,7 +1999,8 @@
       "body_snippet": "It might be worth reminding people that gc() reports the maximum (R heap) \nmemory use as well as current memory use.\n\nThe memory profiler might also be useful for tracking down what is \nhappening, but",
       "thread_id": "thread-94a118772f08",
       "thread_depth": 7,
-      "month": "2008-06"
+      "month": "2008-06",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2008-June/005135.html"
     }
   ],
   "threads": [
