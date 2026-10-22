@@ -17,7 +17,8 @@
       "body_snippet": "Hi,\n\nI can't figure this out -- I have to (slightly different) OSX boxes\nrunning the same version of R that I grabbed from r.research.att.com a\nlittle while ago:\n\nR version 2.15.0 Patched (2012-04-18 ",
       "thread_id": "thread-fdcded968de2",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009229.html"
     },
     {
       "id": "msg-76392de9e427",
@@ -35,7 +36,8 @@
       "body_snippet": "Steve,\n\nyou can't use certain graphics devices/backends in forked processes (see multicore docs).  What is known to work is the Cairo package.\n\nCheers,\nSimon\n\n\n\nOn May 1, 2012, at 12:30 PM, Steve Lian",
       "thread_id": "thread-fdcded968de2",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009230.html"
     },
     {
       "id": "msg-b9e26f2a3b17",
@@ -54,7 +56,8 @@
       "body_snippet": "Ahh .. I see. Thanks for the pointer.\n\n-steve\n\nOn Tue, May 1, 2012 at 2:26 PM, Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n> Steve,\n>\n> you can't use certain graphics devices/backends in for",
       "thread_id": "thread-fdcded968de2",
       "thread_depth": 2,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009231.html"
     },
     {
       "id": "msg-308cce36f2e2",
@@ -70,7 +73,8 @@
       "body_snippet": "An HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120502/6d0b6036/attachment.html>",
       "thread_id": "thread-308cce36f2e2",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009232.html"
     },
     {
       "id": "msg-5a6a7de68e8d",
@@ -86,7 +90,8 @@
       "body_snippet": "Hi,\n\nI'm getting a repeatable crash with R64:\n\nR version 2.15.0 (2012-03-30)\nPlatform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n[R.app GUI 1.51 (6148) x86_64-apple-darwin9.8.0]\n\nI have two (admittedly",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009236.html"
     },
     {
       "id": "msg-3092efeecc6e",
@@ -104,7 +109,8 @@
       "body_snippet": "On May 2, 2012, at 4:59 PM, Demitri Muna wrote:\n\n> Hi,\n>\n> I'm getting a repeatable crash with R64:\n>\n> R version 2.15.0 (2012-03-30)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> [R.app GUI ",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009237.html"
     },
     {
       "id": "msg-0157d7ad8b0e",
@@ -123,7 +129,8 @@
       "body_snippet": "Hi,\n\nOn May 2, 2012, at 5:57 PM, David Winsemius wrote:\n\n> I agree that this should not crash R although your didn't really describe what that means.\n\nIt's the big \"report this to Apple\" crash. The wh",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 2,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009238.html"
     },
     {
       "id": "msg-978adf8a5004",
@@ -139,11 +146,12 @@
         "<FB1E9756-C2CB-4244-9F7A-3D00CF6EF493@r-project.org>",
         "<E86F3A1E-6927-4440-A7AE-838B9FF13DD4@gmail.com>"
       ],
-      "body_plain": "Hi Tim\n\nI encountered this recently.  If you do\n  gcc --version\nyou'll notice that you get the llvm, whereas\n  gcc-4.2 --version\ngives you the \"right\"s standard GCC.  So essentially, when you\ncompile, you need to make sure you use\n  gcc-4.2\nand\n  gfortran-4.2\nboth of which are in /usr/bin.  Note that gcc-4.2 and gcc are two\ndifferent beasts.  All of this can usually be done by doing something\nlike\n  CC=/usr/bin/gcc-4.2 ./configure\n\nKasper\n\nOutput:\ngcc --version\ni686-apple-darwin11-llvm-gcc-4.2 (GCC) 4.2.1 (Based on Apple Inc.\nbuild 5658) (LLVM build 2336.9.00)\n\ngcc-4.2 --version\ni686-apple-darwin11-gcc-4.2.1 (GCC) 4.2.1 (Apple Inc. build 5666) (dot 3)\n\n\n\nOn Tue, Apr 24, 2012 at 3:06 PM, Timothy Bates\n<timothy.c.bates at gmail.com> wrote:\n> Dear all (simon...)\n>\n> I?ve installed what I think is the recommended gcc+fortran installer pkg for Lion:\n>\n> http://r.research.att.com/tools/gcc-42-5666.3-darwin11.pkg\n>\n> but get no fortran in my /usr/local/bin and compiling an R package that needs it (http://openmx.psyc.virginia.edu) fails... no fortran.\n>\n> I _think_ i have followed the instructions on http://r.research.att.com/tools/#gcc42\n> ? ? ? ?(it?s confusing that up-to-date OS instructions are buried down in the (long) list of possible packages to install: I would be happy to help reorg this...)\n>\n>\n> gcc is fine\n> which gcc\n> /usr/local/bin/gcc\n>\n> but\n> ?gfortran\n> -bash: gfortran: command not found\n>\n>\n> config info follows... sorry for the hassle\n> t\n>\n> *** Config info ***\n>\n> Xcode 4.4 with command line tools installed\n>\n> echo $PATH\n>\n> :/usr/local/bin:/usr/local/mysql/bin/:/Users/tim/bin:/Users/tim/Applications/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/bin:/usr/local/mysql/bin:/Users/tim/bin:/Users/tim/bin/plink\n>\n>\n>\n> FYI, here?s the make trail from attempting to make OpenMx\n>\n>\n> spearman:Users tim$ cd ~/bin/OpenMx/; svn update; cd trunk/; make clean; make install; cd ..; svn status\n> At revision 2028.\n> rm -rf build/*\n> rm -rf models/passing/temp-files/*\n> rm -rf models/failing/temp-files/*\n> rm -rf build/*\n> rm -rf models/passing/temp-files/*\n> rm -rf models/failing/temp-files/*\n> cp DESCRIPTION DESCRIPTION.bak\n> sed '/Version:/d' DESCRIPTION.bak > DESCRIPTION\n> echo \"Version: \"999.0.0\"-\"2028 >> DESCRIPTION\n> cd build; R CMD build ..\n> * checking for file ?../DESCRIPTION? ... OK\n> * preparing ?OpenMx?:\n> * checking DESCRIPTION meta-information ... OK\n> * cleaning src\n> * checking for LF line-endings in source and make files\n> * checking for empty or unneeded directories\n> Removed empty directory ?OpenMx/docs/source/static/Rdoc?\n> Removed empty directory ?OpenMx/docs/source/static/demo?\n> Removed empty directory ?OpenMx/docs/source/static?\n> Removed empty directory ?OpenMx/docs/source/templates?\n> Removed empty directory ?OpenMx/inst/unit-tests?\n> Removed empty directory ?OpenMx/models/failing/temp-files?\n> Removed empty directory ?OpenMx/models/passing/temp-files?\n> Removed empty directory ?OpenMx/testsuite?\n> * looking to see if a ?data/datalist? file should be added\n> * re-saving tabular files\n> * building ?OpenMx_999.0.0-2028.tar.gz?\n>\n> mv DESCRIPTION.bak DESCRIPTION\n> cd build; R CMD INSTALL \"--configure-args=--enable-openmp\" OpenMx_999.0.0-2028.tar.gz\n> * installing to library ?/Users/tim/Library/R/2.15/library?\n> * installing *source* package ?OpenMx? ...\n> checking for gcc... gcc\n> checking whether the C compiler works... yes\n> checking for C compiler default output file name... a.out\n> checking for suffix of executables...\n> checking whether we are cross compiling... no\n> checking for suffix of object files... o\n> checking whether we are using the GNU C compiler... yes\n> checking whether gcc accepts -g... yes\n> checking for gcc option to accept ISO C89... none needed\n> checking for gcc option to support OpenMP... -fopenmp\n> checking whether gcc is installed... yes\n> checking build system type... i386-apple-darwin12.0.0\n> checking host system type... i386-apple-darwin12.0.0\n> checking for inst/npsol/osx/libnpsol.a... yes\n> configure: creating ./config.status\n> config.status: creating src/Makevars\n> config.status: executing src/omxSymbolTable.h commands\n> config.status: executing src/omxSymbolTable.c commands\n> ** libs\n> *** arch - i386\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG ?-I/usr/local/include ? -Wall -fopenmp -mmacosx-version-min=10.4 ?-fPIC ?-g -O2 ?-c merge.c -o merge.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG ?-I/usr/local/include ? -Wall -fopenmp -mmacosx-version-min=10.4 ?-fPIC ?-g -O2 ?-c npsolWrap.c -o npsolWrap.o\n> npsolWrap.c: In function ?constraintFunction_?:\n> npsolWrap.c:798:19: warning: variable ?size? set but not used [-Wunused-but-set-variable]\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG ?-I/usr/local/include ? -Wall -fopenmp -mmacosx-version-min=10.4 ?-fPIC ?-g -O2 ?-c omxAlgebra.c -o omxAlgebra.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG ?-I/usr/local/include ? -Wall -fopenmp -mmacosx-version-min=10.4 ?-fPIC ?-g -O2 ?-c omxAlgebraFunctions.c -o omxAlgebraFunctions.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG ?-I/usr/local/include ? -Wall -fopenmp -mmacosx-version-min=10.4 ?-fPIC ?-g -O2 ?-c omxAlgebraObjective.c -o omxAlgebraObjective.o\n> gfortran -arch i386 ? -fPIC ?-g -O2 ?-c omxBLAS.f -o omxBLAS.o\n> make[1]: gfortran: No such file or directory\n> make[1]: *** [omxBLAS.o] Error 1\n> ERROR: compilation failed for package ?OpenMx?\n> * removing ?/Users/tim/Library/R/2.15/library/OpenMx?\n> * restoring previous ?/Users/tim/Library/R/2.15/library/OpenMx?\n> make: *** [install] Error 1\n> ? ? ? ? typescript\n> ? ? ? ? .profile\n> ? ? ? ? trunk/demo/UnivariateTwinAnalysis_MatrixRaw_plusCov.R\n> ? ? ? ? trunk/build/OpenMx_999.0.0-2028.tar.gz\n> ? ? ? ? branches/three-matrix/src/.BC.szkLWC\n> ? ? ? ? branches/experimental/src/.BC.zDfeyx\n> spearman:OpenMx tim$\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "Hi Tim\n\nI encountered this recently.  If you do\n  gcc --version\nyou'll notice that you get the llvm, whereas\n  gcc-4.2 --version\ngives you the \"right\"s standard GCC.  So essentially, when you\ncompile, you need to make sure you use\n  gcc-4.2\nand\n  gfortran-4.2\nboth of which are in /usr/bin.  Note that gcc-4.2 and gcc are two\ndifferent beasts.  All of this can usually be done by doing something\nlike\n  CC=/usr/bin/gcc-4.2 ./configure\n\nKasper\n\nOutput:\ngcc --version\ni686-apple-darwin11-llvm-gcc-4.2 (GCC) 4.2.1 (Based on Apple Inc.\nbuild 5658) (LLVM build 2336.9.00)\n\ngcc-4.2 --version\ni686-apple-darwin11-gcc-4.2.1 (GCC) 4.2.1 (Apple Inc. build 5666) (dot 3)\n\n\n\nOn Tue, Apr 24, 2012 at 3:06 PM, Timothy Bates\n<timothy.c.bates at gmail.com> wrote:\n> Dear all (simon...)\n>\n> I’ve installed what I think is the recommended gcc+fortran installer pkg for Lion:\n>\n> http://r.research.att.com/tools/gcc-42-5666.3-darwin11.pkg\n>\n> but get no fortran in my /usr/local/bin and compiling an R package that needs it (http://openmx.psyc.virginia.edu) fails... no fortran.\n>\n> I _think_ i have followed the instructions on http://r.research.att.com/tools/#gcc42\n>        (it’s confusing that up-to-date OS instructions are buried down in the (long) list of possible packages to install: I would be happy to help reorg this...)\n>\n>\n> gcc is fine\n> which gcc\n> /usr/local/bin/gcc\n>\n> but\n>  gfortran\n> -bash: gfortran: command not found\n>\n>\n> config info follows... sorry for the hassle\n> t\n>\n> *** Config info ***\n>\n> Xcode 4.4 with command line tools installed\n>\n> echo $PATH\n>\n> :/usr/local/bin:/usr/local/mysql/bin/:/Users/tim/bin:/Users/tim/Applications/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/bin:/usr/local/mysql/bin:/Users/tim/bin:/Users/tim/bin/plink\n>\n>\n>\n> FYI, here’s the make trail from attempting to make OpenMx\n>\n>\n> spearman:Users tim$ cd ~/bin/OpenMx/; svn update; cd trunk/; make clean; make install; cd ..; svn status\n> At revision 2028.\n> rm -rf build/*\n> rm -rf models/passing/temp-files/*\n> rm -rf models/failing/temp-files/*\n> rm -rf build/*\n> rm -rf models/passing/temp-files/*\n> rm -rf models/failing/temp-files/*\n> cp DESCRIPTION DESCRIPTION.bak\n> sed '/Version:/d' DESCRIPTION.bak > DESCRIPTION\n> echo \"Version: \"999.0.0\"-\"2028 >> DESCRIPTION\n> cd build; R CMD build ..\n> * checking for file ‘../DESCRIPTION’ ... OK\n> * preparing ‘OpenMx’:\n> * checking DESCRIPTION meta-information ... OK\n> * cleaning src\n> * checking for LF line-endings in source and make files\n> * checking for empty or unneeded directories\n> Removed empty directory ‘OpenMx/docs/source/static/Rdoc’\n> Removed empty directory ‘OpenMx/docs/source/static/demo’\n> Removed empty directory ‘OpenMx/docs/source/static’\n> Removed empty directory ‘OpenMx/docs/source/templates’\n> Removed empty directory ‘OpenMx/inst/unit-tests’\n> Removed empty directory ‘OpenMx/models/failing/temp-files’\n> Removed empty directory ‘OpenMx/models/passing/temp-files’\n> Removed empty directory ‘OpenMx/testsuite’\n> * looking to see if a ‘data/datalist’ file should be added\n> * re-saving tabular files\n> * building ‘OpenMx_999.0.0-2028.tar.gz’\n>\n> mv DESCRIPTION.bak DESCRIPTION\n> cd build; R CMD INSTALL \"--configure-args=--enable-openmp\" OpenMx_999.0.0-2028.tar.gz\n> * installing to library ‘/Users/tim/Library/R/2.15/library’\n> * installing *source* package ‘OpenMx’ ...\n> checking for gcc... gcc\n> checking whether the C compiler works... yes\n> checking for C compiler default output file name... a.out\n> checking for suffix of executables...\n> checking whether we are cross compiling... no\n> checking for suffix of object files... o\n> checking whether we are using the GNU C compiler... yes\n> checking whether gcc accepts -g... yes\n> checking for gcc option to accept ISO C89... none needed\n> checking for gcc option to support OpenMP... -fopenmp\n> checking whether gcc is installed... yes\n> checking build system type... i386-apple-darwin12.0.0\n> checking host system type... i386-apple-darwin12.0.0\n> checking for inst/npsol/osx/libnpsol.a... yes\n> configure: creating ./config.status\n> config.status: creating src/Makevars\n> config.status: executing src/omxSymbolTable.h commands\n> config.status: executing src/omxSymbolTable.c commands\n> ** libs\n> *** arch - i386\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c merge.c -o merge.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c npsolWrap.c -o npsolWrap.o\n> npsolWrap.c: In function ‘constraintFunction_’:\n> npsolWrap.c:798:19: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebra.c -o omxAlgebra.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebraFunctions.c -o omxAlgebraFunctions.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebraObjective.c -o omxAlgebraObjective.o\n> gfortran -arch i386   -fPIC  -g -O2  -c omxBLAS.f -o omxBLAS.o\n> make[1]: gfortran: No such file or directory\n> make[1]: *** [omxBLAS.o] Error 1\n> ERROR: compilation failed for package ‘OpenMx’\n> * removing ‘/Users/tim/Library/R/2.15/library/OpenMx’\n> * restoring previous ‘/Users/tim/Library/R/2.15/library/OpenMx’\n> make: *** [install] Error 1\n> ? ?     typescript\n> ? ?     .profile\n> ? ?     trunk/demo/UnivariateTwinAnalysis_MatrixRaw_plusCov.R\n> ? ?     trunk/build/OpenMx_999.0.0-2028.tar.gz\n> ? ?     branches/three-matrix/src/.BC.szkLWC\n> ? ?     branches/experimental/src/.BC.zDfeyx\n> spearman:OpenMx tim$\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "Hi Tim\n\nI encountered this recently.  If you do\n  gcc --version\nyou'll notice that you get the llvm, whereas\n  gcc-4.2 --version\ngives you the \"right\"s standard GCC.  So essentially, when you\ncompile,",
       "thread_id": "thread-978adf8a5004",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009239.html"
     },
     {
       "id": "msg-6a1442eadf96",
@@ -159,11 +167,12 @@
         "<FB1E9756-C2CB-4244-9F7A-3D00CF6EF493@r-project.org>",
         "<E86F3A1E-6927-4440-A7AE-838B9FF13DD4@gmail.com>"
       ],
-      "body_plain": "On Apr 24, 2012, at 3:06 PM, Timothy Bates wrote:\n\n> Dear all (simon...)\n> \n> I?ve installed what I think is the recommended gcc+fortran installer pkg for Lion:\n> \n> http://r.research.att.com/tools/gcc-42-5666.3-darwin11.pkg \n> \n> but get no fortran in my /usr/local/bin and compiling an R package that needs it (http://openmx.psyc.virginia.edu) fails... no fortran.\n> \n> I _think_ i have followed the instructions on http://r.research.att.com/tools/#gcc42\n>        (it?s confusing that up-to-date OS instructions are buried down in the (long) list of possible packages to install: I would be happy to help reorg this...)\n> \n> \n> gcc is fine\n> which gcc\n> /usr/local/bin/gcc\n> \n\nThat is wrong - you should never see gcc from /usr/local - that is some entirely different compiler (unless you're experimenting with non-Apple compilers but then you may as well just compile Fortran ..).\n\n\n> but\n> gfortran\n> -bash: gfortran: command not found\n> \n\nAs Kasper pointed out, you may need to use gfortran-4.2 or create a symlink from gfortran to gfortran-4.2 (and probably use gcc-4.2 although either should work).\n\nCheers,\nSimon\n\n\n> config info follows... sorry for the hassle\n> t\n> \n> *** Config info ***\n> \n> Xcode 4.4 with command line tools installed\n> \n> echo $PATH\n> \n> :/usr/local/bin:/usr/local/mysql/bin/:/Users/tim/bin:/Users/tim/Applications/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/bin:/usr/local/mysql/bin:/Users/tim/bin:/Users/tim/bin/plink\n> \n> \n> \n> FYI, here?s the make trail from attempting to make OpenMx\n> \n> \n> spearman:Users tim$ cd ~/bin/OpenMx/; svn update; cd trunk/; make clean; make install; cd ..; svn status\n> At revision 2028.\n> rm -rf build/*\n> rm -rf models/passing/temp-files/*\n> rm -rf models/failing/temp-files/*\n> rm -rf build/*\n> rm -rf models/passing/temp-files/*\n> rm -rf models/failing/temp-files/*\n> cp DESCRIPTION DESCRIPTION.bak\n> sed '/Version:/d' DESCRIPTION.bak > DESCRIPTION\n> echo \"Version: \"999.0.0\"-\"2028 >> DESCRIPTION\t\n> cd build; R CMD build ..\n> * checking for file ?../DESCRIPTION? ... OK\n> * preparing ?OpenMx?:\n> * checking DESCRIPTION meta-information ... OK\n> * cleaning src\n> * checking for LF line-endings in source and make files\n> * checking for empty or unneeded directories\n> Removed empty directory ?OpenMx/docs/source/static/Rdoc?\n> Removed empty directory ?OpenMx/docs/source/static/demo?\n> Removed empty directory ?OpenMx/docs/source/static?\n> Removed empty directory ?OpenMx/docs/source/templates?\n> Removed empty directory ?OpenMx/inst/unit-tests?\n> Removed empty directory ?OpenMx/models/failing/temp-files?\n> Removed empty directory ?OpenMx/models/passing/temp-files?\n> Removed empty directory ?OpenMx/testsuite?\n> * looking to see if a ?data/datalist? file should be added\n> * re-saving tabular files\n> * building ?OpenMx_999.0.0-2028.tar.gz?\n> \n> mv DESCRIPTION.bak DESCRIPTION\n> cd build; R CMD INSTALL \"--configure-args=--enable-openmp\" OpenMx_999.0.0-2028.tar.gz  \n> * installing to library ?/Users/tim/Library/R/2.15/library?\n> * installing *source* package ?OpenMx? ...\n> checking for gcc... gcc\n> checking whether the C compiler works... yes\n> checking for C compiler default output file name... a.out\n> checking for suffix of executables... \n> checking whether we are cross compiling... no\n> checking for suffix of object files... o\n> checking whether we are using the GNU C compiler... yes\n> checking whether gcc accepts -g... yes\n> checking for gcc option to accept ISO C89... none needed\n> checking for gcc option to support OpenMP... -fopenmp\n> checking whether gcc is installed... yes\n> checking build system type... i386-apple-darwin12.0.0\n> checking host system type... i386-apple-darwin12.0.0\n> checking for inst/npsol/osx/libnpsol.a... yes\n> configure: creating ./config.status\n> config.status: creating src/Makevars\n> config.status: executing src/omxSymbolTable.h commands\n> config.status: executing src/omxSymbolTable.c commands\n> ** libs\n> *** arch - i386\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c merge.c -o merge.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c npsolWrap.c -o npsolWrap.o\n> npsolWrap.c: In function ?constraintFunction_?:\n> npsolWrap.c:798:19: warning: variable ?size? set but not used [-Wunused-but-set-variable]\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebra.c -o omxAlgebra.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebraFunctions.c -o omxAlgebraFunctions.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebraObjective.c -o omxAlgebraObjective.o\n> gfortran -arch i386   -fPIC  -g -O2  -c omxBLAS.f -o omxBLAS.o\n> make[1]: gfortran: No such file or directory\n> make[1]: *** [omxBLAS.o] Error 1\n> ERROR: compilation failed for package ?OpenMx?\n> * removing ?/Users/tim/Library/R/2.15/library/OpenMx?\n> * restoring previous ?/Users/tim/Library/R/2.15/library/OpenMx?\n> make: *** [install] Error 1\n> ?       typescript\n> ?       .profile\n> ?       trunk/demo/UnivariateTwinAnalysis_MatrixRaw_plusCov.R\n> ?       trunk/build/OpenMx_999.0.0-2028.tar.gz\n> ?       branches/three-matrix/src/.BC.szkLWC\n> ?       branches/experimental/src/.BC.zDfeyx\n> spearman:OpenMx tim$ \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
-      "body_snippet": "On Apr 24, 2012, at 3:06 PM, Timothy Bates wrote:\n\n> Dear all (simon...)\n> \n> I?ve installed what I think is the recommended gcc+fortran installer pkg for Lion:\n> \n> http://r.research.att.com/tools/gc",
+      "body_plain": "On Apr 24, 2012, at 3:06 PM, Timothy Bates wrote:\n\n> Dear all (simon...)\n> \n> I’ve installed what I think is the recommended gcc+fortran installer pkg for Lion:\n> \n> http://r.research.att.com/tools/gcc-42-5666.3-darwin11.pkg \n> \n> but get no fortran in my /usr/local/bin and compiling an R package that needs it (http://openmx.psyc.virginia.edu) fails... no fortran.\n> \n> I _think_ i have followed the instructions on http://r.research.att.com/tools/#gcc42\n>        (it’s confusing that up-to-date OS instructions are buried down in the (long) list of possible packages to install: I would be happy to help reorg this...)\n> \n> \n> gcc is fine\n> which gcc\n> /usr/local/bin/gcc\n> \n\nThat is wrong - you should never see gcc from /usr/local - that is some entirely different compiler (unless you're experimenting with non-Apple compilers but then you may as well just compile Fortran ..).\n\n\n> but\n> gfortran\n> -bash: gfortran: command not found\n> \n\nAs Kasper pointed out, you may need to use gfortran-4.2 or create a symlink from gfortran to gfortran-4.2 (and probably use gcc-4.2 although either should work).\n\nCheers,\nSimon\n\n\n> config info follows... sorry for the hassle\n> t\n> \n> *** Config info ***\n> \n> Xcode 4.4 with command line tools installed\n> \n> echo $PATH\n> \n> :/usr/local/bin:/usr/local/mysql/bin/:/Users/tim/bin:/Users/tim/Applications/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/bin:/usr/local/mysql/bin:/Users/tim/bin:/Users/tim/bin/plink\n> \n> \n> \n> FYI, here’s the make trail from attempting to make OpenMx\n> \n> \n> spearman:Users tim$ cd ~/bin/OpenMx/; svn update; cd trunk/; make clean; make install; cd ..; svn status\n> At revision 2028.\n> rm -rf build/*\n> rm -rf models/passing/temp-files/*\n> rm -rf models/failing/temp-files/*\n> rm -rf build/*\n> rm -rf models/passing/temp-files/*\n> rm -rf models/failing/temp-files/*\n> cp DESCRIPTION DESCRIPTION.bak\n> sed '/Version:/d' DESCRIPTION.bak > DESCRIPTION\n> echo \"Version: \"999.0.0\"-\"2028 >> DESCRIPTION\t\n> cd build; R CMD build ..\n> * checking for file ‘../DESCRIPTION’ ... OK\n> * preparing ‘OpenMx’:\n> * checking DESCRIPTION meta-information ... OK\n> * cleaning src\n> * checking for LF line-endings in source and make files\n> * checking for empty or unneeded directories\n> Removed empty directory ‘OpenMx/docs/source/static/Rdoc’\n> Removed empty directory ‘OpenMx/docs/source/static/demo’\n> Removed empty directory ‘OpenMx/docs/source/static’\n> Removed empty directory ‘OpenMx/docs/source/templates’\n> Removed empty directory ‘OpenMx/inst/unit-tests’\n> Removed empty directory ‘OpenMx/models/failing/temp-files’\n> Removed empty directory ‘OpenMx/models/passing/temp-files’\n> Removed empty directory ‘OpenMx/testsuite’\n> * looking to see if a ‘data/datalist’ file should be added\n> * re-saving tabular files\n> * building ‘OpenMx_999.0.0-2028.tar.gz’\n> \n> mv DESCRIPTION.bak DESCRIPTION\n> cd build; R CMD INSTALL \"--configure-args=--enable-openmp\" OpenMx_999.0.0-2028.tar.gz  \n> * installing to library ‘/Users/tim/Library/R/2.15/library’\n> * installing *source* package ‘OpenMx’ ...\n> checking for gcc... gcc\n> checking whether the C compiler works... yes\n> checking for C compiler default output file name... a.out\n> checking for suffix of executables... \n> checking whether we are cross compiling... no\n> checking for suffix of object files... o\n> checking whether we are using the GNU C compiler... yes\n> checking whether gcc accepts -g... yes\n> checking for gcc option to accept ISO C89... none needed\n> checking for gcc option to support OpenMP... -fopenmp\n> checking whether gcc is installed... yes\n> checking build system type... i386-apple-darwin12.0.0\n> checking host system type... i386-apple-darwin12.0.0\n> checking for inst/npsol/osx/libnpsol.a... yes\n> configure: creating ./config.status\n> config.status: creating src/Makevars\n> config.status: executing src/omxSymbolTable.h commands\n> config.status: executing src/omxSymbolTable.c commands\n> ** libs\n> *** arch - i386\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c merge.c -o merge.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c npsolWrap.c -o npsolWrap.o\n> npsolWrap.c: In function ‘constraintFunction_’:\n> npsolWrap.c:798:19: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebra.c -o omxAlgebra.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebraFunctions.c -o omxAlgebraFunctions.o\n> gcc -arch i386 -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include -I/Library/Frameworks/R.framework/Resources/include/i386 -DNDEBUG  -I/usr/local/include   -Wall -fopenmp -mmacosx-version-min=10.4  -fPIC  -g -O2  -c omxAlgebraObjective.c -o omxAlgebraObjective.o\n> gfortran -arch i386   -fPIC  -g -O2  -c omxBLAS.f -o omxBLAS.o\n> make[1]: gfortran: No such file or directory\n> make[1]: *** [omxBLAS.o] Error 1\n> ERROR: compilation failed for package ‘OpenMx’\n> * removing ‘/Users/tim/Library/R/2.15/library/OpenMx’\n> * restoring previous ‘/Users/tim/Library/R/2.15/library/OpenMx’\n> make: *** [install] Error 1\n> ?       typescript\n> ?       .profile\n> ?       trunk/demo/UnivariateTwinAnalysis_MatrixRaw_plusCov.R\n> ?       trunk/build/OpenMx_999.0.0-2028.tar.gz\n> ?       branches/three-matrix/src/.BC.szkLWC\n> ?       branches/experimental/src/.BC.zDfeyx\n> spearman:OpenMx tim$ \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_snippet": "On Apr 24, 2012, at 3:06 PM, Timothy Bates wrote:\n\n> Dear all (simon...)\n> \n> I’ve installed what I think is the recommended gcc+fortran installer pkg for Lion:\n> \n> http://r.research.att.com/tools/gc",
       "thread_id": "thread-6a1442eadf96",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009240.html"
     },
     {
       "id": "msg-13e35145ca46",
@@ -183,7 +192,8 @@
       "body_snippet": "On May 2, 2012, at 6:11 PM, Demitri Muna wrote:\n\n> Hi,\n>\n> On May 2, 2012, at 5:57 PM, David Winsemius wrote:\n>\n>> I agree that this should not crash R although your didn't really  \n>> describe what t",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 3,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009241.html"
     },
     {
       "id": "msg-1fb0a693a70a",
@@ -204,7 +214,8 @@
       "body_snippet": "On May 2, 2012, at 11:24 PM, David Winsemius wrote:\n\n> I'm the only one who got that zipped file and I'm not planning on opening a potentially executable file on this machine.\n\nThe attachment arrived ",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 4,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009242.html"
     },
     {
       "id": "msg-736060acaa80",
@@ -225,7 +236,8 @@
       "body_snippet": "On May 2, 2012, at 11:24 PM, David Winsemius wrote:\n\n> \n> On May 2, 2012, at 6:11 PM, Demitri Muna wrote:\n> \n>> Hi,\n>> \n>> On May 2, 2012, at 5:57 PM, David Winsemius wrote:\n>> \n>>> I agree that this ",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 4,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009243.html"
     },
     {
       "id": "msg-9e299d2c0582",
@@ -247,7 +259,8 @@
       "body_snippet": "On May 2, 2012, at 11:35 PM, Demitri Muna wrote:\n\n> \n> On May 2, 2012, at 11:24 PM, David Winsemius wrote:\n> \n>> I'm the only one who got that zipped file and I'm not planning on opening a potentially",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 5,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009244.html"
     },
     {
       "id": "msg-26523abcefa2",
@@ -269,7 +282,8 @@
       "body_snippet": "On May 3, 2012, at 8:34 AM, Simon Urbanek wrote:\n\n>\n> On May 2, 2012, at 11:24 PM, David Winsemius wrote:\n>\n>>\n>> On May 2, 2012, at 6:11 PM, Demitri Muna wrote:\n>>\n>>> Hi,\n>>>\n>>> On May 2, 2012, at ",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 5,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009245.html"
     },
     {
       "id": "msg-81843dc4f231",
@@ -292,7 +306,8 @@
       "body_snippet": "On May 3, 2012, at 9:51 AM, David Winsemius wrote:\n\n> \n> On May 3, 2012, at 8:34 AM, Simon Urbanek wrote:\n> \n>> \n>> On May 2, 2012, at 11:24 PM, David Winsemius wrote:\n>> \n>>> \n>>> On May 2, 2012, at ",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 6,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009246.html"
     },
     {
       "id": "msg-13f7e0cce029",
@@ -315,7 +330,8 @@
       "body_snippet": "Hi Simon,\n\nOn May 3, 2012, at 9:45 AM, Simon Urbanek wrote:\n\n> That said, I cannot reproduce your problem. I tried copy/paste from TextEdit, I tried copy/paste from the R editor, I tried <Cmd><Enter> ",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 6,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009247.html"
     },
     {
       "id": "msg-b3be308f0627",
@@ -339,7 +355,8 @@
       "body_snippet": "On May 3, 2012, at 11:55 AM, Demitri Muna wrote:\n\n> Hi Simon,\n> \n> On May 3, 2012, at 9:45 AM, Simon Urbanek wrote:\n> \n>> That said, I cannot reproduce your problem. I tried copy/paste from TextEdit, ",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 7,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009248.html"
     },
     {
       "id": "msg-0dab8147eeac",
@@ -364,7 +381,8 @@
       "body_snippet": "Hi Demitri,\n\ncould you please disable in R's preference > Editor > \"Show line numbers\" and then try it again. Does R.app crash?\n\nIt seems that this is an issue of wrapping text in conjunction with lin",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 8,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009249.html"
     },
     {
       "id": "msg-6d25b2913567",
@@ -382,7 +400,8 @@
       "body_snippet": "Simon's response may have misled some folks:\n\nNaive Windows users (redundant?)  don't understand either icon \nrelationships or how to display full file names.  Those \"bad\" zip files \nare actually \"sne",
       "thread_id": "thread-6d25b2913567",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009250.html"
     },
     {
       "id": "msg-b9a81008703a",
@@ -404,11 +423,12 @@
         "<AC04CD6B-A599-4EFA-BFE4-7F4E7F8396B8@r-project.org>",
         "<456E7976-9AFB-43CA-A473-1B4557F1D381@eva.mpg.de>"
       ],
-      "body_plain": "Hi Hans,\n\nOn May 3, 2012, at 2:35 PM, Hans-J?rg Bibiko wrote:\n\n> could you please disable in R's preference > Editor > \"Show line numbers\" and then try it again. Does R.app crash?\n> \n> It seems that this is an issue of wrapping text in conjunction with line numbering.\n\nI turned off the line numbers and still get the crash.\n\nDemitri",
-      "body_snippet": "Hi Hans,\n\nOn May 3, 2012, at 2:35 PM, Hans-J?rg Bibiko wrote:\n\n> could you please disable in R's preference > Editor > \"Show line numbers\" and then try it again. Does R.app crash?\n> \n> It seems that t",
+      "body_plain": "Hi Hans,\n\nOn May 3, 2012, at 2:35 PM, Hans-Jörg Bibiko wrote:\n\n> could you please disable in R's preference > Editor > \"Show line numbers\" and then try it again. Does R.app crash?\n> \n> It seems that this is an issue of wrapping text in conjunction with line numbering.\n\nI turned off the line numbers and still get the crash.\n\nDemitri",
+      "body_snippet": "Hi Hans,\n\nOn May 3, 2012, at 2:35 PM, Hans-Jörg Bibiko wrote:\n\n> could you please disable in R's preference > Editor > \"Show line numbers\" and then try it again. Does R.app crash?\n> \n> It seems that t",
       "thread_id": "thread-5a6a7de68e8d",
       "thread_depth": 9,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009251.html"
     },
     {
       "id": "msg-52656aef12f7",
@@ -425,6 +445,7 @@
       "thread_id": "thread-52656aef12f7",
       "thread_depth": 0,
       "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009252.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120507/10204758/attachment.pl"
       ]
@@ -445,7 +466,8 @@
       "body_snippet": "Carl,\n\nOn May 7, 2012, at 1:04 PM, Carl pfisterer wrote:\n\n> I have gotten FastRWeb working on Mac OS X 10.5 but I have a few of questions.  Is it possible to send more than one argument to run(...)?\n\n",
       "thread_id": "thread-52656aef12f7",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009253.html"
     },
     {
       "id": "msg-090f3299abeb",
@@ -465,6 +487,7 @@
       "thread_id": "thread-52656aef12f7",
       "thread_depth": 2,
       "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009254.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120507/1b9568a8/attachment.pl"
       ]
@@ -487,7 +510,8 @@
       "body_snippet": "On May 7, 2012, at 3:49 PM, Carl pfisterer wrote:\n\n> Thanks Simon, that helps a lot.  With respect to my last question, I have a cgi script that gets user input from a form, then plots the data in R. ",
       "thread_id": "thread-52656aef12f7",
       "thread_depth": 3,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009255.html"
     },
     {
       "id": "msg-cbc3a21be13d",
@@ -503,7 +527,8 @@
       "body_snippet": "Hello all,\n\nI am in the process of installing the latest CRAN repository versions\nof Rserve (0.6-8) and FastRWeb (1.0-1) on MacOS 10.6.8 machine. I have\ninstalled Rserve and verified that it can start",
       "thread_id": "thread-cbc3a21be13d",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009256.html"
     },
     {
       "id": "msg-e29c7e297574",
@@ -521,7 +546,8 @@
       "body_snippet": "Joe,\n\nOn May 8, 2012, at 8:53 AM, Joe Schwab wrote:\n\n> Hello all,\n> \n> I am in the process of installing the latest CRAN repository versions of Rserve (0.6-8) and FastRWeb (1.0-1) on MacOS 10.6.8 mach",
       "thread_id": "thread-cbc3a21be13d",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009257.html"
     },
     {
       "id": "msg-b56783b50a91",
@@ -541,6 +567,7 @@
       "thread_id": "thread-cbc3a21be13d",
       "thread_depth": 2,
       "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009258.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120508/355a2092/attachment.pl"
       ]
@@ -562,7 +589,8 @@
       "body_snippet": "Simon,\n\nThanks for the help. It was indeed a permissions issue. Thanks for\nguiding me in the right direction. Also I will make sure to direct any\nfuture questions to the mailing list you mentioned. Th",
       "thread_id": "thread-cbc3a21be13d",
       "thread_depth": 2,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009259.html"
     },
     {
       "id": "msg-b3fc359f028b",
@@ -578,7 +606,8 @@
       "body_snippet": "Hi,\n\non a R64 R.app [R.app GUI 1.52 (6153) x86_64-apple-darwin9.8.0] the R.app stops responding and has to be force quit if I try to install any Bioconductor package.\n\nsessionInfo()\nR version 2.15.0 (",
       "thread_id": "thread-b3fc359f028b",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009260.html"
     },
     {
       "id": "msg-66bf410849b1",
@@ -596,7 +625,8 @@
       "body_snippet": "mmm, might it be that I get this warning if I istall things with biocLite\n\nWarning: unable to access index for repository http://brainarray.mbni.med.umich.edu/bioc/bin/macosx/leopard/contrib/2.15\n \n?\n",
       "thread_id": "thread-b3fc359f028b",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009261.html"
     },
     {
       "id": "msg-a84bc723b5a6",
@@ -614,7 +644,8 @@
       "body_snippet": "On May 10, 2012, at 12:05 PM, Federico Calboli wrote:\n\n> Hi,\n> \n> on a R64 R.app [R.app GUI 1.52 (6153) x86_64-apple-darwin9.8.0] the R.app stops responding and has to be force quit if I try to instal",
       "thread_id": "thread-b3fc359f028b",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009262.html"
     },
     {
       "id": "msg-b1d13ebafd1b",
@@ -636,6 +667,7 @@
       "thread_id": "thread-52656aef12f7",
       "thread_depth": 4,
       "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009263.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120510/e81b830c/attachment.pl"
       ]
@@ -661,6 +693,7 @@
       "thread_id": "thread-52656aef12f7",
       "thread_depth": 5,
       "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009264.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120510/a046c64c/attachment.pl"
       ]
@@ -679,7 +712,8 @@
       "body_snippet": "Suppose I have the following very simple ~/.Rprofile\n\n.First <- function(){\n    assign(\"e\", exp(1), .GlobalEnv)\n    lockBinding(\"e\", .GlobalEnv)\n}\n\nIf I start R from the terminal, all is fine, but if ",
       "thread_id": "thread-d27372fd3417",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009265.html"
     },
     {
       "id": "msg-096db4e0f75b",
@@ -697,7 +731,8 @@
       "body_snippet": "On May 16, 2012, at 1:10 PM, R. Michael Weylandt wrote:\n\n> Suppose I have the following very simple ~/.Rprofile\n> \n> .First <- function(){\n>    assign(\"e\", exp(1), .GlobalEnv)\n>    lockBinding(\"e\", .G",
       "thread_id": "thread-d27372fd3417",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009266.html"
     },
     {
       "id": "msg-be683ec1a024",
@@ -716,7 +751,8 @@
       "body_snippet": "On Wed, May 16, 2012 at 3:04 PM, Simon Urbanek\n<simon.urbanek at r-project.org> wrote:\n> On May 16, 2012, at 1:10 PM, R. Michael Weylandt wrote:\n>\n>> Suppose I have the following very simple ~/.Rprofi",
       "thread_id": "thread-d27372fd3417",
       "thread_depth": 2,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009267.html"
     },
     {
       "id": "msg-108db5ac8406",
@@ -736,7 +772,8 @@
       "body_snippet": "On May 16, 2012, at 7:09 PM, R. Michael Weylandt wrote:\n\n> On Wed, May 16, 2012 at 3:04 PM, Simon Urbanek\n> <simon.urbanek at r-project.org> wrote:\n>> On May 16, 2012, at 1:10 PM, R. Michael Weylandt ",
       "thread_id": "thread-d27372fd3417",
       "thread_depth": 3,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009268.html"
     },
     {
       "id": "msg-54e2eabef0db",
@@ -753,6 +790,7 @@
       "thread_id": "thread-54e2eabef0db",
       "thread_depth": 0,
       "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009269.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120518/71fbc385/attachment.pl"
       ]
@@ -769,11 +807,12 @@
       "references": [
         "<725FB22F-16EB-4230-AB33-630D110E545E@mpifg.de>"
       ],
-      "body_plain": "On May 18, 2012, at 12:34 PM, de Larminat, Pierre wrote:\n\n> Hello everyone,\n> \n> I have trouble installing the rgdal package.\n> I run R 2.15.0 on Mac OS 10.6.8.\n> \n> I followed the instructions given by Roger Bivand, who develops rgdal and ran:\n>> library(sp);\n>> setRepositories(ind=1:2)\n>> install.packages(\"rgdal\")\n> --- SVP s?lectionner un miroir CRAN pour cette session ---\n> essai de l'URL 'http://www.stats.ox.ac.uk/pub/RWin/bin/macosx/leopard/contrib/2.15/rgdal_0.7-8.tgz'\n> Content type 'application/x-gzip' length 13810017 bytes (13.2 Mb)\n> URL ouverte\n> ==================================================\n> downloaded 13.2 Mb\n> \n> It seemed to be OK, but when I try to call rgdal, I get:\n>> library(rgdal)\n> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>  impossible de charger l'objet partag? '/Library/Frameworks/R.framework/Versions/2.15/Resources/library/rgdal/libs/i386/rgdal.so':\n>  dlopen(/Library/Frameworks/R.framework/Versions/2.15/Resources/library/rgdal/libs/i386/rgdal.so, 6): Library not loaded: /usr/lib/libcurl.4.dylib\n>  Referenced from: /Library/Frameworks/R.framework/Versions/2.15/Resources/library/rgdal/libs/i386/rgdal.so\n>  Reason: Incompatible library version: rgdal.so requires version 7.0.0 or later, but libcurl.4.dylib provides version 6.0.0\n> Erreur : le chargement du package / espace de noms a ?chou? pour ?rgdal?\n> \n> It seems that the problem comes from libcurl.4.dylib.\n> \n> Does anyone know what I should do?\n> \n\nPlease wait for the CRAN version, it should be up today or tomorrow. Alternatively you can upgrade you system (we will be removing Leopard support soon anyway). My understanding is that the CRANextras binaries are now cross-compiled, so they don't always work on Leopard anymore.\n\nCheers,\nSimon\n\n\n> Thank you very much,\n> Pierre.\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "On May 18, 2012, at 12:34 PM, de Larminat, Pierre wrote:\n\n> Hello everyone,\n> \n> I have trouble installing the rgdal package.\n> I run R 2.15.0 on Mac OS 10.6.8.\n> \n> I followed the instructions given by Roger Bivand, who develops rgdal and ran:\n>> library(sp);\n>> setRepositories(ind=1:2)\n>> install.packages(\"rgdal\")\n> --- SVP sélectionner un miroir CRAN pour cette session ---\n> essai de l'URL 'http://www.stats.ox.ac.uk/pub/RWin/bin/macosx/leopard/contrib/2.15/rgdal_0.7-8.tgz'\n> Content type 'application/x-gzip' length 13810017 bytes (13.2 Mb)\n> URL ouverte\n> ==================================================\n> downloaded 13.2 Mb\n> \n> It seemed to be OK, but when I try to call rgdal, I get:\n>> library(rgdal)\n> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>  impossible de charger l'objet partagé '/Library/Frameworks/R.framework/Versions/2.15/Resources/library/rgdal/libs/i386/rgdal.so':\n>  dlopen(/Library/Frameworks/R.framework/Versions/2.15/Resources/library/rgdal/libs/i386/rgdal.so, 6): Library not loaded: /usr/lib/libcurl.4.dylib\n>  Referenced from: /Library/Frameworks/R.framework/Versions/2.15/Resources/library/rgdal/libs/i386/rgdal.so\n>  Reason: Incompatible library version: rgdal.so requires version 7.0.0 or later, but libcurl.4.dylib provides version 6.0.0\n> Erreur : le chargement du package / espace de noms a échoué pour Œrgdal‚\n> \n> It seems that the problem comes from libcurl.4.dylib.\n> \n> Does anyone know what I should do?\n> \n\nPlease wait for the CRAN version, it should be up today or tomorrow. Alternatively you can upgrade you system (we will be removing Leopard support soon anyway). My understanding is that the CRANextras binaries are now cross-compiled, so they don't always work on Leopard anymore.\n\nCheers,\nSimon\n\n\n> Thank you very much,\n> Pierre.\n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "On May 18, 2012, at 12:34 PM, de Larminat, Pierre wrote:\n\n> Hello everyone,\n> \n> I have trouble installing the rgdal package.\n> I run R 2.15.0 on Mac OS 10.6.8.\n> \n> I followed the instructions given ",
       "thread_id": "thread-54e2eabef0db",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009270.html"
     },
     {
       "id": "msg-a730e6e559ac",
@@ -790,6 +829,7 @@
       "thread_id": "thread-a730e6e559ac",
       "thread_depth": 0,
       "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009271.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120523/9c49cc88/attachment.pl"
       ]
@@ -811,6 +851,7 @@
       "thread_id": "thread-a730e6e559ac",
       "thread_depth": 1,
       "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009272.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20120523/35255293/attachment.pl"
       ]
@@ -829,7 +870,8 @@
       "body_snippet": "I haven't built R on Mac OS in a while, and now when I try the build \nfails with\n\nmkdir ../../../../library/tools/libs\ndyld: lazy symbol binding failed: Symbol not found: _libiconv_open\n   Referenced ",
       "thread_id": "thread-fe48738595b5",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009273.html"
     },
     {
       "id": "msg-de0be10a659d",
@@ -847,7 +889,8 @@
       "body_snippet": "On May 30, 2012, at 12:54 PM, Duncan Murdoch wrote:\n\n> I haven't built R on Mac OS in a while, and now when I try the build fails with\n> \n> mkdir ../../../../library/tools/libs\n> dyld: lazy symbol bin",
       "thread_id": "thread-fe48738595b5",
       "thread_depth": 1,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009274.html"
     },
     {
       "id": "msg-693a0f6a8bbe",
@@ -866,7 +909,8 @@
       "body_snippet": "On 30/05/2012 1:29 PM, Simon Urbanek wrote:\n> On May 30, 2012, at 12:54 PM, Duncan Murdoch wrote:\n>\n> >  I haven't built R on Mac OS in a while, and now when I try the build fails with\n> >\n> >  mkdir ",
       "thread_id": "thread-fe48738595b5",
       "thread_depth": 2,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009275.html"
     },
     {
       "id": "msg-0413c8757ef9",
@@ -882,7 +926,8 @@
       "body_snippet": "Hi,\n\nOn a Linux box running Red Hat Linux and R 2.14.1 I call iconv with a character string specifying to = \"LATIN1\".  The resulting string contains a \\xa0 after 180 characters.  This character is not",
       "thread_id": "thread-0413c8757ef9",
       "thread_depth": 0,
-      "month": "2012-05"
+      "month": "2012-05",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-May/009276.html"
     }
   ],
   "threads": [

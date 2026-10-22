@@ -19,7 +19,8 @@
       "body_snippet": "I can confirm this behavior on my mac since at least R 2.11.0, OS X\n10.6.8 to 10.9.2. It's been driving me nuts. The window is actually in\nthe front and you can type in it, but you can't see it until ",
       "thread_id": "thread-7f68a23a68ea",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010764.html"
     },
     {
       "id": "msg-63c2d1c9405d",
@@ -37,7 +38,8 @@
       "body_snippet": "I've seen this happen with arbitrary windows belonging to arbitrary apps,  so it may not be an R.app-specific bug.   In the grand scheme of things (i.e., 'hey, at least it's not Windows8!!),  I view t",
       "thread_id": "thread-63c2d1c9405d",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010765.html"
     },
     {
       "id": "msg-750a62b8a723",
@@ -53,7 +55,8 @@
       "body_snippet": "I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the ",
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010766.html"
     },
     {
       "id": "msg-67ceec34153d",
@@ -71,7 +74,8 @@
       "body_snippet": "Package ptinpoly has generated hangs/segfaults in its checks for years, \nacross platforms.  That is why there are all the exclusions at \nhttp://cran.r-project.org/web/checks/check_results_ptinpoly.htm",
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010767.html"
     },
     {
       "id": "msg-e6a0690b3206",
@@ -91,6 +95,7 @@
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 2,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010768.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140402/ef3de7b2/attachment.pl"
       ]
@@ -105,11 +110,12 @@
       "subject_clean": "trouble with point in polyhedron\tcomputation",
       "in_reply_to": "<670D7A1F-D441-4F2A-A482-665454CA358E@u.washington.edu>",
       "references": [],
-      "body_plain": "Hi,\nIf i got it right, the original question can be addressed somewhat with inashape3d (alphashape3d package), something like:\nlibrary(alphashape3d)\nset1 <- matrix(rnorm(333)/2,ncol=3)\nplot3d(set1)\nashape3d.obj <- ashape3d(set1, alpha = 2)\nset2 <- matrix(rnorm(33)/2,ncol=3)\nin3d <- inashape3d(ashape3d.obj, points = set2)\nplot(ashape3d.obj, transparency = 0.2)\nrgl.points(points[in3d,], col =\"blue\")\n\nOn Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu> wrote: \n \n> Thank you for the pointer.  That?s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n> \n> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> > Package ptinpoly has generated hangs/segfaults in its checks for years, across platforms.  That is why there are all the exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html .\n> > \n> > On 03/04/2014 01:48, Don McKenzie wrote:\n> >> I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the end (below in a toy example) crashes R when I try to ID the points in the hull using pip3d(), from package ptinpoly. convhulln() is from package geometry.  Have I not supplied the right ?Faces? argument to pip3d()?\n> >> \n> >> The objects are not large and are reproduced at the bottom of this message.\n> >> \n> >> Thanks\n> >> \n> >> ------------------------\n> >>> sessionInfo()\n> >> R version 3.0.3 (2014-03-06)\n> >> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n> >> \n> >> locale:\n> >> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> >> \n> >> attached base packages:\n> >> [1] stats     graphics  grDevices utils     datasets  methods   base\n> >> \n> >> other attached packages:\n> >> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6    abind_1.4-0\n> >> \n> >> loaded via a namespace (and not attached):\n> >> [1] tools_3.0.3\n> >> \n> >> ??\n> >> \n> >>> set1 <- matrix(rnorm(99),ncol=3)\n> >>> ch1 <- convhulln(set1)\n> >> \n> >> Output completed.  Verifying that all points are below outer planes of\n> >> all facets.  Will make 594 distance computations.\n> >> \n> >>> set2 <- matrix(rnorm(33)/2,ncol=3)\n> >> \n> >>> temp.out <- pip3d(set1,ch1,set2)\n> >> \n> >> R CRASHES HERE\n> >> \n> >> ----------------------------------\n> >> \n> >> \n> >> Don McKenzie\n> >> Research Ecologist\n> >> Pacific Wildland Fire Sciences Lab\n> >> US Forest Service\n> >> \n> >> Affiliate Professor\n> >> School of Environmental and Forest Sciences\n> >> University of Washington\n> >> dmck at uw.edu\n> >> \n> >> \n> >> \n> >> ????????????????\n> >> \n> >> set1\n> >>              [,1]        [,2]        [,3]\n> >>  [1,] -0.36381788  0.96624676 -1.09251167\n> >>  [2,] -1.09242946 -0.82002293  0.42005666\n> >>  [3,]  0.93852498  1.18059117 -0.34816811\n> >>  [4,] -0.77413132  1.06018374 -0.37589340\n> >>  [5,] -1.67759103 -1.52469985  0.85310979\n> >>  [6,]  0.81729494 -0.18900503  0.83172169\n> >>  [7,]  0.30546957  0.97549183 -1.30815121\n> >>  [8,]  0.22201517 -0.38260850 -0.05412764\n> >>  [9,]  0.48817331  1.30314678  0.19143994\n> >> [10,]  1.89836307 -0.34575059  0.55599170\n> >> [11,]  0.20776401  0.04977816 -0.78034565\n> >> [12,] -0.76819740  0.24554574  0.40398017\n> >> [13,]  0.38369531  1.07688341 -0.22686023\n> >> [14,]  0.31806928  1.15482656 -0.99259846\n> >> [15,]  1.07142182 -1.03495199 -0.15650968\n> >> [16,] -1.24667302 -0.35217160  0.71090188\n> >> [17,] -0.92079326 -1.44075490 -0.42838857\n> >> [18,]  0.16907840  0.37587569  1.34994069\n> >> [19,]  0.50947015  1.81852997 -1.83315646\n> >> [20,]  0.52015187  1.56904146  0.90679914\n> >> [21,] -0.04261864 -1.22145642  0.51953397\n> >> [22,] -0.86611946 -1.21106313 -0.86571463\n> >> [23,] -0.13147715  0.07893287  0.83513033\n> >> [24,] -0.63488792 -0.89396994  0.70103420\n> >> [25,] -0.11370015  2.00351619 -0.17652412\n> >> [26,] -1.04527261 -0.14570830  1.64893662\n> >> [27,]  0.46238598 -0.07990767  0.16431874\n> >> [28,] -0.72396505  1.45081393 -0.91068823\n> >> [29,] -0.48892499 -1.05289633  1.36531224\n> >> [30,]  1.83781721  1.50964339  1.85100986\n> >> [31,]  1.00023790 -0.92779325 -2.16783507\n> >> [32,] -0.51429532 -1.44766548 -1.41456589\n> >> [33,] -0.93249545 -0.21845332  0.75023990\n> >> \n> >>> ch1\n> >>       [,1] [,2] [,3]\n> >>  [1,]   15   31   10\n> >>  [2,]   29   30   10\n> >>  [3,]   29   15   10\n> >>  [4,]   26   28   25\n> >>  [5,]   26   29    5\n> >>  [6,]   26   29   30\n> >>  [7,]   32   15   31\n> >>  [8,]   19   28   25\n> >>  [9,]   19   32   31\n> >> [10,]   19   32   28\n> >> [11,]   19   30   25\n> >> [12,]   19   31   10\n> >> [13,]   19   30   10\n> >> [14,]   21   29    5\n> >> [15,]   21   29   15\n> >> [16,]   21   32    5\n> >> [17,]   21   32   15\n> >> [18,]   20   30   25\n> >> [19,]   20   26   25\n> >> [20,]   20   26   30\n> >> [21,]   16   28    5\n> >> [22,]   16   26    5\n> >> [23,]   16   26   28\n> >> [24,]   22   28    5\n> >> [25,]   22   32    5\n> >> [26,]   22   32   28\n> >> \n> >>> set2\n> >>               [,1]         [,2]        [,3]\n> >>  [1,]  0.061298933  0.561676607 -0.29029312\n> >>  [2,] -0.227292687  0.980185118  0.21751216\n> >>  [3,]  0.182482967  0.913803801 -0.08308208\n> >>  [4,] -0.143596376 -0.007469921 -0.33050543\n> >>  [5,] -0.354096826  0.023132113  0.45463150\n> >>  [6,]  0.006247011  0.183155253  0.97496500\n> >>  [7,]  0.128600720 -0.249603537 -0.24710206\n> >>  [8,] -0.418782299 -0.325201099  0.28908138\n> >>  [9,]  0.231829464  0.343250895  0.65134735\n> >> [10,] -0.392597726  0.126741875  0.21411363\n> >> [11,] -0.051290704 -1.007826669  0.92808143\n> >> \n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >> \n> > \n> > \n> > -- \n> > Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> > Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> > University of Oxford,             Tel:  +44 1865 272861 (self)\n> > 1 South Parks Road,                     +44 1865 272866 (PA)\n> > Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n> \n> Don McKenzie\n> Research Ecologist\n> Pacific Wildland Fire Sciences Lab\n> US Forest Service\n> \n> Affiliate Professor\n> School of Environmental and Forest Sciences\n> University of Washington\n> dmck at uw.edu\n> \n> \n> \n> \n> \n> \t[[alternative HTML version deleted]]\n>",
+      "body_plain": "Hi,\nIf i got it right, the original question can be addressed somewhat with inashape3d (alphashape3d package), something like:\nlibrary(alphashape3d)\nset1 <- matrix(rnorm(333)/2,ncol=3)\nplot3d(set1)\nashape3d.obj <- ashape3d(set1, alpha = 2)\nset2 <- matrix(rnorm(33)/2,ncol=3)\nin3d <- inashape3d(ashape3d.obj, points = set2)\nplot(ashape3d.obj, transparency = 0.2)\nrgl.points(points[in3d,], col =\"blue\")\n\nOn Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu> wrote: \n \n> Thank you for the pointer.  That’s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n> \n> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n> \n> > Package ptinpoly has generated hangs/segfaults in its checks for years, across platforms.  That is why there are all the exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html .\n> > \n> > On 03/04/2014 01:48, Don McKenzie wrote:\n> >> I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the end (below in a toy example) crashes R when I try to ID the points in the hull using pip3d(), from package ptinpoly. convhulln() is from package geometry.  Have I not supplied the right “Faces” argument to pip3d()?\n> >> \n> >> The objects are not large and are reproduced at the bottom of this message.\n> >> \n> >> Thanks\n> >> \n> >> ------------------------\n> >>> sessionInfo()\n> >> R version 3.0.3 (2014-03-06)\n> >> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n> >> \n> >> locale:\n> >> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n> >> \n> >> attached base packages:\n> >> [1] stats     graphics  grDevices utils     datasets  methods   base\n> >> \n> >> other attached packages:\n> >> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6    abind_1.4-0\n> >> \n> >> loaded via a namespace (and not attached):\n> >> [1] tools_3.0.3\n> >> \n> >> ——\n> >> \n> >>> set1 <- matrix(rnorm(99),ncol=3)\n> >>> ch1 <- convhulln(set1)\n> >> \n> >> Output completed.  Verifying that all points are below outer planes of\n> >> all facets.  Will make 594 distance computations.\n> >> \n> >>> set2 <- matrix(rnorm(33)/2,ncol=3)\n> >> \n> >>> temp.out <- pip3d(set1,ch1,set2)\n> >> \n> >> R CRASHES HERE\n> >> \n> >> ----------------------------------\n> >> \n> >> \n> >> Don McKenzie\n> >> Research Ecologist\n> >> Pacific Wildland Fire Sciences Lab\n> >> US Forest Service\n> >> \n> >> Affiliate Professor\n> >> School of Environmental and Forest Sciences\n> >> University of Washington\n> >> dmck at uw.edu\n> >> \n> >> \n> >> \n> >> ????????????????\n> >> \n> >> set1\n> >>              [,1]        [,2]        [,3]\n> >>  [1,] -0.36381788  0.96624676 -1.09251167\n> >>  [2,] -1.09242946 -0.82002293  0.42005666\n> >>  [3,]  0.93852498  1.18059117 -0.34816811\n> >>  [4,] -0.77413132  1.06018374 -0.37589340\n> >>  [5,] -1.67759103 -1.52469985  0.85310979\n> >>  [6,]  0.81729494 -0.18900503  0.83172169\n> >>  [7,]  0.30546957  0.97549183 -1.30815121\n> >>  [8,]  0.22201517 -0.38260850 -0.05412764\n> >>  [9,]  0.48817331  1.30314678  0.19143994\n> >> [10,]  1.89836307 -0.34575059  0.55599170\n> >> [11,]  0.20776401  0.04977816 -0.78034565\n> >> [12,] -0.76819740  0.24554574  0.40398017\n> >> [13,]  0.38369531  1.07688341 -0.22686023\n> >> [14,]  0.31806928  1.15482656 -0.99259846\n> >> [15,]  1.07142182 -1.03495199 -0.15650968\n> >> [16,] -1.24667302 -0.35217160  0.71090188\n> >> [17,] -0.92079326 -1.44075490 -0.42838857\n> >> [18,]  0.16907840  0.37587569  1.34994069\n> >> [19,]  0.50947015  1.81852997 -1.83315646\n> >> [20,]  0.52015187  1.56904146  0.90679914\n> >> [21,] -0.04261864 -1.22145642  0.51953397\n> >> [22,] -0.86611946 -1.21106313 -0.86571463\n> >> [23,] -0.13147715  0.07893287  0.83513033\n> >> [24,] -0.63488792 -0.89396994  0.70103420\n> >> [25,] -0.11370015  2.00351619 -0.17652412\n> >> [26,] -1.04527261 -0.14570830  1.64893662\n> >> [27,]  0.46238598 -0.07990767  0.16431874\n> >> [28,] -0.72396505  1.45081393 -0.91068823\n> >> [29,] -0.48892499 -1.05289633  1.36531224\n> >> [30,]  1.83781721  1.50964339  1.85100986\n> >> [31,]  1.00023790 -0.92779325 -2.16783507\n> >> [32,] -0.51429532 -1.44766548 -1.41456589\n> >> [33,] -0.93249545 -0.21845332  0.75023990\n> >> \n> >>> ch1\n> >>       [,1] [,2] [,3]\n> >>  [1,]   15   31   10\n> >>  [2,]   29   30   10\n> >>  [3,]   29   15   10\n> >>  [4,]   26   28   25\n> >>  [5,]   26   29    5\n> >>  [6,]   26   29   30\n> >>  [7,]   32   15   31\n> >>  [8,]   19   28   25\n> >>  [9,]   19   32   31\n> >> [10,]   19   32   28\n> >> [11,]   19   30   25\n> >> [12,]   19   31   10\n> >> [13,]   19   30   10\n> >> [14,]   21   29    5\n> >> [15,]   21   29   15\n> >> [16,]   21   32    5\n> >> [17,]   21   32   15\n> >> [18,]   20   30   25\n> >> [19,]   20   26   25\n> >> [20,]   20   26   30\n> >> [21,]   16   28    5\n> >> [22,]   16   26    5\n> >> [23,]   16   26   28\n> >> [24,]   22   28    5\n> >> [25,]   22   32    5\n> >> [26,]   22   32   28\n> >> \n> >>> set2\n> >>               [,1]         [,2]        [,3]\n> >>  [1,]  0.061298933  0.561676607 -0.29029312\n> >>  [2,] -0.227292687  0.980185118  0.21751216\n> >>  [3,]  0.182482967  0.913803801 -0.08308208\n> >>  [4,] -0.143596376 -0.007469921 -0.33050543\n> >>  [5,] -0.354096826  0.023132113  0.45463150\n> >>  [6,]  0.006247011  0.183155253  0.97496500\n> >>  [7,]  0.128600720 -0.249603537 -0.24710206\n> >>  [8,] -0.418782299 -0.325201099  0.28908138\n> >>  [9,]  0.231829464  0.343250895  0.65134735\n> >> [10,] -0.392597726  0.126741875  0.21411363\n> >> [11,] -0.051290704 -1.007826669  0.92808143\n> >> \n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >> \n> > \n> > \n> > -- \n> > Brian D. Ripley,                  ripley at stats.ox.ac.uk\n> > Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n> > University of Oxford,             Tel:  +44 1865 272861 (self)\n> > 1 South Parks Road,                     +44 1865 272866 (PA)\n> > Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n> \n> Don McKenzie\n> Research Ecologist\n> Pacific Wildland Fire Sciences Lab\n> US Forest Service\n> \n> Affiliate Professor\n> School of Environmental and Forest Sciences\n> University of Washington\n> dmck at uw.edu\n> \n> \n> \n> \n> \n> \t[[alternative HTML version deleted]]\n>",
       "body_snippet": "Hi,\nIf i got it right, the original question can be addressed somewhat with inashape3d (alphashape3d package), something like:\nlibrary(alphashape3d)\nset1 <- matrix(rnorm(333)/2,ncol=3)\nplot3d(set1)\nas",
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010769.html"
     },
     {
       "id": "msg-424371b3e6a4",
@@ -123,11 +129,12 @@
       "references": [
         "<972-533d2900-9-7971fe80@205000877>"
       ],
-      "body_plain": "Thanks Augustin.  I will give that a try.\n\nDon\n\nOn Apr 3, 2014, at 2:25 AM, Agustin Angel Diez Castillo <agustin.diez at uv.es> wrote:\n\n> Hi,\n> If i got it right, the original question can be addressed somewhat with inashape3d (alphashape3d package), something like:\n> library(alphashape3d)\n> set1 <- matrix(rnorm(333)/2,ncol=3)\n> plot3d(set1)\n> ashape3d.obj <- ashape3d(set1, alpha = 2)\n> set2 <- matrix(rnorm(33)/2,ncol=3)\n> in3d <- inashape3d(ashape3d.obj, points = set2)\n> plot(ashape3d.obj, transparency = 0.2)\n> rgl.points(points[in3d,], col =\"blue\")\n> \n> On Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu> wrote: \n> \n>> Thank you for the pointer.  That?s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n>> \n>> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>> \n>>> Package ptinpoly has generated hangs/segfaults in its checks for years, across platforms.  That is why there are all the exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html .\n>>> \n>>> On 03/04/2014 01:48, Don McKenzie wrote:\n>>>> I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the end (below in a toy example) crashes R when I try to ID the points in the hull using pip3d(), from package ptinpoly. convhulln() is from package geometry.  Have I not supplied the right ?Faces? argument to pip3d()?\n>>>> \n>>>> The objects are not large and are reproduced at the bottom of this message.\n>>>> \n>>>> Thanks\n>>>> \n>>>> ------------------------\n>>>>> sessionInfo()\n>>>> R version 3.0.3 (2014-03-06)\n>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>> \n>>>> locale:\n>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>> \n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>> \n>>>> other attached packages:\n>>>> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6    abind_1.4-0\n>>>> \n>>>> loaded via a namespace (and not attached):\n>>>> [1] tools_3.0.3\n>>>> \n>>>> ??\n>>>> \n>>>>> set1 <- matrix(rnorm(99),ncol=3)\n>>>>> ch1 <- convhulln(set1)\n>>>> \n>>>> Output completed.  Verifying that all points are below outer planes of\n>>>> all facets.  Will make 594 distance computations.\n>>>> \n>>>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>>>> \n>>>>> temp.out <- pip3d(set1,ch1,set2)\n>>>> \n>>>> R CRASHES HERE\n>>>> \n>>>> ----------------------------------\n>>>> \n>>>> \n>>>> Don McKenzie\n>>>> Research Ecologist\n>>>> Pacific Wildland Fire Sciences Lab\n>>>> US Forest Service\n>>>> \n>>>> Affiliate Professor\n>>>> School of Environmental and Forest Sciences\n>>>> University of Washington\n>>>> dmck at uw.edu\n>>>> \n>>>> \n>>>> \n>>>> ????????????????\n>>>> \n>>>> set1\n>>>>             [,1]        [,2]        [,3]\n>>>> [1,] -0.36381788  0.96624676 -1.09251167\n>>>> [2,] -1.09242946 -0.82002293  0.42005666\n>>>> [3,]  0.93852498  1.18059117 -0.34816811\n>>>> [4,] -0.77413132  1.06018374 -0.37589340\n>>>> [5,] -1.67759103 -1.52469985  0.85310979\n>>>> [6,]  0.81729494 -0.18900503  0.83172169\n>>>> [7,]  0.30546957  0.97549183 -1.30815121\n>>>> [8,]  0.22201517 -0.38260850 -0.05412764\n>>>> [9,]  0.48817331  1.30314678  0.19143994\n>>>> [10,]  1.89836307 -0.34575059  0.55599170\n>>>> [11,]  0.20776401  0.04977816 -0.78034565\n>>>> [12,] -0.76819740  0.24554574  0.40398017\n>>>> [13,]  0.38369531  1.07688341 -0.22686023\n>>>> [14,]  0.31806928  1.15482656 -0.99259846\n>>>> [15,]  1.07142182 -1.03495199 -0.15650968\n>>>> [16,] -1.24667302 -0.35217160  0.71090188\n>>>> [17,] -0.92079326 -1.44075490 -0.42838857\n>>>> [18,]  0.16907840  0.37587569  1.34994069\n>>>> [19,]  0.50947015  1.81852997 -1.83315646\n>>>> [20,]  0.52015187  1.56904146  0.90679914\n>>>> [21,] -0.04261864 -1.22145642  0.51953397\n>>>> [22,] -0.86611946 -1.21106313 -0.86571463\n>>>> [23,] -0.13147715  0.07893287  0.83513033\n>>>> [24,] -0.63488792 -0.89396994  0.70103420\n>>>> [25,] -0.11370015  2.00351619 -0.17652412\n>>>> [26,] -1.04527261 -0.14570830  1.64893662\n>>>> [27,]  0.46238598 -0.07990767  0.16431874\n>>>> [28,] -0.72396505  1.45081393 -0.91068823\n>>>> [29,] -0.48892499 -1.05289633  1.36531224\n>>>> [30,]  1.83781721  1.50964339  1.85100986\n>>>> [31,]  1.00023790 -0.92779325 -2.16783507\n>>>> [32,] -0.51429532 -1.44766548 -1.41456589\n>>>> [33,] -0.93249545 -0.21845332  0.75023990\n>>>> \n>>>>> ch1\n>>>>      [,1] [,2] [,3]\n>>>> [1,]   15   31   10\n>>>> [2,]   29   30   10\n>>>> [3,]   29   15   10\n>>>> [4,]   26   28   25\n>>>> [5,]   26   29    5\n>>>> [6,]   26   29   30\n>>>> [7,]   32   15   31\n>>>> [8,]   19   28   25\n>>>> [9,]   19   32   31\n>>>> [10,]   19   32   28\n>>>> [11,]   19   30   25\n>>>> [12,]   19   31   10\n>>>> [13,]   19   30   10\n>>>> [14,]   21   29    5\n>>>> [15,]   21   29   15\n>>>> [16,]   21   32    5\n>>>> [17,]   21   32   15\n>>>> [18,]   20   30   25\n>>>> [19,]   20   26   25\n>>>> [20,]   20   26   30\n>>>> [21,]   16   28    5\n>>>> [22,]   16   26    5\n>>>> [23,]   16   26   28\n>>>> [24,]   22   28    5\n>>>> [25,]   22   32    5\n>>>> [26,]   22   32   28\n>>>> \n>>>>> set2\n>>>>              [,1]         [,2]        [,3]\n>>>> [1,]  0.061298933  0.561676607 -0.29029312\n>>>> [2,] -0.227292687  0.980185118  0.21751216\n>>>> [3,]  0.182482967  0.913803801 -0.08308208\n>>>> [4,] -0.143596376 -0.007469921 -0.33050543\n>>>> [5,] -0.354096826  0.023132113  0.45463150\n>>>> [6,]  0.006247011  0.183155253  0.97496500\n>>>> [7,]  0.128600720 -0.249603537 -0.24710206\n>>>> [8,] -0.418782299 -0.325201099  0.28908138\n>>>> [9,]  0.231829464  0.343250895  0.65134735\n>>>> [10,] -0.392597726  0.126741875  0.21411363\n>>>> [11,] -0.051290704 -1.007826669  0.92808143\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>>> \n>>> -- \n>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>> \n>> Don McKenzie\n>> Research Ecologist\n>> Pacific Wildland Fire Sciences Lab\n>> US Forest Service\n>> \n>> Affiliate Professor\n>> School of Environmental and Forest Sciences\n>> University of Washington\n>> dmck at uw.edu\n>> \n>> \n>> \n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDon McKenzie\nResearch Ecologist\nPacific Wildland Fire Sciences Lab\nUS Forest Service\n\nAffiliate Professor \nSchool of Environmental and Forest Sciences \nUniversity of Washington \n \ndmck at uw.edu",
+      "body_plain": "Thanks Augustin.  I will give that a try.\n\nDon\n\nOn Apr 3, 2014, at 2:25 AM, Agustin Angel Diez Castillo <agustin.diez at uv.es> wrote:\n\n> Hi,\n> If i got it right, the original question can be addressed somewhat with inashape3d (alphashape3d package), something like:\n> library(alphashape3d)\n> set1 <- matrix(rnorm(333)/2,ncol=3)\n> plot3d(set1)\n> ashape3d.obj <- ashape3d(set1, alpha = 2)\n> set2 <- matrix(rnorm(33)/2,ncol=3)\n> in3d <- inashape3d(ashape3d.obj, points = set2)\n> plot(ashape3d.obj, transparency = 0.2)\n> rgl.points(points[in3d,], col =\"blue\")\n> \n> On Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu> wrote: \n> \n>> Thank you for the pointer.  That’s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n>> \n>> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>> \n>>> Package ptinpoly has generated hangs/segfaults in its checks for years, across platforms.  That is why there are all the exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html .\n>>> \n>>> On 03/04/2014 01:48, Don McKenzie wrote:\n>>>> I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the end (below in a toy example) crashes R when I try to ID the points in the hull using pip3d(), from package ptinpoly. convhulln() is from package geometry.  Have I not supplied the right “Faces” argument to pip3d()?\n>>>> \n>>>> The objects are not large and are reproduced at the bottom of this message.\n>>>> \n>>>> Thanks\n>>>> \n>>>> ------------------------\n>>>>> sessionInfo()\n>>>> R version 3.0.3 (2014-03-06)\n>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>> \n>>>> locale:\n>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>> \n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>> \n>>>> other attached packages:\n>>>> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6    abind_1.4-0\n>>>> \n>>>> loaded via a namespace (and not attached):\n>>>> [1] tools_3.0.3\n>>>> \n>>>> ——\n>>>> \n>>>>> set1 <- matrix(rnorm(99),ncol=3)\n>>>>> ch1 <- convhulln(set1)\n>>>> \n>>>> Output completed.  Verifying that all points are below outer planes of\n>>>> all facets.  Will make 594 distance computations.\n>>>> \n>>>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>>>> \n>>>>> temp.out <- pip3d(set1,ch1,set2)\n>>>> \n>>>> R CRASHES HERE\n>>>> \n>>>> ----------------------------------\n>>>> \n>>>> \n>>>> Don McKenzie\n>>>> Research Ecologist\n>>>> Pacific Wildland Fire Sciences Lab\n>>>> US Forest Service\n>>>> \n>>>> Affiliate Professor\n>>>> School of Environmental and Forest Sciences\n>>>> University of Washington\n>>>> dmck at uw.edu\n>>>> \n>>>> \n>>>> \n>>>> ????????????????\n>>>> \n>>>> set1\n>>>>             [,1]        [,2]        [,3]\n>>>> [1,] -0.36381788  0.96624676 -1.09251167\n>>>> [2,] -1.09242946 -0.82002293  0.42005666\n>>>> [3,]  0.93852498  1.18059117 -0.34816811\n>>>> [4,] -0.77413132  1.06018374 -0.37589340\n>>>> [5,] -1.67759103 -1.52469985  0.85310979\n>>>> [6,]  0.81729494 -0.18900503  0.83172169\n>>>> [7,]  0.30546957  0.97549183 -1.30815121\n>>>> [8,]  0.22201517 -0.38260850 -0.05412764\n>>>> [9,]  0.48817331  1.30314678  0.19143994\n>>>> [10,]  1.89836307 -0.34575059  0.55599170\n>>>> [11,]  0.20776401  0.04977816 -0.78034565\n>>>> [12,] -0.76819740  0.24554574  0.40398017\n>>>> [13,]  0.38369531  1.07688341 -0.22686023\n>>>> [14,]  0.31806928  1.15482656 -0.99259846\n>>>> [15,]  1.07142182 -1.03495199 -0.15650968\n>>>> [16,] -1.24667302 -0.35217160  0.71090188\n>>>> [17,] -0.92079326 -1.44075490 -0.42838857\n>>>> [18,]  0.16907840  0.37587569  1.34994069\n>>>> [19,]  0.50947015  1.81852997 -1.83315646\n>>>> [20,]  0.52015187  1.56904146  0.90679914\n>>>> [21,] -0.04261864 -1.22145642  0.51953397\n>>>> [22,] -0.86611946 -1.21106313 -0.86571463\n>>>> [23,] -0.13147715  0.07893287  0.83513033\n>>>> [24,] -0.63488792 -0.89396994  0.70103420\n>>>> [25,] -0.11370015  2.00351619 -0.17652412\n>>>> [26,] -1.04527261 -0.14570830  1.64893662\n>>>> [27,]  0.46238598 -0.07990767  0.16431874\n>>>> [28,] -0.72396505  1.45081393 -0.91068823\n>>>> [29,] -0.48892499 -1.05289633  1.36531224\n>>>> [30,]  1.83781721  1.50964339  1.85100986\n>>>> [31,]  1.00023790 -0.92779325 -2.16783507\n>>>> [32,] -0.51429532 -1.44766548 -1.41456589\n>>>> [33,] -0.93249545 -0.21845332  0.75023990\n>>>> \n>>>>> ch1\n>>>>      [,1] [,2] [,3]\n>>>> [1,]   15   31   10\n>>>> [2,]   29   30   10\n>>>> [3,]   29   15   10\n>>>> [4,]   26   28   25\n>>>> [5,]   26   29    5\n>>>> [6,]   26   29   30\n>>>> [7,]   32   15   31\n>>>> [8,]   19   28   25\n>>>> [9,]   19   32   31\n>>>> [10,]   19   32   28\n>>>> [11,]   19   30   25\n>>>> [12,]   19   31   10\n>>>> [13,]   19   30   10\n>>>> [14,]   21   29    5\n>>>> [15,]   21   29   15\n>>>> [16,]   21   32    5\n>>>> [17,]   21   32   15\n>>>> [18,]   20   30   25\n>>>> [19,]   20   26   25\n>>>> [20,]   20   26   30\n>>>> [21,]   16   28    5\n>>>> [22,]   16   26    5\n>>>> [23,]   16   26   28\n>>>> [24,]   22   28    5\n>>>> [25,]   22   32    5\n>>>> [26,]   22   32   28\n>>>> \n>>>>> set2\n>>>>              [,1]         [,2]        [,3]\n>>>> [1,]  0.061298933  0.561676607 -0.29029312\n>>>> [2,] -0.227292687  0.980185118  0.21751216\n>>>> [3,]  0.182482967  0.913803801 -0.08308208\n>>>> [4,] -0.143596376 -0.007469921 -0.33050543\n>>>> [5,] -0.354096826  0.023132113  0.45463150\n>>>> [6,]  0.006247011  0.183155253  0.97496500\n>>>> [7,]  0.128600720 -0.249603537 -0.24710206\n>>>> [8,] -0.418782299 -0.325201099  0.28908138\n>>>> [9,]  0.231829464  0.343250895  0.65134735\n>>>> [10,] -0.392597726  0.126741875  0.21411363\n>>>> [11,] -0.051290704 -1.007826669  0.92808143\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>>> \n>>> -- \n>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>> \n>> Don McKenzie\n>> Research Ecologist\n>> Pacific Wildland Fire Sciences Lab\n>> US Forest Service\n>> \n>> Affiliate Professor\n>> School of Environmental and Forest Sciences\n>> University of Washington\n>> dmck at uw.edu\n>> \n>> \n>> \n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDon McKenzie\nResearch Ecologist\nPacific Wildland Fire Sciences Lab\nUS Forest Service\n\nAffiliate Professor \nSchool of Environmental and Forest Sciences \nUniversity of Washington \n \ndmck at uw.edu",
       "body_snippet": "Thanks Augustin.  I will give that a try.\n\nDon\n\nOn Apr 3, 2014, at 2:25 AM, Agustin Angel Diez Castillo <agustin.diez at uv.es> wrote:\n\n> Hi,\n> If i got it right, the original question can be addresse",
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 4,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010770.html"
     },
     {
       "id": "msg-445dd47c502c",
@@ -141,11 +148,12 @@
       "references": [
         "<972-533d2900-9-7971fe80@205000877>"
       ],
-      "body_plain": "Just to complicate things   :-(\n\nIf I load alphashape3d, I get a crash with the following error\n\n?To open ?R?, you need to install X11. Would you like to install X11 now??    \n\nI have been running R 3.0.3. in a vanilla quartz window in Mavericks (OSX 10.9) on an iMac.\n\n> sessionInfo()\nR version 3.0.2 (2013-09-25)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\n> library(\"alphashape3d?)\n\nCRASH AND ERROR POPUP\n\n\n\n\nOn Apr 3, 2014, at 2:25 AM, Agustin Angel Diez Castillo <agustin.diez at uv.es> wrote:\n\n> Hi,\n> If i got it right, the original question can be addressed somewhat with inashape3d (alphashape3d package), something like:\n> library(alphashape3d)\n> set1 <- matrix(rnorm(333)/2,ncol=3)\n> plot3d(set1)\n> ashape3d.obj <- ashape3d(set1, alpha = 2)\n> set2 <- matrix(rnorm(33)/2,ncol=3)\n> in3d <- inashape3d(ashape3d.obj, points = set2)\n> plot(ashape3d.obj, transparency = 0.2)\n> rgl.points(points[in3d,], col =\"blue\")\n> \n> On Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu> wrote: \n> \n>> Thank you for the pointer.  That?s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n>> \n>> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>> \n>>> Package ptinpoly has generated hangs/segfaults in its checks for years, across platforms.  That is why there are all the exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html .\n>>> \n>>> On 03/04/2014 01:48, Don McKenzie wrote:\n>>>> I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the end (below in a toy example) crashes R when I try to ID the points in the hull using pip3d(), from package ptinpoly. convhulln() is from package geometry.  Have I not supplied the right ?Faces? argument to pip3d()?\n>>>> \n>>>> The objects are not large and are reproduced at the bottom of this message.\n>>>> \n>>>> Thanks\n>>>> \n>>>> ------------------------\n>>>>> sessionInfo()\n>>>> R version 3.0.3 (2014-03-06)\n>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>> \n>>>> locale:\n>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>> \n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>> \n>>>> other attached packages:\n>>>> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6    abind_1.4-0\n>>>> \n>>>> loaded via a namespace (and not attached):\n>>>> [1] tools_3.0.3\n>>>> \n>>>> ??\n>>>> \n>>>>> set1 <- matrix(rnorm(99),ncol=3)\n>>>>> ch1 <- convhulln(set1)\n>>>> \n>>>> Output completed.  Verifying that all points are below outer planes of\n>>>> all facets.  Will make 594 distance computations.\n>>>> \n>>>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>>>> \n>>>>> temp.out <- pip3d(set1,ch1,set2)\n>>>> \n>>>> R CRASHES HERE\n>>>> \n>>>> ----------------------------------\n>>>> \n>>>> \n>>>> Don McKenzie\n>>>> Research Ecologist\n>>>> Pacific Wildland Fire Sciences Lab\n>>>> US Forest Service\n>>>> \n>>>> Affiliate Professor\n>>>> School of Environmental and Forest Sciences\n>>>> University of Washington\n>>>> dmck at uw.edu\n>>>> \n>>>> \n>>>> \n>>>> ????????????????\n>>>> \n>>>> set1\n>>>>             [,1]        [,2]        [,3]\n>>>> [1,] -0.36381788  0.96624676 -1.09251167\n>>>> [2,] -1.09242946 -0.82002293  0.42005666\n>>>> [3,]  0.93852498  1.18059117 -0.34816811\n>>>> [4,] -0.77413132  1.06018374 -0.37589340\n>>>> [5,] -1.67759103 -1.52469985  0.85310979\n>>>> [6,]  0.81729494 -0.18900503  0.83172169\n>>>> [7,]  0.30546957  0.97549183 -1.30815121\n>>>> [8,]  0.22201517 -0.38260850 -0.05412764\n>>>> [9,]  0.48817331  1.30314678  0.19143994\n>>>> [10,]  1.89836307 -0.34575059  0.55599170\n>>>> [11,]  0.20776401  0.04977816 -0.78034565\n>>>> [12,] -0.76819740  0.24554574  0.40398017\n>>>> [13,]  0.38369531  1.07688341 -0.22686023\n>>>> [14,]  0.31806928  1.15482656 -0.99259846\n>>>> [15,]  1.07142182 -1.03495199 -0.15650968\n>>>> [16,] -1.24667302 -0.35217160  0.71090188\n>>>> [17,] -0.92079326 -1.44075490 -0.42838857\n>>>> [18,]  0.16907840  0.37587569  1.34994069\n>>>> [19,]  0.50947015  1.81852997 -1.83315646\n>>>> [20,]  0.52015187  1.56904146  0.90679914\n>>>> [21,] -0.04261864 -1.22145642  0.51953397\n>>>> [22,] -0.86611946 -1.21106313 -0.86571463\n>>>> [23,] -0.13147715  0.07893287  0.83513033\n>>>> [24,] -0.63488792 -0.89396994  0.70103420\n>>>> [25,] -0.11370015  2.00351619 -0.17652412\n>>>> [26,] -1.04527261 -0.14570830  1.64893662\n>>>> [27,]  0.46238598 -0.07990767  0.16431874\n>>>> [28,] -0.72396505  1.45081393 -0.91068823\n>>>> [29,] -0.48892499 -1.05289633  1.36531224\n>>>> [30,]  1.83781721  1.50964339  1.85100986\n>>>> [31,]  1.00023790 -0.92779325 -2.16783507\n>>>> [32,] -0.51429532 -1.44766548 -1.41456589\n>>>> [33,] -0.93249545 -0.21845332  0.75023990\n>>>> \n>>>>> ch1\n>>>>      [,1] [,2] [,3]\n>>>> [1,]   15   31   10\n>>>> [2,]   29   30   10\n>>>> [3,]   29   15   10\n>>>> [4,]   26   28   25\n>>>> [5,]   26   29    5\n>>>> [6,]   26   29   30\n>>>> [7,]   32   15   31\n>>>> [8,]   19   28   25\n>>>> [9,]   19   32   31\n>>>> [10,]   19   32   28\n>>>> [11,]   19   30   25\n>>>> [12,]   19   31   10\n>>>> [13,]   19   30   10\n>>>> [14,]   21   29    5\n>>>> [15,]   21   29   15\n>>>> [16,]   21   32    5\n>>>> [17,]   21   32   15\n>>>> [18,]   20   30   25\n>>>> [19,]   20   26   25\n>>>> [20,]   20   26   30\n>>>> [21,]   16   28    5\n>>>> [22,]   16   26    5\n>>>> [23,]   16   26   28\n>>>> [24,]   22   28    5\n>>>> [25,]   22   32    5\n>>>> [26,]   22   32   28\n>>>> \n>>>>> set2\n>>>>              [,1]         [,2]        [,3]\n>>>> [1,]  0.061298933  0.561676607 -0.29029312\n>>>> [2,] -0.227292687  0.980185118  0.21751216\n>>>> [3,]  0.182482967  0.913803801 -0.08308208\n>>>> [4,] -0.143596376 -0.007469921 -0.33050543\n>>>> [5,] -0.354096826  0.023132113  0.45463150\n>>>> [6,]  0.006247011  0.183155253  0.97496500\n>>>> [7,]  0.128600720 -0.249603537 -0.24710206\n>>>> [8,] -0.418782299 -0.325201099  0.28908138\n>>>> [9,]  0.231829464  0.343250895  0.65134735\n>>>> [10,] -0.392597726  0.126741875  0.21411363\n>>>> [11,] -0.051290704 -1.007826669  0.92808143\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>>> \n>>> -- \n>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>> \n>> Don McKenzie\n>> Research Ecologist\n>> Pacific Wildland Fire Sciences Lab\n>> US Forest Service\n>> \n>> Affiliate Professor\n>> School of Environmental and Forest Sciences\n>> University of Washington\n>> dmck at uw.edu\n>> \n>> \n>> \n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDon McKenzie\nResearch Ecologist\nPacific Wildland Fire Sciences Lab\nUS Forest Service\n\nAffiliate Professor \nSchool of Environmental and Forest Sciences \nUniversity of Washington \n \ndmck at uw.edu",
-      "body_snippet": "Just to complicate things   :-(\n\nIf I load alphashape3d, I get a crash with the following error\n\n?To open ?R?, you need to install X11. Would you like to install X11 now??    \n\nI have been running R 3",
+      "body_plain": "Just to complicate things   :-(\n\nIf I load alphashape3d, I get a crash with the following error\n\n“To open “R”, you need to install X11. Would you like to install X11 now?”    \n\nI have been running R 3.0.3. in a vanilla quartz window in Mavericks (OSX 10.9) on an iMac.\n\n> sessionInfo()\nR version 3.0.2 (2013-09-25)\nPlatform: x86_64-apple-darwin10.8.0 (64-bit)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\n> library(\"alphashape3d”)\n\nCRASH AND ERROR POPUP\n\n\n\n\nOn Apr 3, 2014, at 2:25 AM, Agustin Angel Diez Castillo <agustin.diez at uv.es> wrote:\n\n> Hi,\n> If i got it right, the original question can be addressed somewhat with inashape3d (alphashape3d package), something like:\n> library(alphashape3d)\n> set1 <- matrix(rnorm(333)/2,ncol=3)\n> plot3d(set1)\n> ashape3d.obj <- ashape3d(set1, alpha = 2)\n> set2 <- matrix(rnorm(33)/2,ncol=3)\n> in3d <- inashape3d(ashape3d.obj, points = set2)\n> plot(ashape3d.obj, transparency = 0.2)\n> rgl.points(points[in3d,], col =\"blue\")\n> \n> On Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu> wrote: \n> \n>> Thank you for the pointer.  That’s quite a list, and I expect I will have to concede defeat, lacking the skill set to adapt my use of the package.\n>> \n>> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>> \n>>> Package ptinpoly has generated hangs/segfaults in its checks for years, across platforms.  That is why there are all the exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html .\n>>> \n>>> On 03/04/2014 01:48, Don McKenzie wrote:\n>>>> I have a 3D ordination with two groups, and want to identify the points in one group that lie within the 3D convex hull of the other. I would appreciate any enlightenment about why the command at the end (below in a toy example) crashes R when I try to ID the points in the hull using pip3d(), from package ptinpoly. convhulln() is from package geometry.  Have I not supplied the right “Faces” argument to pip3d()?\n>>>> \n>>>> The objects are not large and are reproduced at the bottom of this message.\n>>>> \n>>>> Thanks\n>>>> \n>>>> ------------------------\n>>>>> sessionInfo()\n>>>> R version 3.0.3 (2014-03-06)\n>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>> \n>>>> locale:\n>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>> \n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>> \n>>>> other attached packages:\n>>>> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6    abind_1.4-0\n>>>> \n>>>> loaded via a namespace (and not attached):\n>>>> [1] tools_3.0.3\n>>>> \n>>>> ——\n>>>> \n>>>>> set1 <- matrix(rnorm(99),ncol=3)\n>>>>> ch1 <- convhulln(set1)\n>>>> \n>>>> Output completed.  Verifying that all points are below outer planes of\n>>>> all facets.  Will make 594 distance computations.\n>>>> \n>>>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>>>> \n>>>>> temp.out <- pip3d(set1,ch1,set2)\n>>>> \n>>>> R CRASHES HERE\n>>>> \n>>>> ----------------------------------\n>>>> \n>>>> \n>>>> Don McKenzie\n>>>> Research Ecologist\n>>>> Pacific Wildland Fire Sciences Lab\n>>>> US Forest Service\n>>>> \n>>>> Affiliate Professor\n>>>> School of Environmental and Forest Sciences\n>>>> University of Washington\n>>>> dmck at uw.edu\n>>>> \n>>>> \n>>>> \n>>>> ????????????????\n>>>> \n>>>> set1\n>>>>             [,1]        [,2]        [,3]\n>>>> [1,] -0.36381788  0.96624676 -1.09251167\n>>>> [2,] -1.09242946 -0.82002293  0.42005666\n>>>> [3,]  0.93852498  1.18059117 -0.34816811\n>>>> [4,] -0.77413132  1.06018374 -0.37589340\n>>>> [5,] -1.67759103 -1.52469985  0.85310979\n>>>> [6,]  0.81729494 -0.18900503  0.83172169\n>>>> [7,]  0.30546957  0.97549183 -1.30815121\n>>>> [8,]  0.22201517 -0.38260850 -0.05412764\n>>>> [9,]  0.48817331  1.30314678  0.19143994\n>>>> [10,]  1.89836307 -0.34575059  0.55599170\n>>>> [11,]  0.20776401  0.04977816 -0.78034565\n>>>> [12,] -0.76819740  0.24554574  0.40398017\n>>>> [13,]  0.38369531  1.07688341 -0.22686023\n>>>> [14,]  0.31806928  1.15482656 -0.99259846\n>>>> [15,]  1.07142182 -1.03495199 -0.15650968\n>>>> [16,] -1.24667302 -0.35217160  0.71090188\n>>>> [17,] -0.92079326 -1.44075490 -0.42838857\n>>>> [18,]  0.16907840  0.37587569  1.34994069\n>>>> [19,]  0.50947015  1.81852997 -1.83315646\n>>>> [20,]  0.52015187  1.56904146  0.90679914\n>>>> [21,] -0.04261864 -1.22145642  0.51953397\n>>>> [22,] -0.86611946 -1.21106313 -0.86571463\n>>>> [23,] -0.13147715  0.07893287  0.83513033\n>>>> [24,] -0.63488792 -0.89396994  0.70103420\n>>>> [25,] -0.11370015  2.00351619 -0.17652412\n>>>> [26,] -1.04527261 -0.14570830  1.64893662\n>>>> [27,]  0.46238598 -0.07990767  0.16431874\n>>>> [28,] -0.72396505  1.45081393 -0.91068823\n>>>> [29,] -0.48892499 -1.05289633  1.36531224\n>>>> [30,]  1.83781721  1.50964339  1.85100986\n>>>> [31,]  1.00023790 -0.92779325 -2.16783507\n>>>> [32,] -0.51429532 -1.44766548 -1.41456589\n>>>> [33,] -0.93249545 -0.21845332  0.75023990\n>>>> \n>>>>> ch1\n>>>>      [,1] [,2] [,3]\n>>>> [1,]   15   31   10\n>>>> [2,]   29   30   10\n>>>> [3,]   29   15   10\n>>>> [4,]   26   28   25\n>>>> [5,]   26   29    5\n>>>> [6,]   26   29   30\n>>>> [7,]   32   15   31\n>>>> [8,]   19   28   25\n>>>> [9,]   19   32   31\n>>>> [10,]   19   32   28\n>>>> [11,]   19   30   25\n>>>> [12,]   19   31   10\n>>>> [13,]   19   30   10\n>>>> [14,]   21   29    5\n>>>> [15,]   21   29   15\n>>>> [16,]   21   32    5\n>>>> [17,]   21   32   15\n>>>> [18,]   20   30   25\n>>>> [19,]   20   26   25\n>>>> [20,]   20   26   30\n>>>> [21,]   16   28    5\n>>>> [22,]   16   26    5\n>>>> [23,]   16   26   28\n>>>> [24,]   22   28    5\n>>>> [25,]   22   32    5\n>>>> [26,]   22   32   28\n>>>> \n>>>>> set2\n>>>>              [,1]         [,2]        [,3]\n>>>> [1,]  0.061298933  0.561676607 -0.29029312\n>>>> [2,] -0.227292687  0.980185118  0.21751216\n>>>> [3,]  0.182482967  0.913803801 -0.08308208\n>>>> [4,] -0.143596376 -0.007469921 -0.33050543\n>>>> [5,] -0.354096826  0.023132113  0.45463150\n>>>> [6,]  0.006247011  0.183155253  0.97496500\n>>>> [7,]  0.128600720 -0.249603537 -0.24710206\n>>>> [8,] -0.418782299 -0.325201099  0.28908138\n>>>> [9,]  0.231829464  0.343250895  0.65134735\n>>>> [10,] -0.392597726  0.126741875  0.21411363\n>>>> [11,] -0.051290704 -1.007826669  0.92808143\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>>> \n>>> -- \n>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>> \n>> Don McKenzie\n>> Research Ecologist\n>> Pacific Wildland Fire Sciences Lab\n>> US Forest Service\n>> \n>> Affiliate Professor\n>> School of Environmental and Forest Sciences\n>> University of Washington\n>> dmck at uw.edu\n>> \n>> \n>> \n>> \n>> \n>> \t[[alternative HTML version deleted]]\n>> \n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDon McKenzie\nResearch Ecologist\nPacific Wildland Fire Sciences Lab\nUS Forest Service\n\nAffiliate Professor \nSchool of Environmental and Forest Sciences \nUniversity of Washington \n \ndmck at uw.edu",
+      "body_snippet": "Just to complicate things   :-(\n\nIf I load alphashape3d, I get a crash with the following error\n\n“To open “R”, you need to install X11. Would you like to install X11 now?”    \n\nI have been running R 3",
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 4,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010771.html"
     },
     {
       "id": "msg-06860b99c6ab",
@@ -160,11 +168,12 @@
         "<972-533d2900-9-7971fe80@205000877>",
         "<667A81C6-A23D-425B-B060-2FD3379CFB73@u.washington.edu>"
       ],
-      "body_plain": "On Apr 3, 2014, at 7:29 AM, Don McKenzie wrote:\n\n> Just to complicate things   :-(\n>\n> If I load alphashape3d, I get a crash with the following error\n>\n> ?To open ?R?, you need to install X11. Would you like to install X11  \n> now??\n>\n> I have been running R 3.0.3. in a vanilla quartz window in Mavericks  \n> (OSX 10.9) on an iMac.\n>\n>> sessionInfo()\n> R version 3.0.2 (2013-09-25)\n> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n>> library(\"alphashape3d?)\n>\n> CRASH AND ERROR POPUP\n\nThat didn't look like an error message but rather an opportunity. Do  \nyou have XQuartz installed in your Mac? (I haven't upgraded to  \nMavericks so do not know if XQuartz ships with that version.)\n\nhttps://xquartz.macosforge.org/landing/\n\n-- \nDavid.\n\n> On Apr 3, 2014, at 2:25 AM, Agustin Angel Diez Castillo <agustin.diez at uv.es \n> > wrote:\n>\n>> Hi,\n>> If i got it right, the original question can be addressed somewhat  \n>> with inashape3d (alphashape3d package), something like:\n>> library(alphashape3d)\n>> set1 <- matrix(rnorm(333)/2,ncol=3)\n>> plot3d(set1)\n>> ashape3d.obj <- ashape3d(set1, alpha = 2)\n>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>> in3d <- inashape3d(ashape3d.obj, points = set2)\n>> plot(ashape3d.obj, transparency = 0.2)\n>> rgl.points(points[in3d,], col =\"blue\")\n>>\n>> On Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu \n>> > wrote:\n>>\n>>> Thank you for the pointer.  That?s quite a list, and I expect I  \n>>> will have to concede defeat, lacking the skill set to adapt my use  \n>>> of the package.\n>>>\n>>> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley  \n>>> <ripley at stats.ox.ac.uk> wrote:\n>>>\n>>>> Package ptinpoly has generated hangs/segfaults in its checks for  \n>>>> years, across platforms.  That is why there are all the  \n>>>> exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html \n>>>>  .\n>>>>\n>>>> On 03/04/2014 01:48, Don McKenzie wrote:\n>>>>> I have a 3D ordination with two groups, and want to identify the  \n>>>>> points in one group that lie within the 3D convex hull of the  \n>>>>> other. I would appreciate any enlightenment about why the  \n>>>>> command at the end (below in a toy example) crashes R when I try  \n>>>>> to ID the points in the hull using pip3d(), from package  \n>>>>> ptinpoly. convhulln() is from package geometry.  Have I not  \n>>>>> supplied the right ?Faces? argument to pip3d()?\n>>>>>\n>>>>> The objects are not large and are reproduced at the bottom of  \n>>>>> this message.\n>>>>>\n>>>>> Thanks\n>>>>>\n>>>>> ------------------------\n>>>>>> sessionInfo()\n>>>>> R version 3.0.3 (2014-03-06)\n>>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>>>\n>>>>> locale:\n>>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>>>\n>>>>> attached base packages:\n>>>>> [1] stats     graphics  grDevices utils     datasets  methods    \n>>>>> base\n>>>>>\n>>>>> other attached packages:\n>>>>> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6     \n>>>>> abind_1.4-0\n>>>>>\n>>>>> loaded via a namespace (and not attached):\n>>>>> [1] tools_3.0.3\n>>>>>\n>>>>> ??\n>>>>>\n>>>>>> set1 <- matrix(rnorm(99),ncol=3)\n>>>>>> ch1 <- convhulln(set1)\n>>>>>\n>>>>> Output completed.  Verifying that all points are below outer  \n>>>>> planes of\n>>>>> all facets.  Will make 594 distance computations.\n>>>>>\n>>>>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>>>>>\n>>>>>> temp.out <- pip3d(set1,ch1,set2)\n>>>>>\n>>>>> R CRASHES HERE\n>>>>>\n>>>>> ----------------------------------\n>>>>>\n>>>>>\n>>>>> Don McKenzie\n>>>>> Research Ecologist\n>>>>> Pacific Wildland Fire Sciences Lab\n>>>>> US Forest Service\n>>>>>\n>>>>> Affiliate Professor\n>>>>> School of Environmental and Forest Sciences\n>>>>> University of Washington\n>>>>> dmck at uw.edu\n>>>>>\n>>>>>\n>>>>>\n>>>>> ????????????????\n>>>>>\n>>>>> set1\n>>>>>            [,1]        [,2]        [,3]\n>>>>> [1,] -0.36381788  0.96624676 -1.09251167\n>>>>> [2,] -1.09242946 -0.82002293  0.42005666\n>>>>> [3,]  0.93852498  1.18059117 -0.34816811\n>>>>> [4,] -0.77413132  1.06018374 -0.37589340\n>>>>> [5,] -1.67759103 -1.52469985  0.85310979\n>>>>> [6,]  0.81729494 -0.18900503  0.83172169\n>>>>> [7,]  0.30546957  0.97549183 -1.30815121\n>>>>> [8,]  0.22201517 -0.38260850 -0.05412764\n>>>>> [9,]  0.48817331  1.30314678  0.19143994\n>>>>> [10,]  1.89836307 -0.34575059  0.55599170\n>>>>> [11,]  0.20776401  0.04977816 -0.78034565\n>>>>> [12,] -0.76819740  0.24554574  0.40398017\n>>>>> [13,]  0.38369531  1.07688341 -0.22686023\n>>>>> [14,]  0.31806928  1.15482656 -0.99259846\n>>>>> [15,]  1.07142182 -1.03495199 -0.15650968\n>>>>> [16,] -1.24667302 -0.35217160  0.71090188\n>>>>> [17,] -0.92079326 -1.44075490 -0.42838857\n>>>>> [18,]  0.16907840  0.37587569  1.34994069\n>>>>> [19,]  0.50947015  1.81852997 -1.83315646\n>>>>> [20,]  0.52015187  1.56904146  0.90679914\n>>>>> [21,] -0.04261864 -1.22145642  0.51953397\n>>>>> [22,] -0.86611946 -1.21106313 -0.86571463\n>>>>> [23,] -0.13147715  0.07893287  0.83513033\n>>>>> [24,] -0.63488792 -0.89396994  0.70103420\n>>>>> [25,] -0.11370015  2.00351619 -0.17652412\n>>>>> [26,] -1.04527261 -0.14570830  1.64893662\n>>>>> [27,]  0.46238598 -0.07990767  0.16431874\n>>>>> [28,] -0.72396505  1.45081393 -0.91068823\n>>>>> [29,] -0.48892499 -1.05289633  1.36531224\n>>>>> [30,]  1.83781721  1.50964339  1.85100986\n>>>>> [31,]  1.00023790 -0.92779325 -2.16783507\n>>>>> [32,] -0.51429532 -1.44766548 -1.41456589\n>>>>> [33,] -0.93249545 -0.21845332  0.75023990\n>>>>>\n>>>>>> ch1\n>>>>>     [,1] [,2] [,3]\n>>>>> [1,]   15   31   10\n>>>>> [2,]   29   30   10\n>>>>> [3,]   29   15   10\n>>>>> [4,]   26   28   25\n>>>>> [5,]   26   29    5\n>>>>> [6,]   26   29   30\n>>>>> [7,]   32   15   31\n>>>>> [8,]   19   28   25\n>>>>> [9,]   19   32   31\n>>>>> [10,]   19   32   28\n>>>>> [11,]   19   30   25\n>>>>> [12,]   19   31   10\n>>>>> [13,]   19   30   10\n>>>>> [14,]   21   29    5\n>>>>> [15,]   21   29   15\n>>>>> [16,]   21   32    5\n>>>>> [17,]   21   32   15\n>>>>> [18,]   20   30   25\n>>>>> [19,]   20   26   25\n>>>>> [20,]   20   26   30\n>>>>> [21,]   16   28    5\n>>>>> [22,]   16   26    5\n>>>>> [23,]   16   26   28\n>>>>> [24,]   22   28    5\n>>>>> [25,]   22   32    5\n>>>>> [26,]   22   32   28\n>>>>>\n>>>>>> set2\n>>>>>             [,1]         [,2]        [,3]\n>>>>> [1,]  0.061298933  0.561676607 -0.29029312\n>>>>> [2,] -0.227292687  0.980185118  0.21751216\n>>>>> [3,]  0.182482967  0.913803801 -0.08308208\n>>>>> [4,] -0.143596376 -0.007469921 -0.33050543\n>>>>> [5,] -0.354096826  0.023132113  0.45463150\n>>>>> [6,]  0.006247011  0.183155253  0.97496500\n>>>>> [7,]  0.128600720 -0.249603537 -0.24710206\n>>>>> [8,] -0.418782299 -0.325201099  0.28908138\n>>>>> [9,]  0.231829464  0.343250895  0.65134735\n>>>>> [10,] -0.392597726  0.126741875  0.21411363\n>>>>> [11,] -0.051290704 -1.007826669  0.92808143\n>>>>>\n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>\n>>>>\n>>>>\n>>>> -- \n>>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/ \n>>>> ~ripley/\n>>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>>\n>>> Don McKenzie\n>>> Research Ecologist\n>>> Pacific Wildland Fire Sciences Lab\n>>> US Forest Service\n>>>\n>>> Affiliate Professor\n>>> School of Environmental and Forest Sciences\n>>> University of Washington\n>>> dmck at uw.edu\n>>>\n>>>\n>>>\n>>>\n>>>\n>>> \t[[alternative HTML version deleted]]\n>>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> Don McKenzie\n> Research Ecologist\n> Pacific Wildland Fire Sciences Lab\n> US Forest Service\n>\n> Affiliate Professor\n> School of Environmental and Forest Sciences\n> University of Washington\n>\n> dmck at uw.edu\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius, MD\nAlameda, CA, USA",
-      "body_snippet": "On Apr 3, 2014, at 7:29 AM, Don McKenzie wrote:\n\n> Just to complicate things   :-(\n>\n> If I load alphashape3d, I get a crash with the following error\n>\n> ?To open ?R?, you need to install X11. Would y",
+      "body_plain": "On Apr 3, 2014, at 7:29 AM, Don McKenzie wrote:\n\n> Just to complicate things   :-(\n>\n> If I load alphashape3d, I get a crash with the following error\n>\n> “To open “R”, you need to install X11. Would you like to install X11  \n> now?”\n>\n> I have been running R 3.0.3. in a vanilla quartz window in Mavericks  \n> (OSX 10.9) on an iMac.\n>\n>> sessionInfo()\n> R version 3.0.2 (2013-09-25)\n> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n>> library(\"alphashape3d”)\n>\n> CRASH AND ERROR POPUP\n\nThat didn't look like an error message but rather an opportunity. Do  \nyou have XQuartz installed in your Mac? (I haven't upgraded to  \nMavericks so do not know if XQuartz ships with that version.)\n\nhttps://xquartz.macosforge.org/landing/\n\n-- \nDavid.\n\n> On Apr 3, 2014, at 2:25 AM, Agustin Angel Diez Castillo <agustin.diez at uv.es \n> > wrote:\n>\n>> Hi,\n>> If i got it right, the original question can be addressed somewhat  \n>> with inashape3d (alphashape3d package), something like:\n>> library(alphashape3d)\n>> set1 <- matrix(rnorm(333)/2,ncol=3)\n>> plot3d(set1)\n>> ashape3d.obj <- ashape3d(set1, alpha = 2)\n>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>> in3d <- inashape3d(ashape3d.obj, points = set2)\n>> plot(ashape3d.obj, transparency = 0.2)\n>> rgl.points(points[in3d,], col =\"blue\")\n>>\n>> On Thursday, April 3, 2014 07:38 CEST, Don McKenzie <dmck at u.washington.edu \n>> > wrote:\n>>\n>>> Thank you for the pointer.  That’s quite a list, and I expect I  \n>>> will have to concede defeat, lacking the skill set to adapt my use  \n>>> of the package.\n>>>\n>>> On Apr 2, 2014, at 9:11 PM, Prof Brian Ripley  \n>>> <ripley at stats.ox.ac.uk> wrote:\n>>>\n>>>> Package ptinpoly has generated hangs/segfaults in its checks for  \n>>>> years, across platforms.  That is why there are all the  \n>>>> exclusions at http://cran.r-project.org/web/checks/check_results_ptinpoly.html \n>>>>  .\n>>>>\n>>>> On 03/04/2014 01:48, Don McKenzie wrote:\n>>>>> I have a 3D ordination with two groups, and want to identify the  \n>>>>> points in one group that lie within the 3D convex hull of the  \n>>>>> other. I would appreciate any enlightenment about why the  \n>>>>> command at the end (below in a toy example) crashes R when I try  \n>>>>> to ID the points in the hull using pip3d(), from package  \n>>>>> ptinpoly. convhulln() is from package geometry.  Have I not  \n>>>>> supplied the right “Faces” argument to pip3d()?\n>>>>>\n>>>>> The objects are not large and are reproduced at the bottom of  \n>>>>> this message.\n>>>>>\n>>>>> Thanks\n>>>>>\n>>>>> ------------------------\n>>>>>> sessionInfo()\n>>>>> R version 3.0.3 (2014-03-06)\n>>>>> Platform: x86_64-apple-darwin10.8.0 (64-bit)\n>>>>>\n>>>>> locale:\n>>>>> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n>>>>>\n>>>>> attached base packages:\n>>>>> [1] stats     graphics  grDevices utils     datasets  methods    \n>>>>> base\n>>>>>\n>>>>> other attached packages:\n>>>>> [1] ptinpoly_2.0   misc3d_0.8-4   geometry_0.3-4 magic_1.5-6     \n>>>>> abind_1.4-0\n>>>>>\n>>>>> loaded via a namespace (and not attached):\n>>>>> [1] tools_3.0.3\n>>>>>\n>>>>> ——\n>>>>>\n>>>>>> set1 <- matrix(rnorm(99),ncol=3)\n>>>>>> ch1 <- convhulln(set1)\n>>>>>\n>>>>> Output completed.  Verifying that all points are below outer  \n>>>>> planes of\n>>>>> all facets.  Will make 594 distance computations.\n>>>>>\n>>>>>> set2 <- matrix(rnorm(33)/2,ncol=3)\n>>>>>\n>>>>>> temp.out <- pip3d(set1,ch1,set2)\n>>>>>\n>>>>> R CRASHES HERE\n>>>>>\n>>>>> ----------------------------------\n>>>>>\n>>>>>\n>>>>> Don McKenzie\n>>>>> Research Ecologist\n>>>>> Pacific Wildland Fire Sciences Lab\n>>>>> US Forest Service\n>>>>>\n>>>>> Affiliate Professor\n>>>>> School of Environmental and Forest Sciences\n>>>>> University of Washington\n>>>>> dmck at uw.edu\n>>>>>\n>>>>>\n>>>>>\n>>>>> ????????????????\n>>>>>\n>>>>> set1\n>>>>>            [,1]        [,2]        [,3]\n>>>>> [1,] -0.36381788  0.96624676 -1.09251167\n>>>>> [2,] -1.09242946 -0.82002293  0.42005666\n>>>>> [3,]  0.93852498  1.18059117 -0.34816811\n>>>>> [4,] -0.77413132  1.06018374 -0.37589340\n>>>>> [5,] -1.67759103 -1.52469985  0.85310979\n>>>>> [6,]  0.81729494 -0.18900503  0.83172169\n>>>>> [7,]  0.30546957  0.97549183 -1.30815121\n>>>>> [8,]  0.22201517 -0.38260850 -0.05412764\n>>>>> [9,]  0.48817331  1.30314678  0.19143994\n>>>>> [10,]  1.89836307 -0.34575059  0.55599170\n>>>>> [11,]  0.20776401  0.04977816 -0.78034565\n>>>>> [12,] -0.76819740  0.24554574  0.40398017\n>>>>> [13,]  0.38369531  1.07688341 -0.22686023\n>>>>> [14,]  0.31806928  1.15482656 -0.99259846\n>>>>> [15,]  1.07142182 -1.03495199 -0.15650968\n>>>>> [16,] -1.24667302 -0.35217160  0.71090188\n>>>>> [17,] -0.92079326 -1.44075490 -0.42838857\n>>>>> [18,]  0.16907840  0.37587569  1.34994069\n>>>>> [19,]  0.50947015  1.81852997 -1.83315646\n>>>>> [20,]  0.52015187  1.56904146  0.90679914\n>>>>> [21,] -0.04261864 -1.22145642  0.51953397\n>>>>> [22,] -0.86611946 -1.21106313 -0.86571463\n>>>>> [23,] -0.13147715  0.07893287  0.83513033\n>>>>> [24,] -0.63488792 -0.89396994  0.70103420\n>>>>> [25,] -0.11370015  2.00351619 -0.17652412\n>>>>> [26,] -1.04527261 -0.14570830  1.64893662\n>>>>> [27,]  0.46238598 -0.07990767  0.16431874\n>>>>> [28,] -0.72396505  1.45081393 -0.91068823\n>>>>> [29,] -0.48892499 -1.05289633  1.36531224\n>>>>> [30,]  1.83781721  1.50964339  1.85100986\n>>>>> [31,]  1.00023790 -0.92779325 -2.16783507\n>>>>> [32,] -0.51429532 -1.44766548 -1.41456589\n>>>>> [33,] -0.93249545 -0.21845332  0.75023990\n>>>>>\n>>>>>> ch1\n>>>>>     [,1] [,2] [,3]\n>>>>> [1,]   15   31   10\n>>>>> [2,]   29   30   10\n>>>>> [3,]   29   15   10\n>>>>> [4,]   26   28   25\n>>>>> [5,]   26   29    5\n>>>>> [6,]   26   29   30\n>>>>> [7,]   32   15   31\n>>>>> [8,]   19   28   25\n>>>>> [9,]   19   32   31\n>>>>> [10,]   19   32   28\n>>>>> [11,]   19   30   25\n>>>>> [12,]   19   31   10\n>>>>> [13,]   19   30   10\n>>>>> [14,]   21   29    5\n>>>>> [15,]   21   29   15\n>>>>> [16,]   21   32    5\n>>>>> [17,]   21   32   15\n>>>>> [18,]   20   30   25\n>>>>> [19,]   20   26   25\n>>>>> [20,]   20   26   30\n>>>>> [21,]   16   28    5\n>>>>> [22,]   16   26    5\n>>>>> [23,]   16   26   28\n>>>>> [24,]   22   28    5\n>>>>> [25,]   22   32    5\n>>>>> [26,]   22   32   28\n>>>>>\n>>>>>> set2\n>>>>>             [,1]         [,2]        [,3]\n>>>>> [1,]  0.061298933  0.561676607 -0.29029312\n>>>>> [2,] -0.227292687  0.980185118  0.21751216\n>>>>> [3,]  0.182482967  0.913803801 -0.08308208\n>>>>> [4,] -0.143596376 -0.007469921 -0.33050543\n>>>>> [5,] -0.354096826  0.023132113  0.45463150\n>>>>> [6,]  0.006247011  0.183155253  0.97496500\n>>>>> [7,]  0.128600720 -0.249603537 -0.24710206\n>>>>> [8,] -0.418782299 -0.325201099  0.28908138\n>>>>> [9,]  0.231829464  0.343250895  0.65134735\n>>>>> [10,] -0.392597726  0.126741875  0.21411363\n>>>>> [11,] -0.051290704 -1.007826669  0.92808143\n>>>>>\n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>\n>>>>\n>>>>\n>>>> -- \n>>>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>>>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/ \n>>>> ~ripley/\n>>>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>>>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>>>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n>>>\n>>> Don McKenzie\n>>> Research Ecologist\n>>> Pacific Wildland Fire Sciences Lab\n>>> US Forest Service\n>>>\n>>> Affiliate Professor\n>>> School of Environmental and Forest Sciences\n>>> University of Washington\n>>> dmck at uw.edu\n>>>\n>>>\n>>>\n>>>\n>>>\n>>> \t[[alternative HTML version deleted]]\n>>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n> Don McKenzie\n> Research Ecologist\n> Pacific Wildland Fire Sciences Lab\n> US Forest Service\n>\n> Affiliate Professor\n> School of Environmental and Forest Sciences\n> University of Washington\n>\n> dmck at uw.edu\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\nDavid Winsemius, MD\nAlameda, CA, USA",
+      "body_snippet": "On Apr 3, 2014, at 7:29 AM, Don McKenzie wrote:\n\n> Just to complicate things   :-(\n>\n> If I load alphashape3d, I get a crash with the following error\n>\n> “To open “R”, you need to install X11. Would y",
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 5,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010772.html"
     },
     {
       "id": "msg-f318401a3888",
@@ -185,6 +194,7 @@
       "thread_id": "thread-750a62b8a723",
       "thread_depth": 6,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010773.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140406/2d77f863/attachment.pl"
       ]
@@ -203,7 +213,8 @@
       "body_snippet": "Hi,\n\nI just upgraded to Mavericks and I'm having trouble with ESS.  I have R \n3.0.3, and I tried both the ESS-included Emacs binary \n(http://vgoulet.act.ulaval.ca/en/emacs/) and the binary without ext",
       "thread_id": "thread-3014eb5f552e",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010774.html"
     },
     {
       "id": "msg-8104d22efdd2",
@@ -221,7 +232,8 @@
       "body_snippet": "Hmm,\n\nTried aquamacs? Hasn't been giving me problems lately. Otherwise, you might check the Activity Monitor and see if any involved processes turns App Nap on.\n\n-pd \n\n\nOn 07 Apr 2014, at 19:03 , Step",
       "thread_id": "thread-3014eb5f552e",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010775.html"
     },
     {
       "id": "msg-c34b51362644",
@@ -241,6 +253,7 @@
       "thread_id": "thread-3014eb5f552e",
       "thread_depth": 2,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010776.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140408/d21b6948/attachment.pl"
       ]
@@ -261,7 +274,8 @@
       "body_snippet": "Stephanie M. Gogarten <sdmorris <at> u.washington.edu> writes:\n\n> \n> Hi,\n> \n> I just upgraded to Mavericks and I'm having trouble with ESS.  I have R \n> 3.0.3, and I tried both the ESS-included Emacs ",
       "thread_id": "thread-3014eb5f552e",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010777.html"
     },
     {
       "id": "msg-e6b13b621493",
@@ -281,7 +295,8 @@
       "body_snippet": "Thanks for the help.  I couldn't get the binaries listed in my original \nmail to work regardless of my .emacs settings, but Aquamacs 3.0a does \nnot seem to have this problem on Mavericks.\n\nStephanie\n\n",
       "thread_id": "thread-3014eb5f552e",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010778.html"
     },
     {
       "id": "msg-19a82493e63f",
@@ -297,7 +312,8 @@
       "body_snippet": "Running update.packages on R 3.1 for Mavericks complains that some\nCRAN packages do not have binary builds available. For example lme4 is\nmissing from http://cran.r-project.org/bin/macosx/mavericks/co",
       "thread_id": "thread-19a82493e63f",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010779.html"
     },
     {
       "id": "msg-933f4b11f318",
@@ -314,6 +330,7 @@
       "thread_id": "thread-933f4b11f318",
       "thread_depth": 0,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010780.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/03e5cd39/attachment.pl"
       ]
@@ -334,7 +351,8 @@
       "body_snippet": "Google for \"round to even\", and read the Details section of ?round.\n\n\nOn 11 Apr 2014, at 10:42 , Per Nielsen <evilper at gmail.com> wrote:\n\n> Hi all\n> \n> I have encountered some strange/wrong behavior",
       "thread_id": "thread-933f4b11f318",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010781.html"
     },
     {
       "id": "msg-5c3fb0406910",
@@ -354,6 +372,7 @@
       "thread_id": "thread-933f4b11f318",
       "thread_depth": 2,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010782.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/0d1cb245/attachment.pl"
       ]
@@ -375,7 +394,8 @@
       "body_snippet": "On 11/04/2014, 5:04 AM, peter dalgaard wrote:\n> Google for \"round to even\", and read the Details section of ?round.\n\nThe behaviour on the Linux laptop does sound problematic, if it is \nreally giving r",
       "thread_id": "thread-933f4b11f318",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010783.html"
     },
     {
       "id": "msg-f85168930589",
@@ -396,6 +416,7 @@
       "thread_id": "thread-933f4b11f318",
       "thread_depth": 3,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010784.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/d663f589/attachment.pl"
       ]
@@ -416,7 +437,8 @@
       "body_snippet": "On Apr 11, 2014, at 12:54 AM, Jeroen Ooms <jeroen.ooms at stat.ucla.edu> wrote:\n\n> Running update.packages on R 3.1 for Mavericks complains that some\n> CRAN packages do not have binary builds availabl",
       "thread_id": "thread-19a82493e63f",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010785.html"
     },
     {
       "id": "msg-12c6f75d1d1a",
@@ -433,6 +455,7 @@
       "thread_id": "thread-12c6f75d1d1a",
       "thread_depth": 0,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010786.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/e69e9499/attachment.pl"
       ]
@@ -453,7 +476,8 @@
       "body_snippet": "On 11-04-2014, at 16:59, Marc Dubin <mdubin at gmail.com> wrote:\n\n> Hello,\n> \n> Please remove me from this mailing list. \n> \n> Please confirm that I have been removed.\n> \n\nGo to the link at the bottom",
       "thread_id": "thread-12c6f75d1d1a",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010787.html"
     },
     {
       "id": "msg-4bc119d17bc4",
@@ -472,7 +496,8 @@
       "body_snippet": "Thank you Jeroen for this report.  We (the lme4 authors) apologize for \nthis inconvenience.\n\nThank you Simon.  Your diagnosis is correct.  The test in question \nshould only run if mlmRev is available.",
       "thread_id": "thread-19a82493e63f",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010788.html"
     },
     {
       "id": "msg-34eaea04e46c",
@@ -489,6 +514,7 @@
       "thread_id": "thread-34eaea04e46c",
       "thread_depth": 0,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010789.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140412/bc74ba5b/attachment.pl"
       ]
@@ -509,7 +535,8 @@
       "body_snippet": "Patrick,\n\ncould it be that you have older versions of packages installed that were not built for Mavericks? Please check .libPaths() to make sure.\n\nI cannot reproduce the issue, so please provide the ",
       "thread_id": "thread-34eaea04e46c",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010790.html"
     },
     {
       "id": "msg-d9a7dd370ab4",
@@ -524,11 +551,12 @@
         "<CAJOE-h3U1FEaFCOKq2ZuPLO183EJjN_LGtSL__-MzZaaYkdjaQ@mail.gmail.com>",
         "<5A220779-6AA6-417E-9659-2DD9C4683505@r-project.org>"
       ],
-      "body_plain": "I am an old R beginner, to day installed R 3.1.0 mavericks and am having\ntroubles (the R -d lldb example below worked for me).\nDo you think we need simply wait for the packages actualization (like\nlsmeans, by example)?\nCould we do other actions?\nThank you very much\nJ Franco\n\nJorge Franco \nDirector, Departamento de Biometria y Estad?stica\nFacultad de Agronomia\nUniversidad de la Republica\nEst. Exp. EEMAC, Ruta 3, Km 363\nPaysandu\nUruguay\n\n\n\n\n\nOn 4/11/14, 4:28 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n\n>Patrick,\n>\n>could it be that you have older versions of packages installed that were\n>not built for Mavericks? Please check .libPaths() to make sure.\n>\n>I cannot reproduce the issue, so please provide the output of\n>sessionInfo() and if you have Xcode 5 installed, please run\n>\n>R -d lldb\n>\n>then let it crash and type\n>bt\n>on the prompt and send us the output.\n>\n>If you don't have Xcode5 or the above doesn't work, please select option\n>1 (abort) in the crash menu and check if you find a crash report.\n>\n>Thanks,\n>Simon\n>\n>\n>On Apr 11, 2014, at 2:58 PM, PatrickT <annoporci at gmail.com> wrote:\n>\n>> First, sorry if this is a repeat: I just joined the list and don't know\n>> what has been discussed recently. Thanks for listening!\n>> \n>> I just installed the latest version of R (3.1.0).  I also reinstalled\n>>the\n>> ggplot2 package. As soon as I execute library(\"ggplot2\") I get the bomb\n>> message \"R Session Aborted\" (in RStudio) or \"caught segfault\" message\n>>(in\n>> the R Console).\n>> \n>> I'm on Mac OS X Mavericks. I downloaded the Mavericks version, which is\n>> specifically designed for the new XCode (or something).\n>> \n>> I haven't tried on my Linux because I want to keep at least one working\n>> version of R/RStudio.\n>> \n>> I tried to look at the log files here:\n>> Help Menu -> Diagnostics -> Show Log Files\n>> \n>> but they are from last week, which is odd because I use R/RStudio every\n>>day.\n>> \n>> In the R Console:\n>> library(\"ggplot2\")\n>> \n>> *** caught segfault ***\n>> address 0x18, cause 'memory not mapped'\n>> \n>> Traceback:\n>> 1: dyn.load(file, DLLpath = DLLpath, ...)\n>> 2: library.dynam(lib, package, package.lib)\n>> 3: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck =\n>> vI[[j]])\n>> 4: asNamespace(ns)\n>> 5: namespaceImportFrom(ns, loadNamespace(j <- i[[1L]], c(lib.loc,\n>> .libPaths()), versionCheck = vI[[j]]), i[[2L]], from = package)\n>> 6: loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])\n>> 7: namespaceImport(ns, loadNamespace(i, c(lib.loc, .libPaths()),\n>> versionCheck = vI[[i]]), from = package)\n>> 8: loadNamespace(package, c(which.lib.loc, lib.loc))\n>> 9: doTryCatch(return(expr), name, parentenv, handler)\n>> 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n>> 11: tryCatchList(expr, classes, parentenv, handlers)\n>> 12: tryCatch(expr, error = function(e) {    call <- conditionCall(e)\n>>if\n>> (!is.null(call)) {        if (identical(call[[1L]],\n>> quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n>> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\n>> LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg,\n>> \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L],\n>>type\n>> = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type =\n>>\"b\")\n>> + nchar(sm[1L],                 type = \"b\")        if (w >\n>> LONG)             prefix <- paste0(prefix, \"\\n  \")    }    else prefix\n>><-\n>> \"Error : \"    msg <- paste0(prefix, conditionMessage(e), \"\\n\")\n>> .Internal(seterrmessage(msg[1L]))    if (!silent &&\n>> identical(getOption(\"show.error.messages\"),         TRUE)) {\n>> cat(msg, file = stderr())        .Internal(printDeferredWarnings())    }\n>> invisible(structure(msg, class = \"try-error\", condition = e))})\n>> 13: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc))\n>>env\n>> <- attachNamespace(ns, pos = pos, deps)})\n>> 14: library(\"ggplot2\")\n>> \n>> Possible actions:\n>> 1: abort (with core dump, if enabled)\n>> 2: normal R exit\n>> 3: exit R without saving workspace\n>> 4: exit R saving workspace\n>> Selection:\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "I am an old R beginner, to day installed R 3.1.0 mavericks and am having\ntroubles (the R -d lldb example below worked for me).\nDo you think we need simply wait for the packages actualization (like\nlsmeans, by example)?\nCould we do other actions?\nThank you very much\nJ Franco\n\nJorge Franco \nDirector, Departamento de Biometria y Estadística\nFacultad de Agronomia\nUniversidad de la Republica\nEst. Exp. EEMAC, Ruta 3, Km 363\nPaysandu\nUruguay\n\n\n\n\n\nOn 4/11/14, 4:28 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n\n>Patrick,\n>\n>could it be that you have older versions of packages installed that were\n>not built for Mavericks? Please check .libPaths() to make sure.\n>\n>I cannot reproduce the issue, so please provide the output of\n>sessionInfo() and if you have Xcode 5 installed, please run\n>\n>R -d lldb\n>\n>then let it crash and type\n>bt\n>on the prompt and send us the output.\n>\n>If you don't have Xcode5 or the above doesn't work, please select option\n>1 (abort) in the crash menu and check if you find a crash report.\n>\n>Thanks,\n>Simon\n>\n>\n>On Apr 11, 2014, at 2:58 PM, PatrickT <annoporci at gmail.com> wrote:\n>\n>> First, sorry if this is a repeat: I just joined the list and don't know\n>> what has been discussed recently. Thanks for listening!\n>> \n>> I just installed the latest version of R (3.1.0).  I also reinstalled\n>>the\n>> ggplot2 package. As soon as I execute library(\"ggplot2\") I get the bomb\n>> message \"R Session Aborted\" (in RStudio) or \"caught segfault\" message\n>>(in\n>> the R Console).\n>> \n>> I'm on Mac OS X Mavericks. I downloaded the Mavericks version, which is\n>> specifically designed for the new XCode (or something).\n>> \n>> I haven't tried on my Linux because I want to keep at least one working\n>> version of R/RStudio.\n>> \n>> I tried to look at the log files here:\n>> Help Menu -> Diagnostics -> Show Log Files\n>> \n>> but they are from last week, which is odd because I use R/RStudio every\n>>day.\n>> \n>> In the R Console:\n>> library(\"ggplot2\")\n>> \n>> *** caught segfault ***\n>> address 0x18, cause 'memory not mapped'\n>> \n>> Traceback:\n>> 1: dyn.load(file, DLLpath = DLLpath, ...)\n>> 2: library.dynam(lib, package, package.lib)\n>> 3: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck =\n>> vI[[j]])\n>> 4: asNamespace(ns)\n>> 5: namespaceImportFrom(ns, loadNamespace(j <- i[[1L]], c(lib.loc,\n>> .libPaths()), versionCheck = vI[[j]]), i[[2L]], from = package)\n>> 6: loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])\n>> 7: namespaceImport(ns, loadNamespace(i, c(lib.loc, .libPaths()),\n>> versionCheck = vI[[i]]), from = package)\n>> 8: loadNamespace(package, c(which.lib.loc, lib.loc))\n>> 9: doTryCatch(return(expr), name, parentenv, handler)\n>> 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n>> 11: tryCatchList(expr, classes, parentenv, handlers)\n>> 12: tryCatch(expr, error = function(e) {    call <- conditionCall(e)\n>>if\n>> (!is.null(call)) {        if (identical(call[[1L]],\n>> quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n>> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\n>> LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg,\n>> \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L],\n>>type\n>> = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type =\n>>\"b\")\n>> + nchar(sm[1L],                 type = \"b\")        if (w >\n>> LONG)             prefix <- paste0(prefix, \"\\n  \")    }    else prefix\n>><-\n>> \"Error : \"    msg <- paste0(prefix, conditionMessage(e), \"\\n\")\n>> .Internal(seterrmessage(msg[1L]))    if (!silent &&\n>> identical(getOption(\"show.error.messages\"),         TRUE)) {\n>> cat(msg, file = stderr())        .Internal(printDeferredWarnings())    }\n>> invisible(structure(msg, class = \"try-error\", condition = e))})\n>> 13: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc))\n>>env\n>> <- attachNamespace(ns, pos = pos, deps)})\n>> 14: library(\"ggplot2\")\n>> \n>> Possible actions:\n>> 1: abort (with core dump, if enabled)\n>> 2: normal R exit\n>> 3: exit R without saving workspace\n>> 4: exit R saving workspace\n>> Selection:\n>> \n>> \t[[alternative HTML version deleted]]\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>\n>_______________________________________________\n>R-SIG-Mac mailing list\n>R-SIG-Mac at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "I am an old R beginner, to day installed R 3.1.0 mavericks and am having\ntroubles (the R -d lldb example below worked for me).\nDo you think we need simply wait for the packages actualization (like\nlsm",
       "thread_id": "thread-34eaea04e46c",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010791.html"
     },
     {
       "id": "msg-1f0501faab03",
@@ -544,11 +572,12 @@
         "<5A220779-6AA6-417E-9659-2DD9C4683505@r-project.org>",
         "<CF6DF312.811C%jfranco@fagro.edu.uy>"
       ],
-      "body_plain": "On Apr 11, 2014, at 6:33 PM, Jorge Franco <jfranco at fagro.edu.uy> wrote:\n\n> I am an old R beginner, to day installed R 3.1.0 mavericks and am having troubles (the R -d lldb example below worked for me).\n\nCan you send me the output then?\n\n\n> Do you think we need simply wait for the packages actualization (like\n> lsmeans, by example)?\n> Could we do other actions?\n\nWell, unless we find out what's going on, updates won't help since there is nothing to change.\n\nAre you saying you hit the same problem as Patrick?\n\nThanks,\nSimon\n\n\n\n> Thank you very much\n> J Franco\n> \n> Jorge Franco \n> Director, Departamento de Biometria y Estad?stica\n> Facultad de Agronomia\n> Universidad de la Republica\n> Est. Exp. EEMAC, Ruta 3, Km 363\n> Paysandu\n> Uruguay\n> \n> \n> \n> \n> \n> On 4/11/14, 4:28 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n> \n>> Patrick,\n>> \n>> could it be that you have older versions of packages installed that were\n>> not built for Mavericks? Please check .libPaths() to make sure.\n>> \n>> I cannot reproduce the issue, so please provide the output of\n>> sessionInfo() and if you have Xcode 5 installed, please run\n>> \n>> R -d lldb\n>> \n>> then let it crash and type\n>> bt\n>> on the prompt and send us the output.\n>> \n>> If you don't have Xcode5 or the above doesn't work, please select option\n>> 1 (abort) in the crash menu and check if you find a crash report.\n>> \n>> Thanks,\n>> Simon\n>> \n>> \n>> On Apr 11, 2014, at 2:58 PM, PatrickT <annoporci at gmail.com> wrote:\n>> \n>>> First, sorry if this is a repeat: I just joined the list and don't know\n>>> what has been discussed recently. Thanks for listening!\n>>> \n>>> I just installed the latest version of R (3.1.0).  I also reinstalled\n>>> the\n>>> ggplot2 package. As soon as I execute library(\"ggplot2\") I get the bomb\n>>> message \"R Session Aborted\" (in RStudio) or \"caught segfault\" message\n>>> (in\n>>> the R Console).\n>>> \n>>> I'm on Mac OS X Mavericks. I downloaded the Mavericks version, which is\n>>> specifically designed for the new XCode (or something).\n>>> \n>>> I haven't tried on my Linux because I want to keep at least one working\n>>> version of R/RStudio.\n>>> \n>>> I tried to look at the log files here:\n>>> Help Menu -> Diagnostics -> Show Log Files\n>>> \n>>> but they are from last week, which is odd because I use R/RStudio every\n>>> day.\n>>> \n>>> In the R Console:\n>>> library(\"ggplot2\")\n>>> \n>>> *** caught segfault ***\n>>> address 0x18, cause 'memory not mapped'\n>>> \n>>> Traceback:\n>>> 1: dyn.load(file, DLLpath = DLLpath, ...)\n>>> 2: library.dynam(lib, package, package.lib)\n>>> 3: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck =\n>>> vI[[j]])\n>>> 4: asNamespace(ns)\n>>> 5: namespaceImportFrom(ns, loadNamespace(j <- i[[1L]], c(lib.loc,\n>>> .libPaths()), versionCheck = vI[[j]]), i[[2L]], from = package)\n>>> 6: loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])\n>>> 7: namespaceImport(ns, loadNamespace(i, c(lib.loc, .libPaths()),\n>>> versionCheck = vI[[i]]), from = package)\n>>> 8: loadNamespace(package, c(which.lib.loc, lib.loc))\n>>> 9: doTryCatch(return(expr), name, parentenv, handler)\n>>> 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n>>> 11: tryCatchList(expr, classes, parentenv, handlers)\n>>> 12: tryCatch(expr, error = function(e) {    call <- conditionCall(e)\n>>> if\n>>> (!is.null(call)) {        if (identical(call[[1L]],\n>>> quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n>>> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\n>>> LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg,\n>>> \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L],\n>>> type\n>>> = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type =\n>>> \"b\")\n>>> + nchar(sm[1L],                 type = \"b\")        if (w >\n>>> LONG)             prefix <- paste0(prefix, \"\\n  \")    }    else prefix\n>>> <-\n>>> \"Error : \"    msg <- paste0(prefix, conditionMessage(e), \"\\n\")\n>>> .Internal(seterrmessage(msg[1L]))    if (!silent &&\n>>> identical(getOption(\"show.error.messages\"),         TRUE)) {\n>>> cat(msg, file = stderr())        .Internal(printDeferredWarnings())    }\n>>> invisible(structure(msg, class = \"try-error\", condition = e))})\n>>> 13: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc))\n>>> env\n>>> <- attachNamespace(ns, pos = pos, deps)})\n>>> 14: library(\"ggplot2\")\n>>> \n>>> Possible actions:\n>>> 1: abort (with core dump, if enabled)\n>>> 2: normal R exit\n>>> 3: exit R without saving workspace\n>>> 4: exit R saving workspace\n>>> Selection:\n>>> \n>>> \t[[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_plain": "On Apr 11, 2014, at 6:33 PM, Jorge Franco <jfranco at fagro.edu.uy> wrote:\n\n> I am an old R beginner, to day installed R 3.1.0 mavericks and am having troubles (the R -d lldb example below worked for me).\n\nCan you send me the output then?\n\n\n> Do you think we need simply wait for the packages actualization (like\n> lsmeans, by example)?\n> Could we do other actions?\n\nWell, unless we find out what's going on, updates won't help since there is nothing to change.\n\nAre you saying you hit the same problem as Patrick?\n\nThanks,\nSimon\n\n\n\n> Thank you very much\n> J Franco\n> \n> Jorge Franco \n> Director, Departamento de Biometria y Estadística\n> Facultad de Agronomia\n> Universidad de la Republica\n> Est. Exp. EEMAC, Ruta 3, Km 363\n> Paysandu\n> Uruguay\n> \n> \n> \n> \n> \n> On 4/11/14, 4:28 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n> \n>> Patrick,\n>> \n>> could it be that you have older versions of packages installed that were\n>> not built for Mavericks? Please check .libPaths() to make sure.\n>> \n>> I cannot reproduce the issue, so please provide the output of\n>> sessionInfo() and if you have Xcode 5 installed, please run\n>> \n>> R -d lldb\n>> \n>> then let it crash and type\n>> bt\n>> on the prompt and send us the output.\n>> \n>> If you don't have Xcode5 or the above doesn't work, please select option\n>> 1 (abort) in the crash menu and check if you find a crash report.\n>> \n>> Thanks,\n>> Simon\n>> \n>> \n>> On Apr 11, 2014, at 2:58 PM, PatrickT <annoporci at gmail.com> wrote:\n>> \n>>> First, sorry if this is a repeat: I just joined the list and don't know\n>>> what has been discussed recently. Thanks for listening!\n>>> \n>>> I just installed the latest version of R (3.1.0).  I also reinstalled\n>>> the\n>>> ggplot2 package. As soon as I execute library(\"ggplot2\") I get the bomb\n>>> message \"R Session Aborted\" (in RStudio) or \"caught segfault\" message\n>>> (in\n>>> the R Console).\n>>> \n>>> I'm on Mac OS X Mavericks. I downloaded the Mavericks version, which is\n>>> specifically designed for the new XCode (or something).\n>>> \n>>> I haven't tried on my Linux because I want to keep at least one working\n>>> version of R/RStudio.\n>>> \n>>> I tried to look at the log files here:\n>>> Help Menu -> Diagnostics -> Show Log Files\n>>> \n>>> but they are from last week, which is odd because I use R/RStudio every\n>>> day.\n>>> \n>>> In the R Console:\n>>> library(\"ggplot2\")\n>>> \n>>> *** caught segfault ***\n>>> address 0x18, cause 'memory not mapped'\n>>> \n>>> Traceback:\n>>> 1: dyn.load(file, DLLpath = DLLpath, ...)\n>>> 2: library.dynam(lib, package, package.lib)\n>>> 3: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck =\n>>> vI[[j]])\n>>> 4: asNamespace(ns)\n>>> 5: namespaceImportFrom(ns, loadNamespace(j <- i[[1L]], c(lib.loc,\n>>> .libPaths()), versionCheck = vI[[j]]), i[[2L]], from = package)\n>>> 6: loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])\n>>> 7: namespaceImport(ns, loadNamespace(i, c(lib.loc, .libPaths()),\n>>> versionCheck = vI[[i]]), from = package)\n>>> 8: loadNamespace(package, c(which.lib.loc, lib.loc))\n>>> 9: doTryCatch(return(expr), name, parentenv, handler)\n>>> 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n>>> 11: tryCatchList(expr, classes, parentenv, handlers)\n>>> 12: tryCatch(expr, error = function(e) {    call <- conditionCall(e)\n>>> if\n>>> (!is.null(call)) {        if (identical(call[[1L]],\n>>> quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n>>> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\n>>> LONG <- 75L        msg <- conditionMessage(e)        sm <- strsplit(msg,\n>>> \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L],\n>>> type\n>>> = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type =\n>>> \"b\")\n>>> + nchar(sm[1L],                 type = \"b\")        if (w >\n>>> LONG)             prefix <- paste0(prefix, \"\\n  \")    }    else prefix\n>>> <-\n>>> \"Error : \"    msg <- paste0(prefix, conditionMessage(e), \"\\n\")\n>>> .Internal(seterrmessage(msg[1L]))    if (!silent &&\n>>> identical(getOption(\"show.error.messages\"),         TRUE)) {\n>>> cat(msg, file = stderr())        .Internal(printDeferredWarnings())    }\n>>> invisible(structure(msg, class = \"try-error\", condition = e))})\n>>> 13: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc))\n>>> env\n>>> <- attachNamespace(ns, pos = pos, deps)})\n>>> 14: library(\"ggplot2\")\n>>> \n>>> Possible actions:\n>>> 1: abort (with core dump, if enabled)\n>>> 2: normal R exit\n>>> 3: exit R without saving workspace\n>>> 4: exit R saving workspace\n>>> Selection:\n>>> \n>>> \t[[alternative HTML version deleted]]\n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
       "body_snippet": "On Apr 11, 2014, at 6:33 PM, Jorge Franco <jfranco at fagro.edu.uy> wrote:\n\n> I am an old R beginner, to day installed R 3.1.0 mavericks and am having troubles (the R -d lldb example below worked for ",
       "thread_id": "thread-34eaea04e46c",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010792.html"
     },
     {
       "id": "msg-ba2f04bc656f",
@@ -567,6 +596,7 @@
       "thread_id": "thread-19a82493e63f",
       "thread_depth": 1,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010793.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140411/350e444e/attachment.pl"
       ]
@@ -588,7 +618,8 @@
       "body_snippet": "On Apr 11, 2014, at 11:11 PM, Jeroen Ooms <jeroen.ooms at stat.ucla.edu> wrote:\n\n> There are actually over 500 packages that do not have a mavericks build.\n\nThat's only a small fraction, it's not many",
       "thread_id": "thread-19a82493e63f",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010794.html"
     },
     {
       "id": "msg-be0ad011dce0",
@@ -605,11 +636,12 @@
         "<CF6DF312.811C%jfranco@fagro.edu.uy>",
         "<ED9107F2-0193-4ED8-86C7-025135622F34@r-project.org>"
       ],
-      "body_plain": "The terminal output is attached (it did not crash).\nNo, I have different problems (simpler than Patrick problems, surely).\nFollowing your suggestion \"there is nothing to change\" I did get the\npackages I need by downloading the .tar files (from the CRAN-R-project)\nand installing them using Rstudio. For now that's working.\nThanks very much,\nJ Franco\n\n\n\nOn 4/11/14, 11:34 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n\n>On Apr 11, 2014, at 6:33 PM, Jorge Franco <jfranco at fagro.edu.uy> wrote:\n>\n>> I am an old R beginner, to day installed R 3.1.0 mavericks and am\n>>having troubles (the R -d lldb example below worked for me).\n>\n>Can you send me the output then?\n>\n>\n>> Do you think we need simply wait for the packages actualization (like\n>> lsmeans, by example)?\n>> Could we do other actions?\n>\n>Well, unless we find out what's going on, updates won't help since there\n>is nothing to change.\n>\n>Are you saying you hit the same problem as Patrick?\n>\n>Thanks,\n>Simon\n>\n>\n>\n>> Thank you very much\n>> J Franco\n>> \n>> Jorge Franco \n>> Director, Departamento de Biometria y Estad?stica\n>> Facultad de Agronomia\n>> Universidad de la Republica\n>> Est. Exp. EEMAC, Ruta 3, Km 363\n>> Paysandu\n>> Uruguay\n>> \n>> \n>> \n>> \n>> \n>> On 4/11/14, 4:28 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org>\n>>wrote:\n>> \n>>> Patrick,\n>>> \n>>> could it be that you have older versions of packages installed that\n>>>were\n>>> not built for Mavericks? Please check .libPaths() to make sure.\n>>> \n>>> I cannot reproduce the issue, so please provide the output of\n>>> sessionInfo() and if you have Xcode 5 installed, please run\n\n>>>then let it crash and type\n>>> bt\n>>> on the prompt and send us the output.\n>>> \n>>> If you don't have Xcode5 or the above doesn't work, please select\n>>>option\n>>> 1 (abort) in the crash menu and check if you find a crash report.\n>>> \n>>> Thanks,\n>>> Simon\n>>> \n>>> \n>>> On Apr 11, 2014, at 2:58 PM, PatrickT <annoporci at gmail.com> wrote:\n>>> \n>>>> First, sorry if this is a repeat: I just joined the list and don't\n>>>>know\n>>>> what has been discussed recently. Thanks for listening!\n>>>> \n>>>> I just installed the latest version of R (3.1.0).  I also reinstalled\n>>>> the\n>>>> ggplot2 package. As soon as I execute library(\"ggplot2\") I get the\n>>>>bomb\n>>>> message \"R Session Aborted\" (in RStudio) or \"caught segfault\" message\n>>>> (in\n>>>> the R Console).\n>>>> \n>>>> I'm on Mac OS X Mavericks. I downloaded the Mavericks version, which\n>>>>is\n>>>> specifically designed for the new XCode (or something).\n>>>> \n>>>> I haven't tried on my Linux because I want to keep at least one\n>>>>working\n>>>> version of R/RStudio.\n>>>> \n>>>> I tried to look at the log files here:\n>>>> Help Menu -> Diagnostics -> Show Log Files\n>>>> \n>>>> but they are from last week, which is odd because I use R/RStudio\n>>>>every\n>>>> day.\n>>>> \n>>>> In the R Console:\n>>>> library(\"ggplot2\")\n>>>> \n>>>> *** caught segfault ***\n>>>> address 0x18, cause 'memory not mapped'\n>>>> \n>>>> Traceback:\n>>>> 1: dyn.load(file, DLLpath = DLLpath, ...)\n>>>> 2: library.dynam(lib, package, package.lib)\n>>>> 3: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck =\n>>>> vI[[j]])\n>>>> 4: asNamespace(ns)\n>>>> 5: namespaceImportFrom(ns, loadNamespace(j <- i[[1L]], c(lib.loc,\n>>>> .libPaths()), versionCheck = vI[[j]]), i[[2L]], from = package)\n>>>> 6: loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])\n>>>> 7: namespaceImport(ns, loadNamespace(i, c(lib.loc, .libPaths()),\n>>>> versionCheck = vI[[i]]), from = package)\n>>>> 8: loadNamespace(package, c(which.lib.loc, lib.loc))\n>>>> 9: doTryCatch(return(expr), name, parentenv, handler)\n>>>> 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n>>>> 11: tryCatchList(expr, classes, parentenv, handlers)\n>>>> 12: tryCatch(expr, error = function(e) {    call <- conditionCall(e)\n>>>> if\n>>>> (!is.null(call)) {        if (identical(call[[1L]],\n>>>> quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n>>>> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\n>>>> LONG <- 75L        msg <- conditionMessage(e)        sm <-\n>>>>strsplit(msg,\n>>>> \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L],\n>>>> type\n>>>> = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type =\n>>>> \"b\")\n>>>> + nchar(sm[1L],                 type = \"b\")        if (w >\n>>>> LONG)             prefix <- paste0(prefix, \"\\n  \")    }    else prefix\n>>>> <-\n>>>> \"Error : \"    msg <- paste0(prefix, conditionMessage(e), \"\\n\")\n>>>> .Internal(seterrmessage(msg[1L]))    if (!silent &&\n>>>> identical(getOption(\"show.error.messages\"),         TRUE)) {\n>>>> cat(msg, file = stderr())        .Internal(printDeferredWarnings())\n>>>> }\n>>>> invisible(structure(msg, class = \"try-error\", condition = e))})\n>>>> 13: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc))\n>>>> env\n>>>> <- attachNamespace(ns, pos = pos, deps)})\n>>>> 14: library(\"ggplot2\")\n>>>> \n>>>> Possible actions:\n>>>> 1: abort (with core dump, if enabled)\n>>>> 2: normal R exit\n>>>> 3: exit R without saving workspace\n>>>> 4: exit R saving workspace\n>>>> Selection:\n>>>> \n>>>> \t[[alternative HTML version deleted]]\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> \n>\n\n-------------- next part --------------\nAn embedded and charset-unspecified text was scrubbed...\nName: Terminal Saved Output.txt\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140412/ddaf7001/attachment.txt>",
+      "body_plain": "The terminal output is attached (it did not crash).\nNo, I have different problems (simpler than Patrick problems, surely).\nFollowing your suggestion \"there is nothing to change\" I did get the\npackages I need by downloading the .tar files (from the CRAN-R-project)\nand installing them using Rstudio. For now that's working.\nThanks very much,\nJ Franco\n\n\n\nOn 4/11/14, 11:34 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org> wrote:\n\n>On Apr 11, 2014, at 6:33 PM, Jorge Franco <jfranco at fagro.edu.uy> wrote:\n>\n>> I am an old R beginner, to day installed R 3.1.0 mavericks and am\n>>having troubles (the R -d lldb example below worked for me).\n>\n>Can you send me the output then?\n>\n>\n>> Do you think we need simply wait for the packages actualization (like\n>> lsmeans, by example)?\n>> Could we do other actions?\n>\n>Well, unless we find out what's going on, updates won't help since there\n>is nothing to change.\n>\n>Are you saying you hit the same problem as Patrick?\n>\n>Thanks,\n>Simon\n>\n>\n>\n>> Thank you very much\n>> J Franco\n>> \n>> Jorge Franco \n>> Director, Departamento de Biometria y Estadística\n>> Facultad de Agronomia\n>> Universidad de la Republica\n>> Est. Exp. EEMAC, Ruta 3, Km 363\n>> Paysandu\n>> Uruguay\n>> \n>> \n>> \n>> \n>> \n>> On 4/11/14, 4:28 PM, \"Simon Urbanek\" <simon.urbanek at r-project.org>\n>>wrote:\n>> \n>>> Patrick,\n>>> \n>>> could it be that you have older versions of packages installed that\n>>>were\n>>> not built for Mavericks? Please check .libPaths() to make sure.\n>>> \n>>> I cannot reproduce the issue, so please provide the output of\n>>> sessionInfo() and if you have Xcode 5 installed, please run\n\n>>>then let it crash and type\n>>> bt\n>>> on the prompt and send us the output.\n>>> \n>>> If you don't have Xcode5 or the above doesn't work, please select\n>>>option\n>>> 1 (abort) in the crash menu and check if you find a crash report.\n>>> \n>>> Thanks,\n>>> Simon\n>>> \n>>> \n>>> On Apr 11, 2014, at 2:58 PM, PatrickT <annoporci at gmail.com> wrote:\n>>> \n>>>> First, sorry if this is a repeat: I just joined the list and don't\n>>>>know\n>>>> what has been discussed recently. Thanks for listening!\n>>>> \n>>>> I just installed the latest version of R (3.1.0).  I also reinstalled\n>>>> the\n>>>> ggplot2 package. As soon as I execute library(\"ggplot2\") I get the\n>>>>bomb\n>>>> message \"R Session Aborted\" (in RStudio) or \"caught segfault\" message\n>>>> (in\n>>>> the R Console).\n>>>> \n>>>> I'm on Mac OS X Mavericks. I downloaded the Mavericks version, which\n>>>>is\n>>>> specifically designed for the new XCode (or something).\n>>>> \n>>>> I haven't tried on my Linux because I want to keep at least one\n>>>>working\n>>>> version of R/RStudio.\n>>>> \n>>>> I tried to look at the log files here:\n>>>> Help Menu -> Diagnostics -> Show Log Files\n>>>> \n>>>> but they are from last week, which is odd because I use R/RStudio\n>>>>every\n>>>> day.\n>>>> \n>>>> In the R Console:\n>>>> library(\"ggplot2\")\n>>>> \n>>>> *** caught segfault ***\n>>>> address 0x18, cause 'memory not mapped'\n>>>> \n>>>> Traceback:\n>>>> 1: dyn.load(file, DLLpath = DLLpath, ...)\n>>>> 2: library.dynam(lib, package, package.lib)\n>>>> 3: loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck =\n>>>> vI[[j]])\n>>>> 4: asNamespace(ns)\n>>>> 5: namespaceImportFrom(ns, loadNamespace(j <- i[[1L]], c(lib.loc,\n>>>> .libPaths()), versionCheck = vI[[j]]), i[[2L]], from = package)\n>>>> 6: loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]])\n>>>> 7: namespaceImport(ns, loadNamespace(i, c(lib.loc, .libPaths()),\n>>>> versionCheck = vI[[i]]), from = package)\n>>>> 8: loadNamespace(package, c(which.lib.loc, lib.loc))\n>>>> 9: doTryCatch(return(expr), name, parentenv, handler)\n>>>> 10: tryCatchOne(expr, names, parentenv, handlers[[1L]])\n>>>> 11: tryCatchList(expr, classes, parentenv, handlers)\n>>>> 12: tryCatch(expr, error = function(e) {    call <- conditionCall(e)\n>>>> if\n>>>> (!is.null(call)) {        if (identical(call[[1L]],\n>>>> quote(doTryCatch)))             call <- sys.call(-4L)        dcall <-\n>>>> deparse(call)[1L]        prefix <- paste(\"Error in\", dcall, \": \")\n>>>> LONG <- 75L        msg <- conditionMessage(e)        sm <-\n>>>>strsplit(msg,\n>>>> \"\\n\")[[1L]]        w <- 14L + nchar(dcall, type = \"w\") + nchar(sm[1L],\n>>>> type\n>>>> = \"w\")        if (is.na(w))             w <- 14L + nchar(dcall, type =\n>>>> \"b\")\n>>>> + nchar(sm[1L],                 type = \"b\")        if (w >\n>>>> LONG)             prefix <- paste0(prefix, \"\\n  \")    }    else prefix\n>>>> <-\n>>>> \"Error : \"    msg <- paste0(prefix, conditionMessage(e), \"\\n\")\n>>>> .Internal(seterrmessage(msg[1L]))    if (!silent &&\n>>>> identical(getOption(\"show.error.messages\"),         TRUE)) {\n>>>> cat(msg, file = stderr())        .Internal(printDeferredWarnings())\n>>>> }\n>>>> invisible(structure(msg, class = \"try-error\", condition = e))})\n>>>> 13: try({    ns <- loadNamespace(package, c(which.lib.loc, lib.loc))\n>>>> env\n>>>> <- attachNamespace(ns, pos = pos, deps)})\n>>>> 14: library(\"ggplot2\")\n>>>> \n>>>> Possible actions:\n>>>> 1: abort (with core dump, if enabled)\n>>>> 2: normal R exit\n>>>> 3: exit R without saving workspace\n>>>> 4: exit R saving workspace\n>>>> Selection:\n>>>> \n>>>> \t[[alternative HTML version deleted]]\n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n>> \n>\n\n-------------- next part --------------\nAn embedded and charset-unspecified text was scrubbed...\nName: Terminal Saved Output.txt\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140412/ddaf7001/attachment.txt>",
       "body_snippet": "The terminal output is attached (it did not crash).\nNo, I have different problems (simpler than Patrick problems, surely).\nFollowing your suggestion \"there is nothing to change\" I did get the\npackages",
       "thread_id": "thread-34eaea04e46c",
       "thread_depth": 4,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010795.html"
     },
     {
       "id": "msg-681ed73bbe37",
@@ -625,7 +657,8 @@
       "body_snippet": "Hi all,\n\nWith R version 3.1.0 on OSX, using either the Snow Leopard or the Mavericks binary installation on a Mac with fully updated Mavericks, there has been a change in behavior since 3.0.3.\n\nI have",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010796.html"
     },
     {
       "id": "msg-6d70feeaebfe",
@@ -637,11 +670,12 @@
       "subject_clean": "Opening NEWS in R.app gives error message",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "In R.app (version 1.64 (6734)) for R version 3.10 regardless of Snow Leopard or Mavericks \nthe menu entry Help, What?s New In This Version shows the R.app NEWS but not the R NEWS.\n\nAn error message is issued in the console:\n\nThe file /Library/Frameworks/R.framework/Resources/NEWS does not exist.\n\nAccessing NEWS for R via the menu entry R help, ?  does display R NEWS.\n\nBerend",
-      "body_snippet": "In R.app (version 1.64 (6734)) for R version 3.10 regardless of Snow Leopard or Mavericks \nthe menu entry Help, What?s New In This Version shows the R.app NEWS but not the R NEWS.\n\nAn error message is",
+      "body_plain": "In R.app (version 1.64 (6734)) for R version 3.10 regardless of Snow Leopard or Mavericks \nthe menu entry Help, What’s New In This Version shows the R.app NEWS but not the R NEWS.\n\nAn error message is issued in the console:\n\nThe file /Library/Frameworks/R.framework/Resources/NEWS does not exist.\n\nAccessing NEWS for R via the menu entry R help, …  does display R NEWS.\n\nBerend",
+      "body_snippet": "In R.app (version 1.64 (6734)) for R version 3.10 regardless of Snow Leopard or Mavericks \nthe menu entry Help, What’s New In This Version shows the R.app NEWS but not the R NEWS.\n\nAn error message is",
       "thread_id": "thread-6d70feeaebfe",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010797.html"
     },
     {
       "id": "msg-c9743468b748",
@@ -657,7 +691,8 @@
       "body_snippet": "When I select 'Package Manager' from the 'Packages & Data' menu in R.app nothing happens and I get the following in the R Console window:\n\nError: '.find.package' is defunct.\nUse 'find.package' instead",
       "thread_id": "thread-c9743468b748",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010798.html"
     },
     {
       "id": "msg-467118e04d03",
@@ -675,7 +710,8 @@
       "body_snippet": ">>>>> Marc Schwartz <marc_schwartz at me.com>\n>>>>>     on Sun, 13 Apr 2014 10:22:55 -0500 writes:\n\n[on the R-SIG-Mac  mailing list] :\t  \n\n    > Hi all,\n    > With R version 3.1.0 on OSX, using either",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010799.html"
     },
     {
       "id": "msg-80cb9ef477a4",
@@ -694,7 +730,8 @@
       "body_snippet": "Hi Martin,\n\nThanks for your confirmation on this.\n\nI normally do not use R CMD Sweave, as I too run under ESS in normal day to day operations. This finding was a quirk of having a particular Rnw docum",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010800.html"
     },
     {
       "id": "msg-448523c4e03c",
@@ -713,7 +750,8 @@
       "body_snippet": "Until fixed, one way to fool R here without changing the vignette or\nanything else seems to be (verified on Windows):\n\nmkdir figures\nset SWEAVE_OPTIONS=prefix.string=figures/fig\nR CMD Sweave foo.Rnw\n\n",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010801.html"
     },
     {
       "id": "msg-52beed32b86d",
@@ -733,7 +771,8 @@
       "body_snippet": "On 14/04/2014, 10:23 AM, Marc Schwartz wrote:\n> Hi Martin,\n>\n> Thanks for your confirmation on this.\n>\n> I normally do not use R CMD Sweave, as I too run under ESS in normal day to day operations. Thi",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010804.html"
     },
     {
       "id": "msg-d018a216c2e3",
@@ -767,7 +806,8 @@
       "body_snippet": "Hi,\nI'm in trouble when trying to update rgdal in 3.1.0 in Mavericks. There is no binary and installing for source claims that I've no libproj in standard or given locations. I do have several libproj",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 4,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010805.html"
     },
     {
       "id": "msg-eb01eb17a25e",
@@ -783,7 +823,8 @@
       "body_snippet": "Just a thought, but what if you overload the defunct function in your .Globalenv ?\n\n.find.package<-function(package, lib.loc = NULL, quiet = FALSE,\n             verbose = getOption(\"verbose\") )  find.",
       "thread_id": "thread-eb01eb17a25e",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010810.html"
     },
     {
       "id": "msg-c75ddc2eece1",
@@ -804,7 +845,8 @@
       "body_snippet": "On 15 Apr 2014, at 13:14 , Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n\n> On 14/04/2014, 10:23 AM, Marc Schwartz wrote:\n>> Hi Martin,\n>> \n>> Thanks for your confirmation on this.\n>> \n>> I norm",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 4,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010806.html"
     },
     {
       "id": "msg-479e443c2e14",
@@ -826,6 +868,7 @@
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 4,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010807.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/9016db80/attachment.pl"
       ]
@@ -844,7 +887,8 @@
       "body_snippet": "Running on R 3.1 on my Mavericks laptop:\n\noptions(bitmapType = \"cairo\");\nsvg(\"cars.svg\", width=11.69, height=8.27)\nplot(cars)\ndev.off()\n\nGives a message: Fontconfig error: Cannot load default config f",
       "thread_id": "thread-e9a518eba359",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010808.html"
     },
     {
       "id": "msg-d24c00b87c39",
@@ -863,6 +907,7 @@
       "thread_id": "thread-e9a518eba359",
       "thread_depth": 1,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010809.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140415/8c9d2817/attachment.pl"
       ]
@@ -882,6 +927,7 @@
       "thread_id": "thread-a8bcf3b16690",
       "thread_depth": 0,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010811.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140416/3fc66e16/attachment.pl"
       ]
@@ -960,7 +1006,8 @@
       "body_snippet": "Hi All,\n\nWe use \"R CMD Sweave\" in our reporting workflow and we also call\n\"sweave()\" interactively or via ESS (depending on who you talk to).  I\ndidn't notice the bug until we changed a dev machine's ",
       "thread_id": "thread-db121edee8c4",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010817.html"
     },
     {
       "id": "msg-07b5fcf10a63",
@@ -982,7 +1029,8 @@
       "body_snippet": "On Tue, 15 Apr 2014, peter dalgaard wrote:\n> I'd say that that cat is out of the bag. There are probably umpteen \n> documents around suggesting \"R CMD Sweave\". As people use Sweave only \n> sporadicall",
       "thread_id": "thread-681ed73bbe37",
       "thread_depth": 5,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010829.html"
     },
     {
       "id": "msg-edf0cb9de11f",
@@ -1001,7 +1049,8 @@
       "body_snippet": "On Apr 16, 2014, at 10:21 AM, Blair Christian <blair.christian at gmail.com> wrote:\n\n> Hi All,\n> \n> We use \"R CMD Sweave\" in our reporting workflow and we also call\n> \"sweave()\" interactively or via E",
       "thread_id": "thread-db121edee8c4",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010818.html"
     },
     {
       "id": "msg-b898a9433052",
@@ -1019,7 +1068,8 @@
       "body_snippet": "Thanks, this was an issue in the fontconfig used by 3.1.0, now fixed. You will need to upgrade R and possibly packages that use fontconfig.\n\nCheers,\nSimon\n\n\nOn Apr 15, 2014, at 7:55 PM, Jeroen Ooms <j",
       "thread_id": "thread-e9a518eba359",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010819.html"
     },
     {
       "id": "msg-30887e64508c",
@@ -1037,7 +1087,8 @@
       "body_snippet": "Thanks, this is now fixed in the latest GUI that can be downloaded form\n\nhttp://r.research.att.com\n\nYou can simply grab the latest R 3.1.0-patched form there and get other bug fixes as well.\n\nCheers,\n",
       "thread_id": "thread-c9743468b748",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010820.html"
     },
     {
       "id": "msg-b78b9c91c64d",
@@ -1072,7 +1123,8 @@
       "body_snippet": "Dear Simon,\n\nI saw your post on this thread. I'm experiencing exactly the same issue right now and don't know how it is \"now fixed\". Could you please enlighten me on that?\n\nThanks much,\nYue",
       "thread_id": "thread-957ca415288d",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010821.html"
     },
     {
       "id": "msg-3f2cdb2d1950",
@@ -1090,7 +1142,8 @@
       "body_snippet": "On Apr 17, 2014, at 9:56 PM, Yue Li <gorillayue at gmail.com> wrote:\n\n> Dear Simon,\n> \n> I saw your post on this thread. I'm experiencing exactly the same issue right now and don't know how it is \"now",
       "thread_id": "thread-957ca415288d",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010822.html"
     },
     {
       "id": "msg-60373c429ea3",
@@ -1109,7 +1162,8 @@
       "body_snippet": "Fixed! Thanks a lot!\n\nOn Apr 17, 2014, at 10:13 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n\n> \n> On Apr 17, 2014, at 9:56 PM, Yue Li <gorillayue at gmail.com> wrote:\n> \n>> Dear Simon,\n>",
       "thread_id": "thread-957ca415288d",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010823.html"
     },
     {
       "id": "msg-1a4b3df78882",
@@ -1126,6 +1180,7 @@
       "thread_id": "thread-1a4b3df78882",
       "thread_depth": 0,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010824.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140418/08ecb6a8/attachment.pl"
       ]
@@ -1146,7 +1201,8 @@
       "body_snippet": "I think you're not alone. See here for solution: https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010820.html\n\nOn Apr 18, 2014, at 2:45 PM, Don McKenzie <dmck at u.washington.edu> wrote:\n\n> I just ",
       "thread_id": "thread-1a4b3df78882",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010825.html"
     },
     {
       "id": "msg-2d03ea828e82",
@@ -1166,6 +1222,7 @@
       "thread_id": "thread-1a4b3df78882",
       "thread_depth": 2,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010826.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140418/bd21ea9d/attachment.pl"
       ]
@@ -1187,7 +1244,8 @@
       "body_snippet": "I am also experiencing a performance regression for svg and png after\nupgrading to R 3.1 on Linux. Could that be related to this problem, or\nwas this problem specific to OSX?\n\n\n\n\n\n\nOn Wed, Apr 16, 201",
       "thread_id": "thread-e9a518eba359",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010827.html"
     },
     {
       "id": "msg-e09adf7d8c89",
@@ -1207,7 +1265,8 @@
       "body_snippet": "On Apr 18, 2014, at 4:22 PM, Jeroen Ooms <jeroen.ooms at stat.ucla.edu> wrote:\n\n> I am also experiencing a performance regression for svg and png after\n> upgrading to R 3.1 on Linux. Could that be rel",
       "thread_id": "thread-e9a518eba359",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010828.html"
     },
     {
       "id": "msg-646ec78af0af",
@@ -1224,6 +1283,7 @@
       "thread_id": "thread-646ec78af0af",
       "thread_depth": 0,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010832.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140421/cf4beae8/attachment.pl"
       ]
@@ -1244,7 +1304,8 @@
       "body_snippet": "On 21/04/2014 21:44, Allen Lin wrote:\n> Hi all,\n>\n> I am new to this community so sorry if this question has already been\n> answered.\n\nYes, in the R-admin manual.\n\n'The current CRAN ?Mavericks? distri",
       "thread_id": "thread-646ec78af0af",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010833.html"
     },
     {
       "id": "msg-5b236826d6b4",
@@ -1264,6 +1325,7 @@
       "thread_id": "thread-646ec78af0af",
       "thread_depth": 2,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010834.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140421/e0e459f1/attachment.pl"
       ]
@@ -1282,7 +1344,8 @@
       "body_snippet": "I've noticed some confusion about which CRAN installer package to use, \nand even reluctance to update to 3.1.0.  So some pointers for Mavericks \nusers\n\n1) AFAIK no users are going to be worse off usin",
       "thread_id": "thread-358d0cf7dd49",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html"
     },
     {
       "id": "msg-4dcd516e865d",
@@ -1300,7 +1363,8 @@
       "body_snippet": "Thank you.\n\nIn case it helps other users of the Mavericks build: The instructions for installing the gfortran binaries (<http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2>) linked to at <",
       "thread_id": "thread-358d0cf7dd49",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010836.html"
     },
     {
       "id": "msg-f51a056d053e",
@@ -1319,7 +1383,8 @@
       "body_snippet": "On Apr 22, 2014, at 9:50 PM, Gow, Ian <igow at hbs.edu> wrote:\n\n> Thank you.\n> \n> In case it helps other users of the Mavericks build: The instructions for installing the gfortran binaries (<http://r.",
       "thread_id": "thread-358d0cf7dd49",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010837.html"
     },
     {
       "id": "msg-33f7b244e41c",
@@ -1335,7 +1400,8 @@
       "body_snippet": "Hello Simon & Co.,\n\nOn R-3.1.0, Mavericks build:\n\n> 1980000020L + 222000000L\n[1] -2092967276\n\nOn R-3.1.0, Snow Leopard build:\n\n> 1980000020L + 222000000L\n[1] NA\nWarning message:\nIn 1980000020L + 22200",
       "thread_id": "thread-33f7b244e41c",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010838.html"
     },
     {
       "id": "msg-c9153cd58a52",
@@ -1347,11 +1413,12 @@
       "subject_clean": "Rcpp w/ OS X Mavericks",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "Hi all, \n\nI know this issue has come up a lot in the last few months and I?ve searched around for days trying to find a solution. I can?t get my C++ files that use Rcpp to compile in OS X 10.9 (Mavericks). I?ve done the following:\n\n-Downloaded Xcode 5 and installed command line tools, \n-Upgraded to R 3.1 for Mavericks, and\n-Installed Rcpp from source. \n\nAfter installing Rcpp from source, I can write C++ functions using Inline. For example, \n\nlibrary(Rcpp)\nlibrary(inline)\n\ncppFunction('\ndouble meanC(NumericVector x) {\n  int n = x.size();\n  double total = 0;\n\n  for(int i = 0; i < n; ++i) {\n    total += x[i] / n;\n  }\n  return total;\n}'\n            )\n\nworks just fine, but the file containing \n\n#include <Rcpp.h>\nusing namespace Rcpp;\n\n// [[Rcpp::export]]\ndouble meanC(NumericVector x) {\n  int n = x.size();\n  double total = 0;\n\n  for(int i = 0; i < n; ++i) {\n    total += x[i] / n;\n  }\n  return total;\n}\n\n\nwill not compile. I get the error message:\n\n $ R CMD SHLIB point_mcmc.cpp\nclang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\npoint_mcmc.cpp:1:10: fatal error: 'Rcpp.h' file not found\n#include <Rcpp.h>\n         ^\n1 error generated.\nmake: *** [point_mcmc.o] Error 1\n\nThe fact that one works and the other does not is incredibly confusing. Thanks in advance for any assistance. \n\nBest, \nJosh",
-      "body_snippet": "Hi all, \n\nI know this issue has come up a lot in the last few months and I?ve searched around for days trying to find a solution. I can?t get my C++ files that use Rcpp to compile in OS X 10.9 (Maveri",
+      "body_plain": "Hi all, \n\nI know this issue has come up a lot in the last few months and I’ve searched around for days trying to find a solution. I can’t get my C++ files that use Rcpp to compile in OS X 10.9 (Mavericks). I’ve done the following:\n\n-Downloaded Xcode 5 and installed command line tools, \n-Upgraded to R 3.1 for Mavericks, and\n-Installed Rcpp from source. \n\nAfter installing Rcpp from source, I can write C++ functions using Inline. For example, \n\nlibrary(Rcpp)\nlibrary(inline)\n\ncppFunction('\ndouble meanC(NumericVector x) {\n  int n = x.size();\n  double total = 0;\n\n  for(int i = 0; i < n; ++i) {\n    total += x[i] / n;\n  }\n  return total;\n}'\n            )\n\nworks just fine, but the file containing \n\n#include <Rcpp.h>\nusing namespace Rcpp;\n\n// [[Rcpp::export]]\ndouble meanC(NumericVector x) {\n  int n = x.size();\n  double total = 0;\n\n  for(int i = 0; i < n; ++i) {\n    total += x[i] / n;\n  }\n  return total;\n}\n\n\nwill not compile. I get the error message:\n\n $ R CMD SHLIB point_mcmc.cpp\nclang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\npoint_mcmc.cpp:1:10: fatal error: 'Rcpp.h' file not found\n#include <Rcpp.h>\n         ^\n1 error generated.\nmake: *** [point_mcmc.o] Error 1\n\nThe fact that one works and the other does not is incredibly confusing. Thanks in advance for any assistance. \n\nBest, \nJosh",
+      "body_snippet": "Hi all, \n\nI know this issue has come up a lot in the last few months and I’ve searched around for days trying to find a solution. I can’t get my C++ files that use Rcpp to compile in OS X 10.9 (Maveri",
       "thread_id": "thread-c9153cd58a52",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010839.html"
     },
     {
       "id": "msg-e2815a5eac90",
@@ -1369,7 +1436,8 @@
       "body_snippet": "Dunno if it helps anyone, but a check of local builds lying around shows the issue in\n\nR version 3.0.2 Patched (2013-11-19 r64260) -- \"Frisbee Sailing\"\n\nbut NOT in\n\nR Under development (unstable) (201",
       "thread_id": "thread-33f7b244e41c",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010840.html"
     },
     {
       "id": "msg-7d38be221686",
@@ -1388,7 +1456,8 @@
       "body_snippet": "Some more strange things:\n\n> 2000000000L+200000000L\n[1] -2094967296\n> 2000000000L*2L\n[1] NA\n> 2147483647L+2147483647L\n[1] -2\n\n(2147483647 = 2^31-1)\n\nSo this looks like an integer overflow is not caugh",
       "thread_id": "thread-33f7b244e41c",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010841.html"
     },
     {
       "id": "msg-3c809b47df51",
@@ -1402,11 +1471,12 @@
       "references": [
         "<1B6FEFED-A013-45A1-8F69-977E633E5E49@ucla.edu>"
       ],
-      "body_plain": "Josh:\n\nI see the same issue. But it appears not to be a problem with the point_mcmc.cpp version of the code. If I issue sourceCpp('point_mcmc.cpp') from within R, it works fine. sourceCpp('point_mcmc.cpp', verbose=TRUE) gives further hints (i.e., effect of R CMD SHLIB is different from within R; see below).\n\nA little Googling turns up the following answer to your question:\n\n> You want to set PKG_CXXFLAGS -- see the fine manual's Section 1.2. \"Using Makevars\" as well as Section 5.5 \"Creating shared objects\" for details.\"\nSource: Dirk Eddelbuettel, http://stackoverflow.com/questions/12416463/how-to-specify-header-search-path-when-using-r-cmd-shlib-to-compile-a-c-file\n\nThis is also helpful:\nhttp://people.math.aau.dk/~sorenh/misc/Rdocs/Rcpp/RcppSHLIB.html\n\n-Ian\n\n>From command line:\n$ /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB -o 'sourceCpp_67823.so' --preclean 'point_mcmc.cpp' \nclang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\npoint_mcmc.cpp:1:10: fatal error: 'Rcpp.h' file not found\n#include <Rcpp.h> // include\n         ^\n1 error generated.\nmake: *** [point_mcmc.o] Error 1\n\n>From within R:\n/Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB -o 'sourceCpp_67823.so' --preclean 'point_mcmc.cpp' \nclang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include  -I\"/Library/Frameworks/R.framework/Versions/3.1/Resources/library/Rcpp/include\"    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\n\nOn Apr 23, 2014, at 3:04 AM, Josh EmBree <jembree at ucla.edu> wrote:\n\n> Hi all, \n> \n> I know this issue has come up a lot in the last few months and I?ve searched around for days trying to find a solution. I can?t get my C++ files that use Rcpp to compile in OS X 10.9 (Mavericks). I?ve done the following:\n> \n> -Downloaded Xcode 5 and installed command line tools, \n> -Upgraded to R 3.1 for Mavericks, and\n> -Installed Rcpp from source. \n> \n> After installing Rcpp from source, I can write C++ functions using Inline. For example, \n> \n> library(Rcpp)\n> library(inline)\n> \n> cppFunction('\n> double meanC(NumericVector x) {\n>  int n = x.size();\n>  double total = 0;\n> \n>  for(int i = 0; i < n; ++i) {\n>    total += x[i] / n;\n>  }\n>  return total;\n> }'\n>            )\n> \n> works just fine, but the file containing \n> \n> #include <Rcpp.h>\n> using namespace Rcpp;\n> \n> // [[Rcpp::export]]\n> double meanC(NumericVector x) {\n>  int n = x.size();\n>  double total = 0;\n> \n>  for(int i = 0; i < n; ++i) {\n>    total += x[i] / n;\n>  }\n>  return total;\n> }\n> \n> \n> will not compile. I get the error message:\n> \n> $ R CMD SHLIB point_mcmc.cpp\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\n> point_mcmc.cpp:1:10: fatal error: 'Rcpp.h' file not found\n> #include <Rcpp.h>\n>         ^\n> 1 error generated.\n> make: *** [point_mcmc.o] Error 1\n> \n> The fact that one works and the other does not is incredibly confusing. Thanks in advance for any assistance. \n> \n> Best, \n> Josh \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "Josh:\n\nI see the same issue. But it appears not to be a problem with the point_mcmc.cpp version of the code. If I issue sourceCpp('point_mcmc.cpp') from within R, it works fine. sourceCpp('point_mcmc.cpp', verbose=TRUE) gives further hints (i.e., effect of R CMD SHLIB is different from within R; see below).\n\nA little Googling turns up the following answer to your question:\n\n> You want to set PKG_CXXFLAGS -- see the fine manual's Section 1.2. \"Using Makevars\" as well as Section 5.5 \"Creating shared objects\" for details.\"\nSource: Dirk Eddelbuettel, http://stackoverflow.com/questions/12416463/how-to-specify-header-search-path-when-using-r-cmd-shlib-to-compile-a-c-file\n\nThis is also helpful:\nhttp://people.math.aau.dk/~sorenh/misc/Rdocs/Rcpp/RcppSHLIB.html\n\n-Ian\n\n>From command line:\n$ /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB -o 'sourceCpp_67823.so' --preclean 'point_mcmc.cpp' \nclang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\npoint_mcmc.cpp:1:10: fatal error: 'Rcpp.h' file not found\n#include <Rcpp.h> // include\n         ^\n1 error generated.\nmake: *** [point_mcmc.o] Error 1\n\n>From within R:\n/Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB -o 'sourceCpp_67823.so' --preclean 'point_mcmc.cpp' \nclang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include  -I\"/Library/Frameworks/R.framework/Versions/3.1/Resources/library/Rcpp/include\"    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\n\nOn Apr 23, 2014, at 3:04 AM, Josh EmBree <jembree at ucla.edu> wrote:\n\n> Hi all, \n> \n> I know this issue has come up a lot in the last few months and I’ve searched around for days trying to find a solution. I can’t get my C++ files that use Rcpp to compile in OS X 10.9 (Mavericks). I’ve done the following:\n> \n> -Downloaded Xcode 5 and installed command line tools, \n> -Upgraded to R 3.1 for Mavericks, and\n> -Installed Rcpp from source. \n> \n> After installing Rcpp from source, I can write C++ functions using Inline. For example, \n> \n> library(Rcpp)\n> library(inline)\n> \n> cppFunction('\n> double meanC(NumericVector x) {\n>  int n = x.size();\n>  double total = 0;\n> \n>  for(int i = 0; i < n; ++i) {\n>    total += x[i] / n;\n>  }\n>  return total;\n> }'\n>            )\n> \n> works just fine, but the file containing \n> \n> #include <Rcpp.h>\n> using namespace Rcpp;\n> \n> // [[Rcpp::export]]\n> double meanC(NumericVector x) {\n>  int n = x.size();\n>  double total = 0;\n> \n>  for(int i = 0; i < n; ++i) {\n>    total += x[i] / n;\n>  }\n>  return total;\n> }\n> \n> \n> will not compile. I get the error message:\n> \n> $ R CMD SHLIB point_mcmc.cpp\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\n> point_mcmc.cpp:1:10: fatal error: 'Rcpp.h' file not found\n> #include <Rcpp.h>\n>         ^\n> 1 error generated.\n> make: *** [point_mcmc.o] Error 1\n> \n> The fact that one works and the other does not is incredibly confusing. Thanks in advance for any assistance. \n> \n> Best, \n> Josh \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "Josh:\n\nI see the same issue. But it appears not to be a problem with the point_mcmc.cpp version of the code. If I issue sourceCpp('point_mcmc.cpp') from within R, it works fine. sourceCpp('point_mcmc.",
       "thread_id": "thread-c9153cd58a52",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010842.html"
     },
     {
       "id": "msg-e759ed1cc6a1",
@@ -1420,11 +1490,12 @@
       "references": [
         "<1B6FEFED-A013-45A1-8F69-977E633E5E49@ucla.edu>"
       ],
-      "body_plain": "On Apr 23, 2014, at 3:04 AM, Josh EmBree <jembree at ucla.edu> wrote:\n\n> Hi all, \n> \n> I know this issue has come up a lot in the last few months and I?ve searched around for days trying to find a solution. I can?t get my C++ files that use Rcpp to compile in OS X 10.9 (Mavericks). I?ve done the following:\n> \n> -Downloaded Xcode 5 and installed command line tools, \n> -Upgraded to R 3.1 for Mavericks, and\n> -Installed Rcpp from source. \n> \n> After installing Rcpp from source, I can write C++ functions using Inline. For example, \n> \n> library(Rcpp)\n> library(inline)\n> \n> cppFunction('\n> double meanC(NumericVector x) {\n>  int n = x.size();\n>  double total = 0;\n> \n>  for(int i = 0; i < n; ++i) {\n>    total += x[i] / n;\n>  }\n>  return total;\n> }'\n>            )\n> \n> works just fine, but the file containing \n> \n> #include <Rcpp.h>\n> using namespace Rcpp;\n> \n> // [[Rcpp::export]]\n> double meanC(NumericVector x) {\n>  int n = x.size();\n>  double total = 0;\n> \n>  for(int i = 0; i < n; ++i) {\n>    total += x[i] / n;\n>  }\n>  return total;\n> }\n> \n> \n> will not compile. I get the error message:\n> \n> $ R CMD SHLIB point_mcmc.cpp\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\n> point_mcmc.cpp:1:10: fatal error: 'Rcpp.h' file not found\n> #include <Rcpp.h>\n>         ^\n> 1 error generated.\n> make: *** [point_mcmc.o] Error 1\n> \n\nYou cannot run vanilla R CMD SHLIB on Rcpp code since it requires flags to find Rcpp includes and libraries which are not part of R. From Rcpp docs:\n\n? snip ?\n\n** Usage for package building\n\nRcpp provides a main header file Rcpp.h and a library inside the installed package in the directory lib. From within R, you can compute the directory location via system.file(\"lib\", \"Rcpp.h\", package=\"Rcpp\")--but both are provided for your use via the functions Rcpp::RcppCxxFlags() andRcpp::RcppLdFlags() functions. So we can just use the following as a file src/Makevars (or src/Makevars.win on Windows)\nPKG_CXXFLAGS=`${R_HOME}/bin/Rscript -e \"Rcpp:::CxxFlags()\"`\n\nPKG_LIBS=`${R_HOME}/bin/Rscript -e \"Rcpp:::LdFlags()\"`\n\nSee the help page for Rcpp-package for details.\n\n? snip ?\n\nCheers,\nSimon\n\n\n> The fact that one works and the other does not is incredibly confusing. Thanks in advance for any assistance. \n> \n> Best, \n> Josh \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
-      "body_snippet": "On Apr 23, 2014, at 3:04 AM, Josh EmBree <jembree at ucla.edu> wrote:\n\n> Hi all, \n> \n> I know this issue has come up a lot in the last few months and I?ve searched around for days trying to find a sol",
+      "body_plain": "On Apr 23, 2014, at 3:04 AM, Josh EmBree <jembree at ucla.edu> wrote:\n\n> Hi all, \n> \n> I know this issue has come up a lot in the last few months and I’ve searched around for days trying to find a solution. I can’t get my C++ files that use Rcpp to compile in OS X 10.9 (Mavericks). I’ve done the following:\n> \n> -Downloaded Xcode 5 and installed command line tools, \n> -Upgraded to R 3.1 for Mavericks, and\n> -Installed Rcpp from source. \n> \n> After installing Rcpp from source, I can write C++ functions using Inline. For example, \n> \n> library(Rcpp)\n> library(inline)\n> \n> cppFunction('\n> double meanC(NumericVector x) {\n>  int n = x.size();\n>  double total = 0;\n> \n>  for(int i = 0; i < n; ++i) {\n>    total += x[i] / n;\n>  }\n>  return total;\n> }'\n>            )\n> \n> works just fine, but the file containing \n> \n> #include <Rcpp.h>\n> using namespace Rcpp;\n> \n> // [[Rcpp::export]]\n> double meanC(NumericVector x) {\n>  int n = x.size();\n>  double total = 0;\n> \n>  for(int i = 0; i < n; ++i) {\n>    total += x[i] / n;\n>  }\n>  return total;\n> }\n> \n> \n> will not compile. I get the error message:\n> \n> $ R CMD SHLIB point_mcmc.cpp\n> clang++ -I/Library/Frameworks/R.framework/Resources/include -DNDEBUG  -I/usr/local/include -I/usr/local/include/freetype2 -I/opt/X11/include    -fPIC  -Wall -mtune=core2 -g -O2  -c point_mcmc.cpp -o point_mcmc.o\n> point_mcmc.cpp:1:10: fatal error: 'Rcpp.h' file not found\n> #include <Rcpp.h>\n>         ^\n> 1 error generated.\n> make: *** [point_mcmc.o] Error 1\n> \n\nYou cannot run vanilla R CMD SHLIB on Rcpp code since it requires flags to find Rcpp includes and libraries which are not part of R. From Rcpp docs:\n\n— snip —\n\n** Usage for package building\n\nRcpp provides a main header file Rcpp.h and a library inside the installed package in the directory lib. From within R, you can compute the directory location via system.file(\"lib\", \"Rcpp.h\", package=\"Rcpp\")--but both are provided for your use via the functions Rcpp::RcppCxxFlags() andRcpp::RcppLdFlags() functions. So we can just use the following as a file src/Makevars (or src/Makevars.win on Windows)\nPKG_CXXFLAGS=`${R_HOME}/bin/Rscript -e \"Rcpp:::CxxFlags()\"`\n\nPKG_LIBS=`${R_HOME}/bin/Rscript -e \"Rcpp:::LdFlags()\"`\n\nSee the help page for Rcpp-package for details.\n\n— snip —\n\nCheers,\nSimon\n\n\n> The fact that one works and the other does not is incredibly confusing. Thanks in advance for any assistance. \n> \n> Best, \n> Josh \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Apr 23, 2014, at 3:04 AM, Josh EmBree <jembree at ucla.edu> wrote:\n\n> Hi all, \n> \n> I know this issue has come up a lot in the last few months and I’ve searched around for days trying to find a sol",
       "thread_id": "thread-c9153cd58a52",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010843.html"
     },
     {
       "id": "msg-608c85b569fa",
@@ -1444,7 +1515,8 @@
       "body_snippet": "This has the look of an over-zealous optimizer that doesn't understand\nhow 32-bit integer arithmetic works. It is possible to define a flag\nto force using doubles to check for integer addition overflo",
       "thread_id": "thread-33f7b244e41c",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010844.html"
     },
     {
       "id": "msg-311433cec0c8",
@@ -1481,7 +1553,8 @@
       "body_snippet": "Thank you to all who replied.\n\nI did accept the upgrade to Mavericks last week.  In retrospect I think it\nwas a mistake for me.  Most of the changes are not relevant to my\nworkflow.  One was an improv",
       "thread_id": "thread-311433cec0c8",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010845.html"
     },
     {
       "id": "msg-4823030ba131",
@@ -1501,7 +1574,8 @@
       "body_snippet": "On 25 Apr 2014, at 05:15, Richard M. Heiberger <rmh at temple.edu> wrote:\n\n> There are two big negatives is how Preview handles revision to my\n> pdflatex documents.\n> \n> Previously (OS X Lion), when I",
       "thread_id": "thread-311433cec0c8",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010846.html"
     },
     {
       "id": "msg-2d2e565fdb81",
@@ -1522,7 +1596,8 @@
       "body_snippet": "Skim also works nicely when a PDF is updated by another app.\n\nRegards,\n\nTom\n\n\n> On Apr 25, 2014, at 9:14 AM, Stefan Evert <stefanML at collocations.de> wrote:\n> \n> \n>> On 25 Apr 2014, at 05:15, Richar",
       "thread_id": "thread-311433cec0c8",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010847.html"
     },
     {
       "id": "msg-66d6d2f2aa51",
@@ -1542,7 +1617,8 @@
       "body_snippet": "On Apr 24, 2014, at 10:15 PM, Richard M. Heiberger <rmh at temple.edu> wrote:\n\n> Thank you to all who replied.\n> \n> I did accept the upgrade to Mavericks last week.  In retrospect I think it\n> was a m",
       "thread_id": "thread-311433cec0c8",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010848.html"
     },
     {
       "id": "msg-e648a51a88db",
@@ -1558,7 +1634,8 @@
       "body_snippet": "The rgl package compiles and runs on Mavericks, though it only displays \nin X11 currently, and it gets a number of compile-time warnings like\n\nglgui.cpp:50:5: warning: 'gluUnProject' is deprecated: fi",
       "thread_id": "thread-e648a51a88db",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010849.html"
     },
     {
       "id": "msg-1cc07e6b67ad",
@@ -1576,7 +1653,8 @@
       "body_snippet": "The command 'sw_vers' shows the following info on my Mac:\n\nProductName:    Mac OS X\nProductVersion:    10.9.2\nBuildVersion:    13C1021\n\nYou can use grep to check the version for configure.\n\n\nOn Sat, A",
       "thread_id": "thread-e648a51a88db",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010852.html"
     },
     {
       "id": "msg-a39b00494564",
@@ -1588,11 +1666,12 @@
       "subject_clean": "rgdal on mac os 10.9",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "Hi All,\n\nDoes anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I?ve really been enjoying the binaries that have been available as building from source is a non-trival hassle.\n\nhttp://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n\nBest,\nIan",
-      "body_snippet": "Hi All,\n\nDoes anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I?ve really been enjoying the binaries that have been available as building from source is a",
+      "body_plain": "Hi All,\n\nDoes anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I’ve really been enjoying the binaries that have been available as building from source is a non-trival hassle.\n\nhttp://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n\nBest,\nIan",
+      "body_snippet": "Hi All,\n\nDoes anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I’ve really been enjoying the binaries that have been available as building from source is a",
       "thread_id": "thread-a39b00494564",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010856.html"
     },
     {
       "id": "msg-5c6152d29ff3",
@@ -1610,7 +1689,8 @@
       "body_snippet": "On Apr 26, 2014, at 2:50 PM, Duncan Murdoch <murdoch.duncan at gmail.com> wrote:\n\n> The rgl package compiles and runs on Mavericks, though it only displays in X11 currently, and it gets a number of co",
       "thread_id": "thread-e648a51a88db",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010853.html"
     },
     {
       "id": "msg-154bbbd4d8f5",
@@ -1622,11 +1702,12 @@
       "subject_clean": "rgdal on mac os 10.9",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "Hi All,\n\nDoes anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I?ve really been enjoying the binaries that have been available as building from source is a non-trival hassle.\n\nhttp://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n\nBest,\nIan",
-      "body_snippet": "Hi All,\n\nDoes anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I?ve really been enjoying the binaries that have been available as building from source is a",
+      "body_plain": "Hi All,\n\nDoes anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I’ve really been enjoying the binaries that have been available as building from source is a non-trival hassle.\n\nhttp://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n\nBest,\nIan",
+      "body_snippet": "Hi All,\n\nDoes anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I’ve really been enjoying the binaries that have been available as building from source is a",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 0,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010854.html"
     },
     {
       "id": "msg-7eb4e2ebf798",
@@ -1640,11 +1721,12 @@
       "references": [
         "<CC228526-4798-4815-AEA6-080E29CF9DAC@stat.ucla.edu>"
       ],
-      "body_plain": "On Apr 29, 2014, at 5:08 PM, Ian Fellows <ian.fellows at stat.ucla.edu> wrote:\n\n> Hi All,\n> \n> Does anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I?ve really been enjoying the binaries that have been available as building from source is a non-trival hassle.\n> \n\n.. and that is also the reason why it's not on or 10.9 just yet. I hope to get to building the necessary dependencies in the next week or so.\n\nCheers,\nSimon\n\n\n\n> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n> \n> Best,\n> Ian\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
-      "body_snippet": "On Apr 29, 2014, at 5:08 PM, Ian Fellows <ian.fellows at stat.ucla.edu> wrote:\n\n> Hi All,\n> \n> Does anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I?ve r",
+      "body_plain": "On Apr 29, 2014, at 5:08 PM, Ian Fellows <ian.fellows at stat.ucla.edu> wrote:\n\n> Hi All,\n> \n> Does anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I’ve really been enjoying the binaries that have been available as building from source is a non-trival hassle.\n> \n\n.. and that is also the reason why it's not on or 10.9 just yet. I hope to get to building the necessary dependencies in the next week or so.\n\nCheers,\nSimon\n\n\n\n> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n> \n> Best,\n> Ian\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Apr 29, 2014, at 5:08 PM, Ian Fellows <ian.fellows at stat.ucla.edu> wrote:\n\n> Hi All,\n> \n> Does anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I’ve r",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010855.html"
     },
     {
       "id": "msg-3fccb38e090a",
@@ -1658,11 +1740,12 @@
       "references": [
         "<CC228526-4798-4815-AEA6-080E29CF9DAC@stat.ucla.edu>"
       ],
-      "body_plain": "Ian,\n\n2014/04/30 6:08?Ian Fellows <ian.fellows at stat.ucla.edu> ?????\n\n> Hi All,\n> \n> Does anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I?ve really been enjoying the binaries that have been available as building from source is a non-trival hassle.\n> \n> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n\nI am using Fink version or R 3.1 and rgdal and so far with no problem.  See my test.\n\nhttp://www.uclmail.net/users/babayoshihiko/fink/r/cran/cran-rgdal/index.html\n\n?\nBABA Yoshihiko\nRitsumeikan University",
-      "body_snippet": "Ian,\n\n2014/04/30 6:08?Ian Fellows <ian.fellows at stat.ucla.edu> ?????\n\n> Hi All,\n> \n> Does anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I?ve really be",
+      "body_plain": "Ian,\n\n2014/04/30 6:08、Ian Fellows <ian.fellows at stat.ucla.edu> のメール：\n\n> Hi All,\n> \n> Does anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I’ve really been enjoying the binaries that have been available as building from source is a non-trival hassle.\n> \n> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n\nI am using Fink version or R 3.1 and rgdal and so far with no problem.  See my test.\n\nhttp://www.uclmail.net/users/babayoshihiko/fink/r/cran/cran-rgdal/index.html\n\n—\nBABA Yoshihiko\nRitsumeikan University",
+      "body_snippet": "Ian,\n\n2014/04/30 6:08、Ian Fellows <ian.fellows at stat.ucla.edu> のメール：\n\n> Hi All,\n> \n> Does anyone know if there are plans to have rgdal compile correctly on the CRAN Mavericks machine? I’ve really be",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010857.html"
     },
     {
       "id": "msg-bbc54beff467",
@@ -1681,6 +1764,7 @@
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 1,
       "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010858.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140430/c728d7bb/attachment.pl"
       ]
@@ -1697,11 +1781,12 @@
       "references": [
         "<CC228526-4798-4815-AEA6-080E29CF9DAC@stat.ucla.edu>"
       ],
-      "body_plain": "If I remember correctly, the installation from source was quite easy:\napart from the usual compilers, you need gdal installed, which installs\neasily via homebrew [1]. After this, installation of rgdal from source\nworked without any additional configurations?\n\nRainer\n\n\nIan Fellows <ian.fellows at stat.ucla.edu> writes:\n\n> Hi All,\n>\n> Does anyone know if there are plans to have rgdal compile correctly on\n> the CRAN Mavericks machine? I?ve really been enjoying the binaries\n> that have been available as building from source is a non-trival\n> hassle.\n>\n> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>\n> Best,\n> Ian\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\nFootnotes: \n[1]  http://brew.sh/\n\n-- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 494 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140430/f602d06f/attachment.bin>",
+      "body_plain": "If I remember correctly, the installation from source was quite easy:\napart from the usual compilers, you need gdal installed, which installs\neasily via homebrew [1]. After this, installation of rgdal from source\nworked without any additional configurations?\n\nRainer\n\n\nIan Fellows <ian.fellows at stat.ucla.edu> writes:\n\n> Hi All,\n>\n> Does anyone know if there are plans to have rgdal compile correctly on\n> the CRAN Mavericks machine? I’ve really been enjoying the binaries\n> that have been available as building from source is a non-trival\n> hassle.\n>\n> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>\n> Best,\n> Ian\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\nFootnotes: \n[1]  http://brew.sh/\n\n-- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 494 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140430/f602d06f/attachment.bin>",
       "body_snippet": "If I remember correctly, the installation from source was quite easy:\napart from the usual compilers, you need gdal installed, which installs\neasily via homebrew [1]. After this, installation of rgdal",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 1,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010859.html"
     },
     {
       "id": "msg-4503d8d56a36",
@@ -1716,11 +1801,12 @@
         "<CC228526-4798-4815-AEA6-080E29CF9DAC@stat.ucla.edu>",
         "<m2vbtr7z76.fsf@krugs.de>"
       ],
-      "body_plain": "On 30/04/2014 13:56, Rainer M Krug wrote:\n> If I remember correctly, the installation from source was quite easy:\n> apart from the usual compilers, you need gdal installed, which installs\n> easily via homebrew [1]. After this, installation of rgdal from source\n> worked without any additional configurations?\n\nNo, not really.\n\n1) for a portable package you will need static GDAL.\n\n2) GDAL can make use of a wide range of external software to read raster \nfiles: without quite a lot of the optional ones it is not much use for \nrgdal and other R packages.  Simon needs to build that for Mavericks, \nand statically too.\n\nHowever, Fellows has ignored all the advice to use the Snow Leopard \npackage of R 3.1.0 if he wants rgdal.  That is in the current manual \n(http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X) \nand was posted to this list recently \n(https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).  That \nis by far the easiest solution.\n\n>\n> Rainer\n>\n>\n> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>\n>> Hi All,\n>>\n>> Does anyone know if there are plans to have rgdal compile correctly on\n>> the CRAN Mavericks machine? I?ve really been enjoying the binaries\n>> that have been available as building from source is a non-trival\n>> hassle.\n>>\n>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>\n>> Best,\n>> Ian\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> Footnotes:\n> [1]  http://brew.sh/\n>\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_plain": "On 30/04/2014 13:56, Rainer M Krug wrote:\n> If I remember correctly, the installation from source was quite easy:\n> apart from the usual compilers, you need gdal installed, which installs\n> easily via homebrew [1]. After this, installation of rgdal from source\n> worked without any additional configurations?\n\nNo, not really.\n\n1) for a portable package you will need static GDAL.\n\n2) GDAL can make use of a wide range of external software to read raster \nfiles: without quite a lot of the optional ones it is not much use for \nrgdal and other R packages.  Simon needs to build that for Mavericks, \nand statically too.\n\nHowever, Fellows has ignored all the advice to use the Snow Leopard \npackage of R 3.1.0 if he wants rgdal.  That is in the current manual \n(http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X) \nand was posted to this list recently \n(https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).  That \nis by far the easiest solution.\n\n>\n> Rainer\n>\n>\n> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>\n>> Hi All,\n>>\n>> Does anyone know if there are plans to have rgdal compile correctly on\n>> the CRAN Mavericks machine? I’ve really been enjoying the binaries\n>> that have been available as building from source is a non-trival\n>> hassle.\n>>\n>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>\n>> Best,\n>> Ian\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n>\n> Footnotes:\n> [1]  http://brew.sh/\n>\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
       "body_snippet": "On 30/04/2014 13:56, Rainer M Krug wrote:\n> If I remember correctly, the installation from source was quite easy:\n> apart from the usual compilers, you need gdal installed, which installs\n> easily via",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 2,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010860.html"
     },
     {
       "id": "msg-8997a82e5e41",
@@ -1736,11 +1822,12 @@
         "<m2vbtr7z76.fsf@krugs.de>",
         "<536119EA.3020904@stats.ox.ac.uk>"
       ],
-      "body_plain": "Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n\n> On 30/04/2014 13:56, Rainer M Krug wrote:\n>> If I remember correctly, the installation from source was quite easy:\n>> apart from the usual compilers, you need gdal installed, which installs\n>> easily via homebrew [1]. After this, installation of rgdal from source\n>> worked without any additional configurations?\n>\n> No, not really.\n>\n> 1) for a portable package you will need static GDAL.\n>\n> 2) GDAL can make use of a wide range of external software to read\n> raster files: without quite a lot of the optional ones it is not much\n> use for rgdal and other R packages.  Simon needs to build that for\n> Mavericks, and statically too.\n\nSorry - I was talking of installing it in R via type=\"source\" not on\nCRAN. For CRAN it is definitely a different issue.\n\n\nRainer\n\n>\n> However, Fellows has ignored all the advice to use the Snow Leopard\n> package of R 3.1.0 if he wants rgdal.  That is in the current manual\n> (http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X)\n> and was posted to this list recently\n> (https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).\n> That is by far the easiest solution.\n>\n>>\n>> Rainer\n>>\n>>\n>> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>>\n>>> Hi All,\n>>>\n>>> Does anyone know if there are plans to have rgdal compile correctly on\n>>> the CRAN Mavericks machine? I?ve really been enjoying the binaries\n>>> that have been available as building from source is a non-trival\n>>> hassle.\n>>>\n>>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>>\n>>> Best,\n>>> Ian\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>> Footnotes:\n>> [1]  http://brew.sh/\n>>\n>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n\n-- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 494 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140430/61b14021/attachment.bin>",
+      "body_plain": "Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n\n> On 30/04/2014 13:56, Rainer M Krug wrote:\n>> If I remember correctly, the installation from source was quite easy:\n>> apart from the usual compilers, you need gdal installed, which installs\n>> easily via homebrew [1]. After this, installation of rgdal from source\n>> worked without any additional configurations?\n>\n> No, not really.\n>\n> 1) for a portable package you will need static GDAL.\n>\n> 2) GDAL can make use of a wide range of external software to read\n> raster files: without quite a lot of the optional ones it is not much\n> use for rgdal and other R packages.  Simon needs to build that for\n> Mavericks, and statically too.\n\nSorry - I was talking of installing it in R via type=\"source\" not on\nCRAN. For CRAN it is definitely a different issue.\n\n\nRainer\n\n>\n> However, Fellows has ignored all the advice to use the Snow Leopard\n> package of R 3.1.0 if he wants rgdal.  That is in the current manual\n> (http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X)\n> and was posted to this list recently\n> (https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).\n> That is by far the easiest solution.\n>\n>>\n>> Rainer\n>>\n>>\n>> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>>\n>>> Hi All,\n>>>\n>>> Does anyone know if there are plans to have rgdal compile correctly on\n>>> the CRAN Mavericks machine? I’ve really been enjoying the binaries\n>>> that have been available as building from source is a non-trival\n>>> hassle.\n>>>\n>>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>>\n>>> Best,\n>>> Ian\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>>\n>> Footnotes:\n>> [1]  http://brew.sh/\n>>\n>>\n>>\n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n\n-- \nRainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n\nCentre of Excellence for Invasion Biology\nStellenbosch University\nSouth Africa\n\nTel :       +33 - (0)9 53 10 27 44\nCell:       +33 - (0)6 85 62 59 98\nFax :       +33 - (0)9 58 10 27 44\n\nFax (D):    +49 - (0)3 21 21 25 22 44\n\nemail:      Rainer at krugs.de\n\nSkype:      RMkrug\n\nPGP: 0x0F52F982\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: not available\nType: application/pgp-signature\nSize: 494 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20140430/61b14021/attachment.bin>",
       "body_snippet": "Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n\n> On 30/04/2014 13:56, Rainer M Krug wrote:\n>> If I remember correctly, the installation from source was quite easy:\n>> apart from the usual compi",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 3,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010861.html"
     },
     {
       "id": "msg-85f97e4bc62f",
@@ -1757,11 +1844,12 @@
         "<536119EA.3020904@stats.ox.ac.uk>",
         "<m2mwf294x2.fsf@krugs.de>"
       ],
-      "body_plain": "Thanks for the replies everyone,\n\n@Simon: Thank you. That will be most useful, especially for those of us with dependent packages and (shall we say) a less sophisticated user base.\n\n@Brian: Thank you for pointing that out, though I think ?ignored\" is a inappropriate word. My main concern is not for myself (I can certainly figure out how to build and install rgdal and its dependancies), but for the users of my packages that depend on rgdal.\n\nIt is good to hear that the snow leapord binaries work. I was a little hesitant to use them as your linked e-mail lists rgdal in both the ?it?s okay to use the binaries? category, and the ?it?s missing for good reason? category so I wasn?t entirely sure if a subtle binary incompatibility might crop up.\n\n@BABA and @Rainer: I?ve had (let?s say) mixed success with fink and homebrew. Thanks for sharing your experiences.\n\nBest,\nIan\n\np.s. For reference, you can install rgdal from the snow leapord repo with:\n\ndownload.file(\"http://cran.r-project.org/bin/macosx/contrib/3.1/rgdal_0.8-16.tgz\",\"rgdal_0.8-16.tgz?)\ninstall.packages(\"sp?)\ninstall.packages(\"rgdal_0.8-16.tgz\",.libPaths()[1],NULL)\n\n\nOn Apr 30, 2014, at 9:07 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n\n> Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n> \n>> On 30/04/2014 13:56, Rainer M Krug wrote:\n>>> If I remember correctly, the installation from source was quite easy:\n>>> apart from the usual compilers, you need gdal installed, which installs\n>>> easily via homebrew [1]. After this, installation of rgdal from source\n>>> worked without any additional configurations?\n>> \n>> No, not really.\n>> \n>> 1) for a portable package you will need static GDAL.\n>> \n>> 2) GDAL can make use of a wide range of external software to read\n>> raster files: without quite a lot of the optional ones it is not much\n>> use for rgdal and other R packages.  Simon needs to build that for\n>> Mavericks, and statically too.\n> \n> Sorry - I was talking of installing it in R via type=\"source\" not on\n> CRAN. For CRAN it is definitely a different issue.\n> \n> \n> Rainer\n> \n>> \n>> However, Fellows has ignored all the advice to use the Snow Leopard\n>> package of R 3.1.0 if he wants rgdal.  That is in the current manual\n>> (http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X)\n>> and was posted to this list recently\n>> (https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).\n>> That is by far the easiest solution.\n>> \n>>> \n>>> Rainer\n>>> \n>>> \n>>> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>>> \n>>>> Hi All,\n>>>> \n>>>> Does anyone know if there are plans to have rgdal compile correctly on\n>>>> the CRAN Mavericks machine? I?ve really been enjoying the binaries\n>>>> that have been available as building from source is a non-trival\n>>>> hassle.\n>>>> \n>>>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>>> \n>>>> Best,\n>>>> Ian\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> \n>>> Footnotes:\n>>> [1]  http://brew.sh/\n>>> \n>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n> \n> -- \n> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> \n> Centre of Excellence for Invasion Biology\n> Stellenbosch University\n> South Africa\n> \n> Tel :       +33 - (0)9 53 10 27 44\n> Cell:       +33 - (0)6 85 62 59 98\n> Fax :       +33 - (0)9 58 10 27 44\n> \n> Fax (D):    +49 - (0)3 21 21 25 22 44\n> \n> email:      Rainer at krugs.de\n> \n> Skype:      RMkrug\n> \n> PGP: 0x0F52F982",
+      "body_plain": "Thanks for the replies everyone,\n\n@Simon: Thank you. That will be most useful, especially for those of us with dependent packages and (shall we say) a less sophisticated user base.\n\n@Brian: Thank you for pointing that out, though I think “ignored\" is a inappropriate word. My main concern is not for myself (I can certainly figure out how to build and install rgdal and its dependancies), but for the users of my packages that depend on rgdal.\n\nIt is good to hear that the snow leapord binaries work. I was a little hesitant to use them as your linked e-mail lists rgdal in both the “it’s okay to use the binaries” category, and the “it’s missing for good reason” category so I wasn’t entirely sure if a subtle binary incompatibility might crop up.\n\n@BABA and @Rainer: I’ve had (let’s say) mixed success with fink and homebrew. Thanks for sharing your experiences.\n\nBest,\nIan\n\np.s. For reference, you can install rgdal from the snow leapord repo with:\n\ndownload.file(\"http://cran.r-project.org/bin/macosx/contrib/3.1/rgdal_0.8-16.tgz\",\"rgdal_0.8-16.tgz”)\ninstall.packages(\"sp”)\ninstall.packages(\"rgdal_0.8-16.tgz\",.libPaths()[1],NULL)\n\n\nOn Apr 30, 2014, at 9:07 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n\n> Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n> \n>> On 30/04/2014 13:56, Rainer M Krug wrote:\n>>> If I remember correctly, the installation from source was quite easy:\n>>> apart from the usual compilers, you need gdal installed, which installs\n>>> easily via homebrew [1]. After this, installation of rgdal from source\n>>> worked without any additional configurations?\n>> \n>> No, not really.\n>> \n>> 1) for a portable package you will need static GDAL.\n>> \n>> 2) GDAL can make use of a wide range of external software to read\n>> raster files: without quite a lot of the optional ones it is not much\n>> use for rgdal and other R packages.  Simon needs to build that for\n>> Mavericks, and statically too.\n> \n> Sorry - I was talking of installing it in R via type=\"source\" not on\n> CRAN. For CRAN it is definitely a different issue.\n> \n> \n> Rainer\n> \n>> \n>> However, Fellows has ignored all the advice to use the Snow Leopard\n>> package of R 3.1.0 if he wants rgdal.  That is in the current manual\n>> (http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X)\n>> and was posted to this list recently\n>> (https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).\n>> That is by far the easiest solution.\n>> \n>>> \n>>> Rainer\n>>> \n>>> \n>>> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>>> \n>>>> Hi All,\n>>>> \n>>>> Does anyone know if there are plans to have rgdal compile correctly on\n>>>> the CRAN Mavericks machine? I’ve really been enjoying the binaries\n>>>> that have been available as building from source is a non-trival\n>>>> hassle.\n>>>> \n>>>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>>> \n>>>> Best,\n>>>> Ian\n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> \n>>> Footnotes:\n>>> [1]  http://brew.sh/\n>>> \n>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n> \n> -- \n> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n> \n> Centre of Excellence for Invasion Biology\n> Stellenbosch University\n> South Africa\n> \n> Tel :       +33 - (0)9 53 10 27 44\n> Cell:       +33 - (0)6 85 62 59 98\n> Fax :       +33 - (0)9 58 10 27 44\n> \n> Fax (D):    +49 - (0)3 21 21 25 22 44\n> \n> email:      Rainer at krugs.de\n> \n> Skype:      RMkrug\n> \n> PGP: 0x0F52F982",
       "body_snippet": "Thanks for the replies everyone,\n\n@Simon: Thank you. That will be most useful, especially for those of us with dependent packages and (shall we say) a less sophisticated user base.\n\n@Brian: Thank you ",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 4,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010862.html"
     },
     {
       "id": "msg-eeb51baa6413",
@@ -1779,11 +1867,12 @@
         "<m2mwf294x2.fsf@krugs.de>",
         "<7FE2ACEA-64AB-4668-A74B-F6BB62651284@stat.ucla.edu>"
       ],
-      "body_plain": "On Apr 30, 2014, at 12:42 PM, Ian Fellows <ian.fellows at stat.ucla.edu> wrote:\n\n> Thanks for the replies everyone,\n> \n> @Simon: Thank you. That will be most useful, especially for those of us with dependent packages and (shall we say) a less sophisticated user base.\n> \n> @Brian: Thank you for pointing that out, though I think ?ignored\" is a inappropriate word. My main concern is not for myself (I can certainly figure out how to build and install rgdal and its dependancies), but for the users of my packages that depend on rgdal.\n> \n> It is good to hear that the snow leapord binaries work. I was a little hesitant to use them as your linked e-mail lists rgdal in both the ?it?s okay to use the binaries? category, and the ?it?s missing for good reason? category so I wasn?t entirely sure if a subtle binary incompatibility might crop up.\n> \n> @BABA and @Rainer: I?ve had (let?s say) mixed success with fink and homebrew. Thanks for sharing your experiences.\n> \n> Best,\n> Ian\n> \n> p.s. For reference, you can install rgdal from the snow leapord repo with:\n> \n> download.file(\"http://cran.r-project.org/bin/macosx/contrib/3.1/rgdal_0.8-16.tgz\",\"rgdal_0.8-16.tgz?)\n> install.packages(\"sp?)\n> install.packages(\"rgdal_0.8-16.tgz\",.libPaths()[1],NULL)\n> \n\nMaybe more simply\n\ninstall.packages('rgdal',type='mac.binary')\n\nUse at your own risk, the binary builds use different compilers and ABIs so they are not guaranteed to be compatible. We make an effort to not make them unnecessarily incompatible, but that still doesn't guarantee compatibility.\n\nCheers,\nSimon\n\n\n\n\n> \n> On Apr 30, 2014, at 9:07 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n> \n>> Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n>> \n>>> On 30/04/2014 13:56, Rainer M Krug wrote:\n>>>> If I remember correctly, the installation from source was quite easy:\n>>>> apart from the usual compilers, you need gdal installed, which installs\n>>>> easily via homebrew [1]. After this, installation of rgdal from source\n>>>> worked without any additional configurations?\n>>> \n>>> No, not really.\n>>> \n>>> 1) for a portable package you will need static GDAL.\n>>> \n>>> 2) GDAL can make use of a wide range of external software to read\n>>> raster files: without quite a lot of the optional ones it is not much\n>>> use for rgdal and other R packages.  Simon needs to build that for\n>>> Mavericks, and statically too.\n>> \n>> Sorry - I was talking of installing it in R via type=\"source\" not on\n>> CRAN. For CRAN it is definitely a different issue.\n>> \n>> \n>> Rainer\n>> \n>>> \n>>> However, Fellows has ignored all the advice to use the Snow Leopard\n>>> package of R 3.1.0 if he wants rgdal.  That is in the current manual\n>>> (http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X)\n>>> and was posted to this list recently\n>>> (https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).\n>>> That is by far the easiest solution.\n>>> \n>>>> \n>>>> Rainer\n>>>> \n>>>> \n>>>> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>>>> \n>>>>> Hi All,\n>>>>> \n>>>>> Does anyone know if there are plans to have rgdal compile correctly on\n>>>>> the CRAN Mavericks machine? I?ve really been enjoying the binaries\n>>>>> that have been available as building from source is a non-trival\n>>>>> hassle.\n>>>>> \n>>>>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>>>> \n>>>>> Best,\n>>>>> Ian\n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>>> \n>>>> Footnotes:\n>>>> [1]  http://brew.sh/\n>>>> \n>>>> \n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>> \n>> -- \n>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>> \n>> Centre of Excellence for Invasion Biology\n>> Stellenbosch University\n>> South Africa\n>> \n>> Tel :       +33 - (0)9 53 10 27 44\n>> Cell:       +33 - (0)6 85 62 59 98\n>> Fax :       +33 - (0)9 58 10 27 44\n>> \n>> Fax (D):    +49 - (0)3 21 21 25 22 44\n>> \n>> email:      Rainer at krugs.de\n>> \n>> Skype:      RMkrug\n>> \n>> PGP: 0x0F52F982\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_plain": "On Apr 30, 2014, at 12:42 PM, Ian Fellows <ian.fellows at stat.ucla.edu> wrote:\n\n> Thanks for the replies everyone,\n> \n> @Simon: Thank you. That will be most useful, especially for those of us with dependent packages and (shall we say) a less sophisticated user base.\n> \n> @Brian: Thank you for pointing that out, though I think “ignored\" is a inappropriate word. My main concern is not for myself (I can certainly figure out how to build and install rgdal and its dependancies), but for the users of my packages that depend on rgdal.\n> \n> It is good to hear that the snow leapord binaries work. I was a little hesitant to use them as your linked e-mail lists rgdal in both the “it’s okay to use the binaries” category, and the “it’s missing for good reason” category so I wasn’t entirely sure if a subtle binary incompatibility might crop up.\n> \n> @BABA and @Rainer: I’ve had (let’s say) mixed success with fink and homebrew. Thanks for sharing your experiences.\n> \n> Best,\n> Ian\n> \n> p.s. For reference, you can install rgdal from the snow leapord repo with:\n> \n> download.file(\"http://cran.r-project.org/bin/macosx/contrib/3.1/rgdal_0.8-16.tgz\",\"rgdal_0.8-16.tgz”)\n> install.packages(\"sp”)\n> install.packages(\"rgdal_0.8-16.tgz\",.libPaths()[1],NULL)\n> \n\nMaybe more simply\n\ninstall.packages('rgdal',type='mac.binary')\n\nUse at your own risk, the binary builds use different compilers and ABIs so they are not guaranteed to be compatible. We make an effort to not make them unnecessarily incompatible, but that still doesn't guarantee compatibility.\n\nCheers,\nSimon\n\n\n\n\n> \n> On Apr 30, 2014, at 9:07 AM, Rainer M Krug <Rainer at krugs.de> wrote:\n> \n>> Prof Brian Ripley <ripley at stats.ox.ac.uk> writes:\n>> \n>>> On 30/04/2014 13:56, Rainer M Krug wrote:\n>>>> If I remember correctly, the installation from source was quite easy:\n>>>> apart from the usual compilers, you need gdal installed, which installs\n>>>> easily via homebrew [1]. After this, installation of rgdal from source\n>>>> worked without any additional configurations?\n>>> \n>>> No, not really.\n>>> \n>>> 1) for a portable package you will need static GDAL.\n>>> \n>>> 2) GDAL can make use of a wide range of external software to read\n>>> raster files: without quite a lot of the optional ones it is not much\n>>> use for rgdal and other R packages.  Simon needs to build that for\n>>> Mavericks, and statically too.\n>> \n>> Sorry - I was talking of installing it in R via type=\"source\" not on\n>> CRAN. For CRAN it is definitely a different issue.\n>> \n>> \n>> Rainer\n>> \n>>> \n>>> However, Fellows has ignored all the advice to use the Snow Leopard\n>>> package of R 3.1.0 if he wants rgdal.  That is in the current manual\n>>> (http://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-R-under-OS-X)\n>>> and was posted to this list recently\n>>> (https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html).\n>>> That is by far the easiest solution.\n>>> \n>>>> \n>>>> Rainer\n>>>> \n>>>> \n>>>> Ian Fellows <ian.fellows at stat.ucla.edu> writes:\n>>>> \n>>>>> Hi All,\n>>>>> \n>>>>> Does anyone know if there are plans to have rgdal compile correctly on\n>>>>> the CRAN Mavericks machine? I’ve really been enjoying the binaries\n>>>>> that have been available as building from source is a non-trival\n>>>>> hassle.\n>>>>> \n>>>>> http://www.r-project.org/nosvn/R.check/r-release-osx-x86_64-mavericks/rgdal-00check.html\n>>>>> \n>>>>> Best,\n>>>>> Ian\n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>>>> \n>>>> Footnotes:\n>>>> [1]  http://brew.sh/\n>>>> \n>>>> \n>>>> \n>>>> _______________________________________________\n>>>> R-SIG-Mac mailing list\n>>>> R-SIG-Mac at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>> \n>> \n>> -- \n>> Rainer M. Krug, PhD (Conservation Ecology, SUN), MSc (Conservation Biology, UCT), Dipl. Phys. (Germany)\n>> \n>> Centre of Excellence for Invasion Biology\n>> Stellenbosch University\n>> South Africa\n>> \n>> Tel :       +33 - (0)9 53 10 27 44\n>> Cell:       +33 - (0)6 85 62 59 98\n>> Fax :       +33 - (0)9 58 10 27 44\n>> \n>> Fax (D):    +49 - (0)3 21 21 25 22 44\n>> \n>> email:      Rainer at krugs.de\n>> \n>> Skype:      RMkrug\n>> \n>> PGP: 0x0F52F982\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
       "body_snippet": "On Apr 30, 2014, at 12:42 PM, Ian Fellows <ian.fellows at stat.ucla.edu> wrote:\n\n> Thanks for the replies everyone,\n> \n> @Simon: Thank you. That will be most useful, especially for those of us with de",
       "thread_id": "thread-154bbbd4d8f5",
       "thread_depth": 5,
-      "month": "2014-04"
+      "month": "2014-04",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010863.html"
     }
   ],
   "threads": [

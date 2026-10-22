@@ -34,11 +34,12 @@
         "<22ECCD90-D9A4-486C-B49A-F7855D6F5500@gmail.com>",
         "<9BD1BDE9-15D9-44D5-9B81-0802AC79D6CE@icloud.com>"
       ],
-      "body_plain": "So for people with a CRAN build of R, the tick box is the way to go \n(and/or keep the console visible).  I've added that to the R-admin manual.\n\nIf you do build R.app against 10.9, then you should be using the App Nap \nAPI. I think that in part is straightforward, as 'busy' gets set when \nthe R interpreter is evaluating.  So Re_RBusy needs to use the\n\nbeginActivityWithOptions:reason:,\nendActivity:,\n\nmethods on the NSProcessInfo class.  I'll leave that to someone fluent \nin ObjC.\n\n\nOn 30/11/2013 23:19, Robert J Goedman wrote:\n> HI peter,\n>\n> My understanding is that that box disappears if R.app is build against OS X 10.9.\n>\n> I've never seen that box (as I have been building against 10.9 for quite a while now), but I know folks have.\n>\n> As long as it is there I fully agree, much easier than defaults ....\n>\n> Regards,\n> Rob J. Goedman\n> goedman at icloud.com\n>\n>\n>\n>\n> On Nov 30, 2013, at 11:09 AM, peter dalgaard <pdalgd at gmail.com> wrote:\n>\n>>\n>> On 30 Nov 2013, at 16:58 , Robert J Goedman <goedman at icloud.com> wrote:\n>>\n>>> Yes, I've seen that as well and it is likely not limited to tcltk.\n>>>\n>>> Question is, for R.app, do we want to ship with NSAppSleepDisabled? I would be in favor (my $0.02).\n>>>\n>>> If yes I will commit.\n>>\n>>\n>> One item: I found that there is a tick box \"Prevent App Nap\" available via Get Info for applications (secondary click in the Applications folder), which is somewhat more intuitive that the \"defaults write ...\" route. If we make your change, will the same box appear, just selected by default?\n>>\n>>>\n>>> Regards,\n>>> Rob J. Goedman\n>>> goedman at icloud.com\n>>>\n>>>\n>>> On Nov 30, 2013, at 7:00 AM, peter dalgaard <pdalgd at gmail.com> wrote:\n>>>\n>>>>\n>>>> On 30 Nov 2013, at 12:37 , Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>>>>\n>>>>> This does not happen for me provided R.app is visible.  From\n>>>>>\n>>>>> https://developer.apple.com/library/mac/releasenotes/MacOSX/WhatsNewInOSX/Articles/MacOSX10_9.html\n>>>>>\n>>>>> 'An app is considered to be a candidate for sleep if:\n>>>>>\n>>>>> It is not visible?if all of an app?s windows are either hidden by other windows or minimized in a hidden dock, and the app is not in the foreground\n>>>>>\n>>>>> (other necessary conditions)'.\n>>>>>\n>>>>> which if accurate indicates that keeping the R.app console unhidden should suffice.\n>>>\n>>>\n>>>\n>>> On Nov 28, 2013, at 6:35 AM, Robert J Goedman <goedman at icloud.com> wrote:\n>>>\n>>>> Hi, and Happy Thanksgiving for those that celebrate it!\n>>>>\n>>>> If Peter is right (and I expect he is, but will experiment a bit more if the setting can be updated while R.app is running and take effect immediately), I would suggest for now folks just use 'defaults ...' from a terminal window if they encounter these issues.\n>>>>\n>>>> Once we understand better what might be affected by allowing the sleep mode we can possibly refine that approach.\n>>>>\n>>>> Regards,\n>>>> Rob\n>>>>\n>>>\n>>> \t[[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> --\n>> Peter Dalgaard, Professor,\n>> Center for Statistics, Copenhagen Business School\n>> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n>> Phone: (+45)38153501\n>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n>>\n>>\n>>\n>>\n>>\n>>\n>>\n>>\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_plain": "So for people with a CRAN build of R, the tick box is the way to go \n(and/or keep the console visible).  I've added that to the R-admin manual.\n\nIf you do build R.app against 10.9, then you should be using the App Nap \nAPI. I think that in part is straightforward, as 'busy' gets set when \nthe R interpreter is evaluating.  So Re_RBusy needs to use the\n\nbeginActivityWithOptions:reason:,\nendActivity:,\n\nmethods on the NSProcessInfo class.  I'll leave that to someone fluent \nin ObjC.\n\n\nOn 30/11/2013 23:19, Robert J Goedman wrote:\n> HI peter,\n>\n> My understanding is that that box disappears if R.app is build against OS X 10.9.\n>\n> I've never seen that box (as I have been building against 10.9 for quite a while now), but I know folks have.\n>\n> As long as it is there I fully agree, much easier than defaults ....\n>\n> Regards,\n> Rob J. Goedman\n> goedman at icloud.com\n>\n>\n>\n>\n> On Nov 30, 2013, at 11:09 AM, peter dalgaard <pdalgd at gmail.com> wrote:\n>\n>>\n>> On 30 Nov 2013, at 16:58 , Robert J Goedman <goedman at icloud.com> wrote:\n>>\n>>> Yes, I've seen that as well and it is likely not limited to tcltk.\n>>>\n>>> Question is, for R.app, do we want to ship with NSAppSleepDisabled? I would be in favor (my $0.02).\n>>>\n>>> If yes I will commit.\n>>\n>>\n>> One item: I found that there is a tick box \"Prevent App Nap\" available via Get Info for applications (secondary click in the Applications folder), which is somewhat more intuitive that the \"defaults write ...\" route. If we make your change, will the same box appear, just selected by default?\n>>\n>>>\n>>> Regards,\n>>> Rob J. Goedman\n>>> goedman at icloud.com\n>>>\n>>>\n>>> On Nov 30, 2013, at 7:00 AM, peter dalgaard <pdalgd at gmail.com> wrote:\n>>>\n>>>>\n>>>> On 30 Nov 2013, at 12:37 , Prof Brian Ripley <ripley at stats.ox.ac.uk> wrote:\n>>>>\n>>>>> This does not happen for me provided R.app is visible.  From\n>>>>>\n>>>>> https://developer.apple.com/library/mac/releasenotes/MacOSX/WhatsNewInOSX/Articles/MacOSX10_9.html\n>>>>>\n>>>>> 'An app is considered to be a candidate for sleep if:\n>>>>>\n>>>>> It is not visible—if all of an app’s windows are either hidden by other windows or minimized in a hidden dock, and the app is not in the foreground\n>>>>>\n>>>>> (other necessary conditions)'.\n>>>>>\n>>>>> which if accurate indicates that keeping the R.app console unhidden should suffice.\n>>>\n>>>\n>>>\n>>> On Nov 28, 2013, at 6:35 AM, Robert J Goedman <goedman at icloud.com> wrote:\n>>>\n>>>> Hi, and Happy Thanksgiving for those that celebrate it!\n>>>>\n>>>> If Peter is right (and I expect he is, but will experiment a bit more if the setting can be updated while R.app is running and take effect immediately), I would suggest for now folks just use 'defaults ...' from a terminal window if they encounter these issues.\n>>>>\n>>>> Once we understand better what might be affected by allowing the sleep mode we can possibly refine that approach.\n>>>>\n>>>> Regards,\n>>>> Rob\n>>>>\n>>>\n>>> \t[[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>\n>> --\n>> Peter Dalgaard, Professor,\n>> Center for Statistics, Copenhagen Business School\n>> Solbjerg Plads 3, 2000 Frederiksberg, Denmark\n>> Phone: (+45)38153501\n>> Email: pd.mes at cbs.dk  Priv: PDalgd at gmail.com\n>>\n>>\n>>\n>>\n>>\n>>\n>>\n>>\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n>\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
       "body_snippet": "So for people with a CRAN build of R, the tick box is the way to go \n(and/or keep the console visible).  I've added that to the R-admin manual.\n\nIf you do build R.app against 10.9, then you should be ",
       "thread_id": "thread-7978c2456e7d",
       "thread_depth": 0,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010581.html"
     },
     {
       "id": "msg-be51a7d22989",
@@ -55,6 +56,7 @@
       "thread_id": "thread-be51a7d22989",
       "thread_depth": 0,
       "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010583.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20131202/64847ac5/attachment.pl"
       ]
@@ -76,6 +78,7 @@
       "thread_id": "thread-a53ad57f825e",
       "thread_depth": 0,
       "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010584.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20131202/fbcf1c5e/attachment.pl"
       ]
@@ -96,7 +99,8 @@
       "body_snippet": "On Nov 30, 2013, at 8:54, Hans W Borchers <hwborchers at gmail.com> wrote:\n\n> Dear R Mac colleagues,\n> \n> when I am running the following piece of code on Ubuntu Linux 12.04 LTS or on\n> Windows 7 -- w",
       "thread_id": "thread-84f455048e50",
       "thread_depth": 0,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010585.html"
     },
     {
       "id": "msg-d77a95f0f3be",
@@ -111,11 +115,12 @@
         "<CAML4n3M6Gc2o5vycEeYhcUgTjB6eSHQGe0x3u9+ef=-nMBqQGg@mail.gmail.com>",
         "<CAC2h7us0e5wPD6KtKdkjf+Wj90M8u+WdsCES8=56YyWGLFtucA@mail.gmail.com>"
       ],
-      "body_plain": "On Dec 2, 2013, at 8:35 PM, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:\n\n> I don't think your assumption that different systems will return the same (accurate or inaccurate) answers is correct.  I don't even think you can assume that running the same code twice on the same system will give you the same answers, although in practice it often will.\n> \n\nThat is true, but it does indeed depend on the code. For example 2L - 1L will always yield the same result, not matter how often you run it.\n\nBut more to the point, IEEE just guarantees results *assuming* certain precision, but R will use more precision if available for some operations. Now, how much more precision there is available depends on the CPU and architecture, and I suspect that Hans was not sharing enough details. For example, I get the same answer on Ubuntu 12.04 LTS that I get on a Mac contrary to his claims - both with x86_64 architecture (which I suspect is the real difference). And this is not just about R - compilers will often use SIMD instructions instead of FP instructions where it is faster and doesn?t reduce the accuracy - but it may increase it.\n\nCheers,\nSimon\n\n\n> \n> On Sat, Nov 30, 2013 at 8:54 AM, Hans W Borchers <hwborchers at gmail.com>wrote:\n> \n>> Dear R Mac colleagues,\n>> \n>> when I am running the following piece of code on Ubuntu Linux 12.04 LTS or\n>> on\n>> Windows 7 -- with R 3.0.2 --, I get the results as indicated:\n>> \n>>    set.seed(8237)\n>>    x <- runif(32, -1, 1)\n>>    y <- runif(32, -1, 1)\n>>    u <- cbind(x[1], y[1])\n>> \n>>    u1 <- u %*% t(u)\n>>    u2 <- apply(u * u, 1, sum)\n>>    sqrt(u2 + u2 - 2*u1)\n>>    ##      [,1]\n>>    ## [1,]  NaN\n>>    ## Warning message:\n>>    ##    In sqrt(u2 + u2 - 2 * u1) : NaNs produced\n>>    u2 + u2 - 2*u1\n>>    ##               [,1]\n>>    ## [1,] -2.220446e-16\n>> \n>> Theoretically, the last value should be zero. Of course, I am *not*\n>> surprised\n>> to see this is not the case under finite precision arithmetics.\n>> \n>> But what did surprise me was that under Mac OS X 10.6 and R 3.0.2 I get the\n>> following, exact results:\n>> \n>>    set.seed(8237)\n>>    x <- runif(32, -1, 1)\n>>    y <- runif(32, -1, 1)\n>>    u <- cbind(x[1], y[1])\n>> \n>>    u1 <- u %*% t(u)\n>>    u2 <- apply(u * u, 1, sum)\n>>    sqrt(u2 + u2 - 2*u1)\n>>    ##      [,1]\n>>    ## [1,]    0\n>>    u2 + u2 - 2*u1\n>>    ##      [,1]\n>>    ## [1,]    0\n>> \n>> I always thought that all these systems and versions comply to the IEEE\n>> floating point standard and return the same (accurate or inaccurate)\n>> answers.\n>> \n>> The problem here is: When I test a package on Mac, I cannot be sure it will\n>> run without errors on other systems. Actully, I found this when running\n>> some\n>> examples from help pages, written on the Mac.\n>> \n>> Was I wrong, or is there something special about the Mac version of R ?\n>> \n>> Many thanks\n>> Hans Werner\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_plain": "On Dec 2, 2013, at 8:35 PM, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:\n\n> I don't think your assumption that different systems will return the same (accurate or inaccurate) answers is correct.  I don't even think you can assume that running the same code twice on the same system will give you the same answers, although in practice it often will.\n> \n\nThat is true, but it does indeed depend on the code. For example 2L - 1L will always yield the same result, not matter how often you run it.\n\nBut more to the point, IEEE just guarantees results *assuming* certain precision, but R will use more precision if available for some operations. Now, how much more precision there is available depends on the CPU and architecture, and I suspect that Hans was not sharing enough details. For example, I get the same answer on Ubuntu 12.04 LTS that I get on a Mac contrary to his claims - both with x86_64 architecture (which I suspect is the real difference). And this is not just about R - compilers will often use SIMD instructions instead of FP instructions where it is faster and doesn’t reduce the accuracy - but it may increase it.\n\nCheers,\nSimon\n\n\n> \n> On Sat, Nov 30, 2013 at 8:54 AM, Hans W Borchers <hwborchers at gmail.com>wrote:\n> \n>> Dear R Mac colleagues,\n>> \n>> when I am running the following piece of code on Ubuntu Linux 12.04 LTS or\n>> on\n>> Windows 7 -- with R 3.0.2 --, I get the results as indicated:\n>> \n>>    set.seed(8237)\n>>    x <- runif(32, -1, 1)\n>>    y <- runif(32, -1, 1)\n>>    u <- cbind(x[1], y[1])\n>> \n>>    u1 <- u %*% t(u)\n>>    u2 <- apply(u * u, 1, sum)\n>>    sqrt(u2 + u2 - 2*u1)\n>>    ##      [,1]\n>>    ## [1,]  NaN\n>>    ## Warning message:\n>>    ##    In sqrt(u2 + u2 - 2 * u1) : NaNs produced\n>>    u2 + u2 - 2*u1\n>>    ##               [,1]\n>>    ## [1,] -2.220446e-16\n>> \n>> Theoretically, the last value should be zero. Of course, I am *not*\n>> surprised\n>> to see this is not the case under finite precision arithmetics.\n>> \n>> But what did surprise me was that under Mac OS X 10.6 and R 3.0.2 I get the\n>> following, exact results:\n>> \n>>    set.seed(8237)\n>>    x <- runif(32, -1, 1)\n>>    y <- runif(32, -1, 1)\n>>    u <- cbind(x[1], y[1])\n>> \n>>    u1 <- u %*% t(u)\n>>    u2 <- apply(u * u, 1, sum)\n>>    sqrt(u2 + u2 - 2*u1)\n>>    ##      [,1]\n>>    ## [1,]    0\n>>    u2 + u2 - 2*u1\n>>    ##      [,1]\n>>    ## [1,]    0\n>> \n>> I always thought that all these systems and versions comply to the IEEE\n>> floating point standard and return the same (accurate or inaccurate)\n>> answers.\n>> \n>> The problem here is: When I test a package on Mac, I cannot be sure it will\n>> run without errors on other systems. Actully, I found this when running\n>> some\n>> examples from help pages, written on the Mac.\n>> \n>> Was I wrong, or is there something special about the Mac version of R ?\n>> \n>> Many thanks\n>> Hans Werner\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
       "body_snippet": "On Dec 2, 2013, at 8:35 PM, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:\n\n> I don't think your assumption that different systems will return the same (accurate or inaccurate) answers ",
       "thread_id": "thread-a53ad57f825e",
       "thread_depth": 1,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010586.html"
     },
     {
       "id": "msg-609dcd99aeff",
@@ -133,7 +138,8 @@
       "body_snippet": "Hi Dave,\n\nCRAN build of R or otherwise?\nReproducible example?\n\nCheers,\nMichael\n\nOn Dec 2, 2013, at 17:09, Dave Deriso <deriso at gmail.com> wrote:\n\n> I was plotting a rather large dataset with ggplot2",
       "thread_id": "thread-be51a7d22989",
       "thread_depth": 1,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010587.html"
     },
     {
       "id": "msg-9cbbb54e0736",
@@ -149,11 +155,12 @@
         "<CAC2h7us0e5wPD6KtKdkjf+Wj90M8u+WdsCES8=56YyWGLFtucA@mail.gmail.com>",
         "<2319CC78-CC08-409E-9065-4587B1CA7082@r-project.org>"
       ],
-      "body_plain": "On 03 Dec 2013, at 02:48 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n\n> On Dec 2, 2013, at 8:35 PM, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:\n> \n>> I don't think your assumption that different systems will return the same (accurate or inaccurate) answers is correct.  I don't even think you can assume that running the same code twice on the same system will give you the same answers, although in practice it often will.\n>> \n> \n> That is true, but it does indeed depend on the code. For example 2L - 1L will always yield the same result, not matter how often you run it.\n> \n> But more to the point, IEEE just guarantees results *assuming* certain precision, but R will use more precision if available for some operations. Now, how much more precision there is available depends on the CPU and architecture, and I suspect that Hans was not sharing enough details. For example, I get the same answer on Ubuntu 12.04 LTS that I get on a Mac contrary to his claims - both with x86_64 architecture (which I suspect is the real difference). And this is not just about R - compilers will often use SIMD instructions instead of FP instructions where it is faster and doesn?t reduce the accuracy - but it may increase it.\n> \n\nAnd, although possibly not the case here, optimizing compilers may reorder FP operations in order to keep caches full and pipelines busy. Things like rewriting\n\nx1*y1 + x2*y2 + x3*y3 + x4*y4\n\nas\n\n(x1*y1 + x2*y2) + (x3*y3 + x4*y4)\n\nwhich is mathematically, but not computationally equivalent. The BLASen are full of that sort of stuff -- if you thought that a matrix multply is just a triple loop, have a look at what goes on in the ATLAS library.\n\nParallel algorithms are even trickier, because you may not have control over the order in which partial results arrive.\n\nAs a result, programmers have effectively given up the fine control needed to have exactly identical results on different platforms. \n\n(In legacy code, we have found at least one case where the original programmer had believed that an algorithm would converge to exact FP equality, but the optimizer had made it not always so, resulting in an infinite loop.)  \n\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
+      "body_plain": "On 03 Dec 2013, at 02:48 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n\n> On Dec 2, 2013, at 8:35 PM, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:\n> \n>> I don't think your assumption that different systems will return the same (accurate or inaccurate) answers is correct.  I don't even think you can assume that running the same code twice on the same system will give you the same answers, although in practice it often will.\n>> \n> \n> That is true, but it does indeed depend on the code. For example 2L - 1L will always yield the same result, not matter how often you run it.\n> \n> But more to the point, IEEE just guarantees results *assuming* certain precision, but R will use more precision if available for some operations. Now, how much more precision there is available depends on the CPU and architecture, and I suspect that Hans was not sharing enough details. For example, I get the same answer on Ubuntu 12.04 LTS that I get on a Mac contrary to his claims - both with x86_64 architecture (which I suspect is the real difference). And this is not just about R - compilers will often use SIMD instructions instead of FP instructions where it is faster and doesn’t reduce the accuracy - but it may increase it.\n> \n\nAnd, although possibly not the case here, optimizing compilers may reorder FP operations in order to keep caches full and pipelines busy. Things like rewriting\n\nx1*y1 + x2*y2 + x3*y3 + x4*y4\n\nas\n\n(x1*y1 + x2*y2) + (x3*y3 + x4*y4)\n\nwhich is mathematically, but not computationally equivalent. The BLASen are full of that sort of stuff -- if you thought that a matrix multply is just a triple loop, have a look at what goes on in the ATLAS library.\n\nParallel algorithms are even trickier, because you may not have control over the order in which partial results arrive.\n\nAs a result, programmers have effectively given up the fine control needed to have exactly identical results on different platforms. \n\n(In legacy code, we have found at least one case where the original programmer had believed that an algorithm would converge to exact FP equality, but the optimizer had made it not always so, resulting in an infinite loop.)  \n\n\n-- \nPeter Dalgaard, Professor,\nCenter for Statistics, Copenhagen Business School\nSolbjerg Plads 3, 2000 Frederiksberg, Denmark\nPhone: (+45)38153501\nEmail: pd.mes at cbs.dk  Priv: PDalgd at gmail.com",
       "body_snippet": "On 03 Dec 2013, at 02:48 , Simon Urbanek <simon.urbanek at r-project.org> wrote:\n\n> On Dec 2, 2013, at 8:35 PM, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:\n> \n>> I don't think your a",
       "thread_id": "thread-a53ad57f825e",
       "thread_depth": 2,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010588.html"
     },
     {
       "id": "msg-8bcfc53c632b",
@@ -191,7 +198,8 @@
       "body_snippet": "Dear Brian and Rob,\n\nPending another solution, I've modified the Rcmdr installation notes at\n<http://socserv.socsci.mcmaster.ca/jfox/Misc/Rcmdr/installation-notes.html>\nto suggest that users of the Rc",
       "thread_id": "thread-7978c2456e7d",
       "thread_depth": 1,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010589.html"
     },
     {
       "id": "msg-6f389e5c018b",
@@ -231,6 +239,7 @@
       "thread_id": "thread-7978c2456e7d",
       "thread_depth": 2,
       "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010590.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20131204/1cd058a2/attachment.pl"
       ]
@@ -273,7 +282,8 @@
       "body_snippet": "Hi Rob,\n\nOn Wed, 04 Dec 2013 20:16:39 -0700\n Robert J Goedman <goedman at icloud.com> wrote:\n> Hi John,\n> \n> I had a quick read of the notes and I think they are correct. The only case that is not cov",
       "thread_id": "thread-7978c2456e7d",
       "thread_depth": 3,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010591.html"
     },
     {
       "id": "msg-86f2d92d11ad",
@@ -285,11 +295,12 @@
       "subject_clean": "Can only install packages in my (user) library, even as administrator",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "Hi,\n\nI made 3 changes within a few days of each other and I don?t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the library folder of my own account.\n\nBut after putting a new hard drive in my Mac, updating R to 3.0.2 (from 3.0.1), updating my OS to Mavericks, I can no longer do so, I receive error messages telling me I?d have to use the command line if I insisted in doing it now. So I installed them in my own account. As I am the only R user on my Mac, it is not a great deal. But I am curious to know which of my 3 changes is to blame for the change. \n\nI forgot: my user account is an administrator account.\n\nThanks,\n\nDenis Chabot",
-      "body_snippet": "Hi,\n\nI made 3 changes within a few days of each other and I don?t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the l",
+      "body_plain": "Hi,\n\nI made 3 changes within a few days of each other and I don’t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the library folder of my own account.\n\nBut after putting a new hard drive in my Mac, updating R to 3.0.2 (from 3.0.1), updating my OS to Mavericks, I can no longer do so, I receive error messages telling me I’d have to use the command line if I insisted in doing it now. So I installed them in my own account. As I am the only R user on my Mac, it is not a great deal. But I am curious to know which of my 3 changes is to blame for the change. \n\nI forgot: my user account is an administrator account.\n\nThanks,\n\nDenis Chabot",
+      "body_snippet": "Hi,\n\nI made 3 changes within a few days of each other and I don’t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the l",
       "thread_id": "thread-86f2d92d11ad",
       "thread_depth": 0,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010593.html"
     },
     {
       "id": "msg-bc63dac1c810",
@@ -330,7 +341,8 @@
       "body_snippet": "Hi John,\n\nWell, I would be in favor to set NSAppSleepDisabled to YES by default, basically as it has been the last 10 years. Once we figure out how to use and control this feature we can enable it aga",
       "thread_id": "thread-7978c2456e7d",
       "thread_depth": 4,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010592.html"
     },
     {
       "id": "msg-2069fd42dfba",
@@ -344,11 +356,12 @@
       "references": [
         "<AA3B646B-13EA-4045-AC70-1C64358A1331@gmail.com>"
       ],
-      "body_plain": "Hi,\n\nOn Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n> Hi,\n>\n> I made 3 changes within a few days of each other and I don?t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the library folder of my own account.\n>\n> But after putting a new hard drive in my Mac, updating R to 3.0.2 (from 3.0.1), updating my OS to Mavericks, I can no longer do so, I receive error messages telling me I?d have to use the command line if I insisted in doing it now.\n\n(1) Could you please copy/paste the exact error messages you are\ngetting? Paraphrasing it isn't very helpful.\n\n(2)  Can you copy paste the output of the following command from the terminal:\n\n$ ls -ld /Library/Frameworks/R.framework/Resources/library\n\nMine looks like:\n\ndrwxrwxr-x  56 root  admin  1904 Nov 27 11:40\n/Library/Frameworks/R.framework/Resources/library\n\n(The leading `$` above is just a delimiter to suggest I am typing at\nthe terminal/bash prompt -- you don't type in `$`)\n\n(3) Please copy/paste the output of the following command from the terminal:\n\n$ groups YOUR_ACCOUNT\n\nWhere YOUR_ACCOUNT is whatever your user account is (ie. the name of\nyour home directory)\n\nFor instance, my user account is `lianogls` (my home directory is\n/Users/lianogls), so I'd do:\n\n$ groups lianogls\n\nand the output is:\n\nlianogls domainus com.apple.access_screensharing everyone _appstore\nnetaccounts _appserverusr admin _appserveradm _lpadmin _lpoperator\n_developer\n\n\nThanks,\n-steve\n\n-- \nSteve Lianoglou\nComputational Biologist\nGenentech",
-      "body_snippet": "Hi,\n\nOn Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n> Hi,\n>\n> I made 3 changes within a few days of each other and I don?t know which one caused this. I always install",
+      "body_plain": "Hi,\n\nOn Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n> Hi,\n>\n> I made 3 changes within a few days of each other and I don’t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the library folder of my own account.\n>\n> But after putting a new hard drive in my Mac, updating R to 3.0.2 (from 3.0.1), updating my OS to Mavericks, I can no longer do so, I receive error messages telling me I’d have to use the command line if I insisted in doing it now.\n\n(1) Could you please copy/paste the exact error messages you are\ngetting? Paraphrasing it isn't very helpful.\n\n(2)  Can you copy paste the output of the following command from the terminal:\n\n$ ls -ld /Library/Frameworks/R.framework/Resources/library\n\nMine looks like:\n\ndrwxrwxr-x  56 root  admin  1904 Nov 27 11:40\n/Library/Frameworks/R.framework/Resources/library\n\n(The leading `$` above is just a delimiter to suggest I am typing at\nthe terminal/bash prompt -- you don't type in `$`)\n\n(3) Please copy/paste the output of the following command from the terminal:\n\n$ groups YOUR_ACCOUNT\n\nWhere YOUR_ACCOUNT is whatever your user account is (ie. the name of\nyour home directory)\n\nFor instance, my user account is `lianogls` (my home directory is\n/Users/lianogls), so I'd do:\n\n$ groups lianogls\n\nand the output is:\n\nlianogls domainus com.apple.access_screensharing everyone _appstore\nnetaccounts _appserverusr admin _appserveradm _lpadmin _lpoperator\n_developer\n\n\nThanks,\n-steve\n\n-- \nSteve Lianoglou\nComputational Biologist\nGenentech",
+      "body_snippet": "Hi,\n\nOn Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n> Hi,\n>\n> I made 3 changes within a few days of each other and I don’t know which one caused this. I always install",
       "thread_id": "thread-86f2d92d11ad",
       "thread_depth": 1,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010594.html"
     },
     {
       "id": "msg-94c166351a09",
@@ -362,11 +375,12 @@
       "references": [
         "<mailman.17.1386500405.17390.r-sig-mac@r-project.org>"
       ],
-      "body_plain": "Hi Steve, \n\nLe 2013-12-08 ? 00:47, Steve Lianoglou <lianoglou.steve at gene.com> a ?crit :\n\n> Hi,\n> \n> On Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n>> Hi,\n>> \n>> I made 3 changes within a few days of each other and I don?t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the library folder of my own account.\n>> \n>> But after putting a new hard drive in my Mac, updating R to 3.0.2 (from 3.0.1), updating my OS to Mavericks, I can no longer do so, I receive error messages telling me I?d have to use the command line if I insisted in doing it now.\n> \n> (1) Could you please copy/paste the exact error messages you are\n> getting? Paraphrasing it isn't very helpful.\n\nThe message I get is not written in the console, it is written on top of the Package Installer window of R.app. And it is in French:\n\nIl n'est actuellement pas possible d'installer des package binaires depuis des d?p?ts ? distance en tant qu'utilisateur root.\nMerci d'utiliser le binaire de R qui provient du CRAN afin d'autoriser aux administrateurs l'installation de packages au niveau syst?me sans passer par l'utilisateur root. Sinon, vous pouvez utiliser R en ligne de commande en tant que root ou installer les packages depuis des fichiers locaux\n\nIf I translate it, it says ? It is presently impossible to install binary packages from repositories as user root. Thank you for using R binaries that come from CRAN so that administrators can install packages at the system level without using user root. Otherwise, you can use R on the command line as root to install packages from local files.\n\nAnd in the console, this appears:\n\nAvis dans install.packages(c(\"mclust\"), lib = \"/Library/Frameworks/R.framework/Resources/library/\",  :\n 'lib = \"/Library/Frameworks/R.framework/Resources/library/\"' ne peut ?tre ouvert en ?criture\n> \nWould you like to use a personal library instead?  (y/n) \n\nso I do not have write access to lib. I am sure the tests you suggest below will confirm it, but I?ve been using R on 3 macs for many years, from an administrator account, and it never happened to me before.\n\n> \n> (2)  Can you copy paste the output of the following command from the terminal:\n> \n> $ ls -ld /Library/Frameworks/R.framework/Resources/library\n> \n> Mine looks like:\n> \n> drwxrwxr-x  56 root  admin  1904 Nov 27 11:40\n> /Library/Frameworks/R.framework/Resources/library\n> \nAnd mine:\ndrwxrwxr-x+ 136 root  wheel  4624 21 nov 14:40 /Library/Frameworks/R.framework/Resources/library\n\n> (The leading `$` above is just a delimiter to suggest I am typing at\n> the terminal/bash prompt -- you don't type in `$`)\n> \n> (3) Please copy/paste the output of the following command from the terminal:\n> \n> $ groups YOUR_ACCOUNT\n\nstaff everyone localaccounts _appserverusr admin _appserveradm _lpadmin com.apple.sharepoint.group.2 com.apple.sharepoint.group.1 _appstore _lpoperator _developer com.apple.access_screensharing com.apple.access_ssh\n\n> and the output is:\n> \n> lianogls domainus com.apple.access_screensharing everyone _appstore\n> netaccounts _appserverusr admin _appserveradm _lpadmin _lpoperator\n> _developer\n> \n> \n> Thanks,\n> -steve\n> \n> -- \n> Steve Lianoglou\n> Computational Biologist\n> Genentech\n\nThanks again Steve, I hope you?ll spot the problem. How it occurred is secondary, though it makes me very curious.\n\nDenis",
-      "body_snippet": "Hi Steve, \n\nLe 2013-12-08 ? 00:47, Steve Lianoglou <lianoglou.steve at gene.com> a ?crit :\n\n> Hi,\n> \n> On Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n>> Hi,\n>> \n>> I m",
+      "body_plain": "Hi Steve, \n\nLe 2013-12-08 à 00:47, Steve Lianoglou <lianoglou.steve at gene.com> a écrit :\n\n> Hi,\n> \n> On Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n>> Hi,\n>> \n>> I made 3 changes within a few days of each other and I don’t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the library folder of my own account.\n>> \n>> But after putting a new hard drive in my Mac, updating R to 3.0.2 (from 3.0.1), updating my OS to Mavericks, I can no longer do so, I receive error messages telling me I’d have to use the command line if I insisted in doing it now.\n> \n> (1) Could you please copy/paste the exact error messages you are\n> getting? Paraphrasing it isn't very helpful.\n\nThe message I get is not written in the console, it is written on top of the Package Installer window of R.app. And it is in French:\n\nIl n'est actuellement pas possible d'installer des package binaires depuis des dépôts à distance en tant qu'utilisateur root.\nMerci d'utiliser le binaire de R qui provient du CRAN afin d'autoriser aux administrateurs l'installation de packages au niveau système sans passer par l'utilisateur root. Sinon, vous pouvez utiliser R en ligne de commande en tant que root ou installer les packages depuis des fichiers locaux\n\nIf I translate it, it says « It is presently impossible to install binary packages from repositories as user root. Thank you for using R binaries that come from CRAN so that administrators can install packages at the system level without using user root. Otherwise, you can use R on the command line as root to install packages from local files.\n\nAnd in the console, this appears:\n\nAvis dans install.packages(c(\"mclust\"), lib = \"/Library/Frameworks/R.framework/Resources/library/\",  :\n 'lib = \"/Library/Frameworks/R.framework/Resources/library/\"' ne peut être ouvert en écriture\n> \nWould you like to use a personal library instead?  (y/n) \n\nso I do not have write access to lib. I am sure the tests you suggest below will confirm it, but I’ve been using R on 3 macs for many years, from an administrator account, and it never happened to me before.\n\n> \n> (2)  Can you copy paste the output of the following command from the terminal:\n> \n> $ ls -ld /Library/Frameworks/R.framework/Resources/library\n> \n> Mine looks like:\n> \n> drwxrwxr-x  56 root  admin  1904 Nov 27 11:40\n> /Library/Frameworks/R.framework/Resources/library\n> \nAnd mine:\ndrwxrwxr-x+ 136 root  wheel  4624 21 nov 14:40 /Library/Frameworks/R.framework/Resources/library\n\n> (The leading `$` above is just a delimiter to suggest I am typing at\n> the terminal/bash prompt -- you don't type in `$`)\n> \n> (3) Please copy/paste the output of the following command from the terminal:\n> \n> $ groups YOUR_ACCOUNT\n\nstaff everyone localaccounts _appserverusr admin _appserveradm _lpadmin com.apple.sharepoint.group.2 com.apple.sharepoint.group.1 _appstore _lpoperator _developer com.apple.access_screensharing com.apple.access_ssh\n\n> and the output is:\n> \n> lianogls domainus com.apple.access_screensharing everyone _appstore\n> netaccounts _appserverusr admin _appserveradm _lpadmin _lpoperator\n> _developer\n> \n> \n> Thanks,\n> -steve\n> \n> -- \n> Steve Lianoglou\n> Computational Biologist\n> Genentech\n\nThanks again Steve, I hope you’ll spot the problem. How it occurred is secondary, though it makes me very curious.\n\nDenis",
+      "body_snippet": "Hi Steve, \n\nLe 2013-12-08 à 00:47, Steve Lianoglou <lianoglou.steve at gene.com> a écrit :\n\n> Hi,\n> \n> On Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n>> Hi,\n>> \n>> I m",
       "thread_id": "thread-94c166351a09",
       "thread_depth": 0,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010595.html"
     },
     {
       "id": "msg-86b5953b93a2",
@@ -381,11 +395,12 @@
         "<mailman.17.1386500405.17390.r-sig-mac@r-project.org>",
         "<A12B63D4-302B-4C89-A76D-7AE8E975CEF0@globetrotter.net>"
       ],
-      "body_plain": "On Dec 8, 2013, at 10:54 AM, Denis Chabot <chabotd at globetrotter.net> wrote:\n\n> Hi Steve, \n> \n> Le 2013-12-08 ? 00:47, Steve Lianoglou <lianoglou.steve at gene.com> a ?crit :\n> \n>> Hi,\n>> \n>> On Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n>>> Hi,\n>>> \n>>> I made 3 changes within a few days of each other and I don?t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the library folder of my own account.\n>>> \n>>> But after putting a new hard drive in my Mac, updating R to 3.0.2 (from 3.0.1), updating my OS to Mavericks, I can no longer do so, I receive error messages telling me I?d have to use the command line if I insisted in doing it now.\n>> \n>> (1) Could you please copy/paste the exact error messages you are\n>> getting? Paraphrasing it isn't very helpful.\n> \n> The message I get is not written in the console, it is written on top of the Package Installer window of R.app. And it is in French:\n> \n> Il n'est actuellement pas possible d'installer des package binaires depuis des d?p?ts ? distance en tant qu'utilisateur root.\n> Merci d'utiliser le binaire de R qui provient du CRAN afin d'autoriser aux administrateurs l'installation de packages au niveau syst?me sans passer par l'utilisateur root. Sinon, vous pouvez utiliser R en ligne de commande en tant que root ou installer les packages depuis des fichiers locaux\n> \n> If I translate it, it says ? It is presently impossible to install binary packages from repositories as user root. Thank you for using R binaries that come from CRAN so that administrators can install packages at the system level without using user root. Otherwise, you can use R on the command line as root to install packages from local files.\n> \n> And in the console, this appears:\n> \n> Avis dans install.packages(c(\"mclust\"), lib = \"/Library/Frameworks/R.framework/Resources/library/\",  :\n> 'lib = \"/Library/Frameworks/R.framework/Resources/library/\"' ne peut ?tre ouvert en ?criture\n>> \n> Would you like to use a personal library instead?  (y/n) \n> \n> so I do not have write access to lib. I am sure the tests you suggest below will confirm it, but I?ve been using R on 3 macs for many years, from an administrator account, and it never happened to me before.\n> \n>> \n>> (2)  Can you copy paste the output of the following command from the terminal:\n>> \n>> $ ls -ld /Library/Frameworks/R.framework/Resources/library\n>> \n>> Mine looks like:\n>> \n>> drwxrwxr-x  56 root  admin  1904 Nov 27 11:40\n>> /Library/Frameworks/R.framework/Resources/library\n>> \n> And mine:\n> drwxrwxr-x+ 136 root  wheel  4624 21 nov 14:40 /Library/Frameworks/R.framework/Resources/library\n> \n\nAs you can see someone messed with the permissions. To fix that, run\n\nsudo chown -Rh 0:admin /Library/Frameworks/R.framework\n\nin the Terminal (blowing away R and re-installing would also help but the above is less disruptive).\n\nCheers,\nSimon\n\n\n\n>> (The leading `$` above is just a delimiter to suggest I am typing at\n>> the terminal/bash prompt -- you don't type in `$`)\n>> \n>> (3) Please copy/paste the output of the following command from the terminal:\n>> \n>> $ groups YOUR_ACCOUNT\n> \n> staff everyone localaccounts _appserverusr admin _appserveradm _lpadmin com.apple.sharepoint.group.2 com.apple.sharepoint.group.1 _appstore _lpoperator _developer com.apple.access_screensharing com.apple.access_ssh\n> \n>> and the output is:\n>> \n>> lianogls domainus com.apple.access_screensharing everyone _appstore\n>> netaccounts _appserverusr admin _appserveradm _lpadmin _lpoperator\n>> _developer\n>> \n>> \n>> Thanks,\n>> -steve\n>> \n>> -- \n>> Steve Lianoglou\n>> Computational Biologist\n>> Genentech\n> \n> Thanks again Steve, I hope you?ll spot the problem. How it occurred is secondary, though it makes me very curious.\n> \n> Denis\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
-      "body_snippet": "On Dec 8, 2013, at 10:54 AM, Denis Chabot <chabotd at globetrotter.net> wrote:\n\n> Hi Steve, \n> \n> Le 2013-12-08 ? 00:47, Steve Lianoglou <lianoglou.steve at gene.com> a ?crit :\n> \n>> Hi,\n>> \n>> On Wed",
+      "body_plain": "On Dec 8, 2013, at 10:54 AM, Denis Chabot <chabotd at globetrotter.net> wrote:\n\n> Hi Steve, \n> \n> Le 2013-12-08 à 00:47, Steve Lianoglou <lianoglou.steve at gene.com> a écrit :\n> \n>> Hi,\n>> \n>> On Wed, Dec 4, 2013 at 8:44 PM, Denis Chabot <chabot.denis at gmail.com> wrote:\n>>> Hi,\n>>> \n>>> I made 3 changes within a few days of each other and I don’t know which one caused this. I always installed new pacages (and updated existing packages) in the main library on my Mac, not in the library folder of my own account.\n>>> \n>>> But after putting a new hard drive in my Mac, updating R to 3.0.2 (from 3.0.1), updating my OS to Mavericks, I can no longer do so, I receive error messages telling me I’d have to use the command line if I insisted in doing it now.\n>> \n>> (1) Could you please copy/paste the exact error messages you are\n>> getting? Paraphrasing it isn't very helpful.\n> \n> The message I get is not written in the console, it is written on top of the Package Installer window of R.app. And it is in French:\n> \n> Il n'est actuellement pas possible d'installer des package binaires depuis des dépôts à distance en tant qu'utilisateur root.\n> Merci d'utiliser le binaire de R qui provient du CRAN afin d'autoriser aux administrateurs l'installation de packages au niveau système sans passer par l'utilisateur root. Sinon, vous pouvez utiliser R en ligne de commande en tant que root ou installer les packages depuis des fichiers locaux\n> \n> If I translate it, it says « It is presently impossible to install binary packages from repositories as user root. Thank you for using R binaries that come from CRAN so that administrators can install packages at the system level without using user root. Otherwise, you can use R on the command line as root to install packages from local files.\n> \n> And in the console, this appears:\n> \n> Avis dans install.packages(c(\"mclust\"), lib = \"/Library/Frameworks/R.framework/Resources/library/\",  :\n> 'lib = \"/Library/Frameworks/R.framework/Resources/library/\"' ne peut être ouvert en écriture\n>> \n> Would you like to use a personal library instead?  (y/n) \n> \n> so I do not have write access to lib. I am sure the tests you suggest below will confirm it, but I’ve been using R on 3 macs for many years, from an administrator account, and it never happened to me before.\n> \n>> \n>> (2)  Can you copy paste the output of the following command from the terminal:\n>> \n>> $ ls -ld /Library/Frameworks/R.framework/Resources/library\n>> \n>> Mine looks like:\n>> \n>> drwxrwxr-x  56 root  admin  1904 Nov 27 11:40\n>> /Library/Frameworks/R.framework/Resources/library\n>> \n> And mine:\n> drwxrwxr-x+ 136 root  wheel  4624 21 nov 14:40 /Library/Frameworks/R.framework/Resources/library\n> \n\nAs you can see someone messed with the permissions. To fix that, run\n\nsudo chown -Rh 0:admin /Library/Frameworks/R.framework\n\nin the Terminal (blowing away R and re-installing would also help but the above is less disruptive).\n\nCheers,\nSimon\n\n\n\n>> (The leading `$` above is just a delimiter to suggest I am typing at\n>> the terminal/bash prompt -- you don't type in `$`)\n>> \n>> (3) Please copy/paste the output of the following command from the terminal:\n>> \n>> $ groups YOUR_ACCOUNT\n> \n> staff everyone localaccounts _appserverusr admin _appserveradm _lpadmin com.apple.sharepoint.group.2 com.apple.sharepoint.group.1 _appstore _lpoperator _developer com.apple.access_screensharing com.apple.access_ssh\n> \n>> and the output is:\n>> \n>> lianogls domainus com.apple.access_screensharing everyone _appstore\n>> netaccounts _appserverusr admin _appserveradm _lpadmin _lpoperator\n>> _developer\n>> \n>> \n>> Thanks,\n>> -steve\n>> \n>> -- \n>> Steve Lianoglou\n>> Computational Biologist\n>> Genentech\n> \n> Thanks again Steve, I hope you’ll spot the problem. How it occurred is secondary, though it makes me very curious.\n> \n> Denis\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>",
+      "body_snippet": "On Dec 8, 2013, at 10:54 AM, Denis Chabot <chabotd at globetrotter.net> wrote:\n\n> Hi Steve, \n> \n> Le 2013-12-08 à 00:47, Steve Lianoglou <lianoglou.steve at gene.com> a écrit :\n> \n>> Hi,\n>> \n>> On Wed",
       "thread_id": "thread-94c166351a09",
       "thread_depth": 1,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010596.html"
     },
     {
       "id": "msg-4db976523177",
@@ -405,7 +420,8 @@
       "body_snippet": "Le 2013-12-08 ? 13:19, Simon Urbanek <simon.urbanek at r-project.org> a ?crit :\n\n> As you can see someone messed with the permissions. To fix that, run\n> \n> sudo chown -Rh 0:admin /Library/Frameworks/",
       "thread_id": "thread-94c166351a09",
       "thread_depth": 2,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010597.html"
     },
     {
       "id": "msg-fb26b582607a",
@@ -417,11 +433,12 @@
       "subject_clean": "Mavericks CMD install error",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "I?ve done my best to follow Prof Ripley?s instructions (30 Oct 2013) for installing packages after upgrading to Mavericks.\n\nI?m stuck with an error in a package that installed without error under 10.8 (with the most recent version of Xcode 5.0.2).  I installed the command line tools (late Oct 2013) for Mavericks and updated XQuartz.  I inserted definitions for CC, CXX, CFLAGS, CXXFLAGS, & FLIBS in ~/.R.Makevars:\n\nCC=clang\nCXX=clang++\nCFLAGS=\"-mtune=native -g -O2 -Wall -pedantic -Wconversion\"\nCXXFLAGS=\"-mtune=native -g -O2 -Wall -pedantic -Wconversion?\nFLIBS=-lgfortran\n\nthough xcode-select ?install generated an error (?Can?t install software because it is not currently available from the Software Update server?).\n\nHere?s the error:\n\n$ r CMD install zStat\n* installing to library ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library?\n* installing *source* package ?zStat? ...\n** libs\nclang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/lib -L/usr/local/lib -o zStat.so zCor.o SHLIB_LIBADD = -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\nclang: error: no such file or directory: 'SHLIB_LIBADD'\nclang: error: no such file or directory: '='\nmake: *** [zStat.so] Error 1\nERROR: compilation failed for package ?zStat?\n* removing ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library/zStat?\n* restoring previous ?/Library/Frameworks/R.framework/Versions/3.0/Resources/library/zStat?\n\nI would appreciate any guidance you can offer.",
-      "body_snippet": "I?ve done my best to follow Prof Ripley?s instructions (30 Oct 2013) for installing packages after upgrading to Mavericks.\n\nI?m stuck with an error in a package that installed without error under 10.8",
+      "body_plain": "I’ve done my best to follow Prof Ripley’s instructions (30 Oct 2013) for installing packages after upgrading to Mavericks.\n\nI’m stuck with an error in a package that installed without error under 10.8 (with the most recent version of Xcode 5.0.2).  I installed the command line tools (late Oct 2013) for Mavericks and updated XQuartz.  I inserted definitions for CC, CXX, CFLAGS, CXXFLAGS, & FLIBS in ~/.R.Makevars:\n\nCC=clang\nCXX=clang++\nCFLAGS=\"-mtune=native -g -O2 -Wall -pedantic -Wconversion\"\nCXXFLAGS=\"-mtune=native -g -O2 -Wall -pedantic -Wconversion”\nFLIBS=-lgfortran\n\nthough xcode-select —install generated an error (“Can’t install software because it is not currently available from the Software Update server”).\n\nHere’s the error:\n\n$ r CMD install zStat\n* installing to library ‘/Library/Frameworks/R.framework/Versions/3.0/Resources/library’\n* installing *source* package ‘zStat’ ...\n** libs\nclang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/lib -L/usr/local/lib -o zStat.so zCor.o SHLIB_LIBADD = -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation\nclang: error: no such file or directory: 'SHLIB_LIBADD'\nclang: error: no such file or directory: '='\nmake: *** [zStat.so] Error 1\nERROR: compilation failed for package ‘zStat’\n* removing ‘/Library/Frameworks/R.framework/Versions/3.0/Resources/library/zStat’\n* restoring previous ‘/Library/Frameworks/R.framework/Versions/3.0/Resources/library/zStat’\n\nI would appreciate any guidance you can offer.",
+      "body_snippet": "I’ve done my best to follow Prof Ripley’s instructions (30 Oct 2013) for installing packages after upgrading to Mavericks.\n\nI’m stuck with an error in a package that installed without error under 10.8",
       "thread_id": "thread-fb26b582607a",
       "thread_depth": 0,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010598.html"
     },
     {
       "id": "msg-0d1d2064347a",
@@ -437,7 +454,8 @@
       "body_snippet": "I have been using R for a couple of years now, but recently updated to the newest version (3.0.2). \n\nWhen I tried to install the Rcmdr package (and dependencies), all went well until the end, when I g",
       "thread_id": "thread-0d1d2064347a",
       "thread_depth": 0,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010599.html"
     },
     {
       "id": "msg-bd6d7706cfcb",
@@ -455,7 +473,8 @@
       "body_snippet": "On Dec 20, 2013, at 3:53 PM, Drew Talley wrote:\n\n> I have been using R for a couple of years now, but recently updated to the newest version (3.0.2). \n> \n> When I tried to install the Rcmdr package (a",
       "thread_id": "thread-0d1d2064347a",
       "thread_depth": 1,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010600.html"
     },
     {
       "id": "msg-fe73a915f15f",
@@ -474,7 +493,8 @@
       "body_snippet": "I get the same errors when trying them individually. Any guesses if this is at my end or elsewhere?\n\n\nOn Dec 20, 2013, at 4:57 PM, David Winsemius <dwinsemius at comcast.net> wrote:\n\n> \n> On Dec 20, 2",
       "thread_id": "thread-0d1d2064347a",
       "thread_depth": 2,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010601.html"
     },
     {
       "id": "msg-c7683b05239a",
@@ -494,7 +514,8 @@
       "body_snippet": "On Dec 21, 2013, at 2:52 PM, Drew Talley wrote:\n\n> I get the same errors when trying them individually. Any guesses if this is at my end or elsewhere?\n> \n\nNot really. You have not provided the code yo",
       "thread_id": "thread-0d1d2064347a",
       "thread_depth": 3,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010602.html"
     },
     {
       "id": "msg-9727a845696f",
@@ -515,7 +536,8 @@
       "body_snippet": "Dear David and Drew,\n\nAs far as I can tell from his postings, Drew's problem isn't specific to the\nRcmdr, and is different from problems with Mac OS X 10.9 that were\npreviously reported. There are ins",
       "thread_id": "thread-0d1d2064347a",
       "thread_depth": 4,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010603.html"
     },
     {
       "id": "msg-b02eaea5e91c",
@@ -537,7 +559,8 @@
       "body_snippet": "Thanks John - uninstalling and reinstalling (using a different mirror) fixed the problem!\n\n\nI appreciate your help,\n\nDrew\n\n\nOn Dec 22, 2013, at 8:03 AM, John Fox <jfox at mcmaster.ca> wrote:\n\n> Dear D",
       "thread_id": "thread-0d1d2064347a",
       "thread_depth": 5,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010604.html"
     },
     {
       "id": "msg-621914c26b2a",
@@ -554,6 +577,7 @@
       "thread_id": "thread-621914c26b2a",
       "thread_depth": 0,
       "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010605.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20131223/7ee0e395/attachment.pl"
       ]
@@ -574,7 +598,8 @@
       "body_snippet": "On 23/12/2013 23:15, Christopher Hamm wrote:\n> I recently \"upgraded\" to XCode 5.2 and now a number of R packages will not work. I have a 15\" MBP running OSX Mavericks 10.9.1 and am running R 3.0.2.\n\nW",
       "thread_id": "thread-621914c26b2a",
       "thread_depth": 1,
-      "month": "2013-12"
+      "month": "2013-12",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2013-December/010606.html"
     }
   ],
   "threads": [

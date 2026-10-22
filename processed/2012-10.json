@@ -19,7 +19,8 @@
       "body_snippet": "All that is needed is to do a right click (or its equivalent),\nwhere for \"approved\" software a left click works the needed\nmagic.  The user is then asked whether, notwithstanding \nthe lack of an Apple",
       "thread_id": "thread-f32b1b392b57",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009557.html"
     },
     {
       "id": "msg-60b2a8cde125",
@@ -38,7 +39,8 @@
       "body_snippet": "Dear John,\n\n> -----Original Message-----\n> From: John Maindonald [mailto:john.maindonald at anu.edu.au]\n> Sent: Sunday, September 30, 2012 6:36 PM\n> To: John Fox\n> Cc: 'Simon Urbanek'; r-sig-mac at r-",
       "thread_id": "thread-60b2a8cde125",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009558.html"
     },
     {
       "id": "msg-5c226a295b2b",
@@ -58,11 +60,12 @@
         "<5065BB08.1060403@stats.ox.ac.uk>",
         "<CAC2h7uuQbpL9yGPovSGEnE99XBdUHRNSknOfg0w88M=__E2kTg@mail.gmail.com>"
       ],
-      "body_plain": "I have been away for awhile, sorry for this belated impasse. \n\nI still think that in the binary that can be obtained from CRAN it would be safer to replace 'gcc' with 'llvm-gcc' and 'g++' with 'llvm-g++' to ensure that the right compiler is used and thus the -arch argument is recognized. \n\nThank you Kasper for taking the time to clarify the matter to me. I especially appreciate it now that I understand that this forum otherwise seems to be dominated by a 'if-you-don't-like-it-sod-of' attitude. I've found a reasonable workaround and I would have liked to contribute it so that R would be an even better experience on MacOS. \n\nMy best regards,\n/Peder Axensten\n\n\n\n\n\n\nOn 28 sep 2012, at 17:12, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:\n\n> On Fri, Sep 28, 2012 at 10:58 AM, Prof Brian Ripley\n> <ripley at stats.ox.ac.uk> wrote:\n>> On 28/09/2012 15:29, Kasper Daniel Hansen wrote:\n>>> \n>>> So I had a few emails with Peder, and I think he gets it now.\n>>> \n>>> However, one point came up which I have been wondering about as well.\n>>> In Makeconf R only stores the name of the compiler, say \"gcc\" or\n>>> perhaps \"gcc-4.2\".  Why not store the full path?  Peder's situation is\n>>> that he has installed another compiler that resolves to gcc in his\n>>> environment, masking the one in /usr/bin.  It seems to me that it\n>>> would be more \"safe\" to save the entire path to the compiler, both on\n>>> multi-user systems on in case like (for os x) the binary is downloaded\n>>> from somewhere else.  [ on the other hand, it may be easier on Windows\n>>> to not have the full path ]\n>>> \n>>> Now, there is probably a perfectly good reason to do what is happening\n>>> now.  Or perhaps changing it is not worth the effort.  But I just\n>>> wanted to raise the issue for 2 seconds.\n>> \n>> \n>> You get what you specified when you configured R.  I usually configure with\n>> full paths except on Windows (where paths like /usr/local do not exist in\n>> general).\n> \n> Thanks.  I see how this works now, and I should have investigated a bit more.\n> \n> Kasper\n> \n>> The point is that you can do what suits you.  If you choose to use a binary\n>> distribution you get what suits the distributor: if you don't like that,\n>> build from the sources yourself.\n>> \n>> The documentation for the CRAN Mac binary distribution is a bit scattered.\n>> I am not sure it would help, but we could add some more words to the R-admin\n>> manual.  I suspect few people want to work with source packages with\n>> compiled code and use the CRAN distribution (not least as it is hard to make\n>> portable binary packages that way).\n>> \n>> \n>>> \n>>> Kasper\n>>> \n>>> On Thu, Sep 27, 2012 at 10:29 AM, Kasper Daniel Hansen\n>>> <kasperdanielhansen at gmail.com> wrote:\n>>>> \n>>>> On Thu, Sep 27, 2012 at 10:07 AM, Peder Axensten <Peder.Axensten at slu.se>\n>>>> wrote:\n>>>>> \n>>>>> \n>>>>> On 27 sep 2012, at 14:27, Simon Urbanek <simon.urbanek at r-project.org>\n>>>>> wrote:\n>>>>> \n>>>>>> On Sep 27, 2012, at 5:02 AM, Peder Axensten wrote:\n>>>>>> \n>>>>>>> The compiler (clang) and linker that Apple includes (with Xcode) uses\n>>>>>>> the argument -arch to specify the architecture to build for. This is not\n>>>>>>> recognized by, for instance, the gcc compilers. Because this argument is\n>>>>>>> 'hardcoded' into the Makeconfig files,\n>>>>>> \n>>>>>> \n>>>>>> It is not - those (assuming you mean Makeconf) are generated from the\n>>>>>> flags used to build R, so if you use any other compiler with other flags\n>>>>>> they will be reflected in the Makeconf accordingly.\n>>>>> \n>>>>> \n>>>>> I know little about how this is set up, is it not possible to change\n>>>>> some kind of template to change the way this is done? Some base variables\n>>>>> that are generated from the flags, these variables are then used in the rest\n>>>>> of the Makeconf along the lines I suggested?\n>>>>> \n>>>>>>> it is an involved process to compile libraries for R with any other\n>>>>>>> compiler.\n>>>>>> \n>>>>>> \n>>>>>> R doen't care what you compile libraries with as long as R can links\n>>>>>> against them at configure time. Again, this has nothing to do with Makevars.\n>>>>> \n>>>>> \n>>>>> As I understand it, if I use R CMD INSTALL I'm stuck with what is\n>>>>> defined in the Makeconf files. If I use any other compiler other than\n>>>>> Apple's clang as my \"default\" compiler, I get errors when I run R CMD\n>>>>> INSTALL ?? that is, if I from R try to install any package that requires\n>>>>> compilation. I think it would be better to determine the value of the\n>>>>> variables when R CMD INSTALL is run, rather than when R is installed (or\n>>>>> even compiled?).\n>>>> \n>>>> \n>>>> Peder,\n>>>> \n>>>> You seem a bit confused.  Let me explain it a bit clearer.  When you\n>>>> compile R, the settings (and compiler) with which you compiled R is\n>>>> stored in Makeconf and used to compile new packages using R CMD\n>>>> INSTALL.  This ensures that you use the same compiler settings to\n>>>> build R and add-on packages, which is obviously an _extremely good_\n>>>> idea.  If you want to use another compiler with R, you will need to\n>>>> re-compile R using this compiler, which should work.\n>>>> \n>>>> My guess is that you are using the CRAN binary of R (compiled using\n>>>> the official compiler) and you want to use another compiler to build\n>>>> an add-on package.  This is not supported, and it should not be\n>>>> supported, because it is an extremely bad idea.\n>>>> \n>>>> Below is my configure call for building R from svn, using Simon's\n>>>> build of Apple's GCC codebase (aka the official compiler).  It should\n>>>> be easy to modify this to build R using a different compiler.  I am\n>>>> just including this as an example.  Once you have build R using you\n>>>> new compiler, R CMD INSTALL should work out of the box.\n>>>> \n>>>> Note that if you want aqua support, you need a compiler that supports\n>>>> objective-C (as far as I understand).  I don't use a GUI, but I use an\n>>>> aqua device, like\n>>>> R>  quartz()\n>>>> \n>>>> (I may use imprecise terminology here, wrt. aqua and quartz).\n>>>> \n>>>> Kasper\n>>>> \n>>>> configure:\n>>>> \n>>>> export LANG=en_US.UTF-8\n>>>> ../${SRCDIR}/configure SHELL='/bin/bash' \\\n>>>>   --prefix=/usr/local/R/R-${R_VERSION} --disable-R-framework\\\n>>>>   CC=\"/usr/bin/gcc-4.2 -arch x86_64 -std=gnu99\" \\\n>>>>   CFLAGS=\"-g -O2 -std=gnu99 -march=nocona\" \\\n>>>>   CXX=\"/usr/bin/g++-4.2 -arch x86_64\" \\\n>>>>   CXXFLAGS=\"-g -O2 -march=nocona\" \\\n>>>>   OBJC=\"/usr/bin/gcc-4.2 -arch x86_64\" \\\n>>>>   F77=\"/usr/bin/gfortran-4.2 -arch x86_64\" \\\n>>>>   FFLAGS=\"-g -O2 -march=nocona\" \\\n>>>>   FC=\"/usr/bin/gfortran-4.2 -arch x86_64\" \\\n>>>>   FCFLAGS=\"-g -O2 -march=nocona\" \\\n>>>>   --enable-memory-profiling\\\n>>>>   --x-includes=/usr/X11/include --x-libraries=/usr/X11/lib\\\n>>>>   --with-system-zlib\\\n>>>>   --with-blas='-framework vecLib' --with-lapack\n>>>> \n>>>> \n>>>> \n>>>> \n>>>> \n>>>>> I'm sure it could be implemented better, but something like:\n>>>>> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n>>>>> GCCPATH =\n>>>>> \n>>>>> # If we are using the Apple compiler [that supports the -arch option],\n>>>>> this is the argument to that option.\n>>>>> ARCH = x86_64\n>>>>> \n>>>>> # Get information on the gcc to be used.\n>>>>> ISAPPLESTRING := $(shell \"$(GCCPATH)gcc --version\")\n>>>>> ISAPPLEKEY := Apple\n>>>>> \n>>>>> # This will either be nothing or '-arch $(ARCH)'\n>>>>> MYARCH := $(if $(findstring $(ISAPPLEKEY),$(ISAPPLESTRING)),\"-arch\n>>>>> $(ARCH)\")\n>>>>> \n>>>>> MYGCC = $(GCCPATH)gcc $(MYARCH)\n>>>>> MYGPP = $(GCCPATH)g++ $(MYARCH)\n>>>>> MYFORTRAN = $(GCCPATH)gfortran $(MYARCH)\n>>>>> \n>>>>> ## etc.\n>>>>> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n>>>>> \n>>>>> \n>>>>> All the best,\n>>>>> /Peder\n>>>>> \n>>>>> \n>>>>>> Cheers,\n>>>>>> Simon\n>>>>>> \n>>>>>> \n>>>>>> \n>>>>>>> Either all all `-arch i386` and `-arch x86_64` must be removed from\n>>>>>>> these files (this must be done every time R is updated) or you create a file\n>>>>>>> `~/.R/Makevars` with something like\n>>>>>>> ~~~~~~~\n>>>>>>> MYARCH = -arch x86_64\n>>>>>>> \n>>>>>>> # Comment the next line to return to the original setting:\n>>>>>>> MYARCH =\n>>>>>>> \n>>>>>>> CC = gcc $(MYARCH) -std=gnu99\n>>>>>>> CXX=g++ $(MYARCH)\n>>>>>>> CXXCPP = g++ $(MYARCH) -E\n>>>>>>> FC = gfortran $(MYARCH)\n>>>>>>> F77 = gfortran $(MYARCH)\n>>>>>>> OBJC = gcc $(MYARCH)\n>>>>>>> OBJCXX = g++ $(MYARCH)\n>>>>>>> \n>>>>>>> DYLIB_LD = gcc $(MYARCH) -std=gnu99\n>>>>>>> MAIN_LD = gcc $(MYARCH) -std=gnu99\n>>>>>>> SHLIB_CXXLD = g++ $(MYARCH)\n>>>>>>> SHLIB_FCLD = gfortran $(MYARCH)\n>>>>>>> SHLIB_LD = gcc $(MYARCH) -std=gnu99\n>>>>>>> ~~~~~~~\n>>>>>>> Unfortunately, a few instances of `-arch` are outside the variables\n>>>>>>> and can not be reached this way.\n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> My suggestion is that the Makeconfig files are slightly changed:\n>>>>>>> \n>>>>>>> - Change all `-arch i386` or `-arch x86_64` in these files to\n>>>>>>> `$(MYARCH)`.\n>>>>>>> - Add a line `MYARCH = -arch x86_64` or `MYARCH = -arch i386`,\n>>>>>>> respectively, to the top of these files.\n>>>>>>> \n>>>>>>> No functionality is changed but using another compiler is more\n>>>>>>> compatible and simpler as only MYARCH would need to be predefined.\n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> Even better would be to be able to specify the compiler set to be used\n>>>>>>> by using a variable (and handle the architecture accordingly), but I know to\n>>>>>>> little about make files to come up with a constructive suggestion. Probably\n>>>>>>> something like using\n>>>>>>> PREFIX =\n>>>>>>> GCC = $(PREFIX)gcc $(MYARCH)\n>>>>>>> GPP = $(PREFIX)g++ $(MYARCH)\n>>>>>>> GFORTRAN = $(PREFIX)gfortran $(MYARCH)\n>>>>>>> and then using them when defining CC, XXX, etc.\n>>>>>>> \n>>>>>>> No functionality would be changed, but a different set of compilers\n>>>>>>> could be used just by changing PREFIX and MYARCH.\n>>>>>>> \n>>>>>>> Best regards,\n>>>>>>> \n>>>>>>> Peder Axensten\n>>>>>>> Research engineer\n>>>>>>> \n>>>>>>> Swedish University of Agricultural Sciences\n>>>>>>> Dept. of Forest Resource Management\n>>>>>>> Remote Sensing\n>>>>>>> se-90183 Ume?\n>>>>>>> Sweden\n>>>>>>> Visiting address: Skogsmarksgr?nd\n>>>>>>> \n>>>>>>> _______________________________________________\n>>>>>>> R-SIG-Mac mailing list\n>>>>>>> R-SIG-Mac at r-project.org\n>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>>> \n>>>>>>> \n>>>>>> \n>>>>> \n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> \n>> --\n>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "I have been away for awhile, sorry for this belated impasse. \n\nI still think that in the binary that can be obtained from CRAN it would be safer to replace 'gcc' with 'llvm-gcc' and 'g++' with 'llvm-g++' to ensure that the right compiler is used and thus the -arch argument is recognized. \n\nThank you Kasper for taking the time to clarify the matter to me. I especially appreciate it now that I understand that this forum otherwise seems to be dominated by a 'if-you-don't-like-it-sod-of' attitude. I've found a reasonable workaround and I would have liked to contribute it so that R would be an even better experience on MacOS. \n\nMy best regards,\n/Peder Axensten\n\n\n\n\n\n\nOn 28 sep 2012, at 17:12, Kasper Daniel Hansen <kasperdanielhansen at gmail.com> wrote:\n\n> On Fri, Sep 28, 2012 at 10:58 AM, Prof Brian Ripley\n> <ripley at stats.ox.ac.uk> wrote:\n>> On 28/09/2012 15:29, Kasper Daniel Hansen wrote:\n>>> \n>>> So I had a few emails with Peder, and I think he gets it now.\n>>> \n>>> However, one point came up which I have been wondering about as well.\n>>> In Makeconf R only stores the name of the compiler, say \"gcc\" or\n>>> perhaps \"gcc-4.2\".  Why not store the full path?  Peder's situation is\n>>> that he has installed another compiler that resolves to gcc in his\n>>> environment, masking the one in /usr/bin.  It seems to me that it\n>>> would be more \"safe\" to save the entire path to the compiler, both on\n>>> multi-user systems on in case like (for os x) the binary is downloaded\n>>> from somewhere else.  [ on the other hand, it may be easier on Windows\n>>> to not have the full path ]\n>>> \n>>> Now, there is probably a perfectly good reason to do what is happening\n>>> now.  Or perhaps changing it is not worth the effort.  But I just\n>>> wanted to raise the issue for 2 seconds.\n>> \n>> \n>> You get what you specified when you configured R.  I usually configure with\n>> full paths except on Windows (where paths like /usr/local do not exist in\n>> general).\n> \n> Thanks.  I see how this works now, and I should have investigated a bit more.\n> \n> Kasper\n> \n>> The point is that you can do what suits you.  If you choose to use a binary\n>> distribution you get what suits the distributor: if you don't like that,\n>> build from the sources yourself.\n>> \n>> The documentation for the CRAN Mac binary distribution is a bit scattered.\n>> I am not sure it would help, but we could add some more words to the R-admin\n>> manual.  I suspect few people want to work with source packages with\n>> compiled code and use the CRAN distribution (not least as it is hard to make\n>> portable binary packages that way).\n>> \n>> \n>>> \n>>> Kasper\n>>> \n>>> On Thu, Sep 27, 2012 at 10:29 AM, Kasper Daniel Hansen\n>>> <kasperdanielhansen at gmail.com> wrote:\n>>>> \n>>>> On Thu, Sep 27, 2012 at 10:07 AM, Peder Axensten <Peder.Axensten at slu.se>\n>>>> wrote:\n>>>>> \n>>>>> \n>>>>> On 27 sep 2012, at 14:27, Simon Urbanek <simon.urbanek at r-project.org>\n>>>>> wrote:\n>>>>> \n>>>>>> On Sep 27, 2012, at 5:02 AM, Peder Axensten wrote:\n>>>>>> \n>>>>>>> The compiler (clang) and linker that Apple includes (with Xcode) uses\n>>>>>>> the argument -arch to specify the architecture to build for. This is not\n>>>>>>> recognized by, for instance, the gcc compilers. Because this argument is\n>>>>>>> 'hardcoded' into the Makeconfig files,\n>>>>>> \n>>>>>> \n>>>>>> It is not - those (assuming you mean Makeconf) are generated from the\n>>>>>> flags used to build R, so if you use any other compiler with other flags\n>>>>>> they will be reflected in the Makeconf accordingly.\n>>>>> \n>>>>> \n>>>>> I know little about how this is set up, is it not possible to change\n>>>>> some kind of template to change the way this is done? Some base variables\n>>>>> that are generated from the flags, these variables are then used in the rest\n>>>>> of the Makeconf along the lines I suggested?\n>>>>> \n>>>>>>> it is an involved process to compile libraries for R with any other\n>>>>>>> compiler.\n>>>>>> \n>>>>>> \n>>>>>> R doen't care what you compile libraries with as long as R can links\n>>>>>> against them at configure time. Again, this has nothing to do with Makevars.\n>>>>> \n>>>>> \n>>>>> As I understand it, if I use R CMD INSTALL I'm stuck with what is\n>>>>> defined in the Makeconf files. If I use any other compiler other than\n>>>>> Apple's clang as my \"default\" compiler, I get errors when I run R CMD\n>>>>> INSTALL –– that is, if I from R try to install any package that requires\n>>>>> compilation. I think it would be better to determine the value of the\n>>>>> variables when R CMD INSTALL is run, rather than when R is installed (or\n>>>>> even compiled?).\n>>>> \n>>>> \n>>>> Peder,\n>>>> \n>>>> You seem a bit confused.  Let me explain it a bit clearer.  When you\n>>>> compile R, the settings (and compiler) with which you compiled R is\n>>>> stored in Makeconf and used to compile new packages using R CMD\n>>>> INSTALL.  This ensures that you use the same compiler settings to\n>>>> build R and add-on packages, which is obviously an _extremely good_\n>>>> idea.  If you want to use another compiler with R, you will need to\n>>>> re-compile R using this compiler, which should work.\n>>>> \n>>>> My guess is that you are using the CRAN binary of R (compiled using\n>>>> the official compiler) and you want to use another compiler to build\n>>>> an add-on package.  This is not supported, and it should not be\n>>>> supported, because it is an extremely bad idea.\n>>>> \n>>>> Below is my configure call for building R from svn, using Simon's\n>>>> build of Apple's GCC codebase (aka the official compiler).  It should\n>>>> be easy to modify this to build R using a different compiler.  I am\n>>>> just including this as an example.  Once you have build R using you\n>>>> new compiler, R CMD INSTALL should work out of the box.\n>>>> \n>>>> Note that if you want aqua support, you need a compiler that supports\n>>>> objective-C (as far as I understand).  I don't use a GUI, but I use an\n>>>> aqua device, like\n>>>> R>  quartz()\n>>>> \n>>>> (I may use imprecise terminology here, wrt. aqua and quartz).\n>>>> \n>>>> Kasper\n>>>> \n>>>> configure:\n>>>> \n>>>> export LANG=en_US.UTF-8\n>>>> ../${SRCDIR}/configure SHELL='/bin/bash' \\\n>>>>   --prefix=/usr/local/R/R-${R_VERSION} --disable-R-framework\\\n>>>>   CC=\"/usr/bin/gcc-4.2 -arch x86_64 -std=gnu99\" \\\n>>>>   CFLAGS=\"-g -O2 -std=gnu99 -march=nocona\" \\\n>>>>   CXX=\"/usr/bin/g++-4.2 -arch x86_64\" \\\n>>>>   CXXFLAGS=\"-g -O2 -march=nocona\" \\\n>>>>   OBJC=\"/usr/bin/gcc-4.2 -arch x86_64\" \\\n>>>>   F77=\"/usr/bin/gfortran-4.2 -arch x86_64\" \\\n>>>>   FFLAGS=\"-g -O2 -march=nocona\" \\\n>>>>   FC=\"/usr/bin/gfortran-4.2 -arch x86_64\" \\\n>>>>   FCFLAGS=\"-g -O2 -march=nocona\" \\\n>>>>   --enable-memory-profiling\\\n>>>>   --x-includes=/usr/X11/include --x-libraries=/usr/X11/lib\\\n>>>>   --with-system-zlib\\\n>>>>   --with-blas='-framework vecLib' --with-lapack\n>>>> \n>>>> \n>>>> \n>>>> \n>>>> \n>>>>> I'm sure it could be implemented better, but something like:\n>>>>> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n>>>>> GCCPATH =\n>>>>> \n>>>>> # If we are using the Apple compiler [that supports the -arch option],\n>>>>> this is the argument to that option.\n>>>>> ARCH = x86_64\n>>>>> \n>>>>> # Get information on the gcc to be used.\n>>>>> ISAPPLESTRING := $(shell \"$(GCCPATH)gcc --version\")\n>>>>> ISAPPLEKEY := Apple\n>>>>> \n>>>>> # This will either be nothing or '-arch $(ARCH)'\n>>>>> MYARCH := $(if $(findstring $(ISAPPLEKEY),$(ISAPPLESTRING)),\"-arch\n>>>>> $(ARCH)\")\n>>>>> \n>>>>> MYGCC = $(GCCPATH)gcc $(MYARCH)\n>>>>> MYGPP = $(GCCPATH)g++ $(MYARCH)\n>>>>> MYFORTRAN = $(GCCPATH)gfortran $(MYARCH)\n>>>>> \n>>>>> ## etc.\n>>>>> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n>>>>> \n>>>>> \n>>>>> All the best,\n>>>>> /Peder\n>>>>> \n>>>>> \n>>>>>> Cheers,\n>>>>>> Simon\n>>>>>> \n>>>>>> \n>>>>>> \n>>>>>>> Either all all `-arch i386` and `-arch x86_64` must be removed from\n>>>>>>> these files (this must be done every time R is updated) or you create a file\n>>>>>>> `~/.R/Makevars` with something like\n>>>>>>> ~~~~~~~\n>>>>>>> MYARCH = -arch x86_64\n>>>>>>> \n>>>>>>> # Comment the next line to return to the original setting:\n>>>>>>> MYARCH =\n>>>>>>> \n>>>>>>> CC = gcc $(MYARCH) -std=gnu99\n>>>>>>> CXX=g++ $(MYARCH)\n>>>>>>> CXXCPP = g++ $(MYARCH) -E\n>>>>>>> FC = gfortran $(MYARCH)\n>>>>>>> F77 = gfortran $(MYARCH)\n>>>>>>> OBJC = gcc $(MYARCH)\n>>>>>>> OBJCXX = g++ $(MYARCH)\n>>>>>>> \n>>>>>>> DYLIB_LD = gcc $(MYARCH) -std=gnu99\n>>>>>>> MAIN_LD = gcc $(MYARCH) -std=gnu99\n>>>>>>> SHLIB_CXXLD = g++ $(MYARCH)\n>>>>>>> SHLIB_FCLD = gfortran $(MYARCH)\n>>>>>>> SHLIB_LD = gcc $(MYARCH) -std=gnu99\n>>>>>>> ~~~~~~~\n>>>>>>> Unfortunately, a few instances of `-arch` are outside the variables\n>>>>>>> and can not be reached this way.\n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> My suggestion is that the Makeconfig files are slightly changed:\n>>>>>>> \n>>>>>>> - Change all `-arch i386` or `-arch x86_64` in these files to\n>>>>>>> `$(MYARCH)`.\n>>>>>>> - Add a line `MYARCH = -arch x86_64` or `MYARCH = -arch i386`,\n>>>>>>> respectively, to the top of these files.\n>>>>>>> \n>>>>>>> No functionality is changed but using another compiler is more\n>>>>>>> compatible and simpler as only MYARCH would need to be predefined.\n>>>>>>> \n>>>>>>> \n>>>>>>> \n>>>>>>> Even better would be to be able to specify the compiler set to be used\n>>>>>>> by using a variable (and handle the architecture accordingly), but I know to\n>>>>>>> little about make files to come up with a constructive suggestion. Probably\n>>>>>>> something like using\n>>>>>>> PREFIX =\n>>>>>>> GCC = $(PREFIX)gcc $(MYARCH)\n>>>>>>> GPP = $(PREFIX)g++ $(MYARCH)\n>>>>>>> GFORTRAN = $(PREFIX)gfortran $(MYARCH)\n>>>>>>> and then using them when defining CC, XXX, etc.\n>>>>>>> \n>>>>>>> No functionality would be changed, but a different set of compilers\n>>>>>>> could be used just by changing PREFIX and MYARCH.\n>>>>>>> \n>>>>>>> Best regards,\n>>>>>>> \n>>>>>>> Peder Axensten\n>>>>>>> Research engineer\n>>>>>>> \n>>>>>>> Swedish University of Agricultural Sciences\n>>>>>>> Dept. of Forest Resource Management\n>>>>>>> Remote Sensing\n>>>>>>> se-90183 Umeå\n>>>>>>> Sweden\n>>>>>>> Visiting address: Skogsmarksgränd\n>>>>>>> \n>>>>>>> _______________________________________________\n>>>>>>> R-SIG-Mac mailing list\n>>>>>>> R-SIG-Mac at r-project.org\n>>>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>>>>>> \n>>>>>>> \n>>>>>> \n>>>>> \n>>>>> _______________________________________________\n>>>>> R-SIG-Mac mailing list\n>>>>> R-SIG-Mac at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>>> \n>>> _______________________________________________\n>>> R-SIG-Mac mailing list\n>>> R-SIG-Mac at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>>> \n>> \n>> \n>> --\n>> Brian D. Ripley,                  ripley at stats.ox.ac.uk\n>> Professor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\n>> University of Oxford,             Tel:  +44 1865 272861 (self)\n>> 1 South Parks Road,                     +44 1865 272866 (PA)\n>> Oxford OX1 3TG, UK                Fax:  +44 1865 272595\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "I have been away for awhile, sorry for this belated impasse. \n\nI still think that in the binary that can be obtained from CRAN it would be safer to replace 'gcc' with 'llvm-gcc' and 'g++' with 'llvm-g",
       "thread_id": "thread-5c226a295b2b",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009559.html"
     },
     {
       "id": "msg-5cd2319a0955",
@@ -78,7 +81,8 @@
       "body_snippet": "Dear r-sig-mac users:\n\nI tried to brew R -- an initially failed.\n\nI tried both\n\n$ brew install R\n\nand\n\n$ brew install R --use-llvm\n\nhowever both threw the following errors:\n\n31747 Trace/BPT trap: 5   ",
       "thread_id": "thread-5cd2319a0955",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009560.html"
     },
     {
       "id": "msg-7ca8a87ce306",
@@ -96,7 +100,8 @@
       "body_snippet": "Dear Marco,\n\nTo provide some background, you and I have corresponded about your problem,\nand now at least you appear to have the tcltk package installed. Did you\nreinstall R as I suggested?\n\nHave you ",
       "thread_id": "thread-7ca8a87ce306",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009561.html"
     },
     {
       "id": "msg-5bdde37b8359",
@@ -115,7 +120,8 @@
       "body_snippet": "In fun(libname, pkgname) : couldn't connect to display \":0\"\nsuggests that X11 is not running. Note that X11 is no longer part of OS X since Mountain Lion.\n\nCheers,\nSimon\n\n\n\nOn Oct 4, 2012, at 4:32 PM,",
       "thread_id": "thread-7ca8a87ce306",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009562.html"
     },
     {
       "id": "msg-91009d87e958",
@@ -135,7 +141,8 @@
       "body_snippet": "Dear Simon,\n\nMarco says that he installed \"XQuark\" (see his original message), which I\ntranslate as \" XQuartz.\"\n\nMarco, can you run XQuartz.app (in Utilities on my Mac), which should open\nan Xterm win",
       "thread_id": "thread-7ca8a87ce306",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009563.html"
     },
     {
       "id": "msg-0cda6504f389",
@@ -159,7 +166,8 @@
       "body_snippet": "Hi guys,\n\nI want to make a last comment on compiling R on a Mac OS with the GNU 4.7.1 compiler. I solved all my problems and I would like to present my way here for other users who may find it helpful",
       "thread_id": "thread-0cda6504f389",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009564.html"
     },
     {
       "id": "msg-b66008793fd8",
@@ -176,6 +184,7 @@
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009565.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121006/1e0009a5/attachment.pl"
       ]
@@ -196,7 +205,8 @@
       "body_snippet": "On Sat, Oct 6, 2012 at 9:33 PM, Jean Jang <jeanwaijang at gmail.com> wrote:\n> Hi R-listers,\n>\n> I just tried updating my R and now I can't even open it and it is\n> prompting me to relaunch then relaun",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009566.html"
     },
     {
       "id": "msg-7bcd0e33cff6",
@@ -215,7 +225,8 @@
       "body_snippet": "Thanks for your reply! Me? Panic?! Never, I have only been working on  \nthis project for 2.5 years! :)\n\nI was originally in R (the older version) and then I clicked on update  \nan option from the Top ",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009567.html"
     },
     {
       "id": "msg-fbb4e62925e2",
@@ -234,7 +245,8 @@
       "body_snippet": "Apologies, I forgot to include the message from the Terminal:\n\njeans-macbook-104:~ jean$ R\n\nR version 2.13.1 (2011-07-08)\nCopyright (C) 2011 The R Foundation for Statistical Computing\nISBN 3-900051-07",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009568.html"
     },
     {
       "id": "msg-a9238d72cbcc",
@@ -254,7 +266,8 @@
       "body_snippet": "On 06/10/2012 22:12, Jean Jang wrote:\n> Apologies, I forgot to include the message from the Terminal:\n>\n> jeans-macbook-104:~ jean$ R\n>\n> R version 2.13.1 (2011-07-08)\n\nPlease try installing a current",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009569.html"
     },
     {
       "id": "msg-388449e2813a",
@@ -274,7 +287,8 @@
       "body_snippet": "On Oct 6, 2012, at 10:12 PM, Jean Jang <jeanwaijang at gmail.com> wrote:\n\n> Apologies, I forgot to include the message from the Terminal:\n> \n> jeans-macbook-104:~ jean$ R\n> \n> R version 2.13.1 (2011-0",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009570.html"
     },
     {
       "id": "msg-16238051f3de",
@@ -295,7 +309,8 @@
       "body_snippet": "Hi Thanks for your attention.\n\nI avoided updating because I heard of similar problems. But found I  \nhad to execute certain things. I can't find the R download in the  \nfolder I initially tried but I ",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 4,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009571.html"
     },
     {
       "id": "msg-64a5b5b74bf5",
@@ -317,7 +332,8 @@
       "body_snippet": "By the way, this second try to download the latest version of R from  \nthe CRAN site is the first time I was put through the installer walk  \nthrough procedure - next, next, accepting terms of agreeme",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 5,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009572.html"
     },
     {
       "id": "msg-a9bce7bcecc0",
@@ -337,7 +353,8 @@
       "body_snippet": "On Oct 6, 2012, at 10:10 PM, Jean Jang <jeanwaijang at gmail.com> wrote:\n\n> Thanks for your reply! Me? Panic?! Never, I have only been working on this project for 2.5 years! :)\n> \n> I was originally i",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009573.html"
     },
     {
       "id": "msg-4db91fe062ac",
@@ -359,7 +376,8 @@
       "body_snippet": "On Sun, Oct 7, 2012 at 12:04 AM, Jean Jang <jeanwaijang at gmail.com> wrote:\n> Hi Thanks for your attention.\n>\n> I avoided updating because I heard of similar problems. But found I had to\n> execute ce",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 5,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009574.html"
     },
     {
       "id": "msg-653ef790dfa8",
@@ -382,7 +400,8 @@
       "body_snippet": "Thanks for your reply,\n\n1) I tried R --vanilla in the terminal and received the below message.  \nSo it looks like the latest version of R is updated \"Roasted  \nMarshmallows\". Thank you for your explan",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 6,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009575.html"
     },
     {
       "id": "msg-1dae98111784",
@@ -405,7 +424,8 @@
       "body_snippet": "And yes the second time I did upload from:\n\n> http://cran.r-project.org/bin/macosx/\n\nBut only:\n\nR-2.15.1-signed.pkg (latest version)\n\nPlease let me know if there is another update for RStudio that I  ",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 6,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009576.html"
     },
     {
       "id": "msg-43024f36f733",
@@ -429,7 +449,8 @@
       "body_snippet": "On Sun, Oct 7, 2012 at 1:04 AM, Jean Jang <jeanwaijang at gmail.com> wrote:\n> Thanks for your reply,\n>\n> 1) I tried R --vanilla in the terminal and received the below message. So it\n> looks like the l",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 7,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009577.html"
     },
     {
       "id": "msg-1d59c9afe152",
@@ -453,7 +474,8 @@
       "body_snippet": "On Sun, Oct 7, 2012 at 1:07 AM, Jean Jang <jeanwaijang at gmail.com> wrote:\n> And yes the second time I did upload from:\n>\n>> http://cran.r-project.org/bin/macosx/\n>\n>\n> But only:\n>\n> R-2.15.1-signed.",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 7,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009578.html"
     },
     {
       "id": "msg-b30e32ee7fc3",
@@ -479,6 +501,7 @@
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 8,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009579.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121006/7d2267fb/attachment.pl"
       ]
@@ -500,6 +523,7 @@
       "thread_id": "thread-e5347a3607aa",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009580.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121006/0368beb7/attachment.pl"
       ]
@@ -528,7 +552,8 @@
       "body_snippet": "On Sun, Oct 7, 2012 at 1:56 AM, Jean Jang <jeanwaijang at gmail.com> wrote:\n> Thanks very much Michael,\n>\n> I have posted  on RStudio a note and hopefully will hear from them\n> soon. I am afraid too t",
       "thread_id": "thread-b66008793fd8",
       "thread_depth": 9,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009581.html"
     },
     {
       "id": "msg-1581876b633c",
@@ -544,7 +569,8 @@
       "body_snippet": "Hi!\n\nOn Mac OS, since John Fox has removed the code that forced the default\nfont to be Helvetica (which is a good idea), Rcommander looks terribly\nugly (try by yourself ;-). I've reports of this on at",
       "thread_id": "thread-1581876b633c",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009582.html"
     },
     {
       "id": "msg-906e30050049",
@@ -560,7 +586,8 @@
       "body_snippet": "Dear all,\n\nMilan and I have now corresponded about this issue privately, and it appears that there's a difference in the font used under his Mac OS X system (running Snow Leopard) and mine (running Mo",
       "thread_id": "thread-906e30050049",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009583.html"
     },
     {
       "id": "msg-0506ffdce97f",
@@ -578,7 +605,8 @@
       "body_snippet": "On Oct 8, 2012, at 10:26 AM, John Fox wrote:\n\n> Dear all,\n> \n> Milan and I have now corresponded about this issue privately, and it appears that there's a difference in the font used under his Mac OS ",
       "thread_id": "thread-906e30050049",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009584.html"
     },
     {
       "id": "msg-893c3621d802",
@@ -597,7 +625,8 @@
       "body_snippet": "Dear David,\n\n> -----Original Message-----\n> From: David Winsemius [mailto:dwinsemius at comcast.net]\n> Sent: Monday, October 08, 2012 1:54 PM\n> To: John Fox\n> Cc: 'Milan Bouchet-Valat'; 'r-sig-mac'\n> ",
       "thread_id": "thread-906e30050049",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009585.html"
     },
     {
       "id": "msg-a2abfdc7867b",
@@ -616,7 +645,8 @@
       "body_snippet": "Le lundi 08 octobre 2012 ? 10:54 -0700, David Winsemius a ?crit :\n> Just as a point of reference. With a recently installed update to Snow\n> Leopard (yes, I'm way behind that adoption curve) and Rcmdr",
       "thread_id": "thread-906e30050049",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009586.html"
     },
     {
       "id": "msg-6b0a0fe03d71",
@@ -636,7 +666,8 @@
       "body_snippet": "Dear Milan,\n\n> -----Original Message-----\n> From: Milan Bouchet-Valat [mailto:nalimilan at club.fr]\n> Sent: Monday, October 08, 2012 2:11 PM\n> To: David Winsemius\n> Cc: John Fox; 'r-sig-mac'\n> Subject",
       "thread_id": "thread-906e30050049",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009587.html"
     },
     {
       "id": "msg-592b21ca6806",
@@ -656,7 +687,8 @@
       "body_snippet": "On Oct 8, 2012, at 11:10 AM, Milan Bouchet-Valat wrote:\n\n> Le lundi 08 octobre 2012 ? 10:54 -0700, David Winsemius a ?crit :\n>> Just as a point of reference. With a recently installed update to Snow\n>",
       "thread_id": "thread-906e30050049",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009588.html"
     },
     {
       "id": "msg-ecf5179c483d",
@@ -677,7 +709,8 @@
       "body_snippet": "Le lundi 08 octobre 2012 ? 12:15 -0700, David Winsemius a ?crit :\n> <Tcl> test \n> > tkfont.actual(\"test\") # Wrong\n> <Tcl> -family {Bitstream Vera Sans} -size 12 -weight normal -slant roman -underline ",
       "thread_id": "thread-906e30050049",
       "thread_depth": 4,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009589.html"
     },
     {
       "id": "msg-6b48544cd1fc",
@@ -698,7 +731,8 @@
       "body_snippet": "Le lundi 08 octobre 2012 ? 14:47 -0400, John Fox a ?crit :\n> For curiosity, I tried this on my Windows 7 machine:\n> \n> > .Tcl(\"font create test\")\n> <Tcl> test \n> \n> > tkfont.actual(\"test\") # Wrong\n> <",
       "thread_id": "thread-906e30050049",
       "thread_depth": 4,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009590.html"
     },
     {
       "id": "msg-6838288a8d87",
@@ -720,7 +754,8 @@
       "body_snippet": "On Oct 8, 2012, at 12:36 PM, Milan Bouchet-Valat wrote:\n\n> Le lundi 08 octobre 2012 ? 12:15 -0700, David Winsemius a ?crit :\n>> <Tcl> test \n>>> tkfont.actual(\"test\") # Wrong\n>> <Tcl> -family {Bitstrea",
       "thread_id": "thread-906e30050049",
       "thread_depth": 5,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009591.html"
     },
     {
       "id": "msg-e9362c2bce19",
@@ -743,7 +778,8 @@
       "body_snippet": "Le lundi 08 octobre 2012 ? 12:43 -0700, David Winsemius a ?crit :\n> Nope. Haven't changed any of the defaults:\n> \n> > quartzFonts()\n> $serif\n> [1] \"Times-Roman\"      \"Times-Bold\"       \"Times-Italic\" ",
       "thread_id": "thread-906e30050049",
       "thread_depth": 6,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009592.html"
     },
     {
       "id": "msg-70308078ec2b",
@@ -767,7 +803,8 @@
       "body_snippet": "On Oct 8, 2012, at 12:46 PM, Milan Bouchet-Valat wrote:\n\n> Le lundi 08 octobre 2012 ? 12:43 -0700, David Winsemius a ?crit :\n>> Nope. Haven't changed any of the defaults:\n>> \n>>> quartzFonts()\n>> $ser",
       "thread_id": "thread-906e30050049",
       "thread_depth": 7,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009593.html"
     },
     {
       "id": "msg-90369a11a1a9",
@@ -792,7 +829,8 @@
       "body_snippet": "On Oct 8, 2012, at 12:51 PM, David Winsemius wrote:\n\n> \n> On Oct 8, 2012, at 12:46 PM, Milan Bouchet-Valat wrote:\n> \n>> Le lundi 08 octobre 2012 ? 12:43 -0700, David Winsemius a ?crit :\n>>> Nope. Have",
       "thread_id": "thread-906e30050049",
       "thread_depth": 8,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009594.html"
     },
     {
       "id": "msg-d4c802f0b689",
@@ -809,6 +847,7 @@
       "thread_id": "thread-d4c802f0b689",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009595.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121010/2dfbca08/attachment.pl"
       ]
@@ -829,7 +868,8 @@
       "body_snippet": "On Oct 10, 2012, at 3:57 PM, Lisa Beach wrote:\n\n> Hello to all,\n> \n> I am trying to get the R software but I have an old Mac with old software (version 10.4.11).\n> I have been to the archive page but ",
       "thread_id": "thread-d4c802f0b689",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009596.html"
     },
     {
       "id": "msg-d2fc9b5319b1",
@@ -848,7 +888,8 @@
       "body_snippet": "On Oct 10, 2012, at 5:26 PM, David Winsemius wrote:\n\n> \n> On Oct 10, 2012, at 3:57 PM, Lisa Beach wrote:\n> \n>> Hello to all,\n>> \n>> I am trying to get the R software but I have an old Mac with old sof",
       "thread_id": "thread-d4c802f0b689",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009597.html"
     },
     {
       "id": "msg-7e277734fb7d",
@@ -868,7 +909,8 @@
       "body_snippet": "David,\n\nOn Oct 10, 2012, at 8:47 PM, David Winsemius wrote:\n\n> \n> On Oct 10, 2012, at 5:26 PM, David Winsemius wrote:\n> \n>> \n>> On Oct 10, 2012, at 3:57 PM, Lisa Beach wrote:\n>> \n>>> Hello to all,\n>>>",
       "thread_id": "thread-d4c802f0b689",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009598.html"
     },
     {
       "id": "msg-6134e285b294",
@@ -889,7 +931,8 @@
       "body_snippet": "On Oct 10, 2012, at 5:59 PM, Simon Urbanek wrote:\n\n> David,\n> \n> On Oct 10, 2012, at 8:47 PM, David Winsemius wrote:\n> \n>> \n>> On Oct 10, 2012, at 5:26 PM, David Winsemius wrote:\n>> \n>>> \n>>> On Oct 1",
       "thread_id": "thread-d4c802f0b689",
       "thread_depth": 4,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009599.html"
     },
     {
       "id": "msg-5dee76d45ade",
@@ -907,7 +950,8 @@
       "body_snippet": "On Fri, Oct 12, 2012 at 5:50 PM, Torben Griebe <torbengriebe at gmx.de> wrote:\n> Hi there,\n>\n> I just wanted to install gfortran via homebrew on mac os x mountain\n> lion. It uses the package gcc-42-56",
       "thread_id": "thread-5dee76d45ade",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009600.html"
     },
     {
       "id": "msg-4230ca20c6af",
@@ -925,7 +969,8 @@
       "body_snippet": "On 12/10/2012 17:50, Torben Griebe wrote:\n> Hi there,\n>\n> I just wanted to install gfortran via homebrew on mac os x mountain\n> lion. It uses the package gcc-42-5666.3-darwin11.pkg for installation.\n>",
       "thread_id": "thread-4230ca20c6af",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009601.html"
     },
     {
       "id": "msg-c714c165ca88",
@@ -944,7 +989,8 @@
       "body_snippet": "On Oct 12, 2012, at 5:11 PM, R. Michael Weylandt wrote:\n\n> On Fri, Oct 12, 2012 at 5:50 PM, Torben Griebe <torbengriebe at gmx.de> wrote:\n>> Hi there,\n>> \n>> I just wanted to install gfortran via home",
       "thread_id": "thread-5dee76d45ade",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009602.html"
     },
     {
       "id": "msg-5c17d6bc6352",
@@ -964,7 +1010,8 @@
       "body_snippet": "Thank all of you. With your help I was finally able to install gfortran.\n\nRegards\nTorben",
       "thread_id": "thread-5dee76d45ade",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009603.html"
     },
     {
       "id": "msg-65882b2ae379",
@@ -983,7 +1030,8 @@
       "body_snippet": "Thank you Simon! This helped me out!",
       "thread_id": "thread-65882b2ae379",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009609.html"
     },
     {
       "id": "msg-b5b5e8d7a2e5",
@@ -1000,6 +1048,7 @@
       "thread_id": "thread-b5b5e8d7a2e5",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009604.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121014/d6723493/attachment.pl"
       ]
@@ -1020,7 +1069,8 @@
       "body_snippet": "Paul,\n\nOn Oct 14, 2012, at 2:04 PM, Paul Johnson wrote:\n\n> Simon, I wonder if you can clarify/expand on the following statement you\n> made: \"Probably the easiest way would be to simply let Cocoa Quart",
       "thread_id": "thread-b5b5e8d7a2e5",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009605.html"
     },
     {
       "id": "msg-d260300bf8f2",
@@ -1040,6 +1090,7 @@
       "thread_id": "thread-b5b5e8d7a2e5",
       "thread_depth": 2,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009606.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121014/d1a6c3e3/attachment.pl"
       ]
@@ -1058,7 +1109,8 @@
       "body_snippet": "All,\n\nThere seems to be something wrong between OS X 10.7.5 and how\nquartz reads Apple graphics resolution on 24\" iMac (early 2008,\niMac8,1) on R 2.15.1 GUI1.52. On this hardware/OS/R version the\ndefa",
       "thread_id": "thread-18d0a309942b",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009607.html"
     },
     {
       "id": "msg-e26f4bde4200",
@@ -1076,7 +1128,8 @@
       "body_snippet": "Ray,\n\nOn Oct 15, 2012, at 8:57 PM, Ray Spence wrote:\n\n> All,\n> \n> There seems to be something wrong between OS X 10.7.5 and how\n> quartz reads Apple graphics resolution on 24\" iMac (early 2008,\n> iMac",
       "thread_id": "thread-18d0a309942b",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009608.html"
     },
     {
       "id": "msg-132c8ae3e047",
@@ -1093,6 +1146,7 @@
       "thread_id": "thread-132c8ae3e047",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009610.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121017/cafead1e/attachment.pl"
       ]
@@ -1113,7 +1167,8 @@
       "body_snippet": "Agnesia,\n\nOn Oct 16, 2012, at 7:03 PM, agnesia adhissa wrote:\n\n> Dear All,\n> \n> I am so sorry, i would like to ask about my problem during installation of R in my mac. I already installed the R 2.15.1",
       "thread_id": "thread-132c8ae3e047",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009611.html"
     },
     {
       "id": "msg-65cedf072bcd",
@@ -1132,7 +1187,8 @@
       "body_snippet": "Hi Simon,\n\nThank you very much for your response. I've installed the inline library\nand run the function as you wrote. The results are interesting. Following\nthis procedure on a 24\" iMac running OS X ",
       "thread_id": "thread-18d0a309942b",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009612.html"
     },
     {
       "id": "msg-14c7bf23d8d2",
@@ -1152,7 +1208,8 @@
       "body_snippet": "Ray,\n\nOn Oct 17, 2012, at 2:17 PM, Ray Spence wrote:\n\n> Hi Simon,\n> \n> Thank you very much for your response. I've installed the inline library\n> and run the function as you wrote. The results are int",
       "thread_id": "thread-18d0a309942b",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009613.html"
     },
     {
       "id": "msg-e5c9cf1ba348",
@@ -1173,7 +1230,8 @@
       "body_snippet": "Hi Simon,\n\nI'll write in line below -\n\nOn 10/17/12 11:34 AM, Simon Urbanek wrote:\n> Ray,\n>\n> On Oct 17, 2012, at 2:17 PM, Ray Spence wrote:\n>\n>> Hi Simon,\n>>\n>> Thank you very much for your response. ",
       "thread_id": "thread-18d0a309942b",
       "thread_depth": 4,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009614.html"
     },
     {
       "id": "msg-631d7cfed0df",
@@ -1195,7 +1253,8 @@
       "body_snippet": "On Oct 17, 2012, at 3:01 PM, Ray Spence wrote:\n\n> Hi Simon,\n> \n> I'll write in line below -\n> \n> On 10/17/12 11:34 AM, Simon Urbanek wrote:\n>> Ray,\n>> \n>> On Oct 17, 2012, at 2:17 PM, Ray Spence wrote",
       "thread_id": "thread-18d0a309942b",
       "thread_depth": 5,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009615.html"
     },
     {
       "id": "msg-22813fef457c",
@@ -1218,7 +1277,8 @@
       "body_snippet": "Hi Simon,\n\n\nOn 10/17/12 12:46 PM, Simon Urbanek wrote:\n> On Oct 17, 2012, at 3:01 PM, Ray Spence wrote:\n>\n>> Hi Simon,\n>>\n>> I'll write in line below -\n>>\n>> On 10/17/12 11:34 AM, Simon Urbanek wrote:",
       "thread_id": "thread-18d0a309942b",
       "thread_depth": 6,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009616.html"
     },
     {
       "id": "msg-89a8a59ef1ad",
@@ -1235,6 +1295,7 @@
       "thread_id": "thread-89a8a59ef1ad",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009617.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121018/82687e97/attachment.pl"
       ]
@@ -1255,7 +1316,8 @@
       "body_snippet": "On 18 Oct 2012, at 15:57, \"Hodgess, Erin\" <HodgessE at uhd.edu> wrote:\n\n> Hello!\n> \n> Is there an equivalent of \"sudo apt-get install\" on the Mac, please?\n\na bit too vague -- are you using fink (which",
       "thread_id": "thread-89a8a59ef1ad",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009618.html"
     },
     {
       "id": "msg-6c22287a167b",
@@ -1274,7 +1336,8 @@
       "body_snippet": "This would be stuff like \"sudo apt-get install r-cran-rgeos\" please\n\nThis is on a MacBook Air with Mountain Lion.\n\nSorry for the ambiguity.\n\nErin\n\n________________________________________\nFrom: Federi",
       "thread_id": "thread-89a8a59ef1ad",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009619.html"
     },
     {
       "id": "msg-b78e27c9af8a",
@@ -1292,7 +1355,8 @@
       "body_snippet": "On Oct 18, 2012, at 10:57 AM, Hodgess, Erin wrote:\n\n> Hello!\n> \n> Is there an equivalent of \"sudo apt-get install\" on the Mac, please?\n> \n\nNot for \"regular\" OS X. In OS X there are packages, but no ce",
       "thread_id": "thread-89a8a59ef1ad",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009620.html"
     },
     {
       "id": "msg-7feb07e88d5c",
@@ -1311,6 +1375,7 @@
       "thread_id": "thread-89a8a59ef1ad",
       "thread_depth": 1,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009621.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121018/f1875808/attachment.pl"
       ]
@@ -1333,7 +1398,8 @@
       "body_snippet": "On 18 Oct 2012, at 16:07, \"Hodgess, Erin\" <HodgessE at uhd.edu> wrote:\n\n> This would be stuff like \"sudo apt-get install r-cran-rgeos\" please\n\nare you using the GUI?\n\nif so go to 'packages and data' -",
       "thread_id": "thread-89a8a59ef1ad",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009622.html"
     },
     {
       "id": "msg-e12e6211849b",
@@ -1353,7 +1419,8 @@
       "body_snippet": "On 18-10-2012, at 17:07, Hodgess, Erin wrote:\n\n> This would be stuff like \"sudo apt-get install r-cran-rgeos\" please\n> \n\nThat is not how you install R packages on (Mac) OS X.\n\n- Start R.app or R64.app",
       "thread_id": "thread-89a8a59ef1ad",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009623.html"
     },
     {
       "id": "msg-cc149d3c8c88",
@@ -1369,7 +1436,8 @@
       "body_snippet": "Hello,\nI have just been given an institutional macbook - I'm very used to linux, but some apple things are baffling me (like the lack of sudo apt-get update and upgrade for example).   \n\nI've installe",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009624.html"
     },
     {
       "id": "msg-402a0c428cb2",
@@ -1387,7 +1455,8 @@
       "body_snippet": "Paul,\n\nOn Oct 19, 2012, at 3:52 PM, Paul Hewson wrote:\n\n> Hello,\n> I have just been given an institutional macbook - I'm very used to linux, but some apple things are baffling me (like the lack of sud",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009625.html"
     },
     {
       "id": "msg-864a43316c4f",
@@ -1406,7 +1475,8 @@
       "body_snippet": "typing R in the console gets the error \"you don't have permission to use the application R\".   the message is on a dialog box that pops up.\n\nthe R gui though is marvellous, works fine.   Problem is I ",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009626.html"
     },
     {
       "id": "msg-65e8c26433a9",
@@ -1427,6 +1497,7 @@
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 3,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009627.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121019/b4bb20d1/attachment.pl"
       ]
@@ -1449,7 +1520,8 @@
       "body_snippet": "On Oct 19, 2012, at 5:28 PM, Paul Hewson wrote:\n\n> typing R in the console gets the error \"you don't have permission to use the application R\".   the message is on a dialog box that pops up.\n> \n> the ",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009628.html"
     },
     {
       "id": "msg-6c2c03db3544",
@@ -1466,6 +1538,7 @@
       "thread_id": "thread-6c2c03db3544",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009629.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121019/0cdd7a33/attachment.pl"
       ]
@@ -1488,7 +1561,8 @@
       "body_snippet": "On 12-10-19 02:28 PM, Paul Hewson wrote:\n> As I say, I think I've tracked the symlink itself as well as the\n> files it links to /usr/bin/R is itself a symlink to R64.    All three\n> users have an x wh",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009630.html"
     },
     {
       "id": "msg-77f5d9289987",
@@ -1509,7 +1583,8 @@
       "body_snippet": "Thanks very much all, I'm still sure this is mac naivety on my part, but I'm still curious how I've managed to foul up what seems like such a simple procedure.\n\n\nJohn's longer point - I'm going to che",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 4,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009631.html"
     },
     {
       "id": "msg-16f25d22ad46",
@@ -1527,7 +1602,8 @@
       "body_snippet": "This is about lattice not using rep() correctly.  There is no '2.16' and \nnever will be (see the posting guide).\n\n From the NEWS for R-devel:\n\n       \\item The undocumented use \\code{rep(NULL, length.",
       "thread_id": "thread-6c2c03db3544",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009632.html"
     },
     {
       "id": "msg-d8b05d98e172",
@@ -1549,7 +1625,8 @@
       "body_snippet": "On Oct 20, 2012, at 07:40 , Paul Hewson wrote:\n\n> Thanks very much all, I'm still sure this is mac naivety on my part, but I'm still curious how I've managed to foul up what seems like such a simple p",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 5,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009633.html"
     },
     {
       "id": "msg-8041e954369f",
@@ -1572,7 +1649,8 @@
       "body_snippet": "Hi,\nOS X Lion 10.7.4 (11E53)\nmac book pro 15 in ch Mid 2010\nEntirely stand alone, no networked drives.   I **should** have admin\nrights (I can install software for example), but the nuances of\npermiss",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 6,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009634.html"
     },
     {
       "id": "msg-6d658f27e77a",
@@ -1594,7 +1672,8 @@
       "body_snippet": "On Oct 20, 2012, at 1:40 AM, Paul Hewson wrote:\n\n> Thanks very much all, I'm still sure this is mac naivety on my part, but I'm still curious how I've managed to foul up what seems like such a simple ",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 5,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009635.html"
     },
     {
       "id": "msg-d56f8a21736e",
@@ -1617,7 +1696,8 @@
       "body_snippet": "Right, thanks. Finally sank in.\nThe dialog box looks to me like the Finder icon (I don't know what that means yet, but it doesn't look like the gatekeeper thing which is in newer versions of os x ).  ",
       "thread_id": "thread-cc149d3c8c88",
       "thread_depth": 6,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009636.html"
     },
     {
       "id": "msg-3a7adb1dcf8b",
@@ -1634,6 +1714,7 @@
       "thread_id": "thread-3a7adb1dcf8b",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009637.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121021/8937e328/attachment.pl"
       ]
@@ -1654,7 +1735,8 @@
       "body_snippet": "On 21/10/2012 21:02, Ray DiGiacomo, Jr. wrote:\n> Hello,\n>\n> I tried to download GTK+ 2.18.5 framework but the link was unavailable.\n>\n> To get to the dead link...\n>\n> Visit this site:\n> http://r.resea",
       "thread_id": "thread-3a7adb1dcf8b",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009638.html"
     },
     {
       "id": "msg-c46309720775",
@@ -1672,7 +1754,8 @@
       "body_snippet": "Since this is an institutional machine, it occurs to me that it could be  \nan ACL issue, where all the permissions look okay, but since ACLs trump  \npermissions, it still messes with you. That's what ",
       "thread_id": "thread-c46309720775",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009639.html"
     },
     {
       "id": "msg-3493c94bded7",
@@ -1691,7 +1774,8 @@
       "body_snippet": "On Oct 22, 2012, at 12:20 PM, David Bowie wrote:\n\n> Since this is an institutional machine, it occurs to me that it could be an ACL issue, where all the permissions look okay, but since ACLs trump per",
       "thread_id": "thread-c46309720775",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009640.html"
     },
     {
       "id": "msg-ed6b3765bc6d",
@@ -1707,7 +1791,8 @@
       "body_snippet": "R 2.15.1\nLion\n\nColleagues\n\nIn previous versions of OS X, I might do the following:\n\t1.  create a PDF in R\n\t\tpdf(FILENAME)\n\t\tplot(1)\n\t\tdev.off() \n\t2.  open the file using the command \n\t\tsystem(\"open ?\"",
       "thread_id": "thread-ed6b3765bc6d",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009641.html"
     },
     {
       "id": "msg-6fd42c0cea8c",
@@ -1725,7 +1810,8 @@
       "body_snippet": "On Oct 22, 2012, at 12:36 PM, Fisher Dennis <fisher at plessthan.com> wrote:\n\n> R 2.15.1\n> Lion\n> \n> Colleagues\n> \n> In previous versions of OS X, I might do the following:\n> \t1.  create a PDF in R\n> ",
       "thread_id": "thread-ed6b3765bc6d",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009642.html"
     },
     {
       "id": "msg-eb085fe4e80b",
@@ -1743,7 +1829,8 @@
       "body_snippet": "On 22-10-2012, at 19:36, Fisher Dennis <fisher at plessthan.com> wrote:\n\n> R 2.15.1\n> Lion\n> \n> Colleagues\n> \n> In previous versions of OS X, I might do the following:\n> \t1.  create a PDF in R\n> \t\tpdf",
       "thread_id": "thread-ed6b3765bc6d",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009643.html"
     },
     {
       "id": "msg-6077d98f73da",
@@ -1755,11 +1842,12 @@
       "subject_clean": "accessing SQL Server 10.00.1600",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "Hi!\n\nI'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n\nTo the best of my knowledge and after googling for a while, RJDBC is my best option to access SQL Server databases from my Mac OS X 10.6.8 installation running R version 2.15.1 (2012-06-22) --\nPlatform: i386-apple-darwin9.8.0/i386 (32-bit).\n\njava version \"1.6.0_37\"\nJava(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)\nJava HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)\n\nI'm trying this in R...\n\n> drv <- JDBC(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\", \"/etc/enu/sqljdbc_2.0/sqljdbc4.jar\")\n> conn <- dbConnect(drv, \"jdbc:sqlserver://hostname;integratedSecurity=true\", \"username\", \"password\")\n\nand getting this exception...\n\nError in .jcall(drv at jdrv, \"Ljava/sql/Connection;\", \"connect\", as.character(url)[1],  :\n  com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. ClientConnectionId:b62ebeb1-d6b3-47a0-8136-b86b352b4e41\n\n\nPlease, must I be able to access our SQL Server database by modifying/correcting the connection line syntax or am I using a wrong driver/method? If I must be able to connect, please, could you point me to some documentation explaining how to configure this driver to use integrated authentication? I can access this server/database without a glitch using Navicat Premiun on the same Mac OS X box.\n\nThanks for your help!\n\nRicardo\n\n\n--\nRicardo Rodr?guez\nResearch Management and Promotion Technician\nTechnical Secretariat\nHealth Research Institute of Santiago de Compostela (IDIS)\nhttp://www.idisantiago.es\n\nNota: A informaci?n contida nesta mensaxe e os seus posibles documentos adxuntos ? privada e confidencial e est? dirixida ?nicamente ? seu destinatario/a. Se vostede non ? o/a destinatario/a orixinal desta mensaxe, por favor elim?nea. A distribuci?n ou copia desta mensaxe non est? autorizada.\n\nNota: La informaci?n contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y est? dirigida ?nicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elim?nelo. La distribuci?n o copia de este mensaje no est? autorizada.\n\nSee more languages: http://www.sergas.es/aviso_confidencialidad.htm",
+      "body_plain": "Hi!\n\nI'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n\nTo the best of my knowledge and after googling for a while, RJDBC is my best option to access SQL Server databases from my Mac OS X 10.6.8 installation running R version 2.15.1 (2012-06-22) --\nPlatform: i386-apple-darwin9.8.0/i386 (32-bit).\n\njava version \"1.6.0_37\"\nJava(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)\nJava HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)\n\nI'm trying this in R...\n\n> drv <- JDBC(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\", \"/etc/enu/sqljdbc_2.0/sqljdbc4.jar\")\n> conn <- dbConnect(drv, \"jdbc:sqlserver://hostname;integratedSecurity=true\", \"username\", \"password\")\n\nand getting this exception...\n\nError in .jcall(drv at jdrv, \"Ljava/sql/Connection;\", \"connect\", as.character(url)[1],  :\n  com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. ClientConnectionId:b62ebeb1-d6b3-47a0-8136-b86b352b4e41\n\n\nPlease, must I be able to access our SQL Server database by modifying/correcting the connection line syntax or am I using a wrong driver/method? If I must be able to connect, please, could you point me to some documentation explaining how to configure this driver to use integrated authentication? I can access this server/database without a glitch using Navicat Premiun on the same Mac OS X box.\n\nThanks for your help!\n\nRicardo\n\n\n--\nRicardo Rodríguez\nResearch Management and Promotion Technician\nTechnical Secretariat\nHealth Research Institute of Santiago de Compostela (IDIS)\nhttp://www.idisantiago.es\n\nNota: A información contida nesta mensaxe e os seus posibles documentos adxuntos é privada e confidencial e está dirixida únicamente ó seu destinatario/a. Se vostede non é o/a destinatario/a orixinal desta mensaxe, por favor elimínea. A distribución ou copia desta mensaxe non está autorizada.\n\nNota: La información contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y está dirigida únicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elimínelo. La distribución o copia de este mensaje no está autorizada.\n\nSee more languages: http://www.sergas.es/aviso_confidencialidad.htm",
       "body_snippet": "Hi!\n\nI'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n\nTo the best of my knowledge and af",
       "thread_id": "thread-6077d98f73da",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009644.html"
     },
     {
       "id": "msg-de8c1f4f7d41",
@@ -1779,6 +1867,7 @@
       "thread_id": "thread-de8c1f4f7d41",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009674.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121024/3b0640fb/attachment.pl"
       ]
@@ -1795,11 +1884,12 @@
       "references": [
         "<244BFA3AE9F83C4A8261E27189707237010AAB99864C@ASSCCEVS03.sergas.local>"
       ],
-      "body_plain": "On Wed, 24 Oct 2012, Ricardo.Julio.Rodriguez.Fernandez at sergas.es wrote:\n\n> Hi!\n>\n> I'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n>\n> To the best of my knowledge and after googling for a while, RJDBC is my best option to access SQL Server databases from my Mac OS X 10.6.8 installation running R version 2.15.1 (2012-06-22) --\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit).\n>\n> java version \"1.6.0_37\"\n> Java(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)\n> Java HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)\n>\n> I'm trying this in R...\n>\n>> drv <- JDBC(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\", \"/etc/enu/sqljdbc_2.0/sqljdbc4.jar\")\n>> conn <- dbConnect(drv, \"jdbc:sqlserver://hostname;integratedSecurity=true\", \"username\", \"password\")\n>\n> and getting this exception...\n>\n> Error in .jcall(drv at jdrv, \"Ljava/sql/Connection;\", \"connect\", as.character(url)[1],  :\n>  com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. ClientConnectionId:b62ebeb1-d6b3-47a0-8136-b86b352b4e41\n>\n>\n> Please, must I be able to access our SQL Server database by \n> modifying/correcting the connection line syntax or am I using a \n> wrong driver/method? If I must be able to connect, please, could you \n> point me to some documentation explaining how to configure this \n> driver to use integrated authentication? I can access this \n> server/database without a glitch using Navicat Premiun on the same \n> Mac OS X box.\n\nThis really is a very specialized issue: JDBC access to SQL server. \nIt is saying 'jdbc:sqlserver://hostname;integratedSecurity=true' is \nnot supported.  Can you not check a non-R JBDC client and ask on a \nJDBC forum?\n\n>\n> Thanks for your help!\n>\n> Ricardo\n>\n>\n> --\n> Ricardo Rodr?guez\n> Research Management and Promotion Technician\n> Technical Secretariat\n> Health Research Institute of Santiago de Compostela (IDIS)\n> http://www.idisantiago.es\n>\n> Nota: A informaci?n contida nesta mensaxe e os seus posibles documentos adxuntos ? privada e confidencial e est? dirixida ?nicamente ? seu destinatario/a. Se vostede non ? o/a destinatario/a orixinal desta mensaxe, por favor elim?nea. A distribuci?n ou copia desta mensaxe non est? autorizada.\n>\n> Nota: La informaci?n contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y est? dirigida ?nicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elim?nelo. La distribuci?n o copia de este mensaje no est? autorizada.\n>\n> See more languages: http://www.sergas.es/aviso_confidencialidad.htm\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
+      "body_plain": "On Wed, 24 Oct 2012, Ricardo.Julio.Rodriguez.Fernandez at sergas.es wrote:\n\n> Hi!\n>\n> I'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n>\n> To the best of my knowledge and after googling for a while, RJDBC is my best option to access SQL Server databases from my Mac OS X 10.6.8 installation running R version 2.15.1 (2012-06-22) --\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit).\n>\n> java version \"1.6.0_37\"\n> Java(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)\n> Java HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)\n>\n> I'm trying this in R...\n>\n>> drv <- JDBC(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\", \"/etc/enu/sqljdbc_2.0/sqljdbc4.jar\")\n>> conn <- dbConnect(drv, \"jdbc:sqlserver://hostname;integratedSecurity=true\", \"username\", \"password\")\n>\n> and getting this exception...\n>\n> Error in .jcall(drv at jdrv, \"Ljava/sql/Connection;\", \"connect\", as.character(url)[1],  :\n>  com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. ClientConnectionId:b62ebeb1-d6b3-47a0-8136-b86b352b4e41\n>\n>\n> Please, must I be able to access our SQL Server database by \n> modifying/correcting the connection line syntax or am I using a \n> wrong driver/method? If I must be able to connect, please, could you \n> point me to some documentation explaining how to configure this \n> driver to use integrated authentication? I can access this \n> server/database without a glitch using Navicat Premiun on the same \n> Mac OS X box.\n\nThis really is a very specialized issue: JDBC access to SQL server. \nIt is saying 'jdbc:sqlserver://hostname;integratedSecurity=true' is \nnot supported.  Can you not check a non-R JBDC client and ask on a \nJDBC forum?\n\n>\n> Thanks for your help!\n>\n> Ricardo\n>\n>\n> --\n> Ricardo Rodríguez\n> Research Management and Promotion Technician\n> Technical Secretariat\n> Health Research Institute of Santiago de Compostela (IDIS)\n> http://www.idisantiago.es\n>\n> Nota: A información contida nesta mensaxe e os seus posibles documentos adxuntos é privada e confidencial e está dirixida únicamente ó seu destinatario/a. Se vostede non é o/a destinatario/a orixinal desta mensaxe, por favor elimínea. A distribución ou copia desta mensaxe non está autorizada.\n>\n> Nota: La información contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y está dirigida únicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elimínelo. La distribución o copia de este mensaje no está autorizada.\n>\n> See more languages: http://www.sergas.es/aviso_confidencialidad.htm\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n-- \nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595",
       "body_snippet": "On Wed, 24 Oct 2012, Ricardo.Julio.Rodriguez.Fernandez at sergas.es wrote:\n\n> Hi!\n>\n> I'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need ",
       "thread_id": "thread-6077d98f73da",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009645.html"
     },
     {
       "id": "msg-201ae3c6b2d5",
@@ -1814,11 +1904,12 @@
         "<244BFA3AE9F83C4A8261E27189707237010AAB99864C@ASSCCEVS03.sergas.local>",
         "<alpine.LFD.2.02.1210241318160.13825@toucan.stats.ox.ac.uk>"
       ],
-      "body_plain": "Hi!\n________________________________________\nFrom: Prof Brian Ripley [ripley at stats.ox.ac.uk]\nSent: 24 October 2012 14:20\nTo: Rodriguez Fernandez, Ricardo Julio\nCc: r-sig-mac at r-project.org\nSubject: Re: [R-SIG-Mac] accessing SQL Server 10.00.1600\n\nOn Wed, 24 Oct 2012, Ricardo.Julio.Rodriguez.Fernandez at sergas.es wrote:\n\n> Hi!\n>\n> I'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n>\n> To the best of my knowledge and after googling for a while, RJDBC is my best option to access SQL Server databases from my Mac OS X 10.6.8 installation running R version 2.15.1 (2012-06-22) --\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit).\n>\n> java version \"1.6.0_37\"\n> Java(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)\n> Java HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)\n>\n> I'm trying this in R...\n>\n>> drv <- JDBC(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\", \"/etc/enu/sqljdbc_2.0/sqljdbc4.jar\")\n>> conn <- dbConnect(drv, \"jdbc:sqlserver://hostname;integratedSecurity=true\", \"username\", \"password\")\n>\n> and getting this exception...\n>\n> Error in .jcall(drv at jdrv, \"Ljava/sql/Connection;\", \"connect\", as.character(url)[1],  :\n>  com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. ClientConnectionId:b62ebeb1-d6b3-47a0-8136-b86b352b4e41\n>\n>\n> Please, must I be able to access our SQL Server database by\n> modifying/correcting the connection line syntax or am I using a\n> wrong driver/method? If I must be able to connect, please, could you\n> point me to some documentation explaining how to configure this\n> driver to use integrated authentication? I can access this\n> server/database without a glitch using Navicat Premiun on the same\n> Mac OS X box.\n>>\n>> This really is a very specialized issue: JDBC access to SQL server.\n>> It is saying 'jdbc:sqlserver://hostname;integratedSecurity=true' is\n>> not supported.  Can you not check a non-R JBDC client and ask on a\n>> JDBC forum?\n>>\n\nI do agree. My hope was to find somebody here that is using a similar configuration/environment to see how she/he has worked around this issue. I'll look for more help where you propose and keep this thread posted if I get any solution.\n\nThanks!\n\n>\n> Thanks for your help!\n>\n> Ricardo\n>\n>\n> --\n> Ricardo Rodr?guez\n> Research Management and Promotion Technician\n> Technical Secretariat\n> Health Research Institute of Santiago de Compostela (IDIS)\n> http://www.idisantiago.es\n>\n> Nota: A informaci?n contida nesta mensaxe e os seus posibles documentos adxuntos ? privada e confidencial e est? dirixida ?nicamente ? seu destinatario/a. Se vostede non ? o/a destinatario/a orixinal desta mensaxe, por favor elim?nea. A distribuci?n ou copia desta mensaxe non est? autorizada.\n>\n> Nota: La informaci?n contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y est? dirigida ?nicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elim?nelo. La distribuci?n o copia de este mensaje no est? autorizada.\n>\n> See more languages: http://www.sergas.es/aviso_confidencialidad.htm\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n--\nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595\n\nNota: A informaci?n contida nesta mensaxe e os seus posibles documentos adxuntos ? privada e confidencial e est? dirixida ?nicamente ? seu destinatario/a. Se vostede non ? o/a destinatario/a orixinal desta mensaxe, por favor elim?nea. A distribuci?n ou copia desta mensaxe non est? autorizada.\n\nNota: La informaci?n contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y est? dirigida ?nicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elim?nelo. La distribuci?n o copia de este mensaje no est? autorizada.\n\nSee more languages: http://www.sergas.es/aviso_confidencialidad.htm",
+      "body_plain": "Hi!\n________________________________________\nFrom: Prof Brian Ripley [ripley at stats.ox.ac.uk]\nSent: 24 October 2012 14:20\nTo: Rodriguez Fernandez, Ricardo Julio\nCc: r-sig-mac at r-project.org\nSubject: Re: [R-SIG-Mac] accessing SQL Server 10.00.1600\n\nOn Wed, 24 Oct 2012, Ricardo.Julio.Rodriguez.Fernandez at sergas.es wrote:\n\n> Hi!\n>\n> I'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n>\n> To the best of my knowledge and after googling for a while, RJDBC is my best option to access SQL Server databases from my Mac OS X 10.6.8 installation running R version 2.15.1 (2012-06-22) --\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit).\n>\n> java version \"1.6.0_37\"\n> Java(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)\n> Java HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)\n>\n> I'm trying this in R...\n>\n>> drv <- JDBC(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\", \"/etc/enu/sqljdbc_2.0/sqljdbc4.jar\")\n>> conn <- dbConnect(drv, \"jdbc:sqlserver://hostname;integratedSecurity=true\", \"username\", \"password\")\n>\n> and getting this exception...\n>\n> Error in .jcall(drv at jdrv, \"Ljava/sql/Connection;\", \"connect\", as.character(url)[1],  :\n>  com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. ClientConnectionId:b62ebeb1-d6b3-47a0-8136-b86b352b4e41\n>\n>\n> Please, must I be able to access our SQL Server database by\n> modifying/correcting the connection line syntax or am I using a\n> wrong driver/method? If I must be able to connect, please, could you\n> point me to some documentation explaining how to configure this\n> driver to use integrated authentication? I can access this\n> server/database without a glitch using Navicat Premiun on the same\n> Mac OS X box.\n>>\n>> This really is a very specialized issue: JDBC access to SQL server.\n>> It is saying 'jdbc:sqlserver://hostname;integratedSecurity=true' is\n>> not supported.  Can you not check a non-R JBDC client and ask on a\n>> JDBC forum?\n>>\n\nI do agree. My hope was to find somebody here that is using a similar configuration/environment to see how she/he has worked around this issue. I'll look for more help where you propose and keep this thread posted if I get any solution.\n\nThanks!\n\n>\n> Thanks for your help!\n>\n> Ricardo\n>\n>\n> --\n> Ricardo Rodríguez\n> Research Management and Promotion Technician\n> Technical Secretariat\n> Health Research Institute of Santiago de Compostela (IDIS)\n> http://www.idisantiago.es\n>\n> Nota: A información contida nesta mensaxe e os seus posibles documentos adxuntos é privada e confidencial e está dirixida únicamente ó seu destinatario/a. Se vostede non é o/a destinatario/a orixinal desta mensaxe, por favor elimínea. A distribución ou copia desta mensaxe non está autorizada.\n>\n> Nota: La información contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y está dirigida únicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elimínelo. La distribución o copia de este mensaje no está autorizada.\n>\n> See more languages: http://www.sergas.es/aviso_confidencialidad.htm\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n--\nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595\n\nNota: A información contida nesta mensaxe e os seus posibles documentos adxuntos é privada e confidencial e está dirixida únicamente ó seu destinatario/a. Se vostede non é o/a destinatario/a orixinal desta mensaxe, por favor elimínea. A distribución ou copia desta mensaxe non está autorizada.\n\nNota: La información contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y está dirigida únicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elimínelo. La distribución o copia de este mensaje no está autorizada.\n\nSee more languages: http://www.sergas.es/aviso_confidencialidad.htm",
       "body_snippet": "Hi!\n________________________________________\nFrom: Prof Brian Ripley [ripley at stats.ox.ac.uk]\nSent: 24 October 2012 14:20\nTo: Rodriguez Fernandez, Ricardo Julio\nCc: r-sig-mac at r-project.org\nSubjec",
       "thread_id": "thread-6077d98f73da",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009646.html"
     },
     {
       "id": "msg-534a871067ee",
@@ -1835,6 +1926,7 @@
       "thread_id": "thread-534a871067ee",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009647.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121024/faa7bdb9/attachment.pl"
       ]
@@ -1856,6 +1948,7 @@
       "thread_id": "thread-534a871067ee",
       "thread_depth": 1,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009648.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121025/9bb63a3e/attachment.pl"
       ]
@@ -1876,7 +1969,8 @@
       "body_snippet": "On Oct 24, 2012, at 7:42 PM, Thomas Veltman wrote:\n\n> Hey gang!\n> \n> This is my first post to the list, but I will try to be as precise as possible.  I have googled around and can't find an easy expla",
       "thread_id": "thread-534a871067ee",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009649.html"
     },
     {
       "id": "msg-8c9cf4aa470f",
@@ -1892,7 +1986,8 @@
       "body_snippet": "Dear Mac useRs,\n\nI have a problem with tcltk on a Mac running OSX 10.8.2 and R 2.15.1.\nUsing R.app GUI I got the following:\n\n> library(tcltk)\nLoading Tcl/Tk interface ... done\nWarning message:\nIn fun(",
       "thread_id": "thread-8c9cf4aa470f",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009650.html"
     },
     {
       "id": "msg-3f76beb91b16",
@@ -1910,7 +2005,8 @@
       "body_snippet": "Perhaps try the suggestions from\n\nhttps://discussions.apple.com/thread/4157422?start=0&tstart=0\n\n-pd\n\nOn Oct 25, 2012, at 12:43 , Luca Scrucca wrote:\n\n> Dear Mac useRs,\n> \n> I have a problem with tclt",
       "thread_id": "thread-8c9cf4aa470f",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009651.html"
     },
     {
       "id": "msg-5724a3542262",
@@ -1928,7 +2024,8 @@
       "body_snippet": "On 12-10-24 10:42 PM, Thomas Veltman wrote:\n> Hey gang!\n>\n> This is my first post to the list, but I will try to be as precise as possible.  I have googled around and can't find an easy explanation fo",
       "thread_id": "thread-534a871067ee",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009652.html"
     },
     {
       "id": "msg-7a828fcb0230",
@@ -1948,6 +2045,7 @@
       "thread_id": "thread-534a871067ee",
       "thread_depth": 2,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009653.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121025/25f012f6/attachment.pl"
       ]
@@ -1962,11 +2060,12 @@
       "subject_clean": "single-threaded R, 100% CPU with BLAS, vecLib and ATLAS",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "Hi,\n\nI am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying to read a csv file, which works fine on my work colleague's machine (under linux) but causes my CPU to go up to 100% and makes the GUI unresponsive and hangs on the command line. Activity monitor indicates there is only one R thread running.\n\nI did see that by default R was using the BLAS library, which is single-threaded, and that there was an option to use vecLib instead. I did this, and \nls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\ndoes return \n/Library/Frameworks/R.framework/Resources/lib/libRblas.dylib -> libRblas.vecLib.dylib\n\nI however still see the same behavior: 100% CPU, single thread.\n\nI saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately the pre compiled binairies pointed to in a previous email on the list [1] were not available anymore. Building ATLAS was... fun ;)) I was able to get the shared libraries (using --shared in my config) but still see the same behavior when trying to run my code. I was unsure if I should link to libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was the right one though)\n\nI tried building R from the source (specifying -arch x86_64 and --enable-BLAS-shlib to be able to switch libraries), but same behavior and it seems it is an identical version to the prepackaged one (I tried with BLAS, vecLib and ATLAS)\n\nR info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n\nAny help would be greatly appreciated.\n\nThanks,\nMelanie\n\n\n[1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n\n---\nM?lanie Courtot\nMSFHR/PCIRN Ph.D. Candidate,\nBCCRC - Terry Fox Laboratory - 12th floor\n675 West 10th Avenue\nVancouver, BC\nV5Z 1L3, Canada",
+      "body_plain": "Hi,\n\nI am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying to read a csv file, which works fine on my work colleague's machine (under linux) but causes my CPU to go up to 100% and makes the GUI unresponsive and hangs on the command line. Activity monitor indicates there is only one R thread running.\n\nI did see that by default R was using the BLAS library, which is single-threaded, and that there was an option to use vecLib instead. I did this, and \nls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\ndoes return \n/Library/Frameworks/R.framework/Resources/lib/libRblas.dylib -> libRblas.vecLib.dylib\n\nI however still see the same behavior: 100% CPU, single thread.\n\nI saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately the pre compiled binairies pointed to in a previous email on the list [1] were not available anymore. Building ATLAS was... fun ;)) I was able to get the shared libraries (using --shared in my config) but still see the same behavior when trying to run my code. I was unsure if I should link to libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was the right one though)\n\nI tried building R from the source (specifying -arch x86_64 and --enable-BLAS-shlib to be able to switch libraries), but same behavior and it seems it is an identical version to the prepackaged one (I tried with BLAS, vecLib and ATLAS)\n\nR info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n\nAny help would be greatly appreciated.\n\nThanks,\nMelanie\n\n\n[1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n\n---\nMélanie Courtot\nMSFHR/PCIRN Ph.D. Candidate,\nBCCRC - Terry Fox Laboratory - 12th floor\n675 West 10th Avenue\nVancouver, BC\nV5Z 1L3, Canada",
       "body_snippet": "Hi,\n\nI am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying to read a csv file, which works fine on my work colleague's machine (under linux) but causes my CPU to go up to 100% and ",
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009654.html"
     },
     {
       "id": "msg-cae4ae9a3956",
@@ -1985,6 +2084,7 @@
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 1,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009655.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121025/f9a28445/attachment.pl"
       ]
@@ -2001,11 +2101,12 @@
       "references": [
         "<DA4D3E11-8A8F-474A-98A6-6A35944343B6@gmail.com>"
       ],
-      "body_plain": "Melanie,\n\nOn Oct 25, 2012, at 7:16 PM, Melanie Courtot wrote:\n\n> Hi,\n> \n> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying to read a csv file, which works fine on my work colleague's machine (under linux) but causes my CPU to go up to 100% and makes the GUI unresponsive and hangs on the command line. Activity monitor indicates there is only one R thread running.\n> \n> I did see that by default R was using the BLAS library, which is single-threaded,\n\nBLAS will have absolutely no effect on read.table() - it will always be single-threaded and it does not use BLAS. The difference between the two machines may be memory - read.table() is not the most efficient way to load a data set and maybe you're running out of memory (but you didn't tell us how you are loading it, really).\n\nCheers,\nSimon\n\n\n> and that there was an option to use vecLib instead. I did this, and \n> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\n> does return \n> /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib -> libRblas.vecLib.dylib\n> \n> I however still see the same behavior: 100% CPU, single thread.\n> \n> I saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately the pre compiled binairies pointed to in a previous email on the list [1] were not available anymore. Building ATLAS was... fun ;)) I was able to get the shared libraries (using --shared in my config) but still see the same behavior when trying to run my code. I was unsure if I should link to libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was the right one though)\n> \n> I tried building R from the source (specifying -arch x86_64 and --enable-BLAS-shlib to be able to switch libraries), but same behavior and it seems it is an identical version to the prepackaged one (I tried with BLAS, vecLib and ATLAS)\n> \n> R info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> \n> Any help would be greatly appreciated.\n> \n> Thanks,\n> Melanie\n> \n> \n> [1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n> \n> ---\n> M?lanie Courtot\n> MSFHR/PCIRN Ph.D. Candidate,\n> BCCRC - Terry Fox Laboratory - 12th floor\n> 675 West 10th Avenue\n> Vancouver, BC\n> V5Z 1L3, Canada\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_plain": "Melanie,\n\nOn Oct 25, 2012, at 7:16 PM, Melanie Courtot wrote:\n\n> Hi,\n> \n> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying to read a csv file, which works fine on my work colleague's machine (under linux) but causes my CPU to go up to 100% and makes the GUI unresponsive and hangs on the command line. Activity monitor indicates there is only one R thread running.\n> \n> I did see that by default R was using the BLAS library, which is single-threaded,\n\nBLAS will have absolutely no effect on read.table() - it will always be single-threaded and it does not use BLAS. The difference between the two machines may be memory - read.table() is not the most efficient way to load a data set and maybe you're running out of memory (but you didn't tell us how you are loading it, really).\n\nCheers,\nSimon\n\n\n> and that there was an option to use vecLib instead. I did this, and \n> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\n> does return \n> /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib -> libRblas.vecLib.dylib\n> \n> I however still see the same behavior: 100% CPU, single thread.\n> \n> I saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately the pre compiled binairies pointed to in a previous email on the list [1] were not available anymore. Building ATLAS was... fun ;)) I was able to get the shared libraries (using --shared in my config) but still see the same behavior when trying to run my code. I was unsure if I should link to libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was the right one though)\n> \n> I tried building R from the source (specifying -arch x86_64 and --enable-BLAS-shlib to be able to switch libraries), but same behavior and it seems it is an identical version to the prepackaged one (I tried with BLAS, vecLib and ATLAS)\n> \n> R info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> \n> Any help would be greatly appreciated.\n> \n> Thanks,\n> Melanie\n> \n> \n> [1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n> \n> ---\n> Mélanie Courtot\n> MSFHR/PCIRN Ph.D. Candidate,\n> BCCRC - Terry Fox Laboratory - 12th floor\n> 675 West 10th Avenue\n> Vancouver, BC\n> V5Z 1L3, Canada\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
       "body_snippet": "Melanie,\n\nOn Oct 25, 2012, at 7:16 PM, Melanie Courtot wrote:\n\n> Hi,\n> \n> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying to read a csv file, which works fine on my work coll",
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009656.html"
     },
     {
       "id": "msg-0773a81b6551",
@@ -2020,11 +2121,12 @@
         "<DA4D3E11-8A8F-474A-98A6-6A35944343B6@gmail.com>",
         "<CACT39NbyupRgEtiat-cVxG01SGyOxGFmMmC=tQesC-xyEBs9mg@mail.gmail.com>"
       ],
-      "body_plain": "On Oct 25, 2012, at 7:42 PM, Ray DiGiacomo, Jr. wrote:\n\n> Hello Melanie,\n> \n> How much RAM is installed on your MacBook Pro compared to your colleague's\n> Linux machine?\n> \n> How big is your dataset in terms of rows and columns?\n> \n> I believe R can handle about 10M datapoints per GB of RAM.\n> \n\nWhat exactly is that an estimate of? In R, 1GB of RAM will store ~134Mio datapoints when using numeric matrices/vectors and twice as many as integers or logicals. In practice, you will still need some room for computation on the data, though. \n\nCheers,\nSimon\n\n\n> Note that datapoints = rows x columns\n> \n> Best Regards,\n> \n> Ray DiGiacomo, Jr.\n> Master R Trainer\n> President, Lion Data Systems LLC\n> President, The Orange County R User Group\n> Board Member, TDWI\n> rayd at liondatasystems.com\n> (Mobile) 408-425-7851\n> San Juan Capistrano, California\n> \n> Check out my one-on-one web-based R courses at liondatasystems.com/courses\n> \n> \n> \n> \n> \n> On Thu, Oct 25, 2012 at 4:16 PM, Melanie Courtot <mcourtot at gmail.com> wrote:\n> \n>> Hi,\n>> \n>> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying\n>> to read a csv file, which works fine on my work colleague's machine (under\n>> linux) but causes my CPU to go up to 100% and makes the GUI unresponsive\n>> and hangs on the command line. Activity monitor indicates there is only one\n>> R thread running.\n>> \n>> I did see that by default R was using the BLAS library, which is\n>> single-threaded, and that there was an option to use vecLib instead. I did\n>> this, and\n>> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\n>> does return\n>> /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib ->\n>> libRblas.vecLib.dylib\n>> \n>> I however still see the same behavior: 100% CPU, single thread.\n>> \n>> I saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I\n>> built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately\n>> the pre compiled binairies pointed to in a previous email on the list [1]\n>> were not available anymore. Building ATLAS was... fun ;)) I was able to get\n>> the shared libraries (using --shared in my config) but still see the same\n>> behavior when trying to run my code. I was unsure if I should link to\n>> libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was\n>> the right one though)\n>> \n>> I tried building R from the source (specifying -arch x86_64 and\n>> --enable-BLAS-shlib to be able to switch libraries), but same behavior and\n>> it seems it is an identical version to the prepackaged one (I tried with\n>> BLAS, vecLib and ATLAS)\n>> \n>> R info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform:\n>> x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>> \n>> Any help would be greatly appreciated.\n>> \n>> Thanks,\n>> Melanie\n>> \n>> \n>> [1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n>> \n>> ---\n>> M?lanie Courtot\n>> MSFHR/PCIRN Ph.D. Candidate,\n>> BCCRC - Terry Fox Laboratory - 12th floor\n>> 675 West 10th Avenue\n>> Vancouver, BC\n>> V5Z 1L3, Canada\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_plain": "On Oct 25, 2012, at 7:42 PM, Ray DiGiacomo, Jr. wrote:\n\n> Hello Melanie,\n> \n> How much RAM is installed on your MacBook Pro compared to your colleague's\n> Linux machine?\n> \n> How big is your dataset in terms of rows and columns?\n> \n> I believe R can handle about 10M datapoints per GB of RAM.\n> \n\nWhat exactly is that an estimate of? In R, 1GB of RAM will store ~134Mio datapoints when using numeric matrices/vectors and twice as many as integers or logicals. In practice, you will still need some room for computation on the data, though. \n\nCheers,\nSimon\n\n\n> Note that datapoints = rows x columns\n> \n> Best Regards,\n> \n> Ray DiGiacomo, Jr.\n> Master R Trainer\n> President, Lion Data Systems LLC\n> President, The Orange County R User Group\n> Board Member, TDWI\n> rayd at liondatasystems.com\n> (Mobile) 408-425-7851\n> San Juan Capistrano, California\n> \n> Check out my one-on-one web-based R courses at liondatasystems.com/courses\n> \n> \n> \n> \n> \n> On Thu, Oct 25, 2012 at 4:16 PM, Melanie Courtot <mcourtot at gmail.com> wrote:\n> \n>> Hi,\n>> \n>> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying\n>> to read a csv file, which works fine on my work colleague's machine (under\n>> linux) but causes my CPU to go up to 100% and makes the GUI unresponsive\n>> and hangs on the command line. Activity monitor indicates there is only one\n>> R thread running.\n>> \n>> I did see that by default R was using the BLAS library, which is\n>> single-threaded, and that there was an option to use vecLib instead. I did\n>> this, and\n>> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\n>> does return\n>> /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib ->\n>> libRblas.vecLib.dylib\n>> \n>> I however still see the same behavior: 100% CPU, single thread.\n>> \n>> I saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I\n>> built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately\n>> the pre compiled binairies pointed to in a previous email on the list [1]\n>> were not available anymore. Building ATLAS was... fun ;)) I was able to get\n>> the shared libraries (using --shared in my config) but still see the same\n>> behavior when trying to run my code. I was unsure if I should link to\n>> libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was\n>> the right one though)\n>> \n>> I tried building R from the source (specifying -arch x86_64 and\n>> --enable-BLAS-shlib to be able to switch libraries), but same behavior and\n>> it seems it is an identical version to the prepackaged one (I tried with\n>> BLAS, vecLib and ATLAS)\n>> \n>> R info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform:\n>> x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>> \n>> Any help would be greatly appreciated.\n>> \n>> Thanks,\n>> Melanie\n>> \n>> \n>> [1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n>> \n>> ---\n>> Mélanie Courtot\n>> MSFHR/PCIRN Ph.D. Candidate,\n>> BCCRC - Terry Fox Laboratory - 12th floor\n>> 675 West 10th Avenue\n>> Vancouver, BC\n>> V5Z 1L3, Canada\n>> \n>> _______________________________________________\n>> R-SIG-Mac mailing list\n>> R-SIG-Mac at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
       "body_snippet": "On Oct 25, 2012, at 7:42 PM, Ray DiGiacomo, Jr. wrote:\n\n> Hello Melanie,\n> \n> How much RAM is installed on your MacBook Pro compared to your colleague's\n> Linux machine?\n> \n> How big is your dataset i",
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009657.html"
     },
     {
       "id": "msg-7d1d22fef4da",
@@ -2045,6 +2147,7 @@
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 3,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009658.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121025/2ef6c2ec/attachment.pl"
       ]
@@ -2065,7 +2168,8 @@
       "body_snippet": "Thanks for the hint Peter, it helps me to solve the problem. \nAmong the several proposals the following fixed my problem. From the terminal:\n\n> launchctl load -w /Library/LaunchAgents/org.macosforge.x",
       "thread_id": "thread-f087afe337cb",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009659.html"
     },
     {
       "id": "msg-f77ec4ba5653",
@@ -2081,11 +2185,12 @@
         "<alpine.LFD.2.02.1210241318160.13825@toucan.stats.ox.ac.uk>",
         "<244BFA3AE9F83C4A8261E27189707237010AAB99866C@ASSCCEVS03.sergas.local>"
       ],
-      "body_plain": "Hi, team,\n\nThanks for your help! Please, find here the solution for this issue here...\n\nhttp://tinyurl.com/9kjfxac\n\nCheers!\n\n>>> ________________________________________\n>>> From: r-sig-mac-bounces at r-project.org [r-sig-mac-bounces at r-project.org] On Behalf Of Rodriguez Fernandez, Ricardo Julio\n>>> Sent: 24 October 2012 22:33\n>>> To: ripley at stats.ox.ac.uk\n>>> Cc: r-sig-mac at r-project.org\n>>> Subject: Re: [R-SIG-Mac] accessing SQL Server 10.00.1600\n>>>\n>>> Hi!\n>>> ________________________________________\n>>> From: Prof Brian Ripley [ripley at stats.ox.ac.uk]\n>>> Sent: 24 October 2012 14:20\n>>> To: Rodriguez Fernandez, Ricardo Julio\n>>> Cc: r-sig-mac at r-project.org\n>>> Subject: Re: [R-SIG-Mac] accessing SQL Server 10.00.1600\n\n>>> On Wed, 24 Oct 2012, Ricardo.Julio.Rodriguez.Fernandez at sergas.es wrote:\n\n> Hi!\n>\n> I'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n>\n> To the best of my knowledge and after googling for a while, RJDBC is my best option to access SQL Server databases from my Mac OS X 10.6.8 installation running R version 2.15.1 (2012-06-22) --\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit).\n>\n> java version \"1.6.0_37\"\n> Java(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)\n> Java HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)\n>\n> I'm trying this in R...\n>\n>> drv <- JDBC(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\", \"/etc/enu/sqljdbc_2.0/sqljdbc4.jar\")\n>> conn <- dbConnect(drv, \"jdbc:sqlserver://hostname;integratedSecurity=true\", \"username\", \"password\")\n>\n> and getting this exception...\n>\n> Error in .jcall(drv at jdrv, \"Ljava/sql/Connection;\", \"connect\", as.character(url)[1],  :\n>  com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. ClientConnectionId:b62ebeb1-d6b3-47a0-8136-b86b352b4e41\n>\n>\n> Please, must I be able to access our SQL Server database by\n> modifying/correcting the connection line syntax or am I using a\n> wrong driver/method? If I must be able to connect, please, could you\n> point me to some documentation explaining how to configure this\n> driver to use integrated authentication? I can access this\n> server/database without a glitch using Navicat Premiun on the same\n> Mac OS X box.\n>>\n>> This really is a very specialized issue: JDBC access to SQL server.\n>> It is saying 'jdbc:sqlserver://hostname;integratedSecurity=true' is\n>> not supported.  Can you not check a non-R JBDC client and ask on a\n>> JDBC forum?\n>>\n>>>\n>>> I do agree. My hope was to find somebody here that is using a similar configuration/environment\n>>> to see how she/he has worked around this issue. I'll look for more help where you\n>>> propose and keep this thread posted if I get any solution.\n>>>\n>>> Thanks!\n>>>\n>\n> Thanks for your help!\n>\n> Ricardo\n>\n>\n> --\n> Ricardo Rodr?guez\n> Research Management and Promotion Technician\n> Technical Secretariat\n> Health Research Institute of Santiago de Compostela (IDIS)\n> http://www.idisantiago.es\n>\n> Nota: A informaci?n contida nesta mensaxe e os seus posibles documentos adxuntos ? privada e confidencial e est? dirixida ?nicamente ? seu destinatario/a. Se vostede non ? o/a destinatario/a orixinal desta mensaxe, por favor elim?nea. A distribuci?n ou copia desta mensaxe non est? autorizada.\n>\n> Nota: La informaci?n contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y est? dirigida ?nicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elim?nelo. La distribuci?n o copia de este mensaje no est? autorizada.\n>\n> See more languages: http://www.sergas.es/aviso_confidencialidad.htm\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n--\nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595\n\nNota: A informaci?n contida nesta mensaxe e os seus posibles documentos adxuntos ? privada e confidencial e est? dirixida ?nicamente ? seu destinatario/a. Se vostede non ? o/a destinatario/a orixinal desta mensaxe, por favor elim?nea. A distribuci?n ou copia desta mensaxe non est? autorizada.\n\nNota: La informaci?n contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y est? dirigida ?nicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elim?nelo. La distribuci?n o copia de este mensaje no est? autorizada.\n\nSee more languages: http://www.sergas.es/aviso_confidencialidad.htm",
+      "body_plain": "Hi, team,\n\nThanks for your help! Please, find here the solution for this issue here...\n\nhttp://tinyurl.com/9kjfxac\n\nCheers!\n\n>>> ________________________________________\n>>> From: r-sig-mac-bounces at r-project.org [r-sig-mac-bounces at r-project.org] On Behalf Of Rodriguez Fernandez, Ricardo Julio\n>>> Sent: 24 October 2012 22:33\n>>> To: ripley at stats.ox.ac.uk\n>>> Cc: r-sig-mac at r-project.org\n>>> Subject: Re: [R-SIG-Mac] accessing SQL Server 10.00.1600\n>>>\n>>> Hi!\n>>> ________________________________________\n>>> From: Prof Brian Ripley [ripley at stats.ox.ac.uk]\n>>> Sent: 24 October 2012 14:20\n>>> To: Rodriguez Fernandez, Ricardo Julio\n>>> Cc: r-sig-mac at r-project.org\n>>> Subject: Re: [R-SIG-Mac] accessing SQL Server 10.00.1600\n\n>>> On Wed, 24 Oct 2012, Ricardo.Julio.Rodriguez.Fernandez at sergas.es wrote:\n\n> Hi!\n>\n> I'm happy using RMySQL to access a number of MySQL databases and RJDBC to PostgreSQL ones here, but now I do need to integrate data from SQL Server 10.00.1600.\n>\n> To the best of my knowledge and after googling for a while, RJDBC is my best option to access SQL Server databases from my Mac OS X 10.6.8 installation running R version 2.15.1 (2012-06-22) --\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit).\n>\n> java version \"1.6.0_37\"\n> Java(TM) SE Runtime Environment (build 1.6.0_37-b06-434-10M3909)\n> Java HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)\n>\n> I'm trying this in R...\n>\n>> drv <- JDBC(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\", \"/etc/enu/sqljdbc_2.0/sqljdbc4.jar\")\n>> conn <- dbConnect(drv, \"jdbc:sqlserver://hostname;integratedSecurity=true\", \"username\", \"password\")\n>\n> and getting this exception...\n>\n> Error in .jcall(drv at jdrv, \"Ljava/sql/Connection;\", \"connect\", as.character(url)[1],  :\n>  com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. ClientConnectionId:b62ebeb1-d6b3-47a0-8136-b86b352b4e41\n>\n>\n> Please, must I be able to access our SQL Server database by\n> modifying/correcting the connection line syntax or am I using a\n> wrong driver/method? If I must be able to connect, please, could you\n> point me to some documentation explaining how to configure this\n> driver to use integrated authentication? I can access this\n> server/database without a glitch using Navicat Premiun on the same\n> Mac OS X box.\n>>\n>> This really is a very specialized issue: JDBC access to SQL server.\n>> It is saying 'jdbc:sqlserver://hostname;integratedSecurity=true' is\n>> not supported.  Can you not check a non-R JBDC client and ask on a\n>> JDBC forum?\n>>\n>>>\n>>> I do agree. My hope was to find somebody here that is using a similar configuration/environment\n>>> to see how she/he has worked around this issue. I'll look for more help where you\n>>> propose and keep this thread posted if I get any solution.\n>>>\n>>> Thanks!\n>>>\n>\n> Thanks for your help!\n>\n> Ricardo\n>\n>\n> --\n> Ricardo Rodríguez\n> Research Management and Promotion Technician\n> Technical Secretariat\n> Health Research Institute of Santiago de Compostela (IDIS)\n> http://www.idisantiago.es\n>\n> Nota: A información contida nesta mensaxe e os seus posibles documentos adxuntos é privada e confidencial e está dirixida únicamente ó seu destinatario/a. Se vostede non é o/a destinatario/a orixinal desta mensaxe, por favor elimínea. A distribución ou copia desta mensaxe non está autorizada.\n>\n> Nota: La información contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y está dirigida únicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elimínelo. La distribución o copia de este mensaje no está autorizada.\n>\n> See more languages: http://www.sergas.es/aviso_confidencialidad.htm\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n>\n\n--\nBrian D. Ripley,                  ripley at stats.ox.ac.uk\nProfessor of Applied Statistics,  http://www.stats.ox.ac.uk/~ripley/\nUniversity of Oxford,             Tel:  +44 1865 272861 (self)\n1 South Parks Road,                     +44 1865 272866 (PA)\nOxford OX1 3TG, UK                Fax:  +44 1865 272595\n\nNota: A información contida nesta mensaxe e os seus posibles documentos adxuntos é privada e confidencial e está dirixida únicamente ó seu destinatario/a. Se vostede non é o/a destinatario/a orixinal desta mensaxe, por favor elimínea. A distribución ou copia desta mensaxe non está autorizada.\n\nNota: La información contenida en este mensaje y sus posibles documentos adjuntos es privada y confidencial y está dirigida únicamente a su destinatario/a. Si usted no es el/la destinatario/a original de este mensaje, por favor elimínelo. La distribución o copia de este mensaje no está autorizada.\n\nSee more languages: http://www.sergas.es/aviso_confidencialidad.htm",
       "body_snippet": "Hi, team,\n\nThanks for your help! Please, find here the solution for this issue here...\n\nhttp://tinyurl.com/9kjfxac\n\nCheers!\n\n>>> ________________________________________\n>>> From: r-sig-mac-bounces at",
       "thread_id": "thread-6077d98f73da",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009660.html"
     },
     {
       "id": "msg-988efced93c8",
@@ -2102,11 +2207,12 @@
         "<9F35BCCA-89B6-4198-A91B-C70744B96BAD@r-project.org>",
         "<CACT39NYpJ6NnRxfozq7O_rXrsxktvzAkVzY49utVnqRm=1mksw@mail.gmail.com>"
       ],
-      "body_plain": "Hi Ray and Simon, all,\n\nThanks for the help. My laptop has 8GB of RAM (my colleague has 12 on his desktop). I ssh'ed into his machine and the whole file loads in not even 2 seconds.\nThe file is read with mat<-read.csv('test.arff',header=FALSE,sep=',') The arff file is what I use with Weka, which is basically a comma delimited file. It contains around 7.5M datapoints (6200 rows, 1140 columns)\n\nIt seems that with 8GB I should be quite ok?\n\nBased on your suggestions I tried with a part of the file only, which does work fine, so it seems that it is indeed a memory problem. Any idea as to why?\n\nThanks,\nMelanie\n\n\n\nExample record (I have 6200 of those)\n856243,negative,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\n\n\n\nOn 2012-10-25, at 6:39 PM, Ray DiGiacomo, Jr. wrote:\n\n> Hi Simon,\n> \n> I took the spec from this Revo SlideShare.  The spec is based on a regression.\n> \n> http://www.revolutionanalytics.com/news-events/free-webinars/2011/intro-to-r-for-sas-spss/\n> \n> Click the right arrow until you get to slide 3 of 14.  Then, look at the slide in the lower-right hand corner (slide 12).\n> \n> - Ray\n> \n> \n> \n> \n> \n> On Thu, Oct 25, 2012 at 6:26 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> On Oct 25, 2012, at 7:42 PM, Ray DiGiacomo, Jr. wrote:\n> \n> > Hello Melanie,\n> >\n> > How much RAM is installed on your MacBook Pro compared to your colleague's\n> > Linux machine?\n> >\n> > How big is your dataset in terms of rows and columns?\n> >\n> > I believe R can handle about 10M datapoints per GB of RAM.\n> >\n> \n> What exactly is that an estimate of? In R, 1GB of RAM will store ~134Mio datapoints when using numeric matrices/vectors and twice as many as integers or logicals. In practice, you will still need some room for computation on the data, though.\n> \n> Cheers,\n> Simon\n> \n> \n> > Note that datapoints = rows x columns\n> >\n> > Best Regards,\n> >\n> > Ray DiGiacomo, Jr.\n> > Master R Trainer\n> > President, Lion Data Systems LLC\n> > President, The Orange County R User Group\n> > Board Member, TDWI\n> > rayd at liondatasystems.com\n> > (Mobile) 408-425-7851\n> > San Juan Capistrano, California\n> >\n> > Check out my one-on-one web-based R courses at liondatasystems.com/courses\n> >\n> >\n> >\n> >\n> >\n> > On Thu, Oct 25, 2012 at 4:16 PM, Melanie Courtot <mcourtot at gmail.com> wrote:\n> >\n> >> Hi,\n> >>\n> >> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying\n> >> to read a csv file, which works fine on my work colleague's machine (under\n> >> linux) but causes my CPU to go up to 100% and makes the GUI unresponsive\n> >> and hangs on the command line. Activity monitor indicates there is only one\n> >> R thread running.\n> >>\n> >> I did see that by default R was using the BLAS library, which is\n> >> single-threaded, and that there was an option to use vecLib instead. I did\n> >> this, and\n> >> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\n> >> does return\n> >> /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib ->\n> >> libRblas.vecLib.dylib\n> >>\n> >> I however still see the same behavior: 100% CPU, single thread.\n> >>\n> >> I saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I\n> >> built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately\n> >> the pre compiled binairies pointed to in a previous email on the list [1]\n> >> were not available anymore. Building ATLAS was... fun ;)) I was able to get\n> >> the shared libraries (using --shared in my config) but still see the same\n> >> behavior when trying to run my code. I was unsure if I should link to\n> >> libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was\n> >> the right one though)\n> >>\n> >> I tried building R from the source (specifying -arch x86_64 and\n> >> --enable-BLAS-shlib to be able to switch libraries), but same behavior and\n> >> it seems it is an identical version to the prepackaged one (I tried with\n> >> BLAS, vecLib and ATLAS)\n> >>\n> >> R info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform:\n> >> x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> >>\n> >> Any help would be greatly appreciated.\n> >>\n> >> Thanks,\n> >> Melanie\n> >>\n> >>\n> >> [1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n> >>\n> >> ---\n> >> M?lanie Courtot\n> >> MSFHR/PCIRN Ph.D. Candidate,\n> >> BCCRC - Terry Fox Laboratory - 12th floor\n> >> 675 West 10th Avenue\n> >> Vancouver, BC\n> >> V5Z 1L3, Canada\n> >>\n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
+      "body_plain": "Hi Ray and Simon, all,\n\nThanks for the help. My laptop has 8GB of RAM (my colleague has 12 on his desktop). I ssh'ed into his machine and the whole file loads in not even 2 seconds.\nThe file is read with mat<-read.csv('test.arff',header=FALSE,sep=',') The arff file is what I use with Weka, which is basically a comma delimited file. It contains around 7.5M datapoints (6200 rows, 1140 columns)\n\nIt seems that with 8GB I should be quite ok?\n\nBased on your suggestions I tried with a part of the file only, which does work fine, so it seems that it is indeed a memory problem. Any idea as to why?\n\nThanks,\nMelanie\n\n\n\nExample record (I have 6200 of those)\n856243,negative,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\n\n\n\nOn 2012-10-25, at 6:39 PM, Ray DiGiacomo, Jr. wrote:\n\n> Hi Simon,\n> \n> I took the spec from this Revo SlideShare.  The spec is based on a regression.\n> \n> http://www.revolutionanalytics.com/news-events/free-webinars/2011/intro-to-r-for-sas-spss/\n> \n> Click the right arrow until you get to slide 3 of 14.  Then, look at the slide in the lower-right hand corner (slide 12).\n> \n> - Ray\n> \n> \n> \n> \n> \n> On Thu, Oct 25, 2012 at 6:26 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> \n> On Oct 25, 2012, at 7:42 PM, Ray DiGiacomo, Jr. wrote:\n> \n> > Hello Melanie,\n> >\n> > How much RAM is installed on your MacBook Pro compared to your colleague's\n> > Linux machine?\n> >\n> > How big is your dataset in terms of rows and columns?\n> >\n> > I believe R can handle about 10M datapoints per GB of RAM.\n> >\n> \n> What exactly is that an estimate of? In R, 1GB of RAM will store ~134Mio datapoints when using numeric matrices/vectors and twice as many as integers or logicals. In practice, you will still need some room for computation on the data, though.\n> \n> Cheers,\n> Simon\n> \n> \n> > Note that datapoints = rows x columns\n> >\n> > Best Regards,\n> >\n> > Ray DiGiacomo, Jr.\n> > Master R Trainer\n> > President, Lion Data Systems LLC\n> > President, The Orange County R User Group\n> > Board Member, TDWI\n> > rayd at liondatasystems.com\n> > (Mobile) 408-425-7851\n> > San Juan Capistrano, California\n> >\n> > Check out my one-on-one web-based R courses at liondatasystems.com/courses\n> >\n> >\n> >\n> >\n> >\n> > On Thu, Oct 25, 2012 at 4:16 PM, Melanie Courtot <mcourtot at gmail.com> wrote:\n> >\n> >> Hi,\n> >>\n> >> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying\n> >> to read a csv file, which works fine on my work colleague's machine (under\n> >> linux) but causes my CPU to go up to 100% and makes the GUI unresponsive\n> >> and hangs on the command line. Activity monitor indicates there is only one\n> >> R thread running.\n> >>\n> >> I did see that by default R was using the BLAS library, which is\n> >> single-threaded, and that there was an option to use vecLib instead. I did\n> >> this, and\n> >> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\n> >> does return\n> >> /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib ->\n> >> libRblas.vecLib.dylib\n> >>\n> >> I however still see the same behavior: 100% CPU, single thread.\n> >>\n> >> I saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I\n> >> built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately\n> >> the pre compiled binairies pointed to in a previous email on the list [1]\n> >> were not available anymore. Building ATLAS was... fun ;)) I was able to get\n> >> the shared libraries (using --shared in my config) but still see the same\n> >> behavior when trying to run my code. I was unsure if I should link to\n> >> libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was\n> >> the right one though)\n> >>\n> >> I tried building R from the source (specifying -arch x86_64 and\n> >> --enable-BLAS-shlib to be able to switch libraries), but same behavior and\n> >> it seems it is an identical version to the prepackaged one (I tried with\n> >> BLAS, vecLib and ATLAS)\n> >>\n> >> R info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform:\n> >> x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> >>\n> >> Any help would be greatly appreciated.\n> >>\n> >> Thanks,\n> >> Melanie\n> >>\n> >>\n> >> [1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n> >>\n> >> ---\n> >> Mélanie Courtot\n> >> MSFHR/PCIRN Ph.D. Candidate,\n> >> BCCRC - Terry Fox Laboratory - 12th floor\n> >> 675 West 10th Avenue\n> >> Vancouver, BC\n> >> V5Z 1L3, Canada\n> >>\n> >> _______________________________________________\n> >> R-SIG-Mac mailing list\n> >> R-SIG-Mac at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >>\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > R-SIG-Mac mailing list\n> > R-SIG-Mac at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> \n>",
       "body_snippet": "Hi Ray and Simon, all,\n\nThanks for the help. My laptop has 8GB of RAM (my colleague has 12 on his desktop). I ssh'ed into his machine and the whole file loads in not even 2 seconds.\nThe file is read w",
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 4,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009661.html"
     },
     {
       "id": "msg-a6dd10b3d09e",
@@ -2129,6 +2235,7 @@
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 5,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009662.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121026/eaa67350/attachment.pl"
       ]
@@ -2155,6 +2262,7 @@
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 6,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009663.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121026/aa912947/attachment.pl"
       ]
@@ -2177,11 +2285,12 @@
         "<CACT39NZ0qq1oG5ax7typjLoKnc9pCOBRQAXTmHZRbu6f4re5Ow@mail.gmail.com>",
         "<CACT39NYM_Lnpm_LC7yoaJ-2fBb67G+Ucrtn577bd2ttV=22g7A@mail.gmail.com>"
       ],
-      "body_plain": "Hi Ray,\n\nThanks a lot for your help. I tried to rename the file etc as you suggested below. You are right that the file has a header, its structure is as below:\n@relation some string\n\n@attribute ID numeric\n@attribute Class {negative,positive}\n@attribute Att1 numeric\n...\n[I have 1140 of those)\n\nfollowed by a section @data and then the data rows.\n\nIt turns out that my colleague had copied the file on his machine and removed the headers manually, which was not done in our common SVN version which is the one I was trying to read. Removing the header solved the issue. \n\nRWeka looks very interesting, thanks for the pointer.\n\nCheers,\nMelanie\n\n\n\n\nOn 2012-10-26, at 11:53 AM, Ray DiGiacomo, Jr. wrote:\n\n> Hello Melanie,\n> \n> Also make sure that you and your colleague have similar outputs for these two commands:\n> \n> > search()\n> > ls() # L as in Larry, S as in Sam\n> \n> \"search()\" shows the packages you have loaded into R (which take up RAM).  \"ls()\" shows a list of your loaded R objects (which take up RAM).\n> \n> - Ray\n> \n> \n> \n> \n> \n> On Fri, Oct 26, 2012 at 11:17 AM, Ray DiGiacomo, Jr. <rayd at liondatasystems.com> wrote:\n> Hello Melanie,\n> \n> I'm not too familiar with ARFF but I believe it has some headers (and possibly footers) that may need to be removed before one can call the read.csv function.  I am assuming you and your colleague both manually removed the ARFF headers/footers before calling the read.csv function. \n> \n> You may also want to try changing the read.csv function call to:\n> \n> frame1 <- read.csv(\"test.csv\", header = FALSE)\n> \n> You will have to manually change your filename to test.csv first.  Also notice that the \"sep\" argument is not needed as it defaults to a \"comma\".  I would also use the word \"frame\" instead of \"mat\" as the data will not be a matrix after you call the read.csv function - it will be a frame.  You can turn your frame into a matrix using other R commands if you like.  See this page:\n> \n> http://stackoverflow.com/questions/5158790/data-frame-or-matrix\n> \n> Also, there are R packages called \"foreign\" and \"RWeka\" which both have read.arff functions inside of them.  You may want to give these a try.  \n> \n> You can learn about them here:\n> \n> See Paper Page 3 (Digital Page 2)\n> http://cran.r-project.org/web/packages/foreign/foreign.pdf\n> \n> See Paper Page 6 (Digital Page 3)\n> http://cran.r-project.org/web/packages/RWeka/RWeka.pdf\n> \n> - Ray\n> \n> \n> \n> \n> \n> \n> On Fri, Oct 26, 2012 at 10:18 AM, Melanie Courtot <mcourtot at gmail.com> wrote:\n> Hi Ray and Simon, all,\n> \n> Thanks for the help. My laptop has 8GB of RAM (my colleague has 12 on his desktop). I ssh'ed into his machine and the whole file loads in not even 2 seconds.\n> The file is read with mat<-read.csv('test.arff',header=FALSE,sep=',') The arff file is what I use with Weka, which is basically a comma delimited file. It contains around 7.5M datapoints (6200 rows, 1140 columns)\n> \n> It seems that with 8GB I should be quite ok?\n> \n> Based on your suggestions I tried with a part of the file only, which does work fine, so it seems that it is indeed a memory problem. Any idea as to why?\n> \n> Thanks,\n> Melanie\n> \n> \n> \n> Example record (I have 6200 of those)\n> 856243,negative,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\n> \n> \n> \n> On 2012-10-25, at 6:39 PM, Ray DiGiacomo, Jr. wrote:\n> \n> > Hi Simon,\n> >\n> > I took the spec from this Revo SlideShare.  The spec is based on a regression.\n> >\n> > http://www.revolutionanalytics.com/news-events/free-webinars/2011/intro-to-r-for-sas-spss/\n> >\n> > Click the right arrow until you get to slide 3 of 14.  Then, look at the slide in the lower-right hand corner (slide 12).\n> >\n> > - Ray\n> >\n> >\n> >\n> >\n> >\n> > On Thu, Oct 25, 2012 at 6:26 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> >\n> > On Oct 25, 2012, at 7:42 PM, Ray DiGiacomo, Jr. wrote:\n> >\n> > > Hello Melanie,\n> > >\n> > > How much RAM is installed on your MacBook Pro compared to your colleague's\n> > > Linux machine?\n> > >\n> > > How big is your dataset in terms of rows and columns?\n> > >\n> > > I believe R can handle about 10M datapoints per GB of RAM.\n> > >\n> >\n> > What exactly is that an estimate of? In R, 1GB of RAM will store ~134Mio datapoints when using numeric matrices/vectors and twice as many as integers or logicals. In practice, you will still need some room for computation on the data, though.\n> >\n> > Cheers,\n> > Simon\n> >\n> >\n> > > Note that datapoints = rows x columns\n> > >\n> > > Best Regards,\n> > >\n> > > Ray DiGiacomo, Jr.\n> > > Master R Trainer\n> > > President, Lion Data Systems LLC\n> > > President, The Orange County R User Group\n> > > Board Member, TDWI\n> > > rayd at liondatasystems.com\n> > > (Mobile) 408-425-7851\n> > > San Juan Capistrano, California\n> > >\n> > > Check out my one-on-one web-based R courses at liondatasystems.com/courses\n> > >\n> > >\n> > >\n> > >\n> > >\n> > > On Thu, Oct 25, 2012 at 4:16 PM, Melanie Courtot <mcourtot at gmail.com> wrote:\n> > >\n> > >> Hi,\n> > >>\n> > >> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying\n> > >> to read a csv file, which works fine on my work colleague's machine (under\n> > >> linux) but causes my CPU to go up to 100% and makes the GUI unresponsive\n> > >> and hangs on the command line. Activity monitor indicates there is only one\n> > >> R thread running.\n> > >>\n> > >> I did see that by default R was using the BLAS library, which is\n> > >> single-threaded, and that there was an option to use vecLib instead. I did\n> > >> this, and\n> > >> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\n> > >> does return\n> > >> /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib ->\n> > >> libRblas.vecLib.dylib\n> > >>\n> > >> I however still see the same behavior: 100% CPU, single thread.\n> > >>\n> > >> I saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I\n> > >> built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately\n> > >> the pre compiled binairies pointed to in a previous email on the list [1]\n> > >> were not available anymore. Building ATLAS was... fun ;)) I was able to get\n> > >> the shared libraries (using --shared in my config) but still see the same\n> > >> behavior when trying to run my code. I was unsure if I should link to\n> > >> libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was\n> > >> the right one though)\n> > >>\n> > >> I tried building R from the source (specifying -arch x86_64 and\n> > >> --enable-BLAS-shlib to be able to switch libraries), but same behavior and\n> > >> it seems it is an identical version to the prepackaged one (I tried with\n> > >> BLAS, vecLib and ATLAS)\n> > >>\n> > >> R info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform:\n> > >> x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> > >>\n> > >> Any help would be greatly appreciated.\n> > >>\n> > >> Thanks,\n> > >> Melanie\n> > >>\n> > >>\n> > >> [1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n> > >>\n> > >> ---\n> > >> M?lanie Courtot\n> > >> MSFHR/PCIRN Ph.D. Candidate,\n> > >> BCCRC - Terry Fox Laboratory - 12th floor\n> > >> 675 West 10th Avenue\n> > >> Vancouver, BC\n> > >> V5Z 1L3, Canada\n> > >>\n> > >> _______________________________________________\n> > >> R-SIG-Mac mailing list\n> > >> R-SIG-Mac at r-project.org\n> > >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > >>\n> > >\n> > >       [[alternative HTML version deleted]]\n> > >\n> > > _______________________________________________\n> > > R-SIG-Mac mailing list\n> > > R-SIG-Mac at r-project.org\n> > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> >\n> \n> \n>",
+      "body_plain": "Hi Ray,\n\nThanks a lot for your help. I tried to rename the file etc as you suggested below. You are right that the file has a header, its structure is as below:\n@relation some string\n\n@attribute ID numeric\n@attribute Class {negative,positive}\n@attribute Att1 numeric\n...\n[I have 1140 of those)\n\nfollowed by a section @data and then the data rows.\n\nIt turns out that my colleague had copied the file on his machine and removed the headers manually, which was not done in our common SVN version which is the one I was trying to read. Removing the header solved the issue. \n\nRWeka looks very interesting, thanks for the pointer.\n\nCheers,\nMelanie\n\n\n\n\nOn 2012-10-26, at 11:53 AM, Ray DiGiacomo, Jr. wrote:\n\n> Hello Melanie,\n> \n> Also make sure that you and your colleague have similar outputs for these two commands:\n> \n> > search()\n> > ls() # L as in Larry, S as in Sam\n> \n> \"search()\" shows the packages you have loaded into R (which take up RAM).  \"ls()\" shows a list of your loaded R objects (which take up RAM).\n> \n> - Ray\n> \n> \n> \n> \n> \n> On Fri, Oct 26, 2012 at 11:17 AM, Ray DiGiacomo, Jr. <rayd at liondatasystems.com> wrote:\n> Hello Melanie,\n> \n> I'm not too familiar with ARFF but I believe it has some headers (and possibly footers) that may need to be removed before one can call the read.csv function.  I am assuming you and your colleague both manually removed the ARFF headers/footers before calling the read.csv function. \n> \n> You may also want to try changing the read.csv function call to:\n> \n> frame1 <- read.csv(\"test.csv\", header = FALSE)\n> \n> You will have to manually change your filename to test.csv first.  Also notice that the \"sep\" argument is not needed as it defaults to a \"comma\".  I would also use the word \"frame\" instead of \"mat\" as the data will not be a matrix after you call the read.csv function - it will be a frame.  You can turn your frame into a matrix using other R commands if you like.  See this page:\n> \n> http://stackoverflow.com/questions/5158790/data-frame-or-matrix\n> \n> Also, there are R packages called \"foreign\" and \"RWeka\" which both have read.arff functions inside of them.  You may want to give these a try.  \n> \n> You can learn about them here:\n> \n> See Paper Page 3 (Digital Page 2)\n> http://cran.r-project.org/web/packages/foreign/foreign.pdf\n> \n> See Paper Page 6 (Digital Page 3)\n> http://cran.r-project.org/web/packages/RWeka/RWeka.pdf\n> \n> - Ray\n> \n> \n> \n> \n> \n> \n> On Fri, Oct 26, 2012 at 10:18 AM, Melanie Courtot <mcourtot at gmail.com> wrote:\n> Hi Ray and Simon, all,\n> \n> Thanks for the help. My laptop has 8GB of RAM (my colleague has 12 on his desktop). I ssh'ed into his machine and the whole file loads in not even 2 seconds.\n> The file is read with mat<-read.csv('test.arff',header=FALSE,sep=',') The arff file is what I use with Weka, which is basically a comma delimited file. It contains around 7.5M datapoints (6200 rows, 1140 columns)\n> \n> It seems that with 8GB I should be quite ok?\n> \n> Based on your suggestions I tried with a part of the file only, which does work fine, so it seems that it is indeed a memory problem. Any idea as to why?\n> \n> Thanks,\n> Melanie\n> \n> \n> \n> Example record (I have 6200 of those)\n> 856243,negative,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\n> \n> \n> \n> On 2012-10-25, at 6:39 PM, Ray DiGiacomo, Jr. wrote:\n> \n> > Hi Simon,\n> >\n> > I took the spec from this Revo SlideShare.  The spec is based on a regression.\n> >\n> > http://www.revolutionanalytics.com/news-events/free-webinars/2011/intro-to-r-for-sas-spss/\n> >\n> > Click the right arrow until you get to slide 3 of 14.  Then, look at the slide in the lower-right hand corner (slide 12).\n> >\n> > - Ray\n> >\n> >\n> >\n> >\n> >\n> > On Thu, Oct 25, 2012 at 6:26 PM, Simon Urbanek <simon.urbanek at r-project.org> wrote:\n> >\n> > On Oct 25, 2012, at 7:42 PM, Ray DiGiacomo, Jr. wrote:\n> >\n> > > Hello Melanie,\n> > >\n> > > How much RAM is installed on your MacBook Pro compared to your colleague's\n> > > Linux machine?\n> > >\n> > > How big is your dataset in terms of rows and columns?\n> > >\n> > > I believe R can handle about 10M datapoints per GB of RAM.\n> > >\n> >\n> > What exactly is that an estimate of? In R, 1GB of RAM will store ~134Mio datapoints when using numeric matrices/vectors and twice as many as integers or logicals. In practice, you will still need some room for computation on the data, though.\n> >\n> > Cheers,\n> > Simon\n> >\n> >\n> > > Note that datapoints = rows x columns\n> > >\n> > > Best Regards,\n> > >\n> > > Ray DiGiacomo, Jr.\n> > > Master R Trainer\n> > > President, Lion Data Systems LLC\n> > > President, The Orange County R User Group\n> > > Board Member, TDWI\n> > > rayd at liondatasystems.com\n> > > (Mobile) 408-425-7851\n> > > San Juan Capistrano, California\n> > >\n> > > Check out my one-on-one web-based R courses at liondatasystems.com/courses\n> > >\n> > >\n> > >\n> > >\n> > >\n> > > On Thu, Oct 25, 2012 at 4:16 PM, Melanie Courtot <mcourtot at gmail.com> wrote:\n> > >\n> > >> Hi,\n> > >>\n> > >> I am trying to run R on my MacBook Pro 2.4 GHz Intel core i5. I am trying\n> > >> to read a csv file, which works fine on my work colleague's machine (under\n> > >> linux) but causes my CPU to go up to 100% and makes the GUI unresponsive\n> > >> and hangs on the command line. Activity monitor indicates there is only one\n> > >> R thread running.\n> > >>\n> > >> I did see that by default R was using the BLAS library, which is\n> > >> single-threaded, and that there was an option to use vecLib instead. I did\n> > >> this, and\n> > >> ls -l /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib\n> > >> does return\n> > >> /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib ->\n> > >> libRblas.vecLib.dylib\n> > >>\n> > >> I however still see the same behavior: 100% CPU, single thread.\n> > >>\n> > >> I saw that some MacBook pro (Xeon Nehalem based) had a vecLib bug, so I\n> > >> built the ATLAS library and symlinked R to libtatlas.dylib (unfortunately\n> > >> the pre compiled binairies pointed to in a previous email on the list [1]\n> > >> were not available anymore. Building ATLAS was... fun ;)) I was able to get\n> > >> the shared libraries (using --shared in my config) but still see the same\n> > >> behavior when trying to run my code. I was unsure if I should link to\n> > >> libsatlas.dylib or libtatlas.dylib, so tried both (I guess the latter was\n> > >> the right one though)\n> > >>\n> > >> I tried building R from the source (specifying -arch x86_64 and\n> > >> --enable-BLAS-shlib to be able to switch libraries), but same behavior and\n> > >> it seems it is an identical version to the prepackaged one (I tried with\n> > >> BLAS, vecLib and ATLAS)\n> > >>\n> > >> R info: R version 2.15.1 (2012-06-22) -- \"Roasted Marshmallows\", Platform:\n> > >> x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> > >>\n> > >> Any help would be greatly appreciated.\n> > >>\n> > >> Thanks,\n> > >> Melanie\n> > >>\n> > >>\n> > >> [1] https://stat.ethz.ch/pipermail/r-sig-mac/2010-October/007817.html\n> > >>\n> > >> ---\n> > >> Mélanie Courtot\n> > >> MSFHR/PCIRN Ph.D. Candidate,\n> > >> BCCRC - Terry Fox Laboratory - 12th floor\n> > >> 675 West 10th Avenue\n> > >> Vancouver, BC\n> > >> V5Z 1L3, Canada\n> > >>\n> > >> _______________________________________________\n> > >> R-SIG-Mac mailing list\n> > >> R-SIG-Mac at r-project.org\n> > >> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> > >>\n> > >\n> > >       [[alternative HTML version deleted]]\n> > >\n> > > _______________________________________________\n> > > R-SIG-Mac mailing list\n> > > R-SIG-Mac at r-project.org\n> > > https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n> >\n> >\n> \n> \n>",
       "body_snippet": "Hi Ray,\n\nThanks a lot for your help. I tried to rename the file etc as you suggested below. You are right that the file has a header, its structure is as below:\n@relation some string\n\n@attribute ID nu",
       "thread_id": "thread-8cef672f9f29",
       "thread_depth": 7,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009664.html"
     },
     {
       "id": "msg-51fe4ea1cebb",
@@ -2197,7 +2306,8 @@
       "body_snippet": "Hi:\n\nI see that R 2.15.2 is now available for the Mac.  In some of the other R mail-lists people have mentioned having to reinstall  packages when they upgraded to 2.15.2.  Is this likely to be the ca",
       "thread_id": "thread-51fe4ea1cebb",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009665.html"
     },
     {
       "id": "msg-a99aa1b43fcb",
@@ -2215,7 +2325,8 @@
       "body_snippet": "On 27/10/2012 17:10, Roy Mendelssohn wrote:\n> Hi:\n>\n> I see that R 2.15.2 is now available for the Mac. In some of the\n> other  R mail-lists people have mentioned having to reinstall packages when\nthe",
       "thread_id": "thread-51fe4ea1cebb",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009666.html"
     },
     {
       "id": "msg-9f76968d8c85",
@@ -2234,7 +2345,8 @@
       "body_snippet": "On 27/10/2012 17:25, Prof Brian Ripley wrote:\n> On 27/10/2012 17:10, Roy Mendelssohn wrote:\n>> Hi:\n>>\n>> I see that R 2.15.2 is now available for the Mac. In some of the\n>> other  R mail-lists people ",
       "thread_id": "thread-51fe4ea1cebb",
       "thread_depth": 2,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009667.html"
     },
     {
       "id": "msg-818009265894",
@@ -2251,6 +2363,7 @@
       "thread_id": "thread-818009265894",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009672.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121028/3bd88bd1/attachment.pl"
       ]
@@ -2270,6 +2383,7 @@
       "thread_id": "thread-0fa592501ff8",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009673.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121028/3ea12f6b/attachment.pl"
       ]
@@ -2289,6 +2403,7 @@
       "thread_id": "thread-74e3b22b4a24",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009668.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121028/39e21f9c/attachment.pl"
       ]
@@ -2309,7 +2424,8 @@
       "body_snippet": "On Oct 28, 2012, at 2:37 PM, Paul Johnson wrote:\n\n> I'm trying to use embedded R (REngine). In my own code I call the NSString\n> class method '+stringWithContentsOfFile:encoding:error:'. Unfortunately",
       "thread_id": "thread-74e3b22b4a24",
       "thread_depth": 1,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009669.html"
     },
     {
       "id": "msg-34fcad1d0f0a",
@@ -2329,6 +2445,7 @@
       "thread_id": "thread-74e3b22b4a24",
       "thread_depth": 2,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009670.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121028/510c7b95/attachment.pl"
       ]
@@ -2351,7 +2468,8 @@
       "body_snippet": "On Oct 28, 2012, at 7:03 PM, Paul Johnson wrote:\n\n> Thanks, Simon. After defining R_NO_REMAP in 'OTHER C FLAGS' I get 10 fatal errors from the loader:\n\nUnsurprisingly - you can't set R_NO_REMAP for ev",
       "thread_id": "thread-74e3b22b4a24",
       "thread_depth": 3,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009671.html"
     },
     {
       "id": "msg-5595927ed922",
@@ -2370,7 +2488,8 @@
       "body_snippet": "Resending to r-sig-mac (the @stat.math.ethz.ch email bounced me) ...\n\n\n---------- Forwarded message ----------\nFrom: Steve Lianoglou <mailinglist.honeypot at gmail.com>\nDate: Wed, Oct 31, 2012 at 3:14",
       "thread_id": "thread-5595927ed922",
       "thread_depth": 0,
-      "month": "2012-10"
+      "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009675.html"
     },
     {
       "id": "msg-5ecb3ff09669",
@@ -2387,6 +2506,7 @@
       "thread_id": "thread-5ecb3ff09669",
       "thread_depth": 0,
       "month": "2012-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2012-October/009676.html",
       "restored_from": [
         "https://stat.ethz.ch/pipermail/r-sig-mac/attachments/20121031/a258b889/attachment.pl"
       ]
