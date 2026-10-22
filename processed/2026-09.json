@@ -17,7 +17,8 @@
       "body_snippet": "Just saw that (some of?) the new macOS binaries for R 4.6 are zstd\ncompressed:\n\n? curl -LO\nhttps://cloud.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/knitr_1.52.tgz\n\n? file knitr_1.52.tgz\nknitr_1",
       "thread_id": "thread-71886ce6f721",
       "thread_depth": 0,
-      "month": "2026-09"
+      "month": "2026-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-September/015387.html"
     },
     {
       "id": "msg-cb42bdea72a4",
@@ -33,7 +34,8 @@
       "body_snippet": "TL;DR macOS R-devel arm64 binaries now use:\n> .Platform$pkgType\n[1] \"macos.binary.arm64\"\n> contrib.url(\"\", type=\"binary\")\n[1] \"/bin/macos/arm64/contrib/4.7\"\n(note the lack of x at the end of macos!) a",
       "thread_id": "thread-cb42bdea72a4",
       "thread_depth": 0,
-      "month": "2026-09"
+      "month": "2026-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-September/015388.html"
     },
     {
       "id": "msg-c1f394555cd3",
@@ -47,11 +49,12 @@
       "references": [
         "<CABtg=K=m-UN4PYsxvAANXUS+bx=fuRP6SEp353oU-sgP30=wug@mail.gmail.com>"
       ],
-      "body_plain": "G?bor,\n\n\n> On 20 Sep 2026, at 20:24, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n> Just saw that (some of?) the new macOS binaries for R 4.6 are zstd compressed:\n> \n> ? curl -LO\n> https://cloud.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/knitr_1.52.tgz\n> \n> ? file knitr_1.52.tgz\n> knitr_1.52.tgz: Zstandard compressed data (v0.8+), Dictionary ID: None\n> \n\n\nAh, no, thanks, that's a bug, likely resulting from earlier updates where we were experimenting with using zstd for 4.7 binaries, but that didn't go well since stock macOS bsdtar cannot handle them. The 4.6 binaries should be gzip as usual.\n\n\n> OTOH the new 4.7 binaries are xz compressed, with a new file name scheme:\n> https://mac.r-project.org/bin/macos/arm64/contrib/4.7/\n> \n> Is this what we can expect for the near future, gz/zstd in .tgz for 4.6 and\n> xz in .tar.xz starting from 4.7, or this might still change?\n> \n\n\nI just sent the announcement, so, yes, tar.xz is the plan for 4.7, but nothing should change for 4.6 and earlier (and nothing will change for the x86_64 big sur builds, either).\n\nThanks,\nSimon",
-      "body_snippet": "G?bor,\n\n\n> On 20 Sep 2026, at 20:24, G?bor Cs?rdi <csardi.gabor at gmail.com> wrote:\n> \n> Just saw that (some of?) the new macOS binaries for R 4.6 are zstd compressed:\n> \n> ? curl -LO\n> https://cloud",
+      "body_plain": "Gábor,\n\n\n> On 20 Sep 2026, at 20:24, Gábor Csárdi <csardi.gabor at gmail.com> wrote:\n> \n> Just saw that (some of?) the new macOS binaries for R 4.6 are zstd compressed:\n> \n> ❯ curl -LO\n> https://cloud.r-project.org/bin/macosx/sonoma-arm64/contrib/4.6/knitr_1.52.tgz\n> \n> ❯ file knitr_1.52.tgz\n> knitr_1.52.tgz: Zstandard compressed data (v0.8+), Dictionary ID: None\n> \n\n\nAh, no, thanks, that's a bug, likely resulting from earlier updates where we were experimenting with using zstd for 4.7 binaries, but that didn't go well since stock macOS bsdtar cannot handle them. The 4.6 binaries should be gzip as usual.\n\n\n> OTOH the new 4.7 binaries are xz compressed, with a new file name scheme:\n> https://mac.r-project.org/bin/macos/arm64/contrib/4.7/\n> \n> Is this what we can expect for the near future, gz/zstd in .tgz for 4.6 and\n> xz in .tar.xz starting from 4.7, or this might still change?\n> \n\n\nI just sent the announcement, so, yes, tar.xz is the plan for 4.7, but nothing should change for 4.6 and earlier (and nothing will change for the x86_64 big sur builds, either).\n\nThanks,\nSimon",
+      "body_snippet": "Gábor,\n\n\n> On 20 Sep 2026, at 20:24, Gábor Csárdi <csardi.gabor at gmail.com> wrote:\n> \n> Just saw that (some of?) the new macOS binaries for R 4.6 are zstd compressed:\n> \n> ❯ curl -LO\n> https://cloud",
       "thread_id": "thread-71886ce6f721",
       "thread_depth": 1,
-      "month": "2026-09"
+      "month": "2026-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-September/015389.html"
     },
     {
       "id": "msg-651776c9acb9",
@@ -67,7 +70,8 @@
       "body_snippet": "Strange thing:   open a new Untitled document ,   type some junk.\n\nHit the red Close button or CMD-W  , get the dialog about save or name it\n;  click on the Delete button, and nothing happens (except ",
       "thread_id": "thread-651776c9acb9",
       "thread_depth": 0,
-      "month": "2026-09"
+      "month": "2026-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-September/015390.html"
     },
     {
       "id": "msg-f559c38a792f",
@@ -83,7 +87,8 @@
       "body_snippet": "Wondering if anyone else has seen this:\nI am running an iMac M4, Sequoia 15.7.9  and R 4.6.1 .\n\nI notice that every call to yac_str   increases the memory usage as\nreported with the MacOS Activity Mon",
       "thread_id": "thread-f559c38a792f",
       "thread_depth": 0,
-      "month": "2026-09"
+      "month": "2026-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-September/015391.html"
     },
     {
       "id": "msg-d2cbb2f09e54",
@@ -101,7 +106,8 @@
       "body_snippet": "On 2026-09-23 10:51 a.m., Carl Witthoft wrote:\n> Wondering if anyone else has seen this:\n> I am running an iMac M4, Sequoia 15.7.9  and R 4.6.1 .\n> \n> I notice that every call to yac_str   increases t",
       "thread_id": "thread-f559c38a792f",
       "thread_depth": 1,
-      "month": "2026-09"
+      "month": "2026-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-September/015392.html"
     },
     {
       "id": "msg-040694333a8c",
@@ -119,7 +125,8 @@
       "body_snippet": "Carl,\n\nthis is a known issue in recent macOS versions. Unfortunately, it is unclear how to fix this, since the behaviour is outside of the R.app code - the GUI itself is never notified by the system, ",
       "thread_id": "thread-651776c9acb9",
       "thread_depth": 1,
-      "month": "2026-09"
+      "month": "2026-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-September/015393.html"
     },
     {
       "id": "msg-45fe478457d1",
@@ -138,7 +145,8 @@
       "body_snippet": "Thanks to Kevin Ushey this is now fixed!\n\nCheers,\nSimon\n\n\n> On 24 Sep 2026, at 15:50, Simon Urbanek <simon.urbanek at R-project.org> wrote:\n> \n> Carl,\n> \n> this is a known issue in recent macOS versio",
       "thread_id": "thread-651776c9acb9",
       "thread_depth": 2,
-      "month": "2026-09"
+      "month": "2026-09",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-September/015394.html"
     }
   ],
   "threads": [
