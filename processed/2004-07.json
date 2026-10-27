@@ -16,11 +16,12 @@
         "<46726576-C93D-11D8-8346-000393707CF2@globetrotter.net>",
         "<Pine.GSO.4.51.0406301103550.25844@csm.Berkeley.EDU>"
       ],
-      "body_plain": "On Jun 30, 2004, at 8:08 PM, Jake Bowers wrote:\n\n> I'm wondering if anyone has tried to/used R with Xgrid. If so, I'd be\n> interested to hear any tips anyone might have about making this work\n> (using either clusters of OS X machines or clusters of \n> Linux/Solaris/OS X\n> machines).\n\nWe had a brief look at Xgrid, however at that time the only \nwell-supported way of using it was the parallel execution of processes \n- i.e. you define you input data for each machine and run a process on \neach. Xgrid takes care of the distribution of files and collecting \nresults. However this doesn't help in our case since we need the \nmachines to talk to each other. I couldn't find any sufficient \ndocumentation on other methods supported by Xgrid.\n\nWe use the (very nice) \"snow\" package by Luke Tierney with PVM (via \nRpvm) as backend. It works fine in our setting, but of course \nintegration in Xgrid would be great. The future Xgrids are supposed to \nhave some MPI support, but we didn't test it here - anyone out there \ntried that?\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_plain": "On Jun 30, 2004, at 8:08 PM, Jake Bowers wrote:\n\n> I'm wondering if anyone has tried to/used R with Xgrid. If so, I'd be\n> interested to hear any tips anyone might have about making this work\n> (using either clusters of OS X machines or clusters of \n> Linux/Solaris/OS X\n> machines).\n\nWe had a brief look at Xgrid, however at that time the only \nwell-supported way of using it was the parallel execution of processes \n- i.e. you define you input data for each machine and run a process on \neach. Xgrid takes care of the distribution of files and collecting \nresults. However this doesn't help in our case since we need the \nmachines to talk to each other. I couldn't find any sufficient \ndocumentation on other methods supported by Xgrid.\n\nWe use the (very nice) \"snow\" package by Luke Tierney with PVM (via \nRpvm) as backend. It works fine in our setting, but of course \nintegration in Xgrid would be great. The future Xgrids are supposed to \nhave some MPI support, but we didn't test it here - anyone out there \ntried that?\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversitätsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
       "body_snippet": "On Jun 30, 2004, at 8:08 PM, Jake Bowers wrote:\n\n> I'm wondering if anyone has tried to/used R with Xgrid. If so, I'd be\n> interested to hear any tips anyone might have about making this work\n> (using",
       "thread_id": "thread-dddbc82ce3ac",
       "thread_depth": 0,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001157.html"
     },
     {
       "id": "msg-4396a81da635",
@@ -107,11 +108,12 @@
       "references": [
         "<F4B94166-CB67-11D8-823A-000393707CF2@globetrotter.net>"
       ],
-      "body_plain": "On Jul 1, 2004, at 4:07 PM, Denis Chabot wrote:\n\n> I am new to R but I'd like to learn while also reviewing statistical \n> techniques that I feel will be useful to me in the near future. I \n> found the labs prepared by\n> http://labdsv.nr.usu.edu/splus_R/index.html\n> a very useful way to start with R. But they recommend 2 packages, \n> Vegan and LabDSV.\n>\n> The former is available on CRAN and I successfully installed it. The \n> second can be found, as a source package (I apologize if this is not \n> the proper term for it), on:\n> http://labdsv.nr.usu.edu/download/labdsv.html\n\nIt's not your fault - the \"thing\" they offer for download is not a \nvalid R package - it's rather a big mess.\n\nTo make it installable at all, you have to perform following steps:\n\n# just copy/paste the following to a Terminal window:\ncd /tmp\ncurl -O http://labdsv.nr.usu.edu/download/labdsv_0.9-2.zip\nunzip labdsv_0.9-2.zip labdsv/DESCRIPTION\ncurl -O http://labdsv.nr.usu.edu/download/labdsv_0.9-1.tar.gz\ncd labdsv\ntar fvxz ../labdsv_0.9-1.tar.gz\nrm man/template.Rd\nrm src/*.o src/*.so\nrm src/altmaxpact.f\nopen -a TextEdit.app man/confus.Rd\n\n# now a TextEdit should open. go to the third line and replace \n\\title}Confusion Table} with \\title{Confusion Table} - simply the first \nbracket is reversed\n# save the file and get back to the terminal and copy/paste the \nfollowing:\n\nopen -a TextEdit.app DESCRIPTION\n\n# again TextEdit opens; delete the last line saying \"Built: ...\"; save, \nget back to Terminal and copy/paste following:\n\ncd ..\nR CMD INSTALL labdsv\n\nThat should do the trick and the (wanna-be) package labdsv is installed \n(you need g77 for that of course, but you said Stefano helped you with \nthat). The package contains several errors and is not on CRAN for good \nreason ... it'd never make the tests.\n\nI hope it helps.\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_plain": "On Jul 1, 2004, at 4:07 PM, Denis Chabot wrote:\n\n> I am new to R but I'd like to learn while also reviewing statistical \n> techniques that I feel will be useful to me in the near future. I \n> found the labs prepared by\n> http://labdsv.nr.usu.edu/splus_R/index.html\n> a very useful way to start with R. But they recommend 2 packages, \n> Vegan and LabDSV.\n>\n> The former is available on CRAN and I successfully installed it. The \n> second can be found, as a source package (I apologize if this is not \n> the proper term for it), on:\n> http://labdsv.nr.usu.edu/download/labdsv.html\n\nIt's not your fault - the \"thing\" they offer for download is not a \nvalid R package - it's rather a big mess.\n\nTo make it installable at all, you have to perform following steps:\n\n# just copy/paste the following to a Terminal window:\ncd /tmp\ncurl -O http://labdsv.nr.usu.edu/download/labdsv_0.9-2.zip\nunzip labdsv_0.9-2.zip labdsv/DESCRIPTION\ncurl -O http://labdsv.nr.usu.edu/download/labdsv_0.9-1.tar.gz\ncd labdsv\ntar fvxz ../labdsv_0.9-1.tar.gz\nrm man/template.Rd\nrm src/*.o src/*.so\nrm src/altmaxpact.f\nopen -a TextEdit.app man/confus.Rd\n\n# now a TextEdit should open. go to the third line and replace \n\\title}Confusion Table} with \\title{Confusion Table} - simply the first \nbracket is reversed\n# save the file and get back to the terminal and copy/paste the \nfollowing:\n\nopen -a TextEdit.app DESCRIPTION\n\n# again TextEdit opens; delete the last line saying \"Built: ...\"; save, \nget back to Terminal and copy/paste following:\n\ncd ..\nR CMD INSTALL labdsv\n\nThat should do the trick and the (wanna-be) package labdsv is installed \n(you need g77 for that of course, but you said Stefano helped you with \nthat). The package contains several errors and is not on CRAN for good \nreason ... it'd never make the tests.\n\nI hope it helps.\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversitätsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
       "body_snippet": "On Jul 1, 2004, at 4:07 PM, Denis Chabot wrote:\n\n> I am new to R but I'd like to learn while also reviewing statistical \n> techniques that I feel will be useful to me in the near future. I \n> found th",
       "thread_id": "thread-45de40002413",
       "thread_depth": 1,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001162.html"
     },
     {
       "id": "msg-0ab7c9448ac0",
@@ -140,11 +142,12 @@
       "subject_clean": "How can I use R 1.9.1 on a Ibook G3?",
       "in_reply_to": "<BD0A2516.2C50%rriem@free.fr>",
       "references": [],
-      "body_plain": "Hi!\n\nI'm running 1.9.1 on a white iBook G3. I downloaded the sources and then \nfollow the instructions on the RMacOS-FAQ to compile and install R.\n\nI'm using \"Panther\" 10.3.4, with the Developer tools and the X server, and \nfink 0.7.0.cvs\n\nGood look.\n\nOn Thu, 1 Jul 2004, Romuald Riem wrote:\n\n> Hello,\n> \n> I can't use the current package of R 1.9.1 on my good old Ibook G3 and I\n> haven't a G4. R 1.9.0 works fine.\n> \n> How can I use this new version of R on my computer ?\n> \n> Thanks in advance\n> \n> Romuald Riem\n> Anesth?sie R?animation chirurgicale\n> Nantes\n> France\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n-- \nUlises M. Alvarez\nLAB. DE ONDAS DE CHOQUE\nFISICA APLICADA Y TECNOLOGIA AVANZADA\nUNAM\numalvarez@fata.unam.mx",
+      "body_plain": "Hi!\n\nI'm running 1.9.1 on a white iBook G3. I downloaded the sources and then \nfollow the instructions on the RMacOS-FAQ to compile and install R.\n\nI'm using \"Panther\" 10.3.4, with the Developer tools and the X server, and \nfink 0.7.0.cvs\n\nGood look.\n\nOn Thu, 1 Jul 2004, Romuald Riem wrote:\n\n> Hello,\n> \n> I can't use the current package of R 1.9.1 on my good old Ibook G3 and I\n> haven't a G4. R 1.9.0 works fine.\n> \n> How can I use this new version of R on my computer ?\n> \n> Thanks in advance\n> \n> Romuald Riem\n> Anesthésie Réanimation chirurgicale\n> Nantes\n> France\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n> \n\n-- \nUlises M. Alvarez\nLAB. DE ONDAS DE CHOQUE\nFISICA APLICADA Y TECNOLOGIA AVANZADA\nUNAM\numalvarez@fata.unam.mx",
       "body_snippet": "Hi!\n\nI'm running 1.9.1 on a white iBook G3. I downloaded the sources and then \nfollow the instructions on the RMacOS-FAQ to compile and install R.\n\nI'm using \"Panther\" 10.3.4, with the Developer tools",
       "thread_id": "thread-0ab7c9448ac0",
       "thread_depth": 1,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001164.html"
     },
     {
       "id": "msg-25a93cb5292c",
@@ -178,11 +181,12 @@
         "<BD0A2516.2C50%rriem@free.fr>",
         "<68951C62-CC13-11D8-806A-000A959F327E@math.uni-augsburg.de>"
       ],
-      "body_plain": "Selon Simon Urbanek <simon.urbanek@math.uni-augsburg.de>:\n\n> \n> On Jul 1, 2004, at 8:31 PM, Romuald Riem wrote:\n> \n> > I can't use the current package of R 1.9.1 on my good old Ibook G3 and \n> > I\n> > haven't a G4. R 1.9.0 works fine.\n> >\n> > How can I use this new version of R on my computer ?\n> \n> What exactly is the problem? \"I can't use\" isn't very specific ... \n> please provide your OS version, how you installed R, what goes wrong, \n> output of the console etc. etc.\n> \n> Simon\n> \n> \n\n\nDear all,\n\nIt's sure I was too laconic in my previous message.\n\nHere is my problem:\n- the computer: an Ibook G3, with 10.2.8\n-  R version: the package downloaded from CRAN\n- the problem(s): first, when I use the R 1.9.1 package, the installation \nbegins and stops because \"a problem occurs\". Sorry, no console log.\nsecond, in the \"read me\" file the required configuration is os 10.2 and a G4.\nthird, I'm quite surprise because the installation program doesn't ask for the \nadministrator password.\n\nSo, is there an easier way to install R 1.9.1 than downloading and compilling \nsources ?\n\nThanks in advance.\n\n\nRomuald Riem\nAnesth?sie r?animation chirurgicale\nNantes \nFrance",
+      "body_plain": "Selon Simon Urbanek <simon.urbanek@math.uni-augsburg.de>:\n\n> \n> On Jul 1, 2004, at 8:31 PM, Romuald Riem wrote:\n> \n> > I can't use the current package of R 1.9.1 on my good old Ibook G3 and \n> > I\n> > haven't a G4. R 1.9.0 works fine.\n> >\n> > How can I use this new version of R on my computer ?\n> \n> What exactly is the problem? \"I can't use\" isn't very specific ... \n> please provide your OS version, how you installed R, what goes wrong, \n> output of the console etc. etc.\n> \n> Simon\n> \n> \n\n\nDear all,\n\nIt's sure I was too laconic in my previous message.\n\nHere is my problem:\n- the computer: an Ibook G3, with 10.2.8\n-  R version: the package downloaded from CRAN\n- the problem(s): first, when I use the R 1.9.1 package, the installation \nbegins and stops because \"a problem occurs\". Sorry, no console log.\nsecond, in the \"read me\" file the required configuration is os 10.2 and a G4.\nthird, I'm quite surprise because the installation program doesn't ask for the \nadministrator password.\n\nSo, is there an easier way to install R 1.9.1 than downloading and compilling \nsources ?\n\nThanks in advance.\n\n\nRomuald Riem\nAnesthésie réanimation chirurgicale\nNantes \nFrance",
       "body_snippet": "Selon Simon Urbanek <simon.urbanek@math.uni-augsburg.de>:\n\n> \n> On Jul 1, 2004, at 8:31 PM, Romuald Riem wrote:\n> \n> > I can't use the current package of R 1.9.1 on my good old Ibook G3 and \n> > I\n> >",
       "thread_id": "thread-0ab7c9448ac0",
       "thread_depth": 2,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001166.html"
     },
     {
       "id": "msg-61cac8b2648b",
@@ -215,11 +219,12 @@
         "<68951C62-CC13-11D8-806A-000A959F327E@math.uni-augsburg.de>",
         "<1088769547.40e54e0b49c8e@imp2-q.free.fr>"
       ],
-      "body_plain": "I would guess that R 1.9.1 was built with a 10.3 deployment target \nwhile 1.9.0 was built with a 10.2 deployment target. Though it is \nstrange that it didn't ask for the admin password---so maybe just the \ninstaller is borked. Our remaining 10.2 user is unfortunately away for \nthe long weekend so I can't bug him about doing an install. I'm going \nto be installing R on a fresh 10.3 today so I can at least check for \nthe bad installer, but not a 10.3 deployment target.\n\n\nOn Jul 2, 2004, at 7:59 AM, rriem@free.fr wrote:\n\n> Selon Simon Urbanek <simon.urbanek@math.uni-augsburg.de>:\n>\n>>\n>> On Jul 1, 2004, at 8:31 PM, Romuald Riem wrote:\n>>\n>>> I can't use the current package of R 1.9.1 on my good old Ibook G3 \n>>> and\n>>> I\n>>> haven't a G4. R 1.9.0 works fine.\n>>>\n>>> How can I use this new version of R on my computer ?\n>>\n>> What exactly is the problem? \"I can't use\" isn't very specific ...\n>> please provide your OS version, how you installed R, what goes wrong,\n>> output of the console etc. etc.\n>>\n>> Simon\n>>\n>>\n>\n>\n> Dear all,\n>\n> It's sure I was too laconic in my previous message.\n>\n> Here is my problem:\n> - the computer: an Ibook G3, with 10.2.8\n> -  R version: the package downloaded from CRAN\n> - the problem(s): first, when I use the R 1.9.1 package, the \n> installation\n> begins and stops because \"a problem occurs\". Sorry, no console log.\n> second, in the \"read me\" file the required configuration is os 10.2 \n> and a G4.\n> third, I'm quite surprise because the installation program doesn't ask \n> for the\n> administrator password.\n>\n> So, is there an easier way to install R 1.9.1 than downloading and \n> compilling\n> sources ?\n>\n> Thanks in advance.\n>\n>\n> Romuald Riem\n> Anesth?sie r?animation chirurgicale\n> Nantes\n> France\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
+      "body_plain": "I would guess that R 1.9.1 was built with a 10.3 deployment target \nwhile 1.9.0 was built with a 10.2 deployment target. Though it is \nstrange that it didn't ask for the admin password---so maybe just the \ninstaller is borked. Our remaining 10.2 user is unfortunately away for \nthe long weekend so I can't bug him about doing an install. I'm going \nto be installing R on a fresh 10.3 today so I can at least check for \nthe bad installer, but not a 10.3 deployment target.\n\n\nOn Jul 2, 2004, at 7:59 AM, rriem@free.fr wrote:\n\n> Selon Simon Urbanek <simon.urbanek@math.uni-augsburg.de>:\n>\n>>\n>> On Jul 1, 2004, at 8:31 PM, Romuald Riem wrote:\n>>\n>>> I can't use the current package of R 1.9.1 on my good old Ibook G3 \n>>> and\n>>> I\n>>> haven't a G4. R 1.9.0 works fine.\n>>>\n>>> How can I use this new version of R on my computer ?\n>>\n>> What exactly is the problem? \"I can't use\" isn't very specific ...\n>> please provide your OS version, how you installed R, what goes wrong,\n>> output of the console etc. etc.\n>>\n>> Simon\n>>\n>>\n>\n>\n> Dear all,\n>\n> It's sure I was too laconic in my previous message.\n>\n> Here is my problem:\n> - the computer: an Ibook G3, with 10.2.8\n> -  R version: the package downloaded from CRAN\n> - the problem(s): first, when I use the R 1.9.1 package, the \n> installation\n> begins and stops because \"a problem occurs\". Sorry, no console log.\n> second, in the \"read me\" file the required configuration is os 10.2 \n> and a G4.\n> third, I'm quite surprise because the installation program doesn't ask \n> for the\n> administrator password.\n>\n> So, is there an easier way to install R 1.9.1 than downloading and \n> compilling\n> sources ?\n>\n> Thanks in advance.\n>\n>\n> Romuald Riem\n> Anesthésie réanimation chirurgicale\n> Nantes\n> France\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac@stat.math.ethz.ch\n> https://www.stat.math.ethz.ch/mailman/listinfo/r-sig-mac\n>\n---\nByron Ellis (bellis@hsph.harvard.edu)\n\"Oook\" -- The Librarian",
       "body_snippet": "I would guess that R 1.9.1 was built with a 10.3 deployment target \nwhile 1.9.0 was built with a 10.2 deployment target. Though it is \nstrange that it didn't ask for the admin password---so maybe just",
       "thread_id": "thread-0ab7c9448ac0",
       "thread_depth": 3,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001168.html"
     },
     {
       "id": "msg-2607f4e45aa4",
@@ -295,7 +300,8 @@
       "body_snippet": "On Jul 2, 2004, at 4:39 PM, Byron Ellis wrote:\n\n> I would guess that R 1.9.1 was built with a 10.3 deployment target \n> while 1.9.0 was built with a 10.2 deployment target.\n\nI don't really know, Stefa",
       "thread_id": "thread-0ab7c9448ac0",
       "thread_depth": 4,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001172.html"
     },
     {
       "id": "msg-3ef8da778a00",
@@ -313,7 +319,8 @@
       "body_snippet": "On Jul 2, 2004, at 4:24 PM, Susan Holmes wrote:\n> [...]\n> you have to first update your OS to 10.3\n> otheriwse it doesn't work.\n\nlol, I like this one :) A short by-the-way remark :) But AFAIR 10.3 \nup",
       "thread_id": "thread-0ab7c9448ac0",
       "thread_depth": 4,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001173.html"
     },
     {
       "id": "msg-2b167f27f661",
@@ -335,7 +342,8 @@
       "body_snippet": "On Jul 2, 2004, at 10:36 PM, Simon Urbanek wrote:\n\n> On Jul 2, 2004, at 4:39 PM, Byron Ellis wrote:\n>\n>> I would guess that R 1.9.1 was built with a 10.3 deployment target \n>> while 1.9.0 was built wi",
       "thread_id": "thread-0ab7c9448ac0",
       "thread_depth": 5,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001174.html"
     },
     {
       "id": "msg-dff81327b98c",
@@ -357,7 +365,8 @@
       "body_snippet": "On Jul 2, 2004, at 10:36 PM, Simon Urbanek wrote:\n\n> On Jul 2, 2004, at 4:39 PM, Byron Ellis wrote:\n>\n>> I would guess that R 1.9.1 was built with a 10.3 deployment target \n>> while 1.9.0 was built wi",
       "thread_id": "thread-0ab7c9448ac0",
       "thread_depth": 5,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001176.html"
     },
     {
       "id": "msg-907728ab1954",
@@ -373,7 +382,8 @@
       "body_snippet": "Hi,\n\n> From: Simon Urbanek <simon.urbanek@math.uni-augsburg.de>\n> Subject: Re: [R-SIG-Mac] How can I use R 1.9.1 on a Ibook G3?\n> To: Byron Ellis <bellis@hsph.harvard.edu>\n> Cc: rriem@free.fr, r-sig-m",
       "thread_id": "thread-907728ab1954",
       "thread_depth": 0,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001177.html"
     },
     {
       "id": "msg-bd8dc92820d2",
@@ -515,11 +525,12 @@
       "references": [
         "<Pine.LNX.4.44.0407061055010.20888-100000@unix24.alpha.wehi.edu.au>"
       ],
-      "body_plain": "On Jul 6, 2004, at 2:58 AM, James Wettenhall wrote:\n\n> On MacOS X, I see a few potential hurdles.  One is that the\n> current R installation mechanism seems to require root\n> privileges,\n\nNot necessarily. As on any unix system you can build and install R \nwithout root privileges. Also note that on Mac OS X there are a kind of \nthree levels - root, admin and user. Depending on the location you can \ninstall R using any of them.\nAlso note that you can build R in a directory different from the \ninstallation directory (although it's not trivial, since you need to \nfix dylibs). Packaging also doesn't require you to have the files in \nthe target position, arbitrary directory is fine, too.\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_plain": "On Jul 6, 2004, at 2:58 AM, James Wettenhall wrote:\n\n> On MacOS X, I see a few potential hurdles.  One is that the\n> current R installation mechanism seems to require root\n> privileges,\n\nNot necessarily. As on any unix system you can build and install R \nwithout root privileges. Also note that on Mac OS X there are a kind of \nthree levels - root, admin and user. Depending on the location you can \ninstall R using any of them.\nAlso note that you can build R in a directory different from the \ninstallation directory (although it's not trivial, since you need to \nfix dylibs). Packaging also doesn't require you to have the files in \nthe target position, arbitrary directory is fine, too.\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversitätsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
       "body_snippet": "On Jul 6, 2004, at 2:58 AM, James Wettenhall wrote:\n\n> On MacOS X, I see a few potential hurdles.  One is that the\n> current R installation mechanism seems to require root\n> privileges,\n\nNot necessari",
       "thread_id": "thread-8db2f242b3d9",
       "thread_depth": 1,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001185.html"
     },
     {
       "id": "msg-e1c837b239fc",
@@ -728,11 +739,12 @@
         "<A64B5C04-CFFB-11D8-9520-0003938AF008@math.uni-augsburg.de>",
         "<D21A3B74-D033-11D8-9C4B-000A95C87F66@unimi.it>"
       ],
-      "body_plain": "On Jul 7, 2004, at 6:36 PM, stefano iacus wrote:\n\n> On Jul 7, 2004, at 11:54 AM, Simon Urbanek wrote:\n>\n>> It's not really a question of the operating system being more \n>> flexible or not. It's the way things are linked, built and installed. \n>> IMHO the building process could be slightly modified to allow \n>> relocatable R framework (don't use paths in linked objects and rely \n>> on LIBRARY_PATH).\n>\n> the R.framework per se is relocatable,\n\ncurrently (as-is 1.9.1) it's not as I explained to James (I should've \nCC it here I guess) - R.bin and libR.dylib are both linked to readline \nusing full path to the R home. There are several other minor issues \nlike newly compiled packages containing absolute paths etc.\n\n> what you can reasonably do James, is to ask your system manager to \n> install the tcltk stuff and the developer tools (how can you build \n> your packages without?).\n\n/me nods\n@James: note that if you create your own, relocatable version of R you \nwill have to check whether the CRAN packages work with it. If they \nwon't then you're definitely in trouble, because installing packages is \nwhat most people need in the first place.\n\n> Packages will be built in your local directory ~/Library/R/library, \n> tar.gz the binaries and distribute them. They will work.\n\nAgain, they will only work if at least the following is satisfied\n1) they are relocatable - because every user's home is in a different \npath (and ~ is only a shell construct, not a valid path)\n2) before loading the libraries some script will find the proper \nlibraries and setup the environment correspondingly\n\nHowever I still think that the best way is to use regular R \ninstallation in /Library/Frameworks ... it's supported, transparent and \nextensible. As I said before, installing X11 requires co-operation of \nthe admin anyway, so he can as well install R, too.\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversit?tsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
+      "body_plain": "On Jul 7, 2004, at 6:36 PM, stefano iacus wrote:\n\n> On Jul 7, 2004, at 11:54 AM, Simon Urbanek wrote:\n>\n>> It's not really a question of the operating system being more \n>> flexible or not. It's the way things are linked, built and installed. \n>> IMHO the building process could be slightly modified to allow \n>> relocatable R framework (don't use paths in linked objects and rely \n>> on LIBRARY_PATH).\n>\n> the R.framework per se is relocatable,\n\ncurrently (as-is 1.9.1) it's not as I explained to James (I should've \nCC it here I guess) - R.bin and libR.dylib are both linked to readline \nusing full path to the R home. There are several other minor issues \nlike newly compiled packages containing absolute paths etc.\n\n> what you can reasonably do James, is to ask your system manager to \n> install the tcltk stuff and the developer tools (how can you build \n> your packages without?).\n\n/me nods\n@James: note that if you create your own, relocatable version of R you \nwill have to check whether the CRAN packages work with it. If they \nwon't then you're definitely in trouble, because installing packages is \nwhat most people need in the first place.\n\n> Packages will be built in your local directory ~/Library/R/library, \n> tar.gz the binaries and distribute them. They will work.\n\nAgain, they will only work if at least the following is satisfied\n1) they are relocatable - because every user's home is in a different \npath (and ~ is only a shell construct, not a valid path)\n2) before loading the libraries some script will find the proper \nlibraries and setup the environment correspondingly\n\nHowever I still think that the best way is to use regular R \ninstallation in /Library/Frameworks ... it's supported, transparent and \nextensible. As I said before, installing X11 requires co-operation of \nthe admin anyway, so he can as well install R, too.\n\nCheers,\nSimon\n\n---\nSimon Urbanek\nDepartment of computer oriented statistics and data analysis\nUniversity of Augsburg\nUniversitätsstr. 14\n86135 Augsburg\nGermany\n\nTel: +49-821-598-2236\nFax: +49-821-598-2200\n\nSimon.Urbanek@Math.Uni-Augsburg.de\nhttp://simon.urbanek.info",
       "body_snippet": "On Jul 7, 2004, at 6:36 PM, stefano iacus wrote:\n\n> On Jul 7, 2004, at 11:54 AM, Simon Urbanek wrote:\n>\n>> It's not really a question of the operating system being more \n>> flexible or not. It's the w",
       "thread_id": "thread-f445e245926a",
       "thread_depth": 3,
-      "month": "2004-07"
+      "month": "2004-07",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2004-July/001196.html"
     },
     {
       "id": "msg-3904f4e73f6d",

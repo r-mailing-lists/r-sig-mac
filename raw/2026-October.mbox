@@ -684,3 +684,376 @@ Thanks a lot and best regards,Konrad Kr?mer
 	[[alternative HTML version deleted]]
 
 
+From r|p|eybd @end|ng |rom |c|oud@com  Tue Oct 27 08:38:21 2026
+From: r|p|eybd @end|ng |rom |c|oud@com (Prof Brian Ripley)
+Date: Tue, 27 Oct 2026 07:38:21 +0000
+Subject: [R-SIG-Mac] ast2ast: bus error on r-oldrel-macos-x86_64 only,
+ not reproducible
+In-Reply-To: <289375806.4237276.1793078771006@mail.yahoo.com>
+References: <289375806.4237276.1793078771006.ref@mail.yahoo.com>
+ <289375806.4237276.1793078771006@mail.yahoo.com>
+Message-ID: <1fe5783a-7635-4854-a933-25bcc7c25fbf@icloud.com>
+
+On 27/10/2026 05:26, Konrad Kr?mer via R-SIG-Mac wrote:
+> Dear all,
+> the CRAN checks of ast2ast 1.1.1 show a bus error on r-oldrel-macos-x86_64 only. All other flavors are OK, including both arm64 flavors. The crash happens in inst/tinytest/test_range_type.R, inside a function compiled at test time:
+>  ? f <- function(n) {
+>  ? ? argtypes(n |> type(int))
+>  ? ? i <- 1L:n
+>  ? ? s <- 0L
+>  ? ? for (r in 1L:3L) {
+>  ? ? ? for (v in i) s <- s + v
+>  ? ? ? i <- i + 1L
+>  ? ? }
+>  ? ? return(s)
+>  ? }
+>  ? fcpp <- ast2ast::translate(f)
+>  ? fcpp(4L)
+>  ? *** caught bus error ***
+>  ? address 0x7ff811a46993, cause 'non-existent physical address'
+> 
+> What I tried, without being able to reproduce it:
+>  ? - ASan/UBSan (local Ubuntu, R-hub), valgrind, clang + libc++
+>  ? - GitHub Actions macos-15-intel (Xcode 16.4, Apple clang 17), R 4.5.3 and R release: the full test suite and R CMD check --as-cran both pass?The mac builder only offers R-devel, so I can't test the oldrel x86_64 setup there.
+
+As far as I am aware macbuilder is only for arm64 Macs, and the 
+submission page does say
+
+"same setup and available packages as the CRAN M1 build machine."
+> Does anybody have advice on how I could set up a test environment to reproduce the error?It would also be helpful to know which macOS/Xcode version the r-oldrel-macos-x86_64 machine is using.
+
+It would be helpful if people read the documentation we provide!
+
+Click on the hyperlink on that line on the results page, which leads you to
+https://cran.r-project.org/web/checks/check_flavors.html#r-oldrel-macos-x86_64
+
+-- 
+Brian D. Ripley,                  ripleybd at icloud.com
+Emeritus Professor of Applied Statistics, University of Oxford
+
+
+From pd@|gd @end|ng |rom gm@||@com  Tue Oct 27 12:20:58 2026
+From: pd@|gd @end|ng |rom gm@||@com (Peter Dalgaard)
+Date: Tue, 27 Oct 2026 12:20:58 +0100
+Subject: [R-SIG-Mac] R Commander crashes with X_OpenFont error on Apple
+ Silicon Mac
+In-Reply-To: <1331763687.20040.1791637773182.iami511@nifty.com>
+References: <1331763687.20040.1791637773182.iami511@nifty.com>
+Message-ID: <277B8F24-2281-4C87-A81E-BE94C874B014@gmail.com>
+
+Sorry about the late reply but this got spamfoldered.
+
+I am writing this on a very similar setup (except M5 rather than M4, and R 4.6.1 Patched as of June 24, ) and Rcmdr is starting fine, including EZR plugin.
+
+I don?t recall that we fixed anything related to Rcmdr or X11 font handling, but I suppose it wouldn?t hurt to try out the  Patched version (or 4.6.2 due out on Thursday.) Apart from that, I?m a bit out of ideas. 
+
+-pd
+
+> On 10 Oct 2026, at 15.09, iami511 at nifty.com wrote:
+> 
+> Dear R for macOS Development Team,
+> 
+> I am experiencing a reproducible crash when launching R Commander (Rcmdr) on 
+> my Apple Silicon Mac. I would appreciate your advice on how to resolve this 
+> issue.
+> 
+> System information:
+> 
+> Mac: MacBook Air with Apple M4 chip
+> 
+> macOS: Tahoe 26.6.2
+> 
+> R: 4.6.1 (arm64)
+> 
+> R Commander (Rcmdr): 2.15.0
+> 
+> EZR (RcmdrPlugin.EZR): 1.70
+> 
+> Tcl/Tk: 8.6.13, installed through the official R macOS package
+> 
+> XQuartz: 2.8.6
+> 
+> Problem:
+> 
+> When I launch R from Terminal and execute:
+> 
+> library(Rcmdr)
+> 
+> R begins loading the required packages but then terminates with the following 
+> X11 error:
+> 
+> X Error of failed request: BadValue (integer parameter out of range for 
+> operation)
+>  Major opcode of failed request: 45 (X_OpenFont)
+>  Value in failed request: 0xa00228
+>  Serial number of failed request: 2199
+>  Current serial number in output stream: 2200
+> 
+> The Terminal then returns to the shell prompt.
+> 
+> Troubleshooting already performed:
+> 
+> Confirmed that Tcl/Tk is available in R.
+> 
+> Confirmed that a basic Tk window can be created successfully.
+> 
+> Confirmed that the Tk wish8.6 application can display text using standard Tk 
+> fonts.
+> 
+> Confirmed that XQuartz is installed and can display X11 applications.
+> 
+> Refreshed the font cache and restarted XQuartz.
+> 
+> Tried changing Tk font settings, including Helvetica and Courier.
+> 
+> Tried modifying the X11 font path.
+> 
+> Tested R Commander with alternative R options, without success.
+> 
+> The same X_OpenFont error occurs consistently.
+> 
+> I understand that newer Tcl/Tk releases may include fixes related to X11 font 
+> errors. However, the Tcl/Tk installation bundled with my R environment is 
+> version 8.6.13.
+> 
+> Could you please advise:
+> 
+> Is this a known compatibility issue involving R Commander, Tcl/Tk 8.6.13, 
+> XQuartz, and recent macOS versions?
+> 
+> Is there an officially supported way to update Tcl/Tk without breaking the 
+> existing R installation?
+> 
+> Is there a recommended workaround for running R Commander and EZR on an Apple 
+> Silicon Mac?
+> 
+> I would prefer to preserve my existing R and EZR installation if possible.
+> 
+> Thank you very much for your time and assistance.
+> 
+> Best regards
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Tue Oct 27 23:06:43 2026
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Wed, 28 Oct 2026 11:06:43 +1300
+Subject: [R-SIG-Mac] ast2ast: bus error on r-oldrel-macos-x86_64 only,
+ not reproducible
+In-Reply-To: <289375806.4237276.1793078771006@mail.yahoo.com>
+References: <289375806.4237276.1793078771006.ref@mail.yahoo.com>
+ <289375806.4237276.1793078771006@mail.yahoo.com>
+Message-ID: <BDC4315A-845E-49E3-BE7F-E1E36CF0E211@R-project.org>
+
+Konrad, 
+
+the setup is documented as Brian said and also recently discussed with detailed instructions at
+https://stat.ethz.ch/pipermail/r-package-devel/2026q4/012590.html
+
+The segfault is directly reproducible, trace below. The comments in the file suggest that you know that this may be illegal - possibly missing guard to not try delete if it is inlined (=no heap)? (Just a guess).
+
+Cheers,
+Simon
+
+
+Process 15893 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=2, address=0x7ff811a46993)
+    frame #0: 0x00000001084653cf sourceCpp_24.so`f(SEXPREC*) [inlined] etr::Dim::release(this=<unavailable>) at Types.hpp:426:11 [opt]
+   423   void release() noexcept {
+   424     delete[] heap_;
+   425     heap_ = nullptr;
+-> 426     rank_ = 0;
+   427   }
+   428   void copy_from(const Dim& o) {
+   429     if (o.on_heap()) {
+Target 0: (R) stopped.
+warning: sourceCpp_24.so was compiled with optimization - stepping may behave oddly; variables may not be available.
+(lldb) bt
+* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=2, address=0x7ff811a46993)
+  * frame #0: 0x00000001084653cf sourceCpp_24.so`f(SEXPREC*) [inlined] etr::Dim::release(this=<unavailable>) at Types.hpp:426:11 [opt]
+    frame #1: 0x00000001084653cb sourceCpp_24.so`f(SEXPREC*) [inlined] etr::Dim::~Dim(this=<unavailable>) at Types.hpp:463:12 [opt]
+    frame #2: 0x00000001084653cb sourceCpp_24.so`f(SEXPREC*) [inlined] etr::Dim::~Dim(this=<unavailable>) at Types.hpp:463:10 [opt]
+    frame #3: 0x00000001084653cb sourceCpp_24.so`f(SEXPREC*) [inlined] etr::Array<etr::Integer, etr::BinaryOperation<etr::Integer, etr::RangeSpec, etr::RangeTrait> >::~Array(this=<unavailable>) at Types.hpp:735:8 [opt]
+    frame #4: 0x00000001084653cb sourceCpp_24.so`f(SEXPREC*) [inlined] etr::Array<etr::Integer, etr::BinaryOperation<etr::Integer, etr::RangeSpec, etr::RangeTrait> >::~Array(this=<unavailable>) at Types.hpp:735:8 [opt]
+    frame #5: 0x00000001084653cb sourceCpp_24.so`f(nSEXP=<unavailable>) at file3e15225abab7.cpp:27:4 [opt]
+    frame #6: 0x0000000108465c8c sourceCpp_24.so`::sourceCpp_23_f(nSEXPSEXP=0x00007fe82266de28) at file3e15225abab7.cpp:54:34 [opt]
+    frame #7: 0x0000000105c7f6b6 libR.dylib`R_doDotCall(fun=<unavailable>, nargs=1, cargs=<unavailable>, call=0x00007fe8247ff190) at dotcode.c:754:11 [opt]
+    frame #8: 0x0000000105c818b1 libR.dylib`do_dotcall(call=0x00007fe8247ff190, op=<unavailable>, args=<unavailable>, env=<unavailable>) at dotcode.c:1437:11 [opt]
+    frame #9: 0x0000000105cb7689 libR.dylib`Rf_eval(e=0x00007fe8247ff190, rho=0x00007fe82682f970) at eval.c:1260:9 [opt]
+    frame #10: 0x0000000105cb9db9 libR.dylib`R_execClosure(call=0x00007fe8268ee7f0, newrho=<unavailable>, sysparent=<unavailable>, rho=0x00007fe825f50740, arglist=<unavailable>, op=0x00007fe82680acc0) at eval.c:2393:22 [opt]
+    frame #11: 0x0000000105cb8ec0 libR.dylib`applyClosure_core(call=0x00007fe8268ee7f0, op=0x00007fe82680acc0, arglist=0x00007fe82682f9e0, rho=0x00007fe825f50740, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2306:16 [opt]
+    frame #12: 0x0000000105cb7525 libR.dylib`Rf_eval [inlined] Rf_applyClosure(call=0x00007fe8268ee7f0, op=0x00007fe82680acc0, arglist=<unavailable>, rho=0x00007fe825f50740, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2328:16 [opt]
+    frame #13: 0x0000000105cb750d libR.dylib`Rf_eval(e=0x00007fe8268ee7f0, rho=0x00007fe825f50740) at eval.c:1280:12 [opt]
+    frame #14: 0x0000000105cb7d66 libR.dylib`forcePromise(e=0x00007fe82682c038) at eval.c:976:13 [opt]
+    frame #15: 0x0000000105cb720f libR.dylib`Rf_eval(e=0x00007fe82682c038, rho=<unavailable>) at eval.c:1193:2 [opt]
+    frame #16: 0x0000000105cb7d66 libR.dylib`forcePromise(e=0x00007fe82682be08) at eval.c:976:13 [opt]
+    frame #17: 0x0000000105ce0bfd libR.dylib`getvar(symbol=0x00007fe81d185ef0, rho=0x00007fe82682bb68, dd=FALSE, keepmiss=<unavailable>, vcache=<unavailable>, sidx=<unavailable>) at eval.c:5835:6 [opt]
+    frame #18: 0x0000000105cca91f libR.dylib`bcEval_loop(ploc=0x00007ff7ba97b820) at eval.c:7848:20 [opt]
+    frame #19: 0x0000000105cb7b34 libR.dylib`bcEval(body=0x00007fe823e388a0, rho=<unavailable>) at eval.c:7501:16 [opt]
+    frame #20: 0x0000000105cb727a libR.dylib`Rf_eval(e=0x00007fe823e388a0, rho=0x00007fe82682a320) at eval.c:1167:8 [opt]
+    frame #21: 0x0000000105cb9db9 libR.dylib`R_execClosure(call=0x00007fe82682a5f8, newrho=<unavailable>, sysparent=<unavailable>, rho=0x00007fe82682b7e8, arglist=<unavailable>, op=0x00007fe823e38fa0) at eval.c:2393:22 [opt]
+    frame #22: 0x0000000105cb8ec0 libR.dylib`applyClosure_core(call=0x00007fe82682a5f8, op=0x00007fe823e38fa0, arglist=0x00007fe82682ba50, rho=0x00007fe82682b7e8, suppliedvars=<unavailable>, unpromise=FALSE) at eval.c:2306:16 [opt]
+    frame #23: 0x0000000105cb84c9 libR.dylib`Rf_applyClosure(call=<unavailable>, op=<unavailable>, arglist=<unavailable>, rho=<unavailable>, suppliedvars=<unavailable>, unpromise=<unavailable>) at eval.c:2328:16 [opt]
+    frame #24: 0x0000000105d2d721 libR.dylib`applyMethod(call=<unavailable>, op=<unavailable>, args=<unavailable>, rho=<unavailable>, newvars=<unavailable>) at objects.c:120:8 [opt] [artificial]
+    frame #25: 0x0000000105d2bf52 libR.dylib`dispatchMethod(op=0x00007fe823e39a90, sxp=0x00007fe823e38fa0, dotClass=0x00007fe823e39a58, cptr=0x00007fe81d183b80, method=0x00007fe81c8aee40, generic=<unavailable>, rho=0x00007fe82682b7e8, callrho=0x00007fe82682bb68, defrho=0x00007fe81c8488c0) at objects.c:473:16 [opt]
+    frame #26: 0x0000000105d2b823 libR.dylib`Rf_usemethod(generic="all.equal", obj=<unavailable>, call=<unavailable>, args=<unavailable>, rho=0x00007fe82682b7e8, callrho=0x00007fe82682bb68, defrho=0x00007fe81c8488c0, ans=0x00007ff7ba97e2c8) at objects.c:509:10 [opt]
+    frame #27: 0x0000000105d2c202 libR.dylib`do_usemethod(call=0x00007fe823e39978, op=<unavailable>, args=<unavailable>, env=0x00007fe82682b7e8) at objects.c:579:9 [opt]
+    frame #28: 0x0000000105cce7df libR.dylib`bcEval_loop(ploc=0x00007ff7ba97ffa0) at eval.c:8138:15 [opt]
+    frame #29: 0x0000000105cb7b34 libR.dylib`bcEval(body=0x00007fe8217fe638, rho=<unavailable>) at eval.c:7501:16 [opt]
+    frame #30: 0x0000000105cb727a libR.dylib`Rf_eval(e=0x00007fe8217fe638, rho=0x00007fe82682be40) at eval.c:1167:8 [opt]
+    frame #31: 0x0000000105cb9db9 libR.dylib`R_execClosure(call=0x00007fe8268d8c18, newrho=<unavailable>, sysparent=<unavailable>, rho=0x00007fe825f50740, arglist=<unavailable>, op=0x00007fe825f4d7f0) at eval.c:2393:22 [opt]
+    frame #32: 0x0000000105cb8ec0 libR.dylib`applyClosure_core(call=0x00007fe8268d8c18, op=0x00007fe825f4d7f0, arglist=0x00007fe82682c000, rho=0x00007fe825f50740, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2306:16 [opt]
+    frame #33: 0x0000000105cb7525 libR.dylib`Rf_eval [inlined] Rf_applyClosure(call=0x00007fe8268d8c18, op=0x00007fe825f4d7f0, arglist=<unavailable>, rho=0x00007fe825f50740, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2328:16 [opt]
+    frame #34: 0x0000000105cb750d libR.dylib`Rf_eval(e=0x00007fe8268d8c18, rho=0x00007fe825f50740) at eval.c:1280:12 [opt]
+    frame #35: 0x0000000105cbe7a5 libR.dylib`do_eval(call=<unavailable>, op=<unavailable>, args=<unavailable>, rho=0x00007fe826826358) at eval.c:3941:13 [opt]
+    frame #36: 0x0000000105cce56c libR.dylib`bcEval_loop(ploc=0x00007ff7ba982590) at eval.c:8118:14 [opt]
+    frame #37: 0x0000000105cb7b34 libR.dylib`bcEval(body=0x00007fe82164f4d8, rho=<unavailable>) at eval.c:7501:16 [opt]
+    frame #38: 0x0000000105cb727a libR.dylib`Rf_eval(e=0x00007fe82164f4d8, rho=0x00007fe8261a7200) at eval.c:1167:8 [opt]
+    frame #39: 0x0000000105cb9db9 libR.dylib`R_execClosure(call=0x00007fe82165dd60, newrho=<unavailable>, sysparent=<unavailable>, rho=0x00007fe821650038, arglist=<unavailable>, op=0x00007fe82164fd98) at eval.c:2393:22 [opt]
+    frame #40: 0x0000000105cb8ec0 libR.dylib`applyClosure_core(call=0x00007fe82165dd60, op=0x00007fe82164fd98, arglist=0x00007fe8243faeb8, rho=0x00007fe821650038, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2306:16 [opt]
+    frame #41: 0x0000000105cb9417 libR.dylib`R_forceAndCall [inlined] Rf_applyClosure(call=0x00007fe82165dd60, op=0x00007fe82164fd98, arglist=0x00007fe8243faeb8, rho=0x00007fe821650038, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2328:16 [opt]
+    frame #42: 0x0000000105cb940c libR.dylib`R_forceAndCall(e=<unavailable>, n=1, rho=0x00007fe821650038) at eval.c:2460:8 [opt]
+    frame #43: 0x0000000105c037e6 libR.dylib`do_lapply(call=<unavailable>, op=<unavailable>, args=<unavailable>, rho=0x00007fe821650038) at apply.c:75:8 [opt]
+    frame #44: 0x0000000105d29aaa libR.dylib`do_internal(call=<unavailable>, op=<unavailable>, args=<unavailable>, env=0x00007fe821650038) at names.c:1411:11 [opt]
+    frame #45: 0x0000000105cce7df libR.dylib`bcEval_loop(ploc=0x00007ff7ba984a30) at eval.c:8138:15 [opt]
+    frame #46: 0x0000000105cb7b34 libR.dylib`bcEval(body=0x00007fe81cf12f90, rho=<unavailable>) at eval.c:7501:16 [opt]
+    frame #47: 0x0000000105cb727a libR.dylib`Rf_eval(e=0x00007fe81cf12f90, rho=0x00007fe81cf16548) at eval.c:1167:8 [opt]
+    frame #48: 0x0000000105cb9db9 libR.dylib`R_execClosure(call=0x00007fe820113240, newrho=<unavailable>, sysparent=<unavailable>, rho=0x00007fe81c848968, arglist=<unavailable>, op=0x00007fe81cf06710) at eval.c:2393:22 [opt]
+    frame #49: 0x0000000105cb8ec0 libR.dylib`applyClosure_core(call=0x00007fe820113240, op=0x00007fe81cf06710, arglist=0x00007fe81cf166d0, rho=0x00007fe81c848968, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2306:16 [opt]
+    frame #50: 0x0000000105cb7525 libR.dylib`Rf_eval [inlined] Rf_applyClosure(call=0x00007fe820113240, op=0x00007fe81cf06710, arglist=<unavailable>, rho=0x00007fe81c848968, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2328:16 [opt]
+    frame #51: 0x0000000105cb750d libR.dylib`Rf_eval(e=0x00007fe820113240, rho=0x00007fe81c848968) at eval.c:1280:12 [opt]
+    frame #52: 0x0000000105cbc6ed libR.dylib`do_begin(call=<unavailable>, op=0x00007fe81c819720, args=0x00007fe8201130f0, rho=0x00007fe81c848968) at eval.c:2996:10 [opt]
+    frame #53: 0x0000000105cb745e libR.dylib`Rf_eval(e=<unavailable>, rho=0x00007fe81c848968) at eval.c:1232:12 [opt]
+    frame #54: 0x0000000105cb745e libR.dylib`Rf_eval(e=<unavailable>, rho=0x00007fe81c848968) at eval.c:1232:12 [opt]
+    frame #55: 0x0000000105cbe9ec libR.dylib`do_eval(call=<unavailable>, op=<unavailable>, args=<unavailable>, rho=<unavailable>) at eval.c:3959:9 [opt]
+    frame #56: 0x0000000105cce56c libR.dylib`bcEval_loop(ploc=0x00007ff7ba987470) at eval.c:8118:14 [opt]
+    frame #57: 0x0000000105cb7b34 libR.dylib`bcEval(body=0x00007fe8200d61a0, rho=<unavailable>) at eval.c:7501:16 [opt]
+    frame #58: 0x0000000105cb727a libR.dylib`Rf_eval(e=0x00007fe8200d61a0, rho=0x00007fe8200d5678) at eval.c:1167:8 [opt]
+    frame #59: 0x0000000105cb7d66 libR.dylib`forcePromise(e=0x00007fe8201122b8) at eval.c:976:13 [opt]
+    frame #60: 0x0000000105cb72fa libR.dylib`Rf_eval(e=<unavailable>, rho=0x00007fe820112210) at eval.c:1187:6 [opt]
+    frame #61: 0x0000000105cbeb39 libR.dylib`do_withVisible(call=<unavailable>, op=<unavailable>, args=0x00007fe820112328, rho=0x00007fe820112210) at eval.c:3984:9 [opt]
+    frame #62: 0x0000000105d29aaa libR.dylib`do_internal(call=<unavailable>, op=<unavailable>, args=<unavailable>, env=0x00007fe820112210) at names.c:1411:11 [opt]
+    frame #63: 0x0000000105cce7df libR.dylib`bcEval_loop(ploc=0x00007ff7ba989640) at eval.c:8138:15 [opt]
+    frame #64: 0x0000000105cb7b34 libR.dylib`bcEval(body=0x00007fe8200ae0f8, rho=<unavailable>) at eval.c:7501:16 [opt]
+    frame #65: 0x0000000105cb727a libR.dylib`Rf_eval(e=0x00007fe8200ae0f8, rho=0x00007fe8200d5678) at eval.c:1167:8 [opt]
+    frame #66: 0x0000000105cb9db9 libR.dylib`R_execClosure(call=0x00007fe81cc7d260, newrho=<unavailable>, sysparent=<unavailable>, rho=0x00007fe81c848968, arglist=<unavailable>, op=0x00007fe81cc7cff8) at eval.c:2393:22 [opt]
+    frame #67: 0x0000000105cb8ec0 libR.dylib`applyClosure_core(call=0x00007fe81cc7d260, op=0x00007fe81cc7cff8, arglist=0x00007fe8200d5a68, rho=0x00007fe81c848968, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2306:16 [opt]
+    frame #68: 0x0000000105cb7525 libR.dylib`Rf_eval [inlined] Rf_applyClosure(call=0x00007fe81cc7d260, op=0x00007fe81cc7cff8, arglist=<unavailable>, rho=0x00007fe81c848968, suppliedvars=<unavailable>, unpromise=TRUE) at eval.c:2328:16 [opt]
+    frame #69: 0x0000000105cb750d libR.dylib`Rf_eval(e=0x00007fe81cc7d260, rho=0x00007fe81c848968) at eval.c:1280:12 [opt]
+    frame #70: 0x0000000105d12b1d libR.dylib`Rf_ReplIteration(rho=0x00007fe81c848968, savestack=0, browselevel=0, state=0x00007ff7ba989e00) at main.c:265:2 [opt]
+    frame #71: 0x0000000105d14321 libR.dylib`R_ReplConsole(rho=0x00007fe81c848968, savestack=0, browselevel=0) at main.c:317:11 [opt]
+    frame #72: 0x0000000105d1424d libR.dylib`run_Rmainloop at main.c:1234:5 [opt]
+    frame #73: 0x0000000105d143ce libR.dylib`Rf_mainloop at main.c:1241:5 [opt]
+    frame #74: 0x0000000105577edb R`main + 27
+    frame #75: 0x00007ff811a1341f dyld`start + 1903
+
+
+
+> On 27/10/2026, at 18:26, Konrad Kr?mer via R-SIG-Mac <r-sig-mac at r-project.org> wrote:
+> 
+> Dear all,
+> the CRAN checks of ast2ast 1.1.1 show a bus error on r-oldrel-macos-x86_64 only. All other flavors are OK, including both arm64 flavors. The crash happens in inst/tinytest/test_range_type.R, inside a function compiled at test time:
+>   f <- function(n) {
+>     argtypes(n |> type(int))
+>     i <- 1L:n
+>     s <- 0L
+>     for (r in 1L:3L) {
+>       for (v in i) s <- s + v
+>       i <- i + 1L
+>     }
+>     return(s)
+>   }
+>   fcpp <- ast2ast::translate(f)
+>   fcpp(4L)
+>   *** caught bus error ***
+>   address 0x7ff811a46993, cause 'non-existent physical address'
+> 
+> What I tried, without being able to reproduce it:
+>   - ASan/UBSan (local Ubuntu, R-hub), valgrind, clang + libc++
+>   - GitHub Actions macos-15-intel (Xcode 16.4, Apple clang 17), R 4.5.3 and R release: the full test suite and R CMD check --as-cran both pass The mac builder only offers R-devel, so I can't test the oldrel x86_64 setup there.
+> 
+> Does anybody have advice on how I could set up a test environment to reproduce the error?It would also be helpful to know which macOS/Xcode version the r-oldrel-macos-x86_64 machine is using.
+> Thanks a lot and best regards,Konrad Kr?mer
+> 
+> 
+> 
+> [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+> 
+
+
+From @|mon@urb@nek @end|ng |rom R-project@org  Tue Oct 27 23:17:28 2026
+From: @|mon@urb@nek @end|ng |rom R-project@org (Simon Urbanek)
+Date: Wed, 28 Oct 2026 11:17:28 +1300
+Subject: [R-SIG-Mac] ast2ast: bus error on r-oldrel-macos-x86_64 only,
+ not reproducible
+In-Reply-To: <BDC4315A-845E-49E3-BE7F-E1E36CF0E211@R-project.org>
+References: <289375806.4237276.1793078771006.ref@mail.yahoo.com>
+ <289375806.4237276.1793078771006@mail.yahoo.com>
+ <BDC4315A-845E-49E3-BE7F-E1E36CF0E211@R-project.org>
+Message-ID: <49183CC7-52F6-48AC-8D51-65CBB5265C0A@R-project.org>
+
+Konrad,
+
+I can confirm that this fixes the segfault:
+
+diff -ru ast2ast/inst/include/etr_bits/Core/Types.hpp ast2ast-1/inst/include/etr_bits/Core/Types.hpp
+--- ast2ast/inst/include/etr_bits/Core/Types.hpp        2026-10-22 01:10:13
++++ ast2ast-1/inst/include/etr_bits/Core/Types.hpp      2026-10-27 18:11:54
+@@ -421,8 +421,10 @@
+   std::size_t inline_[N_INLINE];
+   bool on_heap() const noexcept { return heap_ != nullptr; }
+   void release() noexcept {
+-    delete[] heap_;
+-    heap_ = nullptr;
++    if (heap_ != nullptr) {
++      delete[] heap_;
++      heap_ = nullptr;
++    }
+     rank_ = 0;
+   }
+   void copy_from(const Dim& o) {
+
+
+but there is one more suspicions delete without check in resize() [Types.hpp at 511] so you may want to review that one as well.
+
+Cheers,
+Simon
+
+
+
+> On 28/10/2026, at 11:06, Simon Urbanek <simon.urbanek at R-project.org> wrote:
+> 
+> Konrad, 
+> 
+> the setup is documented as Brian said and also recently discussed with detailed instructions at
+> https://stat.ethz.ch/pipermail/r-package-devel/2026q4/012590.html
+> 
+> The segfault is directly reproducible, trace below. The comments in the file suggest that you know that this may be illegal - possibly missing guard to not try delete if it is inlined (=no heap)? (Just a guess).
+> 
+> Cheers,
+> Simon
+> 
+> 
+> Process 15893 stopped
+> * thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=2, address=0x7ff811a46993)
+>    frame #0: 0x00000001084653cf sourceCpp_24.so`f(SEXPREC*) [inlined] etr::Dim::release(this=<unavailable>) at Types.hpp:426:11 [opt]
+>   423   void release() noexcept {
+>   424     delete[] heap_;
+>   425     heap_ = nullptr;
+> -> 426     rank_ = 0;
+>   427   }
+>   428   void copy_from(const Dim& o) {
+>   429     if (o.on_heap()) {
+> Target 0: (R) stopped.
+> warning: sourceCpp_24.so was compiled with optimization - stepping may behave oddly; variables may not be available.
+
+
