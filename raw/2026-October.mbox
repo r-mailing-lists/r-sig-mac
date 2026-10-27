@@ -647,3 +647,40 @@ Thank you very much for your time and assistance.
 Best regards
 
 
+From konr@d_kr@emer @end|ng |rom y@hoo@de  Tue Oct 27 06:26:11 2026
+From: konr@d_kr@emer @end|ng |rom y@hoo@de (=?UTF-8?Q?Konrad_Kr=C3=A4mer?=)
+Date: Tue, 27 Oct 2026 05:26:11 +0000 (UTC)
+Subject: [R-SIG-Mac] ast2ast: bus error on r-oldrel-macos-x86_64 only,
+ not reproducible
+References: <289375806.4237276.1793078771006.ref@mail.yahoo.com>
+Message-ID: <289375806.4237276.1793078771006@mail.yahoo.com>
+
+Dear all,
+the CRAN checks of ast2ast 1.1.1 show a bus error on r-oldrel-macos-x86_64 only. All other flavors are OK, including both arm64 flavors. The crash happens in inst/tinytest/test_range_type.R, inside a function compiled at test time:
+? f <- function(n) {
+? ? argtypes(n |> type(int))
+? ? i <- 1L:n
+? ? s <- 0L
+? ? for (r in 1L:3L) {
+? ? ? for (v in i) s <- s + v
+? ? ? i <- i + 1L
+? ? }
+? ? return(s)
+? }
+? fcpp <- ast2ast::translate(f)
+? fcpp(4L)
+? *** caught bus error ***
+? address 0x7ff811a46993, cause 'non-existent physical address'
+
+What I tried, without being able to reproduce it:
+? - ASan/UBSan (local Ubuntu, R-hub), valgrind, clang + libc++
+? - GitHub Actions macos-15-intel (Xcode 16.4, Apple clang 17), R 4.5.3 and R release: the full test suite and R CMD check --as-cran both pass?The mac builder only offers R-devel, so I can't test the oldrel x86_64 setup there.
+
+Does anybody have advice on how I could set up a test environment to reproduce the error?It would also be helpful to know which macOS/Xcode version the r-oldrel-macos-x86_64 machine is using.
+Thanks a lot and best regards,Konrad Kr?mer
+
+
+
+	[[alternative HTML version deleted]]
+
+

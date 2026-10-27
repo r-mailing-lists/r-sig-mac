@@ -178,6 +178,25 @@
       "thread_depth": 0,
       "month": "2026-10",
       "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-October/015403.html"
+    },
+    {
+      "id": "msg-387cd6fb7607",
+      "message_id": "<289375806.4237276.1793078771006@mail.yahoo.com>",
+      "from_name": "Konrad Krämer",
+      "from_email_hash": "98f538536f40e5ea2108f4cb9ef741fc398978d703d0b0b13bde37ad92f3a5e5",
+      "date": "2026-10-27T05:26:11Z",
+      "subject": "[R-SIG-Mac] ast2ast: bus error on r-oldrel-macos-x86_64 only, not reproducible",
+      "subject_clean": "ast2ast: bus error on r-oldrel-macos-x86_64 only, not reproducible",
+      "in_reply_to": null,
+      "references": [
+        "<289375806.4237276.1793078771006.ref@mail.yahoo.com>"
+      ],
+      "body_plain": "Dear all,\nthe CRAN checks of ast2ast 1.1.1 show a bus error on r-oldrel-macos-x86_64 only. All other flavors are OK, including both arm64 flavors. The crash happens in inst/tinytest/test_range_type.R, inside a function compiled at test time:\n  f <- function(n) {\n    argtypes(n |> type(int))\n    i <- 1L:n\n    s <- 0L\n    for (r in 1L:3L) {\n      for (v in i) s <- s + v\n      i <- i + 1L\n  ? }\n    return(s)\n  }\n  fcpp <- ast2ast::translate(f)\n  fcpp(4L)\n  *** caught bus error ***\n  address 0x7ff811a46993, cause 'non-existent physical address'\n\nWhat I tried, without being able to reproduce it:\n  - ASan/UBSan (local Ubuntu, R-hub), valgrind, clang + libc++\n  - GitHub Actions macos-15-intel (Xcode 16.4, Apple clang 17), R 4.5.3 and R release: the full test suite and R CMD check --as-cran both pass The mac builder only offers R-devel, so I can't test the oldrel x86_64 setup there.\n\nDoes anybody have advice on how I could set up a test environment to reproduce the error?It would also be helpful to know which macOS/Xcode version the r-oldrel-macos-x86_64 machine is using.\nThanks a lot and best regards,Konrad Krämer\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear all,\nthe CRAN checks of ast2ast 1.1.1 show a bus error on r-oldrel-macos-x86_64 only. All other flavors are OK, including both arm64 flavors. The crash happens in inst/tinytest/test_range_type.R,",
+      "thread_id": "thread-387cd6fb7607",
+      "thread_depth": 0,
+      "month": "2026-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-October/015404.html"
     }
   ],
   "threads": [
@@ -215,6 +234,17 @@
       "started": "2026-10-10T13:09:33Z",
       "last_reply": "2026-10-10T13:09:33Z",
       "root_message_id": "msg-dfb18014dacf"
+    },
+    {
+      "id": "thread-387cd6fb7607",
+      "subject": "ast2ast: bus error on r-oldrel-macos-x86_64 only, not reproducible",
+      "message_count": 1,
+      "participants": [
+        "Konrad Krämer"
+      ],
+      "started": "2026-10-27T05:26:11Z",
+      "last_reply": "2026-10-27T05:26:11Z",
+      "root_message_id": "msg-387cd6fb7607"
     }
   ]
 }
