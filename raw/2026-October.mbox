@@ -1057,3 +1057,54 @@ Simon
 > warning: sourceCpp_24.so was compiled with optimization - stepping may behave oddly; variables may not be available.
 
 
+From |kry|ov @end|ng |rom d|@root@org  Fri Oct 30 20:16:49 2026
+From: |kry|ov @end|ng |rom d|@root@org (Ivan Krylov)
+Date: Fri, 30 Oct 2026 22:16:49 +0300
+Subject: [R-SIG-Mac] ast2ast: bus error on r-oldrel-macos-x86_64 only,
+ not reproducible
+In-Reply-To: <BDC4315A-845E-49E3-BE7F-E1E36CF0E211@R-project.org>
+References: <289375806.4237276.1793078771006.ref@mail.yahoo.com>
+ <289375806.4237276.1793078771006@mail.yahoo.com>
+ <BDC4315A-845E-49E3-BE7F-E1E36CF0E211@R-project.org>
+Message-ID: <20261030221649.1b19c5db@Tarkus>
+
+On Wed, 28 Oct 2026 11:06:43 +1300
+Simon Urbanek <simon.urbanek at R-project.org> wrote:
+
+>    423   void release() noexcept {
+>    424     delete[] heap_;
+>    425     heap_ = nullptr;
+> -> 426     rank_ = 0;  
+>    427   }
+
+> * thread #1, queue = 'com.apple.main-thread', stop reason =
+> EXC_BAD_ACCESS (code=2, address=0x7ff811a46993)
+
+I see that 1.1.2 is now on CRAN and doesn't exhibit this problem,
+but this is such a strange place for the code to crash.
+
+The fault must not be due to delete[] operating on a null pointer:
+first, the faulting address is not 0; secondly, the C++ standard
+requires delete[] to safely do nothing in such a case.
+
+If the fault is really due to 'this->rank_' being written, then 'this'
+must be an invalid pointer... except that the 'etr::Dim' object lives on
+the stack as part of etr::Array object, so the whole stack region must
+have vanished from the memory map. And the code must have just
+successfully written a 0 into 'this->heap_', which lives right next to
+'rank_' in memory. Maybe this write was reordered first?
+
+0x7ff811a46993 does look more like an address on the thread 0 stack
+than an address on the heap, except it's some 20 gigabytes lower than a
+typical end of stack area, at least compared to some example 'vmmap'
+outputs I was able to find. How did this pointer come to be?
+
+And the problem (that was previously reproducible) disappears after
+changing the code to do the same thing differently. Was it a bug in
+Apple Clang 14? We may never know.
+
+-- 
+Best regards,
+Ivan
+
+

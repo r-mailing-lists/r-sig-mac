@@ -277,6 +277,27 @@
       "thread_depth": 2,
       "month": "2026-10",
       "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-October/015408.html"
+    },
+    {
+      "id": "msg-b66499b7ffdb",
+      "message_id": "<20261030221649.1b19c5db@Tarkus>",
+      "from_name": "Ivan Krylov",
+      "from_email_hash": "d5e69509b1e550954e7dc7df9fde68d8fd4a7973fb076b5d966efe67850be3c9",
+      "date": "2026-10-30T19:16:49Z",
+      "subject": "[R-SIG-Mac] ast2ast: bus error on r-oldrel-macos-x86_64 only, not reproducible",
+      "subject_clean": "ast2ast: bus error on r-oldrel-macos-x86_64 only, not reproducible",
+      "in_reply_to": "<BDC4315A-845E-49E3-BE7F-E1E36CF0E211@R-project.org>",
+      "references": [
+        "<289375806.4237276.1793078771006.ref@mail.yahoo.com>",
+        "<289375806.4237276.1793078771006@mail.yahoo.com>",
+        "<BDC4315A-845E-49E3-BE7F-E1E36CF0E211@R-project.org>"
+      ],
+      "body_plain": "On Wed, 28 Oct 2026 11:06:43 +1300\nSimon Urbanek <simon.urbanek at R-project.org> wrote:\n\n>    423   void release() noexcept {\n>    424     delete[] heap_;\n>    425     heap_ = nullptr;\n> -> 426     rank_ = 0;  \n>    427   }\n\n> * thread #1, queue = 'com.apple.main-thread', stop reason =\n> EXC_BAD_ACCESS (code=2, address=0x7ff811a46993)\n\nI see that 1.1.2 is now on CRAN and doesn't exhibit this problem,\nbut this is such a strange place for the code to crash.\n\nThe fault must not be due to delete[] operating on a null pointer:\nfirst, the faulting address is not 0; secondly, the C++ standard\nrequires delete[] to safely do nothing in such a case.\n\nIf the fault is really due to 'this->rank_' being written, then 'this'\nmust be an invalid pointer... except that the 'etr::Dim' object lives on\nthe stack as part of etr::Array object, so the whole stack region must\nhave vanished from the memory map. And the code must have just\nsuccessfully written a 0 into 'this->heap_', which lives right next to\n'rank_' in memory. Maybe this write was reordered first?\n\n0x7ff811a46993 does look more like an address on the thread 0 stack\nthan an address on the heap, except it's some 20 gigabytes lower than a\ntypical end of stack area, at least compared to some example 'vmmap'\noutputs I was able to find. How did this pointer come to be?\n\nAnd the problem (that was previously reproducible) disappears after\nchanging the code to do the same thing differently. Was it a bug in\nApple Clang 14? We may never know.\n\n-- \nBest regards,\nIvan",
+      "body_snippet": "On Wed, 28 Oct 2026 11:06:43 +1300\nSimon Urbanek <simon.urbanek at R-project.org> wrote:\n\n>    423   void release() noexcept {\n>    424     delete[] heap_;\n>    425     heap_ = nullptr;\n> -> 426     r",
+      "thread_id": "thread-387cd6fb7607",
+      "thread_depth": 2,
+      "month": "2026-10",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-October/015409.html"
     }
   ],
   "threads": [
@@ -319,14 +340,15 @@
     {
       "id": "thread-387cd6fb7607",
       "subject": "ast2ast: bus error on r-oldrel-macos-x86_64 only, not reproducible",
-      "message_count": 4,
+      "message_count": 5,
       "participants": [
+        "Ivan Krylov",
         "Konrad Krämer",
         "Prof Brian Ripley",
         "Simon Urbanek"
       ],
       "started": "2026-10-27T05:26:11Z",
-      "last_reply": "2026-10-27T22:17:28Z",
+      "last_reply": "2026-10-30T19:16:49Z",
       "root_message_id": "msg-387cd6fb7607"
     }
   ]
