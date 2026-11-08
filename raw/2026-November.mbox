@@ -1,0 +1,29 @@
+From r|p|eybd @end|ng |rom |c|oud@com  Sat Nov  7 13:05:29 2026
+From: r|p|eybd @end|ng |rom |c|oud@com (Prof Brian Ripley)
+Date: Sat, 7 Nov 2026 12:05:29 +0000
+Subject: [R-SIG-Mac] Incremental builds with macOS 27.2 may be broken
+Message-ID: <87c5c2bc-7302-41eb-87d2-d1aa89c0aee5@icloud.com>
+
+If you want to update a build of R-devel or R-patched after svn up. 
+first look near the bottom of file Makeconf.  If the .c.d rule is NOT
+
+.c.d:
+         @echo "making $@ from $<"
+         @$(CC) -MM $(ALL_CPPFLAGS) $< > $@
+
+then you need to do a clean build, starting with make distclean and 
+configure.
+
+The clang in the 27.2 CLT/Xcode distribution has changed the format of 
+the output of clang -MM (and -M) and it no longer is what configure used 
+to expect, so it does not find a working .c.d rule, and all the 
+Makefiles need to be remade to add missing dependencies.
+
+We know that this was changed after CLT 26.6: we think after CLT 27 
+(there was no 27.1).
+
+-- 
+Brian D. Ripley,                  ripleybd at icloud.com
+Emeritus Professor of Applied Statistics, University of Oxford
+
+

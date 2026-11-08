@@ -1,0 +1,37 @@
+{
+  "list": "r-sig-mac",
+  "description": "",
+  "month": "2026-11",
+  "messages": [
+    {
+      "id": "msg-934749136020",
+      "message_id": "<87c5c2bc-7302-41eb-87d2-d1aa89c0aee5@icloud.com>",
+      "from_name": "Prof Brian Ripley",
+      "from_email_hash": "c5d0d8f09bc545ede8356a1fd199c0f278d5b7361e67127bf6c141458274153c",
+      "date": "2026-11-07T12:05:29Z",
+      "subject": "[R-SIG-Mac] Incremental builds with macOS 27.2 may be broken",
+      "subject_clean": "Incremental builds with macOS 27.2 may be broken",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "If you want to update a build of R-devel or R-patched after svn up. \nfirst look near the bottom of file Makeconf.  If the .c.d rule is NOT\n\n.c.d:\n         @echo \"making $@ from $<\"\n         @$(CC) -MM $(ALL_CPPFLAGS) $< > $@\n\nthen you need to do a clean build, starting with make distclean and \nconfigure.\n\nThe clang in the 27.2 CLT/Xcode distribution has changed the format of \nthe output of clang -MM (and -M) and it no longer is what configure used \nto expect, so it does not find a working .c.d rule, and all the \nMakefiles need to be remade to add missing dependencies.\n\nWe know that this was changed after CLT 26.6: we think after CLT 27 \n(there was no 27.1).\n\n-- \nBrian D. Ripley,                  ripleybd at icloud.com\nEmeritus Professor of Applied Statistics, University of Oxford",
+      "body_snippet": "If you want to update a build of R-devel or R-patched after svn up. \nfirst look near the bottom of file Makeconf.  If the .c.d rule is NOT\n\n.c.d:\n         @echo \"making $@ from $<\"\n         @$(CC) -MM",
+      "thread_id": "thread-934749136020",
+      "thread_depth": 0,
+      "month": "2026-11",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-November/015410.html"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-934749136020",
+      "subject": "Incremental builds with macOS 27.2 may be broken",
+      "message_count": 1,
+      "participants": [
+        "Prof Brian Ripley"
+      ],
+      "started": "2026-11-07T12:05:29Z",
+      "last_reply": "2026-11-07T12:05:29Z",
+      "root_message_id": "msg-934749136020"
+    }
+  ]
+}
