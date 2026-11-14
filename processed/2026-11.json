@@ -94,6 +94,61 @@
       "thread_depth": 2,
       "month": "2026-11",
       "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-November/015414.html"
+    },
+    {
+      "id": "msg-2ffa2bc112e7",
+      "message_id": "<CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>",
+      "from_name": "Carl Witthoft",
+      "from_email_hash": "a0e78a44ef969c66c0e77fd091f97cfc1a0da10d94e3590420d41ea75cd90884",
+      "date": "2026-11-13T14:05:03Z",
+      "subject": "[R-SIG-Mac] What can make `traceback` hang?",
+      "subject_clean": "What can make `traceback` hang?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I was doing $bad_things$  with gmp, in particular  `as.bigq()` and the `%%`\nmethod for bigz objects.  I was generating ever larger integers; at roughly\n400 million digits something in the gmp lib goes wrong; returns the error\nmessage \"Error in `[<-.bigq`(`**tmp**`, jt + 1, value = as.raw(c(0x01,\n0x00, 0x00, :\n  negative length vectors are not allowed\"\n\nThat function crash  also left around 15G of memory leaked.\n\nBut I'm not here to ask about fixing gmp.  The strange thing is that I\ntried running `traceback()` and R hung.  It was chewing up CPU time as well\nas grabbing gigabytes of RAM.    What could cause this behavior?  Is it\npossible that `traceback` is plowing thru that 15G of leak?\n\nI'm not an expert on dealing with memory leaks, so apologize if there's a\nway to access or analyze its contents from the R command line.\n\n\nDetails: iMac M4 Sequoia 15.7.9     R 4.6.1 via  R.app .\n\n\nregards,\n\nCarl\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I was doing $bad_things$  with gmp, in particular  `as.bigq()` and the `%%`\nmethod for bigz objects.  I was generating ever larger integers; at roughly\n400 million digits something in the gmp lib goes",
+      "thread_id": "thread-2ffa2bc112e7",
+      "thread_depth": 0,
+      "month": "2026-11",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-November/015415.html"
+    },
+    {
+      "id": "msg-fe90f7f8a634",
+      "message_id": "<CABdHhvHJ3uBqwGNP=ViK0sxjvK9wsczs3cT2fQgfxsybEWGn4Q@mail.gmail.com>",
+      "from_name": "Hadley Wickham",
+      "from_email_hash": "ca0ecd97ae88c22ed6e7f3889e08db1f732ad5eadb66671b2dc01d355cc20bf9",
+      "date": "2026-11-13T18:27:16Z",
+      "subject": "[R-SIG-Mac] What can make `traceback` hang?",
+      "subject_clean": "What can make `traceback` hang?",
+      "in_reply_to": "<CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>",
+      "references": [
+        "<CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>"
+      ],
+      "body_plain": "traceback() does print all the calls in the stack, so if you have a\nveeeeeeeeeeery long call there (typically because you're using call()\nor do.call() or similar), you can have problems.\n\nf <- function(...) {\n  stop(\"Bad\")\n}\ng <- function(...) {\n  f(...)\n}\n\nargs <- setNames(rep(list(strrep(\"x\", 20)), 26), letters)\ncl <- do.call(call, c(\"g\", args))\neval(cl)\ntraceback()\n#> 5: stop(\"Bad\") at example.R#2\n#> 4: f(...) at example.R#5\n#> 3: g(a = \"xxxxxxxxxxxxxxxxxxxx\", b = \"xxxxxxxxxxxxxxxxxxxx\", c =\n\"xxxxxxxxxxxxxxxxxxxx\",\n#>        d = \"xxxxxxxxxxxxxxxxxxxx\", e = \"xxxxxxxxxxxxxxxxxxxx\", f =\n\"xxxxxxxxxxxxxxxxxxxx\",\n#>        g = \"xxxxxxxxxxxxxxxxxxxx\", h = \"xxxxxxxxxxxxxxxxxxxx\", i =\n\"xxxxxxxxxxxxxxxxxxxx\",\n#>        j = \"xxxxxxxxxxxxxxxxxxxx\", k = \"xxxxxxxxxxxxxxxxxxxx\", l =\n\"xxxxxxxxxxxxxxxxxxxx\",\n#>        m = \"xxxxxxxxxxxxxxxxxxxx\", n = \"xxxxxxxxxxxxxxxxxxxx\", o =\n\"xxxxxxxxxxxxxxxxxxxx\",\n#>        p = \"xxxxxxxxxxxxxxxxxxxx\", q = \"xxxxxxxxxxxxxxxxxxxx\", r =\n\"xxxxxxxxxxxxxxxxxxxx\",\n#>        s = \"xxxxxxxxxxxxxxxxxxxx\", t = \"xxxxxxxxxxxxxxxxxxxx\", u =\n\"xxxxxxxxxxxxxxxxxxxx\",\n#>        v = \"xxxxxxxxxxxxxxxxxxxx\", w = \"xxxxxxxxxxxxxxxxxxxx\", x =\n\"xxxxxxxxxxxxxxxxxxxx\",\n#>        y = \"xxxxxxxxxxxxxxxxxxxx\", z = \"xxxxxxxxxxxxxxxxxxxx\")\n#> 2: eval(cl)\n#> 1: eval(cl) at example.R#10\n\nHadley\n\nOn Fri, Nov 13, 2026 at 8:05?AM Carl Witthoft <cellocgw at gmail.com> wrote:\n>\n> I was doing $bad_things$  with gmp, in particular  `as.bigq()` and the `%%`\n> method for bigz objects.  I was generating ever larger integers; at roughly\n> 400 million digits something in the gmp lib goes wrong; returns the error\n> message \"Error in `[<-.bigq`(`**tmp**`, jt + 1, value = as.raw(c(0x01,\n> 0x00, 0x00, :\n>   negative length vectors are not allowed\"\n>\n> That function crash  also left around 15G of memory leaked.\n>\n> But I'm not here to ask about fixing gmp.  The strange thing is that I\n> tried running `traceback()` and R hung.  It was chewing up CPU time as well\n> as grabbing gigabytes of RAM.    What could cause this behavior?  Is it\n> possible that `traceback` is plowing thru that 15G of leak?\n>\n> I'm not an expert on dealing with memory leaks, so apologize if there's a\n> way to access or analyze its contents from the R command line.\n>\n>\n> Details: iMac M4 Sequoia 15.7.9     R 4.6.1 via  R.app .\n>\n>\n> regards,\n>\n> Carl\n>\n>         [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac\n\n\n\n-- \nhttp://hadley.nz",
+      "body_snippet": "traceback() does print all the calls in the stack, so if you have a\nveeeeeeeeeeery long call there (typically because you're using call()\nor do.call() or similar), you can have problems.\n\nf <- functio",
+      "thread_id": "thread-2ffa2bc112e7",
+      "thread_depth": 1,
+      "month": "2026-11",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-November/015416.html"
+    },
+    {
+      "id": "msg-b93dba67eb4f",
+      "message_id": "<F4704ECB-5C97-44BF-9287-68343D098359@ckblack.org>",
+      "from_name": "Chris Black",
+      "from_email_hash": "457e5be0d11e77aa9377f79cbb711140b0702a9d512b96e3a15222efaafe1dff",
+      "date": "2026-11-13T18:46:02Z",
+      "subject": "[R-SIG-Mac] What can make `traceback` hang?",
+      "subject_clean": "What can make `traceback` hang?",
+      "in_reply_to": "<CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>",
+      "references": [
+        "<CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>"
+      ],
+      "body_plain": "I’m not an expert either, but this feels similar to a hang I recently saw and initially suspected the {future} package but that we eventually attributed to processing of a large call stack: https://gist.github.com/infotroph/18d49399c4ab41ab44f341c3592b835b\n\nIn my case I was inefficiently rolling my own traceback-like messages with `limitedLabels(sys.calls)`, which best I can tell doesn’t share any code paths with traceback() but it wouldn’t surprise me if their basic limits were similar. \n\nNo promises that this is useful, but maybe a direction to explore.\n\nThanks,\nChris\n\n\n> On Nov 13, 2026, at 6:05 AM, Carl Witthoft <cellocgw at gmail.com> wrote:\n> \n> I was doing $bad_things$  with gmp, in particular  `as.bigq()` and the `%%`\n> method for bigz objects.  I was generating ever larger integers; at roughly\n> 400 million digits something in the gmp lib goes wrong; returns the error\n> message \"Error in `[<-.bigq`(`**tmp**`, jt + 1, value = as.raw(c(0x01,\n> 0x00, 0x00, :\n>  negative length vectors are not allowed\"\n> \n> That function crash  also left around 15G of memory leaked.\n> \n> But I'm not here to ask about fixing gmp.  The strange thing is that I\n> tried running `traceback()` and R hung.  It was chewing up CPU time as well\n> as grabbing gigabytes of RAM.    What could cause this behavior?  Is it\n> possible that `traceback` is plowing thru that 15G of leak?\n> \n> I'm not an expert on dealing with memory leaks, so apologize if there's a\n> way to access or analyze its contents from the R command line.\n> \n> \n> Details: iMac M4 Sequoia 15.7.9     R 4.6.1 via  R.app .\n> \n> \n> regards,\n> \n> Carl\n> \n> [[alternative HTML version deleted]]\n> \n> _______________________________________________\n> R-SIG-Mac mailing list\n> R-SIG-Mac at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/r-sig-mac",
+      "body_snippet": "I’m not an expert either, but this feels similar to a hang I recently saw and initially suspected the {future} package but that we eventually attributed to processing of a large call stack: https://gi",
+      "thread_id": "thread-2ffa2bc112e7",
+      "thread_depth": 1,
+      "month": "2026-11",
+      "source_url": "https://stat.ethz.ch/pipermail/r-sig-mac/2026-November/015417.html"
     }
   ],
   "threads": [
@@ -120,6 +175,19 @@
       "started": "2026-11-10T21:38:06Z",
       "last_reply": "2026-11-12T16:35:42Z",
       "root_message_id": "msg-05c436604308"
+    },
+    {
+      "id": "thread-2ffa2bc112e7",
+      "subject": "What can make `traceback` hang?",
+      "message_count": 3,
+      "participants": [
+        "Carl Witthoft",
+        "Chris Black",
+        "Hadley Wickham"
+      ],
+      "started": "2026-11-13T14:05:03Z",
+      "last_reply": "2026-11-13T18:46:02Z",
+      "root_message_id": "msg-2ffa2bc112e7"
     }
   ]
 }

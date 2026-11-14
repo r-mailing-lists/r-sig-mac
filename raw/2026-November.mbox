@@ -420,3 +420,177 @@ Emeritus Professor of Applied Statistics, University of Oxford
 	[[alternative HTML version deleted]]
 
 
+From ce||ocgw @end|ng |rom gm@||@com  Fri Nov 13 15:05:03 2026
+From: ce||ocgw @end|ng |rom gm@||@com (Carl Witthoft)
+Date: Fri, 13 Nov 2026 09:05:03 -0500
+Subject: [R-SIG-Mac] What can make `traceback` hang?
+Message-ID: <CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>
+
+I was doing $bad_things$  with gmp, in particular  `as.bigq()` and the `%%`
+method for bigz objects.  I was generating ever larger integers; at roughly
+400 million digits something in the gmp lib goes wrong; returns the error
+message "Error in `[<-.bigq`(`**tmp**`, jt + 1, value = as.raw(c(0x01,
+0x00, 0x00, :
+  negative length vectors are not allowed"
+
+That function crash  also left around 15G of memory leaked.
+
+But I'm not here to ask about fixing gmp.  The strange thing is that I
+tried running `traceback()` and R hung.  It was chewing up CPU time as well
+as grabbing gigabytes of RAM.    What could cause this behavior?  Is it
+possible that `traceback` is plowing thru that 15G of leak?
+
+I'm not an expert on dealing with memory leaks, so apologize if there's a
+way to access or analyze its contents from the R command line.
+
+
+Details: iMac M4 Sequoia 15.7.9     R 4.6.1 via  R.app .
+
+
+regards,
+
+Carl
+
+	[[alternative HTML version deleted]]
+
+
+From h@w|ckh@m @end|ng |rom gm@||@com  Fri Nov 13 19:27:16 2026
+From: h@w|ckh@m @end|ng |rom gm@||@com (Hadley Wickham)
+Date: Fri, 13 Nov 2026 12:27:16 -0600
+Subject: [R-SIG-Mac] What can make `traceback` hang?
+In-Reply-To: <CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>
+References: <CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>
+Message-ID: <CABdHhvHJ3uBqwGNP=ViK0sxjvK9wsczs3cT2fQgfxsybEWGn4Q@mail.gmail.com>
+
+traceback() does print all the calls in the stack, so if you have a
+veeeeeeeeeeery long call there (typically because you're using call()
+or do.call() or similar), you can have problems.
+
+f <- function(...) {
+  stop("Bad")
+}
+g <- function(...) {
+  f(...)
+}
+
+args <- setNames(rep(list(strrep("x", 20)), 26), letters)
+cl <- do.call(call, c("g", args))
+eval(cl)
+traceback()
+#> 5: stop("Bad") at example.R#2
+#> 4: f(...) at example.R#5
+#> 3: g(a = "xxxxxxxxxxxxxxxxxxxx", b = "xxxxxxxxxxxxxxxxxxxx", c =
+"xxxxxxxxxxxxxxxxxxxx",
+#>        d = "xxxxxxxxxxxxxxxxxxxx", e = "xxxxxxxxxxxxxxxxxxxx", f =
+"xxxxxxxxxxxxxxxxxxxx",
+#>        g = "xxxxxxxxxxxxxxxxxxxx", h = "xxxxxxxxxxxxxxxxxxxx", i =
+"xxxxxxxxxxxxxxxxxxxx",
+#>        j = "xxxxxxxxxxxxxxxxxxxx", k = "xxxxxxxxxxxxxxxxxxxx", l =
+"xxxxxxxxxxxxxxxxxxxx",
+#>        m = "xxxxxxxxxxxxxxxxxxxx", n = "xxxxxxxxxxxxxxxxxxxx", o =
+"xxxxxxxxxxxxxxxxxxxx",
+#>        p = "xxxxxxxxxxxxxxxxxxxx", q = "xxxxxxxxxxxxxxxxxxxx", r =
+"xxxxxxxxxxxxxxxxxxxx",
+#>        s = "xxxxxxxxxxxxxxxxxxxx", t = "xxxxxxxxxxxxxxxxxxxx", u =
+"xxxxxxxxxxxxxxxxxxxx",
+#>        v = "xxxxxxxxxxxxxxxxxxxx", w = "xxxxxxxxxxxxxxxxxxxx", x =
+"xxxxxxxxxxxxxxxxxxxx",
+#>        y = "xxxxxxxxxxxxxxxxxxxx", z = "xxxxxxxxxxxxxxxxxxxx")
+#> 2: eval(cl)
+#> 1: eval(cl) at example.R#10
+
+Hadley
+
+On Fri, Nov 13, 2026 at 8:05?AM Carl Witthoft <cellocgw at gmail.com> wrote:
+>
+> I was doing $bad_things$  with gmp, in particular  `as.bigq()` and the `%%`
+> method for bigz objects.  I was generating ever larger integers; at roughly
+> 400 million digits something in the gmp lib goes wrong; returns the error
+> message "Error in `[<-.bigq`(`**tmp**`, jt + 1, value = as.raw(c(0x01,
+> 0x00, 0x00, :
+>   negative length vectors are not allowed"
+>
+> That function crash  also left around 15G of memory leaked.
+>
+> But I'm not here to ask about fixing gmp.  The strange thing is that I
+> tried running `traceback()` and R hung.  It was chewing up CPU time as well
+> as grabbing gigabytes of RAM.    What could cause this behavior?  Is it
+> possible that `traceback` is plowing thru that 15G of leak?
+>
+> I'm not an expert on dealing with memory leaks, so apologize if there's a
+> way to access or analyze its contents from the R command line.
+>
+>
+> Details: iMac M4 Sequoia 15.7.9     R 4.6.1 via  R.app .
+>
+>
+> regards,
+>
+> Carl
+>
+>         [[alternative HTML version deleted]]
+>
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
+
+-- 
+http://hadley.nz
+
+
+From chr|@ @end|ng |rom ckb|@ck@org  Fri Nov 13 19:46:02 2026
+From: chr|@ @end|ng |rom ckb|@ck@org (Chris Black)
+Date: Fri, 13 Nov 2026 10:46:02 -0800
+Subject: [R-SIG-Mac] What can make `traceback` hang?
+In-Reply-To: <CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>
+References: <CANkkNchx4WaphELvQ+OJE0OpUU8=WDo0uqHVyig-ipc5esx3RA@mail.gmail.com>
+Message-ID: <F4704ECB-5C97-44BF-9287-68343D098359@ckblack.org>
+
+I?m not an expert either, but this feels similar to a hang I recently saw and initially suspected the {future} package but that we eventually attributed to processing of a large call stack: https://gist.github.com/infotroph/18d49399c4ab41ab44f341c3592b835b
+
+In my case I was inefficiently rolling my own traceback-like messages with `limitedLabels(sys.calls)`, which best I can tell doesn?t share any code paths with traceback() but it wouldn?t surprise me if their basic limits were similar. 
+
+No promises that this is useful, but maybe a direction to explore.
+
+Thanks,
+Chris
+
+
+> On Nov 13, 2026, at 6:05?AM, Carl Witthoft <cellocgw at gmail.com> wrote:
+> 
+> I was doing $bad_things$  with gmp, in particular  `as.bigq()` and the `%%`
+> method for bigz objects.  I was generating ever larger integers; at roughly
+> 400 million digits something in the gmp lib goes wrong; returns the error
+> message "Error in `[<-.bigq`(`**tmp**`, jt + 1, value = as.raw(c(0x01,
+> 0x00, 0x00, :
+>  negative length vectors are not allowed"
+> 
+> That function crash  also left around 15G of memory leaked.
+> 
+> But I'm not here to ask about fixing gmp.  The strange thing is that I
+> tried running `traceback()` and R hung.  It was chewing up CPU time as well
+> as grabbing gigabytes of RAM.    What could cause this behavior?  Is it
+> possible that `traceback` is plowing thru that 15G of leak?
+> 
+> I'm not an expert on dealing with memory leaks, so apologize if there's a
+> way to access or analyze its contents from the R command line.
+> 
+> 
+> Details: iMac M4 Sequoia 15.7.9     R 4.6.1 via  R.app .
+> 
+> 
+> regards,
+> 
+> Carl
+> 
+> [[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> R-SIG-Mac mailing list
+> R-SIG-Mac at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/r-sig-mac
+
+
